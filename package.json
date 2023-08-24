@@ -1,0 +1,32 @@
+{
+	"name": "rss-feed-static-generator",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"build": "npx @11ty/eleventy",
+		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
+		"start": "npx @11ty/eleventy --serve --quiet",
+		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
+		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
+		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/thoughtsunificator/rss-feed-static-generator.git"
+	},
+	"author": "Romain Lebesle <oss@thoughtsunificator.me> (https://thoughtsunificator.me)",
+	"license": "MIT",
+	"engines": {
+		"node": ">=14"
+	},
+	"bugs": {
+		"url": "https://github.com/thoughtsunificator/rss-feed-static-generator/issues"
+	},
+	"homepage": "https://github.com/thoughtsunificator/rss-feed-static-generator#readme",
+	"devDependencies": {
+		"@11ty/eleventy": "^2.0.1",
+		"dotenv": "^16.3.1",
+		"jsdom": "^22.1.0",
+		"node-fetch": "^3.3.2"
+	}
+}
