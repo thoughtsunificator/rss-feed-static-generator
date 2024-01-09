@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Kernel prepatch 6.7-rc1</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Kernel prepatch 6.7-rc1</h2>
+		<a target="_blank" href="https://lwn.net/Articles/951201/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Linus Torvalds has released 
+<a href="https://lwn.net/Articles/951200/">6.7-rc1</a>, thus closing the merge window
+for this release.  It is the largest merge window ever, but some of that
+was due to the bcachefs history that came with merge of that filesystem.
+<blockquote class="bq">
+But 6.7 is pretty
+big in other ways too, with
+<p>
+ 12678 files changed, 838819 insertions(+), 280754 deletions(-)
+<p>
+which is also bigger than those historically big releases [4.9, 5.8 and
+5.13]. And that's 
+not due to bcachefs, that's actually mainly due to ia64 removal and a
+lot of GPU support (notably lots of AMD GPU header files again - lots
+and lots of lines, but there's support for new nvidia cards too).
+</blockquote>
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

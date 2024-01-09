@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Interview With curl Founder Daniel Stenberg</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Interview With curl Founder Daniel Stenberg</h2>
+		<a target="_blank" href="https://nordicapis.com/interview-with-curl-founder-daniel-stenberg/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><img width="1200" height="675" src="https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl.png" class="attachment-full size-full wp-post-image" alt="Interview-with-Daniel-Stenberg-founder-of-curl" decoding="async" loading="lazy" srcset="https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl.png 1200w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-300x169.png 300w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-1024x576.png 1024w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-768x432.png 768w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-213x120.png 213w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-178x100.png 178w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-124x70.png 124w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-90x50.png 90w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-200x113.png 200w, https://nordicapis.com/wp-content/uploads/Interview-with-Daniel-Stenberg-founder-of-curl-400x225.png 400w" sizes="(max-width: 1200px) 100vw, 1200px" /><p>If you&#8217;re into web development, there&#8217;s little chance you <em>haven&#8217;t</em> used <a href="https://curl.se/">curl</a>. Curl is perhaps the most widely used software component. The ubiquitous command-line tool and library offers simple actions to deeply interact with URLs, making it a trusted Swiss army knife in the API developer&#8217;s toolbox.</p>
+<p>The remarkable thing is that this open-source utility has been going strong since 1996 — and, if you can believe it, it&#8217;s backward compatible.</p>
+<div id="attachment_10839" style="width: 190px" class="wp-caption alignright"><img aria-describedby="caption-attachment-10839" decoding="async" loading="lazy" class=" wp-image-10839" src="https://nordicapis.com/wp-content/uploads/Daniel-Stenberg.jpg" alt="daniel-stenberg-curl" width="180" height="225" srcset="https://nordicapis.com/wp-content/uploads/Daniel-Stenberg.jpg 320w, https://nordicapis.com/wp-content/uploads/Daniel-Stenberg-240x300.jpg 240w, https://nordicapis.com/wp-content/uploads/Daniel-Stenberg-96x120.jpg 96w, https://nordicapis.com/wp-content/uploads/Daniel-Stenberg-80x100.jpg 80w, https://nordicapis.com/wp-content/uploads/Daniel-Stenberg-56x70.jpg 56w, https://nordicapis.com/wp-content/uploads/Daniel-Stenberg-40x50.jpg 40w, https://nordicapis.com/wp-content/uploads/Daniel-Stenberg-160x200.jpg 160w" sizes="(max-width: 180px) 100vw, 180px" /><p id="caption-attachment-10839" class="wp-caption-text">At Platform Summit 2023, Daniel Stenberg will demonstrate new features in curl.</p></div>
+<p>To learn more, we had the pleasure of interviewing curl founder and lead developer, <a href="https://nordicapis.com/speakers/daniel-stenberg/">Daniel Stenberg</a>, who will be a keynote speaker at the upcoming Platform Summit 2023. We hosted Daniel in 2019, and are excited for him to return to speak in 2023.</p>
+<p>Daniel has worked on HTTP implementations for almost thirty years and is involved in the HTTPbis IETF working group. He also worked on the HTTP stack in Firefox for several years at Mozilla. Author of the widely read documents <em>HTTP2 explained</em> and <em>HTTP/3 explained</em>, Daniel is a fountain of knowledge regarding open-source communities and the Internet protocol the world relies upon.</p>
+<p>Below, we took a step back with our questions to discuss the evolution of the Internet and open-source, the origins of curl, and Daniel&#8217;s thoughts around recent movements like web3 and decentralization.</p>
+<p>Check out the exclusive interview below, and be sure to attend <a href="https://nordicapis.com/events/platform-summit-2023/">Platform Summit 2023</a> for more insights about using curl from Daniel Stenberg!</p>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17652" src="https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-1024x281.png" alt="2023-Platform-summit-sharing-image-1" width="1024" height="281" srcset="https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-1024x281.png 1024w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-300x82.png 300w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-768x211.png 768w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-1536x422.png 1536w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-2048x563.png 2048w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-240x66.png 240w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-220x60.png 220w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-180x49.png 180w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-150x41.png 150w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-90x25.png 90w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-200x55.png 200w, https://nordicapis.com/wp-content/uploads/2023-Platform-summit-sharing-image-1-e1692309485906-400x110.png 400w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<p><strong>You have been active on the Internet since 1993. What has changed since then? What has remained the same?</strong></p>
+<p>Lots have changed. Some things have remained.</p>
+<p>The number of Internet users has skyrocketed, the connection speeds we use to connect to it have exploded, the number of websites in the world is many orders of magnitudes more, and compared to the 1990s, the modern Internet is commercial and business at a level we could not even dream of back then. HTTP(S) has developed to become the protocol almost everything is built on top of. In the mid-1990s, the Internet was a niche thing. Today, it is a backbone of our societies.</p>
+<p>Lots of Internet fundamentals have remained. We still build everything on top of IP; almost everything still uses TCP. IPv4 has proven to be remarkably resilient. We still hand out IP addresses using what is essentially the same old DNS. Some of the biggest challenges on the Internet remain the same: the people (including our flaws, the brilliance among a few, the share of bad seeds among us, etc.).</p>
+<p><strong>You were an early pioneer of the open-source movement. What positive (or negative) changes have you witnessed in the open-source community over the years?</strong></p>
+<p>Much like the Internet and its use has exploded, so has open source in almost every aspect. Open source as a term did not even exist until 1998, and back then, only a few knew what it was, understood it, and participated in such projects. Today, it has become a well-known and well-used model to the extent that almost no software made today is built without a significant share of open source. Open source is truly the fundament the entire Internet and software society is built upon.</p>
+<p><strong>Many of <a href="https://daniel.haxx.se/opensource.html">your projects</a> seem to arise from low-level inefficiencies. What fascinates you about the Internet protocol area of development?</strong></p>
+<p>Ever since I learned the basics of Internet connectivity in the early 1990s, I have found it an interesting and even exciting area. I dove into TCP/IP network programming early, and I simply enjoyed toying with programs that could make several nodes communicate. I still do. And when doing Internet software, I want them to be efficient and good, so I have started and still maintain several projects to help out with that. All, of course, are open-source for the entire world to enjoy and help out with.</p>
+<p>Over time, I also learned how the commonly used Internet protocols are created and maintained. Since then, I have gotten involved in that area where I try to help influence the future of the Internet, too, in directions I think make sense.</p>
+<p><strong>What was the original inspiration behind curl? And what&#8217;s the current goal?</strong></p>
+<p>The first basic use case was to get a command line tool that could download currency rates for me on a regular basis, and since I had found a page hosted on an HTTP server, the tool needed to speak that protocol. At the time, I wrote an IRC bot, and I added a currency exchange service to it.</p>
+<p>I gave up on that currency exchange thing after a while, but at that time, curl had taken off and had found users and contributors, and gradually grew with more features and support for more and more protocols.</p>
+<p>If there is a goal for curl, it would probably be to provide the Internet transfers the users and the Internet need, or something. With curl as the command line tool and <a href="https://curl.se/libcurl/">libcurl</a>, the library that is the engine that actually does all the transfers and that is readily available to be used by everyone, everywhere. We continue to develop and make curl into what we want. It is important to listen to users and be responsive to what the community thinks. curl is an open-source project done by a large number of developers.</p>
+<p><strong>Curl has been around since &#8217;96. Why do people still use it?</strong></p>
+<p>Because curl has been around since &#8217;96, it runs on all the platforms you use. It is well-known, rock solid, trusted, powerful, fast, and it keeps evolving with the world around us. And, of course, we do not break existing behavior; the command line you wrote decades ago can keep working even as you keep upgrading your curl, time and time again.</p>
+<p><strong>Most web API versions are lucky if they last five or so years. How on earth can you create, from day one, a backward-compatible interface that is 25 years old?</strong></p>
+<p>It is a combination of several things.</p>
+<p>It is a set goal for the project to maintain existing behavior. This is not easy but takes a lot of work. We realized early on that this is a key feature that users appreciate. Maybe not always knowingly or expressed, but it provides a lack of friction they may not even think of.</p>
+<p>Mostly out of luck we set the abstraction level for curl at a suitable point: work on URLs, do transfers, set options to control said transfers. This gives us some wiggle room so that even if we maintain the same API and usage for the outside, we have been able to refactor and update the internals over time to keep up with new protocol and transfer demands.</p>
+<p>Of course, we did not know in 1996 that HTTP would become the world&#8217;s favorite protocol by far a few decades later — and curl has always done HTTP(S) the best and the most. We just happened to be at the right time, betting on the right protocol.</p>
+<p><strong>Where do you find inspiration for your coding creations?</strong></p>
+<p>Hard to tell. I like development and creating useful things for people. Doing such things with a network angle then combines that creativity with my joy for network programming, so it just becomes more fun. I love doing things open-source and thrive in having and participating in a greater community around my projects and basically everything I work on.</p>
+<p>I work on things, products, and stuff I personally would like to have and use, and I hope they also end up useful to others.</p>
+<p><strong>As a self-proclaimed internet protocol geek, what are your thoughts and feelings about the Web3 movement?</strong></p>
+<p>&#8220;Web3&#8221; is a silly term, and most of what has come out of that movement has been scammers and pyramid schemes. It is not a movement I care about, and I do not waste much time or energy thinking about it. The 3D TV of the 2020s. I figure most of those people will soon speak about AI instead.</p>
+<p><strong>Over the past two decades, we&#8217;ve seen social media empires commodify Internet protocols with more abstraction layers, and the world has become digitized like never before. Now, many are calling for a more decentralized future of the web. Is the plumbing already there, or do we need to reinvent the Internet?</strong></p>
+<p>I suck at telling the future, so I am definitely not the guy to ask about how things will look in the future.</p>
+<p>Distributed networks and peer-to-peer have been mentioned as solutions to several challenges for a long time, but so far, it has never taken off, and I believe most of the problems involved remain and have not been solved at a level of satisfaction that would bring the mainstream over to such solutions.</p>
+<p>The current Internet, at least the web, has been driven hard to lower latency over the last decade: everything with more than fourteen users runs behind a CDN, and at the same time, the protocols have been polished to reduce &#8220;wasted&#8221; time. All this is to make sure users get data faster and snappier. There is a strong commercial push for this development, presumably driven by the companies believing this makes users happier and more likely to purchase their products or services.</p>
+<p>That push goes in stark contrast with decentralized networks, which instead increase latency for the users.</p>
+<p>This does not mean that decentralization cannot work or have value, just that it continues to live and develop in the shadows of the giants. Another unfortunate property of the decentralization &#8220;movement&#8221; is that it is often also designed in the side-lines and not within well-established organizations such as the <a href="https://www.ietf.org/">IETF</a> (which reeks of protocol-knowledgeable people), which I find often hampers the protocols and their quality.</p>
+<p><strong>What is the role of groups like IETF in encouraging standards for web development?</strong></p>
+<p>IETF is the organization for Internet protocols (IP, TCP, QUIC, DNS, HTTP, etc.). We cannot overstate its importance or its role in Internet protocols, its development, and its future. The entire protocol suite to which we build everything that is Internet transfers is taken care of by the IETF. There is no alternative, and basically, if you do not run your protocol through the IETF process, it has little chance of succeeding. Participating in IETF working groups is awesome but challenging and sometimes time-consuming. For me, it is vital to keep up with IETF to understand where network development is going and also what is right and wrong, etc.</p>
+<p>That said, there are also other important organizations but at other layers in &#8220;the Internet lasagna.&#8221; Like <a href="https://www.w3.org/">W3C</a>, for example. But for curl and me, the IETF is the single most important one.</p>
+<p><strong>Given your commitment to open-source protocols and your history of collaborative development, what sort of advice would you offer to a developer attempting to start down a similar path in today&#8217;s environment?</strong></p>
+<p>Have fun. Don&#8217;t assume that whatever you do will become an instant hit or find millions of users at once. Lower the bar as much as possible for others to help out. I have actually written a whole small (free and open) book about this topic. I called it Uncurled, and it is available <a href="https://un.curl.dev/">here</a> (web, EPUB, and PDF versions are available).</p>
+<div class="well">Daniel spoke at the 2019 Platform Summit. Watch his session <em>Just Curl It</em> here:<br /><div class="responsive-iframe-container responsive-iframe-container-16x9"><iframe src="https://www.youtube.com/embed/y7Mxq013Dy4?si=uYSM62itoWfvcHfy" frameborder="0" allowfullscreen> width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></div>
+<p><strong>Without giving away too much, what can attendees expect from your upcoming keynote?</strong></p>
+<p>I&#8217;m building on the talk I did at the 2019 summit. Back then, I tried to take the audience through some <a href="https://nordicapis.com/understanding-the-hidden-powers-of-curl/">fun curl command line options</a> that I like and maybe are not always well-known or used. In this new keynote, I want to take the audience further and talk more about lesser-known but powerful options that allow users to do more things better with curl, with a special emphasis on newer things we have introduced in recent years. I hope to include interesting nuggets and tidbits for everyone, from the casual to the very frequent users. Maybe a few will get some renewed appreciation for this decades-old little tool!</p>
+<a href="https://nordicapis.com/sessions/next-level-curl/"><img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17915" src="https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-1024x535.png" alt="" width="1024" height="535" srcset="https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-1024x535.png 1024w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-300x157.png 300w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-768x402.png 768w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-229x120.png 229w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-220x115.png 220w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-180x94.png 180w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-134x70.png 134w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-90x47.png 90w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-200x105.png 200w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg-400x209.png 400w, https://nordicapis.com/wp-content/uploads/Nordic-apis-Platform-summit-speaker-Daniel-Stenberg.png 1201w" sizes="(max-width: 1024px) 100vw, 1024px" /></a>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

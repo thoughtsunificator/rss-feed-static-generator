@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Improving C-library scalability with restartable sequences</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Improving C-library scalability with restartable sequences</h2>
+		<a target="_blank" href="https://lwn.net/Articles/946870/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The Linux kernel has supported <a href="https://lwn.net/Articles/697979/">restartable
+sequences</a> (sometimes referred to as "RSEQ") since 2018, but it remains
+a bit of a niche feature, mostly useful to performance-oriented developers
+who do not mind writing assembly code.  According to Mathieu Desnoyers, the developer
+behind the kernel's implementation of restartable sequences, this feature
+can be applicable to a much wider range of performance-sensitive code with
+proper library support.  He came to the <a
+href="https://gcc.gnu.org/wiki/cauldron2023">2023 GNU Tools Cauldron</a> to
+present the case for use of restartable sequences within the GNU C Library
+(glibc).
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

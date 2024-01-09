@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Benefits of Design-First API Development</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The Benefits of Design-First API Development</h2>
+		<a target="_blank" href="https://nordicapis.com/the-benefits-of-design-first-api-development/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Are you tired of constantly switching between coding and making changes to your APIs? Do you often find yourself struggling to keep up with your clients&#8217; evolving needs? Well, we have some good news for you: there&#8217;s a better way to approach API development. Say goodbye to the traditional &#8220;code-first&#8221; approach and say hello to &#8220;design-first.&#8221;</p>
+<p>By planning out your APIs before writing a single line of code, you can save time, reduce errors, and ultimately create a more efficient and effective API. In this blog post, we&#8217;ll dive into the differences between code-first and design-first approaches and why the latter is the way to go. So, let&#8217;s jump in and discover the benefits of designing your APIs first. Trust me, your future self will thank you for it.</p>
+<h2 id="traditional-development-the-code-first-approach">Traditional Development: The Code-First Approach</h2>
+<p>When it comes to API development, the code-first approach is the traditional method that most developers are familiar with. In this approach, the focus is on writing the code first and then making changes as needed. The process usually involves trial and error, with developers constantly going back and forth between coding and testing to get the desired functionality.</p>
+<p>While the code-first approach may seem intuitive and flexible, it has its drawbacks. One major challenge is keeping up with the evolving needs of clients. As requirements change, developers may have to rewrite and refactor large portions of the code, which can be time-consuming and error-prone. Additionally, the lack of a clear plan from the start can lead to inconsistent designs and architectural issues down the line.</p>
+<p>However, the code-first approach does have its merits. It allows developers to start coding quickly and provides immediate feedback on the functionality. It is also suitable for small, simple projects where the requirements are clear and unlikely to change.</p>
+<h3 id="example">Example</h3>
+<p>Let&#8217;s say you&#8217;re developing a basic CRUD API for employee management. You first create the database and then the API endpoints with limited information. Once this is done, you receive feedback from other stakeholders. Let&#8217;s say the client or colleague wants to add a few more fields of information for each employee. With this input, you change all the API endpoints with the database. Then, it goes into review again, and some more changes are required. In this scenario, many time-intensive iterations are required to reach the final end requirements.</p>
+<h2 id="planning-ahead-the-design-first-approach">Planning Ahead: The Design-First Approach</h2>
+<p>In API development, the <a href="https://www.infoq.com/articles/design-first-api-development/">design-first approach</a> is the opposite of the traditional code-first method. Instead of writing code immediately, this approach emphasizes planning and designing the API before coding. By taking the time to plan ahead, developers can avoid the headache of constantly making revisions.</p>
+<p>With the design-first approach, developers start by creating a <a href="https://nordicapis.com/how-design-first-strategy-affects-your-apis-and-brand/">blueprint for their APIs</a>. This includes defining the endpoints, data models, and interactions. With a clear plan in place, developers can ensure that their APIs meet the needs of their clients from the get-go.</p>
+<p>One of the biggest benefits of the design-first approach is catching potential issues early on. Developers can identify and address potential architectural problems or inconsistencies by visualizing the API design before writing any code. This saves time and effort in the long run, as it eliminates the need to rewrite or refactor large portions of code later on.</p>
+<p>Additionally, the design-first approach promotes better collaboration between developers and clients. By visually representing the API design, clients can provide feedback and make suggestions early in the development process. This process ensures that the final product meets their expectations and requirements.</p>
+<p>In the design first approach, both technical and non-technical members participate in the development, helping the entire team understand the ins and outs of the APIs. Tools like <a href="https://nordicapis.com/asyncapi-vs-openapi-whats-the-difference/">OpenAPI and AsyncAPI</a> can be used to drive development and generate resources that help non-technical team members understand them correctly. The design-first approach also reduces unnecessary coding since the developers already have all the information and the use cases for the APIs.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/what-is-specification-driven-api-development/">What Is Specification-Driven API Development?</a></div>
+<h3 id="example">Example</h3>
+<p>Let&#8217;s take the same example above — the employee management CRUD API. Before diving into the code, you first design the API. This includes outlining the expected input and output, the information to store, all the <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/">endpoints and method names</a>, and so on. Once the design phase is complete, you create the backend code in your framework or programming language of choice. Since you already have all the requirements, you can more easily develop the API and reduce the number of iterations required for changes.</p>
+<h2 id="key-differences-between-code-first-and-design-first">Key Differences Between Code-First and Design-First</h2>
+<p>When it comes to <a href="https://nordicapis.com/what-are-the-benefits-of-api-first-development/">API-first development</a>, there are key differences between the code-first and design-first approaches. Let&#8217;s dive into these differences to help you understand which direction is right for you.</p>
+<ul>
+<li><strong>Mindset</strong>: The code-first approach focuses on writing code quickly to achieve immediate functionality. Conversely, the design-first method prioritizes planning and designing the API before any coding takes place.</li>
+<li><strong>Flexibility</strong>: The code-first approach offers flexibility by allowing developers to iterate and make changes as needed. However, this flexibility can also lead to inconsistency and architectural issues down the line. In contrast, the design-first approach promotes consistency and better architectural planning from the start.</li>
+<li><strong>Time and Effort</strong>: The code-first approach often requires developers to go back and forth between coding and testing to achieve the desired functionality. This trial-and-error process can be time-consuming and error-prone. With the design-first approach, developers save time and effort by catching potential issues early on and avoiding extensive rewrites or refactoring.</li>
+<li><strong>Collaboration</strong>: The design-first approach encourages collaboration between developers and clients. By visually representing the API design with <a href="https://nordicapis.com/7-open-source-openapi-documentation-generators/">API definitions and documentation</a>, clients can provide feedback and suggestions before any coding occurs. This ensures that the final product meets their expectations and requirements.</li>
+<li><strong>Scalability and Maintainability</strong>: The code-first approach can be suitable for small, simple projects where requirements are clear and unlikely to change. However, as projects become complex and evolve, the design-first process offers better scalability and maintainability. The upfront planning and architectural considerations make it easier to accommodate future changes.</li>
+</ul>
+<p>In summary, the code-first approach to API development certainly has its merits, as it enables a quick start, immediate feedback, and flexibility. However, the code-first process can be time-consuming for large projects and cause negative outcomes, such as inconsistent designs or a lack of documentation.</p>
+<p>Alternatively, the design-first approach to API development offers numerous advantages, including better upfront planning, early issue detection, and enhanced collaboration. Yet, while design-first offers many benefits, it also requires more upfront investment. Some developers may also find it challenging to shift their mindset from code-first to design-first, especially if they are used to the traditional approach.</p>
+<h2 id="deciding-which-is-right-for-your-project">Deciding Which Is Right for Your Project</h2>
+<p>Deciding which approach to use for <a href="https://blog.postman.com/what-is-api-first-design/">API development</a>, whether code-first or design-first, is an important decision that can greatly impact the success of your project. Each approach has its own strengths and weaknesses, and understanding them can help you make an informed decision.</p>
+<p>When considering the right approach for your project, several factors must be considered. First and foremost, you need to consider the complexity of your project and the potential for future changes. The code-first approach may be sufficient if you&#8217;re working on a small, simple project with clear requirements. It allows for quick prototyping and flexibility, allowing you to iterate and make changes as needed.</p>
+<p>On the other hand, if you&#8217;re working on a more complex project with evolving requirements, the design-first approach may be the better choice. By planning and designing your APIs before writing any code, you can avoid major rework down the line. The design-first process promotes consistency, scalability, and maintainability, which are crucial for larger projects.</p>
+<p>Another factor to consider is collaboration. If you have clients or stakeholders involved in the development process, the design-first approach offers a significant advantage. With a visual representation of the API design, clients can provide early feedback and suggestions, ensuring that the final product meets their expectations.</p>
+<p>Lastly, consider the resources and tools available to you. If you&#8217;re already comfortable with the code-first approach and have a well-established codebase and toolset, transitioning to the design-first approach may require a significant upfront investment in time and effort. However, the design-first approach can offer long-term benefits if you&#8217;re open to learning new tools and frameworks.</p>
+<h2 id="in-a-nutshell">In A Nutshell</h2>
+<p>Ultimately, the decision between the code-first and design-first approaches comes down to the specific needs of your project. Consider the complexity, <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/">potential for future changes</a>, collaboration requirements, and available resources before making your decision. By choosing the right approach, you can set yourself up for success and create efficient and effective APIs that meet the needs of your clients.</p>
+<p>Overall, the design-first approach is a game-changer for API development. It saves developers time, reduces errors, and creates more efficient and effective APIs. So why not give it a try? Plan your APIs ahead of time and see the benefits for yourself.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

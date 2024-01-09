@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10 Tips for Improving API Performance</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">10 Tips for Improving API Performance</h2>
+		<a target="_blank" href="https://nordicapis.com/10-tips-for-improving-api-performance/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>API performance is everything. It&#8217;s the one thing that separates your API&#8217;s success and your users dropping your API in favor of something more dependable and efficient. High performance is also a good thing to strive for, in general, as poorly performing APIs can become a bottleneck in any application that integrates with your API.</p>
+<p>It&#8217;s a good idea to run a diagnostic on your API occasionally to get some hard data on its performance as things change and break from time to time. There are always better ways of doing things, too. As such, here are ten things you can do to help boost your API performance.</p>
+<h2 id="1-cache-when-you-can">1. Cache When You Can</h2>
+<p>Avoiding redundancy is an easy way to <a href="https://nordicapis.com/5-ideas-for-building-faster-apis/">improve API performance</a>. If certain requests always yield the same results, putting the response in the cache prevents the need for unnecessary database queries. You can include a built-in expiration date or make it so that cached requests are purged when there&#8217;s an update if you want to make sure your cached responses are always up-to-date.</p>
+<p>The same principle applies to every aspect of your API. Spend time monitoring and assessing your API to see if certain resources get used more heavily than others. Consider including those resources in the cache if it&#8217;s possible, safe, and secure to do so. Cached materials will help ensure a smooth experience for your users, enhancing their experience and making them much more likely to become regular users.</p>
+<p>To discover areas where you can implement caching, you can follow some <a href="https://nordicapis.com/10-types-of-api-testing/">API testing best practices</a>. Start off by running some tests to establish a baseline for your API performance. Once you&#8217;ve established a baseline, create some test scenarios so you can simulate a variety of circumstances and get an idea of how your API performs. Monitor the results, as well, to ensure your cache is performing how it should.</p>
+<h2 id="2-limit-payloads">2. Limit Payloads</h2>
+<p>Most API payloads are fairly compact, but the results for some API queries can be prohibitively large. Requesting all of the records for an entire year could put a massive strain on your network, for instance, taking a long time to create and an even longer time to download.</p>
+<p>There are numerous methods for managing the size of your payload. <a href="https://nordicapis.com/restful-api-pagination-best-practices/">Pagination</a>, which we will discuss below, is a simple way to break down payloads of any size into manageable chunks. You can also use compression solutions like gzip, as well, although this consumes slightly more resources on the client side. Alternatively, using a front-end framework like <a href="https://nordicapis.com/securing-graphql-apis-with-identity-control/">GraphQL</a> could let your users specify precisely what data they need.</p>
+<h2 id="3-simplify-database-queries">3. Simplify Database Queries</h2>
+<p>It doesn&#8217;t make sense to have to query the database for every tiny interaction. When possible, you should find ways to consolidate database calls to maximize efficiency and reduce the number of database queries needed, which can become time-consuming <em>and</em> expensive. You can also use tools like <a href="https://nordicapis.com/choosing-the-best-machine-learning-api-for-your-project/">machine learning or AI</a> to monitor network traffic and API calls to identify ways your system can be streamlined <strong>permanently</strong>.</p>
+<p>This same principle also goes for API polling. API polling is when a client repeatedly sends requests to an endpoint to see if its state has changed. According to a survey conducted by Zapier in 2013, <a href="https://nordicapis.com/stop-polling-and-consider-using-rest-hooks/">API polling</a> only returns new data 1.5% of the time. It&#8217;s incredibly inefficient to continually request updates on a singular resource. Therefore, adopt either an <a href="https://nordicapis.com/why-your-api-needs-webhooks/">asynchronous API design</a> or an <a href="https://nordicapis.com/4-business-benefits-of-an-event-driven-architecture-eda/">event-driven architecture</a>, instead, which automatically updates any time there&#8217;s a system change.</p>
+<h2 id="4-optimize-connectivity-and-reduce-packet-loss">4. Optimize Connectivity and Reduce Packet Loss</h2>
+<p>Network connectivity and data packets are two of the most important aspects of <a href="https://nordicapis.com/api-expert-exposes-common-api-performances/">API performance</a>. You want your users to be able to remain connected for as long as their session demands, as reconnecting introduces lag and adds frustrating downtime. Have this happen often enough, and users <em>will</em> look elsewhere for a more stable API. Lost packets have a similar result and need to be similarly avoided.</p>
+<p>There are all manner of tools and diagnostics you can use to analyze your network traffic and performance, which will help you identify sources of latency and ways to enhance your system&#8217;s throughput.</p>
+<h2 id="5-rate-limit-to-avoid-abuse">5. Rate Limit to Avoid Abuse</h2>
+<p>Distributed denial of service (DDoS) attacks aren&#8217;t the only way to abuse an API. Some API abuse results from developers using an API in a different way than was intended. It could even simply result from human error. Imagine a programmer has included an API call in a function that accidentally becomes a feedback loop. That one chunk of code alone could seriously throttle your API if not take it offline entirely.</p>
+<p>Putting a <a href="https://nordicapis.com/different-algorithms-to-implement-rate-limiting-in-apis/">rate-limiting solution</a> in place is the best way to prevent API abuse and related performance issues. It lets you analyze network traffic by transaction, token, and IP address, which gives you numerous ways to detect if your API is being used in a manner other than intended.</p>
+<h2 id="6-implement-pagination">6. Implement Pagination</h2>
+<p>API calls can sometimes return astronomically large results. Depending on the size of the system and what&#8217;s being retrieved, it&#8217;s not impossible that <em>millions</em> of items could be returned from a single query. If you don&#8217;t account for that ahead of time, all of those results are dumped to a single destination, which is <em>inefficient</em> at the best of times and runs the risk of crashing both you <em>and</em> your users&#8217; systems as a result.</p>
+<p>Putting a <a href="https://nordicapis.com/how-to-paginate-a-web-api/">pagination solution</a> in place is a simple way to prevent this from happening. It&#8217;s also a good best practice to implement, anyway, as it makes queries much easier to use and sort, not to mention looking tidier and more appealing.</p>
+<div class="well">For more, read: <a href="https://nordicapis.com/everything-you-need-to-know-about-api-pagination/">Everything You Need to Know About API Pagination</a></div>
+<h2 id="7-use-asynchronous-logging">7. Use Asynchronous Logging</h2>
+<p>Synchronous logging means your system calls the system log <em>for every interaction</em>, which is horribly inefficient. Putting an asynchronous logging system in place is an easy way to prevent that from happening. An asynchronous logging system sends a log to a lock-free buffer, where they are stored before being sent to the registry periodically.</p>
+<p>Having an asynchronous logging system in place improves API performance in numerous ways. Asynchronous loggers can log messages <a href="https://logging.apache.org/log4j/log4j-2.3.2/manual/async.html">six to 68 times faster</a> faster than a synchronous log, according to Apache. They also reduce latency, as the log doesn&#8217;t need to be called for every interaction. Latency spikes are kept to a minimum, helping to ensure smooth performance even during traffic spikes.</p>
+<h2 id="8-use-patch-when-possible">8. Use PATCH When Possible</h2>
+<p>Some developers think PUT and PATCH are the same method, but they&#8217;re not. A PUT request interacts with the entire resource. A PATCH request only interacts with a small portion, making it suitable for updating files or versions. This means PATCH requests deal with smaller payloads, which will help optimize API performance and make your network as efficient as possible.</p>
+<div class="well">Also check out: <a href="https://nordicapis.com/ultimate-guide-to-all-9-standard-http-methods/">Ultimate Guide To 9 Common HTTP Methods</a></div>
+<h2 id="9-compress-payloads">9. Compress Payloads</h2>
+<p>Efficiency is the name of the game when it comes to API performance. Requests and logs aren&#8217;t the only things that can be consolidated to reduce the number of database queries, each of which adds precious computing time to every interaction. Responses and resources can be compressed and consolidated, as well, helping to streamline your API.</p>
+<h2 id="10-use-a-connection-pool">10. Use a Connection Pool</h2>
+<p>Every time you access a database, it adds processing time. Opening and closing database connections are some of the most time-consuming parts of the interaction. Maintaining a pool of open connections saves you from having to open and close a connection with every API call.</p>
+<h2 id="final-thoughts-on-api-performance">Final Thoughts on API Performance</h2>
+<p>API performance should always be on your mind at every point during the <a href="https://nordicapis.com/what-is-api-lifecycle-management/">API lifecycle</a>. It&#8217;s almost as important as the purpose your API was designed to fulfill, as both are some of the main justifications for an API&#8217;s existence. At the end of the day, API performance comes down to thinking about your users and their experience and ensuring they get the best, most reliable product possible.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

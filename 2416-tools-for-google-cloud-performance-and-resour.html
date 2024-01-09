@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Tools for Google Cloud performance and resource optimization</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Tools for Google Cloud performance and resource optimization</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2023/12/open-sourcing-tools-for-google-cloud-performance-and-resource-optimization.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhgcu1QtpnzH6Rl-H813iPsw52ZZfUyi3IpG7gNFYijqaI2qmuAGht2G_nJkSA7FB4634kcl8xqMz7ZF8qxdQqOD7sxr9xVwqQ_1PUQzVSzhMntdteURt0cKcll5MvTj8gOvrO-n-o3auZgbEn_BBXnnHjvScwb2fxL3aHafEbTzuAy0UCEOaoo7oQZ3NI/s1600/social%202.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhgcu1QtpnzH6Rl-H813iPsw52ZZfUyi3IpG7gNFYijqaI2qmuAGht2G_nJkSA7FB4634kcl8xqMz7ZF8qxdQqOD7sxr9xVwqQ_1PUQzVSzhMntdteURt0cKcll5MvTj8gOvrO-n-o3auZgbEn_BBXnnHjvScwb2fxL3aHafEbTzuAy0UCEOaoo7oQZ3NI/s1600/social%202.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiaSBpSTdlE4B3wUslMHF8nTXb2lOSCwP9X7fa1pgCTgaOkHMP0VqbLTdLZ7qbj8DoRsfNuKuEk_8A0HGCyK6wcDh74ZKEnIAhYwJqB6SyI_0nxWURUbCsltp9hscJ89rxyR0HIL3p4wkKmMl6emCLM1a5rSWbvxzowIXBtQ8vHoOMtLKuk3-HhefdC10/s1600/header%202.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiaSBpSTdlE4B3wUslMHF8nTXb2lOSCwP9X7fa1pgCTgaOkHMP0VqbLTdLZ7qbj8DoRsfNuKuEk_8A0HGCyK6wcDh74ZKEnIAhYwJqB6SyI_0nxWURUbCsltp9hscJ89rxyR0HIL3p4wkKmMl6emCLM1a5rSWbvxzowIXBtQ8vHoOMtLKuk3-HhefdC10/s1600/header%202.png" /></a>
+
+<p>Over the years, we at Google have identified common requests from customers to optimize their Kubernetes clusters on Google Cloud. Today, we are releasing a set of open source tools to help customers with these tasks, including bin packing, load testing, and performance benchmarking. These tools are designed to help customers optimize their clusters for cost, performance, and scalability.</p>
+
+<p>Those identified common requests from customers are around the following use cases: </p>
+<ol>
+<li>Google Cloud customers ask whether Google Cloud  has a bin packing recommendation feature or tool to optimize GKE Standard's nodes usage?</li> <p></p>
+
+<li>How to easily run Aerospike, Cassandra, PgBench benchmark or other popular benchmarking tools on Google Cloud?</li> <p></p>
+
+<li>How to load test our application running on Google Cloud? How many requests per second could my app handle given the current size of the existing Google Cloud infrastructure?</li>
+</ol>
+
+<p>The underlying motivation is that customers want some evidence-based tooling in order to help them optimize their Google Cloud resources, optimize for cost, run benchmarks, identify performance bottlenecks, or even to start a performance discussion.</p>
+
+<p>For such use cases mentioned above, we are open sourcing a set of tools for the public to self-service the installation of each application which comprises UI and Backend components deployable to their respective Google Cloud Project. We name the collection of these tools as sa-tools.</p><div style="text-align: left;"><br /></div>
+
+<h2>BinPacker</h2>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="BinPacker recommender for GKE node size" border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBdNkZwJwLyS648Ci8OoJMKjJDhEeIeOJ_NVokSAVMgFXZpTw-S17-tnbf4DDCnqsLgnjW29qgZPWzT7puivqrAgh8XqdFjNqbfD42s2BsoZ4CJfaI0qSxFPCgRPC7jgZtvJV5KdO_DeLeLrSaSw_3qa89ERR5y4RLy_89txWFvFy40Pm4jpFh4Q0_rn4/s1600/image3.gif" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i></i></td></tr></tbody></table></div>
+
+<div style="text-align: left;">There are currently no bin packing recommendation features available in GCP <a href="https://cloud.google.com/cloud-console" target="_blank">Cloud Console</a>. We are open sourcing a tool to visually scan your GKE cluster and recommend the optimal node’s bin packing size. Users can opt to select services that are grouped together to be in the same node. The installation guide can be found <a href="https://github.com/GoogleCloudPlatform/cloud-solutions/blob/main/projects/sa-tools/gke-optimization/binpacker/README.md" target="_blank">here</a>.</div><div style="text-align: left;"><br /></div>
+
+<h2>Perfkit Benchmarker with UI</h2>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="Perfkit Benchmarker with UI" border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3UQVvSAOOXptZOPgTfBePocfi0_EZQkfpxiuGnVbx_EYoLFKr5GX7g8qyelWTIQ9OhKpCmwXXIAp2Cqwr5Sm98ST4UFX73rodOkm4lmSDIpswHRqv9EFYnp4wHvm0zweKZ2UFDDL1h49F75T4fPYCYJvM9BWdNP4igAFrRpboZyJ_ph5hcEII0Nno0Qg/s1600/image1.gif" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i></i></td></tr></tbody></table></div>
+
+<p>What if you could install an easy-to-use version of <a href="https://github.com/GoogleCloudPlatform/PerfKitBenchmarker" target="_blank">Perfkit Benchmarker</a> (PKB) with a click-and-select UI?</p>
+
+<p>With this version, you could simply select the benchmark tool you want to use from a dropdown menu and provide a YAML configuration file. PKB would then automatically spin up a GKE Autopilot cluster with the configuration you have provided and run the benchmark. You could then view the performance metrics results in the UI.</p>
+
+<p>This easy-to-use version of PKB would make it easier to run benchmarks and compare the performance of different systems, even if you don't have much technical experience. The installation guide can be found <a href="https://github.com/GoogleCloudPlatform/cloud-solutions/blob/main/projects/sa-tools/perf-benchmark/README.md" target="_blank">here</a>.</p><div style="text-align: left;"><br /></div>
+
+<h2>Web Performance Testing </h2>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="gTools Performance Testing" border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKpEdk3SvRkURI2jV4ghlJZZkacAkIwEnKuqaZYrIRZyfIgPVpB06FkGhjGboss-tuQ5QPrTzF0cKNscv_XewwL0QcXzCjwbEKilWZxK9l4qZtN74kk4hUXkj5s7YHOyuvQ-17r5XzID9fLlNQ-YWpwgxwipHq2jim0WRsIgMKULW-pLUpl3n9ql_KiHE/s1600/image4.gif" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i></i></td></tr></tbody></table></div>
+
+<p>We built an open source UI wrapper on top of Locust, running inside your GCP Project. You can have a Locust farm instance run for a specific group of users in comparison to the generic Locust setup where everyone is able to access the Locust instance. The installation guide can be found <a href="https://github.com/GoogleCloudPlatform/cloud-solutions/blob/main/projects/sa-tools/performance-testing/README.md" target="_blank">here</a>.</p>
+
+<p>For more info on how to raise pull request or give feedback, please check the <a href="https://github.com/GoogleCloudPlatform/cloud-solutions/blob/main/CONTRIBUTING.md" target="_blank">contributing</a> page in the repository.</p>
+
+<p><em>By Yudy Hendry, Anant Damle, Kozzy Hasebe, Jun Sheng, and Chuan Chen – Cloud Solutions Architects Team</em></p>
+
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

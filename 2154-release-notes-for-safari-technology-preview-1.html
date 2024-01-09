@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 182</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 182</h2>
+		<a target="_blank" href="https://webkit.org/blog/14764/release-notes-for-safari-technology-preview-182/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 182 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/e21786e1635702a6ca7c1e30290f32e8a97fec23...91adc5e2412ce1d92a3271e5bc983618cb2aabba">269058@main&#8230;269633@main</a></p>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added the <code>white-space-collapse</code> and <code>text-wrap-mode</code> CSS properties. (<a href="https://commits.webkit.org/269613@main">269613@main</a>) (117248327)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed animating a <code>rotate</code> property when the <code>scale</code> property is also used. (<a href="https://commits.webkit.org/269453@main">269453@main</a>) (113999490)</li>
+<li>Fixed <code>getComputedStyle()</code> to return a resolved value for <code>font-size-adjust: from-font</code>. (<a href="https://commits.webkit.org/269084@main">269084@main</a>) (116151111)</li>
+<li>Fixed subgrids to have their row-start margins resolved after column sizing in the outer grid. (<a href="https://commits.webkit.org/269424@main">269424@main</a>) (116369419)</li>
+<li>Fixed forced layout on absolutely positioned elements for <code>content-visibility</code>. (<a href="https://commits.webkit.org/268840@main">268840@main</a>) (116453903)</li>
+<li>Fixed validating <code>@property</code> at parse-time. (<a href="https://commits.webkit.org/269466@main">269466@main</a>) (116803886)</li>
+<li>Fixed <code>background-blend-mode</code> property to return a comma-separated list. (<a href="https://commits.webkit.org/26932@main">26932@main</a>) (116838342)</li>
+<li>Fixed <code>content-visibility</code> to take forced layout into account for absolute positioned grid items. (<a href="https://commits.webkit.org/269531@main">269531@main</a>) (117214848)</li>
+<li>Fixed <code>@supports selector(:popover-open)</code> to reflect disabled state. (<a href="https://commits.webkit.org/269565@main">269565@main</a>) (117226626)</li>
+</ul>
+<h3>Forms</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <code>showPicker()</code> method for <code>&lt;input type="date"&gt;</code>. (<a href="https://commits.webkit.org/269257@main">269257@main</a>) (110099910)</li>
+</ul>
+<h3>HTML</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the list of available images for lazy loaded images. (<a href="https://commits.webkit.org/269243@main">269243@main</a>) (98788086)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed strictly enforcing exclusivity for the <code>&lt;details&gt;</code> element <code>name</code> attribute. (<a href="https://commits.webkit.org/269127@main">269127@main</a>) (116463466)</li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added <code>TimeZoneOffset</code> format support to <code>Intl.DateTimeFormat</code>. (<a href="https://commits.webkit.org/269497@main">269497@main</a>) (117124296)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>Map.groupBy</code> and <code>Object.groupBy</code> callback arguments. (<a href="https://commits.webkit.org/269456@main">269456@main</a>) (117120234)</li>
+<li>Fixed <code>Intl.Collator</code>&#8216;s <code>ignorePunctuation</code> to reflect the queried result. (<a href="https://commits.webkit.org/269459@main">269459@main</a>) (117122647)</li>
+<li>Fixed <code>Intl.NumberFormat</code> and <code>Intl.PluralRules</code> with updated property access ordering and resolvedOptions key ordering. (<a href="https://commits.webkit.org/269501@main">269501@main</a>) (117181500)</li>
+</ul>
+<h3>Loading</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed navigation to about scheme URLs without opaque paths. (<a href="https://commits.webkit.org/269423@main">269423@main</a>) (116238322)</li>
+</ul>
+<h3>Media</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for H264 L1T2 for WebCodecs. (<a href="https://commits.webkit.org/269297@main">269297@main</a>) (114940765)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed WebVTT regions to position according to specifications. (<a href="https://commits.webkit.org/268787@main">268787@main</a>) (23091897) (FB5414788)</li>
+<li>Fixed an issue where Safari would briefly change <code>document.visibilityState</code> to <code>hidden</code> when entering fullscreen. (<a href="https://commits.webkit.org/269150@main">269150@main</a>) (104984915)</li>
+<li>Fixed pausing MediaRecorder continuing to call <code>ondataavailable</code> at every timeslice event. (<a href="https://commits.webkit.org/268433@main">268433@main</a>) (115979604)</li>
+<li>Fixed the close algorithms for audio and video WebCodec decoders and encoders to match specification changes. (<a href="https://commits.webkit.org/268781@main">268781@main</a>) (116346725)</li>
+<li>Fixed picture-in-picture when the <code>srcObject</code> is a video stream. (<a href="https://commits.webkit.org/269403@main">269403@main</a>) (116465668)</li>
+<li>Fixed constraints on the maximum width or height causing blurry <code>getDisplayMedia</code> video. (<a href="https://commits.webkit.org/269406@main">269406@main</a>) (116810370)</li>
+<li>Fixed <code>object-fit: fill</code> to work for a video element using a canvas stream <code>srcObject</code>. (<a href="https://commits.webkit.org/269568@main">269568@main</a>) (116832514)</li>
+<li>Fixed the limit for the number of real-time audio threads. (<a href="https://commits.webkit.org/269291@main">269291@main</a>) (116864442)</li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed ignoring <code>calc()</code> values on <code>&lt;colgroup&gt;</code> elements. (<a href="https://commits.webkit.org/269200@main">269200@main</a>) (106692191)</li>
+<li>Fixed ancestor subgrids&#8217; gutters to add to the extra layer of margin for descendant subgrids. (<a href="https://commits.webkit.org/269194@main">269194@main</a>) (114271857)</li>
+</ul>
+<h3>Scrolling</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed clicking and dragging the overlay scrollbar that overlaps a composited, positioned descendant of a container with <code>overflow: scroll</code>. (<a href="https://commits.webkit.org/269255@main">269255@main</a>) (89598421)</li>
+<li>Fixed a bug that caused some complicated websites to freeze when scrolling. (<a href="https://commits.webkit.org/269486@main">269486@main</a>) (113318934)</li>
+</ul>
+<h3>Storage</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for blob partitioning. (<a href="https://commits.webkit.org/269264@main">269264@main</a>) (116813727)</li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed ellipse hit testing in the non-circle case. (<a href="https://commits.webkit.org/269554@main">269554@main</a>) (103756227)</li>
+<li>Fixed to compute <code>stroke-bounding-box</code> lazily. (<a href="https://commits.webkit.org/269351@main">269351@main</a>) (116852041)</li>
+<li>Fixed approximate stroke-bounding-box computation for repainting. (<a href="https://commits.webkit.org/269492@main">269492@main</a>) (116999242)</li>
+<li>Fixed repainting an SVG element with a CSS reference filter when the filter changes. (<a href="https://commits.webkit.org/269413@main">269413@main</a>) (117047658)</li>
+</ul>
+<h3>Text</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed font fallback to ignore generic families for Private-Use Area Unicode codepoints. (<a href="https://commits.webkit.org/269524@main">269524@main</a>) (115901340) (FB13197885)</li>
+</ul>
+<h3>Web API</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the result of <code>Range.getClientRects()</code> and <code>Range.getBoundingRect()</code> for certain ranges. (<a href="https://commits.webkit.org/269271@main">269271@main</a>) (112543805)</li>
+<li>Fixed audio elements with event listeners not getting garbage collected. (<a href="https://commits.webkit.org/269165@main">269165@main</a>) (116347723)</li>
+<li>Fixed mouse event handling such that if a drag operation is initiated from a canceled <code>mousedown</code> event, all subsequent mouse events are sent to the originating frame until the drag operation ends with a corresponding <code>mouseup</code> event. (<a href="https://commits.webkit.org/269370@main">269370@main</a>) (116668701)</li>
+<li>Fixed <code>FetchResponse.formData()</code> to parse headers names as case insensitive. (<a href="https://commits.webkit.org/269144@main">269144@main</a>) (116742000)</li>
+<li>Fixed light dismiss for a popover element within a complex shadow DOM breaks light dismiss calculation. (<a href="https://commits.webkit.org/269596@main">269596@main</a>) (117214343)</li>
+</ul>
+<h3>Web Assembly</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for new constant expressions. (<a href="https://commits.webkit.org/269484@main">269484@main</a>) (107680283)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed WebAssembly SIMD vectors that can get corrupted when using <code>v128.any_true</code>. (<a href="https://commits.webkit.org/269080@main">269080@main</a>) (111050621)</li>
+<li>Fixed: Adopted final opcodes for Wasm-GC proposal. (<a href="https://commits.webkit.org/269454@main">269454@main</a>) (117118851)</li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for logging a message to the Console when a page attempts to load a font URL blocked by Lockdown Mode. (<a href="https://commits.webkit.org/269238@main">269238@main</a>) (114657783)</li>
+</ul>
+<h3>WebRTC</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed long delays switching audio input in video conferencing applications. (<a href="https://commits.webkit.org/269242@main">269242@main</a>) (102724364)</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

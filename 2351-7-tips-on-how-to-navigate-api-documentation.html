@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>7 Tips on How to Navigate API Documentation</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">7 Tips on How to Navigate API Documentation</h2>
+		<a target="_blank" href="https://nordicapis.com/7-tips-on-how-to-navigate-api-documentation/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>I have been working in developer relations for a few years now, and working with APIs has become not only part of my job but has sparked my interest and curiosity to focus on this subject. I am by no means an expert yet, but I have enjoyed learning as much as I can about APIs.</p>
+<p>Throughout my time learning and working with APIs, I have become obsessed with <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/">API documentation</a>. I will say that I&#8217;ve encountered various types of API documentation, ranging from good, bad, and ugly. From my experience, most documentation lacks consistency, has unclear descriptions or outdated information, and is difficult to get started with. Based on this, I have learned to navigate API documentation and work past my struggles most of the time.</p>
+<p>With this blog post, I will share my seven tips for navigating API documentation, which is especially helpful for beginner creators and consumers. It also includes tips for API providers as well. I hope it helps you get past your struggles and frustrations, too.</p>
+<div class="well">This blog post is an adaption of the talk <a href="https://nordicapis.com/speakers/getrude-chilufya-westrin/">Gertrude Chilufya Westrin</a> gave at the Nordic APIs <a href="https://nordicapis.com/events/platform-summit-2023/">Platform Summit 2023</a>, <em>Navigating API Documentation: Tips from the Trenches</em>. You can watch the talk on YouTube here:<div class="responsive-iframe-container responsive-iframe-container-16x9"><iframe loading="lazy" title="YouTube video player" src="https://www.youtube.com/embed/sfjLSGiUKk0?si=pfcAuBCOqgO2MX28" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></div>
+<h2 id="what-is-api-documentation-">What is API Documentation?</h2>
+<p>API documentation is a set of written instructions that explain how to use API functions. It provides details about functions, classes, and return types, offering developers and consumers the information they need to build integrations and make API calls.</p>
+<h2 id="tips-for-navigating-api-documentation">Tips for Navigating API Documentation</h2>
+<h3 id="1-read-the-documentation">1. Read the Documentation</h3>
+<p>Reading the documentation will help you understand how the API works, especially if the documentation is well-written. To do this effectively, I specifically try to understand the following:</p>
+<ul>
+<li><strong>Authentication</strong>: Authentication and authorization are essential functions that make APIs work, and it helps to first understand which authentication methods are available. You need to know how to authenticate requests, understand error messages related to invalid authentication, and know how and where to get the API key or flow for the chosen authentication method.</li>
+<li><strong>Errors</strong>: Issues are bound to occur, and it can be intimidating for beginners. A good trick is to skim through documentation to understand potential error messages, their reasons, and potential solutions.</li>
+<li><strong>Methods</strong>: If you already know what you want to achieve, you can directly look for particular methods and endpoints. Just ensure that they are defined as you expect.</li>
+</ul>
+<h3 id="2-have-a-use-case-in-mind">2. Have a Use Case in Mind</h3>
+<p>When I had just started working as a developer advocate, I struggled to create content around APIs because I was unfamiliar with use cases. So, this tip is more for API creators. As much as possible, spell out who should use your API and how.</p>
+<p>It also helps to show multiple uses of endpoints in a sequence to achieve a goal, for instance, submitting an order for payment-related APIs or creating an automated email workflow triggered by different events for reporting or alerting.</p>
+<h3 id="3-examples">3. Examples</h3>
+<p>Examples are a good way of showcasing the full potential of an API. Therefore, make it easy for developer consumers to use and understand your API with good code examples. If you can provide examples for each endpoint, that&#8217;s even better. For consumers, make sure to work with the provided examples as much as you can.</p>
+<h3 id="4-consistency">4. Consistency</h3>
+<p>This tip is a bit of an extension of the previous one. Having examples is great. Additionally, it&#8217;s better to have <a href="https://nordicapis.com/4-areas-of-consistency-for-great-developer-experience/">consistency with the API documentation</a>. For instance, if a &#8220;create account&#8221; operation has an <code>accountNumber</code> in its inputs, avoid renaming it as <code>accountId</code> in the response. Consistency should also be reflected within the organization&#8217;s developer portal or platform.</p>
+<p>Assuming that your examples offer different programming languages, ensure that these languages have as much consistency as possible with the degree of capabilities. For instance, you don&#8217;t want your Python examples to be so elaborate and easy to follow while your PHP examples are lagging. Finally, adhere to domain practices and use idiomatic code.</p>
+<p>Consistency enhances the developer experience for users and increases credibility for creators.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-ways-to-improve-your-documentation-developer-experience/">7 Ways to Improve Your Documentation Developer Experience</a></div>
+<h3 id="5-check-the-changelog">5. Check the Changelog</h3>
+<p>This is one of my favorite tips. Before diving into documentation or using a new API, I quickly check the changelog to see if there are any changes to an API that I would like to work with.</p>
+<p>In so doing, I approach the changelog with these questions in mind: are there any deprecated endpoints? Or breaking changes? How are response body models presented? Any new required parameters? Version number? Are there any new endpoints I should be aware of?</p>
+<p>By asking these questions, I reduce the element of surprise while using said API. If possible, it&#8217;s also a good idea to subscribe to the changelog to stay updated on changes.</p>
+<h3 id="6-documentation-maintenance">6. Documentation Maintenance</h3>
+<p>The value of maintaining docs cannot be over-emphasized. As a creator, ensure you have a strategy for handling documentation based on updates — this can easily be automated. A practical solution for maintenance is adopting a standardized process using the tools available today, such as <a href="https://nordicapis.com/comparing-the-features-of-openapi-v3-vs-openapi-v2/">OpenAPI Specification</a> or Postman.</p>
+<h3 id="7-leave-it-better-than-you-found-it">7. Leave It Better Than You Found It</h3>
+<p>Growing up, I was always encouraged to leave spaces, places, and homes better than I found them. So, I challenge you to do the same. Documentation can never be perfect, but it can always be better, so play your part by creating a PR with suggested improvements, raising an issue if you find bugs, or giving feedback, both good and bad. It not only helps the creators, but it also provides a better experience for the next user.</p>
+<h2 id="great-documentation-enhances-developer-experience">Great Documentation Enhances Developer Experience</h2>
+<p>Overall, good API documentation enhances the developer experience and makes users enjoy working with your product or service. In turn, this creates a loyal and engaged developer community, which could impact your revenue growth. If you found these tips helpful or would like to connect, please reach out.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

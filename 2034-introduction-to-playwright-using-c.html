@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Introduction to Playwright using C#</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Introduction to Playwright using C#</h2>
+		<a target="_blank" href="https://www.endpointdev.com/blog/2023/10/introduction-to-playwright-in-csharp/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://www.endpointdev.com/blog/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+        <p><img src="/blog/2023/10/introduction-to-playwright-in-csharp/sun-on-green-leaves.webp" alt="In the foreground, the foliage of a light green tree edged with sunlight creates a line across the image. In the background, a mountain hillside with light dirt, intermittent exposed rock, and foliage just starting to turn the yellow, orange, and red colors of fall"></p>
+<!-- Photo by Seth Jensen, 2023. -->
+<p>Automating web application tasks is a necessary skill for software developers and testers. You need it for performing repetitive tasks, conducting end-to-end testing of web applications, and scraping data from websites. In this blog post, we&rsquo;ll explore how to use C# with Playwright for automating tasks.</p>
+<h3 id="what-is-playwright">What is Playwright?</h3>
+<p>Playwright is an open-source automation framework developed by Microsoft that allows you to automate web applications using various programming languages, including C#. Playwright was created specifically to accommodate the needs of end-to-end testing, but we will use it as a library for web automation. Playwright supports Chromium, WebKit, and Firefox. It runs on a variety of systems: Windows, Linux, and macOS, locally or on a continuous integration (CI) platform, headless or headed with native mobile emulation.</p>
+<p>To begin web automation using C# and Playwright, follow these steps:</p>
+<ol>
+<li>
+<p><strong>Prerequisites:</strong> You should have .NET Core or .NET 5+ installed on your machine.</p>
+</li>
+<li>
+<p><strong>Create a New C# Project:</strong> Let&rsquo;s start by creating a new C# console application.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">dotnet new console -n EPWebAutomation
+cd EPWebAutomation
+</code></pre></div></li>
+<li>
+<p><strong>Install Playwright NuGet Package:</strong> Open new project in Visual Studio or any preferred C# IDE and install the <code>Microsoft.Playwright</code> NuGet package and build the project using the following commands:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">dotnet add package Microsoft.Playwright
+dotnet build
+</code></pre></div></li>
+<li>
+<p><strong>Install required browsers:</strong> Run the following command to install the required browsers for Playwright:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">pwsh bin/Debug/netX/playwright.ps1 install
+
+# If the pwsh command does not work (throws TypeNotFound), make sure to use an up-to-date version of PowerShell.
+dotnet tool update --global PowerShell
+</code></pre></div></li>
+<li>
+<p><strong>Initialize Playwright Instance:</strong> Initialize Playwright in your C# code by creating a new browser instance and take a screenshot in Chromium:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#080;font-weight:bold">using</span> <span style="color:#b06;font-weight:bold">Microsoft.Playwright</span>;
+
+<span style="color:#080;font-weight:bold">using</span> <span style="color:#b06;font-weight:bold">var</span> playwright = <span style="color:#080;font-weight:bold">await</span> Playwright.CreateAsync();
+<span style="color:#080;font-weight:bold">await</span> <span style="color:#080;font-weight:bold">using</span> <span style="color:#b06;font-weight:bold">var</span> browser = <span style="color:#080;font-weight:bold">await</span> playwright.Chromium.LaunchAsync();
+<span style="color:#888;font-weight:bold">var</span> page = <span style="color:#080;font-weight:bold">await</span> browser.NewPageAsync();
+</code></pre></div></li>
+<li>
+<p><strong>Navigate and Interact:</strong> You can now navigate to a web page using <code>GotoAsync</code> and interact with it using Playwright&rsquo;s APIs. For instance, to navigate to a website and take a screenshot, you can use the below code:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#080;font-weight:bold">await</span> page.GotoAsync(<span style="color:#d20;background-color:#fff0f0">&#34;https://playwright.dev/dotnet&#34;</span>);
+<span style="color:#080;font-weight:bold">await</span> page.ScreenshotAsync(<span style="color:#080;font-weight:bold">new</span> PageScreenshotOptions { Path = <span style="color:#d20;background-color:#fff0f0">&#34;screenshot.png&#34;</span> });
+</code></pre></div></li>
+<li>
+<p><strong>Locators:</strong> Playwright allows you to locate elements on the page using ID, CSS selectors, or XPaths. It also provides inbuilt <a href="https://playwright.dev/dotnet/docs/locators#quick-guide">locators</a>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#080;font-weight:bold">await</span> page.GotoAsync(<span style="color:#d20;background-color:#fff0f0">&#34;https://computer-database.gatling.io/computers&#34;</span>);
+<span style="color:#888">// fill dell in search text field using id selector
+</span><span style="color:#888"></span><span style="color:#080;font-weight:bold">await</span> page.Locator(<span style="color:#d20;background-color:#fff0f0">&#34;#searchbox&#34;</span>).FillAsync(<span style="color:#d20;background-color:#fff0f0">&#34;dell&#34;</span>);
+<span style="color:#888">// click on Filter by name button using id selector
+</span><span style="color:#888"></span><span style="color:#080;font-weight:bold">await</span> page.Locator(<span style="color:#d20;background-color:#fff0f0">&#34;#searchsubmit&#34;</span>).ClickAsync();
+<span style="color:#888">// click on a button using inbuild GetByText selector
+</span><span style="color:#888"></span><span style="color:#080;font-weight:bold">await</span> page.GetByText(<span style="color:#d20;background-color:#fff0f0">&#34;Add a new computer&#34;</span>).ClickAsync();
+</code></pre></div></li>
+<li>
+<p><strong>Fill form, select dropdown value and click elements:</strong> Playwright allows you to perform actions like filling out forms, selecting dropdown value and clicking elements. Here&rsquo;s an example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#080;font-weight:bold">await</span> page.FillAsync(<span style="color:#d20;background-color:#fff0f0">&#34;#name&#34;</span>, <span style="color:#d20;background-color:#fff0f0">&#34;asus abcde&#34;</span>);
+<span style="color:#080;font-weight:bold">await</span> page.SelectOptionAsync(<span style="color:#d20;background-color:#fff0f0">&#34;#company&#34;</span>, <span style="color:#080;font-weight:bold">new</span>[] { <span style="color:#080;font-weight:bold">new</span> SelectOptionValue() { Label = <span style="color:#d20;background-color:#fff0f0">&#34;ASUS&#34;</span> } });
+<span style="color:#080;font-weight:bold">await</span> page.Locator(<span style="color:#d20;background-color:#fff0f0">&#34;input[type=submit]&#34;</span>).ClickAsync();
+</code></pre></div></li>
+<li>
+<p><strong>Cleanup:</strong> Don&rsquo;t forget to close the browser when you&rsquo;re done:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#080;font-weight:bold">await</span> browser.CloseAsync();
+</code></pre></div></li>
+</ol>
+<h3 id="advantages-of-using-c-and-playwright">Advantages of Using C# and Playwright</h3>
+<p>Some of the useful features of Playwright with C# include:</p>
+<ol>
+<li><strong>Cross-Browser and cross-platform support:</strong> As mentioned above, Playwright works on modern rendering engines including Chromium, WebKit, and Firefox. You also have the option of running it locally or on CI, and of running headless or headed.</li>
+<li><strong>C# Language Familiarity:</strong> The Playwright API can be used with C#. If you&rsquo;re already familiar with C#, this reduces the learning curve for web automation.</li>
+<li><strong>Robust Documentation:</strong> Playwright&rsquo;s documentation and community support make it easier to troubleshoot issues and find solutions.</li>
+<li><strong>Headless and Headful Browsing:</strong> Playwright allows you to choose between headless and headed mode. Debugging issues in headed mode can be much easier, since we can see what&rsquo;s going on in every line of code.</li>
+<li><strong>Powerful APIs:</strong> With Playwright&rsquo;s APIs, you can perform complex web automation tasks with ease.</li>
+<li><strong>Powerful Tooling:</strong> Playwright has tooling like <a href="https://playwright.dev/dotnet/docs/codegen">Codegen</a>, <a href="https://playwright.dev/dotnet/docs/debug#playwright-inspector">Playwright inspector</a>, and <a href="https://playwright.dev/dotnet/docs/trace-viewer-intro">Trace Viewer</a>. They can help make using Playwright easier.</li>
+<li><strong>Emulation:</strong> You can test your app on any browser or emulate a real device such as mobile phone or tablet. It can emulate behavior such as <code>userAgent</code>, <code>geolocation</code>, <code>viewport</code>, and many more. You can read more about it in the <a href="https://playwright.dev/dotnet/docs/emulation">emulation</a> documentation.</li>
+</ol>
+<p>The powerful combination of C# and Playwright makes it a preferred tool for automating web tasks. When there are repetitive tasks or browser testing involved, Playwright can help you with getting the tasks done.</p>
+
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

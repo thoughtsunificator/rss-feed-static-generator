@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Story of Gateway API</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The Story of Gateway API</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2023/11/the-story-of-gateway-api.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvaU5ZgRcoXIcSp9R2UujZuTd2pt9zQXu8qqS78WMWVuge60-kTUIjT8tYy57d5DbHwOM8LrTTwYpBKI5sGBdc8YvyzK2Xl6aepPQdilI07egAXKbrXfgSOVb7Mc8_nDsBNwiWvMoYA7iqam5DKgEIZdz_1ozIXiIYfnAjXDWNnw0rUEtxjn5Lks5R_P4/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvaU5ZgRcoXIcSp9R2UujZuTd2pt9zQXu8qqS78WMWVuge60-kTUIjT8tYy57d5DbHwOM8LrTTwYpBKI5sGBdc8YvyzK2Xl6aepPQdilI07egAXKbrXfgSOVb7Mc8_nDsBNwiWvMoYA7iqam5DKgEIZdz_1ozIXiIYfnAjXDWNnw0rUEtxjn5Lks5R_P4/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcZcAcHGdYWrqiszfqfkW6BgY_vcuZ6hgOO51z3aVU1XTeCxc_HoXKSLNSUxH2eRfkHUzmN_MI49tdMgFZgjNEd1laclB6k6vhsn97QKo9gu-sYdBIFkIdEbDgQXAcKPxy3oSTRRdLFpfKgSHNXIiOpnSRbez3ytIybhxh0Q1s-HKBih1nqpsOT116wMM/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcZcAcHGdYWrqiszfqfkW6BgY_vcuZ6hgOO51z3aVU1XTeCxc_HoXKSLNSUxH2eRfkHUzmN_MI49tdMgFZgjNEd1laclB6k6vhsn97QKo9gu-sYdBIFkIdEbDgQXAcKPxy3oSTRRdLFpfKgSHNXIiOpnSRbez3ytIybhxh0Q1s-HKBih1nqpsOT116wMM/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" /></a>
+
+<p>Earlier this week, Gateway API v1.0 was released, marking the significant milestone of General Availability. This Kubernetes API represents the future of load balancing, routing, and service mesh configuration. It already has more than 20 implementations, including GKE and Istio. In this post, we’ll take a look back at some of the key moments that led to this point, starting with the proposal that started it all.</p>
+
+<h2>Initial Proposal</h2>
+
+<p>The core ideas for this new API were initially <a href="https://youtu.be/Ne9UJL6irXY?si=jVRaFZpbjI1osfHq" target="_blank">proposed by Bowei Du</a> (Software Engineer, Google) at KubeCon San Diego as “Ingress v2”, the next generation of the Ingress API for Kubernetes. This proposal came as the shortcomings of the original Ingress API were becoming apparent. The community had started to develop alternative APIs, notably including Istio’s VirtualService API and Contour’s IngressRoute API. We had reached an inflection point where the Kubernetes ecosystem was diverging, and Bowei believed it was important to develop a new standard that would expose all these advanced features in a portable way.</p>
+
+<p>The initial proposal for this API provided a great foundation to build on. Specifically, this proposal focused on a role-oriented model that split capabilities into resources that were aligned with 3 different personas. It emphasized both expressiveness and extensibility as core design principles. This early sketch from that proposal closely resembles the API today:</p>
+
+<image><div style="text-align: center;"><img alt="Sketch of early proposal for Ingress API" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcydJSiPTHP6RHoj6-0HflbkzRNiYU-iDkdcBtEiiFmA20RUjS7CMaVqqU181J4cIBH8Pwl_wnFAoho8HjbMCpgaTVQOXSZxfjk8t5mgmJ-yG4eJ9qPwNvSKhA08XLGoWExtwHHFuBlnXmlKt58U6mru57EWrfQZ2FGNJKI1z3MJtDxc6emPCphLhag5Q/s1600/image3.png" style="marigns: auto; width: auto;" /></div></image>
+
+<p>One of the key limitations of the Ingress API was that it was designed with the lowest common denominator in mind: every feature included in the API needed to be implemented by everyone. This meant that the API surface was very small, and implementations that wanted to support more advanced features either relied on long lists of implementation-specific annotations or developing new custom APIs.</p> 
+
+<p>Bowei proposed that this new API could introduce a concept of “support levels.” This would allow us to add features to the API even if not every implementation could support them, for example “Extended” features would be fully portable if they were supported.<img alt="Diagram showing proposed Custom API support levels" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_4lwgp7AkleTdGplsI_QGeaS-7KvwyD5grRS73WiGM8F1s3-Sl7WjzeKwLcacViIgsdH3TI0jz7k1KyZvxf3gAARlpTRxDGNEECW4-Ydi0RtWw2G1XqqHQXbdoxDtDwPzR2yLrtaKstdayy99HzGaJDo4qrjKySS10CIXTG54T8MsnpFjmIuLuP08Ozc/s1600/image2.png" style="marigns: auto; text-align: center; width: auto;" /></p>
+
+
+<h2>Evolution of the API</h2>
+
+<p>Since that initial proposal, the API has evolved significantly, benefiting from the expertise of many in the community. Gateway has been referred to as the “most collaborative API in Kubernetes history” due to the hundreds of contributors representing dozens of companies that have helped refine the API over the years. </p>
+
+<p>One of the things that makes this API unique is that it is built on top of Custom Resource Definitions (CRDs). This has meant that Gateway API is developed and released outside of the main Kubernetes project, enabling broader collaboration and shorter feedback loops. For example, each new release of this API supports the 5 most recent versions of Kubernetes, covering the vast majority of clusters in use today. So, instead of waiting until you can upgrade to the latest version of Kubernetes, most will be able to try out these APIs close to the time they’re released.</p>
+
+<p>As the first official Kubernetes API to take this approach, it has developed several unique concepts along the way:</p>
+
+<h3>GEPs</h3>
+
+<p>Similar to Kubernetes Enhancement Proposals (KEPs), <a href="https://gateway-api.sigs.k8s.io/geps/overview/" target="_blank">Gateway Enhancement Proposals</a> provide a streamlined approach for proposing significant new enhancements to Gateway API. As the API grew and attracted more contributors, it became critical to have a better way to document key design decisions. The concept of GEPs was initially <a href="https://github.com/kubernetes-sigs/gateway-api/pull/684" target="_blank">proposed by Bowei in 2021</a>.</p>
+
+<p>More than 30 of these have already merged, with many more in progress right now. This pattern has been invaluable in keeping track of when and why key design decisions were made. All key parts of the API now have GEPs documenting when and why they were proposed, along with alternatives considered.</p>
+
+<h3>Release Channels</h3>
+
+<p>In 2021 <a href="https://github.com/kubernetes-sigs/gateway-api/pull/923" target="_blank">we proposed a simplified approach to versioning</a> that would introduce the concept of release channels, our own version of Kubernetes’ “feature gates”, which denote the stability of individual fields and features.</p> 
+
+<p>All new resources, fields, and features start in the “Experimental” release channel. As the name implies, this channel provides no stability guarantees and can include breaking changes to enable us to iterate more quickly on APIs. </p>
+
+<p>As these experimental APIs stabilize, individual resources, fields, and features can graduate to the “Standard” release channel when they meet predefined graduation criteria. These two release channels enable us to both provide a stable and predictable API with the “Standard” release channel while still iterating on experimental concepts with the “Experimental” release channel.</p>
+
+<h3>Conformance Tests</h3>
+
+<p><a href="https://github.com/kubernetes-sigs/gateway-api/pull/969" target="_blank">We added the first conformance tests</a> in 2022, before this API reached beta, and since then these tests have become a key part of every new feature in Gateway API, ensuring that implementations were truly providing a portable experience. Before a feature can graduate to the “Standard” release channel, thorough conformance tests need to be developed, and multiple implementations need to pass them.</p> 
+
+  <h3>Service Mesh Support</h3>
+
+<p>Earlier this year, mesh support launched its “Experimental” version, marking the first time a Kubernetes API has ever officially underpinned the concept of Service Mesh. In 2022, key Service Mesh projects came together to form the <a href="https://gateway-api.sigs.k8s.io/concepts/gamma/" target="_blank">GAMMA initiative</a> (Gateway API for Mesh Management and Administration). The core idea was that the Gateway API was sufficiently modular that the Routing and Policy layers could be used for both mesh and ingress use cases. </p>
+
+<h2>Trying it Out</h2>
+
+<p>Gateway API enables great new features on GKE, such as advanced multi-cluster routing. Yesterday GKE announced <a href="https://cloud.google.com/blog/products/containers-kubernetes/multi-cluster-gateway-controller-for-gke-is-now-ga" target="_blank">GA support for multi-cluster Gateways</a>. In the coming weeks, GKE will also be rolling out the v1.0 CRDs for all customers that have <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#enable-gateway" target="_blank">enabled Gateway API</a> in their clusters. In the meantime, you can access all of the same features with the v1beta1 CRDs already supported by GKE. For more information on how to get started with the Gateway API on GKE, refer to the <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#install_gateway_api_crds" target="_blank">GKE Gateway documentation</a>.</p>
+
+<p>If you’re interested in Gateway API’s support for Service Mesh, you can <a href="https://cloud.google.com/service-mesh/docs/managed/service-mesh-cloud-gateway" target="_blank">try it out with Anthos Service Mesh</a>.</p>
+
+<p>Alternatively, if you’d like to use this API with another implementation, refer to the open source project’s <a href="https://gateway-api.sigs.k8s.io/guides/getting-started/" target="_blank">Getting Started</a> documentation.</p>
+
+<p><em>By Rob Scott – GKE Networking</em></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

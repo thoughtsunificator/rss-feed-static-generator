@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 183</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 183</h2>
+		<a target="_blank" href="https://webkit.org/blog/14769/release-notes-for-safari-technology-preview-183/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 183 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/d3a9830bb67830d77bfbb785df77020fc104aef6...cb1d94cd5c9e4d2636f2e11934655dd395302d6d">269634@main&#8230;270233@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed exposing the correct <code>&lt;summary&gt;</code> element role. (<a href="https://commits.webkit.org/270231@main">270231@main</a>)  (13661104)  </li>
+<li>Fixed slow VoiceOver focus and navigation on extremely long <code>&lt;textarea&gt;</code> or <code>contenteditable</code> fields. (<a href="https://commits.webkit.org/270066@main">270066@main</a>)  (117114220)  </li>
+<li>Fixed Play Animation and Pause Animation animated image context menu items sometimes not appearing after setting toggle. (<a href="https://commits.webkit.org/269878@main">269878@main</a>)  (117215059)  </li>
+<li>Fixed <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements not included in VoiceOver form controls menu or list. (<a href="https://commits.webkit.org/269643@main">269643@main</a>)  (117308226)  </li>
+<li>Fixed comboboxes not notifying assistive technologies when <code>aria-activedescendant</code> changes. (<a href="https://commits.webkit.org/270182@main">270182@main</a>)  (117747058)  </li>
+<li>Fixed toggling accessibility preferences to correctly update form control appearance. (<a href="https://commits.webkit.org/270221@main">270221@main</a>)  (117914468)  </li>
+</ul>
+<h3>AutoFill</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed clipping the &#8220;Strong Password&#8221; button after selecting &#8220;Suggest New Password&#8221;. (<a href="https://commits.webkit.org/270068@main">270068@main</a>)  (113701243)  </li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added basic support for <code>text-wrap: balance</code> and <code>text-wrap-style</code> property. (<a href="https://commits.webkit.org/269680@main">269680@main</a>)  (117336969)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed CSS grid support for last baseline alignment in the column axis for subgrid items with non-orthogonal ancestors. (<a href="https://commits.webkit.org/269781@main">269781@main</a>)  (116484865)  </li>
+<li>Fixed <code>text-decoration-thickness</code> to support percentages. (<a href="https://commits.webkit.org/269886@main">269886@main</a>)  (116985587)  </li>
+<li>Fixed computing the definite free space of grid rows when the grid has an <code>aspect-ratio</code> and definite logical width. (<a href="https://commits.webkit.org/270098@main">270098@main</a>)  (117138268)  </li>
+<li>Fixed CSS grid to synthesize the central baseline of grid items in the column axis. (<a href="https://commits.webkit.org/269857@main">269857@main</a>)  (117424263)  </li>
+<li>Fixed serialization for CSS highlight pseudo-elements. (<a href="https://commits.webkit.org/270146@main">270146@main</a>)  (117864974)  </li>
+</ul>
+<h3>Fonts</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed COLRv0 font rendering. (<a href="https://commits.webkit.org/270167@main">270167@main</a>)  (115721319)  </li>
+</ul>
+<h3>Forms</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>dir=auto</code> to work for <code>hidden</code>, <code>password</code>, <code>submit</code>, <code>reset</code>, and <code>button</code> input types, made <code>dirname</code> work for <code>password</code> and <code>submit</code> input types, and removed <code>dirname</code> support from <code>number</code> input types. (<a href="https://commits.webkit.org/269711@main">269711@main</a>)  (113127508)  </li>
+</ul>
+<h3>HTML</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <code>allow-downloads</code> directive for frames.  (109414664)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>&lt;link rel="stylesheet" disabled&gt;</code> to fully clear the stylesheet. (<a href="https://commits.webkit.org/269753@main">269753@main</a>)  (114736719)  </li>
+<li>Fixed the <code>system-ui</code> font family within <code>&lt;canvas&gt;</code>.  (117231545)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>ArrayBuffer.prototype.transfer</code>. (<a href="https://commits.webkit.org/269674@main">269674@main</a>)  (117337535)  </li>
+<li>Aligned the implementation of the internal function IntlMathematicalValue (used in <code>Number.prototype.toLocaleString</code>, and <code>Intl.NumberFormat</code>) with its current specification. (<a href="https://commits.webkit.org/269825@main">269825@main</a>)  (117535507)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an edge case in the semantics of <code>for</code> loops. (<a href="https://commits.webkit.org/269653@main">269653@main</a>)  (44730906)  </li>
+<li>Fixed an edge case with detecting a semantic error in generators. (<a href="https://commits.webkit.org/269801@main">269801@main</a>)  (117497786)  </li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>canplay</code> event to fire for video elements where the first sample&#8217;s presentation time is slightly greater than 0. (<a href="https://commits.webkit.org/269689@main">269689@main</a>)  (105169372)  </li>
+<li>Fixed WebVTT to treat negative percentages as invalid values. (<a href="https://commits.webkit.org/269882@main">269882@main</a>)  (117615681)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a bug where swapping to Safari from another app (or tab) would flash black. (<a href="https://commits.webkit.org/269776@main">269776@main</a>)  (116530284)  </li>
+<li>Fixed a bug where the returned transform from <code>getComputedStyle</code> was incorrect. (<a href="https://commits.webkit.org/269920@main">269920@main</a>)  (117523629)  </li>
+</ul>
+<h3>Scrolling</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed scrolling on nested <code>pointer-events: auto</code> inside <code>pointer-events: none</code>. (<a href="https://commits.webkit.org/270094@main">270094@main</a>)  (110954175)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the motion path anchor point used for SVG when the <code>transform-box</code> is not the <code>view-box</code>. (<a href="https://commits.webkit.org/269642@main">269642@main</a>)  (108285569)  </li>
+<li>Fixed: Added <code>strokeContains</code> optimization. (<a href="https://commits.webkit.org/269745@main">269745@main</a>)  (117439322)  </li>
+</ul>
+<h3>URLs</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed CSS invoked URL parsing to always use UTF-8 as agreed by the W3C CSS WG. (<a href="https://commits.webkit.org/270169@main">270169@main</a>)  (114889625)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>showPicker()</code> method to trigger suggestions from a <code>datalist</code>. (<a href="https://commits.webkit.org/269981@main">269981@main</a>)  (116017782)  </li>
+<li>Fixed declarative shadow trees to match the latest specifications. (<a href="https://commits.webkit.org/269976@main">269976@main</a>)  (117655691)  </li>
+<li>Fixed jiggling caused by repeated calls to <code>scrollIntoView({ block: 'center' })</code>. (<a href="https://commits.webkit.org/270160@main">270160@main</a>)  (117755250)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed file drag-and-drop behavior in the Network tab. (<a href="https://commits.webkit.org/270108@main">270108@main</a>)  (114311077)  </li>
+</ul>
+<h3>WebGL</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Canvas WebGL context capture to WebCodecsVideoFrame not capturing all frames. (<a href="https://commits.webkit.org/269757@main">269757@main</a>)  (108459224)  </li>
+<li>Fixed: Improved performance of MSAA rendering, including antialiased default framebuffer and fixed PBO uploads of PVRTC1 textures. (<a href="https://commits.webkit.org/269810@main">269810@main</a>)  (117461678)  </li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

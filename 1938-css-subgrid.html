@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>CSS Subgrid</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">CSS Subgrid</h2>
+		<a target="_blank" href="https://web.dev/css-subgrid/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://web.dev/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><style>
+  .auto-aspect {
+    aspect-ratio: auto;
+  }
+
+  figcaption {
+    text-wrap: balance;
+  }
+</style>
+<p><a href="https://web.dev/learn/css/grid/">CSS grid</a> is a very powerful layout engine,
+but the row and column tracks created on a parent grid can only be used to
+position direct children of the grid container. Any author defined <a href="https://web.dev/learn/css/grid/#named-grid-lines">named grid
+areas and lines</a> were lost on
+any other element than a direct child. With <code>subgrid</code>, track sizing, templates
+and names can be shared with nested grids. This article explains how it works.</p>
+<aside class="aside flow bg-state-good-bg color-state-good-text"><p class="cluster "><span class="aside__icon box-block "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" style="enable-background:new 0 0 128 128" xml:space="preserve"><path d="M7.5 123.3c2.2 2.4 11.6-1.9 19-5.3C32 115.4 54 106.3 65 101.6c3-1.2 7.3-2.9 10.4-7 2.8-3.6 10-19-4.6-34.7-15-16-30.4-11.5-36.2-7.5A28.5 28.5 0 0 0 27.3 63c-5.2 11.6-12.7 32.9-15.7 41.3-2.3 6.1-6.4 16.5-4.1 19z" fill="currentColor"></path><path d="M18 86.8s.7 6.5 6.1 14.6c6.3 9.6 15 11.2 15 11.2l-5.8 2.4s-6.5-2-12.7-10.4c-3.8-5.3-5-11.6-5-11.6l2.3-6.2zm-5.6 15.4s1.5 5.6 4.7 9.7c3.8 5 8.6 6.5 8.6 6.5l-4.5 2s-3.3-.8-7-5.5c-2.9-3.5-3.7-7.6-3.7-7.6l1.9-5.1z" fill="currentColor"></path><path d="M10 116.4c-.2-.5-.2-1 0-1.4l25.4-53 4.2 16-26.8 38.7c-.7 1-2.3 1-2.8-.2z" style="opacity:.44" fill="currentColor"></path><path d="M41.6 83.2c12 14 25.5 12.2 30 8.6 4.5-3.5 8.1-15.6-3.7-29.3C55.3 48.2 41.3 52.2 38 55.3s-7.4 15.1 3.5 27.9z" style="fill: var(--color-state-good-bg);"></path><path d="M82.5 89c-4.3-3.7-6.6-3-9.7-1.8a26 26 0 0 1-18.9 0l2.6-6.2c5 1.7 8.7 1 12-1 4-2.4 9.6-5.6 18.3 1.6 3.6 3 7.3 5.1 10 4.2 2-.7 3-3.6 3.6-6l.2-1.3c.4-3.7 1.2-11.6 7.1-15.7 6.4-4.3 13-4.3 13-4.3l1.2 12c-3-.5-5.2.1-7 1-6.7 3.8-.8 18.2-11.3 23-10.1 4.8-18.4-3.3-21-5.6zM45.4 73.7l-4.3-3.9c8-8.9 5.8-15.4 4.3-20.2A26.4 26.4 0 0 1 44 38.8c-3-3.8-4.4-7.8-4.5-8-1.9-5.7-.5-11.2 2.8-16.4C48.7 4 60.5 4 60.5 4l4 10.5c-3-.1-12.8 0-15.8 4.8-3.8 6-1.3 9.6-1.2 10 .8-1 1.5-1.7 2.2-2.3 4.8-4.2 9-4.8 11.6-4.6a11 11 0 0 1 7.6 4.2c2 2.7 3 6.2 2.3 9.4a11 11 0 0 1-5.8 7.4 16 16 0 0 1-13 1.5v.3l.6 2c1.8 5.4 5 14.1-7.6 26.5zm7.4-37.5c.5.4 1.1.8 1.8 1 2 .8 4.4.6 7-.8 1.5-.9 1.7-1.7 1.7-2 .2-.9 0-2-.7-2.8a2.8 2.8 0 0 0-2-1.2c-1.6-.2-3.6.8-5.6 2.6-1 .9-1.7 2-2.3 3.2zm10 39.1-6.2-.1s3-16.7 12.5-19.5c1.8-.5 3.7-1 5.7-1.3l4-.8c.1-1.6-.5-3.6-1.3-5.9-.6-1.7-1.2-3.5-1.5-5.5-.6-3.9.4-7.3 3-9.6 3-2.9 7.9-3.8 13.4-2.5 3.2.7 5.5 2.2 7.6 3.6 2.9 2 4.6 3 8.2.5 4.3-2.9-1.4-14.3-4.4-21l11.3-4.6c1.5 3.3 8.8 20.3 4 30a11.5 11.5 0 0 1-8.1 6.2c-8 1.8-12.6-1.3-16-3.6-1.6-1-3-1.9-4.6-2.3-10.6-3 4.2 12.6-2.7 19.6-4.2 4.2-14.4 5.3-15 5.5-6.6 1.6-10 11.3-10 11.3z" fill="currentColor"></path><path d="M44 38.8c-.2 2.2-.3 3.5.3 6.4 2.7 2 8.7 2 8.7 2l-.6-2v-.3c-6.1-3-8.4-6.1-8.4-6.1zm-12.5 9.8-10.3-5 5.1-7.5 8.2 5.4zm-15.2-14A26 26 0 0 1 5 28.9l5.2-6c1.6 1.2 5 3.5 7.2 3.8l-1.1 7.9zM25.6 21.3 18 18.8a18 18 0 0 0 .7-8.3l7.9-1.3c.6 4 .3 8.2-1 12zM73 15.3l7.9-1.7L83 23.9l-7.8 1.7zM92.5 17.8 87 12c2.8-2.8 3.5-6.3 3.5-6.4L98.4 7c-.1.6-1.1 6.3-6 10.9zM95.5 48.6l7-2.2 2.3 7.7-7 2.1zM97.5 113l-7.9-1c.3-2.7-1.8-6.2-2.4-7l6.4-4.8c.5.6 4.7 6.4 4 12.8zM120.4 102.9c-3-.5-6-.6-9.1-.5l-.3-8c3.5-.2 7 0 10.6.6l-1.2 7.9zM109.6 113.9l5.6-5.7 7.8 7.6-5.6 5.7zM93.1 63.3 99 70l-6.6 5.8-5.8-6.6z" fill="currentColor"></path></svg> </span><strong>Celebration</strong></p><div class=" flow"> Special thanks to Microsoft Edge's Web Platform engineers for their contribution of subgrid to Chromium! This CSS feature was made available thanks to their great work: Alison Maher, Ethan Jimenez, Kurt Catti-Schmidt, Ana Sollano Kim and Daniel Libby. An additional special thanks to Ian Kilpatrick from the Google Chromium team for helping this land as well. Shout outs and kudos all around! </div></aside>
+<p><strong>Before</strong> subgrid, content was often hand tailored to avoid ragged layouts like
+this one.</p>
+<img alt="Three cards are shown side by side, each with three bits of content: header, paragraph and link. Each are of a different text length, creating some awkward alignments in the cards as they sit next to each other." decoding="async" height="412" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/UnomSiV22ITeHGkI8aFV.png?auto=format&w=1600 1600w" width="800" />
+<p><strong>After</strong> subgrid, aligning the variably sized content is possible.</p>
+<img alt="Three cards are shown side by side, each with three bits of content: header, paragraph and link. Each are of a different text length, but subgrid has fixed the alignments by allowing the tallest of each content item to set the row height, fixing any alignment issues." decoding="async" height="412" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/Dq1MzAIwsk8AJFtSJbWZ.png?auto=format&w=1600 1600w" width="800" />
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome 114, Behind a flag</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="flag" title="Behind a flag" aria-label="Behind a flag">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox 71, Supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+71
+</span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge 114, Behind a flag</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="flag" title="Behind a flag" aria-label="Behind a flag"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari 16, Supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+16
+</span>
+</li><p></p>
+  </ul>
+  <a class="wdi-browser-compat__link" href="https://developer.mozilla.org/docs/Web/CSS/CSS_Grid_Layout/Subgrid#browser_compatibility" target="_blank">Source</a>
+</div>
+<h2 id="subgrid-basics">Subgrid basics <a class="headline-link" href="https://web.dev/css-subgrid/#subgrid-basics">#</a></h2>
+<p>Here is a straightforward use case introducing the basics of CSS <code>subgrid</code>. A
+grid is defined with two named columns, the first is <code>20ch</code> wide and the second
+is &quot;the rest&quot; of the space <code>1fr</code>. The column names aren't required but they're
+great for illustrative and educational purposes.</p>
+<div><pre class="language-css"><code class="language-css"><span class="token selector">.grid</span> <span class="token punctuation">{</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token property">gap</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span><br />  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> [column-1] 20ch [column-2] 1fr<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+</div><p>Then, a child of that grid, spans those two columns, is set as a grid container,
+and adopts the columns of its parent by setting <code>grid-template-columns</code> to
+<code>subgrid</code>.</p>
+<div><pre class="language-css"><code class="language-css"><span class="token selector">.grid > .subgrid</span> <span class="token punctuation">{</span><br />  <span class="token property">grid-column</span><span class="token punctuation">:</span> span 2<span class="token punctuation">;</span><br /><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> subgrid<span class="token punctuation">;</span> <span class="token comment">/* 20ch 1fr */</span><br /><span class="token punctuation">}</span></code></pre>
+</div><figure>
+  <img alt="A screenshot of the CSS grid DevTools, showing two columns side by side with a name at the start of their column line." decoding="async" height="278" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/BS5avtsMBdfLsPFACRwO.png?auto=format&w=1600 1600w" width="800" />
+  <figcaption>
+    <a href="https://codepen.io/web-dot-dev/pen/NWezjXv">https://codepen.io/web-dot-dev/pen/NWezjXv</a>
+  </figcaption>
+</figure>
+<p>That's it, a parent grid's columns have been effectively passed down a level to
+a subgrid. This subgrid can now assign children to either of those columns.</p>
+<p><strong>Challenge!</strong> Repeat the same demo but do it for <code>grid-template-rows</code>.</p>
+<h2 id="sharing-a-page-level-macro-grid">Sharing a page level &quot;macro&quot; grid <a class="headline-link" href="https://web.dev/css-subgrid/#sharing-a-page-level-macro-grid">#</a></h2>
+<p>Designers often work with shared grids, drawing lines over an entire design,
+aligning any element they want to it. Now web developers can too! This exact
+workflow can now be achieved, plus many more.</p>
+<figure data-size="full">
+  <video autoplay="" class="auto-aspect" controls="" loop="" muted="">      <source src="https://storage.googleapis.com/web-dev-uploads/video/vS06HQ1YTsbMKSFTIPl2iogUQP73/dGp49ObaTqFrp7eNADZx.mp4" type="video/mp4" />    </video>
+  <figcaption>From macro grid to finished design.
+  Grid named areas are created upfront
+  and later components are placed as desired.
+  </figcaption>
+</figure>
+<p>Implementing the most common designer grid workflow can provide excellent
+insights into the capabilities, workflows, and potentials of <code>subgrid</code>.</p>
+<p>Here's a screenshot taken from Chrome DevTools of a mobile page layout macro
+grid. The lines have names and there are clear areas for component placement.</p>
+<img alt="A screenshot from Chrome CSS grid DevTools showing a mobile sized grid layout where rows and columns are named for quick identification: fullbleed, system-status, primary-nav, primary-header, main, footer and system-gestures." decoding="async" height="625" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8DcaxQKfWCUTYvM0jX5W.png?auto=format&w=1600 1600w" width="800" />
+<p>The following CSS creates this grid, with named rows and columns for the device
+layout. Each row and column has a size.</p>
+<div><pre class="language-css"><code class="language-css"><span class="token selector">.device</span> <span class="token punctuation">{</span><br />    <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />    <span class="token property">grid-template-rows</span><span class="token punctuation">:</span><br />      [system-status] 3.5rem<br />      [primary-nav] 3rem<br />      [primary-header] 4rem<br />      [main] auto<br />      [footer] 4rem<br />      [system-gestures] 2rem<br />    <span class="token punctuation">;</span><br />    <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> [fullbleed-start] 1rem [main-start] auto [main-end] 1rem [fullbleed-end]<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+</div><p>Some additional styles give the following design.</p>
+<img alt="Same CSS DevTools grid overlay as before, but this time with some of the mobile system UI present, some shadows and a little color. Helps see where the design is going." decoding="async" height="625" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/3ApdWnQMSsdHp4HxLFiU.png?auto=format&w=1600 1600w" width="800" />
+<p>Inside this parent, are various nested elements. The design requires a full
+width image under the nav and header rows. The furthest left and right column
+line names are <code>fullbleed-start</code> and <code>fullbleed-end</code>. Naming grid lines this way
+enables children to align to each simultaneously with the <a href="https://rachelandrew.co.uk/archives/2017/06/01/breaking-out-with-css-grid-explained/" rel="noopener">placement
+shorthand</a>
+of <code>fullbleed</code>. It’s very convenient as you’ll soon see.</p>
+<img alt="A zoomed in screenshot of the grid overlay from DevTools, focusing specifically on the fullbleed-start and fullbleed-end column names." decoding="async" height="207" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/8Og87j0has0wdFnSWjt4.png?auto=format&w=1600 1600w" width="800" />
+<p>With the overall device layout created with nice named rows and columns, use
+<code>subgrid</code> to pass the well named rows and columns to nested grid layouts. This
+is that <code>subgrid</code> magic moment. The device layout passes the named rows and
+columns to the app container, which then passes it on to every one of its
+children.</p>
+<div><pre class="language-css"><code class="language-css"><span class="token selector">.device > .app,<br />.app > *</span> <span class="token punctuation">{</span><br />    <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />    <span class="token property">grid</span><span class="token punctuation">:</span> subgrid / subgrid<span class="token punctuation">;</span><br /><br />    <span class="token comment">/* same as */</span><br />    <span class="token property">grid-template-rows</span><span class="token punctuation">:</span> subgrid<span class="token punctuation">;</span><br />    <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> subgrid<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+</div><p><strong>CSS subgrid is a value used in place of a list of grid tracks.</strong> The rows and
+columns the element is spanning from its parent, are now the same rows and
+columns it offers. This makes the line names from the <code>.device</code> grid available
+to children of <code>.app</code>, instead of only <code>.app</code>. Elements inside of <code>.app</code> were
+not able to reference the grid tracks created by <code>.device</code> before subgrid.</p>
+<aside class="aside flow bg-state-info-bg color-state-info-text"><div class=" flow"> <code>display: grid</code> is required on every element that wishes to subscribe or pass on rows and columns. </div></aside>
+<p>With this all defined, the nested image is now able to go full bleed in the
+layout thanks to <code>subgrid</code>. No negative values or tricks, instead a nice
+one-liner that says “my layout spans from <code>fullbleed-start</code> to <code>fullbleed-end</code>.”</p>
+<div><pre class="language-css"><code class="language-css"><span class="token selector">.app > main img</span> <span class="token punctuation">{</span><br />    <span class="token property">grid-area</span><span class="token punctuation">:</span> fullbleed<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+</div><figure>
+  <img alt="The finished macro layout, complete with a full width nested image sitting properly undeath the primary nav and header rows and extending to each of the fullbleed named column lines." decoding="async" height="625" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/6QIh2ogOS21KjBwcfFuf.png?auto=format&w=1600 1600w" width="800" />
+  <figcaption>
+    <a href="https://codepen.io/web-dot-dev/pen/WNLyjzX">https://codepen.io/web-dot-dev/pen/WNLyjzX</a>
+  </figcaption>
+</figure>
+<p>There you have it, a macro grid like designers use, implemented in CSS. This
+concept can scale and grow with you as needed.</p>
+<h2 id="checking-for-support">Checking for support <a class="headline-link" href="https://web.dev/css-subgrid/#checking-for-support">#</a></h2>
+<p>Progressive enhancement with CSS and subgrid is familiar and straightforward.
+Use <code>@supports</code> and inside the parenthesis ask the browser if it understands
+subgrid as a value for template columns or rows. The following example checks if
+the <code>grid-template-columns</code> property supports the <code>subgrid</code> keyword, which if
+true, means that subgrid can be used</p>
+<div><pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@supports</span> <span class="token punctuation">(</span><span class="token property">grid-template-columns</span><span class="token punctuation">:</span> subgrid<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token comment">/* safe to enhance to */</span><br /><span class="token punctuation">}</span></code></pre>
+</div><div class="codepen-embed-wrap" style="height: 500px; width: 100%">
+<iframe allow="camera; clipboard-read; clipboard-write; encrypted-media; geolocation; microphone; midi;" loading="lazy" src="https://codepen.io/web-dot-dev/embed/KKrJPZQ?height=500&theme-id=light&default-tab=css%2Cresult&editable=true" style="height: 100%; width: 100%; border: 0;" title="Pen KKrJPZQ by web-dot-dev on Codepen">See the Pen <a href="https://codepen.io/web-dot-dev/embed/KKrJPZQ">Pen KKrJPZQ by web-dot-dev on Codepen</a></iframe></div>
+<h2 id="devtools">Devtools <a class="headline-link" href="https://web.dev/css-subgrid/#devtools">#</a></h2>
+<p>Chrome, Edge, Firefox and Safari all have great CSS grid DevTools, and Chrome,
+Edge and Firefox have specific tools for helping with subgrid. <a href="https://developer.chrome.com/blog/new-in-devtools-115/#subgrid" rel="noopener">Chrome
+announced their tools in
+115</a> while
+Firefox has had them for a year or more.</p>
+<img alt="Screenshot preview of the subgrid badge found on elements in the Elements panel." decoding="async" height="201" loading="lazy" sizes="(min-width: 800px) 800px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format" srcset="https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=1252 1252w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=1428 1428w, https://web-dev.imgix.net/image/vS06HQ1YTsbMKSFTIPl2iogUQP73/stbBs4EgwIRBfmkLHN9x.png?auto=format&w=1600 1600w" width="800" />
+<p>The subgrid badge acts like the grid badge but visually distinguishes which
+grids are subgrids and which aren’t.</p>
+<h2 id="resources">Resources <a class="headline-link" href="https://web.dev/css-subgrid/#resources">#</a></h2>
+<p>This list is a compilation of subgrid articles, demos and overall inspiration
+for getting started. If you’re looking for the next step for your subgrid
+education, have fun exploring all these great resources!</p>
+<ul>
+<li><a href="https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Subgrid">MDN</a></li>
+<li><a href="https://codepen.io/rachelandrew/pen/VVGZVW">Rachel Andrew with aligned captions</a></li>
+<li><a href="https://12daysofweb.dev/2022/css-subgrid/">Rachel Andrew with 10 great examples</a></li>
+<li><a href="https://gridbyexample.com/examples/#css-grid-level-2-examples">Rachel Andrew with a site of examples</a></li>
+<li><a href="https://ishadeed.com/article/learn-css-subgrid/">Ahmad Shadeed article</a></li>
+<li><a href="https://youtu.be/tueTFd2TQUA?t=2266">Michelle Barker at CSS Day 2022</a></li>
+<li>Cards
+<ul>
+<li><a href="https://codepen.io/jh3y/pen/abKaYqO">Codepen by Jhey</a></li>
+<li><a href="https://codepen.io/shadeed/pen/qBpQNQY">Codepen by Ahmad Shadeed</a></li>
+<li><a href="https://codepen.io/tonkotsuboy/pen/LYexpZp">Codepen by Takeshi Kano</a></li>
+<li><a href="https://codepen.io/ArvidW/pen/rNrGjvW">Codepen by Arvid</a></li>
+<li><a href="https://codepen.io/chriscoyier/pen/bGRXmEe">Codepen by Chris Coyier</a></li>
+<li><a href="https://codepen.io/miriamsuzanne/pen/xxKRpmq">Codepen by Miriam Suzanne</a></li>
+</ul>
+</li>
+<li><a href="https://codepen.io/chriscoyier/pen/YzxqJap">Chris Coyier with forms</a></li>
+<li><a href="https://codepen.io/facundocorradini/pen/wvBBpJM">Facundo Corradini with form alignment</a></li>
+<li><a href="https://codepen.io/chriscoyier/pen/mdemZaw">Chris Coyier with aligning list item markers</a></li>
+<li><a href="https://codepen.io/michellebarker/pen/wvyBjOz">Michelle Barker popping out of container to align with parent grid</a></li>
+<li><a href="https://codepen.io/miriamsuzanne/pen/ZEEbxro">Miriam Suzanne showing named line names and subgrid interactions</a></li>
+<li><a href="https://codepen.io/kevinpowell/pen/RwgvMMb">Kevin Powell with named area basics</a></li>
+<li><a href="https://codepen.io/kevinpowell/pen/XWgoWRx">Kevin Powell with aligned lists</a></li>
+<li><a href="https://codepen.io/shannonmoeller/pen/poLQLoO">Shannon Moeller with aligned lists</a></li>
+<li><a href="https://codepen.io/kevinpowell/pen/LYVmpqY">Kevin Powell with a page level grid passed down to components</a></li>
+<li><a href="https://codepen.io/elad2412/pen/KKaXOPG">Elad Shechter with a devtool overlay and fallback</a></li>
+<li><a href="https://codepen.io/aaroniker/pen/OeyayK">Aaron Iker with a nice typographic use of subgrid for baseline alignment of footnotes</a></li>
+<li><a href="https://codepen.io/argyleink/pen/ExbzqWp">Adam Argyle with a fullbleed image inside an article</a></li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What’s the Difference: Microservice, Macroservice, Monolith</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">What’s the Difference: Microservice, Macroservice, Monolith</h2>
+		<a target="_blank" href="https://nordicapis.com/whats-the-difference-microservice-macroservice-monolith/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>In tech, trends change faster than it&#8217;s possible to keep up with. Big, flashy, splashy jargon gets big 32-point headlines for a year or two before being shuffled to the dustbin of obsolete technology. Yesterday&#8217;s buzzy trend is tomorrow&#8217;s forgotten fad.</p>
+<p>Microservices are the latest trend to fall under scrutiny. Billed as the <a href="https://developer.ibm.com/articles/cl-evolution-microservices-patterns/">next big thing</a> all the way back in 2016, tech blogs are now running articles wondering <a href="https://www.forrester.com/blogs/the-death-of-microservices/">Are Microservices Dead?</a>. Even Amazon, one of the world&#8217;s biggest microservice providers, made the move back to monolithic architecture <a href="https://nordicapis.com/back-to-the-monolith-why-did-amazon-dump-microservices/">for Amazon Prime</a>.</p>
+<p>Microservices aren&#8217;t exactly <em>dead</em>, as some of the more sensationalist headlines suggest. They&#8217;re just evolving as it&#8217;s become apparent microservices aren&#8217;t the answer for everything. With that in mind, let&#8217;s dig into some of the evolving language around microservices. We&#8217;ll focus on defining microservices, macroservices, and monolithic architecture to help you decide which architectural style is the best pick for your next project.</p>
+<h2 id="what-are-microservices-">What Are Microservices?</h2>
+<p>The easiest, most direct way to understand the difference between microservices, macroservices, and the monolith is to begin with a brief explanation of each. Let&#8217;s start with the most obvious: <em>what are microservices</em>? To put it succinctly, a microservice is a small component dedicated to delivering a specific functionality. They&#8217;re usually decoupled and designed to be reused across projects and applications.</p>
+<p><a href="https://aws.amazon.com/microservices/">Amazon&#8217;s microservices</a> are some of the best-known and widely used examples of microservices in action. They&#8217;re an integral part of their decentralized and distributed software strategies. Amazon&#8217;s microservices can be used for everything from caching to storing objects to building databases. If you&#8217;re looking for an example of a fully-featured, robust microservice environment that can do nearly anything, Amazon&#8217;s definition of microservices is worth looking at.</p>
+<p><a href="https://www.codemotion.com/magazine/microservices/microservices-migration/">Airbnb&#8217;s use of microservices</a> is another great example of how microservices can be used in a distributed platform. We&#8217;ve also detailed how <a href="https://nordicapis.com/4-examples-of-microservices-architectures-done-right/">Netflix, Uber, Etsy</a>, and <a href="https://nordicapis.com/case-study-soundclouds-multi-year-journey-breaking-the-monolith/">SoundCloud</a> have taken advantage of internal microservice architectures. Microservices allow each component to be scalable while also being easier to maintain, as each component can be managed by a smaller team of engineers.</p>
+<p><strong>Advantages Of Microservices</strong></p>
+<ol>
+<li>Faster deployment</li>
+<li>Multiple teams can work on the same component</li>
+<li>Scalable</li>
+<li>Reusable across multiple applications</li>
+</ol>
+<p><strong>Disadvantages Of Microservices</strong></p>
+<ol>
+<li>Can be expensive</li>
+<li>Adds processing time</li>
+<li>Requires API management and a <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/">zero-trust policy</a></li>
+<li>Monitoring can be complicated</li>
+<li>Versioning can become complicated with multiple teams using the same microservice</li>
+</ol>
+<div class="well">Also read: <a href="https://nordicapis.com/when-is-microservices-architecture-worth-it/">When Is Microservices Architecture Worth It?</a></div>
+<h2 id="what-is-monolithic-architecture-">What Is Monolithic Architecture?</h2>
+<p>Monolithic architecture, also known as &#8220;the monolith,&#8221; has also been a trending topic in recent years. In reality, though, monolithic architecture is just another name for the traditional unified software design model. Monolithic could also be described as &#8220;self-contained,&#8221; where each function or component is <a href="https://nordicapis.com/the-difference-between-tight-coupling-and-loose-coupling/">tightly coupled</a> as opposed to the modular development environments of microservices architecture.</p>
+<p>Examples of monolithic architecture are plentiful, as most self-contained software and applications are monolithic. An eCommerce application could be one example of monolithic architecture in action, as each component interacts with the same codebase and backend. Traditional software like word processors and financial applications are also often monolithic.</p>
+<p><strong>Advantages Of Monolithic Architecture</strong></p>
+<ol>
+<li>Better throughput than microservice-based architecture</li>
+<li>Easier to test and debug</li>
+<li>Simplified logging with only codebase to keep track of</li>
+<li>Easier to configure and monitor than microservices</li>
+<li>Easier to deploy, as only one package needs to be migrated to the server</li>
+</ol>
+<p><strong>Disadvantages Of Monolithic Architecture</strong></p>
+<ol>
+<li>Codebase can be difficult to understand</li>
+<li>Slower and more unwieldy to modify</li>
+<li>Changes can have unexpected downstream effects</li>
+<li>Takes longer to compile</li>
+<li>Longer load times</li>
+</ol>
+<div class="well">Also check out: <a href="https://nordicapis.com/which-is-more-secure-monolith-or-microservices/">Which Is More Secure: Monolith or Microservices?</a></div>
+<h2 id="what-are-macroservices-">What Are Macroservices?</h2>
+<p>If you&#8217;re familiar with tech, you&#8217;ve likely already heard about microservices and monolithic architecture. Macroservices are the new kid on the block, so they&#8217;ve not been trending for as long. That&#8217;s bound to change, as a macroservice can split the difference between microservices and the monolith.</p>
+<p>SystemSoft Technologies <a href="https://sstech.us/blogs/leverage-microservices-web-applications/">describe macroservices</a> as &#8220;large or unwieldy microservices, services from the SOA (service-oriented architecture) or partial monoliths.&#8221; Even Financial <a href="https://files.devnetwork.cloud/APIWorld/presentations/2019/Kevin_Hyland.pdf">describe macroservices</a> more broadly as &#8220;a few, big, loosely coupled services.&#8221; Basically, they&#8217;re very large or complex microservices. Or they&#8217;re stripped-down and streamlined monoliths. That&#8217;s not <strong>all</strong> they are, though, as there are still some key differences between the three architectural styles.</p>
+<p>In Even Financial&#8217;s PowerPoint presentation, they lay out their approach to macroservices and their philosophy for using them. Even Financial&#8217;s adoption of macroservices is intended as a bridge from a monolithic architecture to microservices. In their example, they advocate for each team to decide what services they&#8217;ll need, like operating a catalog or processing images. They recommend using macroservices, which can then be converted to microservices once the architecture is set up.</p>
+<p>Software architect Mehmet Ozkaya makes macroservices even easier to understand with a handy infographic detailing the <a href="https://medium.com/design-microservices-architecture-with-patterns/macro-services-to-nano-services-evolution-of-software-architecture-424f927b63cb">evolution of software architecture</a>.</p>
+<div id="attachment_18183" style="width: 730px" class="wp-caption aligncenter"><img aria-describedby="caption-attachment-18183" decoding="async" fetchpriority="high" class="size-full wp-image-18183" src="https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices.jpg" alt="" width="720" height="273" srcset="https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices.jpg 720w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-300x114.jpg 300w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-240x91.jpg 240w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-220x83.jpg 220w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-180x68.jpg 180w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-150x57.jpg 150w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-90x34.jpg 90w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-200x76.jpg 200w, https://nordicapis.com/wp-content/uploads/microservices-macroservices-monolith-nanoservices-400x152.jpg 400w" sizes="(max-width: 720px) 100vw, 720px" /><p id="caption-attachment-18183" class="wp-caption-text">Macroservices architecture is somewhere between a monolith and nanoservices. Credit: Mehmet Ozkaya.</p></div>
+<p>In this example of macroservices (which they also refer to as &#8220;modular monolithic&#8221;), you can see that each service behaves like individual microservices. They share some resources, though, with individual components attached to shared databases.</p>
+<p><strong>Advantages Of Macroservices</strong></p>
+<ol>
+<li>Easier to monitor than microservices</li>
+<li>Share data across multiple functions</li>
+<li>Less tightly coupled than monolithic architecture</li>
+<li>Modular, like microservices</li>
+<li>Easy to upgrade, as they&#8217;re more self-contained than completely modular environments</li>
+</ol>
+<p><strong>Disadvantages Of Macroservices</strong></p>
+<ol>
+<li>More tightly coupled than microservices</li>
+<li>Slower to deploy than microservices</li>
+<li>Can cause security concerns</li>
+<li>Can still suffer from performance issues</li>
+<li>Can sometimes be an intermediary step rather than a full solution</li>
+</ol>
+<h2 id="the-difference-between-microservices-macroservices-and-the-monolith">The Difference Between Microservices, Macroservices, and The Monolith</h2>
+<p>Telling the difference between microservices, macroservices, and the monolith can be difficult as there is a lot of overlap between the three architectural styles. Monolithic architecture can still adopt a microservice-like infrastructure, for instance. Alternatively, as the role of each microservice component expands and grows more complex, it could take on more of a monolithic design.</p>
+<p>To put it briefly, microservices are designed to fulfill <em>one</em> purpose, which is usually conducted via a technology-agnostic protocol like HTTP. Monolithic architecture, on the other hand, is more like traditional software. This has some strengths, especially regarding monetization, but the monolith also has drawbacks. Instead of being comprised of small, more manageable modules, the monolith demands that everybody works on the same codebase. This means that one simple error can have <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/">untold downstream effects</a>.</p>
+<p>Macroservices have most of the benefits of microservices while avoiding some of the problems that plague monolithic architecture. Macroservices behave much like traditional monolithic architecture but are more customizable, as it&#8217;s actually a series of modules unified under a single UI.</p>
+<p>One of the principal differences between macroservices and microservices is that macroservices use the same data stores as other macroservices or monolithic applications. They also often offer access to multiple data objects and processes. This helps avoid some of the problems common to microservices that slow down processing times.</p>
+<h2 id="final-thoughts-on-microservices-vs-macroservices-vs-monolithic-architecture">Final Thoughts On Microservices vs. Macroservices vs. Monolithic Architecture</h2>
+<p>Whatever architectural style you end up deciding on, you&#8217;d do well to keep the others in mind. If you are working on a monolithic codebase, keep microservices and macroservices in mind to help keep functions from getting out of control. Macroservices could be considered a useful step in transitioning legacy monolithic solutions to microservice-based applications. Once the monolith has been converted to a macroservice, it&#8217;s much easier to turn each component into its own microservice.</p>
+<p>Whichever architectural style you decide on, one thing is certain. Sound design and time-honored programming principles will do more for your development than any flashy trend or glittery gimmick.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

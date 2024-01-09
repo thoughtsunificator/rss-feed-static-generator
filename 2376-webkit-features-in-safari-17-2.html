@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebKit Features in Safari 17.2</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">WebKit Features in Safari 17.2</h2>
+		<a target="_blank" href="https://webkit.org/blog/14787/webkit-features-in-safari-17-2/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Web technology is constantly moving forward, with both big new features and small subtle adjustments. Nowadays, web developers expect web browsers to update multiple times a year, instead of the once or twice a year typical of the late 2000s — or the once every two-to-five years typical before then. Over the last several years, you’ve let us know that you want our updates to ship more often. In response, we changed the way Safari is numbered just over two years ago.</p>
+<p>A new version of Safari shipped 17 times in the last 28 months — version 15.0, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 16.0, 16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 17.0, 17.1, and now, today’s Safari 17.2. This makes it possible to spread out the arrival of new web technology more widely across the year, and get it into the hands of your users that much sooner.</p>
+<p>With 39 features and 169 fixes, today’s release is Safari’s biggest December release of web technology ever. Let’s take a look at what’s inside.</p>
+<h2><a name="html"></a>HTML</h2>
+<h3><a name="exclusive-accordions"></a>Exclusive accordions</h3>
+<p>Safari 17.2 now supports the <code>name</code> attribute on the <code>&lt;details&gt;</code> element — which moves some commonly-used functionality from needing JavaScript to being baked into HTML. If you use the <code>name</code> attribute to give a series of <code>details</code> elements the same name, then only one in the series will be open at a time.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">details</span> <span class="keyword attribute">name</span>=<span class="attribute value string">"foobar"</span> <span class="keyword attribute">open</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">summary</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="keyword">summary</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">p</span>&gt;</span>Since this first item has an open attribute, it’s open by default.<span class="tag">&lt;/<span class="keyword">p</span>&gt;</span> 
+<span class="tag">&lt;/<span class="keyword">details</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">details</span> <span class="keyword attribute">name</span>=<span class="attribute value string">"foobar"</span>&gt;</span>
+   <span class="tag">&lt;<span class="keyword">summary</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="keyword">summary</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">p</span>&gt;</span>When you clicked this item, any other open item will automatically close.<span class="tag">&lt;/<span class="keyword">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">details</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">details</span> <span class="keyword attribute">name</span>=<span class="attribute value string">"foobar"</span>&gt;</span>
+   <span class="tag">&lt;<span class="keyword">summary</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="keyword">summary</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">p</span>&gt;</span>Now, developers don’t have to write any JavaScript to get this behavior.<span class="tag">&lt;/<span class="keyword">p</span>&gt;</span> 
+<span class="tag">&lt;/<span class="keyword">details</span>&gt;</span>
+</code></pre>
+<p>Any time a user clicks to open a second item, the first item automatically closes. This <em>can</em> make for a better user experience, although do make sure it’s right for your project. Think about users who might want or need to compare one item to another. Consider whether to not it will be annoying to have to tap over and over on each bit of content in order to read each one. This pattern can be frustrating when used inappropriately — even inaccessible.</p>
+<p>Here’s an example to compare the difference. Try it in a <a href="https://caniuse.com/mdn-html_elements_details_name">browser with support</a>.</p>
+<p><script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script></p>
+<p class="codepen" data-height="570" data-default-tab="result" data-slug-hash="wvNPBZa" data-editable="true" data-user="jensimmons" style="height: 570px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+<h3><a name="one-time-codes"></a>One time codes</h3>
+<p>Previously supported in Safari through other technology, the ability to have input fields that suggest received one-time codes is now available in WKWebView for iOS 17.2 and iPadOS 17.2.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">label</span> <span class="keyword attribute">for</span>=<span class="attribute value string">"onetimecode"</span>&gt;</span>Enter code:<span class="tag">&lt;/<span class="keyword">label</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">name</span>=<span class="attribute value string">"onetimecode"</span> <span class="keyword attribute">id</span>=<span class="attribute value string">"onetimecode"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"text"</span> <span class="keyword attribute">autocomplete</span>=<span class="attribute value string">"one-time-code"</span> /&gt;</span>
+</code></pre>
+<h2><a name="css"></a>CSS</h2>
+<h3><a name="nesting"></a>Nesting</h3>
+<p>Support for CSS Nesting shipped in <a href="https://webkit.org/blog/14154/webkit-features-in-safari-16-5/">Safari 16.5</a>, with one caveat. You could not nest element selectors without using an <code>&amp;</code> (or another technique) to make sure every nested line started with a symbol. Starting in Safari 17.2, that restriction is no longer necessary. You can now write:</p>
+<pre><code class="css"><span class="keyword">article</span> {
+  <span class="attribute">h1</span> { 
+    <span class="attribute">font-size</span>: <span class="number">1.8</span><span class="identifier">rem</span>;
+  }
+  <span class="keyword">p</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;  
+  }
+}
+</code></pre>
+<p>If you would like to continue to use the <code>&amp;</code>, you may. Any code already written with an <code>&amp;</code> will keep working long into the future. In fact, <code>&amp;</code> continues to be an important tool for other nesting techniques. Learn more in <a href="https://webkit.org/blog/14571/css-nesting-and-the-cascade/">CSS Nesting and the Cascade</a>.</p>
+<h3><a name="new-units"></a>New units</h3>
+<p>If you’ve ever written CSS, you’ve most certainly used the <code>em</code> and <code>rem</code> units for sizing typography and layout. That’s where <code>1em</code> is equal to the computed value of <code>font-size</code> on the current element, and <code>1rem</code> is equal to the “root em”, the font size set on the root <code>&lt;html&gt;</code> element. Having both <code>em</code> and <code>rem</code> gives us a lot of flexibility and power in defining consistent sizing across wide portions of the page. Similarly the <code>lh</code> unit shipped with <code>rlh</code>, for line height and root line height.</p>
+<p>Safari 17.2 extends the flexibility and power of root units by adding support for <code>rcap</code>, <code>rex</code>, <code>ric</code>, and <code>rch</code>. These units are the equal to the <code>cap</code>, <code>ex</code>, <code>ic</code>, and <code>ch</code> size set on the root <code>&lt;html&gt;</code> element.</p>
+<p>What are <code>cap</code>, <code>ex</code>, <code>ic</code>, and <code>ch</code>? Powerful units that refer to different measurements of the glyphs in a font.</p>
+<figure>
+<img fetchpriority="high" decoding="async" src="https://webkit.org/wp-content/uploads/diagram-of-CSS-units.png" alt="Diagram showing cap unit measuring from top to bottom of a capital letter A. The ex unit measures the height of a lowercase letter a. The ch unit is either the height or width of a 0. And the ic unit is either the height or width of the Chinese character for water." width="3168" height="906" class="aligncenter size-full wp-image-14807" srcset="https://webkit.org/wp-content/uploads/diagram-of-CSS-units.png 3168w, https://webkit.org/wp-content/uploads/diagram-of-CSS-units-300x86.png 300w, https://webkit.org/wp-content/uploads/diagram-of-CSS-units-1024x293.png 1024w, https://webkit.org/wp-content/uploads/diagram-of-CSS-units-768x220.png 768w, https://webkit.org/wp-content/uploads/diagram-of-CSS-units-1536x439.png 1536w, https://webkit.org/wp-content/uploads/diagram-of-CSS-units-2048x586.png 2048w" sizes="(max-width: 3168px) 100vw, 3168px" /> </figure>
+<p>CSS <code>cap</code> is the newest of these units, also now added to WebKit in Safari 17.2. The measurement of <code>1cap</code> is equal to the cap-height of the first available font.</p>
+<p>The <code>ex</code> unit refers to the x-height of the font. The <code>ch</code> unit is equal to the inline size of the zero character in a font — where inline size is the width in a horizontal <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode">writing mode</a>, or height in a vertical writing mode. The <code>ic</code> unit stands for “ideographic character” in CJK scripts (for Chinese, Japanese, Korean, and related writing systems). Like <code>ch</code>, the <code>ic</code> unit measures the inline size, in this case where <code>1ic</code> is equivalent to the width or height of one character. (Since typically all ideographic characters in a CJK font take up the same amount of space, it doesn’t matter which character is measured.)</p>
+<p>Safari 17.2 also adds all the typed OM factory functions for font and root font relative units, which can be used to construct CSS typed values from JavaScript.</p>
+<h3><a name="motion-path-and-shapes"></a>Motion Path and Shapes</h3>
+<p>WebKit first shipped support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Motion_Path">CSS Motion Path</a> in Safari 16.0, providing web developers the ability to animate objects along a custom path of any shape.</p>
+<p>With a rocky start and repeated renaming of properties, support for the <code>offset-*</code> properties was still painfully uneven cross browsers by the end of 2022. <a href="https://wpt.fyi/interop-2023">Interop 2023</a> chose Motion Path as a focus area, pulling the attention of the three major browser engines towards improving implementations. This attention also resulted in many changes to the <a href="https://drafts.fxtf.org/motion-1/">CSS Motion Path</a> specification. Safari 17.2 lands the last of the updates to WebKit needed to match the revised web standard.</p>
+<p>Safari 17.2 adds support for:</p>
+<ul>
+<li><code>offset-position</code> support for <code>circle()</code> and <code>ellipse()</code></li>
+<li><code>offset-position: normal</code> </li>
+<li><code>coord-box</code> and <code>&lt;position&gt;</code> parameters inside <code>ray()</code></li>
+<li><code>rect()</code> and <code>xywh()</code> shapes</li>
+</ul>
+<p>The <code>rect()</code> and <code>xywh()</code> shapes also work with <code>clip-path</code> and <code>shape-outside</code>. If you remember, for years we’ve been able to define a shape for clipping or moving content around or along. These <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape">shapes</a> have included circle, ellipse, polygon and path. Now, both the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/rect"><code>rect()</code></a> and  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/xywh"><code>xywh()</code></a> shapes allow for quick ways to define a rectangle. The <code>rect()</code> function uses four lengths to define the position of the top, right, bottom, and left edges of a rectangle, respectively, as insets from the top and left edges of the reference box. While <code>xywh()</code> takes its inspiration from the <code>viewBox</code> attribute in SVG, and defines the rectangle via offsets from the top and left edge of the reference box, with a specified width and height.</p>
+<p>Additionally, for increased usefulness, the size of <code>offset-path</code> shapes are now calculated relative to the containing block instead of the element itself, and take into account the <code>border-radius</code> of the containing block as well.</p>
+<h3><a name="animation"></a>Animation</h3>
+<p>Safari 17.2 adds support for the <code>linear()</code> function in CSS animations and transitions. It lets you define an easing function that interpolates linearly between a set of points. For example, <code>linear(0, 0.25, 1)</code> produces an easing function that moves linearly from 0, to 0.25, then to 1.</p>
+<figure class="mattewhite linear-easing-diagram"><img decoding="async" src="https://webkit.org/wp-content/uploads/linear-easing.png" alt="Graph of linear easing, showing a straight line moving up to the right, hitting a point, and turning to a steeper angle, also straight." width="3036" height="2684" class="aligncenter size-full wp-image-14812" srcset="https://webkit.org/wp-content/uploads/linear-easing.png 3036w, https://webkit.org/wp-content/uploads/linear-easing-300x265.png 300w, https://webkit.org/wp-content/uploads/linear-easing-1024x905.png 1024w, https://webkit.org/wp-content/uploads/linear-easing-768x679.png 768w, https://webkit.org/wp-content/uploads/linear-easing-1536x1358.png 1536w, https://webkit.org/wp-content/uploads/linear-easing-2048x1811.png 2048w" sizes="(max-width: 3036px) 100vw, 3036px" /><figcaption>Diagram of linear easing between multiple points, from the <a href="https://drafts.csswg.org/css-easing-2/#linear-easing-function-examples">CSS Easing Functions Level 2</a> web standard.</figcaption></figure>
+<h3><a name="math-functions"></a>Math functions</h3>
+<p>Safari 17.2 also adds support for mixing percentage and length arguments in the CSS Math functions <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/rem"><code>rem(</code></a><code>)</code>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mod"><code>mod()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/round"><code>round()</code></a>.</p>
+<p>CSS Math functions originally shipped in Safari 15.4. The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/round"><code>round()</code></a> function returns a rounded number based on a selected rounding strategy. And the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/rem"><code>rem()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mod"><code>mod()</code></a>  functions returns a remainder or modulus left over when the first parameter is divided by the second parameter, similar to the JavaScript remainder operator.</p>
+<p>Being able to mix percentage-based measurements with other kinds of lengths means, for example, you can set a width to 50% rounded up to the nearest 100px. Or in <a href="https://codepen.io/jensimmons/pen/LYqMJYb?editors=1100">this demo</a>, rounding 100% down to the nearest 8ric.</p>
+<pre><code class="css"><span class="keyword">body</span> {
+  <span class="attribute">--rounding-interval</span>: <span class="number">8</span><span class="identifier">ric</span>;
+}
+<span class="keyword">aside</span> {
+  <span class="attribute">width</span>: <span class="identifier">round</span>(<span class="identifier">down</span>, <span class="number">100%</span>, <span class="identifier">var</span>(<span class="identifier">--rounding-interval</span>));
+}
+</code></pre>
+<p><a href="https://codepen.io/jensimmons/pen/LYqMJYb?editors=1100">Try it out</a>, resizing the window to see the effect. The box is fluid, but jumps from 80ric to 88ric to 96ric wide, and so on, skipping over the sizes in-between.</p>
+<h3><a name="counters"></a>Counters</h3>
+<p>In September, <a href="https://webkit.org/blog/14445/webkit-features-in-safari-17-0/#:~:text=Counter%20styles">Safari 17.0</a> improved WebKit’s support for CSS Counters by providing the ability to style counters through <code>@counter-style</code>. Now, in Safari 17.2, WebKit adds support for the <code>counter-set</code> property, providing the ability to change the number in the count without creating a new counter. (That’s what <code>counter-reset</code> does, create a new counter scope.)</p>
+<p>Safari 17.2 also adds basic support for the <a href="https://drafts.csswg.org/css-lists/#list-item-counter"><code>list-item</code></a> value to the <code>counter-set</code>, <code>counter-reset</code> and <code>counter-increment</code> properties, allowing manipulation of the automatic numbering provided by <code>display: list-item</code>. While <code>list-item</code> has been available inside both <code>counter()</code> and <code>counters()</code> for some time, now you can override the value through <code>counter-set: list-item X</code> and <code>counter-increment: list-item X</code> (where “X” is a number of your choosing), instead of just reading the value.</p>
+<p>Learn more about CSS Counters in <a href="https://developer.apple.com/videos/play/wwdc2023/10121?time=1729"><em>What’s New in CSS</em></a> from WWDC23.</p>
+<h3><a name="mask-border"></a>Mask border</h3>
+<p>For years, <code>-webkit-mask-box-image</code> has provided a way to apply a mask to the edges of an element, through its border. This idea was originally implemented by WebKit, and ended up in the Chromium-based browsers as well. Now in Safari 17.2, we are proud to be the first browser to unprefix this property, and officially make it <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border"><code>mask-border</code></a>.</p>
+<p>The <code>mask-border</code> property is a shorthand for six properties:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border-mode"><code>mask-border-mode</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border-outset"><code>mask-border-outset</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border-repeat"><code>mask-border-repeat</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border-slice"><code>mask-border-slice</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border-source"><code>mask-border-source</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border-width"><code>mask-border-width</code></a></li>
+</ul>
+<p>Use mask border to create complex custom border edges, and mask the edge of the box in a unique fashion.</p>
+<p class="codepen" data-height="400" data-default-tab="css,result" data-slug-hash="mdvaGwL" data-editable="true" data-user="jensimmons" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+<p>The values for <code>mask-border</code> work the same fashion as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-image"><code>border-image</code></a>.</p>
+<h3><a name="custom-highlights"></a>Custom Highlights</h3>
+<p>Safari 17.2 adds support for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API">Custom Highlights API</a>. There are pseudo-elements for styling certain kinds of UA-provided highlights, like <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::selection"><code>::selection</code></a>. Now you can create your own highlights for any arbitrary <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range"><code>Range</code></a> objects in JS, and style them with the new CSS <code>::highlight()</code> pseudo-element, allowing for custom highlighting of Web content without altering the markup or DOM.</p>
+<p class="codepen" data-height="500" data-default-tab="css,result" data-slug-hash="vYbvrjq" data-editable="true" data-user="jensimmons" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+<p>The highlight pseudo-elements support text decorations like underlining and shadows as well as color and background-color changes.</p>
+<h2><a name="images-and-video"></a>Images and video</h2>
+<h3><a name="responsive-images"></a>Responsive images</h3>
+<p>Safari 17.2 adds support for <a href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-imagesrcset">preloading responsive images</a>. This code asks the browser to assess which size image is the appropriate one to use from the list of options, and to preload that one image.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">title</span>&gt;</span>Your page title<span class="tag">&lt;/<span class="keyword">title</span>&gt;</span>
+  <span class="comment">&lt;!-- other items --&gt;</span>
+  <span class="tag">&lt;<span class="keyword">link</span> <span class="keyword attribute">rel</span>=<span class="attribute value string">"preload"</span> 
+        <span class="keyword attribute">as</span>=<span class="attribute value string">"image"</span> 
+        <span class="keyword attribute">imagesrcset</span>=<span class="attribute value string">"flowers-small.jpg 400w, 
+                     flowers-medium.jpg 800w, 
+                     flowers-large.jpg 1200w,
+                     flowers-extralarge.jpg 1500w"</span> 
+        <span class="keyword attribute">imagesizes</span>=<span class="attribute value string">"50vw"</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">head</span>&gt;</span>
+</code></pre>
+<p>The <code>imagesrcset</code> and <code>imagesizes</code> attributes work just like the <code>srcset</code> and <code>sizes</code> attributes from familiar <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">responsive image</a> techniques.</p>
+<h3><a name="image-orientation"></a>Image Orientation</h3>
+<p>When rendering an image on a web page, Safari uses the EXIF metadata in the image file, when available, to determine the image&#8217;s correct orientation. This process ensures that images are displayed as intended by their creators.</p>
+<p>In earlier versions, this automatic orientation behavior was represented by the term <code>"none"</code> in the <code>ImageBitmapOptions</code>’s <code>imageOrientation</code> property. In Safari 17.2, to better reflect the actual functionality, this keyword is changed to <code>"from-image"</code>. The previous term, <code>"none"</code>, is now considered deprecated. It’s important to note that this change is a renaming for clarity and does not introduce new functionality.</p>
+<p>Additionally, there is an <a href="https://github.com/whatwg/html/issues/8085">ongoing discussion</a> about <a href="https://github.com/whatwg/html/issues/8085">reintroducing <code>"none"</code></a> with a literal interpretation in future updates to HTML. However, this <a href="https://github.com/whatwg/html/issues/8085">proposal</a> is still under consideration, mainly due to potential issues with backward compatibility.</p>
+<h3><a name="svg"></a>SVG</h3>
+<p>Safari 17.2 adds support for SVG <code>&lt;image crossorigin&gt;</code>, enabling read back when CORS-equipped cross-origin images are drawn on <code>canvas</code>.</p>
+<p>Safari 17.2 also adds support for the missing default value <code>translate</code> for <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform"><code>animateTransform</code></a>.</p>
+<h3><a name="webcodecs"></a>WebCodecs</h3>
+<p>Safari 17.2 adds support for H264 L1T2 to WebCodecs. WebKit originally shipped support for video <a href="https://developer.mozilla.org/docs/Web/API/WebCodecs_API">WebCodecs</a> in Safari 16.4. It gives web developers complete control over how media is processed by providing low-level access to the individual frames of a video stream. It’s especially useful for applications that do video editing, video conferencing, or other real-time processing of video. By adding WebCodecs support for H264 L1T2 in Safari 17.2, developers now have more flexibility in which formats they want to offer to their users.</p>
+<h3><a name="media-element"></a>Media element</h3>
+<p>Previous only available as <code>webkitPreservesPitch</code>, Safari 17.2 adds support for the unprefixed version of <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/preservesPitch"><code>HTMLMediaElement.preservesPitch</code></a>. This property determines whether or not the browser should adjust the pitch of the audio to compensate for changes to the playback rate made in <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate"><code>HTMLMediaElement.playbackRate</code></a>.</p>
+<p>And Safari 17.2 also adds support for automatic text track selection for <code>'metadata'</code> tracks.</p>
+<h2><a name="javascript"></a>JavaScript</h2>
+<h3><a name="import-attributes"></a>Import attributes</h3>
+<p>Safari 17.2 adds support for <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import"><code>import</code> attributes</a>. It provides a way to add type information to module <code>import</code> statements, enabling you to import JSON modules like this:</p>
+<pre><code class="js"><span class="keyword control">import</span> <span class="identifier">json</span> <span class="identifier">from</span> <span class="string">"./foobar.json"</span> <span class="keyword operator">with</span> { <span class="identifier">type</span><span class="operator">:</span> <span class="string">"json"</span> };
+<span class="keyword control">import</span>(<span class="string">"foobar.json"</span>, { <span class="keyword operator">with</span><span class="operator">:</span> { <span class="identifier">type</span><span class="operator">:</span> <span class="string">"json"</span> } });
+</code></pre>
+<h3><a name="number-format"></a>Number Format</h3>
+<p>Safari 17.2 adds support for <code>Intl.NumberFormat</code>’s FormatApproximately operation. The <code>formatRange()</code> method of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat"><code>Intl.NumberFormat</code></a> instances formats a range of numbers according to the locale and formatting options of this <code>Intl.NumberFormat</code> object. For example, a format range such as <code>formatRange(3, 5)</code> for the USD currency will be rendered as “$3.00 – $5.00”. If the two numbers are very close to each other, the FormatApproximately feature will add a tilde sign in front of the number, so that <code>formatRange(2.9, 3.1)</code> will be represented as “~$3”, aka approximatively 3 USD.</p>
+<h2><a name="web-api"></a>Web API</h2>
+<h3><a name="fetch-priority"></a>Fetch Priority</h3>
+<p>Safari 17.2 adds support for Fetch Priority. It allows developers to set the priority of a resource (e.g., an image, script, or linked resource such as a style sheet) in relation to other resources. This can be done via the <code>fetchpriority</code> HTML attribute or as an option passed via the Fetch API.  The supported values are “high”, “low”, or “auto” (default). For example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">header</span>&gt;</span>
+  <span class="comment">&lt;!-- Prioritize this! --&gt;</span>
+  <span class="tag">&lt;<span class="keyword">img</span> <span class="keyword attribute">fetchpriority</span>=<span class="attribute value string">"high"</span> <span class="keyword attribute">alt</span>=<span class="attribute value string">"I'm really important!"</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"logo.png"</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">header</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">main</span>&gt;</span>...<span class="tag">&lt;/<span class="keyword">main</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">footer</span>&gt;</span>
+  <span class="comment">&lt;!-- it's ok if this image loads later, it's below the fold --&gt;</span>
+  <span class="tag">&lt;<span class="keyword">img</span> <span class="keyword attribute">fetchpriority</span>=<span class="attribute value string">"low"</span> <span class="keyword attribute">alt</span>=<span class="attribute value string">"I'm not very important"</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"social.png"</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">footer</span>&gt;</span>
+</code></pre>
+<p>And via the Fetch API, you can do:</p>
+<pre><code class="js"><span class="identifier">async</span> <span class="keyword type">function</span> <span class="identifier">fetchHighPriorityData</span>(){
+  <span class="keyword type">const</span> <span class="identifier">response</span> <span class="operator">=</span> <span class="identifier">await</span> <span class="identifier">fetch</span>(<span class="string">"important/data.json"</span>, { <span class="identifier">priority</span><span class="operator">:</span> <span class="string">"high"</span> });
+  <span class="comment">// process the high priority response data...
+</span>}
+<span class="identifier">fetchHighPriorityData</span>();
+</code></pre>
+<h3><a name="forms-validation"></a>Forms validation</h3>
+<p>Safari 17.2 adds support for the <code>title</code> pattern attribute for validation errors. When set, it shows the value of the <code>title</code> attribute when a validation error occurs.  This is active only if you submit the form or call <code>reportValidity</code> on the event of your choice.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">form</span> <span class="keyword attribute">action</span>=<span class="attribute value string">"/login"</span> <span class="keyword attribute">id</span>=<span class="attribute value string">"form"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">input</span> 
+    <span class="keyword attribute">type</span>=<span class="attribute value string">"text"</span> 
+    <span class="keyword attribute">name</span>=<span class="attribute value string">"username"</span>
+    <span class="keyword attribute">placeholder</span>=<span class="attribute value string">"Username"</span>
+    <span class="keyword attribute">pattern</span>=<span class="attribute value string">"[a-z]{1,10}"</span>
+    <span class="keyword attribute">title</span>=<span class="attribute value string">"Must be shorter than 10 characters and lowercase only"</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">form</span>&gt;</span>
+</code></pre>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">form</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">getElementById</span>(<span class="string">"form"</span>);
+<span class="identifier">form</span>.<span class="identifier">addEventListener</span>(<span class="string">"keypress"</span>, () <span class="operator">=</span><span class="operator">&gt;</span> <span class="identifier">form</span>.<span class="identifier">reportValidity</span>());
+</code></pre>
+<figure class="form-title-pattern matte white">
+<picture><source srcset="https://webkit.org/wp-content/uploads/safari-17-2-form-validaiton-dark.png" media="(prefers-color-scheme: dark)" /><img decoding="async" src="https://webkit.org/wp-content/uploads/safari-17-2-form-validation.png" alt="Password input field with error message in a bubble above, reading &quot;Match the requested format: Must be shorter than 10 characters and lowercase only&quot;." width="1134" height="638" class="aligncenter wp-image-14847" srcset="https://webkit.org/wp-content/uploads/safari-17-2-form-validation.png 1134w, https://webkit.org/wp-content/uploads/safari-17-2-form-validation-300x169.png 300w, https://webkit.org/wp-content/uploads/safari-17-2-form-validation-1024x576.png 1024w, https://webkit.org/wp-content/uploads/safari-17-2-form-validation-768x432.png 768w" sizes="(max-width: 1134px) 100vw, 1134px" />
+</picture>
+</figure>
+<h3><a name="canvas"></a>Canvas</h3>
+<p>Safari 17.2 adds support for <code>CanvasRenderingContext2D.prototype.reset()</code>, which resets the canvas context to its default state (i.e., it clears it to transparent black along with setting everything back related to the canvas to its default state).</p>
+<h3><a name="dom-events"></a>DOM Events</h3>
+<p>Safari 17.2 adds support for sending certain mouse events to disabled form controls.  Disabled form controls now receive <code>mouseenter</code>, <code>mouseleave</code>, <code>mousemove</code>, <code>mouseover</code>, and <code>mousewheel</code> events. A disabled form controls continue to not receive <code>click</code>, <code>mouseup</code>, and <code>mousedown</code> events.</p>
+<h2><a name="web-apps"></a>Web Apps</h2>
+<h3><a name="login-cookies"></a>Login cookies</h3>
+<p>When we brought web apps to Mac, we designed the experience of “Add to Dock” so that macOS copies the website’s current cookies over to the new web app. That way, if someone is logged into their account in the browser, they will remain logged in within the web app. They don’t have to log in again.</p>
+<p>Now, that same behavior works on iOS 17.2 and iPadOS 17.2. Whether a user is in Safari, Safari View Controller, or another browser on iPhone or iPad, when they tap “Add to Home Screen” and create a web app, the cookies are copied over, including the information about login state. This will only work if the authentication state is stored within cookies. No other kind of local storage is copied over.</p>
+<p>After a user adds a web app to the Home Screen or Dock, no other website data is shared, which is great for privacy.</p>
+<h3><a name="web-app-icons"></a>Web App icons</h3>
+<p>On macOS, users expect app icons to look sharp at a variety of sizes, ranging from 16x16px to 1024x1024px. With Safari 17.2 on macOS Sonoma, we have improved how web app icons are loaded, resolving many common issues such as icons appearing blurry with jagged edges, lacking padding, or failing to load. If you supply multiple size variants for the preferred icon kind, all sizes are saved on macOS, allowing the most appropriate size to be displayed based on context. For example, the largest size variant is shown in Finder&#8217;s Gallery view and Quick Look, a medium sized variant is shown in the Dock and Launchpad, while a smaller sized variant is shown in Spotlight.</p>
+<p>To provide the best user experience on macOS, supply at least one opaque, full-bleed <code>maskable</code> square icon in the web app manifest, either as SVG (any size) or high resolution bitmap (1024&#215;1024). If the web app manifest doesn&#8217;t specify any high resolution full-bleed icon, Safari may fall back to the <code>apple-touch-icon</code> if it improves the user experience. If you specify <code>apple-touch-icon</code> through link elements on the webpage, do not omit these link elements based on user agent detection. When you only supply a transparent icon with custom shape, Safari automatically adjusts spacing between your icon and the standard system background on macOS to avoid tangents.</p>
+<h3><a name="user-options"></a>User options</h3>
+<p>Now, in a web app on Mac, you can enable the status bar by going to View > Show Status Bar. Once you do so, anytime you hover over a link, the URL will appear in the bottom left of the web app window.</p>
+<p>Also new to web apps on Mac, a user can just click a button to easily change which web page is loaded by default in new web app windows. Navigate to the page, open Settings, and click “Set to Current Page”.</p>
+<figure><picture class="preserve-color"><source srcset="https://webkit.org/wp-content/uploads/web-app-settings-dark.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/web-app-settings-light.png" alt="Settings panel for a web app. Showing the button to &quot;Set to Current Page&quot;." width="1772" height="884" class="aligncenter size-full wp-image-14820" srcset="https://webkit.org/wp-content/uploads/web-app-settings-light.png 1772w, https://webkit.org/wp-content/uploads/web-app-settings-light-300x150.png 300w, https://webkit.org/wp-content/uploads/web-app-settings-light-1024x511.png 1024w, https://webkit.org/wp-content/uploads/web-app-settings-light-768x383.png 768w, https://webkit.org/wp-content/uploads/web-app-settings-light-1536x766.png 1536w" sizes="(max-width: 1772px) 100vw, 1772px" /></picture></figure>
+<h2><a name="webgl"></a>WebGL</h2>
+<p>Safari 17.2 adds support for two new <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Using_Extensions">WebGL extensions</a>, <code>EXT_blend_func_extended</code> and <code>WEBGL_clip_cull_distance</code>.</p>
+<h2><a name="privacy"></a>Privacy</h2>
+<p>Safari 17.2 adds blob partitioning. Blobs are now partitioned by top-level site to prevent them from being a possible cross-site tracking vector.</p>
+<h2><a name="web-inspector"></a>Web Inspector</h2>
+<h3><a name="color-palette-with-color-variables"></a>Color Palette with color variables</h3>
+<p>Many sites today use CSS Custom Properties to define a set of variables for colors used on the site. But it can be hard to remember what the variable names are, and annoying to have to go look them up.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/color-dark.png 2x" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" srcset="https://webkit.org/wp-content/uploads/color-light.png 2x" src="https://webkit.org/wp-content/uploads/color-light.png" alt="Color picker showing four rows of boxes at the bottom — each box holding a different color that's been defined in a CSS variable by the web developer." width="327" height="398" class="aligncenter wp-image-14860" /></figure>
+<p>The Color Picker, shown whenever you click on an inline color swatch in the Styles sidebar panel, now provides a color palette with all the applicable color variables for the selected element. This makes it easy to see at a glance all of the predefined colors intended to be reused. Click on any of the color swatches from the “Variables” color palette use the corresponding color variable.</p>
+<h3><a name="animation"></a>Animation</h3>
+<p>The progression of a CSS animation or transition is controlled by a timing function, which defines aspects like acceleration, deceleration or smoothness of playback. Web Inspector shows an inline swatch next to <code>animation-timing-function</code> and <code>transition-timing-function</code> CSS properties Styles sidebar panel. Clicking on the swatch triggers a specialized editor which offers a preview of the effect of the given timing function value as well as input controls for adjusting specific parameters.</p>
+<p>Web Inspector already provides previews and editing of timing function values like <code>cubic-bezier()</code>, <code>linear</code> , <code>ease-in</code> , <code>ease-out</code>  and <code>ease-in-out</code> . With the introduction of the <code>steps()</code> timing function in Safari, there’s now a specialized preview and editor for it in Web Inspector.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/timing-dark.png 2x" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" srcset="https://webkit.org/wp-content/uploads/timing-light.png 2x" src="https://webkit.org/wp-content/uploads/timing-light.png" alt="Screenshot of animation timing function steps editor, in Web Inspector. A dropdown box that shows the shape of the timing function — it looks like a set of steps in a staircase." width="327" height="339" class="aligncenter wp-image-14865" /></figure>
+<p>A CSS declaration like <code>animation-timing-function: steps(5)</code> tells the browser to split the animation time in five segments of equal length and play it in discrete steps instead of a smooth progression, an effect similar to stop motion animation. The specialized editor for the <code>steps()</code> timing function shows the effect preview as a step-like illustration and provides controls to adjust the number of steps and the step position.</p>
+<h2><a name="fixes-for-interop-2023-and-more"></a>Fixes for Interop 2023 and more</h2>
+<p>WebKit for Safari 17.2 also includes a lot of bug fixes and feature polish. Many of these fixes are part of our contribution to improving the <a href="https://webkit.org/blog/13706/interop-2023/#focus-areas">26 focus areas of Interop 2023</a>.</p>
+<p>The Interop Project is an ongoing collaboration between Apple, Bocoup, Igalia, Google, Microsoft, and Mozilla to focus on a specific set of web technologies and get them to work exactly the same in every browser.  At the beginning of 2023, less than 49% the selected automated tests were passing in the released versions all three major browser engines. Now over 93% of them pass in the preview versions.</p>
+<figure class="mattewhite interop-results preserve-color"><img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/Interop-score-Dec-11.png" alt="Current Interop 2023 scores: Chrome, 99%. Firefox, 95%. Safari 97%." width="1032" height="1202" class="aligncenter size-full wp-image-14829 preserve-color" srcset="https://webkit.org/wp-content/uploads/Interop-score-Dec-11.png 1032w, https://webkit.org/wp-content/uploads/Interop-score-Dec-11-258x300.png 258w, https://webkit.org/wp-content/uploads/Interop-score-Dec-11-879x1024.png 879w, https://webkit.org/wp-content/uploads/Interop-score-Dec-11-768x895.png 768w" sizes="(max-width: 1032px) 100vw, 1032px" /><img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/Interop-graph-2.png" alt="Graph of Interop 2023 scores, starting at 59-81% and going up across the year to 93-99%." width="1032" height="946" class="aligncenter size-full wp-image-14833 preserve-color" srcset="https://webkit.org/wp-content/uploads/Interop-graph-2.png 1032w, https://webkit.org/wp-content/uploads/Interop-graph-2-300x275.png 300w, https://webkit.org/wp-content/uploads/Interop-graph-2-1024x939.png 1024w, https://webkit.org/wp-content/uploads/Interop-graph-2-768x704.png 768w" sizes="(max-width: 1032px) 100vw, 1032px" /></figure>
+<p>This fall, as part of Interop 2023, <code>subgrid</code> and CSS Masking shipped in Chrome, while <code>:has()</code> and <code>@property</code> shipped in Firefox. Since our last release, Safari greatly improved our implementation of Pointer and Mouse events, added support for more codecs to Web Codecs, re-engineered CSS Motion Path, and dedicated a significant portion of our WebKit engineering work to fixing dozens of remaining test failures scattered across the <a href="https://webkit.org/blog/13706/interop-2023/#focus-areas">focus areas</a>.</p>
+<p>You can learn more about the accomplishments of Interop 2023 by studying the <a href="https://wpt.fyi/interop-2023?feature=interop-2023-webcomponents&amp;stable">Interop dashboard</a>.</p>
+<h3><a name="resolved-issues"></a>Resolved Issues</h3>
+<h4><a name="accessibility"></a>Accessibility</h4>
+<ul>
+<li>Fixed parsing the ARIA <code>role</code> attribute to ignore leading and trailing whitespace, including line breaks. (113923520)</li>
+<li>Fixed form landmarks being incorrectly exposed when they are missing a label. (115462091)</li>
+<li>Fixed non-group and non-tree-item children of <code>role="treeitem"</code> elements becoming stale after dynamic changes. (115936550)</li>
+<li>Fixed Play Animation and Pause Animation animated image context menu items sometimes not appearing after setting toggle. (117215059)</li>
+<li>Fixed VoiceOver not announcing button labels if the button is in a shadow root. (118118138)</li>
+</ul>
+<h4><a name="apple-pay"></a>Apple Pay</h4>
+<ul>
+<li>Deprecated <code>enabled</code> in favor of <code>available</code> in <code>shippingContactEditingMode</code>. (113159800)</li>
+</ul>
+<h4><a name="autofill"></a>AutoFill</h4>
+<ul>
+<li>Fixed clipping the &#8220;Strong Password&#8221; button after selecting &#8220;Suggest New Password&#8221;. (113701243)</li>
+</ul>
+<h4><a name="css"></a>CSS</h4>
+<ul>
+<li>Fixed the <code>font-family</code> descriptor for <code>@font-palette-values</code> to accept multiple values. (105975619)</li>
+<li>Fixed <code>:has(:scope)</code> matching. (106524140)</li>
+<li>Fixed container selection for container units in pseudo-elements. (106739553)</li>
+<li>Fixed container query with font units to invalidate when the font changes. (106739736)</li>
+<li>Fixed <code>:nth-child()</code> invalidation when not in subject position. (106740353)</li>
+<li>Fixed <code>:has(:host)</code> invalidation. (106768205)</li>
+<li>Fixed <code>:has(:nth-child())</code> invalidation and related. (106768224)</li>
+<li>Fixed invalidating scope-breaking <code>:has(:is(...))</code> selectors. (106768250)</li>
+<li>Fixed handling dynamic updates to viewport units when used in <code>@property</code> initial value. (108287215)</li>
+<li>Fixed baseline aligned flex items to also be aligned using their fallback alignment. (109496710)</li>
+<li>Fixed: Changed to allow an empty <code>font-family</code> name in <code>@font-face</code> and <code>@font-palette-values</code>. (109613703)</li>
+<li>Fixed the <code>&lt;basic-shape&gt;</code> implementation for <code>offset-path</code>. (110565070)</li>
+<li>Fixed <code>:user-invalid</code> and <code>:user-valid</code> interactions with form reset and submission. (110677832)</li>
+<li>Fixed <code>&lt;coord-box&gt;</code> implementation for <code>offset-path</code>. (110938788)</li>
+<li>Fixed <code>&lt;position&gt;</code> to never serialize to a single value. (111750372)</li>
+<li>Fixed <code>NaN</code> numeric representation to be <code>0</code> not <code>Infinity</code>. (111984451)</li>
+<li>Fixed serializing CSS math function root nodes. (111984509)</li>
+<li>Fixed <code>min()</code> and <code>max()</code> with one argument to always collapse to <code>calc()</code>. (111986569)</li>
+<li>Fixed animation using <code>padding-block</code> or <code>padding-inline</code> not overriding the set padding style. (112023856)</li>
+<li>Fixed <code>color-mix()</code> to respect <code>:visited</code> style to resolve &#8220;currentcolor&#8221;. (112419198)</li>
+<li>Fixed serialization to always serialize implicit <code>&amp;</code> and an implicit nested rule. (112900363)</li>
+<li>Fixed <code>&lt;hr&gt;</code> <code>width</code> attribute set to <code>0</code> or <code>0px</code> to correctly compute to <code>0px</code>. (113087533)</li>
+<li>Fixed <code>mod()</code> evaluation. (113213059)</li>
+<li>Fixed <code>round()</code> evaluation when the number is a multiple of the step. (113233588)</li>
+<li>Fixed computation of the <code>from-font</code> value for <code>font-size-adjust</code>. (113328110)</li>
+<li>Fixed the serialization of percentages in <code>color-mix()</code>. (113399146)</li>
+<li>Fixed <code>border-image</code> to fall back to the <code>border</code> property if the image is invalid. (113646392)</li>
+<li>Fixed <code>&lt;family-name&gt;</code> to forbid generic families. (113746537)</li>
+<li>Fixed the check for in-progress layout when setting a containing block rect for <code>ray()</code> used with <code>motion-path</code>. (113780201)</li>
+<li>Fixed animating a <code>rotate</code> property when the <code>scale</code> property is also used. (113999490)</li>
+<li>Fixed <code>&lt;resolution&gt;</code> to not accept negative resolutions for <code>@property</code>. (114235642)</li>
+<li>Fixed <code>currentcolor</code> to correctly inherit computed <code>:visited</code> style. (114254856)</li>
+<li>Fixed nested subgrids from contributing to the calculation of the enclosing track size. (114271839)</li>
+<li>Fixed <code>container-name</code> to use scoped names. (114284428)</li>
+<li>Fixed container unit resolution to check if the selected container is eligible. (114291153)</li>
+<li>Fixed the <code>scripting</code> media query to never match <code>initial-only</code>. (114340361)</li>
+<li>Fixed form submission to also affect <code>:user-invalid</code> and <code>:user-valid</code> state. (114580382)</li>
+<li>Fixed the container for the <code>::part</code> pseudo-element to be selected from the originating element tree. (114626579)</li>
+<li>Fixed serialization of <code>infinity</code> and <code>-infinity</code> in colors. (114808320)</li>
+<li>Fixed <code>lab</code>, <code>lch</code>, <code>oklab</code>, <code>oklch</code> components to be clamped to appropriate ranges. (114808444)</li>
+<li>Fixed <code>color-mix()</code> to not serialize to legacy color syntax. (114949008)</li>
+<li>Fixed resolving the size of a replaced element by using its intrinsic size as the width. (115007278)</li>
+<li>Fixed basic shapes to use an offset motion path. (115068196)</li>
+<li>Fixed grid to not always put first and last baseline aligned items into different alignment contexts. (115083708)</li>
+<li>Fixed determining non-orthogonal grid item&#8217;s columnAxisPosition by considering fallback alignment for first/last baseline. (115136343)</li>
+<li>Fixed <code>:has(~ :is(.x ~ .y))</code> to consider all siblings of the <code>:has</code> scope when invalidating. (115205991)</li>
+<li>Fixed invalidating <code>:default</code> pseudo-class changes on input elements. (115236525)</li>
+<li>Fixed <code>calc(clamp(1px, 1em, 1vh))</code> to collapse to <code>clamp(1px, 1em, 1vh)</code>. (115240159)</li>
+<li>Fixed offset path inset shapes with a <code>border-radius</code>. (115316728)</li>
+<li>Fixed determing baseline for grid by considering the first and last baseline-aligned grid items. (115441833)</li>
+<li>Fixed the serialization of the computed style of <code>grid-area</code>. (115521493)</li>
+<li>Fixed not serializing <code>at &lt;position&gt;</code> in <code>circle()</code> or <code>ellipse()</code> if unspecified. (115866108)</li>
+<li>Fixed serialization of <code>shape-outside</code>. (115938310)</li>
+<li>Fixed serialization issues with <code>clip-path</code> and <code>offset-path</code>. (115953688)</li>
+<li>Fixed <code>getComputedStyle()</code> to return a resolved value for <code>font-size-adjust: from-font</code>. (116151111)</li>
+<li>Fixed non-orthogonal subgrid margin, border, and padding to be considered for self-align baseline items in the same alignment context. (116206243)</li>
+<li>Fixed subgrids to have their row-start margins resolved after column sizing in the outer grid. (116369419)</li>
+<li>Fixed accumulating the sum of non-orthogonal nested subgrids margin, border, and padding for first baseline alignment in the column axis. (116443747)</li>
+<li>Fixed CSS grid support for last baseline alignment in the column axis for subgrid items with non-orthogonal ancestors. (116484865)</li>
+<li>Fixed validating <code>@property</code> at parse-time. (116803886)</li>
+<li>Fixed computing the definite free space of grid rows when the grid has an <code>aspect-ratio</code> and definite logical width. (117138268)</li>
+<li>Fixed the continuity of transform animations through singular transforms. (117209302)</li>
+<li>Fixed <code>@supports selector(:popover-open)</code> to reflect disabled state. (117226626)</li>
+<li>Fixed CSS grid to synthesize the central baseline of grid items in the column axis. (117424263)</li>
+<li>Fixed serialization for CSS highlight pseudo-elements. (117864974)</li>
+</ul>
+<h4><a name="dom"></a>DOM</h4>
+<ul>
+<li>Fixed handling tasks scheduled for web pages in the back-forward cache. (116349535)</li>
+<li>Removed the non-standard <code>incremental</code> attribute and <code>search</code> event. (48937114)</li>
+</ul>
+<h4><a name="fonts"></a>Fonts</h4>
+<ul>
+<li>Fixed COLRv0 font rendering. (115721319)</li>
+</ul>
+<h4><a name="html"></a>HTML</h4>
+<ul>
+<li>Fixed <code>&lt;input type="number"&gt;</code> not returning the correct value when a decimal is entered. (107187010)</li>
+<li>Fixed alert sounds in web apps being replayed when the system play/pause key is pressed. Playing short-duration <code>&lt;audio&gt;</code> sources no longer registers the page as the system’s Now Playing application. (114667001)</li>
+<li>Fixed dynamic handling of <code>&lt;base&gt;</code> elements. (114756660)</li>
+<li>Fixed URL encoding of <code>&lt;base&gt;</code> elements. (114861187)</li>
+<li>Fixed URL encoding of SVG <code>&lt;image&gt;</code> elements. (114873373)</li>
+<li>Fixed empty value attributes to not be ignored on image input types. (114887143)</li>
+<li>Fixed <code>[dir=auto]</code> invalidation with password fields. (115887776)</li>
+</ul>
+<h4><a name="http"></a>HTTP</h4>
+<ul>
+<li>Fixed COOP header breaking back and forward behavior when client-side redirects are involved. (104659192)</li>
+</ul>
+<h4><a name="javascript"></a>JavaScript</h4>
+<ul>
+<li>Fixed an edge case in the semantics of <code>for</code> loops. (44730906)</li>
+<li>Fixed: Optimized <code>Array#splice</code> to skip result array creation if it is not used at all. (113367762)</li>
+<li>Fixed: Updated <code>Intl.DateTimeFormat</code>&#8216;s to obtain options only once, matching spec changes. (113789192)</li>
+<li>Fixed: Increased <code>minimumFractionDigits</code> and <code>maximumFractionDigits</code> limit from 20 to 100. (113869343)</li>
+<li>Fixed rounding to nearest in optimizing JITs. (114208146)</li>
+<li>Fixed global and eval code to throw a TypeError if a function declaration attempts to shadow a non-configurable, non-writable global property. (114215396)</li>
+<li>Fixed <code>Intl.NumberFormat</code> and <code>Intl.PluralRules</code> <code>roundingIncrement</code> to match specification changes. (114219889)</li>
+</ul>
+<h4><a name="loading"></a>Loading</h4>
+<ul>
+<li>Fixed navigation to about scheme URLs without opaque paths. (116238322)</li>
+</ul>
+<h4><a name="media"></a>Media</h4>
+<ul>
+<li>Fixed an issue where Safari would briefly change <code>document.visibilityState</code> to <code>hidden</code> when entering fullscreen. (104984915)</li>
+<li>Fixed <code>canplay</code> event to fire for video elements where the first sample&#8217;s presentation time is slightly greater than 0. (105169372)</li>
+<li>Fixed <code>RTCRtpSender maxFramerate</code> encoding parameter having no effect. (112397603)</li>
+<li>Fixed handling <code>NaN</code> in audio delay curves. (114881060)</li>
+<li>Fixed WebCodecs hardware encoders losing a frame. (115252749)</li>
+<li>Fixed audio elements with event listeners not getting garbage collected. (116346717) (FB13224538)</li>
+<li>Fixed the close algorithms for audio and video WebCodec decoders and encoders to match specification changes. (116346725)</li>
+<li>Fixed picture-in-picture when the <code>srcObject</code> is a video stream. (116465668)</li>
+<li>Fixed constraints on the maximum width or height causing blurry <code>getDisplayMedia</code> video. (116810370)</li>
+<li>Fixed <code>object-fit: fill</code> to work for a video element using a canvas stream <code>srcObject</code>. (116832514)</li>
+<li>Fixed the limit for the number of real-time audio threads. (116864442)</li>
+</ul>
+<h4><a name="networking"></a>Networking</h4>
+<ul>
+<li>Fixed an issue causing embedded videos in iWork documents to fail. (116493190)</li>
+</ul>
+<h4><a name="rendering"></a>Rendering</h4>
+<ul>
+<li>Fixed the scrollbar not updating on CSS color-scheme change. (99567600)</li>
+<li>Fixed ignoring <code>calc()</code> values on <code>&lt;colgroup&gt;</code> elements. (106692191)</li>
+<li>Fixed out-of-flow boxes not showing. (112733052) (FB12722063)</li>
+<li>Fixed out-of-flow <code>&lt;br&gt;</code> to not trigger a line break. (113208050)</li>
+<li>Fixed ancestor subgrids&#8217; gutters to add to the extra layer of margin for descendant subgrids. (114271857)</li>
+<li>Fixed a bug where swapping to Safari from another app (or tab) would flash black. (116530284)</li>
+</ul>
+<h4><a name="safari"></a>Safari</h4>
+<ul>
+<li>Fixed website notifications delivered through APNS to appear with the domain name and Safari icon, matching the appearance of website notifications delivered through Web Push. (116612341)</li>
+</ul>
+<h4><a name="safari-extensions"></a>Safari Extensions</h4>
+<ul>
+<li>Fixed an issue where dynamic declarativeNetRequest rules would not override static rules. (107044339) (FB12074742)</li>
+<li>Fixed behavior of <code>domains</code>, <code>requestDomains</code>, <code>excludedDomains</code>, and <code>excludedRequestDomains</code> declarativeNetRequest values to match subdomains by default. (117592996)</li>
+</ul>
+<h4><a name="scrolling"></a>Scrolling</h4>
+<ul>
+<li>Fixed clicking and dragging the overlay scrollbar that overlaps a composited, positioned descendant of a container with <code>overflow: scroll</code>. (89598421)</li>
+<li>Fixed scrolling on nested <code>pointer-events: auto</code> inside <code>pointer-events: none</code>. (110954175)</li>
+<li>Fixed a bug that caused some complicated websites to freeze when scrolling. (113318934)</li>
+</ul>
+<h4><a name="service-workers"></a>Service Workers</h4>
+<ul>
+<li>Fixed a cache miss bug in DOMCache that triggered service worker fetch errors. (115740959) (FB13188943)</li>
+</ul>
+<h4><a name="svg"></a>SVG</h4>
+<ul>
+<li>Fixed the motion path anchor point used for SVG when the <code>transform-box</code> is not the <code>view-box</code>. (108285569)</li>
+<li>Fixed <code>paint-order</code> property to inherit. (114030037)</li>
+<li>Fixed the SVG mask to work as a mask-resource for the CSS <code>mask-image</code>. (114465545)</li>
+<li>Fixed repainting an SVG element with a CSS reference filter when the filter changes. (117047658)</li>
+</ul>
+<h4><a name="text"></a>Text</h4>
+<ul>
+<li>Fixed font fallback to ignore generic families for Private-Use Area Unicode codepoints. (115901340) (FB13197885)</li>
+</ul>
+<h4><a name="web-animations"></a>Web Animations</h4>
+<ul>
+<li>Fixed <code>color-scheme</code> to support discrete animation. (94615599)</li>
+</ul>
+<h4><a name="web-api"></a>Web API</h4>
+<ul>
+<li>Fixed <code>createPattern</code> to return null for a zero height image. (104285727)</li>
+<li>Fixed: Aligned <code>&lt;script type language&gt;</code> with the HTML Standard. (109600797)</li>
+<li>Fixed returning opaque origin for <code>blob:</code> URL containing inner non-http(s): URL. (109781193)</li>
+<li>Fixed: Changed navigable target names to <code>_blank</code> if they have dangling markup. (110134016)</li>
+<li>Fixed incorrect tab stop if the tab-size is a <code>&lt;length&gt;</code> and the distance to the next tab stop is less than <code>0.5ch</code>. (112043546)</li>
+<li>Fixed <code>URL</code>, <code>pathname</code>, and <code>search</code> setter incorrectly stripping trailing spaces. (112433299)</li>
+<li>Fixed custom highlight text decoration to respect priority. (112494779)</li>
+<li>Fixed handling focusability for plugin elements which have browsing context. (112821601)</li>
+<li>Fixed: Converted embed hidden into a proper boolean attribute. (113051256)</li>
+<li>Fixed edge cases in parsing options. (113826514)</li>
+<li>Fixed <code>&lt;a&gt;</code> and <code>&lt;area&gt;</code> origin getters to return an empty string for non-parsable URLs. (114078288)</li>
+<li>Fixed <code>&lt;a&gt;</code> and <code>&lt;area&gt;</code> protocol setters for non-parsable URLs. (114371380)</li>
+<li>Fixed URL&#8217;s protocol setter to forbid change a special URL to a non-special URL. (114624048)</li>
+<li>Fixed Worker and SharedWorker to fire an Event instead of an ErrorEvent for a parsing error. (114694487)</li>
+<li>Fixed <code>adoptedStyleSheets.length</code> to be settable and improved <code>ObservableArray</code> alignment with the specification. (114822538)</li>
+<li>Fixed a bug that could cause incorrect equality checks between DOM Document objects. (114857465)</li>
+<li>Fixed checking for <code>NaN</code> when creating a DelayNode for WebAudio. (115008784)</li>
+<li>Fixed <code>element.querySelector(":has(:scope *)")</code> to never match. (115158183)</li>
+<li>Fixed mutation events for child nodes. (115527098)</li>
+<li>Fixed mouse event handling such that if a drag operation is initiated from a canceled <code>mousedown</code> event, all subsequent mouse events are sent to the originating frame until the drag operation ends with a corresponding <code>mouseup</code> event. (116668701)</li>
+<li>Fixed light dismiss for a popover element within a complex shadow DOM breaks light dismiss calculation. (117214343)</li>
+</ul>
+<h4><a name="web-apps"></a>Web Apps</h4>
+<ul>
+<li>Fixed an issue where page zoom is reset to 100% after quit and relaunch. (110298546) (FB12233006)</li>
+<li>Fixed a bug where <code>theme-color</code> is not applied to the title bar in web apps. (112980819)</li>
+<li>Fixed an issue where sign in pages sometimes unexpectely open in Safari instead of the web app. (113520837)</li>
+<li>Fixed an issue where clicking on notifications after 30 seconds from delivery fail to open the web app. (113757950)</li>
+<li>Fixed an issue that repeatedly asks for camera access after relaunching a web app. (114110664)</li>
+<li>Fixed remembering window size for a webpage added to the Dock. (114534506)</li>
+<li>Fixed an issue where a blank window remains on screen after starting a download. (115457207)</li>
+<li>Fixed an issue where some login pages unexpectedly open in Safari. (115527738) (FB13171758)</li>
+<li>Fixed a bug where the <code>scope</code> member in the web app manifest is not respected. (116261588)</li>
+<li>Fixed an issue where AutoFill settings in Safari do not take effect in web apps. (117671220)</li>
+<li>Fixed an issue where option+clicking a link failed to start a download. (117809013)</li>
+<li>Fixed an issue where JavaScript-based redirection to an external website causes a blank window to appear or the current window to disappear. (117809066)</li>
+<li>Fixed an issue where web app usage is not reflected in Screen Time. (117809075)</li>
+<li>Fixed an issue that prevents Ignore Screen Time Limits from working in web apps. (117809075)</li>
+</ul>
+<h4><a name="web-assembly"></a>Web Assembly</h4>
+<ul>
+<li>Fixed WebAssembly SIMD vectors that can get corrupted when using <code>v128.any_true</code>. (111050621)</li>
+</ul>
+<h4><a name="web-inspector"></a>Web Inspector</h4>
+<ul>
+<li>Fixed: Moved the details sidebar to the bottom when Web Inspector is too narrow. (63567675) (FB7711657)</li>
+<li>Fixed objects logged to the console with multiple private fields that use the same name. (109215331)</li>
+<li>Fixed broken search functionality. (113714342)</li>
+</ul>
+<h4><a name="webdriver"></a>WebDriver</h4>
+<ul>
+<li>Fixed dispatched mouse events always having <code>buttons</code> property set to zero. (116049187)</li>
+</ul>
+<h4><a name="webgl"></a>WebGL</h4>
+<ul>
+<li>Fixed a bug where multi-level textures would lose levels in WebGL. (116362216)</li>
+</ul>
+<h4><a name="webrtc"></a>WebRTC</h4>
+<ul>
+<li>Fixed long delays switching audio input in video conferencing applications. (102724364)</li>
+<li>Fixed video quality when using TransformStream with Simulcast. (110395571)</li>
+<li>Fixed WebRTC UDP traffic to use interfaces already used by TCP traffic. (111000448)</li>
+<li>Fixed RTCDataChannel to use BinaryType to align with specifications. (114559008)</li>
+</ul>
+<h2><a name="updating-to-safari-17-2"></a>Updating to Safari 17.2</h2>
+<p>Safari 17.2 is available for <a href="https://www.apple.com/ios/ios-17/">iOS 17</a>, <a href="https://www.apple.com/ipados/ipados-17/">iPadOS 17</a>, <a href="https://www.apple.com/macos/sonoma-preview/">macOS Sonoma</a>, macOS Ventura and macOS Monterey.</p>
+<p>If you are running macOS Ventura or macOS Monterey, you can update Safari by itself by going to Software Update, and clicking “More info”. On macOS Ventura, that’s  > System Settings > General > Software Update > More info. To get the latest version of Safari on your iPhone or iPad, go to Settings > General > Software Update, and tap to update.</p>
+<h2><a name="feedback"></a>Feedback</h2>
+<p>We love hearing from you. To share your thoughts on Safari 17.2, find us on Mastodon at <a href="https://front-end.social/@jensimmons">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis">@jondavis@mastodon.social</a>. Or send a reply on X to <a href="https://twitter.com/webkit">@webkit</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/">feedback</a> on Safari UI, or your <a href="https://bugs.webkit.org/">WebKit bug report</a> about web technologies or Web Inspector. Filing issues really does make a difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/download/">Safari Technology Preview</a> to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<p>You can also find this information in the <a href="https://developer.apple.com/documentation/safari-release-notes/">Safari 17.2 release notes</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

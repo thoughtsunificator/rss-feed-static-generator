@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Announcing `async fn` and return-position `impl Trait` in traits (Rust Blog)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Announcing `async fn` and return-position `impl Trait` in traits (Rust Blog)</h2>
+		<a target="_blank" href="https://lwn.net/Articles/955925/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The Rust Blog <a
+href="https://blog.rust-lang.org/2023/12/21/async-fn-rpit-in-traits.html">announces</a>
+the stabilization of a couple of trait features aimed at improving support
+for <tt>async</tt> code:
+<p>
+<blockquote class="bq">
+	Ever since the stabilization of RFC #1522 in Rust 1.26, Rust has
+	allowed users to write <tt>impl Trait</tt> as the return type of
+	functions (often called "RPIT"). This means that the function
+	returns "some type that implements <tt>Trait</tt>". This is
+	commonly used to return closures, iterators, and other types that
+	are complex or impossible to write explicitly. [...]
+<p>
+	Starting in Rust 1.75, you can use return-position <tt>impl
+	Trait</tt> in trait (RPITIT) definitions and in trait impls. For
+	example, you could use this to write a trait method that returns an
+	iterator: [...]
+<p>
+	So what does all of this have to do with async functions? Well,
+	async functions are "just sugar" for functions that return
+	<tt>-&gt; impl Future</tt>. Since these are now permitted in
+	traits, <b>we also permit you to write traits that use <tt>async fn</tt>.</b>
+</blockquote>
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

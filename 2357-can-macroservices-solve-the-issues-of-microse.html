@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Can ‘Macroservices’ Solve the Issues of Microservices?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Can ‘Macroservices’ Solve the Issues of Microservices?</h2>
+		<a target="_blank" href="https://nordicapis.com/can-macroservices-solve-the-issues-of-microservices/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The purported <a href="https://www.forrester.com/blogs/the-death-of-microservices/">death of microservices</a> has been a hot talking point this year, generating 32-point headlines and innumerable think pieces as the software development community tries to figure out what&#8217;s next. An incendiary <a href="https://www.primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90">blog post by Amazon</a> revealed that reducing microservices in Amazon Prime allowed them to cut operating costs by a staggering <strong>90%</strong>. This revelation started the domino effect, as more and more companies and developers joined the pile-on. Expenses are just one problem with microservices, it turns out. Adopting microservices can lead to security issues, increased lag time, and API sprawl if you&#8217;re not careful.</p>
+<p>In the wake of microservices&#8217; death knell (which is being sounded too hastily, it turns out, as we shall see), some developers are turning to &#8216;macroservices&#8217; as a middle-ground between microservices and the monolith. To find out how, we&#8217;re going to unpack macroservices to look at how this architectural style can solve some common problems with microservices.</p>
+<h2 id="what-are-macroservices-">What Are Macroservices?</h2>
+<p>Microservices have been popular for over a decade, <a href="https://www.leanix.net/en/blog/a-brief-history-of-microservices">debuting in 2011</a>, although the concept of &#8220;micro web services&#8221; has been in circulation since 2005. In comparison, the idea of macroservices is brand new, having only come onto the scene this year.</p>
+<p>So, what are macroservices? Coming up with a clear definition of macroservices will help give you a clearer idea of how macroservices might solve the issues of microservices.</p>
+<p>Grasping macroservices requires a thorough understanding of microservices and monolithic architecture. Simply put, microservices are small components meant to perform one specific function. Microservices are generally <a href="https://nordicapis.com/how-to-design-loosely-coupled-microservices/">loosely coupled</a> and meant to be reused across projects. Monolithic architecture, often called &#8220;the monolith,&#8221; is the technical name for a traditional architectural style where everything is unified. You might think of monolithic architecture as &#8220;self-contained.&#8221;</p>
+<p><a href="https://nordicapis.com/whats-the-difference-microservice-macroservice-monolith/">Macroservices</a> split the difference between microservices and the monolith. Often, a macroservice is simply a monolith that has been broken down into smaller monoliths. Likewise, macroservices can perform similarly to microservices but with some key differences. Unlike microservices, macroservices often share a data store with other macroservices or applications. Macroservices often offer access to multiple data objects or processes, as well.</p>
+<p>In a macroservice, every function is defined as a <strong>module</strong>. Individual macroservices may be made up of multiple functions, however. They tend to be tightly coupled but can be decoupled with little effort. Each module should have its own entry point, as well. Modules inside a macroservice can depend on other modules provided they can also be converted to a REST service.</p>
+<h2 id="how-macroservices-solve-issues-with-microservices">How Macroservices Solve Issues With Microservices</h2>
+<p>As we saw with <a href="https://nordicapis.com/back-to-the-monolith-why-did-amazon-dump-microservices/">Amazon Video</a>, microservices are <a href="https://nordicapis.com/when-is-microservices-architecture-worth-it/">not the best solution</a> for <em>every single</em>. While microservices can be truly revolutionary when used in the right way, they can also cause bloat, increase lag, and increase overhead, production costs, and operating expenses <strong>exponentially</strong>.</p>
+<p>Here are some ways that macroservices could help solve some common issues caused by microservices.</p>
+<h3 id="design">Design</h3>
+<p>The buzz around microservices inspired many people to jump on the bandwagon, even if there was little technical justification. Implementing a microservice with little forethought is a fantastic way for a microservice to spiral out of control.</p>
+<p>Macroservices require forethought and planning by their very nature. Seeing as how macroservices are made up of individual functions bundled together, you need to think about shared resources, data flow, permissions, and scope as <a href="https://www.linkedin.com/pulse/micro-services-macro-services-vasileios-fasoulas/">part of the design process</a>.</p>
+<h3 id="monitoring">Monitoring</h3>
+<p>Microservices confound a lot of traditional monitoring solutions. Conventional monitoring solutions might measure how often a particular resource is invoked. However, each invocation might require multiple functions, meaning you&#8217;re not getting a complete picture by simply measuring API calls. Macroservices make it more straightforward to keep track of traffic and what resources are being used, as multiple functions are bundled together and have more surface area to measure.</p>
+<h3 id="security">Security</h3>
+<p>Microservices can be a security risk, as well. <a href="https://nordicapis.com/whats-the-difference-between-microservices-and-web-services/">Microservices</a> are often distributed across multiple cloud platforms, resulting in increased risk and reduced visibility of individual components. Every microservice needs to communicate with external resources, as well, which also creates security risks. Finally, microservices rely on distributed data, which increases the likelihood of compromised data and data breaches. Macroservices reduce all of these risks. External interactions are minimized, and data is less vulnerable. Authentication is simpler as there&#8217;s less traffic coming from various points.</p>
+<h3 id="simplifies-testing">Simplifies Testing</h3>
+<p>Testing microservices has inherent challenges. Each microservice needs to be tested individually, for one. Different microservices can live on different servers, too, which can create problems with authorization and permissions. The services can shift between servers for each individual session, further complicating matters. Bundling services and functions into a macroservice helps make it easier to test them. It&#8217;s also easier and less time-consuming to set up permissions and authorizations.</p>
+<h3 id="reduces-overkill">Reduces Overkill</h3>
+<p>Scalability is one of the main selling points for microservices. While it&#8217;s important to be ready for anything, many applications will never become as big as <a href="https://nordicapis.com/4-examples-of-microservices-architectures-done-right/">Netflix, Amazon, or Uber</a>. It&#8217;s simply not necessary to have <em>everything</em> decentralized and distributed across multiple servers and virtual environments. Adopting macroservices can help you keep the number, size, and scope of microservices to a minimum, so you&#8217;ll just have what you need. Best of all, macroservices are still adaptable, so they&#8217;re able to rise to unexpected surges in demand should the situation call for it.</p>
+<p>Macroservices can also address some problems common to monolithic architecture, as noted by <a href="https://pradeepbatchu.medium.com/micro-vs-macro-vs-mono-ecc77f211d0e">enterprise architect Pradeep Batchu</a>. Modules can be decoupled from the macroservice to become their own independent entity, for one thing. Blue-green deployment can help to prevent brittleness or unexpected breakage by providing multiple development environments, thus making the whole system more robust.</p>
+<h2 id="final-thoughts-on-macroservices">Final Thoughts On Macroservices</h2>
+<p>As we have seen, there&#8217;s no single architectural style that&#8217;s perfect for every occasion. While there will always be trends and exciting and powerful new innovations and tools, you&#8217;ll get the most out of your projects when you spend time thinking deeply and critically about your particular needs.</p>
+<p>With that in mind, macroservices reduce many common issues of using microservices. They&#8217;re also a <a href="https://sstech.us/blogs/leverage-microservices-web-applications/">useful transitional step</a> between monolithic architecture and microservices. Therefore, it may be well worth it to spend some time getting comfortable with macroservices, even if you end up settling on a different architecture for a particular project.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

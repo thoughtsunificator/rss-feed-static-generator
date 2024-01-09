@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Lenôtre: Maestro - Introduction</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Lenôtre: Maestro - Introduction</h2>
+		<a target="_blank" href="https://lwn.net/Articles/956699/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      On his blog, 
+Luc Lenôtre <a href="https://blog.lenot.re/a/introduction">introduces
+Maestro</a>, "<q>a Unix-like kernel and operating system written from
+scratch in Rust</q>". <a
+href="https://github.com/llenotre/maestro">Maestro</a> is intended to be
+"<q>lightweight and compatible-enough with Linux to be usable in everyday
+life</q>".  The project began, in C, back in 2018, but switched over to
+Rust after a year-and-a-half.  The current status:
+<blockquote class="bq">
+Maestro is a monolithic kernel, supporting only the x86 (in 32 bits)
+architecture for now. 
+<p>
+At the time of writing, <b>135</b> out of <b>437</b> Linux system calls
+(roughly 31%) are 
+more or less implemented. The project has <b>48&nbsp;800</b> lines of code
+across <b>615</b> 
+files (all repositories combined, counted using the <tt>cloc</tt> command). 
+</blockquote>
+<p>
+There is a <a href="https://news.ycombinator.com/item?id=38852360">Hacker
+News discussion</a> of the project as well.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 181</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 181</h2>
+		<a target="_blank" href="https://webkit.org/blog/14721/release-notes-for-safari-technology-preview-181/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 181 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/6c5b713260df52cc170be32034565f28e1022dc2...cf6d4e0d9fc41d5bc300fe9c01f7c18d30030e3a">268060@main&#8230;269057@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed non-group and non-tree-item children of <code>role="treeitem"</code> elements becoming stale after dynamic changes. (<a href="https://commits.webkit.org/268385@main">268385@main</a>) (115936550)</li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>content-visibility</code>. (<a href="https://commits.webkit.org/268313@main">268313@main</a>) (114734606)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>&lt;position&gt;</code> to never serialize to a single value. (<a href="https://commits.webkit.org/268291@main">268291@main</a>) (111750372)</li>
+<li>Fixed computation of the <code>from-font</code> value for <code>font-size-adjust</code>. (<a href="https://commits.webkit.org/269041@main">269041@main</a>) (113328110)</li>
+<li>Fixed <code>&lt;family-name&gt;</code> to forbid generic families. (<a href="https://commits.webkit.org/268203@main">268203@main</a>) (113746537)</li>
+<li>Fixed nested subgrids from contributing to the calculation of the enclosing track size. (<a href="https://commits.webkit.org/268947@main">268947@main</a>) (114271839)</li>
+<li>Fixed offset path inset shapes with a <code>border-radius</code>. (<a href="https://commits.webkit.org/268192@main">268192@main</a>) (115316728)</li>
+<li>Fixed blend modes with Interoperability improvements. (<a href="https://commits.webkit.org/268173@main">268173@main</a>) (115688282)</li>
+<li>Fixed not serializing <code>at &lt;position&gt;</code> in <code>circle()</code> or <code>ellipse()</code> if unspecified. (<a href="https://commits.webkit.org/268344@main">268344@main</a>) (115866108)</li>
+<li>Fixed serialization of <code>shape-outside</code>. (<a href="https://commits.webkit.org/268365@main">268365@main</a>) (115938310)</li>
+<li>Fixed serialization issues with <code>clip-path</code> and <code>offset-path</code>. (<a href="https://commits.webkit.org/268379@main">268379@main</a>) (115953688)</li>
+<li>Fixed <code>circle()</code> and <code>ellipse()</code> to use non-offset starting position for CSS Motion Path. (<a href="https://commits.webkit.org/268400@main">268400@main</a>) (115962433)</li>
+<li>Fixed non-orthogonal subgrid margin, border, and padding to be considered for self-align baseline items in the same alignment context. (<a href="https://commits.webkit.org/268804@main">268804@main</a>) (116206243)</li>
+</ul>
+<h3>DOM</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed handling tasks scheduled for web pages in the back-forward cache. (<a href="https://commits.webkit.org/268782@main">268782@main</a>) (116349535)</li>
+</ul>
+<h3>Forms</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed serialization of <code>autocomplete</code> with a <code>webauthn</code> token. (<a href="https://commits.webkit.org/268520@main">268520@main</a>) (116107937)</li>
+</ul>
+<h3>HTML</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>one-time-code</code> as an allowed <code>autocomplete</code> field name. (<a href="https://commits.webkit.org/268097@main">268097@main</a>) (115684196)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed respecting the first parseable <code>&lt;meta name="color-scheme"&gt;</code> value. (<a href="https://commits.webkit.org/268064@main">268064@main</a>) (64705222)</li>
+<li>Fixed <code>[dir=auto]</code> invalidation with password fields. (<a href="https://commits.webkit.org/268322@main">268322@main</a>) (115887776)</li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Implemented Annex B block-level function hoisting for global scope. (<a href="https://commits.webkit.org/268553@main">268553@main</a>) (53234438)</li>
+<li>Added support for <code>Promise.withResolvers</code>. (<a href="https://commits.webkit.org/268892@main">268892@main</a>) (116473362)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed stringification algorithm of the Function constructor to match specifications. (<a href="https://commits.webkit.org/268633@main">268633@main</a>) (102065151)</li>
+<li>Fixed generator functions to not be Annex B hoisting candidates. (<a href="https://commits.webkit.org/268352@main">268352@main</a>) (114213642)</li>
+<li>Fixed the algorithm determining Annex B hoisted functions to perform lexical scope chain walk. (<a href="https://commits.webkit.org/268302@main">268302@main</a>) (115504046)</li>
+<li>Fixed block-level function declarations to not allow shadow <code>var</code> bindings. (<a href="https://commits.webkit.org/268634@main">268634@main</a>) (116202546)</li>
+<li>Fixed duplicate lexical bindings to only be allowed for function declarations. (<a href="https://commits.webkit.org/268671@main">268671@main</a>) (116252189)</li>
+</ul>
+<h3>Loading</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Link-stylesheet elements to not fire load events for non-text/css and non-2XX responses. (<a href="https://commits.webkit.org/268535@main">268535@main</a>) (116112223)</li>
+<li>Fixed link-stylesheet elements to not fire load events for non-2XX responses such as 3XX responses that do not redirect. (<a href="https://commits.webkit.org/268779@main">268779@main</a>) (116331826)</li>
+</ul>
+<h3>Media</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for variable packet durations in Vorbis streams. (<a href="https://commits.webkit.org/268625@main">268625@main</a>) (99712672)</li>
+<li>Added MediaStream support for <code>whiteBalanceMode</code>. (<a href="https://commits.webkit.org/268102@main">268102@main</a>) (115552800)</li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed uses of <code>backdrop-filter: blur()</code> with <code>mix-blend-mode</code> to render properly. (<a href="https://commits.webkit.org/268426@main">268426@main</a>) (34470317)</li>
+<li>Fixed resizing behavior with <code>writing-mode: vertical-rl</code> or <code>direction: rtl</code>. (<a href="https://commits.webkit.org/268157@main">268157@main</a>) (102620110)</li>
+<li>Fixed handling iframes with <code>display: none</code>. (112494003)</li>
+<li>Fixed opacity and rendering the root element background image. (<a href="https://commits.webkit.org/268156@main">268156@main</a>) (115396444)</li>
+<li>Fixed the color of the drop shadow to preserve its alpha channel. (<a href="https://commits.webkit.org/268233@main">268233@main</a>) (115812347)</li>
+<li>Fixed filters with outsets to repaint the entire filterRegion if GraphicsStyles are used. (<a href="https://commits.webkit.org/268282@main">268282@main</a>) (115817290)</li>
+<li>Fixed compositing the filter style transparency layers to not clip the destination context. (<a href="https://commits.webkit.org/268341@main">268341@main</a>) (115901634)</li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed <code>margin-trim</code> behavior for floats to match specification changes. (<a href="https://commits.webkit.org/268227@main">268227@main</a>) (115794102)</li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the SVG mask to work as a mask-resource for the CSS <code>mask-image</code>. (<a href="https://commits.webkit.org/268272@main">268272@main</a>) (114465545)</li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for CSS Custom Highlights API. (<a href="https://commits.webkit.org/268673@main">268673@main</a>) (116255516)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>formAssociated=true</code> causing a custom element to become focusable. (<a href="https://commits.webkit.org/268756@main">268756@main</a>) (115909679)</li>
+<li>Fixed TextTrackCue constructor to match updated specifications. (<a href="https://commits.webkit.org/268644@main">268644@main</a>) (116002871)</li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed resource sorting in the Sources tab to consider the filename and extensions separately. (<a href="https://commits.webkit.org/268557@main">268557@main</a>) (72905353)</li>
+</ul>
+<h3>WebDriver</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed dispatched mouse events always having <code>buttons</code> property set to zero. (<a href="https://commits.webkit.org/268529@main">268529@main</a>) (116049187)</li>
+</ul>
+<h3>WebGL</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a bug where multi-level textures would lose levels in WebGL. (<a href="https://commits.webkit.org/268819@main">268819@main</a>) (116362216)</li>
+</ul>
+<h3>WebRTC</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed media tracks obtained with <code>{"width":1920,"height":1080,"frameRate":24}</code>. (<a href="https://commits.webkit.org/268386@main">268386@main</a>) (61747755)</li>
+<li>Fixed video quality when using TransformStream with Simulcast. (<a href="https://commits.webkit.org/268912@main">268912@main</a>) (110395571)</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

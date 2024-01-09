@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Kubernetes CRD Validation Using CEL</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Kubernetes CRD Validation Using CEL</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2023/11/kubernetes-crd-validation-using-cel.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUHuPkEe0FoC2Nl2Juk_sCq0AmLivjEgmamYdrEY5c4MSl6lQg2iLjb5EMZby1Y8AoBtcd_a9OfX2swcp6qYBlm25q1nmyX69TigkfBAWAjpxSuFShZhFORnRTj3a6CqVXxWrxAg6gRzHG6TQ8AtfVv_CAHtnpH3EKeWx9DHXwu1nXkli6LM7ej2qWujQ/s1600/Social%20-%20OSS%20-%20Making%20your%20CRD%20more%20self-contained.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUHuPkEe0FoC2Nl2Juk_sCq0AmLivjEgmamYdrEY5c4MSl6lQg2iLjb5EMZby1Y8AoBtcd_a9OfX2swcp6qYBlm25q1nmyX69TigkfBAWAjpxSuFShZhFORnRTj3a6CqVXxWrxAg6gRzHG6TQ8AtfVv_CAHtnpH3EKeWx9DHXwu1nXkli6LM7ej2qWujQ/s1600/Social%20-%20OSS%20-%20Making%20your%20CRD%20more%20self-contained.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipwhTqDYCtPiUJ6VhGoV32rp8hgWb9qYcrkl0pDBcyQ6VpVCwj4z8ZUwCqlaSum963VUfPSYF_61p96qz3LndUhVF8qhR2QXrwsXxIkYXjNWIGx1YV7zfTATS0m3zxfgBiars5Y2GX342pD_nmZLiRiOBbOKTly73iHqF_TIjNmCsBM_mGqLsY4m8YsGw/s1600/Header%20-%20OSS%20-%20Making%20your%20CRD%20more%20self-contained.png"><img border="0" data-original-height="800" data-original-width="100%" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipwhTqDYCtPiUJ6VhGoV32rp8hgWb9qYcrkl0pDBcyQ6VpVCwj4z8ZUwCqlaSum963VUfPSYF_61p96qz3LndUhVF8qhR2QXrwsXxIkYXjNWIGx1YV7zfTATS0m3zxfgBiars5Y2GX342pD_nmZLiRiOBbOKTly73iHqF_TIjNmCsBM_mGqLsY4m8YsGw/s1600/Header%20-%20OSS%20-%20Making%20your%20CRD%20more%20self-contained.png" /></a>
+
+<h2>Motivation</h2>
+
+<p>CRDs was used to support two major categories of built-in validation:</p>
+<ul>
+<li><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema" target="_blank">CRD structural schemas</a>: Provide type checking of custom resources against schemas.
+</li><li>OpenAPIv3 validation rules: Provide regex ('pattern' property), range limits ('minimum' and 'maximum' properties) on individual fields and size limits on maps and lists ('minItems', 'maxItems').
+</li></ul>
+
+<p>For use cases that cannot be covered by build-in validation support:</p>
+<ul>
+<li>Admission Webhooks: have validating admission webhook for further validation</li>
+<li>Custom validators: write custom checks in several languages such as Rego</li>
+</ul>
+
+<p>While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.</p>
+
+<p>To provide an self-contained, in-process validation, an inline expression language - <a href="https://github.com/google/cel-go" target="_blank">Common Expression Language (CEL)</a>, is introduced into CRDs such that a much larger portion of validation use cases can be solved without the use of webhooks. </p>
+
+<p>It is sufficiently lightweight and safe to be run directly in the kube-apiserver, has a straight-forward and unsurprising grammar, and supports pre-parsing and typechecking of expressions, allowing syntax and type errors to be caught at CRD registration time.</p><div style="text-align: left;"><br /></div>
+
+<h2>CRD validation rule</h2>
+
+<p><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules" target="_blank">CRD validation rules</a> are promoted to GA in Kubernetes 1.29 to validate custom resources based on <i>validation rules</i>. </p>
+
+<p>Validation rules use the Common Expression Language (CEL) to validate custom resource values. Validation rules are included in CustomResourceDefinition schemas using the <span style="color: #0d904f; font-family: Courier;">x-kubernetes-validations</span> extension.</p>
+
+<p>The Rule is scoped to the location of the <span style="color: #0d904f; font-family: Courier;">x-kubernetes-validations</span> extension in the schema. And <span style="color: #0d904f; font-family: Courier;">self</span> variable in the CEL expression is bound to the scoped value.</p>
+
+<p>All validation rules are scoped to the current object: no cross-object or stateful validation rules are supported.</p>
+
+<p>For example:</p>
+
+<div style="background: rgb(248, 248, 248); border: 0px; overflow: auto; width: auto;"><pre style="line-height: 125%; margin: 0px;"><span style="color: #0d904f; font-family: Courier;"><span>...</span>
+  openAPIV3Schema<span>:</span>
+    type<span>:</span> object
+    properties<span>:</span>
+      spec<span>:</span>
+        type<span>:</span> object
+        x<span>-</span>kubernetes<span>-</span>validations<span>:</span>
+          <span>-</span> rule<span>:</span> <span>"self.minReplicas &lt;= self.replicas"</span>
+            message<span>:</span> <span>"replicas should be greater than or equal to minReplicas."</span>
+          <span>-</span> rule<span>:</span> <span>"self.replicas &lt;= self.maxReplicas"</span>
+            message<span>:</span> <span>"replicas should be smaller than or equal to maxReplicas."</span>
+        properties<span>:</span>
+          <span>...</span>
+          minReplicas<span>:</span>
+            type<span>:</span> integer
+          replicas<span>:</span>
+            type<span>:</span> integer
+          maxReplicas<span>:</span>
+            type<span>:</span> integer
+        required<span>:</span>
+          <span>-</span> minReplicas
+          <span>-</span> replicas
+          <span>-</span> maxReplicas</span>
+</pre></div>
+
+<p>will reject a request to create this custom resource:</p>
+
+<div style="background: rgb(248, 248, 248); border: 0px; overflow: auto; width: auto;"><pre style="line-height: 125%; margin: 0px;"><span style="color: #0d904f; font-family: Courier;"><b>apiVersion</b><span>:</span> <span>"stable.example.com/v1"</span>
+
+
+<b>kind</b><span>:</span> CronTab
+
+
+<b>metadata</b><span>:</span>
+
+
+ <b>name</b><span>:</span> my<span>-</span>new<span>-</span>cron<span>-</span>object
+
+
+<b>spec</b><span>:</span>
+
+
+ <b>minReplicas</b><span>:</span> <span>0</span>
+
+
+ <b>replicas</b><span>:</span> <span>20</span>
+
+
+ <b>maxReplicas</b><span>:</span> <span>10</span></span>
+</pre></div>
+
+<p>with the response:</p>
+
+<div style="background: rgb(248, 248, 248); border: 0px; overflow: auto; width: auto;"><pre style="line-height: 125%; margin: 0px;"><span style="color: #0d904f; font-family: Courier;">The CronTab <span>"my-new-cron-object"</span> is invalid<span>:</span>
+<span>*</span> spec<span>:</span> Invalid value<span>:</span> map[<span>string</span>]interface {}{<span>"maxReplicas"</span><span>:10</span>, <span>"minReplicas"</span><span>:0</span>, <span>"replicas"</span><span>:20</span>}<span>:</span> replicas should be smaller than <span>or</span> equal <span>to</span> maxReplicas<span>.</span></span>
+</pre></div>
+
+<p><span style="color: #0d904f; font-family: Courier;">x-kubernetes-validations</span> could have multiple rules. The <span style="color: #0d904f; font-family: Courier;">rule</span> under <span style="color: #0d904f; font-family: Courier;">x-kubernetes-validations</span> represents the expression which will be evaluated by CEL. The <span style="color: #0d904f; font-family: Courier;">message</span> represents the message displayed when validation fails.</p>
+  
+<p><b>Note:</b> You can quickly test CEL expressions in <a href="https://playcel.undistro.io/" target="_blank">CEL Playground</a>.</p>
+
+<p>Validation rules are compiled when CRDs are created/updated. The request of CRDs create/update will fail if compilation of validation rules fail. Compilation process includes type checking as well.</p>
+
+<p>Validation rules support a wide range of use cases. To get a sense of some of the capabilities, let's look at a few examples:</p>
+<div align="left" dir="ltr" style="margin-left: 0pt;">
+    <table style="border-collapse: collapse; border: none;">
+        <tbody>
+            <tr style="height: 43.75pt;">
+                <td style="background-color: white; border-bottom: 1.5pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: bottom; width: 47.5229%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt; text-align: center;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validation Rule</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 1.5pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: bottom; width: 52.3516%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt; text-align: center;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Purpose</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43.75pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 1.5pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 47.5229%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self.minReplicas &lt;= self.replicas</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 1.5pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 52.3516%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate an integer field is less than or equal to another integer field</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 47.5229%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">'Available' in self.stateCounts</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 52.3516%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate an entry with the 'Available' key exists in a map</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 47.5229%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self.set1.all(e, !(e in self.set2))</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 52.3516%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that the elements of two sets are disjoint</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 47.5229%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self == oldSelf</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 52.3516%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that a required field is immutable once it is set</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 47.5229%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self.created + self.ttl &lt; self.expired</span></p>
+                </td>
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 52.3516%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that 'expired' date is after a 'create' date plus a 'ttl' duration</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Validation rules are expressive and flexible. See the <a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules" target="_blank">Validation Rules documentation</a> to learn more about what validation rules are capable of.</p><div style="text-align: left;"><br /></div>
+
+
+<h2>CRD transition rules</h2>
+
+<p><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#transition-rules" target="_blank">Transition Rules</a> make it possible to compare the new state against the old state of a resource in validation rules. You use transition rules to make sure that the cluster's API server does not accept invalid state transitions. A transition rule is a validation rule that references 'oldSelf'. The API server only evaluates transition rules when both an old value and new value exist.</p>
+
+<p>Transition rule examples:</p>
+<div align="left" dir="ltr" style="margin-left: 0pt;">
+    <table style="border-collapse: collapse; border: none;">
+        <tbody>
+            <tr style="height: 43.75pt;">
+                <td style="background-color: white; border-bottom: 1.5pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: bottom; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt; text-align: center;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Transition Rule</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 1.5pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: bottom; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt; text-align: center;"><span style="background-color: transparent; color: #222222; font-family: Courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Purpose</span></p>
+                </td>
+            </tr>
+            <tr style="height: 58pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 1.5pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self == oldSelf</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 1.5pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">For a required field, make that field immutable once it is set. For an optional field, only allow transitioning from unset to set, or from set to unset.</span></p>
+                </td>
+            </tr>
+            <tr style="height: 72.25pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt; padding: 0pt 0pt 12pt;"><span face="Roboto,sans-serif" style="background-color: transparent; color: #222222; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: inherit;">(on parent of field)</span>&nbsp;</span><span style="background-color: transparent; color: #222222; font-family: courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">has(self.field) == has(oldSelf.field)</span></p>
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span face="Roboto,sans-serif" style="background-color: transparent; color: #222222; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: inherit;">on field:</span>&nbsp;</span><span style="background-color: transparent; color: #222222; font-family: courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self == oldSelf</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Make a field immutable: validate that a field, even if optional, never changes after the resource is created (for a required field, the previous rule is simpler).</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self.all(x, x in oldSelf)</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Only allow adding items to a field that represents a set (prevent removals).</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: courier; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">self &gt;= oldSelf</span></p>
+                </td>
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that a number is monotonically increasing.</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Using the Functions Libraries</h2>
+
+<p>Validation rules have access to a couple different function libraries:</p>
+<ul>
+<li>CEL standard functions, defined in the <a href="https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions" target="_blank">list of standard definitions</a></li>
+<li>CEL standard <a href="https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros" target="_blank">macros</a></li>
+<li>CEL <a href="https://pkg.go.dev/github.com/google/cel-go/ext#Strings" target="_blank">extended string function library</a></li>
+<li>Kubernetes <a href="https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#pkg-functions" target="_blank">CEL extension library</a> which includes supplemental functions for <a href="https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#pkg-functions" target="_blank">lists</a>, <a href="https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex" target="_blank">regex</a>, and <a href="https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex" target="_blank">URLs</a>.</li>
+</ul>
+  
+<p>Examples of function libraries in use:</p>
+<div align="left" dir="ltr" style="margin-left: 0pt;">
+    <table style="border-collapse: collapse; border: none;">
+        <tbody>
+            <tr style="height: 43.75pt;">
+                <td style="background-color: white; border-bottom: 1.5pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: bottom; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt; text-align: center;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validation Rule</span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 1.5pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: bottom; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt; text-align: center;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Purpose</span></p>
+                </td>
+            </tr>
+            <tr style="height: 58pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 1.5pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span id="docs-internal-guid-b587c687-7fff-6139-9654-c00fc21f3557"><span style="background-color: transparent; color: #222222; font-size: 12pt; font-variant-alternates: normal; font-variant-east-asian: normal; font-variant-numeric: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;"><span style="font-family: courier;">!(self.getDayOfWeek() in [0, 6]</span></span></span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 1.5pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span id="docs-internal-guid-c938c601-7fff-afe0-ca26-08d6ea30f7c2"><span style="background-color: transparent; color: #222222; font-size: 12pt; font-variant-alternates: normal; font-variant-east-asian: normal; font-variant-numeric: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;"><span style="font-family: inherit;">Validate that a date is not a Sunday or Saturday.</span></span></span></p>
+                </td>
+            </tr>
+            <tr style="height: 72.25pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt; padding: 0pt 0pt 12pt;"><span id="docs-internal-guid-a05c6f37-7fff-8b7d-014c-40a35ee3ab7d"><span style="background-color: transparent; color: #222222; font-size: 12pt; font-variant-alternates: normal; font-variant-east-asian: normal; font-variant-numeric: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;"><span style="font-family: courier;">isUrl(self) &amp;&amp; url(self).getHostname() in [a.example.com', 'b.example.com']</span></span></span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that a URL has an allowed hostname.</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span id="docs-internal-guid-3695a941-7fff-3c9b-b4b9-f45f0fe3ece7"><span style="background-color: transparent; color: #222222; font-size: 12pt; font-variant-alternates: normal; font-variant-east-asian: normal; font-variant-numeric: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;"><span style="font-family: courier;">self.map(x, x.weight).sum() == 1</span></span></span></p>
+                </td>
+                <td style="background-color: white; border-bottom: 0.75pt solid rgb(222, 226, 230); border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that the weights of a list of objects sum to 1.</span></p>
+                </td>
+            </tr>
+            <tr style="height: 43pt;">
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span id="docs-internal-guid-9da5e6ca-7fff-0a8f-d09d-5a2a08ac2e3c"><span style="background-color: transparent; color: #222222; font-size: 12pt; font-variant-alternates: normal; font-variant-east-asian: normal; font-variant-numeric: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;"><span style="font-family: courier;">int(self.find('^[0-9]*')) &lt; 100</span></span></span></p>
+                </td>
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that a string starts with a number less than 100</span></p>
+                </td>
+            </tr>
+           <tr style="height: 43pt;">
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 44.496%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span id="docs-internal-guid-0987ed6d-7fff-a85f-fbe6-342478160fb9"><span style="background-color: transparent; color: #222222; font-size: 12pt; font-variant-alternates: normal; font-variant-east-asian: normal; font-variant-numeric: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;"><span style="font-family: courier;">self.isSorted()</span></span></span></p>
+                </td>
+                <td style="background-color: white; border-top: 0.75pt solid rgb(222, 226, 230); overflow-wrap: break-word; overflow: hidden; padding: 5pt; vertical-align: top; width: 55.3785%;">
+                    <p dir="ltr" style="background-color: white; line-height: 1.2; margin-bottom: 12pt; margin-top: 0pt;"><span style="background-color: transparent; color: #222222; font-family: inherit; font-size: 12pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Validate that a list is sorted</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Resource use and limits</h2>
+
+<p>To prevent CEL evaluation from consuming excessive compute resources, validation rules impose some limits. These limits are based on CEL cost units, a platform and machine independent measure of execution cost. As a result, the limits are the same regardless of where they are enforced.</p><div style="text-align: left;"><br /></div>
+
+<h4><span style="font-size: large;"><b>Estimated cost limit</b></span></h4>
+
+<p>CEL is, by design, non-Turing-complete in such a way that the halting problem isn’t a concern. CEL takes advantage of this design choice to include an "estimated cost" subsystem that can statically compute the worst case run time cost of any CEL expression. Validation rules are <a href="https://kubernetes.io/blog/2022/09/23/crd-validation-rules-beta/o/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#resource-use-by-validation-functions" target="_blank">integrated with the estimated cost system</a> and disallow CEL expressions from being included in CRDs if they have a sufficiently poor (high) estimated cost. The estimated cost limit is set quite high and typically requires an O(n<sup>2</sup>) or worse operation, across something of unbounded size, to be exceeded. Fortunately the fix is usually quite simple: because the cost system is aware of size limits declared in the CRD's schema, CRD authors can add size limits to the CRD's schema (<span style="color: #0d904f; font-family: courier;">maxItems for arrays, <span style="color: #0d904f;">maxProperties</span> for maps, <span style="color: #0d904f;">maxLength</span> for strings</span>) to reduce the estimated cost.</p>
+
+<p>Good practice:</p>
+
+<p>Set <span style="font-family: courier;"><span style="color: #0d904f;">maxItems</span>, <span style="color: #0d904f;">maxProperties</span></span> and <span style="color: #0d904f; font-family: courier;">maxLength</span> on all array, map (<span style="color: #0d904f; font-family: courier;">object</span> with <span style="color: #0d904f; font-family: courier;">additionalProperties</span>) and string types in CRD schemas! This results in lower and more accurate estimated costs and generally makes a CRD safer to use.</p><div style="text-align: left;"><br /></div>
+  
+<h4><span style="font-size: large;"><b>Runtime cost limits for CRD validation rules</b></span></h4>
+
+<p>In addition to the estimated cost limit, CEL keeps track of actual cost while evaluating a CEL expression and will halt execution of the expression if a limit is exceeded.</p>
+
+<p>With the estimated cost limit already in place, the runtime cost limit is rarely encountered. But it is possible. For example, it might be encountered for a large resource composed entirely of a single large list and a validation rule that is either evaluated on each element in the list, or traverses the entire list.</p>
+
+<p>CRD authors can ensure the runtime cost limit will not be exceeded in much the same way the estimated cost limit is avoided: by setting <span style="color: #0d904f; font-family: courier;">maxItems</span>, <span style="color: #0d904f; font-family: courier;">maxProperties</span> and <span style="color: #0d904f; font-family: courier;">maxLength</span> on array, map and string types.</p><div style="text-align: left;"><br /></div>
+
+
+<h2>Adoption and Related work</h2>
+
+<p>This feature has been turned on by default since Kubernetes 1.25 and finally graduated to GA in Kubernetes 1.29. It raised a lot of interest and is now widely used in the Kubernetes ecosystem. We are excited to share that the Gateway API was able to replace all the validating webhook previously used with this feature.</p>
+
+<p>After CEL was introduced into Kubernetes, we are excited to expand the power to multiple areas including the Admission Chain and authorization config. We will have a separate blog to introduce further.</p>
+
+<p>We look forward to working with the community on the adoption of CRD Validation Rules, and hope to see this feature promoted to general availability in upcoming Kubernetes releases.</p><div style="text-align: left;"><br /></div>
+
+<h3>Acknowledgements</h3>
+<p><i>Special thanks to Joe Betz, Kermit Alexander, Ben Luddy, Jordan Liggitt, David Eads, Daniel Smith, Dr. Stefan Schimanski, Leila Jalali and everyone who contributed to CRD Validation Rules!</i></p>
+
+<p><i>By Cici Huang – Software Engineer</i></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

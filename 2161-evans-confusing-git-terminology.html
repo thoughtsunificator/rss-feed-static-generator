@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Evans: Confusing git terminology</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Evans: Confusing git terminology</h2>
+		<a target="_blank" href="https://lwn.net/Articles/949833/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Julia Evans has posted <a
+href="https://jvns.ca/blog/2023/11/01/confusing-git-terminology/">a list of
+confusing Git terms and behavior</a> along with explanations of what is
+actually going on.
+<p>
+<blockquote class="bq">
+<b>“Your branch is up to date with ‘origin/main’”</b>
+<p>
+This message seems straightforward – it’s saying that your main branch is
+up to date with the origin!
+<p>
+But it’s actually a little misleading. You might think that this means that
+your main branch is up to date. It doesn’t. What it actually means is – if
+you last ran git fetch or git pull 5 days ago, then your main branch is up
+to date with all the changes as of 5 days ago.
+<p>
+So if you don’t realize that, it can give you a false sense of security.
+</blockquote>
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

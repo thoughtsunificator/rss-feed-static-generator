@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>All Lights Green for 119 – These Weeks in Firefox: Issue 145</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">All Lights Green for 119 – These Weeks in Firefox: Issue 145</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2023/10/02/all-lights-green-for-119-these-weeks-in-firefox-issue-145/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1"><a href="https://hacks.mozilla.org/2023/09/faster-vue-js-execution-in-firefox/">Some more great work from our performance team</a> means that sites using Vue.js 3.0 will run better in Firefox!</li>
+<li aria-level="1">We’ve added some new behaviours to session restore, and QA has given us the green light so we’ll be shipping those in Firefox 119 preffed on by default:
+<ul>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1820660">Persisting closed tabs between sessions</a></li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1819675">Expand recently closed tabs to all windows</a></li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833522">Include closed tabs from closed windows</a></li>
+</ul>
+</li>
+<li aria-level="1">We’re also aiming to ship a brand new, more featureful version of Firefox View in Firefox 119! Coming to a Beta near you soon.
+<ul>
+<li aria-level="1">
+<p><div id="attachment_1458" style="width: 1214px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2023/09/image1.png"><img aria-describedby="caption-attachment-1458" decoding="async" loading="lazy" class="size-full wp-image-1458" src="https://blog.nightly.mozilla.org/files/2023/09/image1.png" alt="The newly revamped Firefox View is shown in a Firefox window. The &quot;Recent browsing&quot; section is selected, showing 1 tab under &quot;Open tabs&quot;, 5 tabs under &quot;Recently closed tabs&quot;, and a call to sign in to a Firefox Account in order to get tabs from other devices." width="1204" height="912" srcset="https://blog.nightly.mozilla.org/files/2023/09/image1.png 1204w, https://blog.nightly.mozilla.org/files/2023/09/image1-300x227.png 300w, https://blog.nightly.mozilla.org/files/2023/09/image1-600x454.png 600w, https://blog.nightly.mozilla.org/files/2023/09/image1-768x582.png 768w, https://blog.nightly.mozilla.org/files/2023/09/image1-1000x757.png 1000w" sizes="(max-width: 1204px) 100vw, 1204px" /></a><p id="caption-attachment-1458" class="wp-caption-text">A new Firefox View, coming soon to a browser near you!</p></div></li>
+</ul>
+</li>
+<li aria-level="1">Chrome Extension migration support has started to roll out on the release channel! This helps you bring over some or all of your extensions when you migrate your data from Chrome to Firefox. Note that this only supports a limited number of Chrome extensions at this point.
+<ul>
+<li aria-level="1">
+<p><div id="attachment_1462" style="width: 383px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2023/09/image5.png"><img aria-describedby="caption-attachment-1462" decoding="async" loading="lazy" class="size-full wp-image-1462" src="https://blog.nightly.mozilla.org/files/2023/09/image5.png" alt="The migration wizard in Firefox Desktop is shown with Chrome selected. The following checkboxes are listed, representing which resources can be migrated: Bookmarks, saved logins and passwords, browsing history, extensions, form autofill data, payment methods." width="373" height="483" srcset="https://blog.nightly.mozilla.org/files/2023/09/image5.png 373w, https://blog.nightly.mozilla.org/files/2023/09/image5-300x388.png 300w" sizes="(max-width: 373px) 100vw, 373px" /></a><p id="caption-attachment-1462" class="wp-caption-text">Let&#8217;s get you up and running so you can get back to browsing!</p></div></li>
+</ul>
+</li>
+<li aria-level="1">We’re aiming to ship a bunch of URL bar fixes and improvements in Firefox 119, including:
+<ul>
+<li aria-level="2">Daisuke has fixed a bug where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1637408">copying an autofilled URL doesn’t include protocol</a></li>
+<li aria-level="2">Mandy has implemented <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1688019">deduping redirect links (e.g. from Google search result pages) in address bar results</a></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1851325%2C1849192%2C1849255%2C1851001%2C1764897%2C1695150%2C1852298%2C1842175%2C1849235%2C1851596%2C1844071%2C1849129%2C1851937%2C1643843%2C1850631%2C1646638%2C1851759%2C1834258%2C1852881&amp;list_id=16726626">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Masatoshi Kimura [:emk]</li>
+<li aria-level="1">Sebastian Zartner [:sebo]</li>
+<li aria-level="1">Zac Svoboda :zacnomore</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">Krishna Ravishankar fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851759">incorrect removal of non-expr-stmt</a> when top-level-await is present</li>
+<li aria-level="1">LyScott123 updated <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1695150">ObjectInspector to show wrapped primitive</a></li>
+</ul>
+<p>&nbsp;</p>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtensions Framework</h5>
+<ul>
+<li aria-level="1">In <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851373">Bug 1851373</a>, we fixed a regression (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1830767">Bug 1830767</a>) related to event pages being terminated while still running. This is a short-term workaround that we also uplifted to both Beta and Release. The longer term fix is now tracked by <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844041">Bug 1844041</a>.</li>
+</ul>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">Fixed a bug that was making the scripting API method getRegisteredContentScripts to be returning scripts registered using the contentScripts API by the same extension &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851173">Bug 1851173</a>.
+<ul>
+<li aria-level="2">NOTE: only manifest_version 2 extensions may have been able to hit this bug, and only if they are using both APIs (e.g. as part of transitioning to scripting API from contentScripts API but keeping the use of the contentScripts API for cases where the scripting API couldn’t be still used for). We don’t expect this bug to have been hit that often.</li>
+</ul>
+</li>
+<li aria-level="1">As part of migrating WebCompat built-in to the scripting API, we ran into <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853409">Bug 1853409</a> because the scripting API matchAboutBlank is unconditionally set internally and we do not expose it in the API (See <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853013#c6">Bug 1853013 comment 6</a>). As a short term workaround, we agreed with the WebCompat team to special-case the WebCompat extension ID in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853412">Bug 1853412</a> until the underlying <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853409">Bug 1853409</a> has been fixed.</li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1">Contributors
+<ul>
+<li aria-level="2">Sebastian Zartner (:sebo) added inactive CSS warnings for ignored properties on
+<ul>
+<li aria-level="3">::placeholder pseudo-elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849255">bug</a>)</li>
+<li aria-level="3">::first-letter pseudo-elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1842175">bug</a>)</li>
+<li aria-level="3">::cue pseudo-elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849235">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="2">Zac Svoboda (:zacnomore) made a lot of contributions in the last 2 weeks
+<ul>
+<li aria-level="3">Switch to Data view when JSON is broken (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1764897">bug</a>)</li>
+<li aria-level="3">Fixed color contrast for Layout flexbox highlight toggle (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844071">bug</a>)</li>
+<li aria-level="3">Tweaked spacing on compatibility panel elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1643843">bug</a>)</li>
+<li aria-level="3">Fixed a typo in a property name (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1646638">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="2">LyScott123 made wrapped primitive value visible in console/debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1695150">bug</a>)
+<ul>
+<li aria-level="2">
+<p><div id="attachment_1459" style="width: 690px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2023/09/image2.png"><img aria-describedby="caption-attachment-1459" decoding="async" loading="lazy" class="size-full wp-image-1459" src="https://blog.nightly.mozilla.org/files/2023/09/image2.png" alt="The DevTools Console is shown with the following code executed: &#96;Object(123)&#96;. Below that, the primitive value of 123 is represented in a tree that lists the primitive value as well as the underlying object prototype." width="680" height="210" srcset="https://blog.nightly.mozilla.org/files/2023/09/image2.png 680w, https://blog.nightly.mozilla.org/files/2023/09/image2-300x93.png 300w, https://blog.nightly.mozilla.org/files/2023/09/image2-600x185.png 600w" sizes="(max-width: 680px) 100vw, 680px" /></a><p id="caption-attachment-1459" class="wp-caption-text">Who could object to this?</p></div></li>
+</ul>
+</li>
+<li aria-level="2">krishna.ravi732 fixed a bug in top-level await console evaluation and for loops (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851759">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Arai added column source notes to binary operator and function call arguments so the debugger can underline the right expression for Uncaught TypeError (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845865">bug</a>)</li>
+<li aria-level="1">Alex improved the debugger performance (e.g. opening a big file is 20% faster) keeping data in a worker and then querying the worker, instead of transfering the data from the worker to the main thread (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851522">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851566">bug</a>)</li>
+<li aria-level="1">Bomsy fixed an issue that would lead to debugger crashes (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849946">bug</a>)</li>
+<li aria-level="1">Nicolas made the Computed panel show custom properties value (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1834690">bug</a>)
+<ul>
+<li aria-level="1">
+<p><div id="attachment_1461" style="width: 1562px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2023/09/image4.png"><img aria-describedby="caption-attachment-1461" decoding="async" loading="lazy" class="size-full wp-image-1461" src="https://blog.nightly.mozilla.org/files/2023/09/image4.png" alt="The DevTools style rules pane is shown, with the &quot;computed&quot; panel next to it. The style rules pane shows a single rule for a CSS variable that is a calculation using a number of other variables whose values aren't shown. In the computed pane, that same calculation is shown, but with the variables replaced with their underlying values." width="1552" height="298" srcset="https://blog.nightly.mozilla.org/files/2023/09/image4.png 1552w, https://blog.nightly.mozilla.org/files/2023/09/image4-300x58.png 300w, https://blog.nightly.mozilla.org/files/2023/09/image4-600x115.png 600w, https://blog.nightly.mozilla.org/files/2023/09/image4-768x147.png 768w, https://blog.nightly.mozilla.org/files/2023/09/image4-1536x295.png 1536w, https://blog.nightly.mozilla.org/files/2023/09/image4-1000x192.png 1000w" sizes="(max-width: 1552px) 100vw, 1552px" /></a><p id="caption-attachment-1461" class="wp-caption-text">Simplification for the win!</p></div></li>
+</ul>
+</li>
+<li aria-level="1">Nicolas made the Rule view refresh when a stylesheet is added to the page (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1776831">bug</a>)</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">Sasha implemented the script.realmDestroyed event which lets clients know when the realm is not available anymore for script evaluation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1788659">bug</a>)</li>
+<li aria-level="1">Sasha implemented the browsingContext.userPromptClosed event (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824221">bug</a>)</li>
+<li aria-level="1">Henrik implemented the browsingContext.reload, which provides a simple API to reload a given browsing context (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1830859">bug</a>)</li>
+<li aria-level="1">Julian updated our vendored version of puppeteer to v21.2.0, with almost 100 new tests passing with the BiDi implementation (close to the 50% mark, see <a href="https://puppeteer.github.io/ispuppeteerwebdriverbidiready/">https://puppeteer.github.io/ispuppeteerwebdriverbidiready/</a> ) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851438">bug</a>)</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li aria-level="1"><a href="https://spidermonkey.dev/areweesmifiedyet/">ESMified status</a>:
+<ul>
+<li aria-level="2">browser: 86%</li>
+<li aria-level="2">toolkit: 99%</li>
+<li aria-level="2">Total:  95.55%</li>
+</ul>
+</li>
+<li aria-level="1">#esmification on Matrix</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">The ESLint rule react-hooks/exhaustive-deps will now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851452">raise errors rather than warnings</a>. The previous warnings for this rule have been fixed.</li>
+<li aria-level="1">Additionally, all the rules enabled in devtools/client/debugger will now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851794">all raise errors rather than warnings</a>.</li>
+<li aria-level="1">With some other improvements, we&#8217;re now down to about 13 ESLint warnings left in mozilla-central.</li>
+<li aria-level="1">This all helps to ensure that we&#8217;re fixing issues where we intend for them to be fixed. It also means that using warnings as part of a roll-out mechanism will help highlight that the warnings are something that we need to fix.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">Improvements importing when Firefox is installed as a Snap
+<ul>
+<li aria-level="2">Thanks to mstriemer and Ani Movsesian from CalState, we’ve got a good sense of a way forward here.</li>
+<li aria-level="2">In newer versions of Ubuntu, it seems like we can use a native file picker in folder picking mode to get access to the other browser’s data directories, like we do on macOS for Safari.
+<ul>
+<li aria-level="3">mconley is <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852839">adding run-time feature detection to make sure folder selection is possible</a> given the systems version of xdg-desktop-portal</li>
+<li aria-level="3">Then there’s some glue to add instructions for reaching that folder. That work will take place in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818237">this bug.</a></li>
+</ul>
+</li>
+<li aria-level="2">mconley <a href="https://forum.snapcraft.io/t/making-it-easier-to-migrate-data-from-other-browsers-into-firefox/36721">started a conversation on the snapcraft.io forums</a> to see if there are ways to improve the experience further.</li>
+</ul>
+</li>
+<li aria-level="1">We’re doing a small experiment to see if adding some adorable illustrations to <a href="https://support.mozilla.org/1/firefox/119.0a1/Darwin/en-US/switching-devices?utm_content=switch-to-new-device&amp;utm_source=help-menu&amp;utm_medium=firefox-desktop&amp;utm_campaign=migration">the device migration wizard</a> improves the number of people going through it.
+<ul>
+<li aria-level="1"><a href="https://blog.nightly.mozilla.org/files/2023/09/image6.png"><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1463" src="https://blog.nightly.mozilla.org/files/2023/09/image6.png" alt="The second step of the device migration wizard on SUMO. It instructs the user on how to configure Firefox so that it's syncing data via a Firefox Account. In the bottom right-hand corner of the wizard is an adorable cartoon fox peeking out from behind a set of boxes." width="1780" height="712" srcset="https://blog.nightly.mozilla.org/files/2023/09/image6.png 1780w, https://blog.nightly.mozilla.org/files/2023/09/image6-300x120.png 300w, https://blog.nightly.mozilla.org/files/2023/09/image6-600x240.png 600w, https://blog.nightly.mozilla.org/files/2023/09/image6-768x307.png 768w, https://blog.nightly.mozilla.org/files/2023/09/image6-1536x614.png 1536w, https://blog.nightly.mozilla.org/files/2023/09/image6-1000x400.png 1000w" sizes="(max-width: 1780px) 100vw, 1780px" /></a></li>
+<li aria-level="1">
+<p><div id="attachment_1460" style="width: 1808px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2023/09/image3.png"><img aria-describedby="caption-attachment-1460" decoding="async" loading="lazy" class="size-full wp-image-1460" src="https://blog.nightly.mozilla.org/files/2023/09/image3.png" alt="The third step of the device migration wizard on SUMO. It instructs the user on how to download Firefox on their new computer by following a special URL. In the bottom right-hand corner of the wizard is an adorable cartoon fox jumping out of a set of boxes." width="1798" height="740" srcset="https://blog.nightly.mozilla.org/files/2023/09/image3.png 1798w, https://blog.nightly.mozilla.org/files/2023/09/image3-300x123.png 300w, https://blog.nightly.mozilla.org/files/2023/09/image3-600x247.png 600w, https://blog.nightly.mozilla.org/files/2023/09/image3-768x316.png 768w, https://blog.nightly.mozilla.org/files/2023/09/image3-1536x632.png 1536w, https://blog.nightly.mozilla.org/files/2023/09/image3-1000x412.png 1000w" sizes="(max-width: 1798px) 100vw, 1798px" /></a><p id="caption-attachment-1460" class="wp-caption-text">Fox in a box!</p></div></li>
+</ul>
+</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">mconley has a patch to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1812135">replace the bespoke toggle in the customization panel with moz-toggle</a>. MozLitElement will work on about:newtab!</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Karandeep has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1842247">implemented telemetry for the upcoming clipboard result feature</a></li>
+<li aria-level="1">Search engine result page telemetry:
+<ul>
+<li aria-level="2">James has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1842554">enabled SERP telemetry on Release</a></li>
+<li aria-level="2">Stephanie has made it so that we <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846357">extract domains for basic SERP links</a></li>
+<li aria-level="2">James has fixed a bug where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849728">clicking certain sponsored links was registered as a &#8220;non_ads_link&#8221;</a></li>
+<li aria-level="2">James <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850000">added a listener and store for the Search Categorization collection</a></li>
+</ul>
+</li>
+<li aria-level="1">Stephanie has fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847794">Search component&#8217;s browser mochitests and XPCShell tests use add_setup correctly</a></li>
+<li aria-level="1">We’ve started to use more CSS nesting:
+<ul>
+<li aria-level="2">[mandy] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848302">Bug 1848302 &#8211; Use CSS nesting for weather result rules</a></li>
+<li aria-level="2">[marc] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847969">Bug 1847969 &#8211; Use CSS nesting for .urlbarView-type-icon rules</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847973">Bug 1847973 &#8211; Use CSS nesting for .urlbarView-favicon rules</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847975">Bug 1847975 &#8211; Use CSS nesting for .urlbarView-results[wrap] rules</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847979">Bug 1847979 &#8211; Use CSS nesting for .urlbarView-body-inner, .urlbarView-results, .urlbarView-row, .urlbarView-row-inner, and .urlbarView-no-wrap rules</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853121">Bug 1853121 &#8211; Use CSS nesting for Tab To Search onboarding</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853125">Bug 1853125 &#8211; Use CSS nesting for .urlbarView-dynamic-calculator-action</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853127">Bug 1853127 &#8211; Use CSS nesting for Unit Conversion results</a></li>
+<li aria-level="2">[dao] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853145">Bug 1853145 &#8211; Use CSS nesting for add-on suggestions</a></li>
+</ul>
+</li>
+<li aria-level="1">Dale has fixed a bug where address bar results show an <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848737">incorrect link when moving to search engines using the keyboard</a></li>
+<li aria-level="1">Pier from the Tor project has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849129">hardened SearchService initialization so that exceptions from extensions won’t make it fail anymore</a></li>
+<li aria-level="1">Marc <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850492">removed the security.insecure_connection_icon.enabled and security.insecure_connection_icon.pbmode.enabled prefs</a></li>
+<li aria-level="1">Daisuke <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850902">removed the browser.fixup.alternate.enabled pref</a></li>
+<li aria-level="1">Dale has fixed the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851449">trending searches checkbox in about:preferences not getting disabled when all search engine suggestions are turned off</a></li>
+<li aria-level="1">Add-on suggestions for Firefox Suggest users
+<ul>
+<li aria-level="2">Drew has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851940">enabled addon suggestions by default with treatment B (no rating stars)</a></li>
+<li aria-level="2">Drew has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851941">added UTM params to addon suggestion URLs</a></li>
+<li aria-level="2">Drew has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851942">updated the &#8220;Not relevant&#8221; command for addon suggestions to block individual suggestions</a></li>
+<li aria-level="2">[drew] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852300">Bug 1852300 &#8211; Address Bar result menu glitches after an Add-on recommendation is dismissed</a></li>
+<li aria-level="2">[drew] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852353">Bug 1852353 &#8211; Minimum keyword length/character count is not capped for addon suggestions</a></li>
+<li aria-level="2">[drew] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852354">Bug 1852354 &#8211; For addon and Pocket suggestions, the “Show less frequently” option is not removed from the Feedback menu if the Address Bar panel is not closed after reaching the frequency cap </a></li>
+</ul>
+</li>
+<li aria-level="1">Daisuke <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852187">moved sponsored suggestions higher in the results list</a></li>
+<li aria-level="1">Marco fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852963">Bug 1852963 &#8211; Some tests await on BrowserTestUtils.loadURIString, that doesn&#8217;t wait for load</a>
+<ul>
+<li aria-level="2">Notably, this rename BrowserTestUtils.loadURIString to .startLoadingURIString</li>
+</ul>
+</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">Jules updated our <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838939">Typography support in design tokens</a> &#8211; Look for the text-and-typography.css file for some class helpers &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838939">Bug 1838939</a></li>
+<li aria-level="1">sclements updated panel-list to add submenu support this week &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845333">Bug 1845333</a></li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

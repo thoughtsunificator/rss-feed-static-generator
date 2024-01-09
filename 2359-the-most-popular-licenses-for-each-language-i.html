@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The most popular licenses for each language in 2023</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The most popular licenses for each language in 2023</h2>
+		<a target="_blank" href="https://blog.opensource.org/the-most-popular-licenses-for-each-language-2023/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><div><img width="1024" height="576" src="https://blog.opensource.org/wp-content/uploads/2023/11/clearlydefined_spdx-1024x576.png" class="attachment-large size-large wp-post-image" alt="" style="margin-bottom: 15px;" decoding="async" loading="lazy" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/clearlydefined_spdx-1024x576.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/clearlydefined_spdx-300x169.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/clearlydefined_spdx-768x432.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/clearlydefined_spdx.png 1167w" sizes="(max-width: 1024px) 100vw, 1024px" /></div><div class='e-content'>
+<p>The 2023 report of the licenses in use by the biggest package managers highlights the need to educate developers on the importance of licensing information. While many developers know that Open Source software forms the backbone of modern development, the data shows that much of their software is shared (and most likely also used) without a license.</p>
+
+
+
+<p>Using data from OSI&#8217;s community project<a href="https://clearlydefined.io/about"> ClearlyDefined</a>,<a href="https://www.linkedin.com/in/aleksandrs-volodjkins-121aa3241/"> Aleksandrs Volodjkins</a> explored the ClearlyDefined dataset from September 21, 2023. ClearlyDefined is a collaborative project providing comprehensive and standardized metadata about software components&#8217; origins and licenses, its data shed light on the prevailing trends that shape the Open Source ecosystem.</p>
+
+
+
+<p>Overall,<a href="https://opensource.org/license/mit/"> MIT</a> and<a href="https://opensource.org/license/apache-2-0/"> Apache 2.0</a> are by far the most popular licenses, although popularity of licenses vary greatly depending on the package manager. The simplicity of these licenses, allowing users to modify and distribute code with minimal restrictions without imposing additional requirements, has undoubtedly contributed to their widespread adoption.</p>
+
+
+
+<p>The license terrain is not uniform across all package managers. Each programming language has its own set of license preferences within their ecosystems. For instance, the JavaScript community often leans towards the MIT license, while Python developers show a similar affinity for Apache 2.0. The <a href="https://opensource.org/license/isc-license-txt/">ISC</a> license, with its simplicity and permissiveness, finds its niche in the JavaScript community. BSD licenses, both <a href="https://opensource.org/license/bsd-3-clause/">3-Clause</a> and <a href="https://opensource.org/license/bsd-2-clause/">2-Clause</a>, maintain a steady but comparatively lower adoption rate. The GNU General Public License (<a href="https://opensource.org/license/gpl-3-0/">GPL</a>), embodying the ethos of free software, enjoys a presence but falls behind MIT and Apache 2.0.</p>
+
+
+<h2 class="wp-block-heading" id="the-challenge-of-unlicensed-components"><strong>The Challenge of Unlicensed Components</strong></h2>
+
+
+<p>Despite the prevalence of well-established licenses, a concerning revelation emerges from the ClearlyDefined dataset – a substantial percentage of Open Source components lack a designated license or carry the SPDX identifier &#8220;NOASSERTION.&#8221; This ambiguity introduces uncertainty about the permissible use of such components, potentially hindering collaboration, creating legal complexities, and security concerns for developers.</p>
+
+
+<h2 class="wp-block-heading" id="the-need-for-clarity-and-standardization"><strong>The Need for Clarity and Standardization</strong></h2>
+
+
+<p>Addressing the issue of unlicensed components is crucial for the continued health of the Open Source community. Developers, organizations, and the community at large benefit from clear and standardized licensing. It not only facilitates collaboration but also ensures legal compliance and protects the intellectual property of contributors. Additionally, it helps developers to keep track of components that might have vulnerabilities.</p>
+
+
+<h2 class="wp-block-heading" id="towards-a-collaborative-solution"><strong>Towards a collaborative solution</strong></h2>
+
+
+<p>The issue of unlicensed components is a community-wide challenge that needs a community-wide approach. The <a href="https://clearlydefined.io">ClearlyDefined</a> project aims to address this challenge by inviting developers across different organizations to crowdsource a global database of licensing metadata for every software component ever published. It allows developers to fetch a cached copy of licensing metadata for each component through a simple API and contribute back with any missing or wrongly identified licensing metadata, helping to create a database that is accurate for the benefit of all. <a href="https://clearlydefined.io">Check it out</a>!</p>
+
+
+<h2 class="wp-block-heading" id="javascript-npm">Javascript (npm)</h2>
+
+
+<p>The <a href="https://www.npmjs.com/">npm</a> package manager for JavaScript contains components that mostly use the <a href="https://opensource.org/license/mit/">MIT</a> license (53%), followed by <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> (14,76%) and <a href="https://opensource.org/license/isc-license-txt/">ISC</a> (10,48%). The ISC license was published by the <a href="https://en.wikipedia.org/wiki/Internet_Systems_Consortium">Internet Systems Consortium</a> and, while popular among JavaScript projects, it’s not used much by other programming languages. A small percentage of projects don’t have a license (8%) or a SPDX-identified license / NOASSERTION (5.49%).</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="563" src="https://blog.opensource.org/wp-content/uploads/2023/11/npm-1024x563.png" alt="" class="wp-image-5528" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/npm-1024x563.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/npm-300x165.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/npm-768x422.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/npm.png 1097w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="net-nuget">.NET (Nuget)</h2>
+
+
+<p>One of the most alarming data for <a href="https://www.nuget.org/">Nuget</a>, the package manager for . NET is that a great percentage of its components either don’t have a license (26.76%) or are found to be NOASSERTION (31.95%). Licenses under <a href="https://opensource.org/license/mit/">MIT</a> or <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> are at 21.55% and 13.37% respectively.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="586" src="https://blog.opensource.org/wp-content/uploads/2023/11/nuget-1024x586.png" alt="" class="wp-image-5527" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/nuget-1024x586.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/nuget-300x172.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/nuget-768x439.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/nuget.png 1061w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="java-maven">Java (Maven)</h2>
+
+
+<p>The great majority of components in <a href="https://maven.apache.org/">Maven</a>, the package manager for Java, use the <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> license (69.18%). Components with the second most popular license, the <a href="https://opensource.org/license/mit/">MIT</a>, represent only 7.4%. Components with NOASSERTION are at 14.75%.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="579" src="https://blog.opensource.org/wp-content/uploads/2023/11/maven-1024x579.png" alt="" class="wp-image-5526" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/maven-1024x579.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/maven-300x170.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/maven-768x434.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/maven.png 1075w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="python-pypi">Python (Pypi)</h2>
+
+
+<p>For <a href="https://pypi.org/">Pypi</a>, the package manager for Python, components under the <a href="https://opensource.org/license/mit/">MIT</a> and <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> licenses dominate, at 29.14% and 23.98% respectively. Components under <a href="https://opensource.org/license/bsd-2-clause/">BSD 2-Clause</a> and <a href="https://opensource.org/license/gpl-3-0/">GPL 3.0</a> are at 6.25% and 6.11%. A substantial percentage of components don’t have a license (23.69%).</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="578" src="https://blog.opensource.org/wp-content/uploads/2023/11/pypi-1024x578.png" alt="" class="wp-image-5525" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/pypi-1024x578.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/pypi-300x169.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/pypi-768x434.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/pypi.png 1073w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="ruby-gem">Ruby (Gem)</h2>
+
+
+<p>The great majority of components at <a href="https://rubygems.org/">Gem</a>, the package manager for Ruby, use the <a href="https://opensource.org/license/mit/">MIT</a> license (63.11%). They are followed by the <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> and <a href="https://opensource.org/license/bsd-3-clause/">BSD 3-Clause</a> licenses at 8.22% and 6.66% respectively.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="560" src="https://blog.opensource.org/wp-content/uploads/2023/11/gem-1024x560.png" alt="" class="wp-image-5524" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/gem-1024x560.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/gem-300x164.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/gem-768x420.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/gem.png 1107w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="php-composer">PHP (Composer)</h2>
+
+
+<p>The <a href="https://opensource.org/license/mit/">MIT</a> license is a very popular choice among PHP components of the <a href="https://getcomposer.org/">Composer</a> package manager, at 64.37%. Projects under <a href="https://opensource.org/license/bsd-3-clause/">BSD 3-Clause</a> and <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> sit at 5.72% and 3.92% respectively.&nbsp;</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="567" src="https://blog.opensource.org/wp-content/uploads/2023/11/composer-1024x567.png" alt="" class="wp-image-5523" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/composer-1024x567.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/composer-300x166.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/composer-768x426.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/composer.png 1099w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="go">Go</h2>
+
+
+<p><a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> and <a href="https://opensource.org/license/mit/">MIT</a> licenses dominate <a href="https://pkg.go.dev/">Go</a>, with 32.49% and 20.1%. A substantial percentage of Go components don’t have a license (29.67%).</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="600" src="https://blog.opensource.org/wp-content/uploads/2023/11/golang-1024x600.png" alt="" class="wp-image-5522" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/golang-1024x600.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/golang-300x176.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/golang-768x450.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/golang.png 1047w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+<h2 class="wp-block-heading" id="rust-crate">Rust (Crate)</h2>
+
+
+<p>For <a href="https://crates.io/">crate</a>, the Rust package manager, projects under <a href="https://opensource.org/license/mit/">MIT</a> and/or <a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a> dominate. Combined, they represent 83.52%.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="564" src="https://blog.opensource.org/wp-content/uploads/2023/11/crate-1024x564.png" alt="" class="wp-image-5521" srcset="https://blog.opensource.org/wp-content/uploads/2023/11/crate-1024x564.png 1024w, https://blog.opensource.org/wp-content/uploads/2023/11/crate-300x165.png 300w, https://blog.opensource.org/wp-content/uploads/2023/11/crate-768x423.png 768w, https://blog.opensource.org/wp-content/uploads/2023/11/crate.png 1097w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+</div><p>The post <a href="https://blog.opensource.org/the-most-popular-licenses-for-each-language-2023/">&lt;span class=&#039;p-name&#039;&gt;The most popular licenses for each language in 2023&lt;/span&gt;</a> appeared first on <a href="https://blog.opensource.org">Voices of Open Source</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

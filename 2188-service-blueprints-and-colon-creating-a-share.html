@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Service blueprints&colon;creating a shared understanding of your architecture</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Service blueprints&colon;creating a shared understanding of your architecture</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/documentation/2023/11/07/understanding-your-architecture-with-service-blueprints.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h1 id="service-blueprints-creating-a-shared-understanding-of-your-architecture">Service blueprints: creating a shared understanding of your architecture</h1>
+
+<p>Len Bass and colleagues at the <a href="https://www.sei.cmu.edu">Software Engineering Institute</a> define software architecture as follows:</p>
+
+<blockquote>
+  <p>The software architecture of a computing system is the set of structures needed to reason about the system, which comprise software elements, relations among them, and properties of both.</p>
+</blockquote>
+
+<p>In other words, in order to reason about your application you need to understands its architecture.
+In particular, if you want to modernize a legacy application you need to understand its architecture as well as your target architecture.</p>
+
+<p>In earlier articles <a href="/post/architecture/2023/01/18/omg-are-you-still-using-rational-rose.html">OMG are you still using Rational Rose?</a> and <a href="/post/architecture/2022/04/06/using-scenarios-to-invigorate-your-architecture.html">Using scenarios to reinvigorate your microservice architecture</a> describe some key architecture and architecture documentation concepts.</p>
+
+<p>In this article, I want to focus on describing the dynamic behavior of an architecture; connecting architectural elements to user; and describe what I think it is a valuable addition to an architect’s toolbox: service blueprints.</p>
+
+<h3 id="documenting-an-architectures-dynamic-behavior-is-essential">Documenting an architecture’s dynamic behavior is essential</h3>
+
+<p>As I described in <a href="/post/architecture/2022/04/06/using-scenarios-to-invigorate-your-architecture.html">Using scenarios to reinvigorate your microservice architecture</a> it’s insufficient to merely describe  the static structure of an architecture.structure.
+You must also describe its dynamic behavior, which is how architectural elements collaborate during a scenario.</p>
+
+<p><img src="/i/refactoring/process-and-principles/self-contained-order-taking.png" class="img-responsive" /></p>
+
+<p>The scenarios are the +1 of the <a href="https://en.wikipedia.org/wiki/4%2B1_architectural_view_model">classic 4+1 view model of software architecture</a>.</p>
+
+<p>There are a couple of different ways of visualizing a scenario including <a href="https://plantuml.com/sequence-diagram">UML sequence diagrams</a> and <a href="https://c4model.com/#DynamicDiagram">C4 dynamic diagrams</a>.
+It’s important to remember that, as with architectural views, diagrams are necessary but often insufficient.
+You typically need text explaining each step in the scenario.</p>
+
+<h3 id="scenarios-connect-architectural-elements-to-requirements">Scenarios connect architectural elements to requirements</h3>
+
+<p>Since the scenarios are derived from user stories, an additional benefit of using scenarios to document dynamic behavior is that connects the architectural elements to the requirements.
+Without these scenarios, you typically have a lifeless architecture that’s difficult to understand and discuss in a meaningful way.</p>
+
+<h3 id="using-service-blueprints-to-connect-architectural-elements-to-users">Using service blueprints to connect architectural elements to users</h3>
+
+<p>Scenarios (sequence diagrams) are a good way to connect architectural elements to requirements.
+They are, however, rather technical and can be difficult for non-technical stakeholders to understand.
+Conversely, scenarios often don’t clearly communicate the complete user experience to technical stakeholders.</p>
+
+<p>A really good way for all stakeholders to gain a shared understanding of both end-users and the application architecture is to use <a href="https://www.nngroup.com/articles/service-blueprints-definition/">service blueprints</a>.
+A service blueprint is a diagram that shows the interactions between the user, and the architectural elements.
+Here’s an example of a service blueprint (courtesy of Indu Alagarsamy - see below):</p>
+
+<p><a>
+<a href="/i/architecture-documentation/example-service-blueprint-from-indu-v3-bigger.png" target="_blank">
+<img src="/i/architecture-documentation/example-service-blueprint-from-indu-v3.jpeg" class="img-responsive" />
+</a></a></p>
+
+<p>This service blueprint consists of three ‘layers’:</p>
+
+<ul>
+  <li>Top - from left to right, are the user’s actions, which are part of a <a href="https://www.nngroup.com/articles/customer-journey-mapping/">customer journey</a>.</li>
+  <li>Middle - below each user action are the architectural elements that support the action and the interactions between them.</li>
+  <li>Bottom - alternative flows.</li>
+</ul>
+
+<p>Some service blueprint might even have additional layers for humans, such as employees, and 3rd party applications.</p>
+
+<p>A service blueprint is a fantastic, user centric view of an organization and its architecture that creates a shared understanding amongst all stakeholders.
+I think they are a great addition to an architect’s toolbox.</p>
+
+<h2 id="learn-more-about-service-blueprints">Learn more about service blueprints</h2>
+
+<p>If you want to learn more about service blueprints, my good friend <a href="https://twitter.com/Indu_alagarsamy">Indu Alagarsamy</a> is teaching a couple of workshops on <a href="https://www.eventbrite.sg/e/app-mod-understanding-your-systems-current-state-using-service-blueprints-tickets-729762247527">service blueprints on November 15th</a> at times that work well for all timezones.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

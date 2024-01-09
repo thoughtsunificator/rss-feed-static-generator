@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A Look at Problem Details for HTTP APIs RFC</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">A Look at Problem Details for HTTP APIs RFC</h2>
+		<a target="_blank" href="https://nordicapis.com/a-look-at-problem-details-for-http-apis-rfc/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>In the intricate world of API development, clear and standardized communication is paramount, especially when things go awry. Enter the &#8220;problem detail,&#8221; a beacon in the sometimes murky realm of error reporting. As defined by the Internet Engineering Task Force (IETF), <a href="https://datatracker.ietf.org/doc/html/rfc9457">Problem Details for HTTP APIs</a> offers a universal standard to make API error responses more understandable, precise, and consistent.</p>
+<p>Instead of leaving users to decipher vague error messages or navigate a maze of custom error formats, the IETF problem details request for comments (RFC) offers a unified approach to improve API error handling. Let&#8217;s dig in and look at how to use this standard!</p>
+<h2 id="why-a-problem-details-rfc-">Why a Problem Details RFC?</h2>
+<p>Before diving into what problem details look like, we should answer a basic question: Why are they needed in the first place?</p>
+<p>APIs are <a href="https://nordicapis.com/best-practices-api-error-handling/">rife with errors</a> because the internet is rife with errors. The reality of the modern web is that you can&#8217;t control how every single bit will act across the transfer of data, and accordingly, APIs will sometimes result in errors. These errors must be clear, understandable, and, most importantly, resolvable. Errors must convey enough information to attempt a fix if needed — and if a fix isn&#8217;t needed, it should convey that as well.</p>
+<p>Part of the problem with how errors are currently handled, however, is the context that surrounds them. Often, HTTP status codes do not carry enough information to convey what is happening. While HTML response bodies and documentation can carry additional context for the human on the other side of the error, this requires an extra step of contextualization. Another part of the issue is that this context is for human consumption and often provides little to no value to machines.</p>
+<p>The <a href="https://www.rfc-editor.org/rfc/rfc9457.html">Problem Details RFC</a> is designed to rectify this problem.</p>
+<h2 id="diving-into-the-problem-details-rfc">Diving into The Problem Details RFC</h2>
+<h3 id="how-it-provides-context">How it Provides Context</h3>
+<p>How the RFC does this is actually <a href="https://www.youtube.com/watch?v=UNdUjBqsUqg">quite clever</a>. Problem details are provided using a specific type of problem as defined through an object composed of parts. This object can state a particular error case, and, in this error case, provide specific context for how the problem has arisen and how it can be resolved through contextual bundling.</p>
+<p>The parts of the object for a Problem Detail look like this:</p>
+<ul>
+<li>First, you have the <code>type</code>, a URI that defines that specific error category. This can include something like &#8220;out-of-credit&#8221; to denote that the end user has encountered an error of that specific type. Other types could include things like &#8220;not allowed,&#8221; indicating that the user cannot perform the function.</li>
+<li>Next, there is a <code>title</code>. This string allows developers to summarize the problem for the end user, communicating more context.</li>
+<li>Next, we have several optional items:
+<ul>
+<li>The <code>status</code> value is an optional integer allowing developers to continue to provide the HTTP status code generated as part of the issue. This is optional but very useful for situations like the 404 error where there is no additional context besides &#8220;there&#8217;s just nothing here.&#8221;</li>
+<li>The <code>detail</code> value allows for a much more in-depth and detailed summary of the issue and is the perfect place where additional context or even problem-solving tips can be given to the end user.</li>
+<li>Finally, the <code>instance</code> value allows developers to identify the specific instance number of each occurrence, tracking the number of issues and generating individual tracking over time. This helps to identify problems resulting from a specific client environment or situation that might otherwise be lost in more general reporting.</li>
+</ul>
+</li>
+</ul>
+<h3 id="practical-example-of-problem-details">Practical Example of Problem Details</h3>
+<p>So, what does this look like in practice? Let&#8217;s look at an example problem detail. Imagine you are trying to purchase a pass to a Nordic APIs event. When you try to make a purchase, you are presented with this problem detail:</p>
+<pre><code>{
+ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"https://nordicapis.com/error/no-payment"</span>,
+ <span class="hljs-attr">"title"</span>: <span class="hljs-string">"No Payment Method"</span>,
+ <span class="hljs-attr">"detail"</span>: <span class="hljs-string">"You have no payment method set - please add a method."</span>,
+ <span class="hljs-attr">"instance"</span>: <span class="hljs-string">"/user/apiGenius/errors/no-payment-001"</span>,
+}
+</code></pre>
+<p>This practical example gives the user a great amount of information in a very small piece of text. The user would be able to glean the following:</p>
+<ul>
+<li>The type is <code>no-payment</code>, suggesting an issue with processing this order.</li>
+<li>The title is &#8220;No Payment Method&#8221;, communicating that there&#8217;s no method for making this payment.</li>
+<li>The detail informs the user that the real issue at the heart of the problem is on the user&#8217;s side. Since no payment method has been saved, no payment can be made.</li>
+<li>The instance lets the user and the admin know that this error has been logged into their user log area and can be reviewed at a later date.</li>
+</ul>
+<p>The RFC notes that additional nested responses can also be used to communicate multiple instantaneous errors. In this example from the RFC, a validation error is sent in the form of a problem detail:</p>
+<pre><code>  {
+   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"https://example.net/validation-error"</span>,
+   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Your request parameters didn't validate."</span>,
+   <span class="hljs-attr">"invalid-params"</span>: [ {
+                         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"age"</span>,
+                         <span class="hljs-attr">"reason"</span>: <span class="hljs-string">"must be a positive integer"</span>
+                       },
+                       {
+                         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"color"</span>,
+                         <span class="hljs-attr">"reason"</span>: <span class="hljs-string">"must be 'green', 'red' or 'blue'"</span>}
+                     ]
+   }
+</code></pre>
+<p>Here, two problems in the form of an <code>invalid-params</code> extension express that both the age and color entries were incorrect. The additional <code>reason</code> information allows the user to be informed as to their options for resolution.</p>
+<h2 id="recent-updates-to-problem-details-for-http-apis">Recent Updates to Problem Details for HTTP APIs</h2>
+<p><a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457</a> is the most recent revision of this RFC and is backward compatible with former versions. While it technically obsoletes the former RFC, it does not introduce new breaking changes in formats or features.</p>
+<p>&#8220;RFC 9457 was created as an update to the popular RFC 7807 problem report format,&#8221; said Erik Wilde, a co-author of the RFC. &#8220;It is a backward-compatible change, i.e., it does not define a new format and is not adding new features. It addresses some issues that we were seeing with adopting HTTP error reports. Most importantly, it has improved language around problem types, and it introduces a registry for problem types.&#8221;</p>
+<h3 id="registry-for-common-problem-types">Registry for Common Problem Types</h3>
+<p>The most significant update for this RFC is the addition of a common problem type registry. The RFC uses very specific language for referencing the registry, stating that &#8220;registrations MAY use the prefix &#8216;<a href="https://iana.org/assignments/http-problem-types#">https://iana.org/assignments/http-problem-types#</a>&#8216; for the type URI,&#8221; and gives explicit expectations for how and why a problem might be registered.</p>
+<blockquote><p>&#8220;When evaluating requests, the designated expert(s) should consider community feedback, how well-defined the problem type is, and this specification&#8217;s requirements. Vendor-specific, application-specific, and deployment-specific values are unable to be registered. Specification documents should be published in a stable, freely available manner (ideally located with a URL) but need not be standards.&#8221;</p></blockquote>
+<p>This addition does two things. First, it allows developers to register common problem types for reuse across projects. When well-defined, these problem types can be replicated regardless of the language or implementation, as the registered problem types represent a common problem that needs additional context. Second, by defining the evaluation criteria for such requests, specific issues related to vendors, applications, and deployments are abstracted away. This ensures that the &#8220;universal problems&#8221; are, in fact, universal and not overly specific to a single implementation.</p>
+<h3 id="clarification-for-multiple-problem-issues">Clarification for Multiple Problem Issues</h3>
+<p>A specific use case not fully addressed in the first RFC is the issue of multiple problems. When using an API, multiple problems may be encountered simultaneously. These issues might feed into one another, or they could be separate, isolated issues. The new RFC recommends first communicating the most urgent or relevant problem in the response instead of creating batch problem types.</p>
+<p>It should be noted that there is a piece of advice nestled in the change that does mention the idea of a &#8220;batch&#8221; problem type. This may be appropriate in some cases, but as the RFC notes, this is difficult to map into HTTP semantics, and as such, the advice is to communicate the most pressing problem first.</p>
+<h3 id="using-type-uris-that-cannot-be-dereferenced">Using Type URIs that Cannot be Dereferenced</h3>
+<p>Finally, the new RFC provides specific guidance for how type URIs that cannot be dereferenced should be handled within the context of the general type specification. The update introduces guidelines for the <code>type</code> member in JSON, specifying that it should contain a URI reference identifying a problem type. If absent, it defaults to <code>about:blank</code>.</p>
+<p>Resolvable type URIs are recommended, potentially providing human-readable documentation, while non-resolvable URIs like tag URIs are allowed. The use of relative URIs is cautioned against due to potential confusion and inconsistent handling among implementations.</p>
+<h2 id="the-value-of-contextual-communication">The Value of Contextual Communication</h2>
+<p><a href="https://nordicapis.com/what-do-the-http-status-codes-mean/">Error codes</a> are the most direct form of communication an end user will first encounter when an error occurs. Accordingly, it is a trusted source of information that is invaluable. Finding the balance between usability and brevity is a balancing act that has always been difficult to walk. Therefore, using problem details to provide both in an easy-to-parse, easy-to-control method is a great solution.</p>
+<p>Consider the use case of the average user. Let&#8217;s say you go back to that hypothetical example of trying to buy a Nordic APIs ticket. If the system uses problem details, this is the flow that we can expect:</p>
+<ol>
+<li>The user attempts a purchase but is denied.</li>
+<li>The user receives clear communication as to the cause of the issue.</li>
+<li>The user also receives a method to attempt a fix and a rough idea of how to accomplish it.</li>
+<li>The user is able to get their fix implemented and goes on to make a purchase.</li>
+</ol>
+<p>This is a sensible flow of events, but equally important, it has low friction. Let&#8217;s take a look at the alternative path that has more friction in the way of completing the transaction.</p>
+<ol>
+<li>The user attempts a purchase but is denied.</li>
+<li>The user looks at the error and sees a simple error code of 403 Forbidden.</li>
+<li>The user searches the site to determine why they are getting a 403.</li>
+<li>The documentation states several potential causes and instructs the user to look at the HTTP body response, so the user again makes the attempt and looks at the body of the response before the page is automatically reloaded by their mobile browser.</li>
+<li>The user decides that this is all too much effort and decides that they never really wanted to go to the event anyhow. Cart abandonment ensues!</li>
+</ol>
+<p>It&#8217;s a <a href="https://nordicapis.com/what-does-a-bad-developer-experience-look-like/">bad user experience</a>, but you may think the likelihood of someone giving up that quickly is a bit overblown. The reality is that this is a more common occurrence than you might think. According to the <a href="https://baymard.com/lists/cart-abandonment-rate">Baymard Institute</a>, 70.19% of all online shopping carts are abandoned — and that&#8217;s within a low friction environment! Consider how many people will jump the API ship if they can&#8217;t even figure out a simple problem like the above without doing six or seven discrete steps.</p>
+<div class="well">Related: <a href="https://nordicapis.com/how-to-log-api-errors-on-your-server/">How to Log API Errors on Your Server</a></div>
+<h2 id="conclusion">Conclusion</h2>
+<p>API error communication is vital to the health of any system. It&#8217;s not just good enough to report an error — you must report it in a clean, easy-to-understand, and useful format. Failing to do so will create a poor user experience but could also have long-term effects on adoption, customer retention, and customer satisfaction. Luckily, the problem details RFC offers a solution and would be an excellent addition to any API.</p>
+<p>What do you think of this RFC family? Do you see any other use cases that could benefit from its implementation? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

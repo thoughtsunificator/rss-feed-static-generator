@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Client Profile: J.G. Title Company</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Client Profile: J.G. Title Company</h2>
+		<a target="_blank" href="https://www.endpointdev.com/blog/2023/12/client-profile-j-g-title-company/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://www.endpointdev.com/blog/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+        <p><img src="/blog/2023/12/client-profile-j-g-title-company/j-g-title-company.webp" alt="The J.G. Title Company logo sits in the center of an image on a blue background with futuristic designs reminiscent of circuit boards. Text on either side of the logo reads &ldquo;Nationwide titling&rdquo;, with text under reading &ldquo;info@jgtitleco.com&rdquo; and &ldquo;https://jgtitleco.com&rdquo;"></p>
+<p><a href="https://jgtitleco.com/">J.G. Title</a> is a prominent service company specializing in automotive dealership titling and registration processes across the country. They simplify operations for their dealers, businesses, and individuals by giving tax/fee quotes, document validation, and checklists for all jurisdictions.</p>
+<p>Jordan Kivett, the owner of J.G. Title, envisioned an innovative web application to simplify dealership operations. He contacted us to request a quote for developing this solution and making his vision a reality. This project became a great opportunity for our <a href="/team/">.NET team</a> to build a robust system with state-of-the-art technologies functioning seamlessly together.</p>
+<h3 id="the-solution">The solution</h3>
+<p>J.G. Title submitted a detailed document containing a description of the requirements for the J.G. Title Suite app along with workflow diagrams explaining their current business processes. After analyzing all the documents and having some initial meetings, we decided to divide the project into different stages, and estimate each phase of work separately. We ended up with three phases:</p>
+<ul>
+<li>Phase I: Create a product that allows users to enter deals into the system and retrieve the quote estimation, including taxes, fees, and charges for services across 50 states.</li>
+<li>Phase II: Implement several UI improvements such as a detailed dealership dashboard, financial management, and integration with <a href="https://quickbooks.intuit.com/">QuickBooks</a>.</li>
+<li>Phase III: Add an ambitious PDF document management section featuring document recognition, analysis, and manipulation, to perform automatic validations on the document&rsquo;s contents and automatically generate PDF outputs from the deal&rsquo;s details.</li>
+</ul>
+<h3 id="tech-stack">Tech stack</h3>
+<ul>
+<li><a href="https://dotnet.microsoft.com/en-us/learn/dotnet/what-is-dotnet">.NET</a> 6 with <a href="https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/">C#</a></li>
+<li><a href="https://www.postgresql.org/">PostgreSQL</a> 14</li>
+<li><a href="https://rockylinux.org/">Rocky Linux</a> 9 with <a href="https://www.nginx.com/">Nginx</a></li>
+</ul>
+<p>We had already worked with this combination of technologies for several clients, and we are confident in the combined power in a robust database such as Postgres along with .NET 6 running in a Linux environment. It has proven to be a stable, fast, and reliable setup for our web solutions.</p>
+<p>We also used <a href="https://trello.com/">Trello</a> for tracking the project&rsquo;s progress and tasks, <a href="https://github.com/">GitHub</a> for version control, and <a href="https://visualstudio.microsoft.com/vs/">Visual Studio 2022</a> or <a href="https://code.visualstudio.com/">VS Code</a> with <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/">.NET CLI</a> as a coding environment. Some of us also used <a href="https://code.visualstudio.com/docs/devcontainers/tutorial">VS Code dev containers</a>. <a href="https://www.pgadmin.org/">pgAdmin</a> is our usual tool to manage the local Postgres database, as well as <a href="https://www.postman.com/">Postman</a> to test our API endpoints.</p>
+<h3 id="the-team">The team</h3>
+<p>Most of our .NET team is involved on this project. We also receive valuable help from our hosting team and our Postgres developers.</p>
+<ul>
+<li><a href="/team/bimal-gharti-magar/">Bimal Gharti Magar</a></li>
+<li><a href="/team/dan-briones/">Dan Briones</a></li>
+<li><a href="/team/dylan-wooters/">Dylan Wooters</a></li>
+<li><a href="/team/juan-pablo-ventoso/">Juan Pablo Ventoso</a></li>
+<li><a href="/team/kevin-campusano/">Kevin Campusano</a></li>
+<li><a href="/team/mike-delange/">Mike DeLange</a></li>
+</ul>
+<p>The client is also highly involved in all aspects of the development process, from requirements gathering to documenting, testing, and providing feedback. We have bi-weekly standup calls, and the entire team (End Point + J.G. Title) interacts actively through Trello, working together and updating each task as the work progresses.</p>
+<h3 id="results">Results</h3>
+<p>We began working on the project on October 25, 2022, and completed Phase I within the expected timeline, on June 7, 2023. The next phases were launched iteratively, with new deployments usually scheduled twice a week.</p>
+<p>The application is now widely used by dealerships and the J.G. Title team. They have over 200 users registered in the system, with more than 8,000 deals quoted, and new deals being added at an increasing rate.</p>
+<p><img src="/blog/2023/12/client-profile-j-g-title-company/j-g-title-suite-featured.webp" alt="On the right side is an image of a laptop and phone, each running the J.G. Title Suite application. Text on the left reads &ldquo;From chaos to clarity. Simplify, streamline, succeed: Embrace clarity in your dealership&rsquo;s tax and title operations. Our dedicated team of specialists conducted extensive research and established partnerships with local DMVs and state Treasurers to become the trusted partner for automotive dealerships and businesses nationwide, offering efficient and reliable title and registration services. We continue transforming automotive title management on a national scale and welcome you to experience the future of automotive titling.""><br>
+The J.G. Title Suite application, featured on the company&rsquo;s website.</p>
+<p>We are continuing work on several tasks related to Phase III of the project. As the application keeps growing and users send feedback, new phases of work will surely be added to the project in the future.</p>
+<p>This partnership is a testament to our shared vision for efficiency and innovation, and we&rsquo;re excited to continue reshaping the industry with J.G. Title Company!</p>
+
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Protecting SOAP Against OWASP’s Top Ten API Risks</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Protecting SOAP Against OWASP’s Top Ten API Risks</h2>
+		<a target="_blank" href="https://nordicapis.com/protecting-soap-against-owasps-top-ten-api-risks/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>SOAP, or Simple Object Access Protocol, is an API standard that is widely used in the industry. SOAP utilizes XML to format its communication, WDSL (Web Services Description Language) to define the message schema and HTTP for transmission. It is widely adopted as a solution for services that need additional layers of control over communication, such as in banking or security applications.</p>
+<p>However, as with any tech stack, <a href="https://nordicapis.com/common-cases-when-using-soap-makes-sense/">SOAP</a> has its own security risks. Below, we&#8217;re going to look at these risks through the lens of the <a href="https://owasp.org/www-project-api-security/">OWASP API Security Top 10 2023</a> list. We&#8217;ll examine potential SOAP vulnerabilities and detail some processes to mitigate these risks.</p>
+<h2 id="api01-broken-object-level-authorization-bola-">API01: Broken Object Level Authorization (BOLA)</h2>
+<p><a href="https://nordicapis.com/what-is-broken-object-level-authorization-and-how-to-fix-it/">Broken object-level authorization</a> (BOLA), previously identified as insecure direct object reference (IDOR), represents a noteworthy concern within the API landscape. This vulnerability emerges when an API divulges objects devoid of requisite authorization validations. Malicious actors can exploit this loophole to illicitly retrieve unauthorized data.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>As with any system that interacts with various users, authorization will be an ongoing concern. This issue could arise if the API design or backend logic inadequately verifies the identity and permissions of the requestor before serving object data. As a result, a malicious user can manipulate data to gain <a href="https://nordicapis.com/how-to-fix-broken-access-control/">unauthorized access</a> to resources and systems, leading to potential data breaches or unauthorized data manipulation.</p>
+<p>Resolving this vulnerability requires robust access control systems that are granular enough to implement at the object level. Additionally, the API should be regularly audited to verify that the object exposure and authentication systems are adequate. Automated testing can ensure that these fixes are maintained and that the system is kept secure.</p>
+<h2 id="api02-broken-authentication">API02: Broken Authentication</h2>
+<p>This vulnerability is connected to weaknesses within authentication mechanisms, which could be exploited or circumvented, leading to various potential attacks. These attacks may take a direct form, such as data exfiltration, or an indirect one, like denial of service attacks achieved by sidestepping <a href="https://nordicapis.com/different-algorithms-to-implement-rate-limiting-in-apis/">authentication-based rate limits</a>.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>SOAP services are just as vulnerable to this as any <a href="https://nordicapis.com/how-are-microservices-and-web-services-different/">web service</a>. While SOAP itself provides a good deal of control over interactions and has solid authentication methods, they can be easily misconfigured or applied in irregular or ineffective ways.</p>
+<p>To counter this vulnerability, appropriate authentication must be developed early and considered a core property of the service. Authentication should be paired with multifactor systems for critical functions that require additional security layers. <a href="https://nordicapis.com/5-helpful-error-monitoring-tools-and-apis/">Monitoring and logging</a> should be employed to ensure that security events are tracked and logged, allowing for long-term security posture improvement. Finally, regularly auditing and reviewing the authentication design should be used to ensure that the underlying security system is maintained.</p>
+<h2 id="api03-broken-object-property-level-authorization-bopla-">API03: Broken Object Property Level Authorization (BOPLA)</h2>
+<p>BOPLA leads to the potential danger of users attempting to access particular API object sections beyond their authorized scope. This susceptibility arises from the convergence of concerns such as overshared data risks and unintended assignment and can potentially result in the unintentional disclosure or alteration of data.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>In a SOAP service, especially one that returns complex objects with multiple properties, Broken Object Property Level Authorization (BOPLA) can be a significant issue. Since SOAP typically uses XML to represent complex data structures, certain sections of these XML responses may contain sensitive data. An attacker who understands the XML schema could potentially navigate to and extract sensitive information if <a href="https://nordicapis.com/server-to-server-authorization-using-mutual-tls/">proper authorization controls</a> are not in place for each property or section.</p>
+<p>To mitigate this risk, <a href="https://nordicapis.com/using-opa-for-api-authorization/">fine-grained authorization controls</a> should be implemented at the property level, ensuring that only authorized users can view or modify specific parts of an object. Data masking and object filtering based on user roles and permissions can be effective techniques to prevent unauthorized data exposure. Furthermore, object schemas can be designed to separate sensitive and non-sensitive information, creating an additional layer of obfuscation.</p>
+<div class="well">Also read <a href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/">Protecting GraphQL Against OWASP Top Ten API Risks</a></div>
+<h2 id="api04-unrestricted-resource-consumption">API04: Unrestricted Resource Consumption</h2>
+<p>APIs lacking effective resource consumption control and monitoring are susceptible to this form of exploitation. Unrestrained utilization of resources can result in service unavailability and, in prolonged attack scenarios, has the potential to escalate operational expenses.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>When services don&#8217;t implement proper controls to limit the consumption of resources, they are vulnerable to this kind of attack. Since SOAP has strong mechanisms to control the requests and interactions of the service itself, the number of requests is the most significant issue here. An excessive number of requests can easily cause an over-demand of resources, resulting in denial of services or excess cost.</p>
+<p>To mitigate this, deploy <a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/">rate limiting</a>. Static rate limiting, that is, a hard limit on total requests, is a good solution. A better solution would be dynamic rate limiting that shifts depending on who is requesting, what they are requesting, and other heuristic data such as the most recent requests and the context for those requests.</p>
+<h2 id="api05-broken-function-level-authorization-bfla-">API05: Broken Function Level Authorization (BFLA)</h2>
+<p>BFLA is an issue of unauthorized execution at the function level, where a user can execute functions they&#8217;re not authorized for. These issues can result in unauthorized access to functions and underlying data.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>SOAP services often expose multiple functions as part of their web service interface, and if proper authorization checks aren&#8217;t in place, a user could execute functions they shouldn&#8217;t have access to. BFLA is particularly concerning because it can lead to unauthorized data access or manipulation.</p>
+<p>The mitigation strategy for BFLA involves implementing fine-grained, role-based access control (RBAC) at the function level, possibly augmented with attribute-based access control (ABAC) for more dynamic permissions. <a href="https://nordicapis.com/use-oauth-to-mitigate-top-of-the-top-api-risks/">Authorization logic</a> should be robust and consistent across all exposed functions. Logging and monitoring should be implemented to detect unauthorized access attempts, and security audits should be performed regularly to ensure effective authorization controls.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/using-dast-to-tackle-the-owasp-top-10/">Using DAST to Tackle the OWASP Top 10</a></div>
+<h2 id="api06-unrestricted-access-to-sensitive-business-flows">API06: Unrestricted Access to Sensitive Business Flows</h2>
+<p>This kind of issue arises when business flows — for instance, purchasing an item — are exposed without consideration for what this means for the holistic API. The problem with this kind of flaw is that it&#8217;s not necessarily a configuration error – after all, purchasing an item may indeed be the entire point of the API.</p>
+<p>We saw this kind of flaw rampant during the launch of video game consoles in the last few years, where attackers utilized an endpoint and a botnet of devices to automatically buy up the entire stock of an item for later resale.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>In a SOAP service that handles sensitive business operations, such as purchase transactions, limiting and monitoring access to these processes is crucial. Malicious actors can exploit unsecured endpoints to manipulate business processes, like buying up entire stocks of limited items or continually registering bad user info to flood internal databases with low-quality data.</p>
+<p>A variety of solutions can be implemented to prevent this kind of issue. A sort of soft interaction limit could be deployed through verification systems such as CAPTCHA, which require a user to manually enter verification information, preventing automated attacks. Services can be throttled through rate limiting when potential abuse is detected.</p>
+<p>Robust controls can be toggled on or off depending on the type of request. For instance, a popular model that is likely to be bought up through an abusive botnet can result in that particular webhook having an increased level of rate limiting. Monitoring and logging will be important elements here, as the more info you have, the more you can identify these attacks.</p>
+<h2 id="api07-server-side-request-forgery-ssrf-">API07: Server Side Request Forgery (SSRF)</h2>
+<p>Server-side request forgery (SSRF) is when an attacker induces the server to make a request on their behalf, potentially accessing internal resources or exposing sensitive information. Doing so allows unrestricted access to critical functions.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>SSRF is particularly concerning for SOAP services, especially when these services are configured to interact with resources based on client input. For example, if a SOAP web service is designed to fetch data from other internal services or databases based on URLs or identifiers supplied in SOAP requests, an attacker can exploit this to gain escalated unauthorized access to internal resources through secondary attack pathways.</p>
+<p>To mitigate this, SOAP services should implement strict input validation and additional controls over service interactions. Network-level rules can be applied to restrict the SOAP service from making requests to unauthorized internal resources, and challenge systems can be utilized to ensure that server requests are actually coming from the trusted sources they are assumed to be coming from.</p>
+<p>Certain heuristics can be used to test these requests. For instance, if a server has never made this request and suddenly makes several of them, this should be stopped, logged, and audited. Monitoring and alerting can be set up to flag suspicious server-side requests as they occur, enabling quick incident response.</p>
+<h2 id="api08-security-misconfiguration">API08: Security Misconfiguration</h2>
+<p>Security misconfigurations can be defined as flaws that let attackers force the API to make unwanted requests to external resources. This broad category includes mistakenly exposing sensitive information or functionalities due to misconfigurations in the server or application.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>Security misconfigurations can afflict SOAP services as much as any other <a href="https://nordicapis.com/what-is-the-difference-between-web-services-and-apis/">web service</a>, leading to unintentional exposure of sensitive information or functionalities. Simple mistakes like leaving critical information unsecured, failing to disable unused functions, or improperly setting up security settings can lead to severe vulnerabilities.</p>
+<p>Regular security audits, automated scanning, and thorough code reviews can help catch <a href="https://accelerationeconomy.com/cybersecurity/6-common-security-risks-for-cloud-native-approaches/">security misconfigurations</a> before they become significant. Developers should follow security best practices during the SOAP service&#8217;s lifecycle, from development to deprecation, and should actively review and apply security patches and updates as needed. Documentation should be maintained to record configuration changes, creating a long-term audit trail.</p>
+<h2 id="api09-improper-inventory-management">API09: Improper Inventory Management</h2>
+<p>This vulnerability is about not maintaining a clear inventory of API versions, environments, and deprecated fields. Attackers can exploit this oversight to find and exploit old or unprotected API endpoints.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>SOAP services can suffer from improper inventory management when older versions of the API or its underlying services are left exposed. This presents an attractive target for attackers who seek less secure entry points.</p>
+<p>Regularly updating an inventory of all SOAP web services, including deprecated versions and test environments, is crucial for mitigating this risk. Older versions should either be updated and secured with the same level of security as the current version or decommissioned entirely. Security audits should include a review of this inventory to identify any potentially vulnerable endpoints. Ultimately, this risk is best solved through organizational efforts, so building <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/">inventory management</a> as a core organizational process is critical to successful API implementation.</p>
+<div class="well">Related: <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">10 Steps to Catalog Your Growing API Inventory</a></div>
+<h2 id="api10-unsafe-consumption-of-apis">API10: Unsafe Consumption of APIs</h2>
+<p>It&#8217;s essential to validate and sanitize data from third-party APIs. Treating data from external systems as trusted can introduce vulnerabilities to the system, especially when consuming these APIs without due diligence.</p>
+<h3 id="soap-threat">SOAP Threat</h3>
+<p>In scenarios where SOAP services consume data from third-party APIs or services, there&#8217;s a risk of introducing vulnerabilities by treating external data as trusted. This is especially risky if the SOAP service performs operations or makes decisions based on this external data.</p>
+<p>To mitigate this risk, SOAP services should never implicitly trust data from third-party services. All incoming data should be properly validated and sanitized. If the SOAP service relies on third-party APIs for authentication or other critical functions, additional security measures should be employed.</p>
+<p>Third-party services should be vetted carefully to ensure they meet security standards, and their data should be treated as untrusted until validated. Ultimately, a <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">zero-trust model</a> is most appropriate here. Trust nothing, assume ill-intent, and vet all incoming data at a high level to ensure proper security.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-practices-to-secure-third-party-api-usage/">7 Practices to Secure Third-Party API Usage</a></div>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>SOAP is a powerful solution, but it&#8217;s only as good as the security of the system it lives on. With a proper approach toward the security posture of the underlying system, SOAP can be effectively deployed in a secure environment, resulting in operational excellence.</p>
+<p>What do you think about these steps? Have we missed some other solutions for implementing security processes for SOAP against the OWASP top ten risks? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

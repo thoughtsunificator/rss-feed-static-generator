@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>6 AsyncAPI Validation Tools</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">6 AsyncAPI Validation Tools</h2>
+		<a target="_blank" href="https://nordicapis.com/6-asyncapi-validation-tools/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>AsyncAPI specification is a widely used open-source standard for defining and documenting application programming interfaces (APIs) in an <a href="https://nordicapis.com/the-world-is-asynchronous-get-used-to-it/">asynchronous environment</a>. The specification lays the foundation for a greater and better tooling ecosystem for event-driven architecture. But as its popularity grows, developers are increasingly looking for tools to help them validate the accuracy of their AsyncAPI documents.</p>
+<p>These AsyncAPI validation tools are designed to check for errors and inconsistencies in AsyncAPI documents, making it easier for developers to create well-structured APIs. Several popular AsyncAPI validation tools are available to help ensure the accuracy and integrity of your AsyncAPI specification.</p>
+<p>In this blog post, we&#8217;ll discuss some of the most widely used AsyncAPI validation tools available. We&#8217;ll see how they can help developers ensure the accuracy of their AsyncAPI documents.</p>
+<h2 id="1-aml-modeling-framework-amf-https-github-com-aml-org-amf-">1. <a href="https://github.com/aml-org/amf">AML Modeling Framework (AMF)</a></h2>
+<p>The AML Modeling Framework (AMF) is an open-source library that serves as a powerful tool for working with AsyncAPI and other API specifications. AMF is capable of parsing, transforming, validating, and rendering arbitrary models, making it an invaluable asset for developers working with AsyncAPI.</p>
+<p>One of the key components of AMF is the API Contract Model, which contains all the information expressed in the source API document. This model can be used for validations, transformations, and conversions, making it highly versatile and adaptable to different use cases.<br />
+What sets AMF apart is its support for custom models and parsers, which can be defined using the AML (API Modeling Language) language. This allows developers to create their own models and parsers tailored to their specific needs and requirements.</p>
+<p>To illustrate the power of AMF, let&#8217;s consider an example where an <a href="https://nordicapis.com/comparing-the-features-of-openapi-v3-vs-openapi-v2/">OpenAPI Specification</a> (OAS) 3.0 API document needs to be parsed, validated, transformed, and rendered in RAML 1.0. With AMF, this can be achieved seamlessly, simplifying the process and saving valuable development time.</p>
+<p>If you want to learn more about the AML Modeling Framework and its capabilities, various resources are available, including the official documentation, tutorials, and code examples. These resources can provide a deeper understanding of AMF and help you unlock its full potential for working with AsyncAPI and other API specifications.</p>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17881" src="https://nordicapis.com/wp-content/uploads/image5-7-1024x551.png" alt="" width="1024" height="551" srcset="https://nordicapis.com/wp-content/uploads/image5-7-1024x551.png 1024w, https://nordicapis.com/wp-content/uploads/image5-7-300x161.png 300w, https://nordicapis.com/wp-content/uploads/image5-7-768x413.png 768w, https://nordicapis.com/wp-content/uploads/image5-7-1536x826.png 1536w, https://nordicapis.com/wp-content/uploads/image5-7-223x120.png 223w, https://nordicapis.com/wp-content/uploads/image5-7-220x118.png 220w, https://nordicapis.com/wp-content/uploads/image5-7-180x97.png 180w, https://nordicapis.com/wp-content/uploads/image5-7-130x70.png 130w, https://nordicapis.com/wp-content/uploads/image5-7-90x48.png 90w, https://nordicapis.com/wp-content/uploads/image5-7-200x108.png 200w, https://nordicapis.com/wp-content/uploads/image5-7-400x215.png 400w, https://nordicapis.com/wp-content/uploads/image5-7.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<h2 id="2-spectral-https-docs-stoplight-io-docs-spectral-1e63ffd0220f3-async-api-rules-">2. <a href="https://docs.stoplight.io/docs/spectral/1e63ffd0220f3-async-api-rules">Spectral</a></h2>
+<p>Spectral is a powerful and extensible linting tool specifically designed for API specifications. It helps developers ensure the quality, consistency, and adherence to best practices of their AsyncAPI and OpenAPI specifications.</p>
+<p>Spectral operates based on three key concepts: rules, rulesets, and functions. Rules define what to look for in the API specification, rulesets group related rules together, and functions perform specific operations on the API document.</p>
+<p>Spectral comes bundled with core functions and rulesets for OpenAPI v2 and v3 and AsyncAPI v2, making it easy to get started. It supports YAML and JSON file formats, providing flexibility for different project requirements.</p>
+<p>One of the most popular use cases of Spectral is automating the enforcement of <a href="https://nordicapis.com/11-tips-for-creating-an-api-style-guide/">API style guides</a>. Traditionally, companies would write these style guides as wiki pages, and many examples are available on <a href="http://apistylebook.com/">API Stylebook</a>. However, many of these rules can be automated using Spectral.</p>
+<p>To make the most out of Spectral, it&#8217;s essential to learn more about how rulesets work. By understanding and customizing the rulesets, developers can tailor Spectral to their specific needs and ensure their API specifications are always up to standard.</p>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17882" src="https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-1024x476.png" alt="" width="1024" height="476" srcset="https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-1024x476.png 1024w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-300x140.png 300w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-768x357.png 768w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-1536x715.png 1536w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-240x112.png 240w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-220x102.png 220w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-180x84.png 180w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-150x70.png 150w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-90x42.png 90w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-200x93.png 200w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi-400x186.png 400w, https://nordicapis.com/wp-content/uploads/Spectral-stoplight-asyncapi.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<div>For more read: <a href="https://nordicapis.com/using-spectral-to-lint-your-openapi-definition/">Using Spectral To Lint Your OpenAPI Definition</a></div>
+<h2 id="3-asyncapi-parser-https-github-com-asyncapi-parser-js-">3. <a href="https://github.com/asyncapi/parser-js">AsyncAPI Parser</a></h2>
+<p>The AsyncAPI Parser is a powerful tool that validates AsyncAPI documents according to dedicated schemas. It supports documents in both YALM and JSON formats. If a document is invalid, the parser provides a detailed message listing all errors encountered. On the other hand, if a document is valid, the parser provides a dereferenced output, which is always in the JSON format.</p>
+<p>To install the AsyncAPI Parser package, you can use the command <code>npm install -g @asyncapi/parser</code>. You can use the AsyncAPI Parser either in the terminal or with Golang.</p>
+<p>Here are two examples of how you can use the AsyncAPI Parser in the terminal:</p>
+<ol>
+<li>To validate an AsyncAPI document: <code>asyncapi validate &lt;path-to-asyncapi-doc&gt;</code></li>
+<li>To dereference an AsyncAPI document: <code>asyncapi dereference &lt;path-to-asyncapi-doc&gt; --output &lt;output-file&gt;</code></li>
+</ol>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17878" src="https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-1024x503.png" alt="" width="1024" height="503" srcset="https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-1024x503.png 1024w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-300x147.png 300w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-768x377.png 768w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-1536x755.png 1536w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-240x118.png 240w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-220x108.png 220w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-180x88.png 180w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-142x70.png 142w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-90x44.png 90w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-200x98.png 200w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser-400x196.png 400w, https://nordicapis.com/wp-content/uploads/AsyncAPI-parser.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<h2 id="4-asyncapi-parser-wrapper-https-github-com-creditmutuelarkea-asyncapi-parser-">4. <a href="https://github.com/CreditMutuelArkea/asyncapi-parser">AsyncAPI Parser Wrapper</a></h2>
+<p>The AsyncAPI Parser wrapper is a Java library that enables parsing and validation of AsyncAPI documents in Java applications. It acts as a Java wrapper over a JavaScript Parser implemented using J2V8. To install the parser, you can clone the repository and build the library using the provided build script. Alternatively, you can add the dependency to your Maven or Gradle project by specifying the group, artifact, and version in your project&#8217;s configuration file. This library is a powerful tool for Java developers who want to incorporate AsyncAPI validation into their applications.</p>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17880" src="https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-1024x536.png" alt="" width="1024" height="536" srcset="https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-1024x536.png 1024w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-300x157.png 300w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-768x402.png 768w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-1536x804.png 1536w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-229x120.png 229w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-220x115.png 220w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-180x94.png 180w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-134x70.png 134w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-90x47.png 90w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-200x105.png 200w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1-400x209.png 400w, https://nordicapis.com/wp-content/uploads/asyncapi-parser-1.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<h2 id="5-asyncapi-validator-https-github-com-waleedashraf-asyncapi-validator-">5. <a href="https://github.com/WaleedAshraf/asyncapi-validator">Asyncapi-Validator</a></h2>
+<p>Another popular tool for validating AsyncAPI schemas is the asyncapi-validator package. This package supports AsyncAPI Schema version 2.0.0 and above. It provides a simple and straightforward way to validate AsyncAPI schemas and check for any errors or inconsistencies.</p>
+<p>One of the notable features of the asyncapi-validator is the <code>.validateByMessageId()</code> method. This method allows you to validate a specific message based on its <code>messageId</code>. It requires an AsyncAPI Schema version of at least v2.4.0. This feature is handy when you want to validate a specific message within your schema.</p>
+<p>Another important aspect of the asyncapi-validator is the <code>.schema</code> property. This property allows you to access the AsyncAPI schema in JSON format. You can use this property to perform additional checks or validations outside of the built-in validation methods provided by the package.</p>
+<p>By using the asyncapi-validator, you can ensure that your AsyncAPI schemas comply with the defined standards and avoid any potential issues in your messaging system. This tool can significantly improve the quality and reliability of your AsyncAPI specifications.</p>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17879" src="https://nordicapis.com/wp-content/uploads/asyncapi-validator-1024x544.png" alt="" width="1024" height="544" srcset="https://nordicapis.com/wp-content/uploads/asyncapi-validator-1024x544.png 1024w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-300x159.png 300w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-768x408.png 768w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-1536x816.png 1536w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-226x120.png 226w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-220x117.png 220w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-180x96.png 180w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-132x70.png 132w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-90x48.png 90w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-200x106.png 200w, https://nordicapis.com/wp-content/uploads/asyncapi-validator-400x213.png 400w, https://nordicapis.com/wp-content/uploads/asyncapi-validator.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<h2 id="6-asyncapi-github-action-https-github-com-marketplace-actions-asyncapi-github-action-">6. <a href="https://github.com/marketplace/actions/asyncapi-github-action">AsyncAPI GitHub Action</a></h2>
+<p>The AsyncAPI GitHub Action is a valuable tool that allows you to easily validate your AsyncAPI schema file directly within your GitHub repository. This action is designed to check whether the AsyncAPI schema file is valid or not, ensuring that it adheres to the AsyncAPI specification.</p>
+<p>To use this action, you simply need to provide the file path of your AsyncAPI schema file, starting from the root of your GitHub repository. This enables the action to locate and validate the file seamlessly.</p>
+<p>In addition, the AsyncAPI GitHub Action allows you to specify the version of the action you want to use by appending the <code>@v&lt;release-version&gt;</code> to the action&#8217;s name. The latest release version can be found on the releases page of the GitHub repository.</p>
+<p>By leveraging the power of the AsyncAPI GitHub Action, you can automate the validation process for your AsyncAPI schema file, ensuring its accuracy and compliance. This action saves time and effort as it seamlessly integrates into your existing GitHub workflow.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-validate-openapi-definitions-with-open-policy-agent-and-rego/">How to Validate OpenAPI Definitions With Open Policy Agent and Rego</a></div>
+<div><img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17877" src="https://nordicapis.com/wp-content/uploads/asyncapi-github-action-1024x525.png" alt="" width="1024" height="525" srcset="https://nordicapis.com/wp-content/uploads/asyncapi-github-action-1024x525.png 1024w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-300x154.png 300w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-768x394.png 768w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-1536x788.png 1536w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-234x120.png 234w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-220x113.png 220w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-180x92.png 180w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-137x70.png 137w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-90x46.png 90w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-200x103.png 200w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action-400x205.png 400w, https://nordicapis.com/wp-content/uploads/asyncapi-github-action.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></div>
+<h2 id="how-to-validate-your-asyncapi-definitions">How to Validate your AsyncAPI Definitions</h2>
+<p>Developers can also validate their AsyncAPI definitions using the validation tool provided by AsyncAPI itself. This tool is available as a command line interface (CLI), making it easily accessible for developers.</p>
+<p>The CLI can be used to validate both YAML and JSON documents. To use the validation tool, developers must run a command with the path to their AsyncAPI document(s) as an argument. The tool supports validating a single document or an entire directory of documents. This flexibility allows developers to efficiently validate their AsyncAPI definitions, even in projects with multiple files.</p>
+<p>The AsyncAPI validation tool performs a variety of checks to ensure the correctness and integrity of the definitions. It checks for syntax errors, missing fields, and other issues that could prevent a document from being successfully parsed. By detecting these errors early on, developers can avoid potential problems and save time in the long run.</p>
+<p>Additionally, the validation tool also checks for semantic errors, such as incorrect field types or invalid values. This helps ensure that the AsyncAPI definitions adhere to the specifications and accurately represent the intended functionality.</p>
+<p>The validation tool is open source and can be found on GitHub, providing developers with the opportunity to contribute, report issues, or suggest improvements. Furthermore, for developers who prefer working in a containerized environment, the validation tool is also available as a Docker image, making it even more convenient to use.</p>
+<p>By utilizing the validation tool provided by AsyncAPI, developers can validate their AsyncAPI definitions quickly and effectively, ensuring the quality and accuracy of their messaging infrastructure.</p>
+<h2 id="comparing-the-asyncapi-validation-tools">Comparing The AsyncAPI Validation Tools</h2>
+<p>In summary, AsyncAPI validation tools are a set of powerful tools and libraries designed to help developers validate their AsyncAPI definitions and ensure that they conform to the AsyncAPI specification. These tools offer various features and functionalities, such as syntax validation, linting, and code generation, to help developers improve the quality and accuracy of their AsyncAPI documents. Here&#8217;s a review of how they all compare.</p>
+<p>The <strong>AML Modeling Framework</strong> (AMF) provides a set of Java libraries that allow developers to parse, manipulate, and validate AsyncAPI documents. AMF leverages the power of JSON-LD to create a flexible and extensible modeling framework.</p>
+<p><strong>Spectral</strong> is another important tool for validating <a href="https://nordicapis.com/what-is-specification-driven-api-development/">API definitions</a>. It is a customizable JSON/YAML linter that allows developers to define and enforce custom validation rules on their AsyncAPI documents. Spectral provides a rich set of pre-built rules that cover common validation scenarios, making it easier for developers to ensure the quality of their AsyncAPI definitions.</p>
+<p><strong>AsyncAPI Parser</strong> and <strong>AsyncAPI Parser Wrapper</strong> are two libraries that provide developers with the ability to parse and manipulate AsyncAPI documents programmatically. These libraries allow developers to work with AsyncAPI documents in their preferred programming language, making it easier to integrate the validation process into their existing workflows.</p>
+<p>The <strong>asyncapi-validator</strong> is a command-line tool that allows developers to validate AsyncAPI documents against the AsyncAPI specification. It provides a simple and intuitive interface, making it easy for developers to validate their AsyncAPI definitions.</p>
+<p>Lastly, the <strong>AsyncAPI GitHub Action</strong> is a powerful automation tool that enables developers to integrate AsyncAPI validation into their CI/CD pipelines. This action allows developers to automatically validate their AsyncAPI definitions whenever changes are made, ensuring that only valid and compliant documents are deployed.</p>
+<p>Overall, AsyncAPI Validation Tools provide developers with the necessary tools and libraries to validate and ensure the quality of their AsyncAPI definitions. By utilizing these tools, developers can reduce errors and inconsistencies in their AsyncAPI documents, leading to more reliable and efficient messaging systems.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

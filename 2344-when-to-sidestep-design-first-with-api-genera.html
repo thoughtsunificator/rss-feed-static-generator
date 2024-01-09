@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>When to Sidestep Design-First With API Generation</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">When to Sidestep Design-First With API Generation</h2>
+		<a target="_blank" href="https://nordicapis.com/when-to-sidestep-design-first-with-api-generation/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Many folks in the API space promote the idea of design-first, in which the API is designed before the code. This is inherently a user-centric process, as you must consider the API schema and how developers will interact with the interface early on. Compared to code-first, there are many benefits of taking a <a href="https://nordicapis.com/the-benefits-of-design-first-api-development/">design-first approach</a> to API development, including promoting collaborative development, catching errors early on, and improving the <a href="https://nordicapis.com/how-is-dx-different-than-ux/">developer experience</a>.</p>
+<p>However, design-first is quite rare in practice. Developers are often pressured to deliver features and might quickly rush to code. Or, you may be dealing with legacy code or simply wrapping a pre-existing internal database, which might not necessarily need the upfront effort and review process that <a href="https://nordicapis.com/what-is-specification-driven-api-development/">specification-driven development</a> requires. But without a consistent API design process, you could end up with shaky integrations and even forgotten shadow endpoints.</p>
+<p>I recently connected with Terence Bennett, CEO of DreamFactory, to learn more about an alternative style: API generation. According to Bennett, the battle against code-first is still an ongoing struggle, but there are some use cases where a data-first approach is permissible. Below, we&#8217;ll weigh the benefits of user-driven designs versus data-driven designs and consider how API generation is like DevOps for APIs — especially for data-source, private APIs.</p>
+<div id="attachment_18318" style="width: 210px" class="wp-caption alignright"><img aria-describedby="caption-attachment-18318" decoding="async" loading="lazy" class=" wp-image-18318" src="https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-300x300.jpeg" alt="Terence Bennett" width="200" height="200" srcset="https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-300x300.jpeg 300w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-150x150.jpeg 150w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-768x768.jpeg 768w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-120x120.jpeg 120w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-100x100.jpeg 100w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-70x70.jpeg 70w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-50x50.jpeg 50w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-220x220.jpeg 220w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-200x200.jpeg 200w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-180x180.jpeg 180w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-60x60.jpeg 60w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory-125x125.jpeg 125w, https://nordicapis.com/wp-content/uploads/Terence-Bennett-CEO-DreamFactory.jpeg 800w" sizes="(max-width: 200px) 100vw, 200px" /><p id="caption-attachment-18318" class="wp-caption-text"><a href="https://www.linkedin.com/in/terencehbennett/">Terence Bennett</a>, CEO of <a href="https://www.dreamfactory.com/">DreamFactory</a>, extols the benefits of API generation.</p></div>
+<p><strong>Let&#8217;s set the stage with a reality check. People passionate about APIs seem to assume everyone is doing design-first. What is it really like on the ground?</strong></p>
+<p>Based on my conversations across the industry, many still believe the battle against &#8220;code-first&#8221; is alive and well. Data from the <a href="https://www.postman.com/state-of-api/">Postman 2023 State of the API Report</a> tell the same story. Although 59% of teams see APIs as products, 26% do not, and 15% couldn&#8217;t even answer the question directly. I see the design-first movement inextricably linked to viewing APIs as products, so I would say there is still a lot of work to be done.</p>
+<p><strong>What is a data-centric design, as opposed to a user-centric design, as you call it?</strong></p>
+<p>Data-centric design is the idea of starting with the data layer or data schema and then working from that model to create an API. This method allows you to borrow that data schema and, using technology like API generation, quickly automate your backend or private API infrastructure.</p>
+<p>This is opposed to user-centric API design, which is what most of us are used to thinking of when it comes to API design. In this model, you start with the API consumer&#8217;s use case, then build client requirements from that, and then build any necessary relationships with the data. This is a highly flexible approach that requires more time and specific API design skills. This method is necessary when building public APIs or APIs that are going to leave your organization. You must also be consistent with existing APIs and documentation and maintain consistency over time.</p>
+<p><strong>What is API generation?</strong></p>
+<p>Well, G2 defines <a href="https://www.g2.com/categories/api-generation">API generation</a> as &#8220;software [that] allows users to rapidly create and deploy application programming interfaces (APIs) in a secure environment. With this tool, users set desired parameters for an API using a low-code interface while the underlying software scripts the logic and configuration.&#8221;</p>
+<p>I would add that while API generation might allow for the use of little to no code, these are not no-code tools. Much like a DevOps tool, these are architectural tools that require a technical background to implement properly.</p>
+<p><strong>What are some of the limitations or drawbacks of going all in on an OpenAPI-driven, design-first strategy?</strong></p>
+<p>I see very few limitations or drawbacks to going OpenAPI-driven and design-first. These are open and accepted standards that have and will stand the test of time. That being said, we can also leverage a different approach to OpenAPI-driven and design-first: API generation.</p>
+<p>The traditional method requires designing and then writing an OpenAPI specification from the consumer requirements. Another way of describing this is user-driven design.</p>
+<p>API generation flips this model on its head, and it designs the API from a data-driven model. It literally maps the database schema directly into an API schema and generates a live API without writing an OpenAPI specification. You start with the database and completely automate the generation of the API using the OpenAPI standard, along with automating unit tests, full OpenAPI documentation, and security (RBAC, key management, rate limiting, and authentication).</p>
+<p>While the user-driven design approach is ideal for any public APIs. We think the data-driven approach is ideal for data-source, private APIs, which often make up a considerable portion of an organization&#8217;s infrastructure.</p>
+<p><strong>The last Postman report found that 61% of APIs being developed today are private, with only 14% public-facing. Many of these private internal integrations are just wrappers on databases. Do such internal APIs really always need a lengthy design-first review process?</strong></p>
+<p>We don&#8217;t think so. We think, in these cases, pivoting from a user-driven design approach to a data-driven design approach can yield massive gains for a team. It streamlines security and logging/monitoring for private APIs, ensures all private APIs have robust and up-to-date documentation, makes discoverability easy, and minimizes cases of <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/">zombie APIs</a>.</p>
+<p><strong>What are the potential benefits of using RESTful API generation techniques that don&#8217;t adhere to user-first design methodology?</strong></p>
+<p>Well, I think it&#8217;s useful to focus on the concerns highlighted in the aforementioned Postman State of the API report around obstacles to producing APIs. The top four are lack of people, lack of time, lack of API design skills, and lack of documentation.</p>
+<p>API generation allows your API development team to focus on higher-value, directly revenue-moving projects because they can automate large parts of their private API backend.</p>
+<p>In some cases, I&#8217;ve seen a team of two senior architects generating and managing hundreds of private APIs. API generation is all about automating away the repeatable tasks, like setting up and managing roles, keys, rate limiting, and authentication through a simple UI.</p>
+<p>Our API development teams have a highly specialized set of skills, and we need to do a better job of putting their effort where there is the most business value. API generation gives organizations a DevOps-like automation capability to streamline and automate their whole backend private API infrastructure. This allows those teams to do more with their time, thus accelerating higher-priority projects.</p>
+<p><strong>What are cases where APIs should definitely adopt design-first principles? (For example, <a href="https://nordicapis.com/5-tips-starting-public-api-journey/">public-facing REST services</a>, and <a href="https://nordicapis.com/how-do-you-treat-an-api-as-a-product/">API-as-a-products</a>)</strong></p>
+<p>Design-first principles, more specifically user-centric design, are critical whenever you are exposing public REST services. These practices will help ensure a deep focus on the consumer and consistency across an organization&#8217;s different endpoints, data structures, and documentation.</p>
+<p><strong>Any other best practices or advice you&#8217;d like to offer when considering using API generation instead of design-first?</strong></p>
+<p>API generation is really about DevOps for APIs — to be even more explicit, DevOps for data-source, private APIs. When properly implemented, it helps organizations better secure and safeguard data and allows API development teams to accelerate projects.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

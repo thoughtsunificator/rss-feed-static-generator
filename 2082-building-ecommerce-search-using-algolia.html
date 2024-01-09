@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Building Ecommerce Search Using Algolia</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Building Ecommerce Search Using Algolia</h2>
+		<a target="_blank" href="https://www.endpointdev.com/blog/2023/10/building-ecommerce-search-using-algolia/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://www.endpointdev.com/blog/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+        <p><img src="/blog/2023/10/building-ecommerce-search-using-algolia/east-bay-hills.webp" alt="Looking east from the top of the Berkeley hills over the Briones Reservoir. Rolling hills are seen in the distance with the sun setting to the west."></p>
+<!-- Photo by Dylan Wooters, 2020 -->
+<p>A common request that developers receive when embarking on a new website project is for the website to have &ldquo;Google-like search.&rdquo; For many years, this meant writing custom code to replicate the intelligent and user-friendly aspects of Google search, which was no easy feat. However, now we have many search-as-a-service offerings that do the hard work for us and make this process much easier.</p>
+<p>In this blog post, we’ll dive into one of these search-as-a-service platforms, <a href="https://www.algolia.com/">Algolia</a>. We recently worked on an ecommerce website and used Algolia in an interesting way, both as a search engine and as a lightweight backend database to hold product data managed in Salesforce. Algolia worked beautifully, offering users fast and accurate search results, and also allowing us to launch the site within a relatively short time frame.</p>
+<p>We will look at how to load Algolia with data, configure search options, and connect the search to the frontend using Algolia’s Vue library.</p>
+<h3 id="loading-the-index-with-data">Loading the index with data</h3>
+<p>To start using Algolia’s search, you need to load up an index with data. You have the option of manually uploading a JSON file, or using Algolia’s API to programmatically load records. For our backend, we chose to use Algolia&rsquo;s <a href="https://www.npmjs.com/package/algoliasearch">JavaScript API client</a> in some lightweight TypeScript scripts that are triggered by cron. These scripts allowed us to sync inventory data between Salesforce and the index in Algolia.</p>
+<p>Using the Algolia JavaScript client is quite simple. Regardless of where your data comes from—be it in a database, a platform like Salesforce, or elsewhere—once it is in JSON format, you can load it into Algolia with a few lines of code:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-weight:bold">import</span> * as algolia from <span style="color:#d20;background-color:#fff0f0">&#34;algoliasearch&#34;</span>;
+
+<span style="color:#080;font-weight:bold">const</span> products = [{
+    name: <span style="color:#d20;background-color:#fff0f0">&#34;Fender F-5 Acoustic&#34;</span>,
+    make: <span style="color:#d20;background-color:#fff0f0">&#34;Fender&#34;</span>,
+    model: <span style="color:#d20;background-color:#fff0f0">&#34;F-5&#34;</span>,
+    category: <span style="color:#d20;background-color:#fff0f0">&#34;Guitars&#34;</span>,
+    status: <span style="color:#d20;background-color:#fff0f0">&#34;Used&#34;</span>,
+    objectID: <span style="color:#d20;background-color:#fff0f0">&#34;Fender-001&#34;</span>
+  }, {
+    name: <span style="color:#d20;background-color:#fff0f0">&#34;Fender Player Jaguar&#34;</span>,
+    make: <span style="color:#d20;background-color:#fff0f0">&#34;Fender&#34;</span>,
+    model: <span style="color:#d20;background-color:#fff0f0">&#34;Jaguar (Player)&#34;</span>,
+    category: <span style="color:#d20;background-color:#fff0f0">&#34;Guitars&#34;</span>,
+    status: <span style="color:#d20;background-color:#fff0f0">&#34;New&#34;</span>,
+    objectID: <span style="color:#d20;background-color:#fff0f0">&#34;Fender-002&#34;</span>
+  }];
+
+
+<span style="color:#080;font-weight:bold">const</span> index = algolia.<span style="color:#080;font-weight:bold">default</span>(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY).initIndex(<span style="color:#d20;background-color:#fff0f0">&#34;store_products&#34;</span>);
+<span style="color:#080;font-weight:bold">await</span> index.saveObjects(products);
+</code></pre></div><p>Note the <code>objectID</code> property, which is used by Algolia as a primary key. If the <code>objectID</code> does not exist, a new record will be created. If it does exist, the record will be updated. This makes it easy to run a data sync process using a single <code>saveObjects</code> command, without having to worry about differentiating between create and update operations.</p>
+<h3 id="configuring-the-index">Configuring the index</h3>
+<p>Once you have your index loaded, you’ll want to configure it. Algolia does a good job of walking you through this process using a built-in tutorial when you first load your index. Basically, you will be selecting the <a href="https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/setting-searchable-attributes/">searchable properties/​attributes</a> from your JSON data, setting how results are ranked and sorted, and adjusting more advanced aspects of search like typo tolerance, stop words, etc.</p>
+<p>An important feature we utilized on our recent project is <a href="https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/">faceting</a>. Faceting allows users to easily drill down and refine search by categories, and is also easy to develop using the handy frontend libraries that Algolia provides (more on that in the next section). This feature is powerful and can be used to both refine search and drive homepage category/​subcategory links. When you configure your index, you can select which attributes of your data should be used for faceting.</p>
+<h3 id="setting-up-search-on-the-frontend">Setting up search on the frontend</h3>
+<p>We used <a href="https://nuxt.com/">Nuxt</a> to build the frontend of the website, and we leveraged Algolia’s <a href="https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/vue/">Vue InstantSearch</a> library for the UI. This library really speeds along development, as it wraps all of the search-related functionality in simple widgets, providing the search bar, results, refinements, filtering, and more.</p>
+<p>The <a href="https://www.algolia.com/doc/api-reference/widgets/instantsearch/vue/"><code>ais-instant-search</code></a> widget is the parent widget. It serves the search state to its children, which allows you to show the search bar, search hits, hierarchical menus, etc. Here is a simple example of the <code>ais-instant-search</code> widget with a search bar and hits (pulled directly from <a href="https://www.algolia.com/doc/guides/building-search-ui/getting-started/vue/">Algolia’s Vue docs</a>):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#b06;font-weight:bold">template</span>&gt;
+  &lt;<span style="color:#b06;font-weight:bold">ais-instant-search</span> <span style="color:#369">:search-client</span>=<span style="color:#d20;background-color:#fff0f0">&#34;searchClient&#34;</span> <span style="color:#369">index-name</span>=<span style="color:#d20;background-color:#fff0f0">&#34;demo_ecommerce&#34;</span>&gt;
+    &lt;<span style="color:#b06;font-weight:bold">ais-search-box</span> /&gt;
+    &lt;<span style="color:#b06;font-weight:bold">ais-hits</span>&gt;
+      &lt;<span style="color:#b06;font-weight:bold">template</span> <span style="color:#369">v-slot:item</span>=<span style="color:#d20;background-color:#fff0f0">&#34;{ item }&#34;</span>&gt;
+        &lt;<span style="color:#b06;font-weight:bold">h2</span>&gt;{{ item.name }}&lt;/<span style="color:#b06;font-weight:bold">h2</span>&gt;
+      &lt;/<span style="color:#b06;font-weight:bold">template</span>&gt;
+    &lt;/<span style="color:#b06;font-weight:bold">ais-hits</span>&gt;
+  &lt;/<span style="color:#b06;font-weight:bold">ais-instant-search</span>&gt;
+&lt;/<span style="color:#b06;font-weight:bold">template</span>&gt;
+
+
+&lt;<span style="color:#b06;font-weight:bold">script</span>&gt;
+<span style="color:#080;font-weight:bold">import</span> algoliasearch from <span style="color:#d20;background-color:#fff0f0">&#39;algoliasearch/lite&#39;</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#39;instantsearch.css/themes/algolia-min.css&#39;</span>;
+
+
+<span style="color:#080;font-weight:bold">export</span> <span style="color:#080;font-weight:bold">default</span> {
+  data() {
+    <span style="color:#080;font-weight:bold">return</span> {
+      searchClient: algoliasearch(
+        <span style="color:#d20;background-color:#fff0f0">&#39;[Your app ID]&#39;</span>,
+        <span style="color:#d20;background-color:#fff0f0">&#39;[Your API key]&#39;</span>
+      ),
+    };
+  },
+};
+&lt;/<span style="color:#b06;font-weight:bold">script</span>&gt;
+
+
+&lt;<span style="color:#b06;font-weight:bold">style</span>&gt;
+<span style="color:#b06;font-weight:bold">body</span> {
+  <span style="color:#080;font-weight:bold">font-family</span>: <span style="color:#080;font-weight:bold">sans-serif</span>;
+  <span style="color:#080;font-weight:bold">padding</span>: <span style="color:#00d;font-weight:bold">1</span><span style="color:#888;font-weight:bold">em</span>;
+}
+&lt;/<span style="color:#b06;font-weight:bold">style</span>&gt;
+</code></pre></div><h3 id="using-faceting-for-search-refinement-and-filtering">Using faceting for search refinement and filtering</h3>
+<p>I mentioned faceting above when discussing how to configure your index. Once you have selected the attributes in your JSON data that can be used for faceting (e.g., category, subcategory), you can feed those attributes to the <a href="https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/vue/"><code>ais-hierarchical-menu</code></a> widget for display on the frontend.</p>
+<p>Here is a bit of sample code from the website we built, which offers expandable category refinement via <code>ais-hierarchical-menu</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#b06;font-weight:bold">div</span> <span style="color:#369">class</span>=<span style="color:#d20;background-color:#fff0f0">&#34;sidebar-segment&#34;</span>&gt;
+  &lt;<span style="color:#b06;font-weight:bold">p</span> <span style="color:#369">class</span>=<span style="color:#d20;background-color:#fff0f0">&#34;sidebar-segment-title&#34;</span>&gt;Category&lt;/<span style="color:#b06;font-weight:bold">p</span>&gt;
+  &lt;<span style="color:#b06;font-weight:bold">ais-hierarchical-menu</span>
+    <span style="color:#369">:limit</span>=<span style="color:#d20;background-color:#fff0f0">&#34;100&#34;</span>
+    <span style="color:#369">:attributes</span>=<span style="color:#d20;background-color:#fff0f0">&#34;categoryAttrs&#34;</span>
+    <span style="color:#369">:sort-by</span>=<span style="color:#d20;background-color:#fff0f0">&#34;hierarchicalMenuSort&#34;</span>
+  &gt;
+    &lt;<span style="color:#b06;font-weight:bold">div</span> <span style="color:#369">slot-scope</span>=<span style="color:#d20;background-color:#fff0f0">&#34;{ items, refine, createURL }&#34;</span>&gt;
+      &lt;<span style="color:#b06;font-weight:bold">hierarchical-menu-list</span>
+        <span style="color:#369">:items</span>=<span style="color:#d20;background-color:#fff0f0">&#34;items&#34;</span>
+        <span style="color:#369">:refine</span>=<span style="color:#d20;background-color:#fff0f0">&#34;refine&#34;</span>
+        <span style="color:#369">:create-url</span>=<span style="color:#d20;background-color:#fff0f0">&#34;createURL&#34;</span>
+      /&gt;
+    &lt;/<span style="color:#b06;font-weight:bold">div</span>&gt;
+  &lt;/<span style="color:#b06;font-weight:bold">ais-hierarchical-menu</span>&gt;
+&lt;/<span style="color:#b06;font-weight:bold">div</span>&gt;
+</code></pre></div><p>Above, we are using the <code>limit</code> property to set the maximum number of items to 100. The <code>attributes</code> property, which targets the JSON attributes in your index data that represent your categories, is set to the following:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">categoryAttrs: [<span style="color:#d20;background-color:#fff0f0">&#39;categories.lvl0&#39;</span>, <span style="color:#d20;background-color:#fff0f0">&#39;categories.lvl1&#39;</span>, <span style="color:#d20;background-color:#fff0f0">&#39;categories.lvl2&#39;</span>],
+</code></pre></div><p>These represent the three levels of categories in our data (zero-based), and are used to build the hierarchical menu.</p>
+<p>Finally, the <code>sort-by</code> attribute points to a simple function that uses the JavaScript <code>localeCompare</code> method to provide alphanumeric sorting:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-weight:bold">function</span> hierarchicalMenuSort(a, b) {
+  <span style="color:#080;font-weight:bold">return</span> a.name.localeCompare(b.name, <span style="color:#080;font-weight:bold">undefined</span>, {
+    numeric: <span style="color:#080;font-weight:bold">true</span>,
+    sensitivity: <span style="color:#d20;background-color:#fff0f0">&#39;base&#39;</span>,
+  })
+}
+</code></pre></div><h3 id="wrapping-up-seeing-algolia-in-action">Wrapping up: seeing Algolia in action</h3>
+<p>If you’d like to see Algolia in action on the site that we built, head over to <a href="https://www.eiffeltrading.com/">eiffeltrading.com</a>. If you search the site, you’ll see autocomplete, fast results (thanks to both Algolia and Nuxt), and other aspects of good search that we have all come to expect from modern ecommerce sites.</p>
+<p>Next time you are faced with a build involving full-text search, consider search-as-a-service offerings like Algolia. They could save you time and headaches over rolling your own search functionality. Sometimes it’s good to let others do the hard work!</p>
+<p>Have questions or feedback on the topic? Let us know in the comments section below.</p>
+
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10 RESTful API Pagination Best Practices</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">10 RESTful API Pagination Best Practices</h2>
+		<a target="_blank" href="https://nordicapis.com/restful-api-pagination-best-practices/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><img width="1200" height="675" src="https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices.png" class="attachment-full size-full wp-post-image" alt="10 API Pagination Best Practices" decoding="async" loading="lazy" srcset="https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices.png 1200w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-300x169.png 300w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-1024x576.png 1024w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-768x432.png 768w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-213x120.png 213w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-178x100.png 178w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-124x70.png 124w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-90x50.png 90w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-200x113.png 200w, https://nordicapis.com/wp-content/uploads/10-API-Pagination-Best-Practices-400x225.png 400w" sizes="(max-width: 1200px) 100vw, 1200px" /><p>Pagination is one of the most powerful tools API developers have to manage and navigate large data sets. When an API returns a vast amount of data, it&#8217;s often impractical to simply send all of that data back in a single response. Beyond the sheer overwhelming nature of such a response, the utility of said response can be undermined by giving too much information and too little context.</p>
+<p>Enter pagination. Essentially, pagination breaks down data into smaller and more manageable chunks called &#8220;pages.&#8221; These pages can then be navigated and &#8220;paged through&#8221; to display specific segments of data, allowing users to smoothly and discretely move through large data sets. Beyond the improvements to user experience, pagination can also enhance the performance of the underlying system.</p>
+<p>To do this right, however, a few best practices are good to lean on. In this piece, we&#8217;ll look at ten best practices for implementing pagination. While these tips are not the end-all-be-all of a complete pagination approach, they should help most developers start on the right path!</p>
+<h2 id="1-consider-the-pagination-methodology">1. Consider the Pagination Methodology</h2>
+<p>Choosing the right approach to pagination is vitally important. There are a handful of common ways to paginate data, and the appropriateness of each depends on the specific requirements of your application:</p>
+<ul>
+<li><strong>Offset-based pagination</strong>: This method uses an offset to define the starting point of each page and a limit to define the number of items per page. It&#8217;s simple to implement but may lead to performance issues with larger datasets.</li>
+<li><strong>Cursor-based Pagination</strong>: Cursor-based pagination uses a pointer (or cursor) to navigate through results. It&#8217;s more performant with large datasets as it is relative to the data position itself rather than the data set as an entirety. This boost in performance can result in an implementation that is more complex to implement.</li>
+<li><strong>Keyset pagination</strong>: This method relies on specific attributes (like an ID or timestamp) to paginate through results, and it&#8217;s often more performant and consistent across various implementations.</li>
+<li><strong>Time-based pagination</strong>: This method is best used for data with a time relation, such as when filtering by a start or end time. This opens up a lot of chronologically-based filtering and sorting, allowing for data retrieval by freshness or relevancy.</li>
+</ul>
+<div class="well">Also check out: <a href="https://nordicapis.com/understanding-5-types-of-web-api-pagination/">Understanding 5 Types of Web API Pagination</a></div>
+<h2 id="2-provide-quick-links">2. Provide Quick Links</h2>
+<p>While it&#8217;s obvious that you should provide quick links to move forward and backward, what is often forgotten are ways to move to the front and end of each data set. It&#8217;s very possible, especially in the context of time-specific content, that a user would want to jump to the end or the start of a data set. Providing links to both is an effective solution for end users interacting with large data sets.</p>
+<h2 id="3-develop-clear-documentation">3. Develop Clear Documentation</h2>
+<p>While <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/">solid documentation</a> is always a best practice, ensuring that the pagination itself is clearly documented is extremely important. Users are utilizing pagination to explore data, so providing ample documentation on how this exploration will work and how to understand the system is incredibly important.</p>
+<p>Ensure that you explain the methodologies used. Provide some examples as well as some step-by-step guides. Describe each parameter&#8217;s role, acceptable values, and behavior in terms of what is expected and what might signal a break in pagination. Provide practical examples, showcasing how to request different pages and handle various responses. Finally, document the edge cases, explaining how the API would handle situations, including empty pages or out-of-range requests.</p>
+<h2 id="4-include-meta-information">4. Include Meta Information</h2>
+<p>Meta information is, in many ways, the most direct communication method between the API codebase and the end user. Providing ample information to the end user where the interaction lives is super powerful, so leverage this throughout pagination approaches to communicate as much information to the user as possible.</p>
+<p>This information can include things such as:</p>
+<ul>
+<li><strong>Current page/total page</strong>: Providing both the current page the user is on as well as the total number of pages available can help the user navigate the data set with context.</li>
+<li><strong>Links/enhanced navigation</strong>: Promoting better navigation by linking to relevant queries, systems, or sets through hypermedia can help make your pagination approach that much more useful to the end user.</li>
+<li><strong>Categorization</strong>: Where possible, sorting paginated responses into categories or even noting these categories in-line helps the user understand the proportionality of the currently viewed data set in the context of the larger set.</li>
+</ul>
+<h2 id="5-allow-for-customization">5. Allow for Customization</h2>
+<p>Pagination is fundamentally <a href="https://dev.to/appwrite/this-is-why-you-should-use-cursor-pagination-4nh5">a tool for the end user</a>, so providing opportunities to customize this experience is a solid best practice. This customization can take various forms depending on the relative flexibility of the system, including options for differing default settings or the specific response size per client request formation. But ultimately, even small improvements to customizability will go a long way toward ensuring strong value for the end user.</p>
+<p>Customization can take a variety of approaches, but one of the easiest ways to do this is to implement filtering. Filtering is a very easy way to allow users to state the specific kinds of things they want to receive, and, from this, limit the total amount of data that must be paginated.</p>
+<p>As part of this, developers should ensure that they provide appropriate customizability and not create a customization deluge for the end user. A set of specific options with documentation as to their use case will be far better than a million variables with barely any documentation. Remember — users are trying to use pagination to get more understanding, so keeping understanding as a guiding principle will be invaluable.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/4-examples-of-restful-api-pagination-in-production/">4 Examples of RESTful API Pagination in Production</a></div>
+<h2 id="6-ensure-stability">6. Ensure Stability</h2>
+<p>Pagination should be stable and consistent, ensuring that newly added or removed records do not disrupt the paginated content unexpectedly. Put another way, all changes to data that is paginated should result in expected and contextual change rather than unexpected and non-contextualized change.</p>
+<p>This can be done in a variety of ways. Unique identifiers for each element of the data set can help ensure that records are paginated correctly. Ensuring the mechanism behind sorting is stable and does not break with the current data set and planned additions to the data set is also a great first step.</p>
+<p>Going further, data order should be established and set with respect to the end user. In other words, setting a new record, unless that record is sorted in a specific way to demand this, should not result in the paginated results dramatically shifting beyond its current use.</p>
+<p>Likewise, data deletion should similarly be treated in such a way as to ensure that context is not disrupted in the paginated results. This can be handled in a variety of different ways, but even something as simple as marking sequential data as &#8220;deleted&#8221; or providing specific deletion context with a link to an explanation would be far better than simply reporting no data without any context.</p>
+<h2 id="7-plan-for-caveats">7. Plan for Caveats</h2>
+<p>Not every use case will invoke perfectly clean and sensible pages of data. In fact, many requests will pull up data that might have been deleted, changed, or removed, and many other requests will be formed in unexpected ways. Accordingly, plan for the caveat to the perfect use case.</p>
+<p>Empty pages, out-of-range requests, and other use cases should have meaningful, contextual responses that help the user understand what has gone wrong and how it can be rectified. Assume that the end user will use the pagination system in a way that you cannot predict, and create systems to support these cases if possible.</p>
+<h2 id="8-standardize-nomenclature">8. Standardize Nomenclature</h2>
+<p>When dealing with pagination, standardize as much as possible. The simple fact is that pagination is meant to be understood, so using unique names, while fun, could confuse users. Adopting a consistent naming standard using conventional terms such as &#8220;pages,&#8221; &#8220;size,&#8221; &#8220;limit,&#8221; &#8220;next,&#8221; &#8220;previous,&#8221; and so forth helps continuity and long-term usability.</p>
+<p>Likewise, having standardized places where pagination occurs is equally important. Make sure that your pagination functions as expected and where it&#8217;s expected.</p>
+<h2 id="9-implement-adequate-versioning">9. Implement Adequate Versioning</h2>
+<p>APIs change over time, and without <a href="https://nordicapis.com/5-ways-to-version-apis/">proper version control</a>, these changes can break the pagination strategy. Ensuring that changes are documented and that version data is provided through the pagination will go a long way toward ensuring users have consistent communication for context and information.</p>
+<p>Perhaps the most essential part of this is ensuring that the documentation created for pagination is treated as important as the versioning data for the API itself. Pagination shouldn&#8217;t be an afterthought, and everything from initial implementation to migration with version changes should be covered in detail.</p>
+<h2 id="10-fully-test-pagination">10. Fully Test Pagination</h2>
+<p>Finally, pagination should not be treated as a second thought, and should instead be core to the development process. As you would test your API, test the pagination strategy that supports that API. Test the typical and atypical use cases to ensure the broadest range of use cases is supported.</p>
+<div class="well">Ready to get started? Learn how to implement API pagination with <a href="https://nordicapis.com/how-to-paginate-a-web-api/">these specific techniques and libraries</a>.</div>
+<h2 id="conclusion">Conclusion</h2>
+<p><a href="https://nordicapis.com/everything-you-need-to-know-about-api-pagination/">Pagination</a> is one of the most powerful tools in an API developer&#8217;s toolset. Implementing pagination properly will result in a user base that can easily understand, browse, and contextualize massive data sets, unlocking great new potential.</p>
+<p>What do you think are some best practices for pagination? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

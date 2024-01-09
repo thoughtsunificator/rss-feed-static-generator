@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Introducing Mozilla’s Firefox Nightly .deb Package for Debian-based Linux Distributions</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Introducing Mozilla’s Firefox Nightly .deb Package for Debian-based Linux Distributions</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2023/10/30/introducing-mozillas-firefox-nightly-deb-packages-for-debian-based-linux-distributions/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Great news for people using Firefox Nightly on Debian-based Linux distributions (such as Debian, Ubuntu, Linux Mint, and others): installing, updating, and testing the latest Firefox Nightly builds just got a lot easier. We&#8217;ve set up a new APT repository for you to install Firefox Nightly as a <code>.deb</code> package. <a href="https://www.mozilla.org/firefox/system-requirements">These packages are compatible with the same Debian and Ubuntu versions as our traditional binaries.</a> If you&#8217;ve previously used our traditional binaries (distributed as <code>.tar.bz2</code> archives), switching to Mozilla&#8217;s APT repository allows Firefox to be installed and updated like any other application. Your feedback is invaluable to us, so don&#8217;t hesitate to <a href="https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&amp;blocked=1799516&amp;product=Release%20Engineering&amp;component=General">report any issues</a> you encounter to help us improve the overall experience.</p>
+<p>Adopting Mozilla&#8217;s Firefox Nightly <code>.deb</code> package offers multiple benefits:</p>
+<ul>
+<li aria-level="1">you will get better performance thanks to our advanced compiler-based optimizations,</li>
+<li>you will receive the latest updates as fast as possible because the <code>.deb</code> is integrated into Firefox&#8217;s release process,</li>
+<li>you will get hardened binaries with all security flags enabled during compilation,</li>
+<li>you will not have to create your own <code>.desktop</code> file,</li>
+<li>you will be able to continue browsing after upgrading the package.</li>
+</ul>
+<p>To set up the APT repository and install the Firefox Nightly <code>.deb</code> package, simply follow these steps:</p>
+<pre><code># Create a directory to store APT repository keys if it doesn't exist:
+sudo install -d -m 0755 /etc/apt/keyrings
+
+# Import the Mozilla APT repository signing key:
+wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc &gt; /dev/null
+
+# The fingerprint should be 35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
+gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc | awk '/pub/{getline; gsub(/^ +| +$/,""); print "\n"$0"\n"}'
+
+# Next, add the Mozilla APT repository to your sources list:
+echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list &gt; /dev/null
+
+# Update your package list and install the Firefox Nightly .deb package:
+sudo apt-get update &amp;&amp; sudo apt-get install firefox-nightly
+</code></pre>
+<p>And that&#8217;s it! You have now installed the latest Firefox Nightly build .deb package on your Debian-based Linux distribution.</p>
+<p>For those of you who would like to use Firefox Nightly in a different language than American English, we have also created <code>.deb</code> packages containing the Firefox language packs. To install a specific language pack, replace <code>fr</code> in the example below with the desired language code:</p>
+<pre><code>sudo apt-get install firefox-nightly-l10n-fr</code></pre>
+<p>To list all the available language packs, you can use this command <em>after</em> adding the Mozilla APT repository and running <code>sudo apt-get update</code>:</p>
+<pre><code>apt-cache search firefox-nightly-l10n</code></pre>
+<p>We hope this new installation method makes it easier for people on Debian-based Linux distributions to test and provide feedback on the latest Firefox developments. Your participation in the Nightly community plays a critical role in helping us deliver the best possible browser experience.</p>
+<p>Following a period of testing, these packages will become available on the beta, esr, and release branches of Firefox.</p>
+<p>Thank you for your support, and we look forward to hearing your feedback.</p>
+<p>Edit (November 8, 2023): Following community discussions, we have updated the post to highlight that Firefox can continue browsing after an APT upgrade, allowing people to restart at their convenience.</p>
+<p>Edit (October 31, 2023): Based on feedback from our readers, we&#8217;ve updated the installation steps to align with the latest best practices. Instead of storing the de-armored key in <code>/etc/apt/trusted.gpg.d</code>, the steps now keep the armored signing key in the <code>/etc/apt/keyrings</code> directory.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How AI Can Be Used In API Security</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How AI Can Be Used In API Security</h2>
+		<a target="_blank" href="https://nordicapis.com/how-ai-can-be-used-in-api-security/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The tech space goes in cycles. The newest innovation often becomes the answer for everything (whether or not it&#8217;s the right implementation). And right now, AI is going through this hype cycle. AI has seen massive popularity in the media and is framed as the next major wave in tech computing.</p>
+<p>Given the current trends, what are the takeaways for <a href="https://nordicapis.com/how-ai-is-transforming-the-future-of-apis/">API providers</a>? What can APIs actually use AI for? Let&#8217;s look at a few ways AI can be used in API security. We&#8217;ll consider some specific areas where AI could benefit API security and consider some of its limitations in this area.</p>
+<h2 id="how-ai-can-be-used-in-api-security">How AI Can Be Used in API Security</h2>
+<h3 id="identify-vulnerabilities-in-real-time">Identify Vulnerabilities in Real Time</h3>
+<p>One of the best use cases for AI in API security implementations is in the realm of heuristics. If you can establish what the expected use case is within the set of parameters and states you&#8217;ve defined, you can create a baseline by which any other action is tested against. If new actions match the expected baseline behavior, then congratulations — it&#8217;s likely legitimate behavior. However, if the action doesn&#8217;t match the baseline, it&#8217;s a red flag requiring special attention.</p>
+<p>The problem with this approach is that it depends entirely on how good your heuristics are. Heuristics are loosely coupled rules that rely on a firm understanding of the codebase in question. This has posed a problem in past years. By their very nature, human-defined heuristics will be less complete than machine-defined ones. Machine-defined heuristics can be significantly more complete, but they depend on large amounts of input to find good baseline metrics.</p>
+<p>AI represents an excellent middle ground. With <a href="https://nordicapis.com/7-large-language-model-llm-apis/">machine learning and language models</a>, we have something that is halfway between human and machine. These technologies are great at filtering through massive amounts of data and information to find potential points of interest. And, they can lump data together into categories and hierarchies for heuristics purposes. In essence, AI can process what is appropriate for a given input, which is the kind of logical system that can be leveraged for successful real-time heuristic analysis.</p>
+<h3 id="ai-powered-access-control">AI-Powered Access Control</h3>
+<p>Access control is a huge part of securing an API. Unfortunately, it is also a <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">very common threat domain</a>, exposing massive amounts of data and functionality through both simple misconfigurations and complex attack vectors. AI can help with this particular issue through a couple of different approaches.</p>
+<p>Firstly, AI can be a wonderful addition when looking at risk-based access control. AI&#8217;s pattern recognition ability comes to the forefront here, allowing systems to detect a variety of circumstances, including attempted credential stuffing, device information, historical data for the IP in question, and more. These findings could signal access refusal, even when the requester has the proper credentials.</p>
+<p>Secondly, this access control can be broken into a process that is much more granular. Let&#8217;s say the AI detects a pattern that suggests something unexpected is happening. Instead of outright rejecting access, what about increasing the intensity of access control through additional factors or stepped-up authentication? AI is wonderful at implementing granularity in data sets, so this is relatively easy to do with current models.</p>
+<p>Finally, access control revocation or limitation can be deployed to the same system when otherwise accepted accounts begin to perform unacceptable actions. Not all attacks are from the outside — <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/">inside threat actors</a> can do considerably more damage in a shorter amount of time, and by the time you know the attack is underway, it could be too late. AI-driven access control systems could help detect the beginning of damaging behavior and cut it off at the source.</p>
+<h3 id="proactive-threat-detection">Proactive Threat Detection</h3>
+<p><a href="https://nordicapis.com/how-domain-driven-design-benefits-apis/">AI models</a> are adept at understanding complex patterns hidden within large amounts of data sets by their very design. To this end, AI can be utilized to proactively hunt for threats by analyzing data that API developers already have access to. Training AI models on data sets, including API logs, network traffic data, user heuristics, and general threat libraries from other vendors, can help build a solid starting point by which actual API threats can be discovered.</p>
+<p>This analysis can be taken one step further by comparing the understanding the AI system has generated with actual, real-world implementations. By monitoring and analyzing real-world patterns and comparing them with the learned patterns from the data sets it was trained on, AI systems can detect threats proactively by finding both ongoing patterns of danger as well as the categories and types of threats that are most common and most likely given the way the API intrinsically behaves.</p>
+<p>For instance, an <a href="https://nordicapis.com/8-apis-to-automate-video-encoding-processing-and-streaming/">audio processing API</a> might have very different threat vectors than an API detecting weather changes, and an AI-driven system will be able to compare the threats it expects to the real world implications of the existing codebase. By comparing these two, threat categories that may not be obvious may begin to show themselves, exposing potential vectors before they even develop.</p>
+<p>AI-driven solutions in this field are great at uncovering patterns, correlative threats, and indications of compromised code that might otherwise fly under the radar in traditional systems. This is largely owed to the fact that, unlike other security systems, <a href="https://nordicapis.com/how-ai-can-help-scale-api-ecosystems/">AI systems are constantly evolving</a> and learning, meaning that their data and resultant understandings are tightly coupled to the reality of new threats and modalities.</p>
+<h3 id="preemp-intrusive-behaviours-through-modeling">Preemp Intrusive Behaviours Through Modeling</h3>
+<p><a href="https://securityboulevard.com/2023/07/understanding-the-owasp-top-10-for-llms/">AI language models</a> are unique in the sense that they can, through proper instruction, put on certain masks, &#8220;modeling&#8221; behaviors as if the AI were another entity. An AI model can portray itself as it is requested to. You can ask it to act like a musician, a teenager, or a famous author, and many other permutations. As part of this, you can give particular requests to these models to act in a way that is helpful to the process of preempting intrusive behaviors.</p>
+<p>Understanding a threat actor&#8217;s methodology and thought process is perhaps the best way to preempt that threat. When working with an AI model, we can instruct it to act as a security model expert who is enacting penetration testing modalities. In doing this, we can instruct AI models to act as if they were the enemy and betray that logic, surfacing it to those who could use it to counteract the eventual attack.</p>
+<p>It is important to note that AI models, especially language models, are trained on specific data sets. Accordingly, the threats that these models might surface will be limited by the data sets that they observed. For many AI companies, this represents an opportunity — training AI systems upon intrusion methods from previously known vectors could be a great chance to find similar vectors that could be abused by threat actors, allowing developers to solve issues before they are used for nefarious purposes.</p>
+<h3 id="coding-securely-from-scratch">Coding Securely from Scratch</h3>
+<p>Another great use case for AI is in developing the API itself. AI can be used once a product is live, but it can also be used at the beginning of development to make for more secure codebase implementations. Since AI is designed to find the most efficient and sensible response to an input, we can take two basic tracks here.</p>
+<p>The first is leveraging the AI to generate more secure API code. Using the AI to generate strong boilerplate based on existing efforts, and then iteratively testing attack vectors against it, can lay a strong foundation upon which developers can build additional products. This also reduces the overall time to market for products. However, this doesn&#8217;t always result in perfect code. As such, AI-generated code should be more strictly reviewed for potential errors, as AI is only as good as the data it has been trained against.</p>
+<p>The second track is to use AI to test each chunk of code before it goes live as part of an <a href="https://nordicapis.com/a-checklist-for-your-next-api-design-review/">ongoing security audit</a>. While security testing should be a part of every development cycle, such testing sometimes takes place on entire builds rather than components due to the cost of time and resources. With AI, software testing can be done at a smaller level and with faster results, allowing for real-time testing for each component ahead of an overall security test.</p>
+<h3 id="automation-detection-and-mitigation">Automation Detection and Mitigation</h3>
+<p>Not all threat actors will be people sitting in front of a screen — many potential threats to APIs come from other machines. These attacks can sometimes be hard to detect, as they can operate in a way that is allowed but forms a precursor to an attack. In such an event, it&#8217;s hard to parse actual user behaviors from bot reconnaissance. Is this user just really interested in this series of endpoints, or is this a bot trying to detect potential weaknesses in the armor?</p>
+<p>Using AI can help detect and mitigate these kinds of automations. By using data sets to figure out what these behaviours look like and then running complex algorithms around current access, AI systems can be used to differentiate between machine and human users, and through this differentiation, apply different strategies for mitigation and threat prevention. Approaches can include <a href="https://nordicapis.com/api-rate-limiting-vs-api-throttling-how-are-they-different/">changing rate limits</a>, redirecting large requests to other endpoints, deploying CAPTCHA or other systems to prevent access, and more.</p>
+<p>To be clear, not all bots are bad, but figuring out which are good and which are not is a huge first step toward making the API more secure.</p>
+<h2 id="caveat-emptor">Caveat Emptor</h2>
+<p>AI is a great technology, but it is also dangerous for a number of reasons. When it comes to security, the biggest problem is in the quality of output.</p>
+<p>AI is trained upon massive amounts of data, and from this processing, natural language and learned behaviors can be mimicked through machine output. The problem is that this output is only as good as the data it&#8217;s fed, and given the large amount of incorrect information online, the quality of an AI output is unpredictable.</p>
+<p>Accordingly, you should think of AI as another tool in the big toolset of API development. Nobody would ever use a blowtorch to remove a nail from a piece of wood — that doesn&#8217;t diminish the value of the blowtorch, but it does show that not every tool is right for the job.</p>
+<p>While AI is appropriate for many implementations, it must be carefully applied. Output data should be reviewed for accuracy, compared to known quantities, and tested before being accepted. AI systems should be heavily vetted and deployed locally, avoiding any external dependencies that might be twisted using poor data sets or intentional muddying.</p>
+<p>That being said, AI can be helpful in the realm of API security, and it promises to be an emerging technology worth paying attention to.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

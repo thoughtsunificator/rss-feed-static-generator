@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Getting Better Every Day – These Weeks in Firefox: Issue 149</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Getting Better Every Day – These Weeks in Firefox: Issue 149</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2023/11/16/getting-better-every-day-these-weeks-in-firefox-issue-149/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1">The WebExtensions team has been working with other browser vendors to make it easier for extension authors to migrate to Manifest v3
+<ul>
+<li aria-level="2">To allow extensions developers to use the same manifest.json file across multiple browser vendors, extensions with a manifest.json file including both background.service_worker and background.scripts will load successfully instead of failing at install time, a warning will be logged and background.scripts will take precedence over the currently unsupported background.service_worker &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860304">Bug 1860304</a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818237">The Ubuntu Snap improvements</a> for the browser migration wizard have gotten a green light from QA! It will be riding the trains out in Firefox 120, and hopefully will make it easier for users on Ubuntu migrate data from other browsers.</li>
+<li aria-level="1">Some excellent improvements have landed for the Firefox Profiler
+<ul>
+<li aria-level="2">The profile size upload limit has been <a href="https://github.com/firefox-devtools/profiler-server/pull/443">increased from 50MB to 150MB</a>. This should make it easier for people to submit profiles with more data.</li>
+<li aria-level="2">A <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862937">LargestContentfulPaint marker added</a>, and FirstContentfulPaint is now <a href="https://github.com/firefox-devtools/profiler/pull/4793">visible</a> as a vertical line in the Network track (<a href="https://share.firefox.dev/3QLBvWX">example profile</a>). This will make it easier for our performance team to optimise for rendering websites more quickly.</li>
+<li aria-level="2"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/11/headlines149_0.png" /></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li aria-level="1">Nicolas from the DevTools team has been making some great progress on the DevTools Accessibility project (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843335">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843318">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862142">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855200">bug</a>). The most recent visible one is that a thick, noticeable focus indicator was added to focusable elements across the toolbox
+<ul>
+<li aria-level="2"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/11/headlines149_1.png" /></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h3>Introductions/Shout-Outs</h3>
+<ul>
+<li aria-level="1">Welcome to Nikki Sharpley! Nikki is joining the Information Management team, and will be focusing on Firefox View.</li>
+</ul>
+<h3><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1862192%2C1863128%2C1845541%2C1850426%2C1825977%2C1855726%2C1863716%2C1863876%2C1849186%2C1861641%2C1862509">Resolved bugs (excluding employees)</a></h3>
+<p><a href="https://github.com/niklasbaumgardner/NewContributorScraper">Script to find new contributors from bug list</a></p>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Ganna</li>
+<li aria-level="1">Jonas Jenwald [:Snuffleupagus]</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 astrid <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862509">removed extra &#8216;;&#8217;</a> after member function definition in updater.cpp</li>
+<li aria-level="1">🌟 nzaih18 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855726">removed browser.translations.autoTranslate</a> preference</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtensions Framework</h5>
+<ul>
+<li aria-level="1">Thanks to Gregory Pappas for investigating and contributing a fix for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859236">Bug 1859236 &#8211; `event.getCoalescedEvents` not working in content script</a> (fixed in the 120 cycle, the same nightly cycle where the regression was introduced as a side effect of the changes for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858434">Bug 1858434</a>)</li>
+<li aria-level="1">As part of improvements to the migration path to Manifest Version 3 and from persistent background pages to the event pages:
+<ul>
+<li aria-level="2">The lifetime of the event page is going to be implicitly extended by WebExtensions API calls originated by the event page itself &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844041">Bug 1844041</a></li>
+</ul>
+</li>
+<li aria-level="1">Remaining bits of the WebExtensions telemetry are being ported to Glean (and get data for these metrics on Firefox for Android builds as a side effect of that):
+<ul>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1820158">Bug 1820158 &#8211; Support main WEBEXT_* telemetry histograms probes on GeckoView</a></li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1820153">Bug 1820153 &#8211; Support addonsManager.* telemetry events probes on GeckoView</a></li>
+</ul>
+</li>
+</ul>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li aria-level="1">Investigated and fixed failures hit by AddonManager mochitest-browser tests in a11_checks jobs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859035">Bug 1859035</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li aria-level="2"><b>Some </b><a href="https://docs.google.com/document/d/1u9YH3ULNRYg6G-fN-Udkvfkcvg0alJfzi_zIAfFNkL8/edit#bookmark=kix.op35dld27e55"><b>more details about this in the TIL section at the end of this document</b></a><b>.</b></li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1">Alex added error message when evaluating unknown commands (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861142">bug</a>)
+<ul>
+<li aria-level="2"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/11/headlines149_2.png" /></li>
+</ul>
+</li>
+<li aria-level="1">Alex fixed logging SharedArrayBuffer from Worklets and Workers (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860888">bug</a>)</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">Sasha added support for userActivation parameter in script evaluation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845488">bug</a>)</li>
+<li aria-level="1">Sasha added support for the origin argument in the browsingContext.captureScreenshot command, allowing a script to, for example, take a screenshot of part of the page that is not visible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1840999">bug</a>) …</li>
+<li aria-level="1">… which also allowed to remove the now unnecessary scrollIntoView  argument  usage in browsingContext.captureScreenshot (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862649">bug</a>)</li>
+<li aria-level="1">Finally, Sasha added a context property on WindowProxy serialized object (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841049">bug</a>)</li>
+<li aria-level="1">Julian fixed an issue where browsingContext.navigate would not return the expected navigation id when wait=none was passed (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861655">bug</a>)</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li aria-level="1">Arai converted the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1839519">remaining reftest harness modules</a>.</li>
+<li aria-level="1">Mike Conley is working on reworking the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860668">new tab tests and converting to ES modules</a>.</li>
+<li aria-level="1">ESMified status:
+<ul>
+<li aria-level="2">browser: 88%</li>
+<li aria-level="2">toolkit: 99%</li>
+<li aria-level="2">Total:  96.33% (up from 96.13%)</li>
+</ul>
+</li>
+<li aria-level="1">#esmification on Matrix</li>
+</ul>
+<p>&nbsp;</p>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">The CI task, source-test-doc-generate, now has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861953">improved summaries</a> on treeherder for when there&#8217;s more warnings than expected.
+<ul>
+<li aria-level="2">Previously, the summary would only show some random issues, and not the actual &#8220;x new warnings&#8221; line.</li>
+<li aria-level="2">The line is now exposed, but only gives the amount of new warnings. Currently you need to compare with a passing run to figure out what the new warnings actually are. There is a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864608">bug filed</a> for improving this further.</li>
+</ul>
+</li>
+<li aria-level="1">Logan extended the licence linter <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1802289">to also check idl and webidl files</a>.</li>
+<li aria-level="1">The <a href="https://firefox-source-docs.mozilla.org/code-quality/lint/linters/eslint-plugin-mozilla/rules/reject-importGlobalProperties.html">reject-importGlobalProperties</a> rule has been extended to apply to<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858148"> sjs files</a>, and to reject more unnecessary cases in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863204">privileged scopes</a>.</li>
+<li aria-level="1">The valid-jsdoc environment has been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861865">enabled on more parts of the browser/ code</a>.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860606">The last vestiges</a> of the old XUL-based migration dialog have now been removed.</li>
+<li aria-level="1">In Device Migration land, we’re primed to add helpful email and calendar reminders to our <a href="https://support.mozilla.org/en-US/kb/switching-devices">switching-devices SUMO page</a> to make it easier for users to remember to download Firefox on their new devices! Emails are just going through localization, but we aim to have this enabled by the end of the month.</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">mconley is:
+<ul>
+<li aria-level="2"><a href="http://bugzilla.mozilla.org/show_bug.cgi?id=1863400">Moving the about:welcome code out from browser/components/newtab into browser/components/aboutwelcome</a></li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860668">Converting some tests from mocha/chai to xpcshell</a> to unblock ESMification</li>
+</ul>
+</li>
+<li aria-level="1">Next things:
+<ul>
+<li aria-level="2">Talking to the Onboarding team about moving the ASRouter code (starting with the administrative tool) out from about:newtab into its own about: page.</li>
+</ul>
+</li>
+</ul>
+<h4>Performance Tools (aka <a href="https://profiler.firefox.com/">Firefox Profiler</a>)</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860896">Test jobs now upload resource use profiles too</a> (similar to build jobs).
+<ul>
+<li aria-level="2">Example <a href="https://share.firefox.dev/3R7R8JH">profile</a> of a <a href="https://treeherder.mozilla.org/jobs?repo=mozilla-central&amp;selectedTaskRun=H6h58KddTLqrl4JhDf_AQA.0&amp;revision=acdcddac0b907d2e59d6d0fa1f96fff98453093a">mochitest job</a>
+<ul>
+<li aria-level="3">In addition to markers for the names of the tests, there are also markers showing the name of the test folders, making it clear which tests take long, when we restart the browser, and if the time was used with the CPU busy or idle.</li>
+</ul>
+</li>
+<li aria-level="2">Example <a href="https://share.firefox.dev/49DNlLl">profile</a> of an <a href="https://treeherder.mozilla.org/jobs?repo=mozilla-central&amp;selectedTaskRun=Hu9LNvrKRBy7k6Npfyp3-w.0&amp;revision=acdcddac0b907d2e59d6d0fa1f96fff98453093a">xpcshell job</a>
+<ul>
+<li aria-level="3"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/11/headlines149_3.png" /></li>
+<li aria-level="3">This profile makes it easy to see which tests ran in parallel.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Search and Navigation</h4>
+<p>Enhanced Cross-Platform Suggest, which expands our Firefox Suggest capabilities and brings Suggest to mobile browsers</p>
+<ul>
+<li aria-level="1">Drew removed adM/wikipedia suggestions from memory. Before these suggestions were sticking around even when disabled. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1832198">1832198</a>.</li>
+<li aria-level="1">Drew has added tests and refactors for Firefox Suggest in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859389">1859389</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861540">1861540</a>.</li>
+<li aria-level="1">Dao implemented the layout for Firefox Suggest Opt-in Experiment in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852055">1852055</a>.</li>
+</ul>
+<p>&nbsp;</p>
+<h5>General improvements</h5>
+<ul>
+<li aria-level="1">Marc Seibert fixed a bug where the container label was not properly displayed in a bookmark result. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859810">1859810</a></li>
+<li aria-level="1">Marc Seibert fixed a bug where a part of the url is crossed out when the security padlock is clicked. This bug happens when browser.urlbar.trimHttps is enabled. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860528">1860528</a>.</li>
+<li aria-level="1">Dale and Dao refactored CSS to use `moz-bool-pref` for richSuggestions in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862704">1862704</a>  and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862930">1862930</a>.</li>
+</ul>
+<p>&nbsp;</p>
+<h5>Search and SERP (Search Engine Result Page) telemetry</h5>
+<ul>
+<li aria-level="1">Mandy added telemetry to track search service failures. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849013">1849013</a>.</li>
+<li aria-level="1">James added remote settings listeners for when SearchSERPTelemetry was updated in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1785104">1785104</a>.</li>
+<li aria-level="1">Standard8 extended SERP telemetry config for mobile. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861676">1861676</a>.</li>
+<li aria-level="1">Standard8 updated Yahoo! Auctions branding. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861925">1861925</a></li>
+<li aria-level="1">Stephanie fixed broken marionette tests for search. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863023">1863023</a></li>
+</ul>
+<p>&nbsp;</p>
+<h5>Consolidated Search Configuration</h5>
+<ul>
+<li aria-level="1">This is an initiative that consolidates search engine configurations across our desktop and mobile browsers</li>
+<li aria-level="1">Mandy and Standard8 have just started rewriting the configuration to address some limitations of the previous configuration, and to allow it to be shared with our mobile products.</li>
+<li aria-level="1">Mandy added a new application search engine class in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861080">1861080</a>  and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863360">1863360</a>.</li>
+<li aria-level="1">Standard8 added search engine config schema v2. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854965">1854965</a></li>
+<li aria-level="1">Standard8 updated search tests in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862287">1862287</a> , <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862462">1862462</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863023">1863023</a>.</li>
+<li aria-level="1">Standard8 updated the new and old search engine selectors to use the right keys. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862679">1862679</a></li>
+<li aria-level="1">Standard8 enables spell check for schemas and docs in search. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862624">1862624</a></li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>On "real name" policies</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">On "real name" policies</h2>
+		<a target="_blank" href="https://drewdevault.com/2023/10/31/On-real-names.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://drewdevault.com/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Some free software projects reject anonymous or pseudonymous contributions,
+requiring you to author patches using your &ldquo;real name&rdquo;. Such projects have a
+so-called &ldquo;real name&rdquo; policy; Linux is one well-known example.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>The root motivations behind such policies vary, but in my experience the most
+often cited rationale is that it&rsquo;s important to establish the provenance of the
+contribution for copyright reasons. In the case of Linux, contributors are asked
+to &ldquo;sign-off&rdquo; their commits to indicate their agreement to the terms of the
+Developer Certificate of Origin (DCO), which includes clauses like the
+following:</p>
+<blockquote>
+<p>The contribution was created in whole or in part by me and I have the right to
+submit it under the open source license indicated in the file.</p>
+</blockquote>
+<p>To some extent, the DCO serves as a legal assertion of copyright and an
+agreement to license a work under given copyright terms (GPLv2 in the case of
+Linux). This record also means that the author of the code is accountable in
+case the copyright is challenged; in the case of an anonymous or pseudonymous
+contributor you&rsquo;re shit out of luck. At that point, liability over the
+disagreement would likely fall into the hands of the maintainer that accepted
+the contribution. It is reasonable for a maintainer to ask a contributor to
+assert their copyright and accept liability over the provenance of their code in
+a legally meaningful and accountable form.</p>
+<p>The possibility that someone may have something useful to offer to a free
+software project, but is not comfortable disclosing their name for any number of
+reasons, is a reasonable supposition. A maintainer whose &ldquo;real name&rdquo; policy is
+challenged on this basis would also be reasonable in saying &ldquo;I feel for you, but
+I cannot agree to accept legal liability over the provenance of this code,
+nor can I communicate that risk to end-users who acquire code under a license
+that may or may not be valid as such&rdquo;.</p>
+<p>&ldquo;Real name&rdquo; policies are controversial in the free software community. I open
+with this perspective in an attempt to cool down the room. Those who feel
+marginalized by &ldquo;real name&rdquo; policies often skew young, and many treat matters
+such as copyright and licensing with disdain. Moreover, the problem tends to
+inflame deeply hurtful sentiments and raise thorny matters of identity and
+discrimination, and it&rsquo;s easy to construe the intent of the policymakers as the
+intent to cause harm. The motivations behind these policies are reasonable.</p>
+<p>That said, intent or otherwise, these policies can cause harm. The profile of
+the contributor who is comfortable using their &ldquo;real name&rdquo; is likely to fall
+more narrowly into over-represented demographics in our community; enforcing a
+real-name policy will ostracize some people. Those with marginalized identities
+tend to be less comfortable with disclosing their &ldquo;real name&rdquo;. Someone who has
+been subject to harassment may not be comfortable with this disclosure, since it
+offers more fuel to harassers keeping tabs on their activities. The use of a
+&ldquo;real name&rdquo; also confers a gender bias; avoiding a &ldquo;real name&rdquo; policy neatly
+eliminates discrimination on this basis. Of course, there are also many
+<a href="https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/">falsehoods programmers believe about names</a> which can present in the
+implementation of such a policy.</p>
+<p>There is also one particular problem which has been at the heart of conflict
+surrounding the use of &ldquo;real-name&rdquo; policies in free software: transgender
+identities. A transgender person is likely to change their name in the process
+of assuming their new identity. When this happens, their real name changes.
+However, it may or may not match their legal name &ndash; some trans people opt to
+change it, others don&rsquo;t; if they do it is a process that takes time. Meanwhile,
+addressing a trans person by their old name, or &ldquo;deadname&rdquo;, is highly
+uncomfortable. Doing so deliberately, as a matter of policy or otherwise, is a
+form of discrimination. Many trans people experience deliberate &ldquo;deadnaming&rdquo; as
+a form of harassment in their daily lives, and institutionalizing this behavior
+is cruel.</p>
+<p>The truth is, managing the names of participants is more challenging than anyone
+would like. On the one hand, names establish accountability and facilitate
+collaboration, and importantly, credit the authors of a work for services
+performed. On the other hand, names are highly personal and deeply affecting,
+and their usage and changes over time are the subject of important consideration
+at the discretion of their owner. A complicating factor is that handling names
+properly introduces technical problems which must be overcome.</p>
+<p>To embrace the advantages of &ldquo;real name&rdquo; policies &ndash; establishing provenance,
+encouraging accountability, fostering a social environment &ndash; without causing
+harm, the approach I have settled on for my projects is to use the DCO to
+establish provenance and encourage contributors to sign-off and participate
+under the identity they feel most comfortable with. I encourage people to
+utilize an identity they use beyond the project&rsquo;s walls, to foster a social
+environment and a connection to the broader community, to establish
+accountability, and to ensure that participants are reachable for further
+discussion on their work. If a contributor&rsquo;s identity changes, we make every
+effort to support this change in contemporary, future, and historical use.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>A <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d4563201f33a022fc0353033d9dfeb1606a88330">change to Linux policy</a> earlier this year refines their approach to
+alleviate the concerns raised in this article. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

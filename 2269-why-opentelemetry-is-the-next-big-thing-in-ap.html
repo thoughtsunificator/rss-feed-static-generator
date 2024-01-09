@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why OpenTelemetry Is the Next Big Thing in API Monitoring</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Why OpenTelemetry Is the Next Big Thing in API Monitoring</h2>
+		<a target="_blank" href="https://nordicapis.com/why-opentelemetry-is-the-next-big-thing-in-api-monitoring/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Get ready to revolutionize how you monitor your APIs because <a href="https://opentelemetry.io/">OpenTelemetry</a> (OTel) is here to change the game. This powerful open-source project is quickly gaining traction in tech as the go-to solution for comprehensive and flexible cloud-native monitoring. But what exactly is OTel, and why is it causing such a buzz?</p>
+<p>In this blog post, we&#8217;ll dive into the world of OTel and explore how it&#8217;s reshaping API monitoring for the better. From its origins to its practical applications, we&#8217;ll cover (nearly) everything you need to know about this innovative tool and why it&#8217;s poised to be the next big thing in API monitoring.</p>
+<h2 id="understanding-opentelemetry-an-overview">Understanding OpenTelemetry: An Overview</h2>
+<div id="attachment_18275" style="width: 310px" class="wp-caption alignright"><img aria-describedby="caption-attachment-18275" decoding="async" class="size-full wp-image-18275" src="https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source.png" alt="OpenTelemetry" width="300" height="105" srcset="https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source.png 300w, https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source-240x84.png 240w, https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source-220x77.png 220w, https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source-180x63.png 180w, https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source-150x53.png 150w, https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source-90x32.png 90w, https://nordicapis.com/wp-content/uploads/open-telemetry-logo-cncf-project-open-source-200x70.png 200w" sizes="(max-width: 300px) 100vw, 300px" /><p id="caption-attachment-18275" class="wp-caption-text"><a href="https://opentelemetry.io/">OpenTelemetry</a> is an open-source CNCF project for collecting and exporting telemetry data (metrics, logs, and traces).</p></div>
+<p>OpenTelemetry is a powerful open-source project hosted by the Cloud-Native Computing Foundation (CNCF) that is quickly becoming a standard for <a href="https://cloudnativenow.com/features/7-open-source-cloud-native-tools-for-observability-and-analysis/">cloud-native observability</a>. In simple terms, it is a set of tools, APIs, and instrumentation libraries that allow you to collect, analyze, and export telemetry data from your applications and services. It acts as a protocol to collect telemetry data like logs, traces, and metrics and export it to the targets like databases or even graphs.</p>
+<p>This means you can gain deep insights into your <a href="https://nordicapis.com/10-tips-for-improving-api-performance/">APIs&#8217; performance</a>, identify any issues or bottlenecks, and make data-driven decisions to improve their <a href="https://nordicapis.com/what-is-site-reliability-engineering-sre/">efficiency and reliability</a>. In other words, it offers a comprehensive and flexible approach to API monitoring, allowing you to gather metrics, traces, and logs from different parts of your application stack.</p>
+<p>By standardizing how telemetry data is collected and exported, OTel makes it easier to adopt monitoring practices across different frameworks, languages, and environments. This interoperability is a game-changer for developers and operations teams, as it allows them to gain a holistic view of their entire system&#8217;s performance, regardless of the technologies being used.</p>
+<p>In addition to its technical benefits, it also promotes collaboration and knowledge-sharing within the developer community. With a vibrant and active community of contributors, OpenTelemetry is constantly evolving and improving, ensuring that you have access to the latest and most effective monitoring tools and practices.</p>
+<h2 id="how-does-opentelemetry-function-">How Does OpenTelemetry Function?</h2>
+<p>OTel functions by providing a comprehensive and flexible approach to <a href="https://nordicapis.com/7-tips-on-api-monitoring/">API monitoring</a>. It allows you to collect, analyze, and export telemetry data from your applications and services.</p>
+<p>At its core, it works by studying your code to capture the telemetry data at various points in your application stack. This can include metrics such as response times, error rates, and throughput, as well as traces that show the flow of requests through different components of your system. It can also collect logs to capture important events and messages from your APIs.</p>
+<p>To integrate OTel into your API infrastructure, you must first add the <a href="https://opentelemetry.io/docs/getting-started/dev/">necessary libraries</a> to your API code as per your technology stack. These libraries provide the hooks and functions needed to capture and export telemetry data.</p>
+<p>Once integrated, it can start collecting data from your APIs without requiring additional configuration. If you&#8217;re using <a href="https://nordicapis.com/6-open-source-api-gateways/">API gateways</a> like Kong or Tyk, you can directly integrate OTel using their <a href="https://opentelemetry.io/ecosystem/integrations/">ecosystem integrations</a>.</p>
+<p>Once the telemetry data is collected, OTel offers various exporters, like OpenTelemetry Collector or Prometheus, that allow you to send the data to your preferred monitoring or observability platform.</p>
+<p>Here&#8217;s a sample log for OTel:</p>
+<pre><code>request failed trace_id=<span class="hljs-number">958180131</span>ddde684c1dbda1aeacf51d3 span_id=<span class="hljs-number">0</span>cf859e4f7510204
+
+request failed trace_id=<span class="hljs-number">958180131</span>ddde684c1dbda1aeacf51d3 span_id=<span class="hljs-number">0</span>cf859e4f751323204
+
+request failed trace_id=<span class="hljs-number">958180131</span>ddde684c1dbda1aeacf51d3 span_id=<span class="hljs-number">0</span>cf859e4f751032323
+</code></pre>
+<p>In addition to the core functionality, OTel also provides features for distributed tracing, context propagation, and automatic instrumentation. Distributed tracing allows you to trace requests as they flow through multiple services, providing a holistic view of their journey. Context propagation ensures that request context is carried across different components, enabling better visibility and troubleshooting. Automatic instrumentation reduces the manual effort required to instrument your code, making it easier to adopt in your projects.</p>
+<h3 id="example-of-otel-collector-configuration">Example of OTel Collector configuration</h3>
+<pre><code><span class="hljs-attribute">receivers</span>:
+  <span class="hljs-attribute">otlp</span>:
+    <span class="hljs-attribute">protocols</span>:
+      <span class="hljs-attribute">grpc</span>:
+      <span class="hljs-attribute">http</span>:
+  otlp/<span class="hljs-number">2</span>:
+    <span class="hljs-attribute">protocols</span>:
+      <span class="hljs-attribute">grpc</span>:
+        <span class="hljs-attribute">endpoint</span>: <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">55690</span>
+
+<span class="hljs-attribute">processors</span>:
+  <span class="hljs-attribute">batch</span>:
+  batch/<span class="hljs-attribute">test</span>:
+
+<span class="hljs-attribute">exporters</span>:
+  <span class="hljs-attribute">otlp</span>:
+    <span class="hljs-attribute">endpoint</span>: <span class="hljs-attribute">otelcol</span>:<span class="hljs-number">4317</span>
+  otlp/<span class="hljs-number">2</span>:
+    <span class="hljs-attribute">endpoint</span>: <span class="hljs-attribute">otelcol2</span>:<span class="hljs-number">4317</span>
+
+<span class="hljs-attribute">extensions</span>:
+  <span class="hljs-attribute">health_check</span>:
+  <span class="hljs-attribute">pprof</span>:
+  <span class="hljs-attribute">zpages</span>:
+
+<span class="hljs-attribute">service</span>:
+  <span class="hljs-attribute">extensions</span>: [health_check, pprof, zpages]
+  <span class="hljs-attribute">pipelines</span>:
+    <span class="hljs-attribute">traces</span>:
+      <span class="hljs-attribute">receivers</span>: [otlp]
+      <span class="hljs-attribute">processors</span>: [batch]
+      <span class="hljs-attribute">exporters</span>: [otlp]
+    traces/<span class="hljs-number">2</span>:
+      <span class="hljs-attribute">receivers</span>: [otlp/<span class="hljs-number">2</span>]
+      <span class="hljs-attribute">processors</span>: [batch/test]
+      <span class="hljs-attribute">exporters</span>: [otlp/<span class="hljs-number">2</span>]
+    <span class="hljs-attribute">metrics</span>:
+      <span class="hljs-attribute">receivers</span>: [otlp]
+      <span class="hljs-attribute">processors</span>: [batch]
+      <span class="hljs-attribute">exporters</span>: [otlp]
+    <span class="hljs-attribute">logs</span>:
+      <span class="hljs-attribute">receivers</span>: [otlp]
+      <span class="hljs-attribute">processors</span>: [batch]
+      <span class="hljs-attribute">exporters</span>: [otlp]
+</code></pre>
+<h2 id="the-significance-of-opentelemetry-for-apis">The Significance of OpenTelemetry for APIs</h2>
+<p>In today&#8217;s digital landscape, APIs are crucial in connecting applications and services. They enable seamless communication and integration between different systems, allowing businesses to deliver innovative products and services to their customers. However, ensuring the performance, reliability, and security of APIs can be a complex and challenging task.</p>
+<p>This is where OTel comes in. The significance of OTel for APIs lies in its ability to provide comprehensive and flexible monitoring capabilities. By integrating OTel into your API infrastructure, developers can gain access to their API insights like uptimes, server load, and traces. Additionally, OTel promotes collaboration and knowledge-sharing within the <a href="https://opentelemetry.io/community/">developer community</a>.</p>
+<h2 id="benefits-of-using-opentelemetry-in-api-monitoring">Benefits of Using OpenTelemetry in API Monitoring</h2>
+<p>OpenTelemetry brings many benefits to API monitoring that can significantly enhance your development and operational processes. One of the most significant benefits of using OTel is its flexibility and adaptability. Since it supports multiple programming languages like PHP, JacaScript, and Python, you can easily integrate OTel into your existing systems. This means you don&#8217;t have to overhaul your entire infrastructure to start monitoring your APIs effectively. It also allows you to choose which telemetry data to collect, how to process it, and where to send it, giving you control over the monitoring process.</p>
+<p>Overall, the benefits of using OTel in API monitoring are numerous. From gaining deep insights into API performance to flexibility and community collaboration, OTel is revolutionizing software monitoring, providing developers and operations teams with the tools they need to optimize their systems&#8217; efficiency and reliability.</p>
+<h2 id="final-words">Final Words</h2>
+<p>OTel&#8217;s comprehensive and flexible approach to monitoring provides developers and operations teams with the tools they need to collect different metrics for their APIs and perform observability through multiple mediums like time-series graphs or databases.</p>
+<p>Its flexibility and adaptability also make it a game-changer. With support for multiple programming languages and frameworks, it can be easily integrated into existing systems without significant changes. This means that no matter what technologies you&#8217;re using, it can enhance your monitoring capabilities.</p>
+<p>In conclusion, OpenTelemetry is not just a passing trend but a powerful tool shaping the future of API monitoring. Its flexibility, comprehensive visibility, and community collaboration make it a must-have for developers and operations teams looking to optimize their API infrastructure.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

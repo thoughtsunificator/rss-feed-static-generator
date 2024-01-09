@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using DAST to Tackle the OWASP Top 10</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Using DAST to Tackle the OWASP Top 10</h2>
+		<a target="_blank" href="https://nordicapis.com/using-dast-to-tackle-the-owasp-top-10/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>As engineers, we find ourselves in a digital world where the security of our APIs is not just a priority but a necessity. With the widespread adoption of &#8220;everything-as-an-API,&#8221; APIs are no longer just facilitators of communication between various systems — they are now critical components of our architectures that demand robust security measures.</p>
+<p>The Open Web Application Security Project (OWASP) <a href="https://owasp.org/API-Security/editions/2023/en/0x11-t10/">Top 10 API Security Risks</a> stands as a beacon, guiding developers towards building more secure APIs. Essentially, it&#8217;s a checklist, a warning, and a roadmap all rolled into one, highlighting the most <a href="https://nordicapis.com/a-look-at-the-owasp-api-security-top-10-2023/">critical security risks</a> we face as API developers. We must understand these risks, as they directly impact the integrity and success of our APIs, and also know how to keep them away from our code.</p>
+<p>As part of the toolkit to increase the security of our APIs, Dynamic Application Security Testing (DAST) is an essential piece of secure API development. But DAST isn&#8217;t just another tool — it&#8217;s part of a more extensive methodology that aligns perfectly with the agile, fast-paced environment we thrive in. As a critical component of the &#8220;shift left&#8221; security movement, it empowers developers to identify and mitigate vulnerabilities in real-time.</p>
+<p>This blog will examine the OWASP Top 10 API Security Risks and how we, as developers, should consider them in our everyday coding practices. We will explore how DAST can be critical in responding to and preemptively addressing these top security risks.</p>
+<h2 id="what-are-the-owasp-top-10-api-security-risks-">What Are the OWASP Top 10 API Security Risks?</h2>
+<p>For API developers, understanding the OWASP Top 10 is necessary to ensure the security of APIs as they move from the design phase to building them and finally out into the wild. Let&#8217;s take a quick look at each of the risks below.</p>
+<ol>
+<li><strong>Broken Object Level Authorization</strong>: This vulnerability arises when APIs improperly handle <a href="https://nordicapis.com/use-oauth-to-mitigate-top-of-the-top-api-risks/">access controls</a> for objects the user identifies. Consequences include unauthorized access to data, leading to data breaches and privacy violations.</li>
+<li><strong>Broken Authentication</strong>: Flaws in authentication mechanisms can let attackers steal authentication tokens or impersonate other users, compromising the security of the API and the systems behind it. This vulnerability can lead to unauthorized access and data theft.</li>
+<li><strong>Broken Object Property Level Authorization</strong>: Inadequate authorization checks at the property level of objects can result in unauthorized information disclosure or alteration, posing risks to data integrity and confidentiality.</li>
+<li><strong>Unrestricted Resource Consumption</strong>: Poor resource management in APIs can be exploited to cause service disruptions (Denial of Service) or incur high operational costs through resource overuse.</li>
+<li><strong>Broken Function Level Authorization</strong>: Inadequate access controls for different API functions can allow unauthorized users to access or manipulate restricted resources, leading to data leaks or unauthorized actions.</li>
+<li><strong>Unrestricted Access to Sensitive Business Flows</strong>: Exposing business processes without proper safeguards can lead to their abuse in automated attacks, potentially causing financial losses or business disruption.</li>
+<li><strong>Server Side Request Forgery (SSRF)</strong>: This vulnerability allows attackers to trick the API into making unexpected requests, potentially breaching network security boundaries and accessing or manipulating internal systems.</li>
+<li><strong>Security Misconfiguration</strong>: Inadequate security settings in APIs and their environments, such as <a href="https://nordicapis.com/what-is-cors-cross-origin-resource-sharing/">CORS misconfiguration</a> or if TLS is missing, can lead to various attacks, resulting in data breaches, unauthorized access, or service disruptions.</li>
+<li><strong>Improper Inventory Management</strong>: Failure to properly document and manage API endpoints can lead to the use of outdated or insecure API versions and the exposure of sensitive debug information.</li>
+<li><strong>Unsafe Consumption of APIs</strong>: Trusting third-party API data without rigorous security checks can make an API vulnerable to indirect attacks, potentially compromising the data and functionality of the API.</li>
+</ol>
+<p>As an API developer, the OWASP Top 10 are vulnerabilities we should be aware of and actively work to mitigate. This list should act as a guide to help us prioritize our security efforts and understand where our APIs might be most vulnerable. Knowing these risks is the first step in defending against them — being able to detect and remedy them proactively is the next step.</p>
+<h2 id="what-is-dast-">What is DAST?</h2>
+<p><a href="https://www.stackhawk.com/blog/dynamic-application-security-testing-overview/">Dynamic Application Security Testing</a> (DAST) is an indispensable tool in the modern API engineer&#8217;s toolkit. DAST is a &#8220;black-box&#8221; testing method that evaluates an application in its running state. With the application running, DAST effectively simulates real-world attack scenarios, making it particularly suited for automated API testing. DAST identifies vulnerabilities by interacting with the application, sending varied inputs, and observing outputs and behaviors, thus revealing security flaws evident only during active application use.</p>
+<p>Key to its functionality, DAST performs automated testing for a broad spectrum of common vulnerabilities, including those listed in the OWASP Top 10. Some of the most noteworthy include SQL Injection and Cross-Site Scripting (XSS) vulnerabilities. These tools are adept at pinpointing critical security threats that could compromise APIs. Integration of DAST into the software development lifecycle is streamlined, especially within DevOps frameworks and continuous integration/continuous deployment (CI/CD) environments. By embedding this testing method directly into the SDLC, developers can have a consistent and ongoing security assessment process that executes automatically.</p>
+<p>Beyond <a href="https://nordicapis.com/api-inventory-navigating-through-invisible-threats/">vulnerability detection</a>, DAST tools also offer comprehensive reports and actionable insights. This feedback is real-time and crucial for API developers writing the code. The output from the tests provides the necessary information for developers to address identified security issues effectively. The insights from DAST reports help to guide immediate remediation efforts and assist in formulating long-term strategies to strengthen the security of a company&#8217;s APIs.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/">Protecting GraphQL Against OWASP Top Ten API Risks</a></div>
+<h2 id="how-does-dast-combat-against-the-owasp-top-10-">How Does DAST Combat Against the OWASP Top 10?</h2>
+<p>Dynamic Application Security Testing (DAST) is a crucial tool when identifying vulnerabilities in our code. By using the automated nature of DAST, identifying and mitigating the vulnerabilities outlined in the OWASP Top 10, especially those affecting API development, becomes much more manageable. Although DAST tools don&#8217;t directly assist in mitigating every vulnerability outlined in the list, they can be helpful for most. Let&#8217;s explore how DAST addresses each of these top API security risks outlined by OWASP.</p>
+<ol>
+<li><strong> Broken Object Level Authorization</strong>: DAST effectively simulates unauthorized requests to endpoints, meticulously checking for weaknesses in object-level authorization. It helps to identify whether proper access controls are implemented, ensuring that users can only access data for which they are authorized.</li>
+<li><strong>Broken Authentication</strong>: DAST rigorously tests authentication processes, identifying flaws that could compromise authentication tokens or unauthorized identity assumptions. It checks for weak spots in <a href="https://nordicapis.com/everything-you-need-to-know-about-api-tokens/">token handling</a> and session management.</li>
+<li><strong>Broken Object Property Level Authorization</strong>: By evaluating how APIs manage data at the object property level, DAST can spot instances of unauthorized data exposure or manipulation, ensuring strict authorization checks are in place.</li>
+<li><strong>Unrestricted Resource Consumption</strong>: DAST can simulate high-load scenarios to test an API&#8217;s ability to handle resource stress, identifying potential vulnerabilities that could lead to Denial of Service (DoS) attacks or inefficient resource usage.</li>
+<li><strong>Broken Function Level Authorization</strong>: DAST uncovers flaws in access control policies by attempting to access different API functions, ensuring that users can&#8217;t access functions beyond their permissions.</li>
+<li><strong>Unrestricted Access to Sensitive Business Flows</strong>: DAST evaluates how APIs manage and protect business processes, detecting vulnerabilities that could be exploited through automation, thereby safeguarding sensitive business flows.</li>
+<li><strong>Server Side Request Forgery (SSRF)</strong>: DAST scrutinizes how APIs handle user-supplied URIs for fetching remote resources, effectively identifying SSRF vulnerabilities that could lead to unauthorized network access.</li>
+<li><strong>Security Misconfiguration</strong>: Through exhaustive testing, DAST identifies misconfigurations in APIs and their supporting infrastructure, a critical step in preventing attacks from such oversights.</li>
+<li><strong>Improper Inventory Management</strong>: While DAST primarily focuses on runtime testing, its insights can significantly aid <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">inventory management</a> by revealing undocumented or outdated API endpoints.</li>
+<li><strong>Unsafe Consumption of APIs</strong>: DAST thoroughly evaluates the security measures when an API interacts with third-party data, highlighting vulnerabilities and ensuring robust defenses against indirect attacks through integrated services.</li>
+</ol>
+<p>As we can see, DAST platforms are a dynamic and essential tool in the API engineer&#8217;s toolkit. This is especially true when dealing with APIs and the prevalent threats highlighted by the OWASP Top 10. It provides a practical, real-world testing approach, allowing engineers to identify and remedy vulnerabilities within their APIs before they hit production. As we continue to evolve and refine our security practices, DAST is a must-have for every company creating and publishing APIs.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>To conclude, using Dynamic Application Security Testing (DAST) is an indispensable strategy for API engineers. It offers a proactive approach to tackle the vulnerabilities highlighted in the OWASP Top 10 before they get the chance to hit production. It&#8217;s not just about identifying security weaknesses — DAST equips us with the means to understand and rectify these issues in real-time by testing and giving developers reports on where their API security is flawed. With the automation and real-time aspects of DAST, it perfectly aligns with the agile nature of modern API development.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

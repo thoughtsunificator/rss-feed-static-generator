@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>9 Tools That Enable Event-Driven API Management</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">9 Tools That Enable Event-Driven API Management</h2>
+		<a target="_blank" href="https://nordicapis.com/9-tools-that-enable-event-driven-api-management/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Event-driven architecture is on the rise. According to a study conducted by Solace, which surveyed 840 developers in nine countries, <a href="https://solace.com/event-driven-architecture-statistics/">85% of businesses</a> used event-driven architecture in 2021. 72% of global businesses report widespread adoption of event-driven architecture, and 71% report the benefits outweigh the disadvantages.</p>
+<p>The rise of microservices is one reason for the rapid adoption of <a href="https://nordicapis.com/apis-and-events-what-does-a-modern-integration-look-like/">event-driven API management</a>. The desire to build decoupled services and the need for real-time, continuous data are also driving more interest in event-driven API management.</p>
+<p>There is clearly a demand for event-driven solutions that empower asynchronous protocols like MQTT, data streams, and the IoT. This brings its own challenges when it comes to event-driven API management. With event-driven API management becoming more prevalent, there&#8217;s been an influx of tools developed explicitly for the event-driven paradigm. Let&#8217;s have a look at some below.</p>
+<h2 id="1-apache-kafka">1. Apache Kafka</h2>
+<p>If you&#8217;re going to work with event-driven APIs, you&#8217;ll need data streams to work with. This sometimes means converting existing data into a data pipeline. <a href="https://kafka.apache.org/">Apache Kafka</a> is one of the most popular open-source solutions for creating data streams. Considering its widespread adoption, Apache Kafka has extensive support, with many libraries and various open-source tools. It also works with almost everything out of the box, so you won&#8217;t have to waste days troubleshooting to get started with Apache Kafka and data streams.</p>
+<h2 id="2-rabbitmq">2. RabbitMQ</h2>
+<p><a href="https://www.rabbitmq.com/">RabbitMQ</a> is another popular open-source tool for creating data streams. It&#8217;s a popular platform for asynchronous messaging that can turn nearly anything into a message. Considering RabbitMQ&#8217;s popularity, a wide range of tools are available to help you integrate it into your event-driven API architecture. As another benefit, it uses HTTP-based APIs for its messaging, so it&#8217;s easy to manage and monitor.</p>
+<h2 id="3-gravitee">3. Gravitee</h2>
+<p>Data streams like the ones created by Apache Kafka and RabbitMQ are great, but they&#8217;re only intended for in-house use. If you&#8217;re looking to make event-driven API management public-facing in any regard, you&#8217;re going to address API management and security access issues. Unfortunately, most existing solutions aren&#8217;t set up to handle event-driven architecture.</p>
+<p>This reality led <a href="https://www.gravitee.io/">Gravitee</a>, a popular open-source API management platform, to coin the term <a href="https://www.gravitee.io/blog/introducing-event-native-api-management">event-native API management</a>. The platform is built <em>specifically</em> to handle event-driven architecture, although it can also manage synchronous APIs. With a focus on connectivity, support for pub/sub, as well as a wide range of asynchronous formats, such as MQTT or AMPQ, Gravitee&#8217;s worth a look if you&#8217;re going to be supplying the public with continuous data.</p>
+<h2 id="4-axway">4. Axway</h2>
+<p>Unnecessary, repetitive tasks are the bane of a developer&#8217;s existence. At best, they&#8217;re an irritating waste of time. At worst, they increase the risk of error in multiple ways. Tools that remove unnecessary busywork are a dream come true for API developers.</p>
+<p><a href="https://www.axway.com/">Axway</a> fulfills a simple but highly useful need. For one thing, it lets you integrate event-driven APIs into your existing API catalog. More interestingly, it enables you to transform other APIs in your catalog into event-driven ones. If you&#8217;re looking for a comprehensive API management and catalog that works with event-native API management, Axway is worthy of consideration.</p>
+<h2 id="5-asyncapi">5. AsyncAPI</h2>
+<p>As we have seen, <a href="https://nordicapis.com/why-asynchronous-apis-are-on-the-rise/">asynchronous APIs</a> are the nervous system of event-driven API management. For a service to be event-driven, polling must be eliminated, as a different architecture is required. <a href="https://www.asyncapi.com/">AsyncAPI</a> is the most popular API specification for asynchronous APIs. This means it&#8217;s easy to get started with, and there are a lot of tools and resources to work with. If you&#8217;re serious about integrating event-driven APIs into your network, you&#8217;d be highly encouraged to get familiar with AsyncAPI.</p>
+<h2 id="6-webhooks">6. Webhooks</h2>
+<p>One of the most common ways to implement event-driven API management is to create a webhook and let your users register to receive updates from your API. A <a href="https://nordicapis.com/your-guide-to-webhooks/">webhook</a> is essentially a publicly available HTTP POST endpoint that can receive data from a specified source. Setting up a webhook to receive data from an API producer is like reversing how a traditional API works. Instead of an API querying when they want something to happen, the API broadcasts when something interesting has happened. It&#8217;s a simple and elegant way to eliminate polling madness.</p>
+<h2 id="7-websockets">7. WebSockets</h2>
+<p><a href="https://nordicapis.com/getting-started-with-websockets/">WebSockets</a> work similarly to webhooks but allow data from both sides. They&#8217;re set up almost identically to Webhooks, so they&#8217;re fast and easy to get started with. If you want to create an endpoint that both you and your users can access, it&#8217;s worth investigating WebSockets.</p>
+<h2 id="8-server-sent-events-sses-">8. Server-Sent Events (SSEs)</h2>
+<p><a href="https://nordicapis.com/top-architectural-styles-for-apis-in-2023/">Server-Sent Events</a>, or SSEs, are similar to webhooks but meant specifically for browser-based users. To use them, a user creates a new EventSource object and inputs the URL of an endpoint. The SSEs then monitor that endpoint for events. Unlike other formats, though, SSEs can either be left open continuously or closed after a certain period of inactivity. This could be useful for certain applications.</p>
+<h2 id="9-ontopop">9. OntoPop</h2>
+<p>Seeing an architecture in action is one of the best ways to learn a different programming approach. <a href="https://github.com/hyperlearningai/ontopop">OntoPop</a> is an interesting open-source application that uses event-driven data pipelines and APIs to visualize and explore versions of ontologies. Best of all, the GitHub repository features extensive documentation and many examples of OntoPop at work. Reading through the README alone is a masterclass in event-driven API architecture and execution.</p>
+<h2 id="final-thoughts-on-event-driven-api-management">Final Thoughts on Event-Driven API Management</h2>
+<p>There are so many applications that require real-time and continuous monitoring and alerts. In today&#8217;s data-centric world, it doesn&#8217;t make sense to only adopt API architecture that can be queried or polled. These applications will only increase, especially as tools like the IoT continue to spread.</p>
+<p>Event-driven API management is mandatory in so many different scenarios. Therefore, you&#8217;d do well to acclimate yourself to the format now. These nine tools for event-driven API management should be more than enough to get you started.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

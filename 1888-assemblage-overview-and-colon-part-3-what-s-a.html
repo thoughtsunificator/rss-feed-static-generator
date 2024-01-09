@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Assemblage overview&colon; Part 3 - What's a service architecture?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Assemblage overview&colon; Part 3 - What's a service architecture?</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2023/09/19/assemblage-part-3-whats-a-service-architecture.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h1 id="assemblage-overview-part-3---whats-a-service-architecture">Assemblage overview: Part 3 - What’s a service architecture?</h1>
+
+<p>In previous articles, I described the first two steps of the <a href="/post/architecture/2023/02/09/assemblage-architecture-definition-process.html">Assemblage architecture design process</a>.
+The <a href="/post/architecture/refactoring/2023/07/27/assemblage-overview-part-1-defining-system-operations.html">first step</a> identifies the system operations, which model externally invoked requests.
+The <a href="/post/architecture/2023/08/14/assemblage-overview-part-2-defining-subdomains.html">second step of the process</a> designs the subdomains that implement those system operations.
+The third step of the design process defines the service architecture.
+In a later article, I’ll describe the service design process in more detail.
+In this article, I’ll provide an overview of the service architecture.</p>
+
+<h2 id="whats-the-service-architecture">What’s the service architecture?</h2>
+
+<p>The service architecture consists of one or more services.
+The services are a grouping/partitioning of the application’s subdomains that were defined in step 2.
+Each service consists of one or more subdomains.
+Each subdomain is in one and only one service.
+If the service architecture consists of one service, it’s a monolith and if there’s more than one, it’s a microservice architecture.</p>
+
+<p><img src="/i/posts/microservices-teams-subdomains.png" class="img-responsive" /></p>
+
+<p>Defining service architecture is most critical part of designing an architecture.
+If you do a good job, you’ll have a good architecture that will, for example, accelerate software delivery.
+Conversely, if you do a bad job, you risk slowing down software delivery.
+In the worst case, you’ll create a distributed monolith, which is an anti-pattern architecture that combines the worst aspects of monoliths and microservices.</p>
+
+<p>The service architecture can be (mostly) defined in a technology neutral way.
+The focus is on correctly defining the service boundaries and their collaborations.
+Even the communication between services can be defined in a technology neutral way.
+You can (and should), for example, <a href="/post/books/2020/05/14/2020-enterprise-integration-patterns.html">model messaging in terms of messaging channels</a> rather than instantly picking a message broker.</p>
+
+<h2 id="-versus-the-technical-architecture">… versus the technical architecture?</h2>
+
+<p>Once you’ve defined the service architecture, you can then define the technical architecture.
+The technical architecture consists of a set of specific technology choices.
+In fact, most of the decisions that you must make consist of applying the <a href="/patterns/index.html">Microservice pattern language</a> including deployment patterns, communication patterns, and observability patterns.</p>
+
+<h2 id="dark-energy-and-dark-matter-shape-the-service-architecture">Dark energy and dark matter shape the service architecture</h2>
+
+<p>A service architecture must resolve the <a href="/post/architecture/2023/03/26/dark-energy-dark-matter-force-descriptions.html">dark energy and dark matter forces</a>.
+The dark energy forces are the forces that push subdomains apart and encourage you to create fine-grained services.
+The dark matter forces are the forces that pull subdomains together and encourage you to create a monolith.
+These forces heavily influence the grouping of subdomains into services and the design of the service collaborations, which implement system operations.</p>
+
+<h2 id="about-a-service">About a service</h2>
+
+<p>Each service has a name, and responsibilities, which are what it knows and what it does.
+For example, the <code class="language-plaintext highlighter-rouge">Customer Service</code> knows the customer information, and manages their available credit.</p>
+
+<p>A service has an API consisting of operations and published events.
+The <code class="language-plaintext highlighter-rouge">Customer Service</code> would, for example, define operations such as <code class="language-plaintext highlighter-rouge">createCustomer()</code> and possibly publish events, such as <code class="language-plaintext highlighter-rouge">Customer Created</code>.</p>
+
+<p>A service also has dependencies, which are the services whose APIs it consumes.
+It invokes their operations and subscribes to their events.</p>
+
+<p><img src="/i/what-is-a-service/What_is_a_Service.png" class="img-responsive" /></p>
+
+<h2 id="a-microservice-architecture-has-an-api-gateway">A microservice architecture has an API Gateway</h2>
+
+<p>If the architecture has more than one service, it will also have an <a href="/patterns/apigateway.html">API Gateway</a>.
+The API Gateway is a facade that expose the application’s public HTTP/gRPC/etc-based API.
+It implements edge functions, such as authentication, authorization, rate limiting, etc. and routes requests to the appropriate service.
+The API Gateway might also implement <a href="/patterns/data/api-composition.html">API Composition</a>.
+It one of the several ways that a system operation is invoked.</p>
+
+<h2 id="the-service-architecture-implements-the-system-operations">The service architecture implements the system operations</h2>
+
+<p>The purpose of the service architecture is, of course, to implement the system operations.
+Each operation is implemented by collaboration of the services and typically the API Gateway.
+The collaboration is enabled by those services’ design elements, which include:</p>
+
+<ul>
+  <li>API operations and published events</li>
+  <li>Proxies that invoke operations on other services</li>
+  <li>Event handlers that subscribe to events published by other services</li>
+</ul>
+
+<p>Which particular elements that are needed depends on how the operation is triggered, whether the operation is local or distributed, and if it’s distributed, which service collaboration patterns are used.</p>
+
+<h2 id="how-system-operations-are-invoked">How system operations are invoked</h2>
+
+<p>A system operation is invoked in one of several ways:</p>
+
+<ul>
+  <li>A HTTP/gRPC/etc request to an API Gateway endpoint, which typically routes the request to a service, which has a service operation endpoint.</li>
+  <li>A message published to a message channel that’s consumed by a (entry point) service that has an event handler, which subscribes to the channel</li>
+  <li>A scheduling framework that is either external to the services that invokes an operation on an entry point service or embedded with a service, such as Spring’s <code class="language-plaintext highlighter-rouge">@Scheduled</code> annotation, that invokes a method on a <code class="language-plaintext highlighter-rouge">@Bean</code></li>
+</ul>
+
+<h2 id="local-vs-distributed-operations">Local vs. distributed operations</h2>
+
+<p>In a microservice architecture, some system operations are local where as others are distributed.
+A local operation is an operation whose subdomains are in a single service.
+A distributed operation is an operation whose subdomains are in two or more services.
+Let’s look at how a service architecture implements a local operation.</p>
+
+<h3 id="local-system-operations">Local system operations</h3>
+
+<p>The service collaboration for a local operation is very simple.</p>
+
+<p><img src="/i/assemblage/local-operation-collaboration.png" class="img-responsive" /></p>
+
+<p>The system operation is invoked using one of the mechanisms described earlier.
+For example, if the operation is invoked via HTTP/gRPC/etc, then the API Gateway has an API endpoint that simply forwards the request to the service that implements the operation.
+The target service’s API has an operation endpoint that handles the request.</p>
+
+<h3 id="distributed-system-operations">Distributed system operations</h3>
+
+<p>The service collaboration design for a distributed operation is more complex than for a local operation.
+A distributed operation is implemented using a combination of the <a href="/post/patterns/2023/07/29/service-collaboration-patterns.html">service collaboration patterns</a>.
+For commands, you use a combination of the Saga and API Composition patterns.
+And, for queries, you use a combination of the API Composition and CQRS patterns.</p>
+
+<p><img src="/i/assemblage/distributed-operation-collaboration.png" class="img-responsive" /></p>
+
+<p>As with local operations, the system operation is invoked using one of the mechanisms described earlier.
+The key difference is that the entry point service collaborates with other services by making synchronous requests and exchanging messages, including events and asynchronous requests.
+The participating services have design elements that enable them to collaborate.</p>
+
+<h2 id="operation-realization">Operation realization</h2>
+
+<p>An operation realization is a subset of the architecture that implements an operation.
+It consists of the services that contain the operation’s subdomains along with their elements that implements the operation.
+An operation realization is an important concept because, as you will see in the next article, you incrementally define the service architecture by designing one operation realization at a time.</p>
+
+<h2 id="whats-next">What’s next</h2>
+
+<p>In the next article, I describe how to design a service architecture using the Assemblage process.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

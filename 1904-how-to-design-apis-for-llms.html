@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Design APIs for LLMs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Design APIs for LLMs</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-design-apis-for-llms/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Software development has always grown in leaps and bounds at the intersection of disparate technologies. Mobile devices required a sea change in how web development was approached, resulting in responsive and efficient design. The availability of massive data storage in the context of powerful data processing capabilities unlocked big data and cloud computing. The world has witnessed the transformative power of application programming interfaces (APIs) that allow different software entities to communicate, share data, and extend functionalities.</p>
+<p>Figuring out how to make technology work in tandem with other solutions has always fundamentally reshaped our work. And now, a new player has entered the innovation stage: <a href="https://nordicapis.com/7-large-language-model-llm-apis/">large language models</a> (LLMs). These systems, colloquially referred to simply as &#8220;<a href="https://nordicapis.com/how-ai-is-transforming-the-future-of-apis/">artificial intelligence</a>&#8221; or &#8220;<a href="https://nordicapis.com/tips-on-using-chatgpt-to-model-apis/">ChatGPT</a>,&#8221; promise to reinvigorate and revolutionize how we perceive and utilize APIs at the industry level.</p>
+<p>Understanding what an LLM actually is and adopting a set of strategies and approaches will be a huge deal as LLMs become more common and built-in to our everyday lives. Accordingly, we must determine how to make the most of these marvelous technologies. Today, we&#8217;re going to dive into that exact topic.</p>
+<h2 id="what-even-is-a-large-language-model-">What Even Is a Large Language Model?</h2>
+<p>Simply put, a large language model (LLM) is an advanced type of machine learning model designed to understand and generate human-like text. These models are trained on vast amounts of data from a variety of sources. These sources are not necessarily the most accurate, and in many cases, ethical questions have been raised around the <a href="https://www.techopedia.com/llms-in-the-legal-field-transforming-legal-research-and-analysis">privacy or copyright</a> of the content within the training set.</p>
+<p>Nonetheless, the models have been heavily trained specifically on human-generated content, meaning that, for the first time, LLMs have created processes, content, and behavior that often feel more human-like than not. This has been a revolutionary change in the field of natural language processing (NLP) — tasks that were once considered challenging or even impossible for machines suddenly seem achievable, and with a result that feels lifelike.</p>
+<p>At its core, a large language model is a type of neural network, specifically a variant of a transformer architecture, that has been trained on massive datasets. LLMs, such as OpenAI&#8217;s GPT (Generative Pre-trained Transformer) series, can generate coherent and contextually relevant sentences, answer questions, provide summaries, translate languages, and even code in various programming languages. They achieve this by learning patterns and relationships between words, phrases, and ideas within the data they are trained on.</p>
+<h2 id="marching-forward-with-llms">Marching Forward with LLMs</h2>
+<p>LLMs are here, and they are starting to pop up in various places, both obvious and not-so-obvious. Developers are integrating LLMs into their integrated development environments (IDEs) to assist with code generation, bug detection, and documentation, boosting productivity and efficiency. Since LLMs can generate human-like content, they have quickly become invaluable tools for <a href="https://nordicapis.com/5-examples-of-excellent-api-documentation/">documentation generation</a>, especially when the differences between endpoints need to be succinctly described in a human-consumable fashion.</p>
+<p>LLMs have, in fact, become so powerful that they are starting to be used to generate code, both for internal use and for public API calls. Calling public APIs in various languages using requests generated by an LLM is no longer a distant dream — it&#8217;s something that developers are already attempting (with better or <a href="https://the-decoder.com/company-wins-customers-via-chatgpt-for-a-product-it-does-not-carry/">worse outcomes</a>).</p>
+<p>Interestingly, the fact that LLMs are both human-like and machine-based could benefit systems requiring both human and machine-readable specifications and documentation, as a single source of truth translating between the two often results in content that might otherwise have one side or the other be a bit weaker.</p>
+<p>As the industry evolves, we can expect LLMs to become more ubiquitous and embedded into even more applications, fast becoming a standard tool in various domains. Their potential, combined with the iterative nature of the industry&#8217;s continued research and development, will likely lead to more advanced models that are fine-tuned for specific tasks, thereby further embedding them into our digital landscape in purpose-built applications.</p>
+<h2 id="building-apis-for-llms">9 Ways to Design APIs for LLMs</h2>
+<p>With that in mind, integrating large language models in the software ecosystem will herald a transformative approach to API construction, consumption, and interaction. Making APIs more &#8220;LLM-friendly&#8221; will be imperative for sustainable success. To get there, however, we need to make some considerations and adopt some strategies. Below, we&#8217;ll look at specific ways to design your APIs for LLMs.</p>
+<h3 id="1-natural-language-descriptions-making-apis-understandable">1. Natural Language Descriptions: Making APIs Understandable</h3>
+<p>Traditional approaches to <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/">API documentation</a> have often been highly technical, especially in the context of in-code comments and reference links. Because LLMs look at systems in a way that is closer to natural language, adopting a more human-oriented approach, ironically, is paramount. <a href="https://nordicapis.com/8-developer-portal-best-practices/">Developer portals</a> should explain code throughout documentation points as if they were explaining to another developer or a layperson, using plain language to denote what a piece of code does, why it was chosen, and what the implications are.</p>
+<p>Adopting this conversational way of documentation, as opposed to the more technically-oriented straightforward way of documentation that is more common, could result in API developer portals that are more digestible for LLMs. This digestibility can help the LLMs find errors in code construction and create new instruction modalities for human users. Conversational documentation, for instance, can be converted into AI-driven video content using tools such as <a href="https://www.synthesia.io/">Synesthesia</a> to provide additional avenues of user communication.</p>
+<h3 id="2-semantic-structuring-enhancing-data-interpretation">2. Semantic Structuring: Enhancing Data Interpretation</h3>
+<p>Data interpretation is vital for any API interaction. Structuring API responses with semantic tags ensures LLMs can discern the intent behind the data and the relationship between disparate data points.</p>
+<p>From an API context, rather than merely returning data, APIs could be designed to tag data points with their context. For instance, indicating that a returned number represents a &#8220;price&#8221; or a &#8220;date&#8221; seems like a minor step. However, this fundamentally helps create context-aware data processing and provides a holistic view of the data.</p>
+<p>While this obviously has huge implications for the LLMs&#8217; general understanding, it makes iterative development utilizing AI tooling much easier. Simply put, making the underlying system easier to understand for the LLM can only be a positive.</p>
+<h3 id="3-ensuring-accurate-llm-interactions-the-art-of-precision">3. Ensuring Accurate LLM Interactions: The Art of Precision</h3>
+<p>One of the weak points of current LLM systems is the accuracy and precision of LLM-generated output. In the realm of APIs, this is doubly important — it&#8217;s one thing for an LLM to suggest that William Shakespeare was a famous guitarist, but it&#8217;s something else entirely for an LLM to represent an API endpoint that does not exist or function as stated. Accordingly, building precision into API descriptions is key to providing accurate LLM results.</p>
+<p>This can be done in a variety of ways. By providing ample <a href="https://nordicapis.com/5-ways-sdks-and-code-samples-boost-developer-experience/">context and code samples</a> for the LLM to ingest and model through the API documentation, LLMs can generate code or data interpretations more in line with the API&#8217;s intent. The better your documentation, the better the output. This output can then be fed through validation layers – for instance, for each endpoint referenced in documentation, a simple check for validity can verify that the information provided is indeed accurate.</p>
+<p>Taking it a step further, implementing a continual feedback loop for learning and generation can be effective. Taking LLM outputs and asking the system to validate itself can be a simple but powerful step in the process of reducing errors and improving efficiency. All of this requires ample pre-planning and structured data, which requires a very precise data flow at both the micro and macro levels.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-ai-is-transforming-the-future-of-apis/">How AI is Transforming The Future of APIs</a></div>
+<h3 id="4-self-descriptive-endpoints-intuitive-api-interactions">4. Self-Descriptive Endpoints: Intuitive API Interactions</h3>
+<p>One way APIs can be designed to take advantage of LLMs is by making the APIs self-descriptive. LLMs are best when there is a set understanding of each component that is reinforced through continual usage. By stating &#8220;Endpoint A does this thing,&#8221; you are giving the LLM information. By defining an endpoint like &#8220;Endpoint A, or <code>dataProcessing/endpoint</code>,&#8221; you are creating a self-descriptive endpoint.</p>
+<p>In doing this, you create a reinforcement loop. The LLM will know that the endpoint is being used incorrectly or described inaccurately by the innate <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/">values of that endpoint</a> in a way that it would otherwise not be able to do were the endpoint not self-descriptive.</p>
+<p>To simplify this point, design endpoints with names that reflect their actual and practical core functions. For instance, an endpoint named <code>/retrieveUserDetails</code> is far more intuitive than <code>/endpointA45</code>, and will result in a more complete understanding for both human and machine consumption.</p>
+<h3 id="5-feedback-mechanisms-building-a-two-way-street">5. Feedback Mechanisms: Building a Two-way Street</h3>
+<p>We often think of LLMs as something that we work upon. The reality is that LLMs can actually interface with humans similarly to how we interface with them. Therefore, when we feed an API description to an LLM, we can specifically ask it to interpret and utilize an API as a standard user would, and as an output, generate questions that may result from use.</p>
+<p>This is a different way to use an LLM, and requires the creation and embedding of mechanisms where LLMs as an entity can seek clarification, verify interpretations, and even make requests of developers. This is a fundamental inversion of the current LLM model where the developer asks something of the LLM, but in essence, we&#8217;re just clarifying that we want the LLM to feel like it can ask questions as well. This can take various forms, but ultimately, results in a system that is self-testing instead of self-assured.</p>
+<p>From a practical point of view, this could be something as simple as building a section in your code that says something like this:</p>
+<pre><code># <span class="hljs-keyword">For</span> LLM model - please verify that this endpoint indeed results <span class="hljs-keyword">in</span> a status code <span class="hljs-keyword">if</span> it fails. Please additionally review this code <span class="hljs-keyword">as</span> <span class="hljs-keyword">if</span> you were an <span class="hljs-keyword">external</span> user <span class="hljs-keyword">and</span> <span class="hljs-keyword">forward</span> any questions you may have about functionality <span class="hljs-keyword">to</span> help@api.com.
+</code></pre>
+<h3 id="6-standardized-error-responses-predictable-troubleshooting">6. Standardized Error Responses: Predictable Troubleshooting</h3>
+<p>LLMs are not just good at using well-formed code — they&#8217;re also very good at using poorly-formed code and fixing these issues. APIs should have standardized and <a href="https://nordicapis.com/how-to-log-api-errors-on-your-server/">understandable error messages</a>. These messages must also have human-readable explanations that facilitate greater understanding.</p>
+<p>API developers should endeavor to make these responses as clear and usable as possible because LLMs are wonderful at troubleshooting given a clear set of expectations and criteria. By creating a network of error messages, you can have an LLM look at the data and say, &#8220;If there&#8217;s a failure, please use the error code to identify the likely cause of the error for further testing.&#8221;</p>
+<p>To get there, however, error codes must be consistent and detailed. Allowing LLMs to understand the issue and rectify it with actionable feedback for developers requires creating the right tools to get the job done.</p>
+<div class="well"><a href="https://nordicapis.com/tips-on-using-chatgpt-to-model-apis/">Tips on Using ChatGPT to Model APIs</a></div>
+<h3 id="7-verify-third-party-code-for-inaccuracies">7. Verify Third-Party Code For Inaccuracies</h3>
+<p>Perhaps the most important consideration for LLM accuracy in the context of API integrations is verifying that you trust all sources that talk about your API! Because, in many cases, the code that the LLM ingests comes from outside the official documentation. This code might reside in StackOverflow, blog posts, YouTube tutorials, or other sources. Unfortunately, this means that it is equally likely that the LLM is ingesting bad code as it is good code.</p>
+<p>To solve this, API providers should seek to ensure all data sources the LLM is ingesting are actually valid. As part of this, API advocates could contact external sources to fix any errors. Acting as a partner to external parties and continually improving the overall data set being ingested by public LLMs will lead to greater accuracy overall. Of course, this might take a lot of legwork.</p>
+<p>On that note, make sure your internal resources (documentation, blog posts, tutorials, eBooks) are also accurate!</p>
+<h3 id="8-generative-schema-definitions-flexibility-in-data-structures">8. Generative Schema Definitions: Flexibility in Data Structures</h3>
+<p>When it comes to LLMs, rigidity could be a blocker. The rigidness of predefined prompts could limit the output, as restrictions in an LLM model will often be treated as hard lines rather than soft limitations.</p>
+<p>Accordingly, generative schema definitions could provide greater flexibility, allowing LLMs to tailor data structures based on the use case at hand. Instead of using overly strict data structures and types as a limit on LLM outputs, developers could clarify a range of acceptable responses using guidelines and templates. This empowers LLMs to provide output that is most appropriate based on the interaction context. This can result in powerful iteration and development that would otherwise not exist due to over-strict limitations.</p>
+<p>In essence, this is a warning regarding over-specificity. While LLMs need very good directions, an overly-defined approach can also stop LLMs from coming up with new approaches. You could get much greater innovation and experimentation by providing LLMs with what you want to look like versus what it must mirror in format.</p>
+<h3 id="9-bake-llms-into-your-developer-center">9. Bake LLMs Into <em>Your</em> Developer Center</h3>
+<p>Another potential option for LLM integration is to build the AI experience into a product&#8217;s native developer center. Instead of relying on an external third-party solution or LLM-powered chatbot, running an LLM using your own developer resources and codebase can help surface data and make the support infrastructure much more useful. This has a handful of benefits, including more useful data, more accurate support efforts, and long-term contextual support based on previous questions and issues.</p>
+<p>The largest benefit of this approach is avoiding context switching, which can result in a <a href="https://nordicapis.com/what-does-a-bad-developer-experience-look-like/">disrupted developer experience</a> that lacks continuity. For example, shifting back and forth between web-based documentation and an IDE might seem like a small barrier, but it can be a significant hangup in the long run.</p>
+<p>&#8220;Context switching and a fragmented developer experience are two of the biggest hurdles that can impact developers and organizations ability to meet deadlines, increase user satisfaction, and drive ROI,&#8221; said <a href="https://www.nylas.com/blog/pr/nylas-launches-its-new-generative-ai-assist-chatbot/">Isaac Nassimi</a>, SVP of Product at Nylas. Nylas has sought to fix this problem by deploying the Nylas AI chatbot, Nylas Assist, which is powered by generative AI and is connected to its entire knowledge base. This is one way to help developers quickly find solutions in a natural language format.</p>
+<h2 id="in-conclusion">In Conclusion</h2>
+<p>The fusion of LLMs and APIs is set to redefine the developer landscape. As AI-driven integrations become the norm, mastering the art of crafting LLM-optimized APIs will be a game-changer, providing unparalleled efficiency and innovation in software development. Soon, strategic alignment with large language models won&#8217;t merely be an option or a cool feature. Instead, it will be a requirement for success within the competitive AI industry.</p>
+<p>That said, it&#8217;s good to note that LLMs, as advanced as they may be, are only tools in our vast technological arsenal. They are not silver bullets that autonomously bring about perfection. Instead, they are instruments that amplify our capabilities. As with any tool, the expertise of the people using it and the specificity of the environment in which they&#8217;re used are almost more important than the tooling itself. LLMs excel at understanding, generating, and manipulating human language, but they require the guiding hand of human expertise to navigate the complexities of real-world applications.</p>
+<p>Marrying the capabilities of LLMs with APIs offers the promise of streamlined development, enhanced efficiency, and innovative solutions. This will necessitate a dance between machine efficiency and human creativity. We stand on the brink of a new era, but this era must be one of tailor-built and expertise-driven environments that make the most of LLMs. Embracing LLMs as powerful allies while cherishing and leveraging the unparalleled value of human skills will be the true key to long-term success in the ever-evolving digital landscape.</p>
+<p>It should be noted here that this advice, while appropriate and useful, is still theoretical and untested, given this technology is still so new. LLMs and AI are rapidly changing, sometimes literally by the hour, and accordingly, the best piece of advice we could give is to be aware. Changes to platforms and new technological innovations are the promise of this industry, so this advice is partially theoretical. The way AI will impact APIs is yet to be fully understood or appreciated, so this should all be taken as a start to this wild journey rather than an entirely authoritative statement.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

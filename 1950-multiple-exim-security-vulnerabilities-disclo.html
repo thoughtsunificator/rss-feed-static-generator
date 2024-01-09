@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Multiple Exim security vulnerabilities disclosed</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Multiple Exim security vulnerabilities disclosed</h2>
+		<a target="_blank" href="https://lwn.net/Articles/946004/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The "Zero Day Initiative" site has posted a number of advisories (<a
+href="https://www.zerodayinitiative.com/advisories/ZDI-23-1473/">1</a>, <a
+href="https://www.zerodayinitiative.com/advisories/ZDI-23-1472/">2</a>, <a
+href="https://www.zerodayinitiative.com/advisories/ZDI-23-1471/">3</a>, <a
+href="https://www.zerodayinitiative.com/advisories/ZDI-23-1470/">4</a>, <a
+href="https://www.zerodayinitiative.com/advisories/ZDI-23-1469/">5</a>, <a
+href="https://www.zerodayinitiative.com/advisories/ZDI-23-1468/">6</a>)
+describing a number of flaws in the Exim mail server, some of which are
+exploitable remotely.  These problems, allegedly, were first reported to
+the project in June 2022, well over one year ago.  There is some
+disagreement over the timing of events, with Exim developer Heiko
+Schlittermann <a
+href="https://lwn.net/ml/oss-security/ZRb180+B34Wmg1IM@jumper.schlittermann.de/">claiming</a>
+that no actual information was received until last May, and an anonymous
+ZDI representative <a
+href="https://lwn.net/ml/oss-security/SJ0PR01MB7413CB07EDE457153C8C5C3CD1C0A@SJ0PR01MB7413.prod.exchangelabs.com/">disputing</a>
+that story.
+<p>
+Either way, the vulnerabilities are now disclosed, but patches are not yet
+on offer; Schlittermann said that "<q>Fixes are available in a protected
+repository and are ready to be applied by the distribution
+maintainers</q>", so hopefully that situation will change soon.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

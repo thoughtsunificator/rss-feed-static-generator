@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>I Can :has Browser Improvements – These Weeks in Firefox: Issue 148</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">I Can :has Browser Improvements – These Weeks in Firefox: Issue 148</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2023/11/02/i-can-has-browser-improvements-these-weeks-in-firefox-issue-148/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1">The platform team has sent an <a href="https://groups.google.com/a/mozilla.org/g/dev-platform/c/oacuvZ2_hLg">Intent to Ship</a> for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has">the :has selector</a>! Currently targeting Firefox 121.</li>
+<li aria-level="1">There’s a new item in the content context menu in Nightly that lets you copy URLs to the clipboard, but with known tracking parameters stripped:
+<ul>
+<li aria-level="1">
+<p><div id="attachment_1509" style="width: 411px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2023/11/image2.png"><img aria-describedby="caption-attachment-1509" decoding="async" loading="lazy" class="size-full wp-image-1509" src="https://blog.nightly.mozilla.org/files/2023/11/image2.png" alt="The content context menu for Firefox is opened over a link to the Wikipedia page for hamsters. An item in the context menu is highlighted: &quot;Copy Link Without Site Tracking&quot;" width="401" height="453" srcset="https://blog.nightly.mozilla.org/files/2023/11/image2.png 401w, https://blog.nightly.mozilla.org/files/2023/11/image2-300x339.png 300w" sizes="(max-width: 401px) 100vw, 401px" /></a><p id="caption-attachment-1509" class="wp-caption-text">No more manual stripping of known tracking parameters!</p></div></li>
+</ul>
+</li>
+<li aria-level="1">Alex improved the JSTracer in the DevTools console by adding setInterval/setTimeout/requestAnimationFrame callbacks and DOM events in the traces (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848179">bug</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2023/11/image1.png"><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1508" src="https://blog.nightly.mozilla.org/files/2023/11/image1.png" alt="A trace being displayed inside of the Firefox DevTools console. Several frames in the trace are highlighted as having been entered via requestAnimationFrame." width="736" height="598" srcset="https://blog.nightly.mozilla.org/files/2023/11/image1.png 736w, https://blog.nightly.mozilla.org/files/2023/11/image1-300x244.png 300w, https://blog.nightly.mozilla.org/files/2023/11/image1-600x488.png 600w" sizes="(max-width: 736px) 100vw, 736px" /></a></li>
+<li aria-level="2">You can test the JSTracer by setting <code>devtools.debugger.features.javascript-tracing</code> to <code>true</code> in about:config, and clicking the tracer icon in the debugger pane.</li>
+</ul>
+</li>
+<li aria-level="1">Alex and Hubert are working hard to make the Firefox Debugger much faster
+<ul>
+<li aria-level="2">Alex optimised our parser worker computations, bringing nice wins (e.g. 5% to 10% faster to open a large file) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857214">bug</a>)</li>
+<li aria-level="2">Alex updated babel do benefit from performance improvement made in the library lately, which were validated by DAMP results (e.g. debugger is than 10% faster to open a large file) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859243">bug</a>)</li>
+<li aria-level="2">Hubert deferred some parsing work until needed for the Outline panel, so we don&#8217;t have to pay the performance cost upfront (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853294">bug</a>)</li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1832348%2C1845057%2C1849192%2C1854074%2C1856100%2C1856104%2C1856187%2C1854420%2C1844850%2C1854298%2C1856241%2C1734235%2C1013947%2C1753165%2C1855952%2C1856287%2C1169529%2C1851756%2C1857758%2C1858025%2C366374%2C1858937%2C1854145%2C1851877%2C1859079%2C1859236%2C1859655%2C1859445%2C1857752%2C1859809%2C1855926%2C1859818%2C1860931%2C1107433%2C1861468%2C1857749%2C1859348&amp;list_id=16776249">Resolved bugs (excluding employees)</a></h4>
+<h5>Volunteers that fixed more than one bug</h5>
+<ul>
+<li aria-level="1">anonymous0000007</li>
+<li aria-level="1">Ganna</li>
+<li aria-level="1">Gregory Pappas [:gregp]</li>
+<li aria-level="1">Itiel</li>
+<li aria-level="1">Jonas Jenwald [:Snuffleupagus]</li>
+<li aria-level="1">Masatoshi Kimura [:emk]</li>
+<li aria-level="1">Mathew Hodson Sebastian [:sebcode]</li>
+<li aria-level="1">Sebastian Zartner [:sebo]</li>
+</ul>
+<h5>New contributors (🌟 = first patch)</h5>
+<ul>
+<li aria-level="1">Calum Smith [:cpmsmith] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859079">updated Rules inspector</a> to display new CSS level 4 colours correctly</li>
+<li aria-level="1">Freya removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857749">duplicate inclusion of &#8216;crashreporter.h&#8217;</a> in crashreporter_gtk_common.cpp</li>
+<li aria-level="1">ChaseKnowlden <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859348">renamed mac to macosx</a> in preferences</li>
+<li aria-level="1">🌟 Kushal Pokharel <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857752">removed else block after return</a> in if block in crashreporter_gtk_common.cpp</li>
+<li aria-level="1">🌟 Andy <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855926">removed unnecessary c_str()&#8217;s</a> in crashreporter_unix_common.cpp</li>
+<li aria-level="1">Sebastian [:sebcode] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=366374">added check for profile</a> before opening an url from outside Firefox and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1107433">added fallback menu bar</a> for early startup modals</li>
+<li aria-level="1">anonymous0000007 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855952">fixed Resource leak: input</a> in nss_secutil.c and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856241">removed an unused variable</a> in crashreporter.cpp</li>
+<li aria-level="1">🌟 Fidelius <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856287">do not use PROCESS_MODE_BACKGROUND_BEGIN</a> to run the minidum-analyzer in the background on Windows</li>
+<li aria-level="1">vitaspiros <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1013947">removed signons.sqlite</a> references</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1">Contributors
+<ul>
+<li aria-level="2">Calum Smith fixed the Inspector so it properly displays CSS Color 4 formats (e.g. lab, oklch, …) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859079">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Nicolas fixed an issue where Custom formatter hooks where not called with proxy objects (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857722">bug</a>)</li>
+<li aria-level="1">Bomsy and Nicolas fixed a bug where the Debugger tooltip won&#8217;t display the actual value for the hovered token  (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1815472">bug</a>)</li>
+<li aria-level="1">Nicolas is still making progress on his accessibility project, mostly fixing color contrasts, focus indicator and keyboard navigation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843319">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844092">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860983">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843335">bug</a>, <a href="https://fx-devtools-2023-a11y-project-burnchart.glitch.me/">progress chart</a> not going down because I&#8217;m filing more bugs)</li>
+<li aria-level="1">Nicolas fixed an issue in the Rule view when selecting a flex container with text-wrap: balance (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861031">bug</a>)</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">Sasha implemented the browsingContext.contextDestroyed event that is emitted when browsing contexts are destroyed (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1694390">bug</a>)</li>
+<li aria-level="1">Sasha added the defaultValue field to the browsingContext.userPromptOpened event (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851761">bug</a>)</li>
+<li aria-level="1">Sasha also added support for userActivation parameter in script evaluation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845488">bug</a>)</li>
+<li aria-level="1">Sasha renamed ViewportOptions with BoxOptions for the browsingContext.captureScreenshot command to be spec-compliant (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859258">bug</a>)</li>
+<li aria-level="1">Julian added authChallenges to response data in network events ( network.responseStarted and network.responseCompleted) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855149">bug</a>)</li>
+<li aria-level="1">Henrik fixed an issue with serialization of remote values (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861000">bug</a>)</li>
+<li aria-level="1">Henrik added support for serializing and deserializing Window objects in Marionette (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1274251">bug</a>)</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li aria-level="1">ESMified status:
+<ul>
+<li aria-level="2">browser: 88%</li>
+<li aria-level="2">toolkit: 99%</li>
+<li aria-level="2">Total:  96.13% (up from 95.72%)</li>
+</ul>
+</li>
+<li aria-level="1">#esmification on Matrix</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">Gijs has added an <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1790354">ESLint warning for loading `resource:///` and `resource://app/` from toolkit/</a>
+<ul>
+<li aria-level="2">From the bug: We keep making mistakes where we rely on browser/ modules from toolkit or other global code. When this code ships outside of Firefox for desktop (e.g. for android/fenix/android-components, thunderbird, etc.) these references break.</li>
+<li aria-level="2">Please don&#8217;t disable the rule inline unless you&#8217;re also handling the case for non-Firefox, or you fix the issue.</li>
+<li aria-level="2">We should also work towards addressing existing cases.</li>
+</ul>
+</li>
+<li aria-level="1">Tom has updated ESLint to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847580">read the new toml files for tests as well as the ini files</a>. This is needed for checking the types of some of the tests and their associated header files.</li>
+<li aria-level="1">Standard8 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860453">renamed workers in browser/ to use the `.worker.(m)js` format</a>, which allows ESLint to set-up their environment automatically.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824851">The old migration wizard has been removed!</a></li>
+<li aria-level="1">QA team has found no issues (so far) with the Ubuntu Snap import flow in Firefox 120 Beta. We’re still looking good so far to ship this to release in ~3 weeks.</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Daisuke fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1830732">an address bar bug</a> where, when users tried to copy the URL, they would sometimes copy about:blank instead if the page took too much time to load</li>
+<li aria-level="1">James <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851495">landed a patch</a> to extend search telemetry so that search counts are now broken down by window type</li>
+<li aria-level="1">Marc Seibert <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853418">landed a long series of patches</a> to enable trimming of https and the insecure connection label in the address bar. This is currently enabled only in Nightly.</li>
+<li aria-level="1">James fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856647">a bug in our SERP telemetry</a> where we were recording an incorrect number of displayed ads</li>
+<li aria-level="1">Karandeep <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856985">updated the desktop configuration for Salidzini</a>, a Latvian search engine</li>
+<li aria-level="1">Dale <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858978">fixed a bug</a> so that we now restrict search history deletions by search engine</li>
+<li aria-level="1">Drew <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859341">landed a patch</a> that modifies the Firefox Suggest desktop integration so that it now uses Addon and Pocket suggestions from the Suggest Rust component</li>
+<li aria-level="1">Mark Banner <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860531">landed a patch</a> that extends and updates our SERP telemetry configuration for mobile</li>
+<li aria-level="1">Drew <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860791">landed a patch</a> that fixes dismissals and telemetry for Wikipedia Suggest results coming from the new Rust component</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">Thanks to Anna for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851877">updating the pending uninstall bar in about:addons with the new moz-message-bar component</a></li>
+<li aria-level="1">Thanks to Gijs for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845727">moving the mozSupportLink.ftl file into toolkit</a></li>
+<li aria-level="1">Thanks to sclements for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857511">fixing a panel list sub-menu alignment issue when the browser window isn&#8217;t wide enough</a></li>
+<li aria-level="1">hjones <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856388">updated the moz-five-star component to use the valid &#8220;img&#8221; ARIA role</a></li>
+<li aria-level="1">mstriemer <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858987">updated XUL widgets references to UI widgets</a>
+<ul>
+<li aria-level="2">If you have bugzilla queries that used XUL widgets, you&#8217;ll need to update those saved queries</li>
+</ul>
+</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

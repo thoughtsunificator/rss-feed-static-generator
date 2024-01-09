@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Design Robust Generative AI APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Design Robust Generative AI APIs</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-design-robust-generative-ai-apis/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Artificial intelligence has recently dominated the online space, specifically the concept of large language models (LLMs). These technologies represent a sea change for technology, offering a new pathway for code generation, security assurance, and much more. They also depend on robust, well-designed APIs to function.</p>
+<p>As generative AI tools have been developed, there has been a gold rush to productize them as API products. However, not all APIs are created equally. In the hurry to make <a href="https://nordicapis.com/7-large-language-model-llm-apis/">generative AI APIs</a> accessible to developers and businesses, it&#8217;s essential that such interfaces are designed appropriately. These APIs require quality approaches and implementations designed for the unique challenges and considerations inherent in the technology.</p>
+<p>Below, we&#8217;ll look at these challenges and considerations and begin to form an approach toward designing robust APIs for generative AI. This list is not entirely exhaustive, but it will lay the groundwork for any organization to approach AI API work with a solid foundation.</p>
+<h2 id="why-ai-">Why AI?</h2>
+<p>AI is somewhat of a misnomer <a href="https://www.apifirst.tech/p/ai-and-apis-what-experts-think-the-future-holds">when discussing APIs</a> since it&#8217;s become somewhat of a catch-all term for a term for a variety of technologies. One such technology is a <a href="https://nordicapis.com/7-large-language-model-llm-apis/">large language model</a>, or LLM, which is a machine learning model trained on existing data that can be used to generate content, provide analysis of data, or even create code.</p>
+<p>Setting aside copyright problems and <a href="https://securityboulevard.com/2023/07/understanding-the-owasp-top-10-for-llms/">certain security setbacks</a>, these LLM tools have seen adoption across various industries and systems. Since LLMs represent a new type of system that can be interacted with through an API, and therefore, a new type of system for software providers to monetize.</p>
+<p>However, there are a few caveats to these new AI-based systems. Notably, they require APIs that are carefully designed and appropriately formed.</p>
+<h2 id="api-design-and-style">API Design and Style</h2>
+<p>With AI and LLMs, the sky is the limit. Ironically, however, this fact makes some API paradigms more appropriate than others. Generative models have vast capabilities, allowing everything from <a href="https://nordicapis.com/10-image-generation-apis-worth-a-look/">image generation</a> to <a href="https://nordicapis.com/tips-on-using-chatgpt-to-model-apis/">code review</a>, and as such, API design has to be open-ended while being intuitive. The more control you place on what the API can do and how it does what it does, the more limited the capabilities of the end system might be.</p>
+<p>For this reason, approaches like REST and, notably, <a href="https://nordicapis.com/how-to-design-a-scalable-graphql-schema/">GraphQL</a> have become commonplace in many AI/LLM implementations. Being able to state specifically what you want to be done and in what format can make it that much easier to utilize the system, and the statelessness and standard HTTP verbiage of RESTful development allows for user control of both the form and function of the resulting output. LLMs can be used to push for human readability or mutation in the output.</p>
+<p>For example, let&#8217;s say you have a GraphQL endpoint that provides <a href="https://nordicapis.com/6-best-free-and-paid-weather-apis/">weather data</a> based upon a query for a specific range of temperatures. You could ask the GraphQL endpoint to return weather data for a specific location within a specific temperature band, say 37 to 38 degrees centigrade.</p>
+<p>This might generate an output of multiple coordinates reporting this temperature range. But these coordinates might represent ten points in the same city. Using an LLM, we can ask that these coordinates be combined, and the output itself transformed, which would result in an output as follows:</p>
+<pre><code>There are currently <span class="hljs-literal">two</span> cities <span class="hljs-keyword">in</span> Portugal reporting <span class="hljs-keyword">a</span> temperature between <span class="hljs-number">37</span> <span class="hljs-keyword">and</span> <span class="hljs-number">38</span> degrees centigrade – Lisbon <span class="hljs-keyword">and</span> Coimbra!
+</code></pre>
+<p>Intuitiveness is the name of the game here. While most APIs can get away with a little bit of a learning curve, AI/LLM systems are like interacting with near-human intelligence. Accordingly, having some sort of guidebook to frame your requests and an understanding of what that request will output is a good idea. Breaking out functions into families of endpoints — for example, endpoints specifically for graphic generation, or endpoints just for code — can help to clarify this and streamline interactions.</p>
+<h2 id="formats-and-types">Formats and Types</h2>
+<p>Generative models are very powerful but often require detailed and specific inputs to deliver on their promise. Accordingly, APIs built atop generative models must be designed to support complicated inputs and complex, multi-layered outputs. For instance, an API built on a generative model might need to support rich media, hypertext, iterative outputs that are contextually and temporally linked to previous outputs, and much more.</p>
+<p>Accordingly, APIs built on generative models need to support a wide range of output formats and types. GraphQL and other such technologies are great for this type of interaction, as they can allow the user to state the form and function of the output. However, the specific libraries and frameworks under the hood will be just as important in defining what is actually supported.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-ai-is-transforming-the-future-of-apis/">How AI is Transforming The Future of APIs</a></div>
+<h2 id="rate-limiting">Rate Limiting</h2>
+<p>Resource balancing is a big problem with generative models. Generative development is resource intensive, and as requests grow in complexity, so does the demand on the underlying systems. Accordingly, ensuring fair access, proper functionality, and long-term service health will be an important part of the process, and <a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/">rate limiting</a> can be a big part of that.</p>
+<p>Ensuring that rates are fair and unrestrictive beyond what is necessary is key to ensuring proper adoption and long-term use, but you must balance this with overall resource availability. Overly large or complex requests, especially paired with rich media output, can slow down processing or even break the underlying systems. Because of this, format and type limitations — such as optimizing the size of files, capping output, and rate-limiting requests for high-data requirement format outputs — must be implemented correctly to prevent scope, denial of service, and other <a href="https://nordicapis.com/the-business-caveats-of-microservices/">business logic issues</a>.</p>
+<h2 id="caching">Caching</h2>
+<p>Generative systems have a very unique relationship with <a href="https://nordicapis.com/general-techniques-for-proper-api-caching/">caching</a>. While traditional APIs benefit hugely from caching and serving repeat requests to users, generative APIs don&#8217;t benefit as much due to the custom nature of the generative request workflow. When each request is unique, the benefit of caching these responses diminishes somewhat.</p>
+<p>Where this becomes interesting is in the idea of generative iteration. Some generative models require previous requests to be stored, at least for a time, to allow for iterative development. In such a case, caching can be accomplished simply by feeding the last request back into the model as a contextual reference for the new request. This is akin to caching, but is an inverse model — instead of feeding the existing request to the user, it feeds the existing request to itself for further iteration.</p>
+<p>This is a pivot from the typical caching implementation but is quite important to get right in the context of <a href="https://learn.microsoft.com/en-us/devops/plan/what-is-agile-development">iterative development</a>.</p>
+<h2 id="resources-and-processing">Resources and Processing</h2>
+<p>When developing an API on top of a generative model, some requirements <a href="https://nordicapis.com/the-ten-rest-commandments/">typical for standard APIs</a> are made much more critical. This is the case with resources and processing. While APIs require efficient use of computational ability and balance across the infrastructure, this requirement is much more critical in the context of generative models.</p>
+<p>Generative models require incredible amounts of processing, and these costs can scale exponentially with iteration. API providers should invest in robust infrastructure regardless, but with generative models, efficiencies in latency and availability are made that much more important. While proper <a href="https://nordicapis.com/whats-the-difference-between-an-api-gateway-and-a-load-balancer/">load balancing</a> can play into this, small amounts of efficiency that might otherwise be not worth the cost in time and effort suddenly become more justified in generative systems.</p>
+<h2 id="iteration-and-versioning">Iteration and Versioning</h2>
+<p>Generative models improve over time, changing their form and function with each new evolution. Accordingly, the APIs built on top of these systems must have substantial iteration and <a href="https://nordicapis.com/everything-you-need-to-know-about-api-versioning/">versioning systems</a> to ensure that updates are controlled. Different models may have different resource requirements or abilities, requiring more clarity in communication and better documentation about feature sets.</p>
+<p>More specifically, different versions may also come with various <a href="https://nordicapis.com/5-ways-to-generate-direct-revenue-with-apis/">revenue models</a> and access requirements. If the third version of an API is more intense on resources but enables more power, then this should be priced accordingly for the end user, and may require different <a href="https://nordicapis.com/how-to-fix-broken-access-control/">access control methods</a>.</p>
+<h2 id="real-world-examples">Real-World Examples</h2>
+<p>When it comes to generative APIs, there is a wealth of real-world examples that developers can look to for inspiration.</p>
+<p>Perhaps the best current example is the <a href="https://platform.openai.com/docs/introduction">OpenAI API</a>. While OpenAI has seen massive coverage on its consumer application frontend, ChatGPT, the API has not gotten as much attention. Yet, many developers have begun to integrate with it.</p>
+<p>OpenAI&#8217;s API is clear, understandable, and easy to use. It stands as a great example of what an effective API LLM implementation can look like. User access levels are clearly differentiated, and costs are communicated effectively through a multi-tier user system. OpenAI provides many resources to help developers get started, such as a testing playground.</p>
+<p>Another great AI API implementation is <a href="https://goose.ai/">GooseAI</a>. This solution is unique compared to something like OpenAI&#8217;s ChatGPT. Instead, GooseAI positions itself as an NLP-as-a-service via API, offering to build out an AI infrastructure by simply tagging into a series of endpoints. There are price constructs and controls, of course, but the premise of deploying an at-scale NLP implementation with such a simple connection is alluring and serves as a great business use case.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ultimately, building business logic around LLM and AI APIs has a lot of similarities with any other API approach. That said, certain considerations are unique to LLM and AI systems, and appropriately designing for them will make your product more attractive and user-friendly.</p>
+<p><em>What do you think of these best practices? Did we leave anything out? Let us know how you&#8217;re designing web APIs for generative AI in the comments below!</em></p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

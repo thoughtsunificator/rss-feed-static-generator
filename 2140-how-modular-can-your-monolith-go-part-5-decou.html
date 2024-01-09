@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How modular can your monolith go? Part 5 - decoupling domains with the Observer pattern</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How modular can your monolith go? Part 5 - decoupling domains with the Observer pattern</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2023/10/30/how-modular-can-your-monolith-go-part-5-domain-observers.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h1 id="how-modular-can-your-monolith-go-part-5---decoupling-domains-with-the-observer-pattern">How modular can your monolith go? Part 5 - decoupling domains with the Observer pattern</h1>
+
+<p>This article is the fifth in a series of articles about modular monoliths.
+The other articles are:</p>
+
+<ul>
+  <li><a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html">Part 1 - the basics</a></li>
+  <li><a href="/post/architecture/2023/08/20/how-modular-can-your-monolith-go-part-2.html">Part 2 - a first look at how subdomains collaborate</a></li>
+  <li><a href="/post/architecture/2023/08/28/how-modular-can-your-monolith-go-part-3.html">Part 3 - encapsulating a subdomain behind a facade</a></li>
+  <li><a href="/post/architecture/2023/09/12/how-modular-can-your-monolith-go-part-4-physical-design.html">Part 4 - physical design principles for faster builds</a></li>
+</ul>
+
+<p>In previous articles, I described how a domain’s API should consist of one or more narrowly-scoped interfaces, a.k.a. facades, that encapsulate its implementation.
+A domain’s client can invoke the domain by calling a facade’s methods.
+For example, the <code class="language-plaintext highlighter-rouge">Order Management</code> domain can reserve credit by invoking <code class="language-plaintext highlighter-rouge">CreditManagement.reserveCredit()</code>, which is implemented by the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.
+Similarly, the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain can send a welcome email to a newly registered customer by invoking <code class="language-plaintext highlighter-rouge">NotificationService.sendEmail()</code>, which is implemented by the <code class="language-plaintext highlighter-rouge">Notification Management</code> domain.</p>
+
+<p>But let’s imagine that sending an email is not the only post-registration action that <code class="language-plaintext highlighter-rouge">Customer Management</code> needs to implement.
+It might, for example, need to register the customer with the CRM system.
+<code class="language-plaintext highlighter-rouge">Customer Management</code> could simply invoke <code class="language-plaintext highlighter-rouge">CRMIntegration.registerNewCustomer()</code> directly.
+The drawback, however, is that each action adds another dependency of <code class="language-plaintext highlighter-rouge">Customer Management</code>, which is yet another reason for it to change.</p>
+
+<p>In this article, I look at an alternative approach to API design that potentially minimizes the risk of tight-coupling: the Observer pattern.</p>
+
+<h2 id="the-trouble-with-dependencies">The trouble with dependencies</h2>
+
+<p>Even though dependencies, or more specifically design-time dependencies, are unavoidable, it’s usually a good idea to minimize them.
+A software element (class, package, domain, …) often needs to collaborate with others in order to fullfil its responsibilities.
+The problem, however, is that each dependency is a potential reason to change.
+Even if each dependency has a stable API, the risk of a lock change is proportional to the number of dependencies.
+It’s therefore a worthwhile design goal to minimize the number of dependencies.</p>
+
+<p>This is especially true if those dependencies are unrelated to the software element’s core responsibilities.
+For example, the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain’s core responsibility is managing customers.
+Responsibilities such as sending emails and synchronizing with the CRM system are somewhat secondary.</p>
+
+<p>Moreover, it’s desirable to be able to add a post-registration action without having to modify <code class="language-plaintext highlighter-rouge">Customer Management</code>.
+In other words, <code class="language-plaintext highlighter-rouge">Customer Management</code> should conform to the Open-Closed Principle and be open for extension but closed for modification.</p>
+
+<h2 id="using-the-observer-pattern-to-decouple-customer-management-from-notification-management">Using the Observer pattern to decouple <code class="language-plaintext highlighter-rouge">Customer Management</code> from <code class="language-plaintext highlighter-rouge">Notification Management</code></h2>
+
+<p>One way to decouple the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain and to make it extensible is to use the Observer pattern.
+The Observer pattern, which is also known as Publish-Subscribe, is a classic object-oriented design pattern - see GOF page 293 - that allows an object (the subject) to notify other objects (the observers) when its state changes without having to know their details.
+Let’s look at how this pattern can be used to minimize <code class="language-plaintext highlighter-rouge">Customer Management</code>’s dependencies and enable it to conform to the Open-Closed Principle.</p>
+
+<p>In this particular example, <code class="language-plaintext highlighter-rouge">Customer Management</code> domain is the subject and the post-registration actions are the observers.
+<code class="language-plaintext highlighter-rouge">Customer Management</code> only knows the abstract observer type, not the concrete observers.
+When a customer is registered, for example, <code class="language-plaintext highlighter-rouge">Customer Management</code> notifies the observers, which then perform their actions.</p>
+
+<p>The following diagram shows the design:</p>
+
+<p><img src="/i/modular-monoliths/modular-monolith-customers-and-orders-v4-observer-big-picture.png" class="img-responsive" /></p>
+
+<p>The key parts of the design are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">CustomerDomainObservers</code>  - the interface that observers use to register themselves</li>
+  <li><code class="language-plaintext highlighter-rouge">CustomerDomainObserver</code>  - the interface that observers must implement</li>
+  <li><code class="language-plaintext highlighter-rouge">CustomerServiceImpl</code> - the concrete subject class</li>
+  <li><code class="language-plaintext highlighter-rouge">NotificationServiceImpl</code> - the concrete observer class</li>
+</ul>
+
+<p>Let’s look at each one in more detail.</p>
+
+<h3 id="customerdomainobserver---the-observer-interface"><code class="language-plaintext highlighter-rouge">CustomerDomainObserver</code> - the observer interface</h3>
+
+<p><code class="language-plaintext highlighter-rouge">CustomerDomainObserver</code> is the interface that observers of the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain must implement.
+It defines notification methods, such as <code class="language-plaintext highlighter-rouge">noteCustomerCreated()</code>, that are invoked by the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.</p>
+
+<p>A key design decision is what information to pass to the observer.
+One option is for notification methods to have minimal parameters.
+The <code class="language-plaintext highlighter-rouge">noteCustomerCreated()</code> method could, for example, simply take a <code class="language-plaintext highlighter-rouge">customerId</code> argument.
+The observer could then retrieve additional information from the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.</p>
+
+<p>The second option is for notification methods to provide a typical observer with what it needs.
+Each method could have additional arguments or, better yet, a single parameter object, since that avoids having to change the method signature when additional information is needed.
+For example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CustomerDomainObserver</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">noteCustomerCreated</span><span class="o">(</span><span class="nc">CustomerInfo</span> <span class="n">customer</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Both options couple observers to the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.
+However, the first option might enable an observer to leverage the interface segregation principle (ISP) in order to reduce coupling.
+Different observers can use different APIs to retrieve the information they need from the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.</p>
+
+<h3 id="customerdomainobservers---the-observer-registration-interface"><code class="language-plaintext highlighter-rouge">CustomerDomainObservers</code> - the observer registration interface</h3>
+
+<p><code class="language-plaintext highlighter-rouge">CustomerDomainObservers</code> is an interface that <code class="language-plaintext highlighter-rouge">CustomerDomainObserver</code> instances use to register themselves with the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.
+ It defines a single method, <code class="language-plaintext highlighter-rouge">register()</code>, that takes a <code class="language-plaintext highlighter-rouge">CustomerDomainObserver</code> instance as an argument.</p>
+
+<h3 id="customerserviceimpl---the-concrete-subject-class"><code class="language-plaintext highlighter-rouge">CustomerServiceImpl</code> - the concrete subject class</h3>
+
+<p><code class="language-plaintext highlighter-rouge">CustomerServiceImpl</code> is the concrete subject class.
+It implements <code class="language-plaintext highlighter-rouge">CustomerDomainObservers</code>.
+Its various methods notify the registered observers.
+The <code class="language-plaintext highlighter-rouge">createCustomer()</code> method, for example, invokes the <code class="language-plaintext highlighter-rouge">noteCustomerCreated()</code> method on each registered observer.
+It no longer calls, for example, <code class="language-plaintext highlighter-rouge">NotificationService.sendEmail()</code> directly.</p>
+
+<h3 id="notificationserviceimpl---the-concrete-observer-class"><code class="language-plaintext highlighter-rouge">NotificationServiceImpl</code> - the concrete observer class</h3>
+
+<p><code class="language-plaintext highlighter-rouge">NotificationServiceImpl</code> is a concrete observer class.
+It implements <code class="language-plaintext highlighter-rouge">CustomerDomainObserver</code> and registers itself with the <code class="language-plaintext highlighter-rouge">Customer Management</code> domain.
+The <code class="language-plaintext highlighter-rouge">noteCustomerCreated()</code> method, for example, sends a welcome email to the newly registered customer.</p>
+
+<h2 id="relationship-with-events">Relationship with events</h2>
+
+<p>The Observer pattern is equivalent to an event-based design.
+Each observer method corresponds to an event type.
+Perhaps the one difference is that event framework, e.g. Spring’s events, is more generic.
+You would, for example, only need a single implementation of the publish and subscribe API rather than per-subdomain subjects and subscribers.</p>
+
+<h2 id="does-inverting-dependencies-with-the-observer-pattern-reduce-coupling">Does inverting dependencies with the Observer pattern reduce coupling?</h2>
+
+<p>The main consequence of using the Observer pattern is that it inverts the dependencies.</p>
+
+<p><img src="/i/modular-monoliths/modular-monolith-customers-and-orders-v4-inverting-dependencies.png" class="img-responsive" /></p>
+
+<p>Previously, <code class="language-plaintext highlighter-rouge">Customer Management</code> depended upon <code class="language-plaintext highlighter-rouge">Notification Management</code> (and potentially other domains).
+Now, <code class="language-plaintext highlighter-rouge">Notification Management</code> depends upon <code class="language-plaintext highlighter-rouge">Customer Management</code>.
+<code class="language-plaintext highlighter-rouge">Customer Management</code> has fewer dependencies, which is potentially beneficial.
+But this improvement has been achieved at the expense of <code class="language-plaintext highlighter-rouge">Notification Management</code>, which now has more dependencies.
+Which design results in fewer lockstep changes, is highly context specific and depends on the ways in which the domains are likely to change.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

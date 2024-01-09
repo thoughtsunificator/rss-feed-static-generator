@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ruby 3.3.0 Released</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Ruby 3.3.0 Released</h2>
+		<a target="_blank" href="https://lwn.net/Articles/956115/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      As is the tradition for the <a href="https://www.ruby-lang.org/en/">Ruby programming language</a>, December&nbsp;25 is the date for new major releases; this year, <a href="https://www.ruby-lang.org/en/news/2023/12/25/ruby-3-3-0-released/">Ruby&nbsp;3.3.0 was released</a>.  It comes with a new parser called "<a href="https://github.com/ruby/prism">Prism</a>" that is "<q>both a C library that will be used internally by CRuby and a Ruby gem that can be used by any tooling which needs to parse Ruby code</q>".  The release also has many performance improvements, especially in the <a href="https://docs.ruby-lang.org/en/master/yjit/yjit_md.html">YJIT</a> (Yet another Ruby JIT) just-in-time compiler. Ruby&nbsp;3.3 adds a new Ruby-based JIT, RJIT, that targets x86_64, which is available for experimental purposes.  There are lots of other improvements and new features described in the announcement.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

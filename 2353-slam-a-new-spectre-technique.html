@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SLAM: a new Spectre technique</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">SLAM: a new Spectre technique</h2>
+		<a target="_blank" href="https://lwn.net/Articles/953880/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Many processor vendors provide a mechanism to allow some bits of a pointer
+value to be used to store unrelated data; these include Intel's <a
+href="https://lwn.net/Articles/902094/">linear address masking (LAM)</a>, AMD's <a
+href="https://lwn.net/Articles/888914/">upper address ignore</a>, and Arm's <a
+href="https://www.linaro.org/blog/top-byte-ignore-for-fun-and-memory-savings/">top-byte
+ignore</a>.  A set of researchers has now <a
+href="https://www.vusec.net/projects/slam/">come up with a way</a> (that
+they call "SLAM") to use those features to bypass many checks on pointer
+validity, opening up a new set of Spectre attacks.
+<p>
+<blockquote class="bq">
+	In response to SLAM, Intel made plans to provide software guidance
+	prior to the future release of Intel processors which support LAM
+	(e.g., deploying LAM jointly with LASS). Linux engineers developed
+	patches to disable LAM by default until further guidance is
+	available. ARM published an advisory to provide guidance on future
+	TBI-enabled CPUs. AMD did not implement guidance updates and
+	pointed to existing Spectre v2 mitigations to address the SLAM
+	exploit described in the paper.
+</blockquote>
+<p>
+See <a href="https://download.vusec.net/papers/slam_sp24.pdf">the full
+paper</a> for the details.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

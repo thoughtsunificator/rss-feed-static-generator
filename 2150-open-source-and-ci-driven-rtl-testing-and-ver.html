@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open source and CI-driven RTL testing and verification for Caliptra’s RISC-V VeeR core</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Open source and CI-driven RTL testing and verification for Caliptra’s RISC-V VeeR core</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2023/11/open-source-and-ci-driven-rtl-testing-and-verification-caliptra-risc-v-veer-core.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4ccVFzVjf-fwLZCCw_fU45DZMG_ukojjcZGznyx-I6PDddRLKbH7ei8ZUb0FXf8LuTm2fTtP-yTBF2rXEn7ki0HzfIaoIEjdwK0jMeXGQmwVyiEEAs_4fanr_-ilvNi-K9wp8WWZohcyrhMN4prHS_UeoQHPrHlQPuSSiiBLNVP7uwej1FJFsPnEagCs/s1600/Social%20-%20OSS%20-%20Caliptra%E2%80%99s%20RISC-V%20VeeR%20core%20%281%29.png">
+<img style="display:none" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4ccVFzVjf-fwLZCCw_fU45DZMG_ukojjcZGznyx-I6PDddRLKbH7ei8ZUb0FXf8LuTm2fTtP-yTBF2rXEn7ki0HzfIaoIEjdwK0jMeXGQmwVyiEEAs_4fanr_-ilvNi-K9wp8WWZohcyrhMN4prHS_UeoQHPrHlQPuSSiiBLNVP7uwej1FJFsPnEagCs/s1600/Social%20-%20OSS%20-%20Caliptra%E2%80%99s%20RISC-V%20VeeR%20core%20%281%29.png">
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXVVaVi8RmBI5i9YinRe8RrUNdM-lrYujZAGhGDVIPPsMtm9Wdwi_8VzeSMDm8Bz9bpz5KwWlv2MvT2xT-K1eKXD4w1Suf7A9nVTuhQKY5GVlO7eaojr9nkOu4nYPbdmyh0U2UTbYuZHCncQkRF2GYKNalkwNhNL1yFnEu3e1nJrl5Tzb580MYMTMOV8g/s1600/Header%20-%20OSS%20-%20Caliptra%E2%80%99s%20RISC-V%20VeeR%20core.png" imageanchor="1" ><img style="100%" border="0" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXVVaVi8RmBI5i9YinRe8RrUNdM-lrYujZAGhGDVIPPsMtm9Wdwi_8VzeSMDm8Bz9bpz5KwWlv2MvT2xT-K1eKXD4w1Suf7A9nVTuhQKY5GVlO7eaojr9nkOu4nYPbdmyh0U2UTbYuZHCncQkRF2GYKNalkwNhNL1yFnEu3e1nJrl5Tzb580MYMTMOV8g/s1600/Header%20-%20OSS%20-%20Caliptra%E2%80%99s%20RISC-V%20VeeR%20core.png" data-original-width="1058" data-original-height="800" /></a>
+
+
+<p>As part of <a href="https://www.chipsalliance.org/" target="_blank">CHIPS Alliance</a>’s mission to enable a software-driven approach to silicon, Google, Antmicro and other CHIPS members have been developing and improving a growing number of open source tools to enable effective, CI-driven silicon development. </p>
+
+<p>Fully reproducible and scalable workflows based on open source tooling are especially beneficial for efforts spanning across multiple industrial and academic actors such as Caliptra, a Root of Trust project driven by Google, AMD, NVIDIA and Microsoft which <a href="https://chipsalliance.org/announcement/2022/12/13/chips-alliance-welcomes-the-caliptra-open-source-root-of-trust-project/" target="_blank">joined CHIPS</a> in order to host the ongoing development and provide the necessary structure, working environment and support for the reference implementation of the standard, originally hosted by <a href="https://www.opencompute.org/documents/caliptra-silicon-rot-services-09012022-pdf" target="_blank">Open Compute Project</a>. </p>
+
+<p>In this blog post, we describe Antmicro and Google’s collaborative effort focused on introducing a Continuous Integration (CI) based code quality checks, code indexing, coverage and functional testing pipeline into the RISC-V VeeR core family, as used within the Caliptra project. </p>
+
+
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing and verification for Caliptra/VeeR" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgQy6orQF5qkWOWSRrUTW1jNs218antkQQZuZ_UOmUoxc2UuMSo-Odlq3p-tC6faRJPQQ0hieZdkuMifhjgpOM0fbAzadbRM3B4MINFEqYizGkKJIGAs7o3QlLWe9eE0n7S_pngeGhmhZGedWRDglQd27leIOTZo-QsP0JjmZwuu1l-J8sZNgH52gMZquM/s1600/image5.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Open source RTL CI testing and verification for Caliptra/VeeR</em></center></imgcaption></image><br/>
+
+<h2>Caliptra and VeeR</h2>
+
+<p>VeeR (Very Efficient &amp; Elegant RISC-V) is an open source production-grade RISC-V core family hosted by CHIPS Alliance and comes in three variants:</p>
+<ul>
+<li><a href="https://github.com/chipsalliance/Cores-VeeR-EH1%29" target="_blank">EH1 - a high-performance single threaded RV32IMCZ core</a>, the original implementation,</li>
+<li><a href="https://github.com/chipsalliance/Cores-VeeR-EH2" target="_blank">EH2 - a dual-threaded successor to EH1</a>, originally the world’s first dual-threaded commercial, embedded RISC-V core designed for IoT and AI systems,</li>
+<li><a href="https://github.com/chipsalliance/Cores-VeeR-EL2" target="_blank">EL2 - a tiny and low-power RV32IMC (with partial support for Z extension) core</a>, which is the variant used in the Caliptra project.</li>
+</ul>
+<p>Caliptra’s hardware block structure with an EL2 VeeR CPU core includes the following elements:</p>
+
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing for Veer flow diagram" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHt9LJ8y8oG5eFHsoHDiiYDa6_mHh-9QfgbTTnVtlTZyrCCQEEykzd2OlZt9ADQ8lzLsyLKoQLH1OYGjnGskdBlcQIqddluULFwQghyphenhypheniKEZjRmLtrLJXEhczjj-P2_L6ty1Qr9fxyaaE_0mhIwmiJMA76E_Y10srzUuOCLzguLtBWulif6t3BWBkUV1qA/s1600/image1.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Caliptra’s hardware block structure</em></center></imgcaption></image><br/>
+ 
+<p>As can be seen in the diagram, VeeR EL2 plays a central role in the implementation and, while it is a mature and well-tested technology, keeping both the core itself and its integration with Caliptra consistently tested is important.</p>
+  
+<h2>Advanced code processing with Verible and Kythe</h2>
+
+<p>Many of Antmicro’s efforts focus around building not only the end products but the scalable CI solutions for collaborative hardware development environments that power them. Caliptra’s needs for establishing a more open process tie in perfectly with Antmicro’s and all of CHIPS Alliance’s open source-based approach to tooling.</p>
+
+<p>One of the core parts of this effort involved <a href="https://github.com/chipsalliance/verible" target="_blank">Verible</a>, an open source SystemVerilog parser developed by Google in collaboration with Antmicro within CHIPS Alliance, offering a number of code processing functionalities, including linting, formatting, indexing and producing a <a href="https://github.com/kythe/kythe" target="_blank">Kythe</a> schema. Verible comes with a Language Server Protocol which enables integration with popular text editors such as VS Code, Vim, Neovim, Emacs, Sublime, Kakoune and Kate, described in detail in a <a href="https://antmicro.com/blog/2023/02/integrating-the-lsp-in-verible/" target="_blank">separate article on Antmicro's blog</a>.</p>
+
+<p>Antmicro’s work for Google around Caliptra involved [adding the Verible formatter to the <a href="https://github.com/chipsalliance/Cores-VeeR-EL2/actions/workflows/verible-format.yml" target="_blank">VeeR CI </a>which marks non-compliant formatting changes and uses the <a href="https://github.com/reviewdog/reviewdog" target="_blank">reviewdog</a> bot to add comments in the Pull Request Discussion with suggested fixes. Furthermore, we added a <a href="https://github.com/chipsalliance/Cores-VeeR-EL2/actions/workflows/verible-lint.yml" target="_blank">Verible linting Action</a> that helps developers maintain good coding practices by providing <a href="https://chipsalliance.github.io/verible/verilog_lint.html" target="_blank">lint rules</a> for continuous validation of the code, before it even reaches the compilation phase. Notably, the provided lint rules are flexible and can be adjusted based on the project's requirements, or even turned off completely through creation of a waiver-file or by an inline directive.</p>
+  
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing for VeeR lint error" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3IEb2rNMzRG6priEURKzR4No8rWcKnNAkhCv-2OEV5F6h-ZJh-91z4fOlqTKrJJ0qBtp8WqPkvamFjawx10MdtMN3ZParA0HdpNXl9Qv9aR53NGuM5NclJ6jxIxO21RFVozk_aNpK9IRa9XmJJ756u7h4d-e5nMhDg2jk_57C5auP0ndsMuZZNhIJM_8/s1600/image2.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Verible linting example</em></center></imgcaption></image><br/>
+
+<p>Thanks to Verible’s ability to output a Kythe schema, besides linting and formatting code changes we can also provide an indexed overview of the entire codebase, viewable online. The <a href="https://antmicro.github.io/verible-indexer/" target="_blank">Kythe Verible Indexer</a>, using <a href="https://github.com/antmicro/verible-indexing-action" target="_blank">Verible Indexing Action</a>, enables the user to select multiple repositories to create a set of indexed webpages. The source code is available in the <a href="https://github.com/antmicro/verible-indexer" target="_blank">Verible Indexer GitHub repo</a>.</p>
+
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing for Veer: Verible Indexer landing page" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqj-lRlj-CHsRtJAxQC2HJsUhoMmWMqNpwtTfIKSg3zUYe9Clstxk1VAA7BNjtaerSv_LMdcdUK40I0GNfp4IO1WgdW0DpW6LQJ1kULDgJ6S9oph0IVKvXI49sAg0ZfRSem-a07hKQyEiNhyD7IrCBuI-LIegcEL5bbXST7ghGA0-AnkG9IRkzuxYSxyc/s1600/image3.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Verible Indexer landing page</em></center></imgcaption></image><br/>
+
+<p>The workflow also checks if a newer revision is available for any of the defined repositories and, if needed, performs indexing. The indexed code browser webpages were deployed for <a href="https://cores-veer-el2-dot-catx-ext-chips-alliance.uc.r.appspot.com" target="_blank">Cores-VeeR-EL2</a> and <a href="https://caliptra-rtl-dot-catx-ext-chips-alliance.uc.r.appspot.com" target="_blank">Caliptra-rtl</a>.</p>
+
+<image><div style="text-align: center;"><img id="imgFull" alt="Example from Caliptra-RTL Code Navigator demonstrating visual representation of the project structure (left pane), code browser (right pane) and usage of active references (bottom pane)" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgVkBJbZyLvXsHactYxU4ajOjaOZEvnAcXM56p3Hvw9YkUesVZPBCXsteO1MVaMl_LeKhOHeKbOYChMApfXjgF17uDvGrt7n5nr2thKQDeB_vEDzn411d4ThkKjn1TBQICUYAYncxhrEfE1ZFu3wl8jEO5qwRXXF5qK6H-FVTnLUZH0iwtNhP_8jxw3G0E/s1600/image7.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Example from Caliptra-RTL Code Navigator demonstrating visual representation of the project structure (left pane), code browser (right pane) and usage of active references (bottom pane)</em></center></imgcaption></image><br/>
+
+<h2>Putting riscv-dv to use</h2>
+
+<p><a href="https://github.com/chipsalliance/riscv-dv" target="_blank">The riscv-dv</a> framework is another tool hosted by CHIPS Alliance helping address the complexities of SoC design and verification. It is an SV/UVM based open source instruction generator for RISC-V processors, originally developed for Google’s own needs but currently in use by a wide array of organizations and companies working with verification of RISC-V cores.</p>
+
+<p>The riscv-dv framework generates random instruction chains to exercise certain core features. These instructions are then simultaneously executed by the core (through RTL simulation) and by a reference RISC-V ISS (instruction set simulator), for example <a href="https://github.com/riscv-software-src/riscv-isa-sim" target="_blank">Spike</a> or <a href="https://github.com/renode/renode" target="_blank">Renode</a>, Antmicro’s open source simulation framework.</p>
+
+<p>Core states of both are then compared after each executed instruction and an error is reported in case of a mismatch.</p>
+
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing for VeeR risc-dv flow diagram" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXMHyMGU7OF5u-J9Vr1xz5KRcB-2Xgo4gh3Dpp0pRMDkS0VlAMjdt2pLFHreryWbAKfCnxytlVCgjXe2OUlBxcAXDT7oFagLpW5Kvf1-PcLlVcn10xkSS8qf8uLcG-P3mhe4SWhi-BuJJBdRwv4mVSJsnrxt04RMDIakjI9kVNTkAd0r5Hgk3xj9lL88g/s1600/image8.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>riscv-dv flow</em></center></imgcaption></image><br/>
+
+<p>While working on the Caliptra project, Antmicro <a href="https://github.com/chipsalliance/Cores-VeeR-EL2/pull/79" target="_blank">introduced</a> the riscv-dv framework for testing the VeeR-EL2 core as well as a <a href="https://github.com/chipsalliance/Cores-VeeR-EL2/blob/main/.github/workflows/test-riscv-dv.yml" target="_blank">GH Actions CI flow</a> which builds or downloads all the dependencies (Verilator, Spike, VeeR-ISS and Renode) and runs the tests. For the purpose of using riscv-dv with VeeR we had to write a <a href="https://github.com/chipsalliance/Cores-VeeR-EL2/blob/main-next/tools/riscv-dv/veer_log_to_trace_csv.py" target="_blank">VeeR-specific execution trace log parser</a>. The task of this parser is to translate the log to the format understandable by the riscv-dv framework.</p>
+
+<p>As an interesting detail, VeeR implements division (div) and remainder (rem) instructions in a way it delegates the calculations to the division logic and proceeds with the execution of the program. Once the division core ends, the result is written back to the div/rem instruction result register. This flow takes into account the situation where any instruction following div/rem requires the div/rem result. In such cases the pipeline is stalled until the result is available. If any instruction following div/rem overwrites the result register before division logic finishes, the division operation is canceled.</p>
+
+<p>To handle the case where the division results are available after a few other instructions were executed we’ve developed a lazy parsing method of the VeeR trace log to be able to catch the result register update even if it is not immediate. The second case - cancellation of the division calculation has been handled by adding a code post-processing script. It can detect a situation where a cancellation would happen and prevent it by injecting a number of the NOP instructions (allowing the division core to finish).</p>
+
+<h2>Custom GitHub Actions runners for greater scalability and more flexibility to mix tools</h2>
+
+<p>Much like a large part of the industry, the Caliptra project uses <a href="https://ieeexplore.ieee.org/document/9195920" target="_blank">Universal Verification Methodology (UVM)</a> as its verification methodology. While Antmicro’s ongoing work on enabling fully open source UVM support in Verilator should ultimately enable completely open source verification, today UVM testbenches or tools like RISC-V DV cannot be run using open source tools only.</p>
+
+<p>Fortunately, this problem already has a solution, also developed within the CHIPS Alliance - custom GitHub Actions Runners that are already in use by a large number of CHIPS projects.</p>
+
+<p>A custom runner setup, currently in development for Caliptra, allows mixing and matching open and closed source tools for CI testing purposes, exposing only the results (such as pass/fail or coverage) with fine-grained control.</p>
+
+<p>What is more, given that RTL design testing and verification of RISC-V based cores and SoCs often require long, memory-consuming and computationally demanding simulations, the custom runners will play another very important role in Caliptra. While GitHub is the obvious choice for hosting the reference RTL, the processing power and throughput of the CI machines available in GitHub Actions is simply not enough to cover the needs of simulation of complex designs, especially in a highly dynamic, collaborative environment with lots of CI angles.</p>
+
+<p>In order to enable public-facing yet secure CI, and improve the flexibility and scalability of Caliptra’s/VeeR’s pipelines, the custom runners will be deployed for the respective repositories. This setup will enable us to precisely select machines to be used for specific workloads (i.e. the architecture, virtual CPU count, memory size and disk space) but also to use tools stored on an external cloud disk that can be attached to a virtual machine running the job workload.</p>
+
+<h2>Seeding other verification methods</h2>
+
+<p>The Caliptra SoC is meant as a macro for use in a variety of chip designs, big and small. Various teams adopting Caliptra/VeeR as their Root of Trust solution will need to plug it into a larger ecosystem of tools used in their organization (of course hopefully using Caliptra as a good reference and role model).</p>
+
+<p>As part of the project, on top of the original Caliptra test suite we implemented more specific tests around the VeeR integration in <a href="https://www.cocotb.org/" target="_blank">cocotb</a>, a co-simulation testbench library that enables connecting Python coroutines with your <a href="https://docs.cocotb.org/en/latest/simulator_support.html" target="_blank">HDL simulator of choice</a>.  We prepared a <a href="https://github.com/chipsalliance/Cores-VeeR-EL2/pull/78" target="_blank">cocotb testbench</a> that is able to not only run programs from the generator, but also apply dedicated stimuli and monitor the results in a Python coroutine.</p>
+
+<p>Furthermore, for projects who prefer a more UVM-like testing methodology but need an open source option today, we also provide some example tests using <a href="https://github.com/pyuvm/pyuvm" target="_blank">pyuvm</a>, a Pythonic library that mirrors the industry accepted SystemVerilog implementation. We have implemented a minimal UVM Agent for the programmable interrupt controller of the VeeR-EL2 Core, which will be used to verify handling of the interrupt service routines triggered by external or local-to-core timer interrupts. The verification environment is expected to grow as more test cases could be added, covering the DMA controller, close coupled memory buses or the debug interface.</p>
+
+<p>For system level tests we decided to connect to an interactive simulation of the complete design via JTAG with commonly used tools: Open On-Chip Debugger <a href="https://openocd.org/" target="_blank">OpenOCD</a> and the GNU Project Debugger (<a href="https://www.sourceware.org/gdb" target="_blank">GDB</a>). The simulation exposes a virtual JTAG port, which is used to establish a connection with OpenOCD. Then the OpenOCD instance connects to the GNU debugger. Finally, test scripts are run in GDB, which verify core registers content, memory access and peripheral accesses.</p>
+
+<p>With this testing methodology we exposed an actual problem in the design which prevented accessing system peripherals via JTAG. As it turned out the issue was caused by the side AHB bus of the debug core being disconnected.</p>
+
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing for veer waveform" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_KKDdqc_x6JatD-yAtJPG8O16TwGlyiuaYgK4eu0Gga9rRWpLf5f-j8s1puROL1aNaZNICz0BsciucZatbo_UI3M1feJHXBTR2UAOxOPT8Wm-X-2kjRHA5RqzawERAVLVhstF4crNfu5ws-aPZXeFX39_D2UYsuJo3kr4qF7E-bOKtbQMAjC5bBBh-0k/s1600/image6.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Incorrect waveform - no system bus activity</em></center></imgcaption></image><br/>
+
+<p>Once a <a href="https://github.com/chipsalliance/caliptra-rtl/pull/92" target="_blank">connection</a> of the side bus had been made it became possible to access all the peripherals. A 2-to-1 AHB multiplexer was used to join the system and side AHB master ports and forward requests to the peripherals.</p>
+
+
+<image><div style="text-align: center;"><img id="imgFull" alt="CI-driven testing for veer waveform pass" border="0" id="imgCaption" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgOv3_p_D_zSJ4txWZqduTYTMZdQ7E4aHUN-UsNo0Edi7q9iwaxG2lXcD4mBiIaZ3_JYZuhm4zCKc24XkC6bWJSxcWLAFRN9CBiSTEVyuH5RxIbsYksc9F1Fq8WyQ_T3ekJxGiTGLYx5xC4iP08SN6g64-GmxyJqQ1Vp-X5W5Pe_lzjn-k-dbCdZ4k63gE/s1600/image4.png"  style="marigns:auto; width:auto;"/></div><imgcaption><center><em>Correct waveform - correct system bus activity</em></center></imgcaption></image><br/>
+
+<p>To verify the effectiveness of all kinds of tests, both ISS and RTL level, and help ensure that all design states are properly tested, we use coverage analysis. While open source tools and frameworks have some support for gathering and presenting these metrics, e.g. Verilator supports <a href="https://veripool.org/guide/latest/simulating.html#coverage-analysis" target="_blank">line, toggle and functional coverage</a>, some additional work needs to be done to integrate all of those and present them in a comprehensive, visual form, which will be part of our future efforts.</p>
+
+<h2>Transparent and open source-driven hardware ecosystem </h2>
+
+<p>In addition to the efforts described in this article, there are other interesting developments within CHIPS Alliance, including improving Verilator to better handle <a href="https://antmicro.com/blog/2022/11/scaling-verilator-for-very-large-designs/" target="_blank">large designs and verification tasks</a>, which are helping bring more open source-driven development and verification solutions to the Caliptra project and the entire open hardware ecosystem. </p>
+
+<p>To learn more about the Caliptra project, watch a <a href="https://www.youtube.com/watch?v=OXZZf2KGQ48" target="_blank">recording</a> from a joint talk by Google and Antmicro given at this year’s RISC-V Summit Europe. You can also join the contributors at the upcoming <a href="https://2023ocpglobal.fnvirtual.app/a/schedule" target="_blank">2023 OCP Global Summit</a> for several talks about the latest developments in the project and future plans.</p>
+
+<p>If you are interested in the work of CHIPS Alliance, keep an eye out for updates during their next <a href="https://events.linuxfoundation.org/chips-biannual-technology-update/" target="_blank">Technology Update</a> coinciding with the <a href="https://events.linuxfoundation.org/riscv-summit/" target="_blank">RISC-V Summit</a> this Fall.</p>
+
+
+<p><em>By Michael Gielda – Antmicro</em></p>
+
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Supplementing CVEs with !CVEs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Supplementing CVEs with !CVEs</h2>
+		<a target="_blank" href="https://lwn.net/Articles/953738/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The <a href="https://www.cve.org/">Common Vulnerabilities and Exploits</a>
+(CVE) system is the main mechanism for tracking various security
+flaws, 
+using the omnipresent CVE number—even vulnerabilities with fancy names and
+web sites
+have CVE numbers. But the CVE system is not without its critics and, in
+truth, the incentives between the reporting side and those responsible for
+handling the bugs have always been misaligned, which leads to abuse of
+various kinds.  There have been <a href="https://lwn.net/Articles/851849/">efforts to
+combat some of those abuses</a> along the way; a newly <a
+href="https://lwn.net/ml/oss-security/c01c1617-641d-4ec2-847f-2e85ea4676f7@notcve.org/">announced
+"!CVE" project</a> is meant to track vulnerabilities "<q>that are not
+acknowledged by vendors but 
+still are serious security issues</q>".
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

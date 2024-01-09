@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SpiderMonkey Newsletter (Firefox 118-121)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">SpiderMonkey Newsletter (Firefox 118-121)</h2>
+		<a target="_blank" href="https://spidermonkey.dev/blog/2023/11/27/newsletter-firefox-118-121.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://spidermonkey.dev/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>SpiderMonkey is the JavaScript engine used in Mozilla Firefox. This newsletter gives an overview of the JavaScript and WebAssembly work we’ve done as part of the Firefox 118 to 121 Nightly release cycles.</p>
+
+<p>The team wishes you Happy Holidays!</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<p>We’re working with other Firefox teams to improve performance for popular web frameworks such as React. This work is largely driven by the Speedometer 3 benchmark that Mozilla is collaborating on with other browser vendors. The Performance Team recently <a href="https://www.youtube.com/watch?v=0RdDSGR6zYQ">gave a talk all about Speedometer 3</a> at the <code class="language-plaintext highlighter-rouge">performance.now()</code> <a href="https://perfnow.nl/">conference</a>.</p>
+
+<p>We can’t list all of our improvements here, but the list below covers some of this work.</p>
+
+<ul>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824051">added</a> JIT optimizations for property accesses involving proxies. As described in <a href="https://hacks.mozilla.org/2023/09/faster-vue-js-execution-in-firefox/">this Mozilla Hacks</a> post, this significantly improved performance on the Vue.js 3 framework.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853467">added</a> more <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855705">optimizations</a> for <code class="language-plaintext highlighter-rouge">Object.assign</code>.</li>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863939">changed</a> how some Baseline IC stubs are allocated to use less memory and to be faster.</li>
+  <li>Array destructing has been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846051">optimized</a> with a fast path in the bytecode.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848090">improved</a> JSON parsing to help avoid GC time when parsing very large files.</li>
+</ul>
+
+<p>We also partially <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1842701">fixed</a> a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=793345">long-standing</a> performance issue with the DevTools Web Console: if the JS code doesn’t use any of the special console variables, it will now run as fast as regular JS code on a website.</p>
+
+<h3 id="-wasm-gc">⚡ Wasm GC</h3>
+
+<p>We’re <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845373">shipping</a> WebAssembly GC in Firefox 120! 🎉 This is a large feature that makes it possible for high-level languages to compile to WebAssembly and use the browser’s garbage collector. The Wasm GC <a href="https://github.com/WebAssembly/gc/blob/main/proposals/gc/Overview.md">proposal</a> adds struct and array types to WebAssembly for this.</p>
+
+<p>If you’re using Firefox 120 or later, you can <a href="https://kotlin-wasm-image-viewer.glitch.me/">try this demo</a> of a Kotlin image viewer or <a href="https://flutterweb-wasm.web.app/">this Dart/Flutter demo</a>. Both of these use Wasm GC.</p>
+
+<h3 id="️-other-features">👷🏽‍♀️ Other features</h3>
+
+<p>We’re also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846789">shipping</a> Wasm tail calls in Firefox 121. This is an important feature for functional languages such as OCaml or Scheme that rely heavily on tail recursion.</p>
+
+<p>We also shipped some new JS features in Firefox 119:</p>
+
+<ul>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850755">enabled</a> the well-formed Unicode Strings <a href="https://github.com/tc39/proposal-is-usv-string">proposal</a>. This adds <code class="language-plaintext highlighter-rouge">isWellFormed</code> and <code class="language-plaintext highlighter-rouge">toWellFormed</code> methods on <code class="language-plaintext highlighter-rouge">String.prototype</code>.</li>
+  <li>We also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1792650">shipped</a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy"><code class="language-plaintext highlighter-rouge">Object.groupBy</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/groupBy"><code class="language-plaintext highlighter-rouge">Map.groupBy</code></a>.</li>
+</ul>
+
+<p>Additionally we will be <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845586">shipping</a> the <code class="language-plaintext highlighter-rouge">Promise.withResolvers</code> <a href="https://github.com/tc39/proposal-promise-with-resolvers">proposal</a> in Firefox 121.</p>
+
+<p>We implemented some features that are still disabled by default:</p>
+
+<ul>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1828144">implemented</a> the Symbols-as-WeakMap-keys <a href="https://github.com/tc39/proposal-symbols-as-weakmap-keys">proposal</a>.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856338">updated</a> our Temporal implementation to the latest spec version.</li>
+</ul>
+
+<h3 id="-date-parsing-improvements">⏰ Date parsing improvements</h3>
+
+<p>The JS language specification does not define which date/time formats have to be accepted or rejected when converting strings to <code class="language-plaintext highlighter-rouge">Date</code> objects. This has resulted in a number of web compatibility <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1274354">issues</a> because there are subtle differences between the date parsers of most JS engines.</p>
+
+<p>Vinny Diehl has volunteered to improve compatibility with other browsers. Here are just a few of these changes:</p>
+
+<ul>
+  <li>We now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1175778">accept</a> dates with a period after the month.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1557650">accept</a> more numeric dashed dates, for example <code class="language-plaintext highlighter-rouge">1-1-2024</code>.</li>
+  <li>We now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863125">support</a> milliseconds in more cases.</li>
+</ul>
+
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/121#javascript">release notes</a> for Firefox 121 (and earlier versions) list more cases.</p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

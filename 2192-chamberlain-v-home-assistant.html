@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Chamberlain v. Home Assistant</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Chamberlain v. Home Assistant</h2>
+		<a target="_blank" href="https://lwn.net/Articles/950696/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The developers of Home Assistant, which has recently been <a
+href="https://lwn.net/Articles/947843/">covered here</a>, have <a
+href="https://www.home-assistant.io/blog/2023/11/06/removal-of-myq-integration/">announced</a>
+that they will be removing support for Chamberlain and Liftmaster
+garage-door openers after being locked out by the company.
+<p>
+<blockquote class="bq">
+	Because we cannot continue to work around Chamberlain Group if they
+	keep blocking access to third parties, the MyQ integration will be
+	removed from Home Assistant in the upcoming 2023.12 release on
+	December 6, 2023. We are very disappointed that it has come to this
+	and sincerely hope that Chamberlain Group is willing to reconsider
+	its position.
+</blockquote>
+<p>
+Longtime readers may remember that Chamberlain <a
+href="https://lwn.net/Articles/100368/">tried to use the DMCA</a> to block the use of
+third-party remotes nearly 20 years ago.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] An overview of kernel samepage merging (KSM)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] An overview of kernel samepage merging (KSM)</h2>
+		<a target="_blank" href="https://lwn.net/Articles/953141/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      In the <a href="https://lpc.events/event/17/sessions/153/">Kernel Summit
+track</a> at the <a
+href="https://lpc.events/event/17/page/198-lpc-2023-overview">2023 Linux
+Plumbers Conference</a> (LPC), Stefan Roesch led a session on <a
+href="https://www.kernel.org/doc/html/latest/admin-guide/mm/ksm.html">kernel
+samepage merging</a> (KSM).  He gave an overview of the feature and described
+<a href="https://lwn.net/Articles/928510/">some recent changes to KSM</a>.  He showed how
+an application can enable KSM to deduplicate its memory and how the feature
+can be evaluated to  determine whether it is a good fit for new workloads.
+In addition, he provided some real-world data of the benefits from his
+workplace at Meta.
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

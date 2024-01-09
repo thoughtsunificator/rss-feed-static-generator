@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Four Tips for Improving Your API Gateway With Zero-Trust Methods</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Four Tips for Improving Your API Gateway With Zero-Trust Methods</h2>
+		<a target="_blank" href="https://nordicapis.com/four-tips-for-improving-your-api-gateway-with-zero-trust-methods/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>We all know that an API gateway is a critical component that acts as an intermediary between client applications and backend services within a microservices architecture. API gateways are essential elements of the full API lifecycle, particularly regarding the safety and security of your APIs.</p>
+<p>Gateways provide a software layer that consolidates multiple APIs into a single endpoint, streamlining tasks like request composition, routing, and protocol translation. By managing API traffic and enforcing security policies, the API gateway provides centralized control, allowing developers to focus on building individual services without being burdened by intricate API networks.</p>
+<p>API gateways offer an array of features, including efficient API traffic management, protocol translation, caching, and load balancing. These features empower businesses to streamline incoming requests, automatically translate protocols for effortless client interaction, cache frequently used data for optimized performance, and distribute traffic among multiple backend instances to enhance scalability and availability.</p>
+<p>So, we know they&#8217;re important… but how do we ensure we&#8217;re maximizing security on our API gateway of choice? The main concept I like to keep in mind is &#8216;<a href="https://www.getambassador.io/blog/the-importance-of-zero-trust">zero trust</a>.&#8217; In a zero-trust model, trust is never assumed — it must be continuously verified, ensuring the security and legitimacy of every interaction with the API gateway.</p>
+<p>Zero trust is a powerful security model that helps companies improve their security posture, increase efficiency, and meet compliance requirements. Embracing a <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">zero-trust security model</a> means adopting certain technologies, ways of working, and policies that support business agility while enhancing security.</p>
+<p>Expanding on the zero trust idea within your API gateway, here are four tips for getting zero trust security right.</p>
+<h2 id="1-first-things-first-authentication">1. First Things First: Authentication</h2>
+<p>Authentication is a foundational aspect of API gateways. As the primary interface between external entities and internal services, the API gateway&#8217;s ability to securely authenticate requests is pivotal for overall system security.</p>
+<p>At its core, authentication ensures that the entity making the request is indeed who they claim to be. While API keys can be used for authentication, token-based systems like <a href="https://nordicapis.com/how-oauth-enables-a-zero-trust-architecture/">OAuth 2.0</a> offer granular permissions, allowing specific actions or resource access based on the token&#8217;s claims. Token-based authentication, especially with stateless tokens like JSON Web Tokens (JWTs), eliminates the need for the server to maintain a session state, making it suitable for large-scale, distributed applications. These tokens can also be signed and encrypted to ensure data integrity and confidentiality. For example, JWTs allow claims to be embedded directly into the token, which the server can validate.</p>
+<p>To minimize the impact of token leaks or theft, it&#8217;s advisable to keep token lifespans short and use refresh tokens when necessary. Token-based authentication is widely adopted and understood, simplifying integration with third-party services or systems. However, it&#8217;s important to note that even the best practices can introduce vulnerabilities if poorly implemented. Proper key management, secure token transmission (such as using HTTPS), token signature validation, and safeguarding against token reuse are all critical aspects of this practice.</p>
+<h2 id="2-but-don-t-forget-authorization">2. But Don&#8217;t Forget Authorization</h2>
+<p>In terms of authorization, the API gateway acts as an intermediary that checks each request against a set of permissions before allowing it to proceed. API gateways often serve multiple applications, user roles, and services, leading to a diverse range of interactions. Not every authenticated entity should have access to all resources. For instance, a regular employee should not have the same data access rights as an administrator.</p>
+<p>Implementing the <a href="https://nordicapis.com/what-is-the-principle-of-least-privilege/">principle of least privilege</a> by enforcing <a href="https://www.techtarget.com/searchsecurity/definition/role-based-access-control-RBAC">role-based access control (RBAC)</a> strictly for all API endpoints ensures that each user or service is granted only the permissions necessary for their specific role or task. This minimizes the risk of unauthorized access or actions, enhancing the overall security of the API gateway and the microservices it safeguards. In case a user or service credential is compromised, RBAC ensures that the attacker can only access limited resources, limiting potential damage.</p>
+<p>By granting permissions based on roles, only the minimum necessary access is provided, aligning with the principle of least privilege. A robust RBAC approach ensures that every user or service interacts only with the resources they genuinely require, thus improving overall system security.</p>
+<h2 id="3-get-rate-limiting-right">3. Get Rate Limiting Right</h2>
+<p><a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/">Rate limiting</a> not only ensures system availability during normal use but also serves as a primary defense against various malicious activities, such as distributed denial of service (DDoS) attacks. By capping the number of requests from a specific source or to a particular endpoint, an API gateway can effectively prevent a flood of requests from overwhelming the backend infrastructure, maintaining continuous service availability for legitimate users.</p>
+<p>Striking the right balance between legitimate requests and malicious actors is crucial. Instead of using a one-size-fits-all rate limit, consider a dynamic approach that allows you to adjust limits based on user or client behavior. For example, a user with typical behavior might be allowed more requests than a user exhibiting suspicious activity. To achieve this, use a layered approach to rate limits, including IP-based limits, user ID or token-based limits, endpoint-specific limits, and contextual limits based on the request type (such as read-only or data-modifying requests). This approach ensures that genuine users receive high-quality service, while potential attackers find it challenging to execute brute-force, scraping, or DDoS attacks.</p>
+<p>However, be cautious that rate limiting does not inadvertently block legitimate traffic or lead to a denial-of-service scenario for genuine users. It&#8217;s important to accompany rate limiting with proper monitoring and alerting mechanisms to promptly address any issues.</p>
+<p>And for Kubernetes developers specifically (sorry, I&#8217;m biased since I come from that world), rate limiting becomes even more important. Kubernetes enables dynamic scaling of containers and microservices to handle varying workloads. However, without rate limiting at the API gateway level, these dynamically scaled services can be susceptible to excessive traffic spikes, leading to resource exhaustion. Rate limiting acts as a safeguard, ensuring that regardless of how Kubernetes scales, your services remain protected and operate within their intended capacity limits!</p>
+<h2 id="4-don-t-forget-the-importance-of-logging-and-monitoring">4. Don&#8217;t Forget the Importance of Logging and Monitoring</h2>
+<p>Logging within API gateways involves capturing relevant information about requests and responses passing through the gateway. This information typically includes timestamps, source IP addresses, endpoints accessed, response times, status codes, headers, payloads, query parameters, and more.</p>
+<p>It&#8217;s critical to gain insights into API traffic and errors with comprehensive logging and monitoring capabilities. The <a href="https://sre.google/sre-book/monitoring-distributed-systems/">Four Golden Signals</a> is a good place to start monitoring service health, including latency, traffic, errors, and saturation. At the very least, if you&#8217;re keeping a pulse on the four golden signals and alerting your team if one signal is problematic or about to be problematic, you&#8217;re more than halfway there!</p>
+<p>For example, monitoring latency helps you understand how long requests take to be processed. High latency can indicate performance issues and negatively impact user experience. By tracking latency metrics, you can identify bottlenecks, optimize service response times, and ensure a responsive API.</p>
+<p>Effective monitoring can also identify potential system bottlenecks, service degradations, or malicious activities. For instance, a sudden increase in failed login attempts or requests from a specific IP range could indicate a brute-force attack or potential API abuse.</p>
+<h2 id="bonus-tip-think-about-what-your-api-gateway-is-built-on">Bonus Tip: Think About What Your API Gateway Is Built On</h2>
+<p>Now, this tip doesn&#8217;t have as much to do with the zero-trust approach as it does with personal preference, but it&#8217;s still worth noting!</p>
+<p>Many developers prefer NGINX, which is a traditional proxy that was initially designed as a web server as it is very reliable for static content or basic ingress. Many now consider it a legacy platform as it can be less dynamic than more modern solutions, such as <a href="https://www.getambassador.io/learn/envoy-proxy">Envoy Proxy</a>.</p>
+<p>Envoy Proxy has been deployed in production by some of the largest technology companies globally, including Lyft, Apple, and Google. Tasks such as hot restarts and managing connections are easier for something like Envoy Proxy to do with ease. And because Envoy Proxy is the lynchpin in these large companies&#8217; networks, it is well-maintained and regularly gains new features, like HTTP/3 support. Consider the needs of your developer team and what option makes the most sense when choosing your API gateway!</p>
+<h2 id="in-the-end-zero-trust-approach-improves-user-trust-100-">In the End: Zero Trust Approach Improves User Trust 100%</h2>
+<p>A <a href="https://nordicapis.com/api-gateway-best-practices-to-improve-security/">secure API gateway</a> ensures a better experience for your trusted users. By effectively filtering out unauthorized and malicious requests, system resources are allocated more efficiently, resulting in faster response times, consistent uptime, and a more reliable user experience.</p>
+<p>Increased security measures via the zero-trust approach provide your consumers with confidence, knowing that their data is protected against potential breaches. Adding these security measures to your API gateway can be as simple as making a configuration change in your YAML file or as complex as a full &#8216;shift left&#8217; in your security measures.</p>
+<p>But, progress makes perfect (eventually!). Of course, no security model is perfect, but the zero-trust security model is among today&#8217;s most effective models, and it should absolutely be infused into your API gateway strategy.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

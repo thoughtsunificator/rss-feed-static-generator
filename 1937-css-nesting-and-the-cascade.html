@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>CSS Nesting and the Cascade</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">CSS Nesting and the Cascade</h2>
+		<a target="_blank" href="https://webkit.org/blog/14571/css-nesting-and-the-cascade/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>You might have noticed that <a href="https://webkit.org/blog/14532/release-notes-for-safari-technology-preview-179/">Safari Technology Preview 179</a> includes an update to CSS Nesting that adds support for the new “relaxed parsing behavior”.</p>
+<p>What does this mean? It means you no longer have to worry about whether or not each nested selector starts with a symbol. It means that now nested CSS like this will work just fine:</p>
+<pre><code class="CSS"><span class="keyword">article</span> {
+  <span class="attribute">h1</span> { 
+    <span class="attribute">font-size</span>: <span class="number">1.8</span><span class="identifier">rem</span>;
+  }
+  <span class="keyword">p</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;  
+  }
+}
+</code></pre>
+<p>(If you didn’t realize there was a previous limitation and are curious about what it was, you can read about it in <a href="https://webkit.org/blog/13813/try-css-nesting-today-in-safari-technology-preview/">Try out CSS Nesting today</a>, from Feb 2023. But also, you can ignore this limitation since it’s going away soon.)</p>
+<p>This is fantastic news. After many months of debates over how CSS Nesting could work, we ended up with the best possible solution. In the end, browser engineers figured out how to make the parsing engine handle nested <a href="https://developer.mozilla.org/docs/Web/CSS/Type_selectors">type selectors</a> (element selectors).</p>
+<p>How is <a href="https://caniuse.com/css-nesting">browser support</a>? In late August 2023, Firefox 117 shipped support for Nesting using the relaxed parsing behavior from the beginning. Safari 16.5 shipped the original version of Nesting in May 2023, and Safari Technology Preview 179 brought the update to the relaxed parsing behavior in September 2023. Chrome is tracking their coming update in <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1427259">this issue</a>.</p>
+<p>By the way, any code written with an <code>&amp;</code> will continue to work. In fact, <code>&amp;</code> is an important tool for CSS like this:</p>
+<pre><code class="CSS"><span class="keyword">ul</span> {
+  <span class="attribute">padding-left</span>: <span class="number">1em</span>;
+  <span class="attribute">article</span> &amp; {
+    <span class="attribute">padding-left</span>: <span class="number">0</span>;
+  }
+}
+</code></pre>
+<p>Which is the equivalent of:</p>
+<pre><code class="CSS"><span class="keyword">ul</span> {
+  <span class="attribute">padding-left</span>: <span class="number">1em</span>;
+}
+<span class="keyword">article</span> <span class="keyword">ul</span> {
+  <span class="attribute">padding-left</span>: <span class="number">0</span>;
+}
+</code></pre>
+<p>The <code>&amp;</code> gives you a way to say “this is where I want the nested selector to go”. It still does the same job, it’s simply no longer required before an element selector.</p>
+<h2>Another question</h2>
+<p>There is one more thing about CSS Nesting that’s still up for debate. We still have time to make the change if we do so <em>very</em> soon.</p>
+<p>Let us ask you a question. If you wrote this nested CSS, which color would you want the article text to be?</p>
+<pre><code class="CSS"><span class="keyword">article</span> {
+  <span class="attribute">color</span>: <span class="identifier">blue</span>;
+  @<span class="attribute">supports</span> (<span class="attribute">text-shadow</span>: <span class="number">0</span> <span class="number">0</span>) {
+    <span class="identifier">color</span>: <span class="identifier">red</span>;
+  }
+  <span class="keyword">color</span>: <span class="keyword">yellow</span>;
+}
+</code></pre>
+<p>Do you want it to result in this unnested equivalent, Option 1, where <code>color: red</code> wins?</p>
+<pre><code class="CSS"><span class="keyword">article</span> {
+  <span class="attribute">color</span>: <span class="identifier">blue</span>;
+  <span class="attribute">color</span>: <span class="identifier">yellow</span>; 
+}
+<span class="keyword">@supports</span> (<span class="keyword">text-shadow</span>: 0 0) {
+  <span class="attribute">article</span> {
+      <span class="attribute">color</span>: <span class="identifier">red</span>;
+  }
+}
+</code></pre>
+<p>Or do you want it be computed to be this equivalent, Option 2, where <code>color: yellow</code> wins?</p>
+<pre><code class="CSS"><span class="keyword">article</span> {
+  <span class="attribute">color</span>: <span class="identifier">blue</span>;
+}
+<span class="keyword">@supports</span> (<span class="keyword">text-shadow</span>: 0 0) {
+  <span class="attribute">article</span> {
+      <span class="attribute">color</span>: <span class="identifier">red</span>;
+  }
+}
+<span class="keyword">article</span> {
+  <span class="attribute">color</span>: <span class="identifier">yellow</span>; 
+}
+</code></pre>
+<p>Currently, the <a href="https://drafts.csswg.org/css-nesting/">Nesting specification</a> says Option 1 is correct, and so that’s how it’s implemented in browsers. This is how all of the preprocessors work: Less (<a href="https://lesscss.org/less-preview/#eyJjb2RlIjoiI2xpYigpIHtcbiAgICAuY29sb3JzKCkge1xuICAgICAgQHByaW1hcnk6IGJsdWU7XG4gICAgICBAc2Vjb25kYXJ5OiBncmVlbjtcbiAgICB9XG4gICAgLnJ1bGVzKEBzaXplKSB7XG4gICAgICBib3JkZXI6IEBzaXplIHNvbGlkIHdoaXRlO1xuICAgIH1cbiAgfVxuICBcbiAgLmJveCB3aGVuICgjbGliLmNvbG9yc1tAcHJpbWFyeV0gPSBibHVlKSB7XG4gICAgd2lkdGg6IDEwMHB4O1xuICAgIGhlaWdodDogKCR3aWR0aCAvIDIpO1xuICB9XG4gIFxuICAuYmFyOmV4dGVuZCguYm94KSB7XG4gICAgQG1lZGlhIChtaW4td2lkdGg6IDYwMHB4KSB7XG4gICAgICB3aWR0aDogMjAwcHg7XG4gICAgICAjbGliLnJ1bGVzKDFweCk7XG4gICAgfVxuICB9IiwiYWN0aXZlVmVyc2lvbiI6IjQueCJ9">demo</a>), Sass (<a href="https://www.sassmeister.com/">demo</a>), Stylus (<a href="https://runkit.com/kizu/648cbbea05e821000873adde">demo</a>), PostCSS (<a href="https://sneakertack.github.io/postcss-playground/">demo</a>), and more. Perhaps matching over fifteen years of third-party tooling is the best way to go.</p>
+<p>But many people find this to be an <a href="https://kilianvalkhof.com/2023/css-html/the-gotchas-of-css-nesting/">unexpected gotcha</a>, since it seemingly reorders styles. It makes something that’s earlier in the cascade override something that’s later in the cascade. These folks expect Option 2 to be how it works, where the fundamentals of the cascade stay fully intact — when two declarations have the same specificity, the later one always wins.</p>
+<p>We ran a survey to find out what you want. The results were remarkable consistent across the first 48 hours.</p>
+<p>Option 1: 38%<br />
+Option 2: 62%</p>
+<p>Your input helps the CSS Working Group <a href="https://github.com/w3c/csswg-drafts/issues/8738">make a final decision</a> on how code like this should work. It’s still not fully clear if Option 2 is possible, but before embarking on a deeper effort to find out, it helps to know what web developers want.</p>
+<p>Thanks for participating!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

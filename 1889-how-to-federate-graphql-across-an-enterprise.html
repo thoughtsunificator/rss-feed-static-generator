@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Federate GraphQL Across an Enterprise</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Federate GraphQL Across an Enterprise</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-federate-graphql-across-an-enterprise/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>GaphQL is an incredibly powerful tool, unlocking robust processing flows and data paths for various implementations. GraphQL allows the end user to state what data they want, how they want it, and how it should be transformed. This flexibility in data transport is so foundationally powerful that its importance cannot be overstated.</p>
+<p>With this powerful flexibility, however, often comes incredible complexity. GraphQL, especially in the context of differing microservices, can be very complex, and when multiple services work in tandem, this complexity only increases. For this reason, the idea of <a href="https://devops.com/the-quest-to-unify-with-graphql-the-modern-data-api/">unififying the schema</a> — creating a sort of Rosetta Stone for all GraphQL queries in a body of connected APIs — has come to the forefront.</p>
+<p>But what does this actually look like? What is a federated GraphQL system, and does it live up to the hype? Below, we&#8217;ll define GraphQL federation, consider its benefits and drawbacks, and look at some specific strategies to implement it in practice.</p>
+<h2 id="what-is-federation-">What is Federation?</h2>
+<p>While we have <a href="https://nordicapis.com/api-security-the-4-defenses-of-the-api-stronghold/">discussed federation on Nordic APIs before</a>, the analogy we used at the time needs a bit of an update in the context of GraphQL.</p>
+<p>In essence, the concept of federation is based on trust. A proverbial king knows that his knights must be able to enter the castle, but the castle is fraught with peril. To solve this problem, he has created another castle some ways away. To access that castle, however, the credentials used by Sir Lancelot must be valid at both the &#8220;home&#8221; castle and the &#8220;remote castle.&#8221;</p>
+<p>This is the base concept of federation, wherein distinct clusters of resources and systems agree upon a standard for collective operation. In the security sense, this includes a defined operation method for testing and validating <a href="https://nordicapis.com/securing-graphql-apis-with-identity-control/">authorization and authentication</a>. But what does this mean in the context of a <a href="https://nordicapis.com/how-to-design-a-scalable-graphql-schema/">schema</a>?</p>
+<h2 id="how-do-you-federate-a-schema-">How Do You Federate a Schema?</h2>
+<p>GraphQL is ultimately a technology of choice — the end user can request a specific set of data in a particular format with a specific use case in mind, and through formed requests, this can be expertly fulfilled.</p>
+<p>However, the <a href="https://nordicapis.com/how-domain-driven-design-benefits-apis/">schema underlying the data</a> must be understood when creating such a system. After all, how can a developer request data pertaining to user attributes if there&#8217;s no clear line for what a user attribute actually is, let alone how one might transform it? Accordingly, schemas are designed to map this functionality and logic in a way that can be parsed and understood.</p>
+<p>Federating this information is the key question mark. How do we ensure each service has the information it needs to handle the request? After all, if we simply made a monolithic GraphQL service that touched all of our microservices, at that point, are we really even creating a microservice? Or is it just a distributed monolith?</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-tips-for-graphql-security/">7 Tips For GraphQL Security</a></div>
+<h2 id="schema-stitching">Schema Stitching</h2>
+<p>The solution to this problem was, for some time, to simply combine multiple subschemas for each microservice via a proxy service. This proxy service, or gateway, would stitch the schemas together, allowing for this logical understanding to be distributed without requiring a single monolithic deployment.</p>
+<p>However, the major drawback of this approach was that it was fundamentally blind to other services and systems. The proxy layer was easy to create, as it tied into typically already-existent GraphQL schemas and, in doing so, created what felt like a federated solution. The issue is that the services are blind to each other — they know the capabilities of the gateway and the data flow in that context, but they know nothing of other services and systems, operating entirely in an echo chamber.</p>
+<p>From a long-term point of view, this results in a system that starts light but grows larger and more complex. Naming conflicts become more likely as time passes. Stitching is a relatively intensive process, as it requires discovery and combination at a high level.</p>
+<p>Authentication and authorization are more complex, as each functional environment might differ slightly. For instance, how do you federate across a system where one entity uses an Authorization Code Grant Type with PKCE, one uses the Implicit Flow, and neither really communicates this or knows what the other is doing?</p>
+<p>For this reason, stitching is not always an ideal solution.</p>
+<h2 id="graphql-federation">GraphQL Federation</h2>
+<p>With GraphQL federation, a familiar structure is changed to be more useful. In the same way schema stitching utilizes a gateway, so does GrahQL federation. The key difference here, though, is that, unlike stitching, the gateway is instructed where to find the different objects and what URLs can be queried for them by the services themselves. Each API that connects to the gateway provides metadata, representing the data&#8217;s state and the logic behind its flow.</p>
+<p>With this metadata, the gateway changes fundamentally. Whereas in stitching, the gateway was essentially a &#8220;dumb&#8221; routing system, the gateway in a federated system is a &#8220;smart&#8221; routing system, utilizing the metadata from services themselves to route requests and perform functions through a unified, singular endpoint provided to the end user through the front end.</p>
+<p>Notably, this also allows for the portability of existing structures throughout other code. If you know that a function can be accomplished through metadata that already exists in another microservice, you can either copy that schema locally or reference the existing schema. Because microservices become subgraphs that are fundamentally aware of each other, this ability to reuse and port code reduces development time and simplifies code overall.</p>
+<h2 id="terminology-supergraphs-and-subgraphs">Terminology: Supergraphs and Subgraphs</h2>
+<p>It&#8217;s important to note that this fundamental shift in the way the gateway functions results in a unique system of graph relations. While there are specific terms for specific implementations, there are two common terms that you will find in federated GraphQL: <a href="https://devops.com/supergraph-one-graphql-schema-to-rule-them-all/">supergraphs and subgraphs</a>.</p>
+<p>As detailed above, a subgraph is an API related to a gateway. This API is still a microservice and is still an API, but in the context of GraphQL federation, it is more accurately referred to as a subgraph. There can be hundreds — even thousands or millions — of subgraphs, as the main restriction is simply the processing ability of the gateway to parse large amounts of metadata.</p>
+<p>A supergraph, then, is what the combination of the subgraphs with the gateway is called. There can be many subgraphs, but ultimately, there can only be one supergraph. (In our earlier analogy, there can be many, many castles, but there can only be one kingdom.)</p>
+<p>Several vendors in the GraphQL space have provided a wide breadth of examples of GraphQL federation. Apollo, for example, provides an example via their <a href="https://www.apollographql.com/docs/federation/federated-types/composition/">documentation</a>. What is notable about the federation process across all vendors is that, unlike schema stitching, very little of the supergraph code must be developed by hand. Instead, the supergraph is created through the intelligent use of the metadata itself. For instance, create something simple such as this:</p>
+<pre><code><span class="hljs-keyword">type</span> <span class="hljs-keyword">User</span> <span class="hljs-title">{
+  id</span>: ID!
+  name: <span class="hljs-keyword">String</span>!
+}
+</code></pre>
+<p>In a properly created supergraph-driven federated GraphQL environment, the metadata of that simple schema should generate itself within the supergraph. This also means that any active development on a component will utilize the metadata to automatically synchronize through the supergraph!</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Simply put, GraphQL is incredibly powerful, and the addition of federation simplifies much of the complexity that is often a significant con to adoption. It&#8217;s not a silver bullet by any means. There are still some caveats to consider, especially when the collection of APIs becomes so driven by the desire to fit into a microservice that it becomes unusable. But ultimately, adopting a federated approach will deliver simple but powerful code throughout implementation.</p>
+<p>What do you think of the supergraph approach to federation? Are there other approaches we should look at? Let us know in the area below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

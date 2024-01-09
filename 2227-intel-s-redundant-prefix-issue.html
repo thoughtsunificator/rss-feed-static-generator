@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Intel's "redundant prefix issue"</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Intel's "redundant prefix issue"</h2>
+		<a target="_blank" href="https://lwn.net/Articles/951500/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Tavis Ormandy has <a
+href="https://lock.cmpxchg8b.com/reptar.html">described a bug</a>
+in some Intel CPUs that can lead to a crash (or worse):
+<p>
+<blockquote class="bq">
+	We believe this bug causes the frontend to miscalculate the size of
+	the movsb instruction, causing subsequent entries in the ROB [reorder buffer] to be
+	associated with incorrect addresses. When this happens, the CPU
+	enters a confused state that causes the instruction pointer to be
+	miscalculated.
+<p>
+	The machine can eventually recover from this state, perhaps with
+	incorrect intermediate results, but becoming internally consistent
+	again. However, if we cause multiple SMT or SMP cores to enter the
+	state simultaneously, we can cause enough microarchitectural state
+	corruption to force a machine check.
+</blockquote>
+<p>
+Intel has <a
+href="https://lwn.net/ml/oss-security/ae728a21-91d5-463d-9f54-44186a01253d@intel.com/">released
+a microcode update</a> to address the issue.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

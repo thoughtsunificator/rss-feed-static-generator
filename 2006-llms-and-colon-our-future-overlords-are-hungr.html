@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>LLMs&colon; our future overlords are hungry and thirsty</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">LLMs&colon; our future overlords are hungry and thirsty</h2>
+		<a target="_blank" href="http://microservices.io//post/generativeai/2023/10/09/our-future-overlords-are-hungry-and-thirsty.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h1 id="llms-our-future-overlords-are-hungry-and-thirsty">LLMs: our future overlords are hungry and thirsty</h1>
+
+<p>Since early this year, the news around generative AI technologies, such as ChatGPT, has been never ending.
+Some have even suggested that humanities existence is at stake.
+While there’s a massive amount of hype, there’s also a lot of potential as shown by tools such as ChatGPT and Copilot.
+Consequently, I decided to explore Generative AI from the perspective of an enterprise software architect.
+This article is the first in a series about generative AI - specifically Large Language Models (LLMs) - and the microservice architecture.</p>
+
+<h2 id="a-large-language-model-is-a-function">A large language model is a function….</h2>
+
+<p>Large Language Models (LLMs) are a generative AI technology for natural language processing.
+Simply put, an LLM is a function that takes a sequence of words as input - the <code class="language-plaintext highlighter-rouge">prompt</code> - and returns a sequence of words that’s the most likely completion of the prompt.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">python3</span>
+<span class="n">Python</span> <span class="mf">3.11</span><span class="p">.</span><span class="mi">4</span> <span class="p">..</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">langchain.llms</span> <span class="kn">import</span> <span class="n">Ollama</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">llm</span> <span class="o">=</span> <span class="n">Ollama</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s">"llama2"</span><span class="p">)</span>
+<span class="n">llm</span><span class="p">(</span><span class="s">"who is Oppenheimer"</span><span class="p">)</span>
+<span class="s">' J. Robert Oppenheimer was an American theoretical physicist and professor who made significant contributions to...
+</span></code></pre></div></div>
+
+<p>Not particularly threatening, right?</p>
+
+<h2 id="that-is-implemented-by-a-neural-network">…that is implemented by a neural network…</h2>
+
+<p>An LLM is implemented by a neural network.
+The details are <a href="https://www.baeldung.com/cs/large-language-models">quite complicated</a>.
+But the basic idea is that the neural network is trained on a large amount of text to predict the next word (or more accurately a token, which is an encoded word fragment) given an input sequence of words.
+The entire completion is constructed by iteratively predicting the next token given the input sequence and the previous predicted tokens.</p>
+
+<h2 id="-with-numerous-nlp-use-cases">… with numerous NLP use cases</h2>
+
+<p>LLMs have numerous use cases, including text generation, summarization, rewriting, classification, entity extraction, semantic search and classification.
+To learn more about LLM use cases see <a href="https://txt.cohere.com/llm-use-cases/">Large Language Models and Where to Use Them: Part 1</a> and <a href="https://huggingface.co/docs/transformers/index">Hugging Face Transformers</a>.</p>
+
+<h2 id="llms-are-hungry">LLMs are hungry</h2>
+
+<p>LLMs are rather large, with billions of parameters, which are the weights of the neural net’s neurons and connections.
+For example, the <a href="https://en.wikipedia.org/wiki/GPT-3">GPT-3</a> LLM has 175 billion parameters.
+And, Facebook LLamas is a collection of language models ranging from 7B to 65B parameters.
+Consequently, LLMs involve lots of math and are hungry for computational resources, specifically expensive GPUs.</p>
+
+<p>The resource requirements depend on the phase of LLM’s lifecycle.
+The three phases of a LLM’s life cycle are:</p>
+
+<ul>
+  <li>training - creating the LLM for scratch</li>
+  <li>fine tuning - tailoring the LLM to specific tasks</li>
+  <li>inferencing - performing tasks with the LLM</li>
+</ul>
+
+<p>Training and inferencing both require a lot of compute resources.
+Let’s look at each of these in turn.</p>
+
+<h3 id="training">Training</h3>
+
+<p>Training an LLM from scratch is an extremely computationally intensive task.
+For example, training the GPT-3 LLM <a href="https://en.wikipedia.org/wiki/GPT-3#Training_and_capabilities">required 355 years of GPU time</a>.
+The training cost was estimated at $4.6 million.
+Training is so costly because it requires lots of GPUs that have large amounts of memory, which are expensive.
+For example, the <a href="https://aws.amazon.com/ec2/instance-types/">AWS EC2 p5.48xlarge instances</a>, which have 8 GPUs each with 80G of memory and costs $98.32 per hour.
+Consequently, most organizations will use a 3rd party, pretrained LLM.</p>
+
+<h3 id="fine-tuning">Fine-tuning</h3>
+
+<p><a href="https://platform.openai.com/docs/guides/fine-tuning">Fine tuning an LLM</a>, which tailors an LLM to a specific task by adjusting the parameters, is much less computationally intensive than tuning.
+As a result it’s fairly inexpensive but it still requires GPUs.</p>
+
+<h3 id="inferencing">Inferencing</h3>
+
+<p>Inferencing with an LLM, which is using the LLM to perform tasks, is less computationally intensive than training, but typically still requires GPUs.
+Moreover, each GPU must have sufficient memory to store all of the LLM’s billions of parameters.
+By default, each parameter is 16-bits, so 2 bytes per parameter is required.
+Sometimes, however, <a href="https://blog.gopenai.com/the-llm-revolution-boosting-computing-capacity-with-quantization-methods-b8666cdb4b6a">quantization</a> can be applied to use fewer bits per parameter although there’s a trade-off between accuracy and memory usage. 
+Machines with GPUs that can run LLMs are more expensive than machines without GPUs.
+For example, an <a href="https://aws.amazon.com/ec2/instance-types/g5">AWS <code class="language-plaintext highlighter-rouge">g5.48xlarge</code> instance</a> which has 8 GPUs each with 24G of memory costs $16/hour.
+A comparable non-GPU instance, such as a <code class="language-plaintext highlighter-rouge">m7i.48xlarge</code> costs $9.6768/hour.</p>
+
+<h2 id="llms-are-also-thirsty">LLMs are also thirsty</h2>
+
+<p>Since LLMs are computationally expensive they are also thirsty for water.
+Lots of computation requires a lot of electricity, which requires a lot of water to cool the data centers.
+For example, <a href="https://www.theregister.com/2023/09/11/microsofts_ai_investments_skyrocketed_in/">studies estimate</a> that a ChatGPT conversation consumes as much as 500ml of water.
+So much for the environment!</p>
+
+<h2 id="llms-and-the-microservice-architecture">LLMs and the microservice architecture</h2>
+
+<p>Let’s imagine that you want to add an LLM to your enterprise Java application.
+It’s quite likely that you will want to deploy the LLM inferencing code as a separate service for the following two reasons: efficient utilization of expensive GPU resources and the need to use a different technology stack.
+Let’s look at each reason in turn.</p>
+
+<h3 id="efficient-utilization-of-expensive-gpu-resources">Efficient utilization of expensive GPU resources</h3>
+
+<p>There are two ways to run an LLM: self-hosted or SaaS.
+If you are self-hosting an LLM, then you are running software that has very distinctive resource requirements.
+LLMs must run on more expensive machines that have GPUs.
+Therefore, in order to utilize those resources efficiently you will need to resolve the dark energy force <a href="/articles/dark-energy-dark-matter/dark-energy/segregate-by-characteristics.html">segregate by characteristics</a>, and deploy your LLM as a separate service running on specialized infrastructure.
+You typically wouldn’t want to run non-GPU services on the same machines as your LLM services since that could result in over-provisioning of GPUs.</p>
+
+<h3 id="separate-technology-stack">Separate technology stack</h3>
+
+<p>The second reason to run your LLM related code as a separate service is that it will likely use Python instead of Java.
+While you might run the LLM using a Java technology stack, it appears that Python has a much richer ecosystem.
+Furthermore, even if you are using a SaaS-based LLM, you will often write Python code to interact with the LLM.
+For example, the <a href="https://research.ibm.com/blog/what-is-ai-prompt-tuning">prompt tuning/engineering code</a> that tailors an ‘off the shelf’ LLM to a specific task is often written in Python.
+Consequently, in order to resolve the the dark energy force <a href="/articles/dark-energy-dark-matter/dark-energy/multiple-technology-stacks.html">multiple technology stacks</a> you will need to deploy your Python-based LLM logic as a separate service.</p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>In future articles, I’ll explore the topic of LLMs and microservices in more details.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

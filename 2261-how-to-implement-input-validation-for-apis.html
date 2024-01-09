@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Implement Input Validation for APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Implement Input Validation for APIs</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-implement-input-validation-for-apis/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Browsing the <a href="https://nordicapis.com/a-look-at-the-owasp-api-security-top-10-2023/">OWASP API Security Top 10</a> reveals that problems with validation are responsible for some of the most severe API security risks. Every time you consume data from a third-party API, allow users to input data, or allow users to make read/write requests via POST, you open your API to possible <a href="https://nordicapis.com/how-to-mitigate-risk-through-api-security-testing/">injection-style attacks</a> or unauthorized use. That&#8217;s where input validation comes in.</p>
+<p>Input validation is the process of testing any input or data against expected criteria. It&#8217;s also referred to as data validation. Input validation is one of the most surefire solutions to ensure your API isn&#8217;t vulnerable to risky data. It&#8217;s also a best practice to help ensure that only quality data enters your system in any capacity. Validating input guarantees that only properly formatted data enters your system, reaches your database, or triggers downstream components.</p>
+<p>With that in mind, we&#8217;ve put together some tips on how to implement input validation for your APIs to make sure it&#8217;s as secure as possible.</p>
+<h3 id="1-validate-content-type-header-and-data-format">1. Validate Content-Type Header and Data Format</h3>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type">Content-Type header</a> indicates what media type will be transmitted from an HTTP request or response. Verifying the Content-Type to ensure that the posted data matches the expected format is one of the most straightforward ways to protect an API from invalid or malicious data.</p>
+<p>Imagine an API endpoint that expects a JSON object for a specific application. Verifying the header and that the request is in JSON format protects your API from data corruption or injection attacks, among other things.</p>
+<h3 id="2-prevent-entity-expansion">2. Prevent Entity Expansion</h3>
+<p>Denial of service (DoS) attacks like A Billion Laughs or XML bomb attacks rely on vulnerable XML parsers. The attack involves sending an XML file with a large number of nested entities, resulting in the XML parser expanding each entity and consuming an excessive amount of resources. Simply limiting the number of entities that can be opened by the parser eliminates this type of DoS attack entirely.</p>
+<h3 id="3-limit-the-size-of-posted-data">3. Limit the Size of Posted Data</h3>
+<p>When users can interact with your API via input forms, file uploads, or POST requests, it&#8217;s important to restrict how much data can be sent. Prohibitively large files can consume excess resources, increase processing time, or even, in some circumstances, cause an API to crash.</p>
+<h3 id="4-compare-user-input-against-injection-flaws">4. Compare User Input Against Injection Flaws</h3>
+<p>Injection flaws are pervasive in SQL, LDAP, or NoSQL queries, OS commands, XML parsers, and ORM. They&#8217;re very easy to discover, as well, using tools like scanners or fuzzers. Injection flaws are when an attacker can run malicious code through an external application. This can result in both a backend being compromised as well as third-party clients connected to the affected application.</p>
+<p>To help prevent the risk due to injection flaws, you should validate input from every potentially untrusted source. This includes everything from internet-facing web clients to backend feeds over extranets and data from suppliers, vendors, or regulators. Any of these could be compromised, putting your system at risk.</p>
+<h3 id="5-validate-all-levels">5. Validate All Levels</h3>
+<p>To help ensure <a href="https://nordicapis.com/the-ultimate-api-security-checklist/">API security</a>, input validation should be performed on both the syntactical and semantic levels. Syntactic level validation should check to see that structured fields are formatted correctly, such as ensuring the right currency symbols are used, for example, or that the proper hyphenated structure is followed for things like phone or social security numbers. Semantic input validation checks to ensure data falls within a specific context, such as a particular date or price range.</p>
+<h3 id="6-choose-the-right-implementation-for-your-programming-language">6. Choose The Right Implementation For Your Programming Language</h3>
+<p>Most programming languages and frameworks have some method for input validation. Django supports <a href="https://docs.djangoproject.com/en/1.11/ref/validators/">Django Validators</a>, for instance, while <a href="https://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/package-summary.html#doc.Usage.validator">Apache Commons Validators</a> are useful for Java-based applications. Java also allows for type conversion, using functions like <code>Integer.parseInt()</code>, as does Python, using <code>int()</code>. Input can be checked against JSON and XML schema, as well. Arrays can be used for small sets of parameters, like days of the week or time of day.</p>
+<h3 id="7-use-allow-lists-instead-of-block-lists">7. Use Allow Lists Instead Of Block Lists</h3>
+<p>Many developers use block lists to try and prevent common attack patterns, such as the apostrophe &#8216; character, the <code>1=1 string</code>, or <code>&lt;script&gt;</code> tags. This approach is easy for attackers to circumvent, though. Valid inputs can trigger the filter, too, as in the case of last names like O&#8217;Grady.</p>
+<p>Using allow lists is a better approach for user inputs. They let you specify what <em>is</em> allowed rather than trying to prevent any potential risk. This is easy to implement for structured data, like addresses or social security numbers. Input fields with limited options, like a drop-down menu, are even easier to validate, as the selection needs to exactly match one of the available options.</p>
+<h3 id="8-validate-free-form-unicode-input-properly">8. Validate Free-Form UNICODE Input Properly</h3>
+<p>Free-form inputs, such as text, have a reputation of being the most difficult to validate, as there&#8217;s such a wide range of possible variables. To validate free-form UNICODE inputs, you should practice normalization to ensure no invalid characters are present. You should create an allow-list for acceptable character categories, such as Arabic or Cyrillic alphabets. You can also create allow-lists for individual characters, like the apostrophe in a name field.</p>
+<h3 id="9-validate-on-the-server-side-as-well-as-the-client-side">9. Validate on the Server Side As Well As the Client Side</h3>
+<p>JavaScript input validation is easily bypassed by attackers, who can either disable JavaScript or use a Web Proxy. Validating input on the client side adds an invaluable extra layer of protection.</p>
+<h3 id="10-manage-user-uploads-properly">10. Manage User Uploads Properly</h3>
+<p>We already mentioned how attackers can use uploads for DoS attacks. Putting size limits on user uploads is just one approach for validating user uploads, though. If your API only accepts certain file types, you can use input validation to make sure the uploaded file matches the expected file type. Once the file&#8217;s uploaded, though, make sure to change the file&#8217;s name in your system. They should also be analyzed for malicious content, such as malware. The user shouldn&#8217;t be able to dictate where the file is stored, either.</p>
+<h2 id="final-thoughts-on-input-validation">Final Thoughts On Input Validation</h2>
+<p>User inputs are one of the most vulnerable areas in your API. If they&#8217;re not handled properly, it could be like outfitting a building with a state-of-the-art security system and then <em>leaving the door open</em>. Furthermore, several common attack patterns rely on vulnerabilities that involve user inputs. Even if this weren&#8217;t the case, input validation is a useful best practice to have in place, anyway, as it can help ensure that data is formatted correctly for your system or falls within a particular range, for example. Input validation is not hard to set up, either, once you learn how.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

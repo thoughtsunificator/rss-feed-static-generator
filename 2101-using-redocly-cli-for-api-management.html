@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using Redocly CLI for API Management</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Using Redocly CLI for API Management</h2>
+		<a target="_blank" href="https://nordicapis.com/using-redocly-cli-for-api-management/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Redocly recently released a wonderful open-source tool that works with OpenAPI that promises to deliver the power of the command line interface (CLI) to the hands of API developers. Beyond being a joy to work with, it&#8217;s extremely powerful, packing reams of customization under the hood. Below, we&#8217;ll take a look at <a href="https://redocly.com/docs/cli/">Redocly CLI</a> and see just what the use case and utility of the solution are!</p>
+<h2 id="what-is-redocly-cli-">What is Redocly CLI?</h2>
+<p><a href="https://github.com/Redocly/redocly-cli">Redocly CLI</a> is a deceptively simple tool that recently launched into a stable 1.0 release. On the face of things, it&#8217;s a <a href="https://nordicapis.com/whats-the-difference-between-clis-and-apis/">simple command-line tool</a>. However, once you dig a bit deeper, you&#8217;ll find a lot packed into this CLI that makes it a strong offering. Redocly CLI aims to be a handy API management system with a relatively complete toolkit, including specification, generation, and documentation.</p>
+<p>One central reason to consider Redocly CLI is the fact that it is open source. While it boasts easy integration and manipulation of OpenAPI, the fact that Redocly CLI itself is open source is a major plus. In general, <a href="https://nordicapis.com/open-source-vs-open-core-vs-open-standard-whats-the-difference/">well-supported open source</a> tends to lead to good security, community review, and remixing and iteration based on branching development paths.</p>
+<h2 id="why-cli-">Why CLI?</h2>
+<p>Before we dive into specific features, we should note that working exclusively from a CLI might be a negative for some users. However, <a href="https://nordicapis.com/how-to-make-your-cli-more-intuitive/">CLI solutions</a> are often the most appropriate tool for a <a href="https://nordicapis.com/how-to-make-your-cli-more-intuitive/">wide range of use cases</a> and are often quite simple in practical application once you get used to it.</p>
+<p>While there is a learning curve, a simple textual interface can create more streamlined interactions and result in <a href="https://nordicapis.com/understanding-the-hidden-powers-of-curl/">quite a bit more control</a>. This is a big reason that CLIs are so beloved by developers — they are simple, powerful, and extensible.</p>
+<h2 id="how-to-use-redocly-cli">How to Use Redocly CLI</h2>
+<p>There are a handful of installation methods currently documented in the Redocly CLI docs.</p>
+<h3 id="docker">Docker</h3>
+<p>For many users, the easiest method will be the Docker method. To do this, simply pull up a Docker instance and run the following command:</p>
+<pre><code>docker pull redocly/<span class="hljs-keyword">cli</span>
+</code></pre>
+<p>After this, simply move the <a href="https://nordicapis.com/your-guide-to-openapi/">OpenAPI definition file</a> into the working directory and mount using the following command:</p>
+<pre><code>docker <span class="hljs-keyword">run</span> --<span class="hljs-keyword">rm</span> -v <span class="hljs-variable">$PWD</span>:/spec redocly/<span class="hljs-keyword">cli</span> lint spec.yaml
+</code></pre>
+<h3 id="local-install">Local Install</h3>
+<p>If you prefer to install locally, that&#8217;s quite easy to do. One way to go about this is to use npm to install the package via the following command:</p>
+<pre><code><span class="hljs-built_in">npm</span> i -g @redocly/cli@latest
+</code></pre>
+<p>You could also use yarn to accomplish this:</p>
+<pre><code>yarn <span class="hljs-meta">global</span> <span class="hljs-keyword">add</span> @redocly/<span class="hljs-keyword">cli</span>
+</code></pre>
+<p>Either way, once this is installed, you can use the <code>redocly --version</code> command to confirm the installation.</p>
+<h3 id="runtime-using-npx">Runtime Using npx</h3>
+<p>You can also run Redocly CLI as a runtime package rather than installing it locally. To do so, you can use the npx command as follows:</p>
+<pre><code><span class="hljs-selector-tag">npx</span> @<span class="hljs-keyword">redocly</span>/<span class="hljs-keyword">cli</span> &lt;command&gt; [options]
+</code></pre>
+<h3 id="common-use-cases">Common Use Cases</h3>
+<p>From here, there&#8217;s a <a href="https://redocly.com/docs/cli/commands/">handful of commands</a> that you will find to use. Redocly CLI separates them broadly into five different categories.</p>
+<h4 id="documentation-commands">Documentation Commands</h4>
+<ul>
+<li><code>preview-docs</code> lets users preview the API reference documentation for a specified definition. This preview will run via <code>http://localhost:8080</code>, but this can be changed via the <code>-p</code> flag, which allows for a custom port. An example of what this looks like is below.</li>
+</ul>
+<img decoding="async" class="aligncenter size-large wp-image-17990" src="https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-1024x586.png" alt="" width="1024" height="586" srcset="https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-1024x586.png 1024w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-300x172.png 300w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-768x440.png 768w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-210x120.png 210w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-175x100.png 175w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-122x70.png 122w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-87x50.png 87w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-200x115.png 200w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation-400x229.png 400w, https://nordicapis.com/wp-content/uploads/Example-Redocly-CLI-documentation-generation.png 1280w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<ul>
+<li><code>build-docs</code> allows for building an HTML file based on the definition. Using a variety of flags (most notably <code>template.Options</code>), additional elements can be inserted into the HTML build to render content in a specific way.</li>
+</ul>
+<h4 id="api-management-commands">API Management Commands</h4>
+<ul>
+<li><code>stats</code> gathers document statistics and presents the data in a given format. Options include specifying a custom configuration file or changing the output format.</li>
+<li><code>bundle</code> is a wonderful feature that allows users to bundle files for separate reusable parts, bridging the gap between a <a href="https://nordicapis.com/when-is-microservices-architecture-worth-it/">microservices approach</a> and the single-file API definition restriction common to OpenAPI implementations.</li>
+<li><code>split</code> is the exact opposite of bundle, allowing for creating multiple files from a single specification.</li>
+</ul>
+<h4 id="linting-commands">Linting Commands</h4>
+<ul>
+<li><code>lint</code> is an error reporting function that identifies and reports problems within OpenAPI definitions for developers to fix. Specific files can be targeted or excluded from this process, allowing for relatively granular error discovery and correction.</li>
+</ul>
+<h4 id="redocly-platform-commands">Redocly Platform Commands</h4>
+<ul>
+<li><code>login</code> and <code>logout</code> do exactly what you&#8217;d think they do — they allow you to log in and log out of the Redocly API registry with an access token and clear said credentials upon logout.</li>
+<li><code>push</code> is, again, what it says on the tin — push a definition to the API registry!</li>
+</ul>
+<h4 id="supporting-commands">Supporting Commands</h4>
+<ul>
+<li><code>completion</code> generates auto-complete commands.</li>
+</ul>
+<h3 id="definition-checks">Definition Checks</h3>
+<p>The linting process was briefly covered a moment ago, but it is perhaps the best part of Redocly CLI. <a href="https://nordicapis.com/8-openapi-linters/">Linting</a> is the process of ensuring that the OpenAPI description <a href="https://nordicapis.com/using-spectral-to-lint-your-openapi-definition/">matches the accepted best practices</a>. Redocly CLI provides this as a native solution, utilizing both existing default rulesets as well as custom rulesets to be measured against the sampled description.</p>
+<p>It should be noted that this approach does have one particular weakness: the linting output will only be as good as the ruleset provided. Redocly makes it very clear that the two rulesets provided are very opinionated as opposed to perfect, noting in the documentation the following:</p>
+<blockquote><p>&#8220;Our recommended ruleset is our unabashedly opinionated recommendation of what we think a good API looks like. It&#8217;s a great place to start, before adapting to your own context&#8230; A minimal ruleset is a good starting point for an existing API that doesn&#8217;t currently conform to any standard. It has fewer rules that cause an error, with others either downgraded to a warning or turned off completely.&#8221;</p></blockquote>
+<p>There are three severity settings for these rule sets, each defining how errors are handled when discovered. &#8220;Error&#8221; results in an error message that blocks validation, while &#8220;warn&#8221; simply warns and allows validation. &#8220;off&#8221; entirely disables the rule and skips validation, which is the same as basically having no rules.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/using-redoc-to-auto-generate-openapi-documentation/">Using Redoc to Auto-Generate OpenAPI Documentation</a></div>
+<h3 id="decoration">Decoration</h3>
+<p>Another great thing about Redocly CLI is the ability to utilize Decorators. Simply put, Decorates are modifications to the API description that occur as a pre-bundling process. This process runs through a set of rules and expectations, and, from this configuration, changes the content in the final bundle.</p>
+<p>Such changes can update descriptions, change examples, or remove content, and additional Decorators are constantly being iterated based on community feedback. This allows for much more granular control over what the end specification looks like than might seem possible at first blush, and is a big piece of why this works so well in a <a href="https://nordicapis.com/4-examples-of-microservices-architectures-done-right/">microservices environment</a>.</p>
+<h3 id="custom-plugins">Custom Plugins</h3>
+<p>Finally, Redocly CLI provides a huge benefit in the form of custom plugins. The rules that we&#8217;ve discussed in this piece, the relatively spartan set of Decorators, and even the types underpinning Redocly CLI can all be changed through custom plugins for a variety of functional shifts.</p>
+<p>This amount of customization aligns with the ethos of a CLI — ultimate control with a steep learning curve — so it&#8217;s no surprise that it&#8217;s built into the process of Redocly CLI as a default behavior. Being able to do such increasingly custom deployments is valuable as it allows for greater extensibility of the core use case.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>What do you think of Redocly CLI? Are there similar tools that you&#8217;d like to see reviewed? We at Nordic APIs are always looking for new toolsets to review, so let us know in the comments which one we should look at next!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

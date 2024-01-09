@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Get ready for Interop 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Get ready for Interop 2024</h2>
+		<a target="_blank" href="https://webkit.org/blog/14633/get-ready-for-interop-2024/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The primary strength of the web is that it works everywhere. It doesn’t matter which type of device, which operating system, or which browser a user has… the web is the web. And it just works — or at least it should.</p>
+<p>To make this vision a reality, web developers strive to make sure the sites they are building work in every browser, on every device. There are an unknowable number of permutations of screen sizes, device capabilities, accessibility accommodations, software versions, browser support for features, and more. Everyone using the web has wildly-different configurations. And that’s ok. That’s the beauty of the web. It’s designed to handle such variety. By using <a href="https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection">feature detection</a> and <a href="https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement">progressive enhancement</a> techniques, you support everyone. You structure your code so that it gracefully falls back when a browser/device doesn’t support something, or when the user personally can’t or doesn&#8217;t want to use that support.</p>
+<p>The other responsible party? The browsers. It’s often ok when browsers haven’t had a chance yet to implement all of the brand-new technologies — but to make a web that works everywhere, when a browser does implement something new, they need to do so in a fashion that’s the same as other implementations.</p>
+<p>How in the world is it possible for all the browser engines to have identical interoperable implementations?</p>
+<p>Web standards.</p>
+<p>A web standard is an official technical document detailing everything a browser engineer needs to know to be able to implement a particular web technology. Web standards are written in industry organizations where dozens of companies come together to discuss, debate, and improve ideas, until they agree through a formal consensus-driven process. Such organizations include the W3C, WHATWG, TC39, IETF, and the Khronos Group.</p>
+<p>The success of interoperability is dependent on browser-makers maintaining a commitment to implement according to mature, official web standards. It can be hard to progressively-enhance around rogue, buggy or incorrect implementations.</p>
+<p><a href="https://github.com/web-platform-tests/interop/tree/main#readme">The Interop project</a> from Web Platform Tests is an effort by Apple, Bocoup, Google, Igalia, Microsoft, and Mozilla to collectively focus on improving the interoperability of specific technologies which are of the highest priority to web developers. Interop 2023 evaluated <a href="https://webkit.org/blog/13706/interop-2023/">26 focus areas</a>. Automated tests were chosen to assess the correctness of implementations.</p>
+<p>The <a href="https://wpt.fyi/interop-2023">Interop 2023 dashboard</a> displays the current results for each browser — both the “experimental” browsers (Safari Technology Preview, Firefox Nightly, and Chrome Dev), and the “stable” browsers (the versions in the hands of everyday users).</p>
+<figure class="mattewhite">
+<img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/Interop2023_experimental_scores_Oct1.jpeg" alt="Chrome Dev 97. Firefox Nightly 91. Safari Technology Preview 94." width="1920" height="1080" class="aligncenter size-full wp-image-14638" srcset="https://webkit.org/wp-content/uploads/Interop2023_experimental_scores_Oct1.jpeg 1920w, https://webkit.org/wp-content/uploads/Interop2023_experimental_scores_Oct1-300x169.jpeg 300w, https://webkit.org/wp-content/uploads/Interop2023_experimental_scores_Oct1-1024x576.jpeg 1024w, https://webkit.org/wp-content/uploads/Interop2023_experimental_scores_Oct1-768x432.jpeg 768w, https://webkit.org/wp-content/uploads/Interop2023_experimental_scores_Oct1-1536x864.jpeg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" /><figcaption>The current scores for “experimental” browsers, as of Oct 3, 2023. See the <a href="https://wpt.fyi/interop-2023">Interop 2023 dashboard</a> for details on how this score is calculated.</figcaption></figure>
+<p>At the beginning of 2023, just 48% of these tests passed in all three engines (stable versions). Nine months later, 75% of the tests pass in all stable browsers, and 87% of the tests pass in all experimental browsers (hinting at the near future). It’s an amazing improvement.</p>
+<figure class="mattewhite">
+<img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/Interop2023_stable_graph_Oct1.jpeg" alt="Screenshot of the stable score graph, January to September 2023. Green line for the overall interop score rises from 48 to 87." width="1920" height="1080" class="aligncenter size-full wp-image-14639" srcset="https://webkit.org/wp-content/uploads/Interop2023_stable_graph_Oct1.jpeg 1920w, https://webkit.org/wp-content/uploads/Interop2023_stable_graph_Oct1-300x169.jpeg 300w, https://webkit.org/wp-content/uploads/Interop2023_stable_graph_Oct1-1024x576.jpeg 1024w, https://webkit.org/wp-content/uploads/Interop2023_stable_graph_Oct1-768x432.jpeg 768w, https://webkit.org/wp-content/uploads/Interop2023_stable_graph_Oct1-1536x864.jpeg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" /><figcaption>The graph of progress for “stable” browsers, the browsers people use, as of Oct 3, 2023.</figcaption></figure>
+<p>So which technologies will be chosen for Interop 2024? Well, this is where you come in.</p>
+<p>From now through <s>October 5</s> [update: extended to October 7], anyone can submit a proposal asking that a particular technology that’s already been defined in a web standard be included in next year’s Interop project.</p>
+<p>Which new web technologies are most desired by developers? How can browsers support those needs by implementing them sooner rather than later? What incomplete implementations are getting in the way, keeping developers from making websites that work everywhere? Which bugs are causing the most problems? What tests can we use to find those bugs and squash them?</p>
+<p>To submit, first read the <a href="https://github.com/web-platform-tests/interop/blob/main/README.md#scope">requirements and guidance for Focus Area proposals</a> so you will have the highest likelihood of success. Once you’ve gathered all the needed information, <a href="https://github.com/web-platform-tests/interop/issues/new?assignees=&amp;labels=focus-area-proposal&amp;projects=&amp;template=focus-area-proposal.yml">file an issue</a> on GitHub. The proposal submission period ends Saturday, October 7, 2023.</p>
+<p>Do be sure to take the time to fill out all the fields. Tracking down the current state of implementations, assessing the test coverage, and finding evidence of developer demand makes for a much stronger proposal. Make your case!</p>
+<p>So far, over 80 proposals have been filed. CSS Nesting, the <code>popover</code> attribute in HTML, and the JPEG XL image format are just some of what’s been proposed. Feel free to read through the <a href="https://github.com/web-platform-tests/interop/issues?q=is%3Aissue+is%3Aopen+label%3Afocus-area-proposal">list of proposals</a> and add your comments. If you agree something should be included, leave a comment to strengthen its case by adding more evidence of why it’s a high priority. Proposals can be refined through Thursday, October 12, 2023.</p>
+<p>There will certainly be too many good proposals, and the group planning Interop 2024 will have to make some tough calls — favoring the items that are of highest priority to developers, and are possible to both test and accomplish. By participating, you can help us know what’s most important to you.</p>
+<p>Do you have an idea for new technology that would be great to add to the web, but that has not already gone through the web standards process? Such ideas cannot be included in Interop 2024. The Interop project is not the right venue to create new web standards. Those ideas should be proposed to the CSS Working Group, the WHAT Working Group for HTML, TC39 for JavaScript, or any of the many other working groups inventing the web.</p>
+<p>Also, in order for automated tests to be used to evaluate success in implementing current web standards, there has to be a mechanism to test the technologies being proposed. The currently-available testing infrastructure only tests desktop versions of browsers, on one-or-two year old versions of operating systems. That sometimes means a particular technology cannot be properly tested. There is work ongoing to improve the testing infrastructure, so hopefully in the future more can be included.</p>
+<p>Tests are incredibly important, too. It’s rare that the tests are perfect. Often they don’t cover important areas of the web standard, or the tests themselves were written without a correct understanding of what the web standard intends. <a href="https://web-platform-tests.org/">Help writing or updating tests is welcome</a>.</p>
+<p>Once all the proposals are in, the group organizing Interop 2024 will make its decisions about what to include. And we’ll be announcing what’s in the project next year. Stay tuned!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

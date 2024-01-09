@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What’s The Difference Between REST and Event-Driven Architecture?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">What’s The Difference Between REST and Event-Driven Architecture?</h2>
+		<a target="_blank" href="https://nordicapis.com/whats-the-difference-between-rest-and-event-driven-architecture/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><img width="1200" height="675" src="https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture-.png" class="attachment-full size-full wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture-.png 1200w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--300x169.png 300w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--1024x576.png 1024w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--768x432.png 768w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--213x120.png 213w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--178x100.png 178w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--124x70.png 124w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--90x50.png 90w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--200x113.png 200w, https://nordicapis.com/wp-content/uploads/Whats-The-Difference-Between-REST-and-Event-Driven-Architecture--400x225.png 400w" sizes="(max-width: 1200px) 100vw, 1200px" /><p>In the ever-evolving landscape of software architecture, two prominent paradigms have emerged that cater to different needs and applications: <a href="https://nordicapis.com/web-service-what-is-a-rest-api-and-how-does-it-work/">Representational State Transfer</a> (REST) and <a href="https://nordicapis.com/4-business-benefits-of-an-event-driven-architecture-eda/">event-driven architecture</a> (EDA). While REST has become the de facto standard for web services, encapsulating resources into simple and stateless interactions, EDA remains a strong option for the <a href="https://nordicapis.com/the-world-is-asynchronous-get-used-to-it/">asynchronous</a> handling of events.</p>
+<p>These two architectural styles, although fundamentally different in design and execution, are central to modern software development. From web applications and cloud storage to real-time analytics and IoT systems, REST and EDA play vital roles in shaping how we interact with digital technologies. Below, we&#8217;ll dive into the principles, design paradigms, and pros and cons around both REST and EDA to unravel their unique characteristics.</p>
+<h2 id="what-is-rest-">What is REST?</h2>
+<p><a href="https://nordicapis.com/all-you-need-to-know-about-rest-api-design/">REST</a>, or Representational State Transfer, is a paradigm wherein REST APIs, utilizing a set of standardized methods, can be used by the end user to interact with data remotely. <a href="https://nordicapis.com/whats-the-difference-between-rest-and-restful/">RESTful APIs</a> typically adopt <a href="https://nordicapis.com/ultimate-guide-to-all-9-standard-http-methods/">HTTP verbiage</a>, including methods like GET, POST, PUT, and DELETE.</p>
+<p>Broadly speaking, REST is considered a request/response system, also referred to as client/server, and allows for such a system without <a href="https://nordicapis.com/the-difference-between-tight-coupling-and-loose-coupling/">tight coupling</a>. In practical implementations, RESTful services are often built around <a href="https://nordicapis.com/how-to-design-loosely-coupled-microservices/">microservices</a>, which are collections of small RESTful APIs that break out functionality into smaller services rather than adopting a monolithic solution.</p>
+<p>REST has a set of specific constraints that define what is truly RESTful. These include:</p>
+<ul>
+<li><strong>Client-Server Definition</strong>: Clients and servers should be separate from each other in terms of abstraction and interaction. In other words, clients should not have to concern themselves with server functions outside of their request, and servers should not have to record any sort of state. The client and server should be abstracted and separate, allowing for development upon one without fundamentally breaking the interaction between the two.</li>
+<li><strong>Uniform Interface</strong>: The service should be decoupled from the architecture, self-descriptive, manipulatable through representations, and linked through <a href="https://nordicapis.com/exploring-the-hidden-powers-of-hypermedia/">hypermedia</a>.</li>
+<li><strong>Stateless</strong>: All the data necessary information for interacting with the service should be within the request itself. This means, in practice, that the state of the interaction should be internally defined within the request and should not depend on the state of prior interactions or internal systems to function.</li>
+<li><strong>Cached</strong>: Cached content, that is, copies of frequently accessed or utilized data, should be stored throughout the request-response path, allowing for more flexibility and scalability and abstracting the interaction from the server state.</li>
+<li><strong>Layered</strong>: The interaction between server and client should function either directly or through layered systems efficiently. The client and the server should not concern themselves with intermediary systems, allowing for stability, load-balancing, and shared caching.</li>
+</ul>
+<p>REST is typically a synchronous system. While some implementations may, in practice, feel or look like something other than REST, the underlying systems may still be RESTful.</p>
+<h3 id="pros-and-cons">Pros and Cons</h3>
+<p>One of the main benefits of REST is the fact that it is <a href="https://nordicapis.com/scalable-apis-are-built-from-consistency/">highly scalable</a>. Since RESTful implementations have decoupled servers and clients, these implementations can be scaled quite effectively. Additionally, REST is language agnostic, allowing implementations to vary widely depending on specific use cases and needs.</p>
+<p>That being said, REST is largely limited to stateless operations: stateful implementations are not appropriate on a REST platform. This is doubly so in the case of transactional systems that require complex and continuous states to be recorded, as this stateful paradigm is counter to the ethos and approach of REST itself.</p>
+<div class="well"><a href="https://nordicapis.com/5-examples-of-apis-we-use-in-our-everyday-lives/">7 Examples of APIs We Use in Our Everyday Lives</a></div>
+<h2 id="what-is-event-driven-architecture-eda-">What is Event Driven Architecture (EDA)?</h2>
+<p>Event Drive Architecture, or EDA, is exactly what it sounds like — an architecture that is based on the concept of an event that drives interactions or results. This event can take a variety of forms, and the nature of how these events are communicated to the end user is often the most significant defining element of the EDA implementation.</p>
+<p>State changes that result in an event can be communicated through many different systems, but the two most common paradigms for these systems are <a href="https://nordicapis.com/what-is-messaging-and-what-do-i-get-out-of-it/">pub/sub</a> and produce/consume. In the pub/sub paradigm, a user subscribes to a service that publishes changes, and when such a change is issued, the subscriber is automatically notified through an endpoint service. In the <a href="https://stackoverflow.com/questions/42471870/publish-subscribe-vs-producer-consumer">produce/consume model</a>, the producer often collects these events and either publishes individually or as part of a stream, which the end user interacts with in the form of a consumption model.</p>
+<p>EDA is typically considered an <a href="https://nordicapis.com/7-protocols-good-for-documenting-with-asyncapi/">asynchronous system</a>. While there are caveats, as with REST, most greenfield EDA systems could be defined with only minor drawbacks.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/top-architectural-styles-for-apis-in-2023/">Top Architectural Styles for APIs in 2023</a></div>
+<h3 id="pros-and-cons">Pros and Cons</h3>
+<p>EDA can be highly flexible for the server side of things. Since functionality driving events is entirely separated from the client experience, the server can iterate rapidly as long as the mode of alert does not change. For this reason, EDA is often also much more efficient for a user who simply wants to be updated when a change is detected. This removes unnecessary polling. When no additional processing is to follow, EDA is by far the simpler implementation.</p>
+<p>That being said, EDA is entirely asynchronous, meaning that any interaction that requires synchronized communication will not find EDA helpful. Rearchitecting preexisting RESTful platforms into an EDA world can also be tricky. Additionally, ensuring consistency across all events can be somewhat challenging when those events differ foundationally.</p>
+<h2 id="real-world-applications">Real-World Applications</h2>
+<p>RESTful implementations can be found <a href="https://nordicapis.com/5-examples-of-excellent-api-documentation/">all across the internet</a>. Many of the most common APIs for end consumers are RESTful. A great example of a RESTful API is the <a href="https://www.twilio.com/docs/voice/api">Twilio Voice API</a>. This API allows users to make and receive calls as well as edit the metadata around those calls. Various additional functions, including conference calling, call recording, and much more, are made available through a RESTful interface that leverages microservices to scale and extend.</p>
+<p>On the other side of things, a great example of an EDA implementation is the <a href="https://console.cloud.google.com/marketplace/product/google-cloud-platform/cloud-pub-sub">Google Cloud Pub/Sub API</a>. This API connects users to a large event processor, creating a system for event ingest. This system is more of a facilitator than a first-party API. In other words, the system connects clients to servers hosted on Google Cloud&#8217;s platform rather than to an internal generator of events, as other EDAs might.</p>
+<p><a href="https://kafka.apache.org/">Apache Kafka</a> is another example of this model. It&#8217;s a distributed streaming platform that enables users to subscribe, publish, store, and <a href="https://nordicapis.com/why-enterprise-apps-need-real-time-data-streaming/">process data streams</a>. The main benefit of something like Kafka is that it decouples data production from consumption, opening up a wider range of large-scale data processing in an EDA environment.</p>
+<p>Some common technologies used within the EDA pattern include:</p>
+<ul>
+<li><span style="text-decoration: underline;">Message Brokers/Event Buses</span>
+<ul>
+<li><strong>RabbitMQ: </strong>A widely adopted message broker that uses Advanced Message Queuing Protocol to control messages.</li>
+<li><strong>ActiveMQ</strong>: An open-source Java message broker that utilizes multiple protocols.<br />
+Azure Event Hubs: A managed event stream using Microsoft&#8217;s Azure Cloud service.</li>
+</ul>
+</li>
+<li><span style="text-decoration: underline;">Event Streaming Platforms</span>
+<ul>
+<li><strong>Apache Flink</strong>: A stream-processing framework with event-time processing and stateful computations.<br />
+<strong>Apache Beam</strong>: A unified batch and data stream processing platform.</li>
+</ul>
+</li>
+<li><span style="text-decoration: underline;">Complex Event Processing Systems</span>
+<ul>
+<li><strong>Esper</strong>: An engine for streaming analytics and Complex Event Processing.</li>
+</ul>
+</li>
+<li><span style="text-decoration: underline;">Event Notification Systems</span>
+<ul>
+<li><strong>AWS SNS</strong>: A Simple Notification Service (SNS) based on the Amazon Web Service that coordinates and manages the delivery of messages for clients through subscription endpoints</li>
+</ul>
+</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>REST and EDA are two compelling systems with very different use cases. While REST is excellent for synchronous data exchange, EDA is more appropriate for publisher/subscriber relationships and paradigms that are heavily event-specific. While REST is commonly used for web services with stateless operations, EDA is best in scenarios that demand more flexibility in communication. Choosing between them hinges on the specific needs and characteristics of the system being developed.</p>
+<p>Did you find this helpful? What else would you like compared? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

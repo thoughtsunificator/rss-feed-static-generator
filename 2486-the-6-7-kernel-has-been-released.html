@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The 6.7 kernel has been released</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The 6.7 kernel has been released</h2>
+		<a target="_blank" href="https://lwn.net/Articles/957098/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Linus has <a href="https://lwn.net/Articles/957104/">released the 6.7 kernel</a>.
+<p>
+<blockquote class="bq">
+	End result: 6.7 is (in number of commits: over 17k non-merge
+	commits, with 1k+ merges) one of the largest kernel releases we've
+	ever had, but the extra rc8 week was purely due to timing with the
+	holidays, not about any difficulties with the larger release.
+</blockquote>
+<p>
+
+Some of the headline features in this release are:
+the <a href="https://lwn.net/Articles/920259/">removal</a> of support for the Itanium
+architecture,
+the first part of the <a href="https://lwn.net/Articles/940944/">futex2 API</a>,
+<a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4de520f1fcef">futex
+support</a> in io_uring,
+the <a href="https://lwn.net/Articles/938435/">BPF exceptions</a> mechanism,
+the <a href="https://bcachefs.org/">bcachefs</a> filesystem,
+the <a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7fe0e38bb669">TCP
+authentication option</a>,
+the kernel samepage merging <a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=75d7dd4138ed">smart
+scan mode</a>, and
+<a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=fff69fb03dde">networking
+support</a> for the Landlock security module.
+See the LWN merge-window summaries (<a
+href="https://lwn.net/Articles/949294/">part&nbsp;1</a>,
+<a href="https://lwn.net/Articles/949957/">part&nbsp;2</a>) and the (in-progress) <a
+href="https://kernelnewbies.org/Linux_6.7">KernelNewbies 6.7 page</a> for
+more information.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

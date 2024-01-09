@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ext4 data corruption in stable kernels</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Ext4 data corruption in stable kernels</h2>
+		<a target="_blank" href="https://lwn.net/Articles/954285/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      There is a problem in multiple stable kernel releases that is causing data corruption in ext4 filesystems.  It is <a href="https://lore.kernel.org/stable/20231205122122.dfhhoaswsfscuhc3@quack3/">caused</a> by a problematic commit that is in multiple stable kernels:
+<blockquote class="bq">
+The commit got merged in 6.5-rc1 so all stable kernels that have
+91562895f803 ("ext4: properly sync file size update after O_SYNC direct
+IO") before 6.5 are corrupting data - I've noticed at least 6.1 is still
+carrying the problematic commit.
+</blockquote>
+<p>
+More information can be found in a <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1057843">Debian bug report</a>. It has also <a href="https://lwn.net/Articles/954284/">delayed the release of Debian 12.3 images</a>. "<q>Please do not upgrade any systems at this time, we urge caution for users
+with UnattendeUpgrades configured.</q>"
+<p>
+(Thanks to Alex Ridevski for giving us a heads up on this.)
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Review of Damn Vulnerable GraphQL Application (DVGA)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Review of Damn Vulnerable GraphQL Application (DVGA)</h2>
+		<a target="_blank" href="https://nordicapis.com/review-of-damn-vulnerable-graphql-application-dvga/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><img width="1200" height="675" src="https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA.png" class="attachment-full size-full wp-post-image" alt="Review of Damn Vulnerable GraphQL Application (DVGA)" decoding="async" loading="lazy" srcset="https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA.png 1200w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-300x169.png 300w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-1024x576.png 1024w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-768x432.png 768w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-213x120.png 213w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-178x100.png 178w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-124x70.png 124w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-90x50.png 90w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-200x113.png 200w, https://nordicapis.com/wp-content/uploads/Review-of-Damn-Vulnerable-GraphQL-Application-DVGA-400x225.png 400w" sizes="(max-width: 1200px) 100vw, 1200px" /><p>Test often and test completely. This is a mantra that developers have adopted throughout the history of code development. For some reason, however, this testing almost always occurs in isolated development and testing environments. The reality is that the real world is different, and you can&#8217;t always depend on the system to be trusted or well-constructed in production.</p>
+<p>To resolve this, developers must fully understand what these vulnerabilities often look like and how they can be fixed, especially when working within newer paradigms like <a href="https://nordicapis.com/how-to-federate-graphql-across-an-enterprise/">GraphQL</a>.</p>
+<p>Today, we&#8217;re going to look at a tool that helps deliver exactly that. Let&#8217;s take a look at DVGA!</p>
+<h2 id="what-is-dvga-">What is DVGA?</h2>
+<p>The <a href="https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application">Damn Vulnerable GraphQL Application</a>, or DVGA, is an intentionally broken version of GraphQL designed for users to attack a GraphQL application to find potential flaws and vulnerabilities. Many code failures occur in practical application, even when the underlying system seems just fine in testing.</p>
+<p>Production is the proving ground for so many systems, but exposure at the production level is a huge problem. Discovering an issue or vulnerability before it goes live is the name of the game. DVGA is designed to help developers build an understanding of these <a href="https://nordicapis.com/7-tips-for-graphql-security/">common security issues with GraphQL</a> so that they can develop a toolset outside of production.</p>
+<p>DVGA supports Queries, Mutations, and Subscriptions and has a set of specific flaws that it documents in its <a href="https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application#scenarios">GitHub repository</a>. The full list of vulnerabilities is noted as follows:</p>
+<ul>
+<li>Reconnaissance
+<ul>
+<li>Discovering GraphQL</li>
+<li>Fingerprinting GraphQL</li>
+</ul>
+</li>
+<li>Denial of Service
+<ul>
+<li>Batch Query Attack</li>
+<li>Deep Recursion Query Attack</li>
+<li>Resource Intensive Query Attack</li>
+<li>Field Duplication Attack</li>
+<li>Aliases based Attack</li>
+</ul>
+</li>
+<li>Information Disclosure
+<ul>
+<li>GraphQL Introspection</li>
+<li>GraphiQL Interface</li>
+<li>GraphQL Field Suggestions</li>
+<li>Server Side Request Forgery</li>
+<li>Stack Trace Errors</li>
+</ul>
+</li>
+<li>Code Execution
+<ul>
+<li>OS Command Injection #1</li>
+<li>OS Command Injection #2</li>
+</ul>
+</li>
+<li>Injection
+<ul>
+<li>Stored Cross Site Scripting</li>
+<li>Log spoofing / Log Injection</li>
+<li>HTML Injection</li>
+<li>SQL Injection</li>
+</ul>
+</li>
+<li>Authorization Bypass
+<ul>
+<li>GraphQL JWT Token Forge</li>
+<li>GraphQL Interface Protection Bypass</li>
+<li>GraphQL Query Deny List Bypass</li>
+</ul>
+</li>
+<li>Miscellaneous
+<ul>
+<li>GraphQL Query Weak Password Protection</li>
+<li>Arbitrary File Write // Path Traversal</li>
+</ul>
+</li>
+</ul>
+<p>Broadly speaking, the Scenarios as collected by DVGA are sorted into five general categories: Denial of Service, Information Disclosure, Authorization Bypass, Code Execution, and Injection. Many of these flaws map directly to the <a href="https://owasp.org/www-project-api-security/">OWASP API Security Top 10</a>.</p>
+<p>One of the most interesting parts of the DVGA approach is the gamification of these vulnerabilities. DVGA specifically implements a &#8220;Beginner&#8221; and &#8220;Expert&#8221; level of difficulty for vulnerability exploitation, allowing users to change the difficulty in execution and mirror more real-world applications.</p>
+<h2 id="setting-up-and-using-damn-vulnerable-graphql-application">Setting Up and Using Damn Vulnerable GraphQL Application</h2>
+<p>Before you can start using DVGA, you need to install a few libraries. Utilizing your install method, the following dependencies need to be in place:</p>
+<ul>
+<li>Python3 (3.6 &#8211; 3.9) (3.10 is not supported)</li>
+<li>Flask</li>
+<li>Flask-SQLAlchemy</li>
+<li>Flask-Sockets</li>
+<li>Gevent</li>
+<li>Graphene</li>
+<li>Graphene-SQLAlchemy</li>
+<li>Rx</li>
+</ul>
+<p>From here, there are a few ways you can start using DVGA. The easiest way is to follow the steps in the DVGA readme by cloning the DVGA repository. From here, you can use a Docker file to build the image and run it locally.</p>
+<p>To do this, you must first clone the repository:</p>
+<pre><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/dolevf/Damn-Vulnerable-GraphQL-Application.git &amp;&amp; cd Damn-Vulnerable-GraphQL-Application
+</code></pre>
+<p>Once the repository has been cloned, you must build the actual Docker image. To do this, simply issue a build command through the CLI:</p>
+<pre><code><span class="hljs-symbol">docker</span> <span class="hljs-keyword">build </span>-t dvga .
+</code></pre>
+<p>Finally, create the container:</p>
+<pre><code>docker <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-_">-d</span> -t -p 5013:5013 <span class="hljs-_">-e</span> WEB_HOST=0.0.0.0 --name dvga dvga</span>
+</code></pre>
+<p>With all of this in place, you can navigate to <code>http://localhost:5013</code> to begin using DVGA. When you first use the service, you&#8217;ll be greeted with a sort of landing page:</p>
+<img decoding="async" loading="lazy" class="aligncenter size-large wp-image-17949" src="https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-1024x456.png" alt="Damn Vulnerable GraphQL Application test" width="1024" height="456" srcset="https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-1024x456.png 1024w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-300x134.png 300w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-768x342.png 768w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-1536x684.png 1536w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-240x107.png 240w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-220x98.png 220w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-180x80.png 180w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-150x67.png 150w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-90x40.png 90w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-200x89.png 200w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test-400x178.png 400w, https://nordicapis.com/wp-content/uploads/Damn-Vulnerable-GraphQL-Application-test.png 1846w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<p>From this landing page, you have a few different options for how to use DVGA. One of the most interesting immediate use cases is the Pastes sections. In DVGA, two kinds of Pastes can be worked with: Public and Private. This system is pretty close to something like PasteBin, allowing users to save pieces of code for public or private transformation and consumption.</p>
+<p>From here, users can begin to use the tools at their disposal to attack the GraphQL instance. The first target will obviously be <code>http://localhost:5013</code>, the location of the DVGA instance — from here, additional targets can be discovered through introspection, tracing, fingerprinting, etc. How you actually attack this service will depend highly on your chosen stack: CLIs, GUIs, and even cloud applications can be used to test this service (assuming you make the instance publicly listenable).</p>
+<div class="well">Don&#8217;t miss our workshop with Apollo GraphQL: <a href="https://nordicapis.com/sessions/what-if-all-your-data-was-accessible-in-one-place/">What If All Your Data Was Accessible in One Place</a></div>
+<h3 id="why-attack-locally-">Why Attack Locally?</h3>
+<p>The main benefit of this approach is to show what real-world threats actually look like. Again, the largest issue with developers handling GraphQL issues is that those issues often provide learning experiences only when the exposure is already significant. It&#8217;s a catch-22 in the sense that developers must experience failures to prevent failures, but without real-life examples of failures, they can&#8217;t prevent anything.</p>
+<p>DVGA is a great, vulnerable system. It creates a threat vector that can be predicted, repeated, and tested. This work gives a sense of the process that can be used to find potential faults in production services.</p>
+<h2 id="the-value-of-dvga-and-challenge-systems">The Value of DVGA and Challenge Systems</h2>
+<p>DVGA represents a particular kind of solution. It&#8217;s not necessarily a system for <a href="https://nordicapis.com/automating-api-security-sast-dast-and-xdr/">vulnerability detection</a> but instead acts like an educational game. At its core, it&#8217;s a system that is a playground for adverse interactions with an API. This approach is an interesting one and is slowly becoming more common. It&#8217;s a practical example of theoretical threats.</p>
+<p>It&#8217;s easy to downplay or even ignore potential vulnerabilities. This is a huge problem and a common cause of <a href="https://nordicapis.com/5-major-modern-api-data-breaches-and-what-we-can-learn-from-them/">API exposures and breaches</a>. The simple fact is that any system, no matter how well-developed, has the potential for extreme vulnerability. In many cases, this well-developed nature is a compounding problem! An API that has gone through 20 iterations may have more vulnerabilities than one that is brand new, but there may be an undercurrent of thought that the API has proven itself secure. This is literally a disaster scenario.</p>
+<p>Solutions such as DVGA are key to breaking that mindset, as they expose how attacks are formed, executed, and iterated. Developers should assume from day one that their environment and code are rife with vulnerabilities and potential exposures. Testing in a secure environment only exacerbates the problem of trust, so adopting something like DVGA, where the system is already exposed and already broken, can help expose poor security assumptions on the developer side.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>While the system is &#8220;fun&#8221; and gamified, it should be stated that it fulfills a literal dream scenario for many developers. In this environment, an API is put through the wringer in a place where nobody will take advantage of it. Why wouldn&#8217;t you want to battle-test your approach&#8217;s armor in a low-stakes scenario?</p>
+<p>What do you think of DGA and this specific kind of tool? Do you see any use cases where DVGA might fall short? What other tools in this category do you think are notable? Let us know in the comments below, and we&#8217;ll take a look at it!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

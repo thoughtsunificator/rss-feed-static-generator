@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The 6.6 kernel has been released</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The 6.6 kernel has been released</h2>
+		<a target="_blank" href="https://lwn.net/Articles/949179/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Linus has <a href="https://lwn.net/Articles/949204/">released the 6.6 kernel</a>.  "<q>So
+this last week has been pretty calm, and I have absolutely no excuses to
+delay the v6.6 release any more, so here it is.</q>"
+<p>
+Headline features in 6.6 include the <a href="https://lwn.net/Articles/925371/">earliest
+eligible virtual deadline first (EEVDF) CPU scheduler</a>, a number of
+enhancements (quota support, user extended attributes, direct I/O) to the
+tmpfs filesystem, the <a href="https://lwn.net/Articles/939217/"><tt>fchmodat2()</tt>
+system call</a>, initial support for <a href="https://lwn.net/Articles/930173/">building a
+kernel without buffer-head support</a>, the <a
+href="https://lwn.net/Articles/938637/"><tt>kmalloc()</tt> randomness</a> patches, <a
+href="https://lwn.net/Articles/926649/">user-space shadow stacks</a> for Intel CPUs, and
+quite a bit more.  See the LWN merge window summaries (<a
+href="https://lwn.net/Articles/942954/">part&nbsp;1</a>, <a
+href="https://lwn.net/Articles/943245/">part&nbsp;2</a>) and the <a
+href="https://kernelnewbies.org/Linux_6.6">KernelNewbies 6.6 page</a> for
+more information.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

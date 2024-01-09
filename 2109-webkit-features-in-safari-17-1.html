@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebKit Features in Safari 17.1</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">WebKit Features in Safari 17.1</h2>
+		<a target="_blank" href="https://webkit.org/blog/14735/webkit-features-in-safari-17-1/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Today we are pleased to share what new in WebKit for Safari 17.1. It’s now available for <a href="https://www.apple.com/ios/ios-17/">iOS 17</a>, <a href="https://www.apple.com/ipados/ipados-17/">iPadOS 17</a>,  <a href="https://www.apple.com/macos/sonoma-preview/">macOS Sonoma</a>, macOS Ventura and macOS Monterey.</p>
+<h2>Managed Media Source</h2>
+<p>Safari 17.1 now brings the new Managed Media Source API to iPhone. Originally shipped in Safari 17.0 for iPad and Mac, Managed Media Source is a power-efficient, low-level toolkit for streaming video.</p>
+<p>Watching streaming video is an amazing thing we all do with our devices. But to get the highest-quality video without downloading any unnecessary data and without killing the battery, it takes a complicated stack of technology working under the hood every time you hit the play button. Adaptive bitrate streaming is a technique for switching between media data formats on the fly, depending on the speed of the internet connection and capabilities of the device, even as the conditions change.</p>
+<p>For years, many websites have used <a href="https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API">Media Source Extensions</a> (MSE) to handle adaptive bitrate streaming. It’s a low-level toolkit that gives the web page more control and more responsibility for managing buffering and resolution. But MSE isn’t particularly good at managing buffer levels, network access, and media variant selection. Plus, it uses a lot of power, which can be especially painful on mobile devices with smaller batteries.</p>
+<p>Managed Media Source adds the capabilities of MSE, without any of the drawbacks. We were excited to <a href="https://github.com/w3c/media-source/issues/320">propose</a> <code>ManagedMediaSource</code> to the <a href="https://www.w3.org/groups/wg/media">W3C&#8217;s Media Working Group</a> for formal standardization.</p>
+<p>Note that support for Managed Media Source is only available when an AirPlay source alternative is present, or remote playback is explicitly disabled.</p>
+<pre><code class="JS"><span class="keyword type">const</span> <span class="identifier">videoSource1</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'source'</span>);
+<span class="identifier">videoSource1</span>. <span class="identifier">type</span> <span class="operator">=</span> <span class="char">'video/mp4'</span> ;
+<span class="identifier">videoSource1</span>.<span class="identifier">src</span> <span class="operator">=</span> <span class="identifier">URL</span>.<span class="identifier">createObjectURL</span>(<span class="identifier">mediasource</span>);
+<span class="identifier">video</span>.<span class="identifier">appendChild</span>(<span class="identifier">videoSource1</span>) ;
+<span class="keyword type">const</span> <span class="identifier">videoSource2</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'source'</span>);
+<span class="identifier">videoSource2</span>. <span class="identifier">type</span> <span class="operator">=</span> <span class="char">'application/x-mpegURL'</span> ;
+<span class="identifier">videoSource2</span>.<span class="identifier">src</span> <span class="operator">=</span> <span class="string">"http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"</span>;
+<span class="identifier">video</span>.<span class="identifier">appendChild</span>(<span class="identifier">videoSource2</span>);
+</code></pre>
+<p>Learn all about Managed Media Source API by watching <em><a href="https://developer.apple.com/videos/play/wwdc2023/10122/">Explore media formats for the web</a></em> at WWDC23.</p>
+<figure>
+<picture><source srcset="https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-scaled.jpg" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-scaled.jpg" alt="Photo of hands on a laptop with code using Managed Media Source on the screen. A still from the WWDC session. " width="2560" height="1440" class="aligncenter size-full wp-image-14741" srcset="https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-scaled.jpg 2560w, https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-300x169.jpg 300w, https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-1024x576.jpg 1024w, https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-768x432.jpg 768w, https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-1536x864.jpg 1536w, https://webkit.org/wp-content/uploads/managed_media_source_at_wwdc-2048x1152.jpg 2048w" sizes="(max-width: 2560px) 100vw, 2560px" />
+</picture>
+</figure>
+<h2>Safari Extensions updates</h2>
+<p>Safari 17.1 also adds support for <code>storage.session.setAccessLevel</code> and updated <code>storage.session</code> to be accessed only by<code>TRUSTED_CONTEXTS</code> by default.</p>
+<h2>Bug Fixes</h2>
+<p>WebKit for Safari 17.1 provides multiple bug fixes and feature polish.</p>
+<h3>Accessibility</h3>
+<ul>
+<li>Fixed properly exposing the expanded state of <code>&lt;details&gt;</code> elements on iOS. (109684906)</li>
+<li>Fixed exposing column headers of cells within <code>role="row"</code> elements with <code>display: contents</code> to assistive technologies. (115190637)</li>
+<li>Fixed empty accessibility label for <code>role="treeitem"</code> elements with <code>display: contents</code> who have child text starting with a newline. (115226509)</li>
+</ul>
+<h3>Authentication</h3>
+<ul>
+<li>Fixed a bug that could cause authentication through Extensible Enterprise Single Sign-On to hang if the authentication was canceled on the server side. (105809792)</li>
+</ul>
+<h3>CSS</h3>
+<ul>
+<li>Fixed <code>font-size-adjust</code> toggling font sizes for <code>system-ui</code> font. (111709567)</li>
+<li>Fixed counter values to prevent them from overflowing or underflowing. (111743827)</li>
+<li>Fixed <code>auto none</code> support for <code>contain-intrinsic-size</code>. (112479718)</li>
+</ul>
+<h3>JavaScript</h3>
+<ul>
+<li>Fixed a positive look-behind RegExp with alternatives of different minimum lengths. (112952197)</li>
+</ul>
+<h3>Loading</h3>
+<ul>
+<li>Fixed an issue with a workaround to handle cases where websites serve Data URLs with malformed padding. This issue prevented some images in Word documents from failing to display when hosted by Box and Sharepoint. (114573089)</li>
+</ul>
+<h3>Media</h3>
+<ul>
+<li>Fixed fullscreen ready check to remove the hierarchy requirement. (110004138)</li>
+<li>Fixed an issue where HTTP Live Streaming (HLS) videos may be offset and clipped within their video element&#8217;s frame. (110467872)</li>
+<li>Fixed videos disappearing when switching from landscape to portrait. (112416568)</li>
+<li>Fixed vertical multiline WebVTT captions getting cut off. (112951878)</li>
+<li>Fixed an issue where AirPods spatial audio quality is degraded after loading sites that request user media in Safari. (113604970)</li>
+<li>Fixed an issue where media will play with sound but no video after pressing the back button in Safari. (113605284)</li>
+<li>Fixed an issue where media of type <code>application/x-mpegURL; codecs="avc1.42E01E"</code> does not play in Safari. (113608345)</li>
+<li>Fixed an issue where a media element backed by MediaSource may not receive the <code>seeked</code> event. (114594559)</li>
+</ul>
+<h3>Performance</h3>
+<ul>
+<li>Fixed a bug that caused poor performance when resuming WebKit-based apps, including causing a black screen or a blurry snapshot of the app&#8217;s prior state to be temporarily visible to users. (114795818)</li>
+</ul>
+<h3>Rendering</h3>
+<ul>
+<li>Fixed an issue where scrollbars would sometimes show unexpectedly in fullscreen content. (113605155)</li>
+<li>Fixed a bug that could cause sites to layout improperly in Private Browsing mode. (113607432)</li>
+<li>Fixed handling iframes with <code>display: none</code>.  (112494003)</li>
+</ul>
+<h3>Web API</h3>
+<ul>
+<li>Fixed an issue that could trigger a crash when web content uses WebSockets. (75425816)</li>
+<li>Fixed intermittent removal of <code>adoptedStyleSheet</code> CSSStyleSheet instances when assigning an <code>adoptedStyleSheet</code> array. (107768559)</li>
+<li>Fixed: Improved the performance of IntersectionObserver operations during scrolling. (111120491)</li>
+<li>Fixed <code>ElementInternals.setFormValue(&lt;nullish value&gt;)</code> to clear the submission value. (111802198)</li>
+<li>Fixed keyboard scroll not stopping after pressing the down arrow if <code>keyup</code> is default prevented. (112396756) (FB12647732)</li>
+<li>Fixed <code>window.postMessage</code> with OffscreenCanvas with an isolated world message listener. (112618195)</li>
+<li>Fixed a bug that could cause a nested popover element within a shadow DOM to improperly dismiss its ancestor popover. (113604250)</li>
+</ul>
+<h3>Web Apps</h3>
+<ul>
+<li>Fixed handling dismissed notifications on macOS. (113756668)</li>
+</ul>
+<h3>Web Inspector</h3>
+<ul>
+<li>Fixed objects logged to the console with multiple private fields that use the same name. (109215331)</li>
+<li>Fixed: Stopped using <code>Number.prototype.toLocaleString()</code> for numeric console format specifiers. (112170843)</li>
+</ul>
+<h3>WebGL</h3>
+<ul>
+<li>Fixed an issue which would cause unnecessary “WebGL: context lost.&#8221; errors after Safari has been moved to the background on iPadOS. (115500744)</li>
+</ul>
+<h2>Updating</h2>
+<p>If you are running macOS Ventura or macOS Monterey, you can update Safari by going to Software Update, and clicking “More info”. On macOS Ventura, that’s  > System Settings > General > Software Update > More info. To get Safari 17.1 on your iPhone or iPad, go to Settings > General > Software Update, and tap to update.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/download/">Safari Technology Preview</a> to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<h2>Feedback</h2>
+<p>We love hearing from you. To share your thoughts on Safari 17.1, find us on Mastodon at <a href="https://front-end.social/@jensimmons">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis">@jondavis@mastodon.social</a>. Or send a reply on X to <a href="https://twitter.com/webkit">@webkit</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/">feedback</a> on Safari UI, or your <a href="https://bugs.webkit.org/">WebKit bug report</a> about web technologies or Web Inspector. Filing issues really does make a difference.</p>
+<p>You can also find this information in the <a href="https://developer.apple.com/documentation/safari-release-notes/">Safari 17.1 release notes</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

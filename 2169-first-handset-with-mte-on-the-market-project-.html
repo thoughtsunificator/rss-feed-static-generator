@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>First handset with MTE on the market (Project Zero)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">First handset with MTE on the market (Project Zero)</h2>
+		<a target="_blank" href="https://lwn.net/Articles/950123/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The Google Project Zero blog <a
+href="https://googleprojectzero.blogspot.com/2023/11/first-handset-with-mte-on-market.html">celebrates
+the launch of the Pixel&nbsp;8 handset</a>, the first to make use of Arm's
+Memory Tagging Extension (MTE).  Linux has <a
+href="https://lwn.net/Articles/834289/">supported MTE</a> since the 5.10 release in 2020,
+but that support has only now shown up (in experimental form) in an
+available handset.
+<p>
+<blockquote class="bq">
+	I think this is a huge improvement for the general security of the
+	device - many zero-click attack surfaces involve large amounts of
+	unsafe C/C++ code, whether that's WebRTC for calling, or one of the
+	many media or image file parsing libraries. MTE is not a silver
+	bullet for memory safety - but the release of the first production
+	device with the ability to run almost all user-mode applications
+	with synchronous-MTE is a huge step forward, and something that's
+	worth celebrating!
+</blockquote>
+<p>
+The article includes detailed instructions for how to turn the MTE feature
+on.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 179</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 179</h2>
+		<a target="_blank" href="https://webkit.org/blog/14532/release-notes-for-safari-technology-preview-179/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 179 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma beta and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/d87a70ea254bd9a81675a7fe688be40987b6a621...369af365da813ddc565c523c65aedba89c202acd">266624@main&#8230;267815@main</a>.</p>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>mask-border</code> properties. (<a href="https://commits.webkit.org/267460@main">267460@main</a>)  </li>
+<li>Added support for the <code>cap</code> unit. (<a href="https://commits.webkit.org/267315@main">267315@main</a>)  </li>
+<li>Added support for the <code>&lt;position&gt;</code> parameter in <code>ray()</code>. (<a href="https://commits.webkit.org/267459@main">267459@main</a>)  </li>
+<li>Added new relaxed parsing behavior for CSS Nesting. (<a href="https://commits.webkit.org/267549@main">267549@main</a>)  </li>
+<li>Added support for <code>xywh()</code> shape. (<a href="https://commits.webkit.org/267789@main">267789@main</a>)  </li>
+<li>Added support for <code>offset-position: normal</code> for CSS Motion Path. (<a href="https://commits.webkit.org/267657@main">267657@main</a>)  </li>
+<li>Added support for the <code>rcap</code>, <code>rex</code>, <code>ric</code>, and <code>rch</code> units. (<a href="https://commits.webkit.org/267321@main">267321@main</a>)  </li>
+<li>Added new typed OM factory functions for font and root font relative units. (<a href="https://commits.webkit.org/267437@main">267437@main</a>)  </li>
+<li>Added support for the <code>coord-box</code> parameter in <code>ray()</code>. (<a href="https://commits.webkit.org/267566@main">267566@main</a>)  </li>
+<li>Added <code>offset-position</code> support for <code>circle()</code> and <code>ellipse()</code>. (<a href="https://commits.webkit.org/267810@main">267810@main</a>)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the <code>font-family</code> descriptor for <code>@font-palette-values</code> to accept multiple values. (<a href="https://commits.webkit.org/267411@main">267411@main</a>)  </li>
+<li>Fixed CSS <code>@imports</code> in HTML getting mistakenly hidden from the CSS preload scanner when missing a semi-colon and space. (<a href="https://commits.webkit.org/267322@main">267322@main</a>)  </li>
+<li>Fixed <code>:nth-child()</code> invalidation when not in subject position. (<a href="https://commits.webkit.org/267600@main">267600@main</a>)  </li>
+<li>Fixed <code>:has(:host)</code> invalidation. (<a href="https://commits.webkit.org/267773@main">267773@main</a>)  </li>
+<li>Fixed <code>:has(:nth-child())</code> invalidation and related. (<a href="https://commits.webkit.org/267771@main">267771@main</a>)  </li>
+<li>Fixed handling dynamic updates to viewport units when used in <code>@property</code> initial value. (<a href="https://commits.webkit.org/267590@main">267590@main</a>)  </li>
+<li>Fixed the <code>&lt;basic-shape&gt;</code> implementation for <code>offset-path</code>. (<a href="https://commits.webkit.org/267556@main">267556@main</a>)  </li>
+<li>Fixed <code>&lt;coord-box&gt;</code> implementation for <code>offset-path</code>. (<a href="https://commits.webkit.org/267524@main">267524@main</a>)  </li>
+<li>Fixed serialization to always serialize implicit <code>&amp;</code> and an implicit nested rule. (<a href="https://commits.webkit.org/267531@main">267531@main</a>)  </li>
+<li>Fixed the serialization of percentages in <code>color-mix()</code>. (<a href="https://commits.webkit.org/267596@main">267596@main</a>)  </li>
+<li>Fixed the check for in-progress layout when setting a containing block rect for <code>ray()</code> used with <code>motion-path</code>. (<a href="https://commits.webkit.org/267479@main">267479@main</a>)  </li>
+<li>Fixed adding fine-grained invalidation support for selectors containing <code>:slotted()</code>. (<a href="https://commits.webkit.org/267326@main">267326@main</a>)  </li>
+<li>Fixed rounding of <code>&lt;integer&gt;</code> type to round half towards positive infinity. (<a href="https://commits.webkit.org/267339@main">267339@main</a>)  </li>
+<li>Fixed fine-grained invalidation for <code>:host</code> pseudo-class in non-subject position. (<a href="https://commits.webkit.org/267355@main">267355@main</a>)  </li>
+<li>Fixed the container for the <code>::part</code> pseudo-element to be selected from the originating element tree. (<a href="https://commits.webkit.org/267421@main">267421@main</a>)  </li>
+<li>Fixed serialization of <code>infinity</code> and <code>-infinity</code> in colors. (<a href="https://commits.webkit.org/267544@main">267544@main</a>)  </li>
+<li>Fixed <code>lab</code>, <code>lch</code>, <code>oklab</code>, <code>oklch</code> components to be clamped to appropriate ranges. (<a href="https://commits.webkit.org/267555@main">267555@main</a>)  </li>
+<li>Fixed <code>coord-box</code> to use <code>border-radius</code> for CSS Motion Path. (<a href="https://commits.webkit.org/267613@main">267613@main</a>)  </li>
+<li>Fixed <code>color-mix()</code> to not serialize to legacy color syntax. (<a href="https://commits.webkit.org/267626@main">267626@main</a>)  </li>
+<li>Fixed resolving the size of a replaced element by using its intrinsic size as the width. (<a href="https://commits.webkit.org/267648@main">267648@main</a>)  </li>
+<li>Fixed determining non-orthogonal grid item&#8217;s columnAxisPosition by considering fallback alignment for first/last baseline. (<a href="https://commits.webkit.org/267811@main">267811@main</a>)  </li>
+</ul>
+<h3>HTML</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <code>name</code> attribute in the <code>&lt;details&gt;</code> element. (<a href="https://commits.webkit.org/267756@main">267756@main</a>)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>&lt;input type="number"&gt;</code> not returning the correct value when a decimal is entered. (<a href="https://commits.webkit.org/267581@main">267581@main</a>)  </li>
+<li>Fixed dynamic handling of <code>&lt;base&gt;</code> elements. (<a href="https://commits.webkit.org/267498@main">267498@main</a>)  </li>
+<li>Fixed URL encoding of <code>&lt;base&gt;</code> elements. (<a href="https://commits.webkit.org/267585@main">267585@main</a>)  </li>
+<li>Fixed URL encoding of SVG <code>&lt;image&gt;</code> elements. (<a href="https://commits.webkit.org/267593@main">267593@main</a>)  </li>
+<li>Fixed empty value attributes to not be ignored on image input types. (<a href="https://commits.webkit.org/267592@main">267592@main</a>)  </li>
+</ul>
+<h3>HTTP</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed COOP header breaking back and forward behavior when client-side redirects are involved. (<a href="https://commits.webkit.org/267553@main">267553@main</a>)  </li>
+</ul>
+<h3>Media</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for WebRTC HEVC RFC 7789 RTP Payload Format. (<a href="https://commits.webkit.org/267677@main">267677@main</a>, <a href="https://commits.webkit.org/267862@main">267862@main</a>)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed WebCodecs VideoEncoder configure to resolve its promise for unknown codecs. (<a href="https://commits.webkit.org/267668@main">267668@main</a>)  </li>
+<li>Fixed handling <code>NaN</code> in audio delay curves. (<a href="https://commits.webkit.org/267589@main">267589@main</a>)  </li>
+<li>Fixed setting the color space for WebCodecs/WebRTC VP9 for libvpx encoders. (<a href="https://commits.webkit.org/267638@main">267638@main</a>)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for SVG <code>&lt;image crossorigin&gt;</code>. (<a href="https://commits.webkit.org/267349@main">267349@main</a>)  </li>
+</ul>
+<h3>Web Animations</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>color-scheme</code> to support discrete animation. (<a href="https://commits.webkit.org/267750@main">267750@main</a>)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>window.clientInformation</code> in terms of <code>window.navigator</code>. (<a href="https://commits.webkit.org/267625@main">267625@main</a>)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed checking for <code>NaN</code> when creating a DelayNode for WebAudio. (<a href="https://commits.webkit.org/267650@main">267650@main</a>)  </li>
+<li>Fixed <code>element.querySelector(":has(:scope *)")</code> to never match. (<a href="https://commits.webkit.org/267809@main">267809@main</a>)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed <code>HTMLMediaElement.webkitHasClosedCaptions</code> and <code>HTMLMediaElement.webkitClosedCaptionsVisible</code>. (<a href="https://commits.webkit.org/267780@main">267780@main</a>)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for 2D OffscreenCanvas. (<a href="https://commits.webkit.org/262388@main">262388@main</a>, <a href="https://commits.webkit.org/267488@main">267488@main</a>)  </li>
+<li>Added a specialized editor for the CSS <code>steps()</code> timing function. (<a href="https://commits.webkit.org/267484@main">267484@main</a>)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed objects logged to the console with multiple private fields that use the same name. (<a href="https://commits.webkit.org/267483@main">267483@main</a>)  </li>
+</ul>
+<h3>WebGL</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>EXT_blend_func_extended</code>. (<a href="https://commits.webkit.org/267775@main">267775@main</a>)</li>
+<li>Enabled support for <code>WEBGL_clip_cull_distance</code> by default. (<a href="https://commits.webkit.org/267795@main">267795@main</a>)</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

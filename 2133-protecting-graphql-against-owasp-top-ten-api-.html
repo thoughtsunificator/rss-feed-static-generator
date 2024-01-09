@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Protecting GraphQL Against OWASP Top Ten API Risks</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Protecting GraphQL Against OWASP Top Ten API Risks</h2>
+		<a target="_blank" href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/?utm_source=rss&utm_medium=rss&utm_campaign=protecting-graphql-against-owasp-top-ten-api-risks">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>GraphQL, a powerful query language for APIs, has transformed how developers interact with data. Yet, with great power comes great responsibility — particularly regarding security. The OWASP <a href="https://owasp.org/www-project-api-security/">API Security Top 10 2023</a> provides a valuable roadmap for ensuring all styles of APIs remain robust and secure. This article will walk you through these risks, how they pertain to <a href="https://nordicapis.com/review-of-damn-vulnerable-graphql-application-dvga/">GraphQL</a>, and steps to mitigate them.</p>
+<h2 id="owasp-api-security-top-10-and-graphql">OWASP API Security Top 10 and GraphQL</h2>
+<h3 id="api01-broken-object-level-authorization-bola-">API01: Broken Object Level Authorization (BOLA)</h3>
+<p><a href="https://nordicapis.com/what-is-broken-object-level-authorization-and-how-to-fix-it/">Broken Object Level Authorization</a> (BOLA), formerly known as Insecure Direct Object Reference (IDOR), is a significant risk in APIs. This vulnerability arises when an API exposes objects without proper authorization checks. An attacker can take advantage of this to access unauthorized data by manipulating input parameters, such as object IDs.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>GraphQL is designed to give the end user what they requested in the format it was requested. While this is a huge foundational principle, it makes issues of broken authorization much more impactful. When the user can request various data sources in a single request, it becomes easier to request very specific attack vectors and ask for data they should not have access to.</p>
+<p>To resolve this threat, developers should implement fine-grained access control checks at the resolver level. Access control should be built into the API from day one. Libraries and tools such as <a href="https://the-guild.dev/graphql/shield">graphql-shield</a> could be deployed to ensure controls are in the right place and designed for the proper use case.</p>
+<h3 id="api02-broken-authentication">API02: Broken Authentication</h3>
+<p>This vulnerability pertains to flaws in authentication mechanisms, which could be abused or bypassed, allowing for a range of attacks. These attacks can be direct (as in data exfiltration) or indirect (as in denial of service attacks through bypassing <a href="https://nordicapis.com/different-algorithms-to-implement-rate-limiting-in-apis/">authentication-based rate limiting</a>).</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>With GraphQL, authentication is paramount. The amount of access to resources and the control over how these resources are delivered in GraphQL requires a high level of authentication that is routinely checked and validated. Developers should never bundle authentication directly into the GraphQL logic, and more mature solutions for authentication, like OAuth, should be utilized to ensure a proper integration and security posture.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-fix-broken-access-control/">How To Fix Broken Access Control</a></div>
+<h3 id="api03-broken-object-property-level-authorization-bopla-">API03: Broken Object Property Level Authorization (BOPLA)</h3>
+<p>BOPLA highlights the risk of users accessing specific fields of an API object they aren&#8217;t authorized to view. This vulnerability combines issues like Excess Data Exposure and Mass Assignment. This inadequate validation of user authorization at the property level potentially leads to unwanted data exposure or manipulation.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>GraphQL allows users to request specific object properties, and without proper checks, sensitive properties could be exposed. To protect against this kind of attack, developers must employ appropriate property-level checks, especially for sensitive data fields. <a href="https://nordicapis.com/10-types-of-api-testing/">Static analysis tooling</a> can be used to identify and mitigate potential data exposure as well as highlight critical areas that need ramped-up protection.</p>
+<h3 id="api04-unrestricted-resource-consumption">API04: Unrestricted Resource Consumption</h3>
+<p>APIs that don&#8217;t correctly limit or monitor their resource consumption are vulnerable to this type of attack. Overconsumption of resources can lead to denial of service and, in long-term attacks, can heighten operational costs to a damaging level.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>GraphQL relies entirely on the user to set expectations for queries and responses, and as such, the user has the power to issue quite expensive queries. Excessively deep or expensive queries that do not effectively use <a href="https://nordicapis.com/general-techniques-for-proper-api-caching/">caching or rate-limiting</a> can cause severe server strain, leading to Denial of Service. Excessive queries without proper caching can replicate this damage ad infinitum and raise production costs to astronomical levels.</p>
+<p>Developers can implement rate limits, <a href="https://nordicapis.com/whats-the-difference-between-an-api-gateway-and-a-load-balancer/">load balancing</a>, caching, and other systems to reduce this on a practical level. At the base level, implementing controls for query complexity and depth can ensure no one query is so expensive that it can take down a system and can reduce the overall breadth and depth of denial of service style attacks.</p>
+<div class="well">Also check out: <a href="https://nordicapis.com/review-of-damn-vulnerable-graphql-application-dvga/">Review of Damn Vulnerable GraphQL Application (DVGA)</a></div>
+<h3 id="api05-broken-function-level-authorization-bfla-">API05: Broken Function Level Authorization (BFLA)</h3>
+<p>BFLA occurs when users can execute functions they&#8217;re not authorized for, like a regular user performing an admin-level task. These weaknesses in access control policies lead to unauthorized access to functions and the underlying protected data.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>GraphQL mutations can be abused if function-level authorization is absent or flawed, and this abuse can compound into further exposure through various combinatory tasks. Developers must ensure that GraphQL instances have appropriate resolver-level checks. Additionally, they must regularly review and test permissions at the function level to ensure that users can only do the minimum they must do to achieve the stated goal of that user group (adhering directly to the <a href="https://nordicapis.com/how-should-apis-adopt-a-least-privilege-security-model/">concept of least privilege</a>).</p>
+<h3 id="api06-unrestricted-access-to-sensitive-business-flows">API06: Unrestricted Access to Sensitive Business Flows</h3>
+<p>This kind of issue arises when business flows — for instance, purchasing an item — are exposed without consideration for what this means for the holistic API. The problem with this kind of flaw is that it&#8217;s not necessarily a configuration error — after all, purchasing an item may indeed be the entire point of the API. We saw this kind of flaw rampant during the launch of video game consoles in the last few years, where attackers utilized an endpoint and a botnet of devices to automatically buy up the entire stock of an item for later resale.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>This kind of attack particularly threatens GraphQL because of the nature of introspection. These kinds of attacks can only be done with known endpoints, and GraphQL often offers the endpoints on a silver platter to would-be attackers. Mitigating this kind of threat must happen at the business logic level. For instance, restricting the number of purchases by account or payment method, using heuristics to identify irregular purchasing patterns that might suggest a distributed attack, and more.</p>
+<h3 id="api07-server-side-request-forgery-ssrf-">API07: Server Side Request Forgery (SSRF)</h3>
+<p>SSRF is when an attacker induces the server to make a request on their behalf, potentially accessing internal resources or exposing sensitive information. This potentially allows unrestricted access to critical functions.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>The unfortunate thing about GraphQL is that more user control over data queries and returns can turn GraphQL into a sort of accomplice for these kinds of attacks. Developers should be wary of implicitly trusting server-side requests, and should <a href="https://nordicapis.com/10-free-to-use-cors-proxies/">validate those requests</a> the same way they would with any other user. In essence, a <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">zero-trust model</a> is the most appropriate for this kind of setup. Additional controls can happen at the business logical level by exposing only necessary resources outside of the core server — in essence, only the most necessary access for a server-side request can be made accessible, thereby limiting the potential threat escalation.</p>
+<h3 id="api08-security-misconfiguration">API08: Security Misconfiguration</h3>
+<p>This is a broad category that includes mistakenly exposing sensitive information or functionalities due to misconfigurations in the server or application. At its most basic, this category can broadly be defined as flaws that let attackers force the API to make unwanted requests to external resources.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>Introspection is a specific concern with GraphQL. By default, GraphQL often allows a level of introspection that, while great for the end user, has the potential for abuse, identification of new attack vectors, and escalations of discovered issues. Leaving this wide open could broadly be considered a <a href="https://nordicapis.com/beware-oauth-misconfigurations-to-protect-your-web-apis/">security misconfiguration</a> in terms of GraphQL.</p>
+<p>Additional steps can be taken to validate and sanitize URIs in resolvers, restrict outbound requests at the network level where possible, ensure that there are no routes for privilege escalation, and others. The general best advice for security configuration exists in GraphQL as well. Ensure you adhere to the principle of <a href="https://nordicapis.com/how-should-apis-adopt-a-least-privilege-security-model/">least privilege</a> and balance the need for accessibility with security and control.</p>
+<h3 id="api09-improper-inventory-management">API09: Improper Inventory Management</h3>
+<p>This vulnerability is about not maintaining a clear <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/">inventory of API versions</a>, environments, and deprecated fields. Attackers can exploit this oversight to find and exploit old or unprotected API endpoints.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>GraphQL&#8217;s single endpoint can be both a boon and a bane, as outdated resolvers or types might be overlooked. Deprecated systems may not have the fixes and controls that newer ones do, and old systems based on old versions of authentication or authorization libraries and frameworks may be, by their very nature, insecure.</p>
+<p>Developers can resolve this by using tools like <a href="https://www.apollographql.com/docs/graphos/">Apollo Studio</a> to control graphs and variants. Regularly deprecating and removing outdated resolvers and types manually can help in this process, although automated scanning for larger instances is also highly effective with a much lower operating ceiling.</p>
+<h3 id="api10-unsafe-consumption-of-apis">API10: Unsafe Consumption of APIs</h3>
+<p>It&#8217;s essential to validate and sanitize data from <a href="https://nordicapis.com/6-ways-financial-apis-benefit-consumers/">third-party APIs</a>. Treating data from external systems as trusted can introduce vulnerabilities to the system, especially when consuming these APIs without due diligence.</p>
+<h4 id="graphql-threat">GraphQL Threat</h4>
+<p>If a GraphQL instance acts as a gateway to third-party services, any compromise of this connected service will compromise the GraphQL instance. To take this a step further, any external service that is relied upon for any amount of functionality necessarily increases this risk.</p>
+<p>Developers should validate and sanitize all data from third-party APIs. External systems should be utilized within a <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">zero-trust model</a> and should be looked at suspectly at all times. Limiting GraphQL&#8217;s direct interaction with third-party services can mitigate this kind of attack. However, this also undermines the value of public APIs as a core concept, so this will always be a balancing act between security and utility.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/the-ultimate-api-security-checklist/">The Ultimate API Security Checklist</a>)</div>
+<h2 id="conclusion">Conclusion</h2>
+<p>GraphQL is extremely powerful, but with great power comes the need to secure it properly. By understanding the potential threats highlighted by the OWASP API Security Top 10 2023, GraphQL developers can ensure that their applications are efficient and robustly secure. Regular audits, combined with the implementation of best practices, will keep GraphQL deployments safe and sound.</p>
+<p>What do you think about this piece? Have we missed some other solutions for implementing security processes against the OWASP Top Ten Risks? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

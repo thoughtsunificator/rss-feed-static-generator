@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebKit Features in Safari 17.0</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">WebKit Features in Safari 17.0</h2>
+		<a target="_blank" href="https://webkit.org/blog/14445/webkit-features-in-safari-17-0/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Today’s the day for Safari 17.0. It’s now available for <a href="https://www.apple.com/ios/ios-17/">iOS 17</a> and <a href="https://www.apple.com/ipados/ipados-17/">iPadOS 17</a>.</p>
+<p>[Update September 26th] And now, Safari 17.0 is available for macOS Ventura, and macOS Monterey, and <a href="https://www.apple.com/macos/sonoma-preview/">macOS Sonoma</a>. Safari 17.0 is also available in the <a href="https://developer.apple.com/documentation/visionos/interacting-with-your-app-in-the-visionos-simulator/">vision OS Simulator</a>, where you can test your website by downloading the latest beta of Xcode 15, which supports the <a href="https://developer.apple.com/visionos/resources/">visionOS SDK</a>.</p>
+<p>If you are running macOS Ventura or macOS Monterey, you can update Safari by going to Software Update and clicking “More info”. On macOS Ventura, that’s  > System Settings > General > Software Update > More info, and choose to update Safari. To get Safari 17.0 on your iPhone or iPad, go to Settings > General > Software Update and tap to update to iOS 17 or iPadOS 17.</p>
+<figure class="widescreen">
+<picture><source srcset="https://webkit.org/wp-content/uploads/Safari_17.0_features_dark-1024x576.jpeg" media="(prefers-color-scheme: dark)" /><img decoding="async" loading="lazy" src="https://webkit.org/wp-content/uploads/Safari_17.0_features_light-1024x576.jpeg" alt="word cloud of all the features in Safari 17.0, which are all described in this article" width="1024" height="576" class="alignnone size-large wp-image-14487" srcset="https://webkit.org/wp-content/uploads/Safari_17.0_features_light-1024x576.jpeg 1024w, https://webkit.org/wp-content/uploads/Safari_17.0_features_light-300x169.jpeg 300w, https://webkit.org/wp-content/uploads/Safari_17.0_features_light-768x432.jpeg 768w, https://webkit.org/wp-content/uploads/Safari_17.0_features_light-1536x864.jpeg 1536w, https://webkit.org/wp-content/uploads/Safari_17.0_features_light.jpeg 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />
+</picture>
+</figure>
+<h2>HTML</h2>
+<h3>The new search element</h3>
+<p>While new web technology is defined in web standards all the time, it’s rare for a brand-new HTML element to come along. It only happens when something meets <a href="https://www.w3.org/TR/html-design-principles/">very high</a> expectations of utility. Search is a key function for most websites, so now, there’s a new element — <code>&lt;search&gt;</code>.</p>
+<p>Up until now, search boxes were often constructed in markup like this:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">div</span> <span class="keyword attribute">class</span>=<span class="attribute value string">"search-box"</span> <span class="keyword attribute">role</span>=<span class="attribute value string">"search"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">form</span> <span class="keyword attribute">action</span>=<span class="attribute value string">"/search"</span>&gt;</span>
+    <span class="tag">&lt;<span class="keyword">p</span>&gt;</span><span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"search"</span> <span class="keyword attribute">name</span>=<span class="attribute value string">"q"</span>&gt;</span> <span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"submit"</span> <span class="keyword attribute">value</span>=<span class="attribute value string">"Search!"</span>&gt;</span><span class="tag">&lt;/<span class="keyword">p</span>&gt;</span>   
+  <span class="tag">&lt;/<span class="keyword">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">div</span>&gt;</span>
+</code></pre>
+<p>Notice the presence of ARIA <code>role="search"</code> on the first line of code above. Without the <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Search_role">ARIA search role</a>, search functionality is not made properly accessible to all users — a problem that’s far too easy to create.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search"><code>&lt;search&gt;</code></a> element automatically provides the correct accessibility semantics for the search section of a website or web app. This aligns with the principles of HTML, making the default accessible, instead of requiring you to remember to take an action to add accessibility. The <code>&lt;search&gt;</code> element also supplies the semantic markup for communicating the inherent meaning of a search form to a wide range of computing contexts, from translation algorithms to machine learning.</p>
+<p>We are excited to be the first browser to ship this new <code>&lt;search&gt;</code> element, now supported in Safari 17.0.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">search</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">form</span> <span class="keyword attribute">action</span>=<span class="attribute value string">"/search"</span>&gt;</span>
+    <span class="tag">&lt;<span class="keyword">p</span>&gt;</span><span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"search"</span> <span class="keyword attribute">name</span>=<span class="attribute value string">"q"</span>&gt;</span> <span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"submit"</span> <span class="keyword attribute">value</span>=<span class="attribute value string">"Search!"</span>&gt;</span><span class="tag">&lt;/<span class="keyword">p</span>&gt;</span>   
+  <span class="tag">&lt;/<span class="keyword">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">search</span>&gt;</span>
+</code></pre>
+<p>Browsers without <a href="https://caniuse.com/mdn-html_elements_search">support for the search element</a> will recognize there is an element present, and they will recognize any attributes it has — including roles, IDs, and classes. It will simply behave like a generic element, as if it were a <code>&lt;div&gt;</code>. Because of this, we recommend you include an ARIA search role on the <code>&lt;search&gt;</code> element for now. By using <code>&lt;search role="search"&gt;</code>, you will ensure every user has the intended experience. And in the future, when all browsers have support, you can drop the ARIA search role.</p>
+<p>In the meantime, you can start using <code>&lt;search&gt;</code> today with confidence, long before a significant percent of your audience use browsers with support.</p>
+<h3>Popover</h3>
+<p>Safari 17.0 adds support for the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover">popover</a> attribute. It provides a framework built into the web for displaying overlays, popups, popovers, and dialogs.</p>
+<p>There are two types of popovers, which can be used as values for the <code>popover</code> attribute:</p>
+<ul>
+<li><code>auto</code> popovers, which automatically close when you click outside of the popover; and</li>
+<li><code>manual</code> popovers, which don’t have this automatic closing behavior.</li>
+</ul>
+<p>Start with a button (either <code>&lt;button&gt;</code> or <code>&lt;input type="button"&gt;</code>) to create the UI for opening and closing the popover. Then, add the appropriate HTML attributes to create the desired result.</p>
+<p>The <code>popovertarget</code> attribute connects the button to the popover content through an ID. The optional  <code>popovertargetaction</code> attribute takes <code>show</code>, <code>hide</code>, or <code>toggle</code> as values. By default, <code>toggle</code> is used.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">button</span> <span class="keyword attribute">popovertarget</span>=<span class="attribute value string">"info-box"</span> <span class="keyword attribute">popovertargetaction</span>=<span class="attribute value string">"show"</span>&gt;</span>More info<span class="tag">&lt;/<span class="keyword">button</span>&gt;</span>
+
+<span class="tag">&lt;<span class="keyword">article</span> <span class="keyword attribute">id</span>=<span class="attribute value string">"info-box"</span> <span class="keyword attribute">popover</span>=<span class="attribute value string">"auto"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">h2</span>&gt;</span>Additional Information<span class="tag">&lt;/<span class="keyword">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">p</span>&gt;</span>Here’s something I wanted to tell you.<span class="tag">&lt;/<span class="keyword">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">button</span> <span class="keyword attribute">popovertarget</span>=<span class="attribute value string">"info-box"</span> <span class="keyword attribute">popovertargetaction</span>=<span class="attribute value string">"hide"</span>&gt;</span>Close<span class="tag">&lt;/<span class="keyword">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">article</span>&gt;</span>
+</code></pre>
+<p>This is just one UI pattern you might find useful. There are many possible combinations. Having a popover mechanism in HTML makes for quick work, while ensuring great usability and full accessibility.</p>
+<p>To go beyond a simple button trigger, a JavaScript API opens up more powerful possibilities through <code>showPopover()</code>, <code>hidePopover()</code>, and <code>togglePopover()</code>.</p>
+<h3>Horizontal rules inside select elements</h3>
+<p>Safari 17.0 on macOS also adds support for <code>&lt;hr&gt;</code> inside of <code>&lt;select&gt;</code>, a feature the WebKit team added to the HTML web standard. This makes it easier to create a visual separator between items without requiring the use of JavaScript.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">select</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">option</span> <span class="keyword attribute">value</span>=<span class="attribute value string">"pizza"</span>&gt;</span>Pizza<span class="tag">&lt;/<span class="keyword">option</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">option</span> <span class="keyword attribute">value</span>=<span class="attribute value string">"hamburger"</span>&gt;</span>Hamburger<span class="tag">&lt;/<span class="keyword">option</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">option</span> <span class="keyword attribute">value</span>=<span class="attribute value string">"sushi"</span>&gt;</span>Ice cream<span class="tag">&lt;/<span class="keyword">option</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">option</span> <span class="keyword attribute">value</span>=<span class="attribute value string">"pasta"</span>&gt;</span>Cake<span class="tag">&lt;/<span class="keyword">option</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">select</span>&gt;</span> 
+</code></pre>
+<h2>CSS</h2>
+<h3>Font size adjust</h3>
+<p>In <a href="https://webkit.org/blog/13966/webkit-features-in-safari-16-4/">Safari 16.4</a>, we shipped initial support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size-adjust"><code>font-size-adjust</code></a>, which allows you to easily make the visual size of different fonts consistent — even across all possible combinations of fallback fonts.</p>
+<p>The basic version of <code>font-size-adjust</code> lets you tell the browser to resize letters so that their x-height is a specific ratio of the <code>font-size</code>. In Safari 17.0, we’re expanding support to include more advance capabilities of <code>font-size-adjust</code>, including the <code>from-font</code> value and the two-value syntax.</p>
+<p>The two-value syntax lets you to switch from adjusting <code>ex-height</code> to adjusting <code>cap-height</code>, <code>ch-width</code>, <code>ic-width</code>, or <code>ic-height</code> — providing support for a broader range of writing systems and design choices.</p>
+<figure><picture>
+<img decoding="async" loading="lazy" src="https://webkit.org/wp-content/uploads/font-size-adjust-1024x576.jpeg" alt="Slide from WWDC23, showing where on various letters and characters the measurements ex-height, cap-height, ch-width, ic-width, and ic-height apply." width="1024" height="576" class="size-large wp-image-14470" srcset="https://webkit.org/wp-content/uploads/font-size-adjust-1024x576.jpeg 1024w, https://webkit.org/wp-content/uploads/font-size-adjust-300x169.jpeg 300w, https://webkit.org/wp-content/uploads/font-size-adjust-768x432.jpeg 768w, https://webkit.org/wp-content/uploads/font-size-adjust-1536x864.jpeg 1536w, https://webkit.org/wp-content/uploads/font-size-adjust.jpeg 1920w" sizes="(max-width: 1024px) 100vw, 1024px" /></picture><figcaption>Learn more about how `font-size-adjust` works by watching <a href="https://developer.apple.com/videos/play/wwdc2023/10121"><i>What’s New in CSS</i></a> from WWDC23.</figcaption></figure>
+<p>Instead of declaring a ratio with a number value, the <code>from-font</code> value allows you to ask the browser to pull the sizing metric from the primary font being specified, and apply that ratio to all fonts.</p>
+<p>Let’s look at an example. Here, <code>font-size-adjust</code> tells the browser to make all of the fonts inside <code>article</code> match the size of the x-height of the main font being used. This means all of the text in paragraphs and code will visually appear to be the same size, no matter which font is applied from either stack, or how different the paragraph and code fonts appear in actual size.</p>
+<pre><code class="css"><span class="keyword">article</span> { 
+  <span class="attribute">font-family</span>: <span class="string">"Iowan Old Style"</span>, <span class="string">"Palatino Linotype"</span>, <span class="string">"URW Palladio L"</span>, <span class="identifier">P052</span>, <span class="identifier">serif</span>;
+  <span class="attribute">font-size</span>: <span class="number">1.4</span><span class="identifier">rem</span>;
+  <span class="attribute">font-size-adjust</span>: <span class="identifier">from-font</span>;
+}
+<span class="keyword">article</span> <span class="keyword">code</span> {
+  <span class="attribute">font-family</span>: <span class="string">"Courier New"</span>, <span class="identifier">monospace</span>;
+}
+</code></pre>
+<p>Safari 17.0 also adds support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust"><code>@font-face size-adjust</code></a>, providing a way for you to normalize visual size when defining a font’s use.</p>
+<h3>Text transform</h3>
+<p>Safari 17.0 adds support for <code>text-transform: full-width</code> and <code>text-transform: full-size-kana</code>.</p>
+<p>The <code>full-width</code> value transforms all the characters in your text to be “full-width” — to match the width of characters defined in an East Asian script like Chinese, Japanese, or Korean (CJK). It’s especially useful when typesetting vertical text or wanting to provide consistency in sizing when mixing CJK with Latin or other scripts.</p>
+<p>The <code>full-size-kana</code> value transforms the size of small Kana characters in Japanese to look like their full-size counterparts — a technique sometimes used to make <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ruby"><code>ruby</code></a> text more legible at small sizes.</p>
+<p>Safari 17.0 also adds support for declaring more than one <code>text-transform</code> value, so that these values can be combined. For example <code>text-transform: uppercase full-width</code> will transform characters in a Latin script to be both all capital letters and the same width as the CJK characters in the font.</p>
+<h3>Font support testing</h3>
+<p>To expand what’s possible with web typography, Safari 17.0 adds two <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Conditional_Rules/Using_Feature_Queries">feature queries</a> for conditionally applying CSS depending on the presence or absence of browser support for a particular font format or technology: <code>@supports font-format()</code> and <code>@supports font-tech()</code>.</p>
+<p>The <a href="https://www.w3.org/TR/css-fonts-4/#font-format-definitions">font format</a> feature query tests for support of specific font formats, like <code>opentype</code> and <code>woff2</code>. The <a href="https://drafts.csswg.org/css-fonts-4/#font-tech-definitions">font tech</a> feature query lets you test for support of specific OpenType technologies, like <code>COLRv0</code>.</p>
+<pre><code class="css"><span class="keyword">@supports</span> <span class="keyword">not</span> (<span class="keyword">font-tech</span>(<span class="keyword">color-COLRv0</span>) <span class="keyword">or</span> <span class="keyword">font-tech</span>(<span class="keyword">color-COLRv1</span>)) {
+  <span class="attribute">h1</span> {
+    <span class="attribute">color</span>: <span class="identifier">--text-color-for-non-color-fonts</span>;
+  }
+}
+</code></pre>
+<p>Safari 17.0 also adds support for  <code>@font-face { src: url() tech() }</code>, making it easy to tell the browser to download and use a font only if its underlying technology is supported, while providing alternative font files as fallbacks.</p>
+<pre><code class="css"><span class="keyword">@font-face</span> {
+    <span class="attribute">font-family</span>: <span class="string">"My Cool Font"</span>;
+    <span class="attribute">src</span>: <span class="char">url("mycoolfont-COLRv0.otf")</span> <span class="identifier">format</span>(<span class="identifier">opentype</span>) <span class="identifier">tech</span>(<span class="identifier">color-COLRv0</span>),
+         <span class="char">url("mycoolfont-COLRv1.otf")</span> <span class="identifier">format</span>(<span class="identifier">opentype</span>) <span class="identifier">tech</span>(<span class="identifier">color-COLRv1</span>),
+         <span class="char">url("mycoolfont-outline.otf")</span> <span class="identifier">format</span>(<span class="identifier">opentype</span>);
+}
+</code></pre>
+<h3>Hyphenation</h3>
+<p>Supported in Safari with <code>-webkit-</code> prefixes since 2011, the <code>hyphens</code> and <code>hyphenate-character</code> properties are now supported in their unprefixed form.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens"><code>hyphens</code></a> property lets you specify whether or not words should be hyphenated when text wraps onto multiple lines. The default, <code>hyphens:manual</code>, causes the browser to hyphenate only at manually-specified points. You can instead ask the browser to insert hyphens automatically according to an algorithm. Be sure to use the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang"><code>lang</code></a> attribute to identify the langauge being used, so the browser can reference the correct hyphenation dictionary.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">html</span> <span class="keyword attribute">lang</span>=<span class="attribute value string">"en-US"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">p</span>&gt;</span>Content that will be hyphenated according to 
+  the grammatical rules of U.S. English.<span class="tag">&lt;<span class="keyword">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">html</span>&gt;</span>           
+
+article {
+  hyphens: auto;
+}
+</code></pre>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hyphenate-character"><code>hyphenate-character</code></a> property lets you specify which character (or string) to use when breaking words. By default, it’s set to the content language&#8217;s typographic conventions. In English, for example, it&#8217;s set to <code>-</code>. But if you need to change it, you can.</p>
+<h3>Counter styles</h3>
+<p>Safari 17.0 adds support for <code>@counter-style</code>.</p>
+<figure>
+<picture>
+<img decoding="async" loading="lazy" src="https://webkit.org/wp-content/uploads/counter-styles-emoji-1024x576.jpeg" alt="a slide from WWDC23 of a Counter Styles example, where the code creates a list with emoji smiley faces as the list markers." width="1024" height="576" class="alignnone size-large wp-image-14464" srcset="https://webkit.org/wp-content/uploads/counter-styles-emoji-1024x576.jpeg 1024w, https://webkit.org/wp-content/uploads/counter-styles-emoji-300x169.jpeg 300w, https://webkit.org/wp-content/uploads/counter-styles-emoji-768x432.jpeg 768w, https://webkit.org/wp-content/uploads/counter-styles-emoji-1536x864.jpeg 1536w, https://webkit.org/wp-content/uploads/counter-styles-emoji.jpeg 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />
+</picture><figcaption>Learn more about how CSS Counters and Counter Styles work by watching <a href="https://developer.apple.com/videos/play/wwdc2023/10121"><i>What’s New in CSS</i></a> from WWDC23.</figcaption></figure>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style">CSS Counter Styles</a> provide a mechanism for changing a counter’s language or character set in CSS — both for ordered/unordered lists (with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"><code>list-style-type</code></a>) and for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles/Using_CSS_counters">CSS Counters</a>.</p>
+<p>For example, I can define a counting system for Serbian, and use it to number ordered lists.</p>
+<pre><code class="css"><span class="keyword">@counter-style</span> <span class="keyword">upper-serbian</span> {
+  <span class="attribute">system</span>: <span class="identifier">alphabetic</span>;
+  <span class="attribute">symbols</span>: <span class="string">'А'</span> <span class="string">'Б'</span> <span class="string">'В'</span> <span class="string">'Г'</span> <span class="string">'Д'</span> <span class="string">'Ђ'</span> <span class="string">'Е'</span> <span class="string">'Ж'</span> <span class="string">'З'</span> <span class="string">'И'</span> <span class="string">'Ј'</span> <span class="string">'К'</span> <span class="string">'Л'</span> <span class="string">'Љ'</span> <span class="string">'М'</span> <span class="string">'Н'</span> <span class="string">'Њ'</span> <span class="string">'О'</span> <span class="string">'П'</span> <span class="string">'Р'</span> <span class="string">'С'</span> <span class="string">'Т'</span> <span class="string">'Ћ'</span> <span class="string">'У'</span> <span class="string">'Ф'</span> <span class="string">'Х'</span> <span class="string">'Ц'</span> <span class="string">'Ч'</span> <span class="string">'Џ'</span> <span class="string">'Ш'</span>;
+}
+<span class="keyword">ol</span> { 
+  <span class="attribute">list-style</span>: <span class="identifier">upper-serbian</span>; 
+}
+</code></pre>
+<h3>Display contents</h3>
+<p>WebKit for Safari 17.0 fixes our remaining <a href="https://caniuse.com/css-display-contents">accessibility issues</a> with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display:contents</code></a>.</p>
+<p>Improvements in the experience of elements which are styled <code>display:contents</code> include:</p>
+<ul>
+<li>Making HTML tables and table components available to the accessibility tree.</li>
+<li>Ensuring elements with the ARIA roles <code>grid</code>, <code>treegrid</code>, <code>table</code>, <code>row</code>, <code>gridcell</code>, <code>cell</code>, <code>columnheader</code>, <code>tree</code> and <code>treeitem</code> are properly exposed in the accessibility tree.</li>
+<li>Ensuring <code>aria-checked</code> works for elements with the ARIA roles <code>tree</code> and <code>treeitem</code>. </li>
+<li>Returning the correct sub-role for lists, including elements with an ARIA role of <code>directory</code>.</li>
+<li>Ensuring elements are not missing their children.</li>
+<li>Making elements able to return selected accessibility children.</li>
+<li>Computing the accessible name that rely on labels or captions.</li>
+<li>Computing the correct accessibility clickpoint for links and headings.</li>
+<li>Properly exposing lists that have <code>display:contents</code> list items.</li>
+<li>Making <code>aria-checked</code> work for <code>role="treeitem"</code>.</li>
+<li>Making <code>aria-activedescendant</code> work.</li>
+<li>Making <code>aria-grabbed</code> and <code>aria-dropeffect</code> work.</li>
+<li>Making <code>aria-flowto</code> work.</li>
+<li>Making CSS <code>speak-as</code>, AXAccessKey, <code>aria-owns</code>, and URL AX APIs work.</li>
+</ul>
+<p>Safari 17.0 also fixes accessibility issues with HTML tables and table components that have <code>display: flex</code>, <code>grid</code>, <code>block</code>, or <code>inline-block</code> applied.</p>
+<h3>Media Queries</h3>
+<p>Safari 17.0 completes WebKit’s support for the <a href="https://drafts.csswg.org/mediaqueries-4/">Media Queries level 4</a> web standard, adding support for four new media queries.</p>
+<p>Like other media queries, <a href="https://www.w3.org/TR/mediaqueries-4/#mf-overflow-block"><code>overflow-block</code></a> and <a href="https://www.w3.org/TR/mediaqueries-4/#mf-overflow-inline"><code>overflow-inline</code></a> provide a way to conditionally apply CSS depending on the qualities of a user’s device — in this case, how a device handles overflow. For example, can it scroll the page like a typical browser on a computer? Does it page the content, like an e-book reader? Or does it have no mechanism for handling overflow, like a digital billboard?</p>
+<p>The <a href="https://www.w3.org/TR/mediaqueries-4/#update"><code>update</code></a> media query provides a way to apply CSS depending on the refresh rate of the device. For instance, e-book reader screens often have slower refresh rates. A printed page has no refresh rate at all.</p>
+<p>We’ve also added support for the<a href="https://www.w3.org/TR/mediaqueries-5/#scripting"><code>scripting</code></a> media query. It allows you to conditionally apply CSS based on whether or not JavaScript support is enabled in the user’s browser.</p>
+<h3>Image set</h3>
+<p>Safari 17.0 also improves our implementation of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set"><code>image-set()</code></a>, increasing interoperability with other browsers as part of our commitment to <a href="https://webkit.org/blog/13706/interop-2023/">Interop 2023</a>.</p>
+<p>The <code>image-set()</code>function lets you list a set of images in CSS, with information about each, and have the browser pick the most appropriate image to use from that set. Safari 17.0 now supports the optional <code>resolution</code> and <code>type</code> arguments.</p>
+<p>The <code>resolution</code> argument provides a way to declare information about the resolution of each image: <code>1x</code>, <code>2x</code>, <code>600dpi</code>, etc.</p>
+<p>The <code>type</code> argument provides a means to offer multiple file types — including the JPEG XL and HEIC formats <a href="http:///#:~:text=Images%20and%20video">newly supported in Safari 17.0</a>. The browser will download and use the first one it supports.</p>
+<pre><code class="css"><span class="keyword">main</span> {
+  <span class="attribute">background-image</span>: <span class="identifier">image-set</span>(
+    <span class="char">url("images/trees.jxl")</span> <span class="identifier">type</span>(<span class="string">"image/jxl"</span>),
+    <span class="char">url("images/trees.avif")</span> <span class="identifier">type</span>(<span class="string">"image/avif"</span>),
+    <span class="char">url("images/trees.jpeg")</span> <span class="identifier">type</span>(<span class="string">"image/jpeg"</span>)
+  );
+}
+</code></pre>
+<h3>Container Queries</h3>
+<p>To keep up with the most recent changes to the web standard for Container Queries, Safari 17.0 adds support in <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model">CSSOM</a> for <code>containerName</code> and <code>containerQuery</code> , and updates <code>conditionText</code> to be the concatenation of the first two in <code>CSSContainerRule</code>.</p>
+<h3>And more CSS</h3>
+<p>Safari 17.0 also adds support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/contain-intrinsic-size"><code>contain-intrinsic-size</code></a>, providing the means for setting the size of an element, when that element is subject to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment#size_containment">size containment</a>.</p>
+<p>To increase the usefulness of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has"><code>:has()</code></a>, WebKit now supports <code>:has(:buffering)</code> and <code>:has(:stalled)</code>. These expand the ability to apply CSS conditionally based on the state of media playback. Safari 17.0 also supports <code>:has(:defined)</code> letting you apply styling in the presence of a custom element that’s been <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:defined">defined</a>.</p>
+<h2>JavaScript and Web API</h2>
+<h3>Storage</h3>
+<p>Safari 17.0 and WebKit for iOS 17, iPadOS 17, and macOS now fully support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage_API">Storage API</a>.</p>
+<p>WebKit is also updating the storage quota policy. Previously, an origin had a starting storage limit of 1 GB. When exceeding that limit, the subsequent storage operation would fail in Home Screen web apps or prompt the user to give permission to increase the quota in Safari.</p>
+<p>Now, the origin quota is calculated based on total disk space. This means an origin generally gets a much higher limit, and users will no longer receive permission prompts in Safari. You can use <code>StorageManager.estimate()</code> to get estimated usage and quota values per origin.</p>
+<p>With each origin getting a higher storage limit by default, WebKit will evict data by origin when the total usage of all origins together is bigger than a certain value — the “overall quota”, calculated based on total disk space.</p>
+<p>An origin is exempt from eviction when its storage mode is persistent. To check the storage mode of your origin, you can use <code>navigator.storage.persisted()</code>. To request the mode be changed to persistent, you can use <code>navigator.storage.persist()</code>. Critical bugs have been fixed to ensure the storage mode value is remembered across sessions.</p>
+<p>Read <a href="https://webkit.org/blog/14403/updates-to-storage-policy/"><em>Updates to Storage Policy</em></a> for many more details, along with example code.</p>
+<h3>Offscreen Canvas</h3>
+<p>When using <a href="https://developer.mozilla.org/en-US/docs/Glossary/Canvas">Canvas</a>, the rendering, animation, and user interaction usually happens on the main execution thread of a web application. <a href="https://developer.mozilla.org/docs/Web/API/OffscreenCanvas">Offscreen Canvas</a> provides a canvas that can be rendered off-screen, decoupling the DOM and the Canvas API so that the <code>&lt;canvas&gt;</code> element is no longer entirely dependent on the DOM. Rendering can be transferred to a worker context, allowing you to run tasks in a separate thread and avoid heavy work on the main thread that can negatively impact the user experience. The combination of DOM-independent operations and rendering of the main thread can provide a significantly better experience for users, especially on low-power devices.</p>
+<p>Support for Offscreen Canvas 2D operations shipped <a href="https://webkit.org/blog/13966/webkit-features-in-safari-16-4/#web-api">in Safari 16.4</a>. Now, Safari 17.0 for macOS Sonoma, iPadOS 17 and iOS 17 adds support for WebGL in Offscreen Canvas, bringing these benefits to 3D.</p>
+<h3>Canvas</h3>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage"><code>CanvasRenderingContext2D.drawImage()</code></a>  method of the Canvas 2D API supports different sources of an image to be drawn onto the canvas. Safari 17.0 adds support for SVG by allowing <code>SVGImageElement</code> as an image source to <code>drawImage()</code>.</p>
+<h3>RegEx</h3>
+<p>Safari 17.0 adds JavaScript support for two new features for Regular Expressions: <a href="https://github.com/tc39/proposal-regexp-v-flag">RegExp v flag with set notation + properties of strings</a> and <a href="https://github.com/tc39/proposal-duplicate-named-capturing-groups">RegExp duplicate named capture groups</a>.</p>
+<p>RegExp v flag allows for the creation of regular expressions containing Unicode properties, including some multi-character Emoji sequences. It also allows for creating regular expressions with union, intersection, and subtraction set operations on character classes and collections of strings.</p>
+<p>Duplicate named capture group enables the creation of regular expressions with named captures where more than one capture group uses the same name. This allows you to create regular expressions with intuitive group names where there is more than a one-way pattern to search. An example is creating one regular expression that can search data strings written in multiple ways, e.g. M/D/Y versus D-M-Y, while extracting the matched results with captured group names <em>month</em>, <em>day,</em> and <em>year</em> regardless of which string format was matched.</p>
+<h3>Set Operations</h3>
+<p>Another new JavaScript feature adds seven <a href="https://github.com/tc39/proposal-set-methods"><code>Set</code> operation methods</a>, including <code>intersection()</code> and <code>union()</code>, as well the comparison methods <code>difference()</code>, <code>isSubsetOf()</code> and <code>isSuperSetOf()</code>. Together these new methods make <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set"><code>Sets</code></a> powerful first class objects.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">setA</span> <span class="operator">=</span> <span class="keyword operator">new</span> <span class="identifier">Set</span>([<span class="string">"apples"</span>, <span class="string">"oranges"</span>, <span class="string">"grapes"</span>]);
+<span class="keyword type">const</span> <span class="identifier">setB</span> <span class="operator">=</span> <span class="keyword operator">new</span> <span class="identifier">Set</span>([<span class="string">"bananas"</span>, <span class="string">"grapes"</span>, <span class="string">"apples"</span>]);
+
+<span class="comment">// Union into single set
+</span><span class="keyword type">const</span> <span class="identifier">union</span> <span class="operator">=</span> <span class="identifier">setA</span>.<span class="identifier">union</span>(<span class="identifier">setB</span>);
+
+<span class="comment">// Interection "apples" and "grapes"
+</span><span class="keyword type">const</span> <span class="identifier">intersect</span> <span class="operator">=</span> <span class="identifier">setA</span>.<span class="identifier">intersection</span>(<span class="identifier">setB</span>);
+
+<span class="comment">// Difference "oranges"
+</span><span class="keyword type">const</span> <span class="identifier">diff</span> <span class="operator">=</span> <span class="identifier">setA</span>.<span class="identifier">difference</span>(<span class="identifier">setB</span>);
+</code></pre>
+<p>Also check out the new <code>.symmetricDifference()</code> and <code>.isDisjointFrom()</code> methods, which open up some interesting comparison possibilities.</p>
+<h3>Gamepad API</h3>
+<p>WebKit for Safari 17.0 adds support for <code>Gamepad.prototype.vibrationActuator.</code> It enables “dual-rumble” haptic feedback on gamepads. The API allows you to check if “dual-rumble” is supported by the gamepad, as well as control the duration and magnitude of the haptic effect.</p>
+<pre><code class="js"><span class="keyword type">const</span> [<span class="identifier">gamepad</span>] <span class="operator">=</span> <span class="identifier">navigator</span>.<span class="identifier">getGamepads</span>();
+<span class="keyword control">if</span> (<span class="identifier">gamepad</span><span class="operator">?</span>.<span class="identifier">vibrationActuator</span><span class="operator">?</span>.<span class="identifier">canPlayEffectType</span>(<span class="string">"dual-rumble"</span>)) {
+  <span class="keyword type">const</span> <span class="identifier">options</span> <span class="operator">=</span> {
+    <span class="identifier">duration</span><span class="operator">:</span> <span class="number">1000</span>, <span class="comment">// 1 seconds
+</span>    <span class="identifier">startDelay</span><span class="operator">:</span> <span class="number">0</span>, <span class="comment">// play now
+</span>    <span class="identifier">strongMagnitude</span><span class="operator">:</span> <span class="number">0.5</span>, <span class="comment">// low-frequency vibration
+</span>    <span class="identifier">weakMagnitude</span><span class="operator">:</span> <span class="number">0.2</span>,  <span class="comment">// high-frequency vibration
+</span>  };
+  <span class="identifier">gamepad</span>.<span class="identifier">vibrationActuator</span>.<span class="identifier">playEffect</span>(<span class="string">"dual-rumble"</span>, <span class="identifier">options</span>);
+}
+</code></pre>
+<h3>URL API</h3>
+<p>Traditionally, to ensure you could parse a URL, you needed to use a <code>try</code> sequence. Now, you can directly detect if an URL input can be parsed with <a href="https://url.spec.whatwg.org/#ref-for-dom-url-canparse"><code>URL.canParse(tentativeURL, optionalBase)</code></a>. The method will return <code>true</code> or <code>false</code>.</p>
+<p>In addition, the <a href="https://url.spec.whatwg.org/#dom-urlsearchparams-has"><code>has()</code></a> and <a href="https://url.spec.whatwg.org/#dom-urlsearchparams-delete"><code>delete()</code></a> methods on <code>URLSearchParams</code> have been extended. The <code>has()</code> method makes it possible to detect if a parameter has been set. And the <code>delete()</code> method can delete a parameter. Until now, you could only check for and delete by name alone. Now, the methods have been extended so that you can check for and delete specific name-value pairs.</p>
+<p>For example, on an URL with duplicate key such as <code>https://example.com/?currency=USD&amp;currency=JPY</code>, before you could only check <code>params.has('currency').</code> Now, it’s possible to do <code>params.has('currency', 'JPY')</code>.</p>
+<p>Be mindful that with this update, method signatures are not directly feature detectable, so they can return false positives. Until all browsers support these updates, be sure to run a test to confirm support. For example:</p>
+<pre><code class="js"><span class="comment">// These return true only when the updated API is supported!
+</span><span class="keyword type">function</span> <span class="identifier">supportsUpdatedURLHasMethod</span>() {
+    <span class="keyword type">const</span> <span class="identifier">param</span> <span class="operator">=</span> <span class="keyword operator">new</span> <span class="identifier">URLSearchParams</span>({ <span class="identifier">key</span><span class="operator">:</span> <span class="string">"value"</span> });
+    <span class="keyword control">return</span> <span class="identifier">param</span>.<span class="identifier">has</span>(<span class="string">"key"</span>, <span class="string">"does not exist"</span>) <span class="operator">=</span><span class="operator">=</span><span class="operator">=</span> <span class="keyword literal">false</span>;
+}
+
+<span class="keyword type">function</span> <span class="identifier">supportsUpdatedURLDeleteMethod</span>() {
+    <span class="keyword type">const</span> <span class="identifier">param</span> <span class="operator">=</span> <span class="keyword operator">new</span> <span class="identifier">URLSearchParams</span>({ <span class="identifier">key</span><span class="operator">:</span> <span class="string">"value"</span> });
+    <span class="identifier">param</span>.<span class="keyword operator">delete</span>(<span class="string">"key"</span>, <span class="string">"does not exist"</span>);
+    <span class="keyword control">return</span> <span class="identifier">param</span>.<span class="identifier">has</span>(<span class="string">"key"</span>);
+}
+</code></pre>
+<h3>Web Sockets</h3>
+<p>You can now use relative URLs (as well as HTTP(S) URLs) in the <code>WebSocket</code> constructor — this makes it a lot easier to point to WebSocket endpoints without hard-coding URLs into your web application. For example, <code>new WebSocket('/updates')</code>.</p>
+<h3>And more JavaScript and Web API</h3>
+<ul>
+<li>Support for <code>&lt;link rel="modulepreload"&gt;</code>. </li>
+<li>Support for the <a href="https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule">focus fixup rule</a>. </li>
+<li>Support for Ed25519 cryptography. </li>
+<li>Support for <code>customElements.getName</code> method.</li>
+<li>Renaming of <code>Intl.Locale</code> getter method names to be prefixed with “get”.</li>
+<li>Support for <code>move()</code> method of FileSystemHandle starting to overwrite target by default.</li>
+</ul>
+<h2>Images and video</h2>
+<h3>JPEG XL</h3>
+<p>Safari 17.0 adds support for JPEG XL. The new image format provides another modern option for finding the right balance between visual quality and file size.</p>
+<p>JPEG XL uses a new compression algorithm called “Modular Entropy Coding” that allows for greater flexibility in adjusting the compression ratio. Similar to JPEG, it has support for progressive loading, making it well-suited for images served over slow connections, since users start to see the image before the whole file is downloaded. And you can recompress existing JPEG files into JPEG XL without any loss of quality or data, while reducing their size by an average of 20%. Or compress from the original image file to create a file that’s up to 60% smaller compared to JPEG.</p>
+<p>Use the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture"><code>&lt;picture&gt;</code></a> element to provide JPEG XL files to browsers that <a href="https://caniuse.com/jpegxl">have support</a>, while easily providing a fallback format to browsers that don’t.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">picture</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">srcset</span>=<span class="attribute value string">"images/sophie.jxl"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"image/jxl"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">img</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"images/sophie.jpg"</span> <span class="keyword attribute">alt</span>=<span class="attribute value string">"tiny brown puppy sleeping in the sun"</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">picture</span>&gt;</span>
+</code></pre>
+<p>JPEG XL is supported by WebKit for Safari 17.0, Safari View Controller and WKWebView on iOS 17, iPadOS 17, watchOS 10, macOS Sonoma, macOS Ventura and macOS Monterey.</p>
+<h3>HEIC</h3>
+<p>Safari 17.0 also adds support for HEIC images. A HEIC photo can take up about half the space of an equivalent-quality JPEG file.</p>
+<p>HEIC is the image format used across Apple devices to store photos <a href="https://support.apple.com/en-us/HT207022">captured</a> by the cameras, as well as in <a href="https://support.apple.com/en-us/HT204264">iCloud Photos</a>. With support for HEIC in Safari, Safari View Controller, and WKWebView, you can now support importing and editing such photos right in the browser, without needing to convert them into another format. HEIC is also ideal for displaying images when using WKWebView inside an app.</p>
+<p>Learn more about JPEG XL and HEIC by watching <em><a href="https://developer.apple.com/videos/play/wwdc2023/10122/">Explore media formats for the web</a></em> at WWDC23.</p>
+<h3>AV1</h3>
+<p>Safari 17.0 adds support for AV1 video on devices with hardware decoding support, like <a href="https://www.apple.com/newsroom/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/">iPhone 15 Pro and iPhone 15 Pro Max</a>.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs#av1">AV1 video codec</a> adds another option for delivering video across the web, while finding the right balance between gorgeous quality and smaller file sizes. Hardware encoding/decoding provides an efficient way support the video codec without an undesired impact on battery life.</p>
+<p>The progressively-enhanced nature of the web makes it easy to provide files in a variety of options, and let the user’s browser choose the one that’s best for them.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">video</span> <span class="keyword attribute">controls</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">'dogs-in-AV1.mp4'</span> 
+          <span class="keyword attribute">type</span>=<span class="attribute value string">'video/mp4 codecs="av01.0.19M.10.0.110.09.16.09.0, mp4a.40.5" '</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">'dogs-in-HEVC.mp4'</span> 
+          <span class="keyword attribute">type</span>=<span class="attribute value string">'video/mp4 codecs="hev1.2.4.L120.B0", mp4a.40.2" '</span>&gt;</span>        
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">'dogs-in-VP9.webm'</span> 
+          <span class="keyword attribute">type</span>=<span class="attribute value string">'video/webm codecs="vp9, vorbis" '</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">video</span>&gt;</span>
+</code></pre>
+<p>In this example, the three options are compressed using AV1, HEVC (H.265), and VP9 <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs">video codecs</a>, while being delivered in two video file formats: MP4 and WebM. That’s because compressed videos are delivered across the web inside a media container that has its own file format, like MPEG-4, WebM, Ogg, or QuickTime MOV. That container holds both the video stream, compressed in a particular codec, and the audio stream, compressed in another codec.</p>
+<p>As a developer, you use the <code>source</code> element to link to each file, list the type of file, and specify the codecs being offered — providing the browser with the information it needs to decide which file to start streaming. The <code>type</code> attribute specifies the <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Containers">MIME type of the container</a>, along with <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/codecs_parameter"><code>codec</code></a> information about how the video and audio are each compressed. The browser will use the first file that it fully supports.</p>
+<p>The <a href="https://aomediacodec.github.io/av1-isobmff/#codecsparam">AV1 codecs parameter string</a> can communicate not only that the video is compressed with AV1, but other characteristics of the video, including the color space and dynamic range. For example, you could use  <code>av01.0.19M.10.0.110.09.16.09.0</code>  for a video compressed with AV1 Main Profile, level 6.2, Main tier, 10-bit HDR. That’s basically asking the browser “do you support AV1 with a 10-bits-per-color and HDR colorspace? If so, here’s a file for you.” You could instead use a simpler version, <code>codecs="av01"</code>, to ask only “hey, do you support AV1?”</p>
+<h3>Managed Media Source</h3>
+<p>Watching streaming video is an amazing thing we all do with our devices. But to get the highest-possible quality of video, without downloading any unnecessary data and without killing the battery — it takes a complicated stack of technology working under the hood every time you hit the play button.</p>
+<p>Adaptive bitrate streaming is a technique for switching between media data formats on the fly, to ensure delivery of the best-possible video quality based on the speed of the internet connection and capabilities of the device, even as those conditions change. For example, adaptive streaming can be configured to switch from 4k to HD resolution when the network slows, to prioritize playback-without-lag over higher-visual-quality.</p>
+<p>For years, many websites have used <a href="https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API">Media Source Extensions</a> (MSE) to handle adaptive bitrate streaming. It’s a low-level toolkit that gives the web page more control and more responsibility for managing buffering and resolution. But MSE isn’t particularly good at managing buffer levels, network access, and media variant selection. Plus, it uses a lot of power, which can be especially painful on mobile devices with smaller batteries.</p>
+<p>Managed Media Source is a brand-new, power-efficient solution that fulfills advanced needs for streaming video. It supports the flexibility and capabilities of MSE, without any of the drawbacks.</p>
+<p>WebKit for Safari 17.0 brings the new Managed Media Source API to iPad and Mac, with iPadOS 17, macOS Sonoma, macOS Ventura, and macOS Monterey. Managed Media Source is also available on iPhone with iOS 17.1 beta.</p>
+<p>Note that support for Managed Media Source is only available when an AirPlay source alternative is present or remote playback is explicitly disabled.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">videoSource1</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'source'</span>);
+<span class="identifier">videoSource1</span>. <span class="identifier">type</span> <span class="operator">=</span> <span class="char">'video/mp4'</span> ;
+<span class="identifier">videoSource1</span>.<span class="identifier">src</span> <span class="operator">=</span> <span class="identifier">URL</span>.<span class="identifier">createObjectURL</span>(<span class="identifier">mediasource</span>);
+<span class="identifier">video</span>.<span class="identifier">appendChild</span>(<span class="identifier">videoSource1</span>) ;
+<span class="keyword type">const</span> <span class="identifier">videoSource2</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'source'</span>);
+<span class="identifier">videoSource2</span>. <span class="identifier">type</span> <span class="operator">=</span> <span class="char">'application/x-mpegURL'</span> ;
+<span class="identifier">videoSource2</span>.<span class="identifier">src</span> <span class="operator">=</span> <span class="string">"http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"</span>;
+<span class="identifier">video</span>.<span class="identifier">appendChild</span>(<span class="identifier">videoSource2</span>);
+</code></pre>
+<p>Learn all about Managed Media Source API by watching <em><a href="https://developer.apple.com/videos/play/wwdc2023/10122/">Explore media formats for the web</a></em> at WWDC23.</p>
+<h3>Media player stats overlay</h3>
+<figure class="top-space-for-images">
+<img decoding="async" loading="lazy" src="https://webkit.org/wp-content/uploads/video-stats-overlay.png" alt="Video in a video player, with an overlay showing the stats for that video." width="641" height="481" class="preserve-color wp-image-14250" srcset="https://webkit.org/wp-content/uploads/video-stats-overlay.png 641w, https://webkit.org/wp-content/uploads/video-stats-overlay-300x225.png 300w" sizes="(max-width: 641px) 100vw, 641px" /><br />
+</figure>
+<p>If you’ve <a href="https://developer.apple.com/documentation/safari-developer-tools/enabling-developer-features">enabled Developer Features</a>, Safari now provides a media player stats overlay where you can see technical details about a video — its source type, size, performance metrics, resolution, codec string, and color configuration. To show the overlay, use the context menu on any <code>&lt;video&gt;</code> element and select “Show Media Stats”. Now you can tell at a glance the exact codec and configuration used by media on your page and use that information to help you write your code, including craft accurate queries in <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities"><code>MediaCapabilities</code></a>.</p>
+<h3>And more video and audio</h3>
+<p>Safari 17.0 on macOS Sonoma adds support for one or two channel Opus audio in WebM and MPEG-4 containers.</p>
+<p>WebKit now supports USB cameras on iPadOS 17. When a USB camera is attached to an iPad, it’s included in the output of <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices">enumerateDevices</a> and is selectable with <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">getUserMedia</a> along with the built-in cameras.</p>
+<p>Improvements to WebRTC add support for <code>InputDeviceInfo</code>, the inbound rtp <code>trackIdentifier</code> stat field, exposing <code>zoom</code> in <code>MediaTrackCapabilities</code>, and <code>getDisplayMedia</code> video track clone resizing.</p>
+<p>WebKit for Safari 17.0 adds additional support for low-power mode and optimizing video streaming by tone mapping HDR video to SDR.</p>
+<p>And Safari 17.0 adds support for WebCodecs temporal <code>scalabilityMode</code> for software codecs, including parsing and error handling.</p>
+<h2>Web apps on Mac</h2>
+<p>Safari 17.0 for <a href="https://www.apple.com/macos/sonoma-preview/">macOS Sonoma</a> is now available. And with it, web apps come to Mac.</p>
+<figure>
+<picture class="preserve-color"><source srcset="https://webkit.org/wp-content/uploads/macOS_Sonoma_WebApps_withWebPush_Dark.jpg" media="(prefers-color-scheme: dark)" /><img decoding="async" loading="lazy" src="https://webkit.org/wp-content/uploads/Whats-new-in-web-apps-1024x663.jpg" alt="A web app for WebKit Blog shown on macOS Sonoma. With three other web apps as Stage Manager windows off to the side. And four web app icons in the doc. Plus a push notification coming in from the WebKit web app." width="1024" height="663" class="wp-image-14214" srcset="https://webkit.org/wp-content/uploads/Whats-new-in-web-apps-1024x663.jpg 1024w, https://webkit.org/wp-content/uploads/Whats-new-in-web-apps-300x194.jpg 300w, https://webkit.org/wp-content/uploads/Whats-new-in-web-apps-768x497.jpg 768w, https://webkit.org/wp-content/uploads/Whats-new-in-web-apps-1536x994.jpg 1536w, https://webkit.org/wp-content/uploads/Whats-new-in-web-apps.jpg 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />
+</picture>
+</figure>
+<p>You can add a website — any website — to your Dock. In Safari, go to File > Add to Dock, adjust the name and icon if desired, and the web app icon appears in your Dock.</p>
+<p>Web apps on Mac let you focus on the websites you use all the time, separate from the rest of your browsing. Like all Mac apps, web apps work great with Stage Manager, Mission Control, and keyboard shortcuts like Command + Tab. Web apps can be opened from the Dock, Launchpad, and Spotlight Search. Web apps work with AutoFill credentials from iCloud Keychain and from third-party apps that have adopted the Credential Provider Extension API. And users can grant permission to a web app to use their camera, microphone and location in the same way they grant such permissions to other Mac apps through system prompts and the Privacy &amp; Security section of System Settings. Web apps on Mac support <a href="https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_safari_and_other_browsers?language=objc">web push</a>, <a href="https://webkit.org/blog/14112/badging-for-home-screen-web-apps/">badging</a>, service workers, web app manifests, and all the usual web standards implemented by WebKit, just like web apps <a href="https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/">on iOS and iPadOS</a>.</p>
+<p>When a user clicks on a web app icon, the website always opens in its own window as a web app, even if the site does not have a manifest file (or legacy <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html"><code>meta</code> tags</a>). This expands the usefulness of web apps, putting users in charge of determining what becomes a web app and giving them the confidence it’s always something they can choose.</p>
+<p>While the default web app experience on Mac is great, as a web app developer you can use web technologies like <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers">Service Workers</a> to make it even better. By providing a <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest">web app manifest</a>, you can customize the presentation of your web app, including the display mode, name, theme color, and start URL. Learn about the details by watching <a href="https://developer.apple.com/videos/play/wwdc2023/10120/"><em>What’s new in Web Apps</em></a> at WWDC23.</p>
+<p>When a user adds a website to their Dock, Safari will copy the website’s cookies to the web app. That way, if someone is logged into their account in Safari, they will remain logged in within the web app. This will only work if the authentication state is stored within cookies. Safari does not copy over any other kind of local storage. After a user adds a web app to the Dock, no other website data is shared, which is great for privacy.</p>
+<h3>Add to Home Screen from Safari View Controller</h3>
+<p>Add to Home Screen is now available from Safari View Controller on iOS 17 and iPadOS 17. Tapping a link within an app that uses Safari View Controller as the in-app browser allows the user to add the open website to their Home Screen right from there. Just like Add to Home Screen from Safari on iOS and iPadOS (or any other browser that <a href="https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/#:~:text=Third-party%20browser%20support%20for%20Add%20to%20Home%20Screen">implemented support</a>), if the website has a manifest file with a <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest/display"><code>display</code></a> mode of <code>standalone</code> or <code>fullscreen</code>, it will open as a Home Screen web app.</p>
+<h2>Web Developer Tools</h2>
+<p>Safari 17.0 brings significant changes to the experience of our web developer tools. Be sure to <a href="https://developer.apple.com/documentation/safari-developer-tools/enabling-developer-features">enable Developer Features</a> to gain access to the Web Inspector, Develop Menu, Feature Flags, Responsive Design Mode, the ability to connect to iOS / iPadOS / visionOS Simulators, and much more.</p>
+<h3>Redesigned Develop Menu</h3>
+<p>In Safari 17.0 on macOS Sonoma, macOS Ventura and macOS Monterey, a completely redesigned <a href="https://developer.apple.com/documentation/safari-developer-tools/develop-menu">Develop menu</a> makes it easier to find the key tools available to help you create websites, web apps, web content inside other apps, web extensions, and more.</p>
+<p><img loading="lazy" src="https://webkit.org/wp-content/uploads/Safari17_DevelopMenu@2x.png" alt="the new Safari 17 Develop menu, with far fewer items, showing icons for iPhone and iPad" width="1916" height="1076" class="preserve-color wp-image-14286" decoding="async" srcset="https://webkit.org/wp-content/uploads/Safari17_DevelopMenu@2x.png 1916w, https://webkit.org/wp-content/uploads/Safari17_DevelopMenu@2x-300x168.png 300w, https://webkit.org/wp-content/uploads/Safari17_DevelopMenu@2x-1024x575.png 1024w, https://webkit.org/wp-content/uploads/Safari17_DevelopMenu@2x-768x431.png 768w, https://webkit.org/wp-content/uploads/Safari17_DevelopMenu@2x-1536x863.png 1536w" sizes="(max-width: 1916px) 100vw, 1916px" /></p>
+<p>Devices and simulators are now more prominent in the Develop menu, making them easier to identify at a glance. Inside the menu for each iOS or iPadOS device, app icons make it easier to find the application or web content you want to inspect. On macOS Sonoma, you can pair with Apple TV and Vision Pro directly from Safari to inspect those platforms.</p>
+<h3>Rethought Feature Flags</h3>
+<figure>
+<picture><source srcset="https://webkit.org/wp-content/uploads/Safari17_Flagsdark@2x.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" src="https://webkit.org/wp-content/uploads/Safari17_Flags@2x.png" alt="the Safari feature flag settings window with a list of technologies, some on, others off." width="2088" height="1408" class="wp-image-14276" decoding="async" srcset="https://webkit.org/wp-content/uploads/Safari17_Flags@2x.png 2088w, https://webkit.org/wp-content/uploads/Safari17_Flags@2x-300x202.png 300w, https://webkit.org/wp-content/uploads/Safari17_Flags@2x-1024x691.png 1024w, https://webkit.org/wp-content/uploads/Safari17_Flags@2x-768x518.png 768w, https://webkit.org/wp-content/uploads/Safari17_Flags@2x-1536x1036.png 1536w, https://webkit.org/wp-content/uploads/Safari17_Flags@2x-2048x1381.png 2048w" sizes="(max-width: 2088px) 100vw, 2088px" />
+</picture>
+</figure>
+<p>The new <a href="https://developer.apple.com/documentation/safari-developer-tools/feature-flag-settings">Feature Flags</a> panel replaces the previous Experimental Features section of the Develop menu, allowing you to search for specific features and to easily see bolded features toggled from their default state. Feature flags are now organized by topic: Animation, CSS, HTML, JavaScript, Media and more. And each feature is clearly categorized into one of four statuses: Stable, Testable, Preview, and Developer.</p>
+<p>Stable represents features that have recently shipped in Safari, on by default. These features can be turned off to help you debug an issue or test progressive enhancements. Stable features will eventually be removed from the list.</p>
+<p>Testable features are disabled by default. These features might be in the process of being implemented, or they might be waiting for changes to the web standards. They have a ways to go, but still could be interesting enough to test out.</p>
+<p>Preview is for features that have not yet shipped in Safari, but are closer to being complete. These features are on by default in <a href="https://developer.apple.com/safari/technology-preview/">Safari Technology Preview</a>, and are ready for developers to try out. They may still have bugs, or may even undergo significant change as their web standards evolve. This is a great time to help find bugs and file issues, and to comment on whether the web standard for a new technologies solves your needs.</p>
+<p>Developer features are not as common. This category is for miscellaneous features added to the list of feature flags so developers can toggle them on and off for testing. New developer tools may appear here, for example.</p>
+<h3>New Developer settings panel</h3>
+<figure>
+<picture><source srcset="https://webkit.org/wp-content/uploads/Safari17_DeveloperSettingsdark@2x.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" src="https://webkit.org/wp-content/uploads/Safari17_DeveloperSettings@2x.png" alt="the new Safari Developer settings window, listing what can be toggled" width="1872" height="976" class="wp-image-14279" decoding="async" srcset="https://webkit.org/wp-content/uploads/Safari17_DeveloperSettings@2x.png 1872w, https://webkit.org/wp-content/uploads/Safari17_DeveloperSettings@2x-300x156.png 300w, https://webkit.org/wp-content/uploads/Safari17_DeveloperSettings@2x-1024x534.png 1024w, https://webkit.org/wp-content/uploads/Safari17_DeveloperSettings@2x-768x400.png 768w, https://webkit.org/wp-content/uploads/Safari17_DeveloperSettings@2x-1536x801.png 1536w" sizes="(max-width: 1872px) 100vw, 1872px" />
+</picture>
+</figure>
+<p>The new Developer panel in Safari 17’s Settings let you toggle developer features that apply across all websites open in Safari, like Allow remote automation (which enables automating Safari with <a href="https://developer.apple.com/documentation/safari-developer-tools/webdriver">WebDriver</a>) and other features that were previously in the Develop menu.</p>
+<h3>New tab-specific setting overlay</h3>
+<figure class="top-space-for-images">
+<picture><source srcset="https://webkit.org/wp-content/uploads/setting-overlay-dark.png" media="(prefers-color-scheme: dark)" /><img decoding="async" loading="lazy" src="https://webkit.org/wp-content/uploads/setting-overlay-light.png" alt="Web Inspector tab-specific settings overlay" width="1136" height="754" class="wp-image-14283" srcset="https://webkit.org/wp-content/uploads/setting-overlay-light.png 1136w, https://webkit.org/wp-content/uploads/setting-overlay-light-300x199.png 300w, https://webkit.org/wp-content/uploads/setting-overlay-light-1024x680.png 1024w, https://webkit.org/wp-content/uploads/setting-overlay-light-768x510.png 768w" sizes="(max-width: 1136px) 100vw, 1136px" />
+</picture>
+</figure>
+<p>Some previously-global settings from the Develop menu, like disabling JavaScript or changing WebRTC behavior, have moved to Web Inspector where they are now scoped to the inspected tab, allowing you to use other tabs and windows normally.</p>
+<h3>Redesigned Responsive Web Design Mode</h3>
+<figure>
+<picture><source srcset="https://webkit.org/wp-content/uploads/Safari17_ResponsiveDesignModedark@2x.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" src="https://webkit.org/wp-content/uploads/Safari17_ResponsiveDesignMode@2x.png" alt="Redesigned Responsive Design Mode in Safari with configurable viewport size, scale, and simulator menu" width="1426" height="971" class="wp-image-14289" decoding="async" srcset="https://webkit.org/wp-content/uploads/Safari17_ResponsiveDesignMode@2x.png 1426w, https://webkit.org/wp-content/uploads/Safari17_ResponsiveDesignMode@2x-300x204.png 300w, https://webkit.org/wp-content/uploads/Safari17_ResponsiveDesignMode@2x-1024x697.png 1024w, https://webkit.org/wp-content/uploads/Safari17_ResponsiveDesignMode@2x-768x523.png 768w" sizes="(max-width: 1426px) 100vw, 1426px" />
+</picture>
+</figure>
+<p><a href="https://developer.apple.com/documentation/safari-developer-tools/responsive-design-mode">Responsive Design Mode</a> has also been refreshed to focus on the responsiveness of a page’s design at any width or height on your Mac. You can type in a specific viewport size at the top of Responsive Design Mode in addition to dragging the resize handles around the view.</p>
+<p>Also new is the ability to <a href="https://developer.apple.com/documentation/safari-developer-tools/responsive-design-mode#Open-with-Simulator">open the page in a Simulator</a> right from Responsive Design Mode.</p>
+<h3>Simulators</h3>
+<p>You can also open any page from Safari in a Simulator directly from the <a href="https://developer.apple.com/documentation/safari-developer-tools/develop-menu#Open-Page-With">Develop > Open Page With</a> menu, even when you are not using Responsive Design Mode.</p>
+<p>Using a Simulator is a great way to test the experiences you’re making on iOS, iPadOS, and visionOS — including device-specific behaviors, like the rendered size of type, the effects of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag"><code>viewport</code> meta tag</a>, double-tap to zoom, and even Home Screen web apps on iOS and iPadOS. Simulators are free, and come included with <a href="https://apps.apple.com/us/app/xcode/id497799835">Xcode from the Mac App Store</a>.</p>
+<figure>
+<picture><source srcset="https://webkit.org/wp-content/uploads/Safari17_Simulatorsdark@2x.webp" media="(prefers-color-scheme: dark)" /><img loading="lazy" src="https://webkit.org/wp-content/uploads/Safari17_Simulators@2x.webp" alt="macOS Sonoma with a simulated iPhone on screen, showing a website. The Develop menu is open, with the user selecting the website in that simulator." width="2560" height="1600" class="wp-image-14293" decoding="async" srcset="https://webkit.org/wp-content/uploads/Safari17_Simulators@2x.webp 2560w, https://webkit.org/wp-content/uploads/Safari17_Simulators@2x-300x188.webp 300w, https://webkit.org/wp-content/uploads/Safari17_Simulators@2x-1024x640.webp 1024w, https://webkit.org/wp-content/uploads/Safari17_Simulators@2x-768x480.webp 768w, https://webkit.org/wp-content/uploads/Safari17_Simulators@2x-1536x960.webp 1536w, https://webkit.org/wp-content/uploads/Safari17_Simulators@2x-2048x1280.webp 2048w" sizes="(max-width: 2560px) 100vw, 2560px" />
+</picture>
+</figure>
+<p>If you don’t have Xcode installed, a link to documentation is conveniently available in the Develop > Open Page With menu to help you get started, or to add more devices and OS versions.</p>
+<p>Learn all about the new Develop menu, redesigned Responsive Web Design mode, how to easily connect to directly to a real device, how to install and use a Simulator, and much more in <a href="https://developer.apple.com/videos/play/wwdc2023/10262/"><em>Rediscover Safari developer features</em></a> at WWDC23.</p>
+<h3>Web Inspector</h3>
+<p>We’ve also made improvements to <a href="https://webkit.org/web-inspector/">Web Inspector</a>. When working with minified sources, pretty printing in Web Inspector can help make the code easier to read, set breakpoints in, and debug. New in Safari 17.0, more JavaScript syntax is supported for pretty printing minified scripts, including <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template strings</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining">optional chaining</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields">private variables and functions in classes</a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static">static variables and functions</a>.</p>
+<p>Changes to Web Inspector in Safari 17.0 also include:</p>
+<ul>
+<li>Elements tab: Added settings to always show rulers and element overlays for grid and flexbox when highlighting elements in Web Inspector or in Element Selection Mode.</li>
+<li>Elements tab: Added editing controls for variation axes in the Fonts sidebar.</li>
+<li>Console tab: Added setting to show timestamps for console messages.</li>
+<li>Console tab: Added support for viewing the target of a <code>WeakRef</code>.</li>
+<li>Sources tab: Added support for ES2022 Private Fields when inspecting and logging JavaScript objects.</li>
+<li>Graphics tab: Added support for OffscreenCanvas.</li>
+</ul>
+<p>Learn more by watching <a href="https://developer.apple.com/videos/play/wwdc2023/10118/"><em>What’s new in Web Inspector</em></a> at WWDC23.</p>
+<h2>Security</h2>
+<h3>GPU Process</h3>
+<p>Last year brought GPU process support to WebKit on iOS, iPadOS and watchOS. This year we’re adding support on macOS Sonoma. The change moves all drawing (including the drawing of page content, 2D Canvas and WebGL rendering) so it occurs in the “GPU Process”. This new architecture allows WebKit to isolate powerful graphics hardware and driver access away from the WebContent process, which is the process that interacts with untrusted content from the internet. The new design also allows the WebContent process sandbox to completely block IOKit access, resulting in improved security.</p>
+<h2>WebKit API</h2>
+<p>New interfaces are added to <code>WKWebsiteDataStore</code> and related classes to further unlock potential of your WebKit apps. The new capabilities include creating persistent website data stores, configuring cookie policy, customizing proxy settings, requesting HTTPS upgrade for all navigations, and controlling state of inline prediction for autocomplete.</p>
+<h2>Browser changes</h2>
+<h3>Safari Profiles</h3>
+<p><a href="https://www.apple.com/safari/">Safari 17.0</a> adds support for profiles. History, favorites, Tab Groups and website data such as cookies, caches, service workers, and Web Push subscriptions are scoped per-profile. Users can manage each profile’s data individually.</p>
+<h3>Safari Private Browsing</h3>
+<p>In Safari 17.0, Private Browsing gets even more private with added protection against some of the most advanced techniques used to track you. Technical changes include:</p>
+<ul>
+<li>Blocking for known trackers and fingerprinting. </li>
+<li>Support for mitigating trackers that map subdomains to third-party IP addresses. </li>
+<li>Blocking for known tracking query parameters in links.</li>
+<li>Noise to fingerprintable web APIs.</li>
+<li>Console log messages when blocking requests to known trackers. </li>
+<li>Support for blocking trackers that use third-party CNAME cloaking.</li>
+<li>Support for Private Click Measurement for direct response advertising, similar to how it works for <a href="https://webkit.org/blog/12042/pcm-for-in-app-direct-response-advertising/">in-app direct response advertising</a>.</li>
+</ul>
+<h3>Editing and Live Text</h3>
+<p>iOS 17, iPadOS 17, and macOS Sonoma feature a redesigned experience of editing text, with even more accurate autocorrect and predictions inline as you type. In Safari 17.0 on macOS Sonoma, the redesigned text cursor now uses the system accent color, just like iOS. CJK marked text also has a new appearance and matches the system accent color.</p>
+<p>Safari 17.0 also improves the interoperability of the Range API and Selection API. And it adds Live Text support for vertical text recognition in images and videos.</p>
+<h3>Apple Pay via Payment Request API</h3>
+<p>You can now enable Apple Pay to be used in third-party iframes by setting the <code>allow="payment"</code> attribute. This “permissions policy” enables the Payment Request API on an iframe, allowing you to embed third-party payment handlers. If using this feature, be sure you also use the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">X-Frames-Options</a> HTTP header to prevent your site from being embedded by malicious websites.</p>
+<h3>Authentication</h3>
+<p>Safari 17.0 adds support for <code>largeBlob</code> extension for passkeys. Websites can use the additional storage to save data that can later be retrieved when signing in with a passkey. These saved blobs are synced and shared along with passkeys.</p>
+<p>We also are adding support for <code>enterprise</code> WebAuthn attestation for passkeys in iCloud Keychain. Managed devices can provide an attestation statement when creating passkeys, using a certificate provisioned through MDM.</p>
+<h3>Networking</h3>
+<p>Safari 17.0 adds support for HTTP Early Hints and <code>preconnect</code>.</p>
+<h3>Lockdown mode</h3>
+<p><a href="https://support.apple.com/en-us/HT212650">Lockdown mode</a> now:</p>
+<ul>
+<li>Disables IndexedDB.</li>
+<li>Disables the File API and FileReader API.</li>
+<li>Disables support for the <code>&lt;embed&gt;</code> element. </li>
+<li>Disables the Web Speech (Speech Synthesis) API.</li>
+<li>Disables the WebLocks API.</li>
+<li>Disables support for experimental APIs. </li>
+<li>Supports select web fonts.</li>
+</ul>
+<p>Lockdown Mode is also now supported in WebKit on watchOS.</p>
+<h2>Safari Extensions</h2>
+<p>Safari 17.0 now lets you customize where extensions run with even more granularity.</p>
+<p>First, Safari App Extensions now have the same per-site permissions model as Safari Web Extensions. It puts users in control over the browsing data they share with every extension they use in Safari.</p>
+<p>Second, as an additional layer of control, Safari Extensions can be turned off in Private Browsing. Extensions that access browsing data, like browsing history or webpage contents, will be off by default in Private Browsing but can be allowed with a single toggle in Safari Settings.</p>
+<p>Third, all Safari Extensions can be turned on or off per Safari Profile. You can imagine this being useful for turning on an extension used only for school or work in a relevant profile, but keeping it off everywhere else. Each profile runs a separate instance of the extension — meaning there are unique storage areas, background pages, service workers, and more. However, per-site permissions are shared across profiles, so an extension only needs to be granted once. If your extension leverages native messaging capabilities to communicate with a host app, it’s possible to distinguish between profiles to ensure your extension behaves correctly across profiles.</p>
+<p>Learn more by watching <a href="https://developer.apple.com/videos/play/wwdc2023/10119/"><em>What&#8217;s new in Safari extensions</em></a> at WWDC23.</p>
+<h2>Bug Fixes and more</h2>
+<p>In addition to the over 65 new features, WebKit for Safari 17.0 includes an incredible amount work polishing existing features.</p>
+<h3>Accessibility</h3>
+<ul>
+<li>Fixed <code>aria-owns</code> attribute for the <code>radio</code> role. (23630121)</li>
+<li>Fixed incorrect accessible name from multiple <code>&lt;label&gt;</code>elements. (24033482)</li>
+<li>Fixed HTML menu element to map to <code>role=list</code>. (55145117)</li>
+<li>Fixed conveying focus movement when using <code>aria-activedescendant</code> to set the active cell within a grid. (84439987)</li>
+<li>Fixed the wrong role displayed for <code>input</code> in Web Inspector. (103907008)</li>
+<li>Fixed <code>input[type=date]</code> individual fields getting announced as “group”. (104928713)</li>
+<li>Fixed VoiceOver when selecting &#8220;Sign in with Apple&#8221; on some websites. (105179300)</li>
+<li>Fixed elements with the <code>popovertarget</code> attribute to expose expanded state to assistive technologies. (105425310)</li>
+<li>Fixed some inputs not being treated as invalid despite being rendered as such. (105653691)</li>
+<li>Fixed <code>aria-errormessage</code> to not be exposed when <code>aria-invalid</code> is <code>false</code>. (105813974)</li>
+<li>Fixed form controls taking the accessibility text of an ancestor label over their own inner text. (106575817)</li>
+<li>Fixed VoiceOver not reading entered text in text fields. (107226275)</li>
+<li>Fixed labels for slot elements referenced with <code>aria-labelledby</code>. (107570512)</li>
+<li>Fixed <code>aria-describedby</code> to be equivalent to <code>aria-description</code> and override it when both are present. (108386295)</li>
+<li>Fixed slotted elements not being exposed to accessibility when inside <code>&lt;dialog&gt;</code> or <code>aria-modal</code>. (108704582)</li>
+<li>Fixed some content on web pages not displaying on braille displays. (110758833)</li>
+<li>Fixed: Prioritized HTML <code>required</code> attribute over <code>aria-required</code> when both are present. (111370591)</li>
+<li>Fixed unexpected speech synthesis behavior for unordered lists. (112085797)</li>
+</ul>
+<h3>Canvas</h3>
+<ul>
+<li>Fixed <code>createImageBitmap</code> using <code>ImageData</code> to respect the premultiply flag. (89382358)</li>
+<li>Fixed repaint issue when drawing VideoFrames to canvas. (109100283)</li>
+</ul>
+<h3>CSS</h3>
+<ul>
+<li>Fixed CSS <code>@imports</code> in HTML missing quote marks getting mistakenly hidden from the Preload Scanner. (46031271)</li>
+<li>Fixed matching elements without a parent with the child-indexed pseudo-class. (91637426)</li>
+<li>Fixed the bug that <code>@supports selector()</code> fails for all <code>-webkit-</code> prefixed pseudo elements. (95683424)</li>
+<li>Fixed <code>background-size</code> to not accept unitless lengths. (97039770)</li>
+<li>Fixed <code>text-shadow</code> and <code>box-shadow</code> with <code>currentcolor</code>. (102542182)</li>
+<li>Fixed <code>color()</code> function incorrectly parsing missing components. (104679823)</li>
+<li>Fixed <code>text-emphasis</code> marks to not be rendered if there is no emphasized character. (104688963)</li>
+<li>Fixed: Improved <code>image-set</code> compatibility. (105097744)</li>
+<li>Fixed values set by <code>mask</code> and <code>background</code> shorthands to not serialize as &#8220;initial&#8221;. (105114588)</li>
+<li>Fixed <code>:has()</code> to support invalidation of <code>:buffering</code>and <code>:stalled</code> pseudo-classes. (105163364)</li>
+<li>Fixed <code>cssText</code> to follow CSS OM specifications. (105235157)</li>
+<li>Fixed <code>font-feature-settings</code> and <code>font-variation-settings</code> to sort their tags alphabetically. (105483635)</li>
+<li>Fixed <code>transition-property: all</code> to include custom properties. (105556538)</li>
+<li>Fixed <code>#x</code>, such as <code>1x</code>, to be recognized a resolution calc unit category. (105700660)</li>
+<li>Fixed font variations for some fonts declared with CSS <code>@font-face</code>. (106635029)</li>
+<li>Fixed applying certain user-agent styles to HTML elements, and not elements with other namespaces. (107162842)</li>
+<li>Fixed <code>image-set</code> to accept zero resolution and clamp negative resolutions used in calc expressions. (107167273)</li>
+<li>Fixed unknown function parsing in <code>@supports</code> rule. (107397723)</li>
+<li>Fixed to not show <code>cursor: pointer</code> on unclickable <code>&lt;area&gt;</code>. (107591470)</li>
+<li>Fixed <code>CSSStyleValue.parse</code> to accept properties from the document-derived context. (108249093)</li>
+<li>Fixed invalidating the <code>:dir()</code> pseudo-class after removing the <code>:dir</code> content attribute from the document element. (108480507)</li>
+<li>Fixed <code>type()</code> function for <code>image-set()</code> to only take one string. (108909363)</li>
+<li>Fixed respecting style containment on list items. (109582377)</li>
+<li>Fixed scrollbar to correctly pick up changed styles immediately. (109674102)</li>
+<li>Fixed <code>:has()</code> to support invalidation of the <code>:defined</code>pseudo-class. (109896689)</li>
+<li>Fixed <code>cjk-earthly-branch</code> and <code>cjk-heavenly-stem</code> counter styles to have <code>fixed</code> system. (110796633)</li>
+<li>Fixed <code>&lt;ray-size&gt;</code> to be optional in <code>ray()</code> for CSS Motion Path. (110818689)</li>
+<li>Fixed negative resolutions in Media Queries to be invalid. (110948170)</li>
+<li>Fixed <code>text-overflow: ellipsis</code> so it works with <code>overflow: clip</code>. (111182654)</li>
+<li>Fixed <code>cjk-earthly-branch</code> and <code>cjk-heavenly-stem</code> counter styles to fallback to <code>cjk-decimal</code>. (111208503)</li>
+<li>Fixed <code>inline-flex</code> and <code>inline-grid boxes</code> to stop propagating underlines to align with other browsers. (111228920)</li>
+<li>Fixed container units in a container query to evaluate against the ancestor container. (111446508)</li>
+<li>Fixed cursor style to respect explicitly set cursor type over system default. (111469521)</li>
+<li>Fixed container units to consider writing mode for unit resolution. (111565488)</li>
+<li>Fixed <code>@font-face { src: format() }</code> to parse valid unsupported keywords. (112135869)</li>
+<li>Fixed <code>-webkit-box-decoration-break: clone</code> with left and right padding causes unexpected wrapping of inline content. (112197978)</li>
+</ul>
+<h3>DOM</h3>
+<ul>
+<li>Fixed XML serialization to serialize implicit <code>xmlns</code> attributes first and use lowercase &#8220;ns&#8221; when generating prefixes. (103234827)</li>
+</ul>
+<h3>Editing</h3>
+<ul>
+<li>Fixed webpage translation for iframes. (59693219)</li>
+<li>Fixed returning live range synchronized with selection from <code>getRangeAt</code> and throw errors as specified. (69015762)</li>
+<li>Fixed selection API to work across shadow boundaries. (89481826)</li>
+<li>Fixed webpage issues when translating to or from Ukranian. (100570016)</li>
+<li>Fixed showing the software keyboard when programatically focusing a text field during a double-click event. (104600783)</li>
+<li>Fixed &#8220;insertParagraph&#8221; to insert a <code>&lt;br&gt;</code> when the root editable element is phrasing content. (105438898)</li>
+<li>Fixed &#8220;insertLineBreak&#8221; sometimes inserting a non-breaking space instead of a new line. (105439065)</li>
+<li>Fixed an issue when breaking out of an empty list item in case of nested lists. (111724381)</li>
+</ul>
+<h3>Forms</h3>
+<ul>
+<li>Fixed CSS color getting adjusted for disabled input elements. (99826522)</li>
+<li>Fixed <code>input.validity</code> reporting <code>valid: true</code> for partially completed dates and times. (102984901)</li>
+<li>Fixed conditional passkey request presenting a conditional control even after <code>AbortController.abort()</code>. (104485543)</li>
+<li>Fixed <code>&lt;input pattern&gt;</code> to use the regular expression <code>v</code> flag rather than <code>u</code>. (105268069)</li>
+<li>Fixed saving recent searches on <code>&lt;input type="search"&gt;</code>using the <code>name</code> attribute. (105369635)</li>
+<li>Fixed HTML <code>maxlength</code> attribute treating emoji of string length 11 as length 1. (105926915)</li>
+<li>Fixed <code>HTMLOptionsCollection.length</code> setter to use a limit of 100,000. (105988871)</li>
+<li>Fixed reseting selection when changing multiple <code>&lt;select&gt;</code>to single. (106264081)</li>
+<li>Fixed focus for a <code>&lt;summary&gt;</code> element with a <code>tabindex</code>. (106550778)</li>
+<li>Fixed selecting text within a label element that is linked to an input field. (108566491)</li>
+<li>Fixed textareas with <code>overflow: hidden</code> rendering too many columns. (109343502)</li>
+<li>Fixed HTMLOptionElement text setter to not throw an exception. (109740566)</li>
+<li>Fixed change event not firing when the user reverts the value of a color, date, or time input after JavaScript changed the value. (109843791)</li>
+</ul>
+<h3>HTML</h3>
+<ul>
+<li>Fixed handling unclosed parenthese at the end of the <code>sizes</code> attribute. (107509739)</li>
+<li>Fixed the HTMLPreloadScanner to not preload scripts with unsupported types. (110905029)</li>
+<li>Fixed popover incorrectly auto-hiding when using shadow DOM. (112410375)</li>
+</ul>
+<h3>HTTP</h3>
+<ul>
+<li>Fixed respecting Content-Type header for MIME type determination. (73343155)</li>
+<li>Fixed a bug with empty header values in Headers objects with &#8220;request-no-cors&#8221; guard. (105207779)</li>
+<li>Fixed Cross-Origin-Embedder-Policy incorrectly blocking an iframe on a cache hit. (107002434)</li>
+<li>Fixed <code>vary</code> header behavior for opaque responses. (107769146)</li>
+</ul>
+<h3>JavaScript</h3>
+<ul>
+<li>Fixed: Improved performance of <code>Object.entries()</code> by 1.5×. (100783096)</li>
+<li>Fixed <code>/p{Number}--]/v;</code> to be a syntax error. (109400589)</li>
+<li>Fixed: Improved RegExp lookbehind character class backtracking. (111051833)</li>
+<li>Fixed <code>String#charAt</code> to support out-of-bounds handling in DFG. (111421698)</li>
+</ul>
+<h3>Media</h3>
+<ul>
+<li>Fixed <code>top</code> CSS added to audio controls when the height of an <code>&lt;audio&gt;</code> element is adjusted on iOS. (99548840)</li>
+<li>Fixed <a href="http://netflix.com/">Netflix.com</a> playback error S7381-1203. (103561991)</li>
+<li>Fixed sound echos in higher speed video playback. (103940613)</li>
+<li>Fixed <code>SourceBuffer.timestampOffset</code> behavior with WebM content. (105801920)</li>
+<li>Fixed <code>bufferedchange</code> event to fire whenever an eviction occurs. (106168510)</li>
+<li>Fixed MediaSource duration change algorithm to correctly update the duration. (106858912)</li>
+<li>Fixed <code>playing</code> event to fire earlier. (107041118)</li>
+<li>Fixed video playback failure for content that uses the prefixed WebKit EME APIs. (107202864)</li>
+<li>Fixed <a href="http://netflix.com/">Netflix.com</a> playback error S7361-1253. (108052652)</li>
+<li>Fixed video playback in Safari unexpectedly interrupting other apps playing audio. (108741963)</li>
+<li>Fixed MediaRecorder producing empty chunks when attaching a MediaStream before the context in a canvas is created. (109705910)</li>
+<li>Fixed muting capture in all other tabs when Safari starts camera and/or microphone capture in a tab. (109896538)</li>
+</ul>
+<h3>Rendering</h3>
+<ul>
+<li>Fixed rendering for <code>border-image-repeat: round</code>. (28213711)</li>
+<li>Fixed <code>text-overflow: ellipsis</code> incorrectly truncating text in right-to-left mode. (29464657)</li>
+<li>Fixed rendering fractional font sizes. (40829933)</li>
+<li>Fixed rendering the <code>label</code> attribute for the <code>&lt;option&gt;</code>element on iOS. (53989128)</li>
+<li>Fixed pixel artifacts when rendering <code>background-clip: text</code> and <code>transform: rotate(…)</code>. (54325642)</li>
+<li>Fixed text not getting truncated properly in vertical writing mode when <code>overflow: hidden</code> and <code>text-overflow: ellipsis</code> are set. (94330690)</li>
+<li>Fixed CSS flexbox to use initial scroll position when computing the baseline. (100908615)</li>
+<li>Fixed incorrect paint of <code>translate</code> property animation. (102064448)</li>
+<li>Fixed statically positioned out-of-flow box location when display type changes from <code>block</code> to <code>inline-block</code>. (103637239)</li>
+<li>Fixed <code>&lt;details&gt;</code> marker maintain the same margin in right-to-left as in left-to-right. (104275835)</li>
+<li>Fixed table with fixed layout behaving like auto layout when its width is set by JavaScript instead of CSS. (105310280)</li>
+<li>Fixed <code>preserve-3d</code> to apply to pseudo-element children. (105474987)</li>
+<li>Fixed margins incorrectly accounting for before forced breaks in multi-column layout. (105631038)</li>
+<li>Fixed placement of floats with <code>clear</code>. (105775276)</li>
+<li>Fixed disabling <code>&lt;body&gt;</code> to root propagation when <code>content: paint</code> is set on the <code>&lt;body&gt;</code> or the root. (105850374)</li>
+<li>Fixed self-collapsing children with an incorrect top offset at the end of a block container with <code>margin-trim: block-end</code>. (106524654)</li>
+<li>Fixed ignoring <code>calc()</code> values on <code>&lt;colgroup&gt;</code> elements. (106692191)</li>
+<li>Fixed a flash of mis-styled content due to a mechanism to block painting on a non-final style. (106805458)</li>
+<li>Fixed text wrapping in a nested grid layout. (107002717)</li>
+<li>Fixed width for a table <code>flex-item</code> inside <code>inline-flex</code>with column <code>flex-direction</code>. (107029563)</li>
+<li>Fixed repaint issue when adding text to a text box. (107038111)</li>
+<li>Fixed incorrect out-of-flow box placement for <code>display: inline</code> content when <code>text-align</code> is not <code>start</code>. (107271178)</li>
+<li>Fixed incorrect out-of-flow box placement for <code>display: inline</code> content when <code>text-indent</code> is present. (107280354)</li>
+<li>Fixed incorrect out-of-flow box placement for <code>display: inline</code> content when a float is present. (107294351)</li>
+<li>Fixed repainting newly position float boxes. (107318350)</li>
+<li>Fixed out-of-flow inline content with a float and <code>text-align</code>. (107321638)</li>
+<li>Fixed gradient object generation to be thread-safe. (107574124)</li>
+<li>Fixed <code>transform-style: preserve-3d</code> preventing links when <code>:after</code> has a negative <code>z-index</code>. (107671388)</li>
+<li>Fixed repainting MathML element in <code>display: flex</code> on content change. (107694159)</li>
+<li>Fixed <code>line-height</code> to not affect the enclosing height. (107832246)</li>
+<li>Fixed incorrect decorating box position in vertical writing mode. (107916341)</li>
+<li>Fixed incorrect vertical positioning when an ideographic baseline is present. (107934783)</li>
+<li>Fixed missing underline after the first character in <code>contenteditable</code>. (107996603)</li>
+<li>Fixed rendering a checkbox in a flexbox layout. (108026194)</li>
+<li>Fixed <code>-webkit-line-clamp</code> overlapping blocks even with <code>overflow: hidden</code>, when mixing <code>&lt;span&gt;</code> and <code>&lt;div&gt;</code>. (108116069)</li>
+<li>Fixed content getting truncated too early due to subpixel flooring. (108570251)</li>
+<li>Fixed negative <code>letter-spacing</code> breaking <code>-webkit-box-decoration-break: clone</code>. (108701795)</li>
+<li>Fixed images with <code>decoding="async"</code> flickering while zooming in. (108930635)</li>
+<li>Fixed overlapping list items when content has <code>line-height: 0</code>. (108988226)</li>
+<li>Fixed <code>alt</code> text rendering horizontally in vertical writing mode. (109004347)</li>
+<li>Fixed mapping <code>align="abscenter"</code> to <code>vertical-align: middle</code> (109081191)</li>
+<li>Fixed complex text paths to not render visible tab glyphs. (109171681)</li>
+<li>Fixed <code>overflow: clip</code> when an intrusive float is present. (109293228)</li>
+<li>Fixed fragmentation of content with non-visible overflow when printing. (109320964)</li>
+<li>Fixed incorrectly including the scrollbar thickness in the logical height of a textarea with <code>overflow: auto</code>. (109384976)</li>
+<li>Fixed <code>bordercolor</code> attribute on table elements to not create a visible border. (109436009)</li>
+<li>Fixed inline-level elements with a self-painting layer rendering overlapping ellipsis. (110408920)</li>
+<li>Fixed list alignment when a list item has a flex container. (111217986)</li>
+<li>Fixed canvas not showing the results of <code>CanvasRenderingContext2D.putImageData</code> until a forced re-render. (112901862)</li>
+</ul>
+<h3>Safari Extensions</h3>
+<ul>
+<li>Fixed the script API not returning a result when the <code>func</code>parameter is used. (100034937)</li>
+<li>Fixed WebNavigation events to no longer fire for webpages where the extension hasn&#8217;t been granted access. (100191647)</li>
+<li>Fixed <code>scripting.executeScript</code> return types. (107044691)</li>
+</ul>
+<h3>Storage</h3>
+<ul>
+<li>Fixed removing HTTP credentials when the data store is removed. (106728064)</li>
+</ul>
+<h3>SVG</h3>
+<ul>
+<li>Fixed SVG <code>textLength</code> behavior. (32066826)</li>
+<li>Fixed references for SVG fragments in shadow DOM trees. (64094920)</li>
+<li>Fixed <code>overflow="visible"</code> having no effect on the dimension of a <code>&lt;use&gt;</code> element unless its dimensions are specified. (98577733)</li>
+<li>Fixed mixed characters in right-to-left mode for SVG text. (101695671)</li>
+<li>Fixed marker properties to allow any URI. (105483685)</li>
+<li>Fixed text transformation not starting on initial render. (106485848)</li>
+<li>Fixed <code>&lt;marker orient="-1"&gt;</code> to orient correctly. (109312083)</li>
+<li>Fixed <code>animateMotion</code> to accumulate properly with <code>rotate: auto</code> or <code>rotate: auto-reverse</code>. (109489241)</li>
+<li>Fixed nested use of the same SVG resource. (109917889)</li>
+<li>Fixed computed <code>display</code> property for SVG elements. (109928375)</li>
+<li>Fixed to not create an interval if a value in <code>begin-value-list</code> doesn’t have a matching value in <code>end-value-list</code>. (109935392)</li>
+<li>Fixed <code>textLength</code> whitespace and chunk handling for <code>&lt;tspan&gt;</code> elements. (109981392)</li>
+<li>Fixed the mapping from a point to a character index for the SVG <code>&lt;text&gt;</code> element. (110119702)</li>
+<li>Fixed handling of a negative radius for <code>feMorphology</code>. (110504653)</li>
+</ul>
+<h3>Tables</h3>
+<ul>
+<li>Fixed <code>table-layout: fixed</code> not getting applied when the width is <code>max-content</code>. (105627723)</li>
+<li>Fixed computing the percentage height of table cell children by removing the height of a horizontal scrollbar. (105627946)</li>
+<li>Fixed percentage sizing of table cell replaced children with a scrollbar. (108459503)</li>
+</ul>
+<h3>Web Animations</h3>
+<ul>
+<li>Fixed logic to recompute keyframe styles to tie a change in computed keyframes on an accelerated animation while animating. (87766485)</li>
+<li>Fixed handling <code>transition-property: all</code> to distinguish matching any CSS property or Animation object. (87785199)</li>
+<li>Fixed keyframes to be recomputed when <code>bolder</code> or <code>lighter</code> is used on a <code>font-weight</code> property. (105098349)</li>
+<li>Fixed the composite operation of implicit keyframes for CSS Animations to be &#8220;replace&#8221;. (105099774)</li>
+<li>Fixed keyframes to be recomputed when a parent element changes value for a custom property set to <code>inherit</code>. (105099874)</li>
+<li>Fixed the <code>all</code> value for the <code>transition-property</code> to parse as a keyword, not a CSS property. (105556116)</li>
+<li>Fixed exposing <code>CSSKeyFramesRule.length</code>. (105565920)</li>
+</ul>
+<h3>Web API</h3>
+<ul>
+<li>Fixed Canvas context allocation failures due to exceeding the maximum canvas memory limit. (48609162)</li>
+<li>Fixed firing an unexpected <code>mousemove</code> event when a modifier key is pressed. (81287778)</li>
+<li>Fixed HTML comments added after <code>&lt;body&gt;</code> to not be included in <code>document.body.innerHTML</code>. (95557786)</li>
+<li>Fixed serialization of Selectors. (97092572)</li>
+<li>Fixed string serialization of functions to match other browsers. (97445158)</li>
+<li>Fixed <code>screen.colorDepth</code> reporting the incorrect value on iOS. (99871925)</li>
+<li>Fixed valid values for the <code>as</code> property in <code>&lt;link rel="preload"&gt;</code>. (100161255)</li>
+<li>Fixed: Improved GamePad compatibility with XBOX Cloud. (100337662)</li>
+<li>Fixed: Improved Fetch API interoperability. (100582566)</li>
+<li>Fixed the Content-Type for sliced blobs in <code>fetch()</code>. (101171705)</li>
+<li>Fixed Blob range requests. (103171187)</li>
+<li>Fixed: Adjusted text input <code>scrollWidth</code> and <code>scrollHeight</code> to include padding and any whitespace added by decorations. (104332108)</li>
+<li>Fixed <code>focus()</code> method with <code>delegatesFocus</code> in Shadow DOM. (104927020)</li>
+<li>Fixed Range APIs to construct and move trees in tree order. (105154132)</li>
+<li>Fixed handling magnitude values passed to <code>GamepadHapticActuator.playEffect()</code>. (105175808)</li>
+<li>Fixed <code>Gamepad.vibrationActuator.type</code> to be <code>dual-rumble</code>. (105175859)</li>
+<li>Fixed <code>location.href</code> to throw a SyntaxError on a URL parser failure. (105631453)</li>
+<li>Fixed the natural screen orientation on iPad and TV to be landscape-primary. (106062507)</li>
+<li>Fixed <code>postMessage</code> for cross-origin iframes. (106439413)</li>
+<li>Fixed <code>Worklet.prototype.constructor</code>. (106533500)</li>
+<li>Fixed <code>innertHTML</code> serialization to not have special handling for <code>javascript:</code> URLs. (107362610)</li>
+<li>Fixed not escaping <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, and non-breaking space characters inside  <code>&lt;noembed&gt;</code>, <code>&lt;noframes&gt;</code>, and <code>&lt;plaintext&gt;</code> elements when scripting is enabled. (107381507)</li>
+<li>Fixed CacheStorageManager creating a &#8220;salt&#8221; file in the current working directory when there is no path. (107387306)</li>
+<li>Fixed to no longer recognize the SVG <code>contentScriptType</code>, <code>contentStyleType</code>, and <code>externalResourcesRequired</code> attributes, and the XML <code>xml:base</code> attribute. (107428878)</li>
+<li>Fixed Non-UTF-8 encoders to correctly emit the U+FFFD code point instead of surrogate code points. (107530253)</li>
+<li>Fixed <code>document.applets</code> to no longer return any elements. (107926196)</li>
+<li>Fixed <code>data:</code> URLs to behave the same everywhere. (107982669)</li>
+<li>Fixed missing <code>movementX</code> and <code>movementY</code> in <code>pointermove</code> events. (108112600)</li>
+<li>Fixed Wake Lock permission denied after <code>visibilitychange</code>. (108279602)</li>
+<li>Fixed <code>&lt;frameset&gt;</code> inside <code>&lt;template&gt;</code> to be ignored. (109081113)</li>
+<li>Fixed node depth computation for shadow nodes in ResizeObserver. (109166329)</li>
+<li>Fixed WebSocket&#8217;s <code>binaryType</code> setter to not throw. (109192086)</li>
+<li>Fixed exposing <code>DeviceMotionEvent</code> and <code>DeviceOrientationEvent</code> on the global <code>Window</code>object on macOS. (109580299)</li>
+<li>Fixed remaining page height to never be 0. (109929893)</li>
+<li>Fixed changing the <code>dir</code> attribute of <code>documentElement</code>not updating a child element matching the <code>:dir</code> pseudo-class. (109976294)</li>
+<li>Fixed: Set canvas-based VideoFrame color space to RGB. (110062111)</li>
+<li>Fixed <code>window.stop()</code> to fire abort events on XMLHttpRequest asynchronously. (110086856)</li>
+<li>Fixed selecting an OptGroup label not unselecting the selected item. (110088331)</li>
+<li>Fixed <code>&lt;select&gt;</code> with multiple enabled not consistently firing the <code>onchange</code> event. (110274850)</li>
+<li>Fixed style invalidation of IDs within <code>:nth-child</code> and <code>:nth-last-child</code>. (110451692)</li>
+<li>Fixed MediaStream from a canvas (captureStream) to be able to render into a different canvas. (110696945)</li>
+<li>Fixed <code>XMLHttpRequest.responseXML.characterSet</code>. (110863647)</li>
+<li>Fixed window named getter to behave correctly when there are duplicate frame names. (110864556)</li>
+<li>Fixed: Throttled <code>mousemove</code> events to one per rendering. (110921187)</li>
+<li>Fixed Service Worker redirect losing the hash fragment. (111208014)</li>
+<li>Fixed camera RAW files picked via file input getting returned as PNG on change. (111231838)</li>
+<li>Fixed emoji characters sometimes getting incorrectly drawn in text style. (111411175)</li>
+<li>Fixed <code>HTMLTableSectionElement.insertRow(0)</code> and <code>HTMLTableRowElement.insertCell(0)</code>. (111791597)</li>
+<li>Stopped parsing <code>&lt;command&gt;</code> as if it has no end tag. (107416609)</li>
+<li>Removed vestigal support for <code>&lt;layer&gt;</code> and <code>&lt;nolayer&gt;</code>from the HTML parser. (107554605)</li>
+<li>Removed deprecated uppercase URL attribute alias on the WebSocket interface. (109151597)</li>
+</ul>
+<h3>Web apps</h3>
+<ul>
+<li>Fixed passing <code>NotificationOptions.silent</code>. (107424158)</li>
+<li>Fixed: Started using origin directory for DOMCache and ServiceWorkerRegistrations. (107843591)</li>
+<li>Fixed Notifications API to default silent to the platform convention. (109390045)</li>
+<li>Fixed Web Push notifications not working in some cases by running the service worker before firing the <code>activate</code>event. (109411104)</li>
+<li>Fixed service worker downloads failing when chunks are sent via <code>postMessage</code>. (109561888)</li>
+<li>Fixed firing <code>controllerchange</code> event when a service worker gets deleted. (109567316)</li>
+</ul>
+<h3>Web Inspector</h3>
+<ul>
+<li>Fixed removing a CSS declaration when tabbing though the CSS selector in the Styles panel. (100492875)</li>
+<li>Fixed Step Over behaving like Resume when stepping over a function with a falsy conditional breakpoint in the Sources tab. (101604843)</li>
+<li>Fixed the box model to indicate a margin has been trimmed with <code>margin-trim</code>. (103374677)</li>
+<li>Fixed &#8220;Inspect Element&#8221; not highlighting the selected element. (105177739)</li>
+<li>Fixed display of <code>color-mix</code> CSS in the Styles sidebar of the Elements tab. (105732322)</li>
+<li>Fixed failing to add a new CSS rule on the first attempt in the Elements tab. (106751396)</li>
+<li>Fixed Web Inspector to not show the accessibility role in hover tooltips for elements where accessibility is ignored. (106771408)</li>
+<li>Fixed missing console logging that occurs during main frame navigation in the Console tab. (106877298)</li>
+<li>Fixed cleared items in the Network tab reappearing when Preserve Log is enabled. (107639797)</li>
+<li>Fixed incorrect timestamps in the Console tab. (107660054)</li>
+<li>Fixed non-enumerable properties appearing as though they are internal properties in the Console tab. (108005425)</li>
+<li>Fixed internal properties not greyed-out in object previews in the Console tab. (108007438)</li>
+<li>Fixed private symbols to be omitted in the scope chain. (108674026)</li>
+<li>Fixed an issue where the width of the Sources details sidebar would reset when switching between Web Inspector tabs (109253229)</li>
+<li>Fixed the error message for <code>new URL("/")</code> to be more explicit. (109253920)</li>
+<li>Fixed editing for Local Storage that appears truncated. (109473191)</li>
+<li>Fixed the resource type shown in the Network tab to use XHR when the XHR request has the same URL as the main resource. (110016863)</li>
+<li>Fixed color swatch to not show an incorrect tooltip when read-only. (110409252)</li>
+</ul>
+<h3>WebGL</h3>
+<ul>
+<li>Fixed firing the context lost event for OffscreenCanvas. (104198422)</li>
+<li>Fixed OffscreenCanvas to work as a TexImageSource in WebGL. (106700463)</li>
+</ul>
+<h3>WebRTC</h3>
+<ul>
+<li>Fixed preventing the display from going to sleep when the camera is on. (100423979)</li>
+<li>Fixed layer context handling for the HTMLMediaElement. (105795272)</li>
+<li>Fixed ending a muted microphone track when its device disappears. (108194510)</li>
+<li>Fixed camera selection to use the system preferred camera on iOS. (109220107)</li>
+<li>Fixed camera and microphone to all have <code>groupIds</code>. (109355290)</li>
+</ul>
+<h2>Feedback</h2>
+<p>We love hearing from you. Send a reply on X to <a href="https://twitter.com/webkit">@webkit</a> to share your thoughts on Safari 17.0. You can find us on Mastodon at <a href="https://front-end.social/@jensimmons">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis">@jondavis@mastodon.social</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/">feedback</a> on Safari UI, or your <a href="https://bugs.webkit.org/">WebKit bug report</a> about web technologies or Web Inspector. Filing issues really does make a difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/download/">Safari Technology Preview</a> to stay at the forefront of the web platform and to use the latest Web Inspector features. You can also read the <a href="https://developer.apple.com/documentation/safari-release-notes/">Safari 17.0 release notes</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Guest-first memory for KVM</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Guest-first memory for KVM</h2>
+		<a target="_blank" href="https://lwn.net/Articles/949277/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      One of the core objectives of any confidential-computing implementation is
+to protect a guest system's memory from access by actors outside of the
+guest itself.  The host computer and hypervisor are part of the group that
+is to be excluded from such access; indeed, they are often seen as 
+threat in their own right.  Hardware vendors have added features like memory
+encryption to make memory inaccessible to the host, but such features can
+be difficult to use and are not available on all CPUs, so there is ongoing
+interest in software-only solutions that can improve confidentiality.  The
+<a
+href="https://lwn.net/ml/linux-kernel/20231027182217.3615211-1-seanjc@google.com/">guest-first
+memory patch set</a>, posted by Sean Christopherson and containing work by
+several developers, looks poised to bring some software-based protection to
+an upcoming kernel release.
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

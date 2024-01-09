@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Ten REST Commandments</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The Ten REST Commandments</h2>
+		<a target="_blank" href="https://nordicapis.com/the-ten-rest-commandments/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>I have been building APIs for almost a decade now. Over that time, I have learned some solid do&#8217;s and don&#8217;ts that I now swear by. Building APIs is relatively easy, right? We build out our data model, wrap it in a framework in a programming language we know, then provide simple CRUD wrappers for each resource and call it a day. However, building a good API is a lot harder than that.</p>
+<p>When building your API, you need to consider who you are making your API for. It isn&#8217;t always just another backend developer who understands and can debug things easily as they are used to it. Your API might be used by a wide variety of people, all with different skill sets and varying levels of patience for an API that doesn&#8217;t just work. And ideally, none of these folks should feel pain while working with your API.</p>
+<p>With that in mind, let&#8217;s talk about the ten REST commandments. There are a set of rules or guidelines that I like to follow to make sure that I am building an API that I can be proud of and that users won&#8217;t hate integrating with.</p>
+<h3 id="1-be-practical">1. Be Practical</h3>
+<p>What do I mean by this? Modern applications use <code>json</code>, it is a fact. Yes there is still a place for <code>xml</code> in the modern web, but perhaps not in the API space. Ensure you set the headers for <code>Accept</code> and <code>Content-Type</code> to <code>application/json</code>. Formats such as <code>text/html</code>, <code>application/xml</code>, <code>x-www-form-urlencoded</code>, and <code>form-data</code> have their place, but typically not in an API. Yes, if you are building an API that needs an image upload or provides an embed endpoint, that is fine, but as a general rule — use a modern format. It is more lightweight, easier to use, and easy to read!</p>
+<h3 id="2-be-methodical">2. Be Methodical</h3>
+<p>There are five main HTTP verbs you can use for a reason: use them correctly. If you are trying to fetch information, use <code>GET</code>. If you want to create a new resource on your API, use <code>POST</code>. Use <code>PATCH</code> and <code>PUT</code> in the correct order for updating resources, depending on if you are updating a field or all the fields. Use <code>DELETE</code> to remove a resource too. I have seen many APIs that use either <code>GET</code> or <code>POST</code> for <em>everything</em> and it triggers me more than I would like to admit. Use. HTTP. Verbs. Correctly.</p>
+<h3 id="3-be-semantical">3. Be Semantical</h3>
+<p>So, what do I mean by this? Let&#8217;s take an example of retrieving a list of users from an API. We have all seen or used APIs that will ask you to make a <code>GET</code> request to an endpoint such as <code>/listAllUsers</code> — I mean, this was a standard back in the day. But, it is 2023, and we build <a href="https://blog.treblle.com/beyond-rest-common-api-design-patterns-and-when-you-will-need-them-2/">REST APIs</a> now. Part of the REST standard is to use pluralized resources with the correct HTTP verbs. Why we still see API endpoints that don&#8217;t follow these guidelines I cannot understand. REST is well-documented, easy to follow, and logical.</p>
+<h3 id="4-be-secure">4. Be Secure</h3>
+<p>Let&#8217;s be honest for a moment. If you aren&#8217;t following these practices around security, you should turn your API off now to save you issues. The first thing you need to do is use <code>https</code> because it is easy to set up, install, and use. With free certificates from <a href="https://letsencrypt.org/">LetsEncrypt</a>, there is no excuse not to add an SSL certificate to your API these days.</p>
+<p>Also, ensure your API implements a level of authorization. It isn&#8217;t enough just to authenticate users these days. People will try to access resources or update resources they don&#8217;t own. You need to protect against this. Using role-based access control (RBAC) is the bare minimum you should be looking at. Another good tip is to leverage <code>uuid</code> over a sequential ID or identifier. Using something sequential is easy to guess, and potential attackers will notice this quickly and start cycling through URIs to see what they can access that they shouldn&#8217;t.</p>
+<p>Serverless technologies are generally available. Use them! With serverless technologies, you lose the problems typically associated with servers and security. Servers and even serverless technologies set a certain amount of headers by default, and cleaning up these headers can help secure your API from an information perspective. Technologies such as NGINX and Apache expose the technology and version used on your API by default, which signals to a potential attacker where to look for possible vulnerabilities. Obfuscating this information doesn&#8217;t prevent these vulnerabilities, but it does hide the signpost that an attacker might look for.</p>
+<p>Updates, updates, updates. To be secure, you also need to make sure you stay on top of patch requests and RFCs that are released. Using a modern framework helps here, as the community or team will be on top of this for you.</p>
+<h3 id="5-be-consistent">5. Be Consistent</h3>
+<p><a href="https://nordicapis.com/4-areas-of-consistency-for-great-developer-experience/">Consistency is key in an API</a>. I know I have used APIs in the past that are not consistent, and it is painful! It makes the API harder to work with, and we end up having to add so much messy logic in our applications just to support the API integration. Be kind to your users by having a consistent response, make sure it is documented, and always communicate potential changes to this consistency. Your users are the ones supporting your platform. If you aren&#8217;t nice to them, they will look for alternative APIs they can use.</p>
+<h3 id="6-be-organized">6. Be Organized</h3>
+<p><a href="https://blog.treblle.com/api-versioning-all-you-need-to-know/">API versioning</a>. It is important. It protects your users from potential breaking changes. It stops that &#8220;quick update&#8221; from having cascading problems across your users. There are, of course, ways you can get away without versioning, but it relies on developers paying close attention to your communications. If you have a strong and very active community that listens to every update you post, sure, skip the versioning and use things such as the <code>Sunset</code> header. But can you guarantee that your community will pay attention to this header? Will they read that email or tweet that you posted? Don&#8217;t risk it.</p>
+<h3 id="7-be-graceful">7. Be Graceful</h3>
+<p>We are human, and we make mistakes. Things will fail. There is no question about it. Failures are fine, believe it or not. It is how we handle these failures that matters most. Having consistent, understandable failure messages, using the right <a href="https://nordicapis.com/what-do-the-http-status-codes-mean/">HTTP status codes</a>, and documenting the potential failures people may face is essential to avoid annoying your users. You want to protect your systems while giving enough information to your users so they can handle errors while integrating with your system.</p>
+<h3 id="8-be-smart">8. Be Smart</h3>
+<p>APIs are the brain of the whole operation for your application, platform, or product. You need to protect your most valuable asset, the database. Your API shouldn&#8217;t just be a map of your database as is. Your API will be running some complex processes — make sure this is easy to do and doesn&#8217;t rely on input from your users integrating. They don&#8217;t want to have to send several API requests to do one thing. Optimize the API experience that your users will have across multiple platforms. Consider each platform as equal, no matter what the metrics tell you. Metrics can change quickly and without notice. Take all control that the client may have and have it run in the API. Clients should just be leveraging your processes, not running them manually.</p>
+<h3 id="9-be-lean">9. Be Lean</h3>
+<p><em>Speed. I am speed</em>. Sorry, I thought I was Lightning McQueen for a second, about to win the Piston Cup. Speed starts at the database. Optimize your database and use the right database for the job. Next, index and cache the queries where you can. A slow database means a slow application means a slow API means a frustrated user. The less data you send, the faster the response will be. On that note, using a standard like <a href="https://jsonapi.org/">JSON:API</a> or <a href="https://stateless.group/hal_specification.html">HAL</a> allows you to leverage query parameters to request additional data. Don&#8217;t just send it all at once!</p>
+<p>There are a few other main ways you can speed it up further. One way is the <code>Content-Encoding</code> of your response. Using something like <code>gzip</code> really helps minimize the size of the response to send it even faster. Cache as much as you can as often as you can, and have a <a href="https://nordicapis.com/general-techniques-for-proper-api-caching/">good caching strategy</a>. Cached data is faster to access, making your API faster to respond, making your users happier. It isn&#8217;t like a website where you want users to engage with the page for as long as possible. You want your users to go away as quickly as possible with what they need.</p>
+<p>Using a more modern HTTP protocol such as HTTP2 or HTTP3 allows you to respond better and use bi-directional transfers instead of a single communication thread. Not to mention all the other amazing features the newer protocol versions offer. Pay-to-win, some things will cost money. You can&#8217;t avoid it. For example, services such as Cloudflare and Fastly are paid products, but they are worth their weight in gold. They do so much at the networking level that would just be time-consuming for you. Use them, thank them, pay them.</p>
+<h3 id="10-be-considerate">10. Be Considerate</h3>
+<p>Building APIs can be quite lonely at times. It&#8217;s often just you and your code editor of choice. Even Copilot isn&#8217;t that fun to talk to. Yes, you could get a soft plushie or a rubber duck, but it is still just you and your code. Yet, there are a lot of people counting on you to do an excellent job of building your API. All of those potential users and current users want to use your product. But, they want it to work. Therefore, considering the overall developer experience and having empathy for the user journey is essential.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>So, these are the ten <a href="https://blog.treblle.com/the-10-rest-commandments/">REST commandments</a> that my team is often talking about. They can be summed up as logical or obvious. But, after working at an API observability platform for years, I&#8217;ve realized they&#8217;re not as apparent as you or I may assume. APIs are meant to be fast, consistent, and reliable. So, I encourage you to consider these points the next time you build or maintain an API.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Introducing llamafile</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Introducing llamafile</h2>
+		<a target="_blank" href="https://hacks.mozilla.org/2023/11/introducing-llamafile/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://hacks.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><em>A special thanks to Justine Tunney of the Mozilla Internet Ecosystem (MIECO), who co-authored this blog post.</em></p>
+<p><span style="font-weight: 400;">Today we’re announcing the first release of </span><a href="https://github.com/Mozilla-Ocho/llamafile"><span style="font-weight: 400;">llamafile</span></a><span style="font-weight: 400;"> and inviting the open source community to participate in this new project.</span></p>
+<p><span style="font-weight: 400;">llamafile lets you turn large language model (LLM) weights into executables.</span></p>
+<p><span style="font-weight: 400;">Say you have a set of LLM weights in the form of a 4GB file (in the commonly-used GGUF format). With llamafile you can transform that 4GB file into a binary that runs on six OSes without needing to be installed.</span></p>
+<p><span style="font-weight: 400;">This makes it dramatically easier to distribute and run LLMs. It also means that as models and their weights formats continue to evolve over time, llamafile gives you a way to ensure that a given set of weights will remain usable and perform consistently and reproducibly, forever.</span></p>
+<p><span style="font-weight: 400;">We achieved all this by combining two projects that we love:</span><a href="https://github.com/ggerganov/llama.cpp"> <span style="font-weight: 400;">llama.cpp</span></a><span style="font-weight: 400;"> (a leading open source LLM chatbot framework) with</span><a href="https://github.com/jart/cosmopolitan"> <span style="font-weight: 400;">Cosmopolitan Libc</span></a><span style="font-weight: 400;"> (an open source project that enables C programs to be compiled and run on a large number of platforms and architectures). It also required solving several interesting and juicy problems along the way, such as adding GPU and dlopen() support to Cosmopolitan; you can read more about it in </span><a href="https://github.com/Mozilla-Ocho/llamafile#readme"><span style="font-weight: 400;">the project’s README</span></a><span style="font-weight: 400;">.</span></p>
+<p><span style="font-weight: 400;">This first release of llamafile is a product of Mozilla’s innovation group and developed by </span><a href="https://justine.lol"><span style="font-weight: 400;">Justine Tunney</span></a><span style="font-weight: 400;">, the creator of Cosmopolitan. Justine has recently been collaborating with Mozilla via </span><a href="https://future.mozilla.org/mieco/"><span style="font-weight: 400;">MIECO</span></a><span style="font-weight: 400;">, and through that program Mozilla funded her work on the </span><a href="https://justine.lol/cosmo3/"><span style="font-weight: 400;">3.0 release</span></a><span style="font-weight: 400;">  (</span><a href="https://news.ycombinator.com/item?id=38101613"><span style="font-weight: 400;">Hacker News discussion</span></a><span style="font-weight: 400;">) of Cosmopolitan. With llamafile, Justine is excited to be contributing more directly to Mozilla projects, and we’re happy to have her involved.</span></p>
+<p><span style="font-weight: 400;">llamafile is licensed Apache 2.0, and we encourage contributions. Our changes to llama.cpp itself are licensed MIT (the same license used by llama.cpp itself) so as to facilitate any potential future upstreaming. We’re all big fans of llama.cpp around here; llamafile wouldn’t have been possible without it and Cosmopolitan.</span></p>
+<p><span style="font-weight: 400;">We hope llamafile is useful to you and look </span><a href="https://github.com/Mozilla-Ocho/llamafile"><span style="font-weight: 400;">forward to your feedback</span></a><span style="font-weight: 400;">.</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://hacks.mozilla.org/2023/11/introducing-llamafile/">Introducing llamafile</a> appeared first on <a href="https://hacks.mozilla.org">Mozilla Hacks - the Web developer blog</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

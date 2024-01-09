@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] listmount() and statmount()</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] listmount() and statmount()</h2>
+		<a target="_blank" href="https://lwn.net/Articles/950569/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Years ago, the list of mounted filesystems on a Unix or Linux machine was
+relatively short and static.  Adding a filesystem, which typically involved
+buying a new drive, happened rarely.  In contrast, contemporary systems
+with a large number of containers can have a long and dynamic list of
+mounted filesystems.  As was <a href="https://lwn.net/Articles/934469/">discussed</a> at
+the <a href="https://lwn.net/Articles/lsfmmbpf2023/">2023 LSFMM+BPF Summit</a>, the Linux
+kernel's mechanism for providing information about mounted filesystems has
+not kept up with this change, leading to system-management headaches.  Now,
+two new system calls <a
+href="https://lwn.net/ml/linux-kernel/20231025140205.3586473-1-mszeredi@redhat.com/">proposed</a>
+by Miklos Szeredi look set to provide some much-needed pain relief.
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

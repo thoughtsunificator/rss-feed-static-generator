@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Assemblage overview&colon; step 3 - defining a service architecture</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Assemblage overview&colon; step 3 - defining a service architecture</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2023/10/17/assemblage-step-3-defining-a-service-architecture.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h1 id="assemblage-overview-step-3---defining-a-service-architecture">Assemblage overview: step 3 - defining a service architecture</h1>
+
+<p><a href="/post/architecture/refactoring/2023/07/27/assemblage-overview-part-1-defining-system-operations.html">Step 1</a> of the <a href="/post/architecture/2023/02/09/assemblage-architecture-definition-process.html">Assemblage definition process</a> distills the requirements into a set of system operations that collectively define the application’s behavior and <a href="/post/architecture/2023/08/14/assemblage-overview-part-2-defining-subdomains.html">Step 2</a> identifies the subdomains that implement those system operations.
+In this article, I describe step 3 of the Assemblage process, which designs the <a href="/post/architecture/2023/09/19/assemblage-part-3-whats-a-service-architecture.html">service architecture</a>.</p>
+
+<p><img src="/i/posts/assemblage-overview/Designing_Operations_Overview.png" style="width: 50%" /></p>
+
+<p>A service architecture is a (mostly) technology neutral description of a microservice architecture consisting of the services, their responsibilities, subdomains, APIs and collaborations.
+In particular, inter-service communication is described abstractly using, for example, <a href="/post/books/2020/05/14/2020-enterprise-integration-patterns.html">message channels and other enterprise Integration patterns</a> rather than specific technologies such as Apache Kafka topics.</p>
+
+<p>You will learn how to define the service architecture by grouping subdomains to form services and applying the <a href="/post/patterns/2023/07/29/service-collaboration-patterns.html">service collaboration patterns</a> to realize system operations that span multiple services.
+I describe how the architecture is shaped by the <a href="/post/microservices/2021/11/30/dark-matter-dark-energy.html">dark energy and dark matter forces</a>.
+Let’s start with an overview of how to define a service architecture.</p>
+
+<h2 id="overview-of-designing-a-service-architecture">Overview of designing a service architecture</h2>
+
+<p>The service architecture is designed incrementally, one operation at a time.
+First, you rank the operations by descending importance.
+Next, you work your way down the list of operations, designing an <a href="/post/architecture/2023/09/19/assemblage-part-3-whats-a-service-architecture.html#operation-realization">operation realization</a>.
+An operation realization is an architecture modification that adds and updates architectural elements - services, operations, event handlers, and message channels - in order to implement an operation.
+The service architecture is a composition of each operation’s realization.</p>
+
+<p>Let’s look at how to design a service service, starting with ranking system operations.</p>
+
+<h2 id="rank-system-operations-by-descending-importance">Rank system operations by descending importance</h2>
+
+<p><img src="/i/assemblage/designing-service-architecture-01-ranking.png" style="float:right;width:15%;margin-left: 1em" /></p>
+
+<p>Your first task is to rank the system operations by descending importance.
+Let’s first look at why ranking matters and after that I’ll discuss ranking criteria.</p>
+
+<h3 id="why-ranking-matters">Why ranking matters</h3>
+
+<p>Since the service architecture is defined incrementally, one operation at a time, the order in which you consider the operations matters.
+A higher ranked operation will potentially play a much greater role in shaping the architecture.
+The higher its ranking the more likely it will be that some or all of its subdomains will be unassigned.
+You will have more freedom in how you assign its subdomains to services.
+There’s a greater chance of resolving the dark energy and dark matter forces.</p>
+
+<h3 id="how-to-rank-system-operations">How to rank system operations</h3>
+
+<p>There are several ways of assessing a system operation’s importance including:</p>
+
+<ul>
+  <li>High business criticality - important to design these operations so that they are highly available</li>
+  <li>High technical risk - e.g. complexity, large data volumes, high throughput, low latency, etc.</li>
+  <li>Competitive advantage - e.g. important to be able to rapidly experiment and innovate</li>
+  <li>…</li>
+</ul>
+
+<p>For example, let’s imagine that you are working on the FTGO application.
+You’d probably rank those system operations that support the ordering flow (from order creation to delivery) higher than those that implement other functionality.
+A ranking might look something like:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">createOrder()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">acceptOrder()</code></li>
+  <li>…</li>
+</ol>
+
+<p>After ranking the system operations, you will work your way down the list of system operations, incrementally creating the architecture, by designing an operation realization for each one.</p>
+
+<h2 id="designing-an-operation-realization">Designing an operation realization</h2>
+
+<p>You will design an operation realization for each system operation.
+The design of an operation realization occurs in context of the architecture that’s been defined so far.
+This architecture is composed of the realizations for the previously designed operations.
+Initially, that architecture is empty.
+Each operation realization adds, and updates architectural elements such as services, operations, event handlers, and message channels et.</p>
+
+<p>There are potentially multiple ways to implement an operation.
+I’ll first describe how to implement a system operation in terms of collaborating services.
+After that, I’ll describe how evaluate and compare the candidate implementations using <a href="/post/microservices/2021/11/30/dark-matter-dark-energy.html">dark energy and dark matter forces</a> and pick the best one.</p>
+
+<h3 id="designing-a-system-operation-realization">Designing a system operation realization</h3>
+
+<p>To design an operation realization you need to do two things.
+First, you must assign the operation’s unassigned subdomains to new or existing services
+Next, you must also add elements to the services, such as operations, event publishers, and handlers, that facilitate collaboration.
+Let’s look at how to design an operation realization in more detail.</p>
+
+<h4 id="assigning-an-operations-subdomains-to-services">Assigning an operation’s subdomains to services</h4>
+
+<p><img src="/i/assemblage/designing-service-architecture-02-assign-subdomains.png" style="float:right;width:15%;margin-left: 1em" /></p>
+
+<p>The first step of designing an operation realization is to ensure that all of the operation’s subdomains are assigned to services.
+Some or all of the operation’s subdomain might have already been assigned to services when designing higher ranked operations.
+You’ll only be able to assign the operation’s unassigned subdomains to services.
+The lower an operation’s rank the greater the less freedom you will have to assign subdomains.
+It’s likely that for many low ranked operations, all of their subdomains will already have been assigned.
+Let’s look at an example from the FTGO application.</p>
+
+<h5 id="about-the-acceptticket-operation">About the <code class="language-plaintext highlighter-rouge">acceptTicket()</code> operation</h5>
+
+<p>Let’s imagine that you are part way through designing the architecture for the FTGO application.
+You’ve already designed various operations and defined an architecture consisting of the following services:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Consumer Service</code> - contains the <code class="language-plaintext highlighter-rouge">Consumer Management</code> domain</li>
+  <li><code class="language-plaintext highlighter-rouge">Order Service</code> - contains the <code class="language-plaintext highlighter-rouge">Order Management</code> domain</li>
+  <li><code class="language-plaintext highlighter-rouge">Restaurant Service</code> - contains the <code class="language-plaintext highlighter-rouge">Restaurant Management</code>domain</li>
+  <li><code class="language-plaintext highlighter-rouge">Kitchen Service</code> - contains the <code class="language-plaintext highlighter-rouge">Kitchen Management</code> domain</li>
+</ul>
+
+<p>And now, you now want to implement the <code class="language-plaintext highlighter-rouge">acceptTicket()</code> operation, which is invoked when a restaurant accepts a <code class="language-plaintext highlighter-rouge">Ticket</code>, which represents a consumer’s order, and commits to having it ready for pickup at a particular time.</p>
+
+<p><img src="/i/assemblage/accept-ticket-design-problem.png" class="img-responsive" /></p>
+
+<p>This operation is implemented by two subdomains: <code class="language-plaintext highlighter-rouge">Kitchen Management</code> and <code class="language-plaintext highlighter-rouge">Delivery Management</code>.
+It updates the state of the <code class="language-plaintext highlighter-rouge">Ticket</code> in the <code class="language-plaintext highlighter-rouge">Kitchen Management</code> subdomain to <code class="language-plaintext highlighter-rouge">ACCEPTED</code> and schedules a <code class="language-plaintext highlighter-rouge">Delivery</code> in the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain.</p>
+
+<h5 id="assigningaccepttickets-subdomains">Assigning<code class="language-plaintext highlighter-rouge">acceptTicket()</code>’s subdomains</h5>
+
+<p>The <code class="language-plaintext highlighter-rouge">Kitchen Management</code> subdomain has already been assigned to a <code class="language-plaintext highlighter-rouge">Kitchen Service</code>.
+We, therefore, need to decide where to assign the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain.
+For this simple example, there’s 5 possible assignments of the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain: anyone of the 4 existing services or to a new <code class="language-plaintext highlighter-rouge">Delivery Service</code>.
+A more complex operation that has multiple unassigned subdomains could have many more possible assignments.</p>
+
+<p>To simplify the rest of the discussion, let’s consider just two candidate assignments for the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain:</p>
+
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">Kitchen Service</code></li>
+  <li>A new <code class="language-plaintext highlighter-rouge">Delivery Service</code></li>
+</ol>
+
+<p>The following diagram shows the two candidate assignments:</p>
+
+<p><img src="/i/assemblage/accept-ticket-design-options.png" class="img-responsive" /></p>
+
+<p>Let’s look at how to design the service collaborations for each of these candidate realizations.</p>
+
+<h4 id="designing-the-service-collaboration-for-an-operation">Designing the service collaboration for an operation</h4>
+
+<p><img src="/i/assemblage/designing-service-architecture-03-design-collaboration.png" style="float:right;width:15%;margin-left: 1em" /></p>
+
+<p>The second step of designing an operating realization is to determine how the services should collaborate to implement the operation and the add elements that enable the collaboration.
+The assignment of an operation’s subdomains to services results in an operation that’s either local or distributed.
+A local operation is one who’s subdomains are in a single service, where as a distributed operation spans multiple services.
+In the FTGO example, <code class="language-plaintext highlighter-rouge">acceptOrder()</code> in candidate #1 is local to the <code class="language-plaintext highlighter-rouge">Kitchen Service</code> where as in candidate #2 it’s distributed across the <code class="language-plaintext highlighter-rouge">Kitchen Service</code> and the <code class="language-plaintext highlighter-rouge">Delivery Service</code>.
+Let’s first look at how to design the service collaboration for a local operation.</p>
+
+<h5 id="designing-local-operations">Designing local operations</h5>
+
+<p>If all of an operation’s subdomains are assigned to a single service, then the operation is local to that service.
+The service collaboration for a local operation is very simple.
+In <code class="language-plaintext highlighter-rouge">acceptOrder()</code> candidate #1, the <a href="/patterns/apigateway.html">API Gateway</a> simply forwards the <code class="language-plaintext highlighter-rouge">acceptOrder()</code> request to the <code class="language-plaintext highlighter-rouge">Kitchen Service</code>.
+The <code class="language-plaintext highlighter-rouge">Kitchen Service</code> has an <code class="language-plaintext highlighter-rouge">acceptOrder()</code> operation that changes the state of the <code class="language-plaintext highlighter-rouge">Ticket</code> to <code class="language-plaintext highlighter-rouge">ACCEPTED</code> and creates a <code class="language-plaintext highlighter-rouge">Delivery</code>.</p>
+
+<h5 id="designing-distributed-operations">Designing distributed operations</h5>
+
+<p>If an operation’s subdomains are assigned to two or more services, then the operation is distributed.
+There are often numerous possible ways to design the service collaboration for a distributed operation: different combinations of the <a href="/post/patterns/2023/07/29/service-collaboration-patterns.html">service collaboration patterns</a> and even multiple ways to apply a given pattern.
+For example, since the <code class="language-plaintext highlighter-rouge">acceptOrder()</code> operation in candidate #2 updates entities in two services, it needs to be implemented as <a href="/patterns/data/saga.html">Saga</a>, which spans the <code class="language-plaintext highlighter-rouge">Kitchen Service</code> and the <code class="language-plaintext highlighter-rouge">Delivery Service</code>.
+One possible saga design is to use choreography-based Saga that updates the state of the <code class="language-plaintext highlighter-rouge">Ticket</code>, and publishes a <code class="language-plaintext highlighter-rouge">TicketAccepted</code> event, which triggers the creation of a <code class="language-plaintext highlighter-rouge">Delivery</code>.
+You could, however, use an orchestration-based saga instead.
+Moreover, there are often multiple possible different sequences of steps in a saga.
+Ideally, you should consider all possible designs.</p>
+
+<p>To simplify the discussion let’s assume that <code class="language-plaintext highlighter-rouge">acceptOrder()</code> is implemented by a chorography-based saga:</p>
+
+<p><img src="/i/assemblage/accept-ticket-design-choreography-based-saga.png" class="img-responsive" /></p>
+
+<p>This saga works as follows:</p>
+
+<ol>
+  <li>The API Gateway routes the <code class="language-plaintext highlighter-rouge">acceptTicket()</code> request to the <code class="language-plaintext highlighter-rouge">Kitchen Service</code></li>
+  <li>The <code class="language-plaintext highlighter-rouge">Kitchen Service</code> has an <code class="language-plaintext highlighter-rouge">acceptTicket()</code> operation that changes the state of the <code class="language-plaintext highlighter-rouge">Ticket</code> to <code class="language-plaintext highlighter-rouge">ACCEPTED</code> and publishes a <code class="language-plaintext highlighter-rouge">TicketAccepted</code> event</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Delivery Service</code> has an event handler for the <code class="language-plaintext highlighter-rouge">TicketAccepted</code> event that schedules a <code class="language-plaintext highlighter-rouge">Delivery</code></li>
+</ol>
+
+<p>Let’s now look at how to evaluate the candidate realizations for an operation.</p>
+
+<h3 id="evaluating-candidate-system-operation-realizations">Evaluating candidate system operation realizations</h3>
+
+<p><img src="/i/assemblage/designing-service-architecture-04-evaluate-candidates.png" style="float:right;width:15%;margin-left: 1em" /></p>
+
+<p>If there are multiple possible system operation realizations, you need to evaluate them using the <a href="/post/architecture/2023/03/26/dark-energy-dark-matter-force-descriptions.html">dark energy and dark matter forces</a> and pick the one that best resolves the forces.
+Let’s first look at how to evaluate the two candidates for <code class="language-plaintext highlighter-rouge">acceptOrder()</code> operation using the dark energy forces.
+After that, I’ll describe how to evaluate them using the dark matter forces.</p>
+
+<h4 id="evaluating-the-candidates-using-dark-energy-forces">Evaluating the candidates using dark energy forces</h4>
+
+<p>Candidate #1, which puts both subdomains in the <code class="language-plaintext highlighter-rouge">Kitchen Service</code>, resolves each of the dark energy forces as follows</p>
+
+<ul>
+  <li>❌ <a href="/articles/dark-energy-dark-matter/dark-energy/simple-components.html">Simple components</a> - <code class="language-plaintext highlighter-rouge">Delivery Management</code> is a complex subdomain and <code class="language-plaintext highlighter-rouge">Kitchen Management</code> is a complicated subdomain and should ideally be implemented by separate services.</li>
+  <li>❌ <a href="/articles/dark-energy-dark-matter/dark-energy/team-autonomy.html">Team autonomy</a> - <code class="language-plaintext highlighter-rouge">Delivery Management</code> and <code class="language-plaintext highlighter-rouge">Kitchen Management</code> are owned by separate teams and should ideally be implemented by separate services.</li>
+  <li>❌ <a href="/articles/dark-energy-dark-matter/dark-energy/fast-deployment-pipeline.html">Fast deployment pipeline</a> - <code class="language-plaintext highlighter-rouge">Delivery Management</code> is a complex subdomain and <code class="language-plaintext highlighter-rouge">Kitchen Management</code> is a complicated subdomain and should ideally have separate deployment pipelines.</li>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-energy/multiple-technology-stacks.html">Support multiple technology stacks</a> - the two subdomains use the same technology stacks and so there’s no issue with putting them in the same service</li>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-energy/segregate-by-characteristics.html">Segregate by characteristics</a> - the two subdomains have similar characteristics and so there’s no issue with putting them in the same service</li>
+</ul>
+
+<p>As you can see, it only partially resolves these forces.
+Most notably, it doesn’t adequately resolve the <code class="language-plaintext highlighter-rouge">Team Autonomy</code> force.</p>
+
+<p>In comparison, candidate #2, which assigns the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain to a separate service, resolves the all of dark energy forces.</p>
+
+<p>Let’s now look at these candidate realizations resolve the dark matter forces.</p>
+
+<h4 id="evaluating-the-candidates-using-dark-matter-forces">Evaluating the candidates using dark matter forces</h4>
+
+<p>In candidate #1, <code class="language-plaintext highlighter-rouge">acceptTicket()</code> is a local operation.
+As a result, this design resolves all of the dark matter forces.</p>
+
+<p>In comparison, in candidate #2, <code class="language-plaintext highlighter-rouge">acceptOrder()</code> is a distributed operation.
+However, it still adequately resolves the dark matter forces:</p>
+
+<ul>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-matter/simple-interactions.html">Simple interactions</a> - there’s a single event so interactions are simple</li>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-matter/efficient-interactions.html">Efficient interactions</a> - there’s a single event so interactions are efficient</li>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-matter/prefer-acid-over-base.html">Prefer ACID over BASE</a> - although it’s eventually consistent, it’s quite simple</li>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-matter/minimize-runtime-coupling.html">Minimize runtime coupling</a> -  since communication is asynchronous, there’s no runtime coupling</li>
+  <li>✅ <a href="/articles/dark-energy-dark-matter/dark-matter/minimize-design-time-coupling.html">Minimize design time coupling</a> - there’s minimal design time coupling</li>
+</ul>
+
+<h2 id="selecting-the-best-operation-realization">Selecting the best operation realization</h2>
+
+<p>Once you have evaluated the candidate realizations, you need to pick the best one.</p>
+
+<p>Here’s how the two example design candidates compare:</p>
+
+<p><img src="/i/assemblage/accept-ticket-design-options-compared.png" class="img-responsive" /></p>
+
+<p>Consequently, candidate #2 is the best overall design because it resolves the all of the dark energy forces and adequately resolves the dark matter forces.</p>
+
+<h2 id="updating-the-service-architecture">Updating the service architecture</h2>
+
+<p>The chosen operation realization is then applied to the architecture, which results in the following changes:</p>
+
+<ul>
+  <li>Updates the <code class="language-plaintext highlighter-rouge">API Gateway</code> - routes <code class="language-plaintext highlighter-rouge">acceptTicket()</code> request to the <code class="language-plaintext highlighter-rouge">Kitchen Service</code></li>
+  <li>Updates the existing <code class="language-plaintext highlighter-rouge">Kitchen Service</code>:
+    <ul>
+      <li>Add the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain to this service</li>
+      <li>Add the service operation <code class="language-plaintext highlighter-rouge">acceptTicket()</code></li>
+      <li>Add a <code class="language-plaintext highlighter-rouge">TicketAccepted</code> published event</li>
+    </ul>
+  </li>
+  <li>Adds a new <code class="language-plaintext highlighter-rouge">Delivery Service</code>:
+    <ul>
+      <li>Add the <code class="language-plaintext highlighter-rouge">Delivery Management</code> subdomain to this service</li>
+      <li>Add an event handler for the <code class="language-plaintext highlighter-rouge">TicketAccepted</code> event that schedules a <code class="language-plaintext highlighter-rouge">Delivery</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Once you’ve designed the operation realization for <code class="language-plaintext highlighter-rouge">acceptTicket()</code>, you can then move on to the next operation in the list.</p>
+
+<h2 id="whats-next">What’s next</h2>
+
+<p>The process of designing a service architecture described in this article is a series of operation-level design decisions.
+As a result, there’s a risk that some decisions will be suboptimal from a global perspective.
+In the next article, I describe step 4 of the Assemblage architecture design process, which evaluates the service architecture in order to identify areas for improvement.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

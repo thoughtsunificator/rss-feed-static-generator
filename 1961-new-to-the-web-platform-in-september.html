@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>New to the web platform in September</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">New to the web platform in September</h2>
+		<a target="_blank" href="https://web.dev/web-platform-09-2023/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://web.dev/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h2 id="stable-browser-releases">Stable browser releases <a class="headline-link" href="https://web.dev/web-platform-09-2023/#stable-browser-releases">#</a></h2>
+<p>In September 2023 <a href="https://developer.mozilla.org/docs/Mozilla/Firefox/Releases/118" rel="noopener">Firefox 118</a>, <a href="https://developer.apple.com/documentation/safari-release-notes/safari-17-release-notes" rel="noopener">Safari 17</a>, and <a href="https://developer.chrome.com/blog/new-in-chrome-117/" rel="noopener">Chrome 117</a> became stable. This post takes a look at what that means for the web platform.</p>
+<aside class="aside flow bg-state-bad-bg color-state-bad-text"><p class="cluster color-state-bad-text"><span class="aside__icon box-block "><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Error sign">   <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-10v6h2V7h-2z"></path> </svg></span><strong>Caution</strong></p><div class=" flow"> We include browser compatibility data pulled from MDN in these posts which may not have been updated yet for very recent browser releases. The post will show the correct information as soon as it appears in the <a href="https://github.com/mdn/browser-compat-data/releases">browser-compat-data release</a>. </div></aside>
+<p>The <code>subgrid</code> value for <code>grid-template-columns</code> and <code>grid-template-rows</code> is included in Chrome 117, making this longed for feature interoperable. You can learn more about subgrid in the article <a href="https://web.dev/css-subgrid/">CSS subgrid</a>.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome 114, Behind a flag</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="flag" title="Behind a flag" aria-label="Behind a flag">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox 71, Supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+71
+</span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge 114, Behind a flag</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="flag" title="Behind a flag" aria-label="Behind a flag"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari 16, Supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+16
+</span>
+</li><p></p>
+  </ul>
+  <a class="wdi-browser-compat__link" href="https://developer.mozilla.org/docs/Web/CSS/CSS_Grid_Layout/Subgrid#browser_compatibility" target="_blank">Source</a>
+</div>
+<p>Chrome also includes three new CSS features to easily add entry and exit animations, and smoothly animate to and from the top layer dismissible elements such as dialogs and popovers. You can learn about the <code>transition-behavior</code> property, <code>@starting-style</code> rule, and <code>overlay</code> property in the article <a href="https://developer.chrome.com/blog/entry-exit-animations/" rel="noopener">Four new CSS features for entry and exit animations</a>.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome, Not supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><p></p>
+  </ul>
+</div>
+<p>Also in Chrome 117 is JavaScript array grouping with the <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy" rel="noopener">Object.groupBy</a> and <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/groupBy" rel="noopener">Map.groupBy</a> static methods.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome, Not supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><p></p>
+  </ul>
+</div>
+<p>Safari 17 includes the <code>popover</code> attribute, to add support for the <a href="https://developer.chrome.com/blog/introducing-popover-api/" rel="noopener">Popover API</a>.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome, Not supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><p></p>
+  </ul>
+</div>
+<p>Safari 17 and Firefox 118 include the HTML <a href="https://developer.mozilla.org/docs/Web/HTML/Element/search" rel="noopener"><code>&lt;search&gt;</code></a> element. This element represents the parts of the page or application that contain funtionality for search or filtering content.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome, Not supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><p></p>
+  </ul>
+  <a class="wdi-browser-compat__link" href="https://developer.mozilla.org/docs/Web/HTML/Element/search#browser_compatibility" target="_blank">Source</a>
+</div>
+<p>There are lots of new CSS features included in Safari 17, including <a href="https://developer.mozilla.org/docs/Web/CSS/@counter-style" rel="noopener"><code>@counter-style</code></a>. This rule lets you define counter styles that are outside the predefined list of style. This feature is now available in all three engines.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome 91, Supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+      91
+    </span>
+    </li><li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="firefox">
+      <span class="visually-hidden">Firefox 33, Supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+      33
+    </span>
+    </li><li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="edge">
+      <span class="visually-hidden">Edge 91, Supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+      91
+    </span>
+    </li><li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="safari">
+      <span class="visually-hidden">Safari 17, Supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+      17
+    </span>
+    </li>
+  </ul>
+  <a class="wdi-browser-compat__link" href="https://developer.mozilla.org/docs/Web/CSS/@counter-style#browser_compatibility" target="_blank">Source</a>
+</div>
+<p>Firefox 118 includes several additional CSS math functions: <code>abs()</code>, <code>sign()</code>, <code>round()</code>, <code>mod()</code>, <code>rem()</code>, <code>pow()</code>, <code>sqrt()</code>, <code>hypot()</code>, <code>log()</code>, and <code>exp()</code>.</p>
+<div class="wdi-browser-compat">
+  <span class="wdi-browser-compat__label">Browser support</span>
+  <ul class="wdi-browser-compat__items">
+    <li class="wdi-browser-compat__item">
+    <span class="wdi-browser-compat__icon" data-browser="chrome">
+      <span class="visually-hidden">Chrome, Not supported</span>
+    </span>
+    <span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported">
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="firefox">
+<span class="visually-hidden">Firefox 112, Supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+112
+</span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="edge">
+<span class="visually-hidden">Edge, Not supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="no" title="Not supported" aria-label="Not supported"><p></p>
+<p></p></span>
+</li><li class="wdi-browser-compat__item">
+<span class="wdi-browser-compat__icon" data-browser="safari">
+<span class="visually-hidden">Safari 15.4, Supported</span>
+</span>
+<span class="wdi-browser-compat__version" data-compat="yes" title="Supported" aria-label="Supported">
+15.4
+</span>
+</li><p></p>
+  </ul>
+  <a class="wdi-browser-compat__link" href="https://developer.mozilla.org/docs/Web/CSS/exp#browser_compatibility" target="_blank">Source</a>
+</div>
+<p>Safari 17 also includes support for HEIC/HEIF images, and JPEG XL.</p>
+<h2 id="beta-browser-releases">Beta browser releases <a class="headline-link" href="https://web.dev/web-platform-09-2023/#beta-browser-releases">#</a></h2>
+<p>Beta browser versions give you a preview of things that will be in the next stable version of the browser. It's a great time to test new features, or removals, that could impact your site before the world gets that release. New betas are <a href="https://developer.mozilla.org/docs/Mozilla/Firefox/Releases/119" rel="noopener">Firefox 119</a>, <a href="https://developer.apple.com/documentation/safari-release-notes/safari-17_1-release-notes" rel="noopener">Safari 17.1</a>, and <a href="https://developer.chrome.com/blog/chrome-118-beta/" rel="noopener">Chrome 118</a>. These releases bring many great features to the platform. Check out the release notes for all of the details, here are just a few highlights.</p>
+<p>The <code>&lt;search&gt;</code> element, shipping in Firefox and Safari this month is included in Chrome 118, meaning this feature is quickly landing across all three engines.</p>
+<p>The <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy" rel="noopener">Object.groupBy</a> and <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/groupBy" rel="noopener">Map.groupBy</a> static methods are part of Firefox 119.</p>
+<p>Chrome 118 includes <a href="https://drafts.csswg.org/css-cascade-6/#scoped-styles" rel="noopener">CSS scoped styles</a> with the <code>@scope</code> rule and new media features with <code>prefers-reduced-transparency</code> and <code>scripting</code>.</p>
+<p>Safari 17.1 is currently a release that fixes a range of issues across the platform.</p>
+<p><em>Photo by <a href="https://unsplash.com/@charlesdeluvio" rel="noopener">Charles Deluvio</a>.</em></p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

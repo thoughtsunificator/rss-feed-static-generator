@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Developments Aplenty for 120 – These Weeks in Firefox: Issue 146</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Developments Aplenty for 120 – These Weeks in Firefox: Issue 146</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2023/10/10/developments-aplenty-for-120-these-weeks-in-firefox-issue-146/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1"><a href="https://blog.mozilla.org/en/products/firefox/encrypted-hello/">Firefox is rolling out worldwide support for Encrypted Client Hello</a> to make your network connections even more private!
+<ul>
+<li aria-level="2">Learn more about <a href="https://support.mozilla.org/en-US/kb/understand-encrypted-client-hello">Encrypted Client Hello here</a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1772404">Corner snapping a Picture-in-Picture window now works in Windows and Linux</a>. Just hold the control key while moving the PiP window to snap to a corner. We’ve had this on macOS for a few years already (using the Cmd key).
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/10/headlines146_0.gif" /></li>
+</ul>
+</li>
+<li aria-level="1">The DevTools debugger now runs <b>up to 70% faster</b> when many sources are created (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852979#c4">alert</a>). Thanks to Alex for the optimizations (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852979">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853124">bug</a>).</li>
+<li aria-level="1">Alex did a big refactor in the Debugger codebase to properly support breaking on the page unload event (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1806796">bug</a>). This is currently slated to roll out in Firefox 120.</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1673582%2C1853559%2C1849316%2C1852249%2C1854855%2C1854117&amp;list_id=16741306">Resolved bugs (excluding employees)</a></h4>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849316">Nagendra refactored `TabManager`</a> methods to make use of `getTabsForWindow` method</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Project Updates</h3>
+<h4>Accessibility</h4>
+<ul>
+<li aria-level="1">A11y team is working on activating <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1692110">a11y_checks on CI</a> &#8211; these are Tier 2 jobs and would not cause backouts but will prevent adding any new inaccessible controls (like buttons that are not focusable or are not labeled). At the moment there are about 900 test failures in central, so <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848402">we’re adding fail-if clauses in test manifests</a> to further investigate reported <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854227">labels</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848394">focus</a> concerns. There are false positives and special cases and we will be fine-tuning the tests and filing bugs when controls are confirmed to be not accessible.</li>
+<li aria-level="1"><b>How can you prepare?</b> Ensure that if any UI you’re working on can be clicked, it can be focused with a keyboard and it has an accessible name (use <a href="https://firefox-source-docs.mozilla.org/devtools-user/accessibility_inspector/index.html">Accessibility Inspector</a>, a keyboard, and/or a screen reader to check it). If in doubt, ask any questions in <a href="https://matrix.to/#/#accessibility:mozilla.org">#Accessibility room</a> in Matrix.</li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1">Contributors
+<ul>
+<li aria-level="2">Zac Svoboda (:zacnomore) tweaked the color we use for links in DevTools so they are accessible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1673582">bug</a>)</li>
+<li aria-level="2">Vinny Diehl fixed the Shape path editor when inset() uses pixels on an element which is sized in percentage (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853559">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Yury updated wasmparser library to 5.8.0, which adds support for <a href="https://github.com/webassembly/gc">Wasm-GC proposal </a>in the debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855254">bug</a>)</li>
+<li aria-level="1">Alex also made the project search persist on reload (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824393">bug</a>)
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/10/headlines146_1.png" /></li>
+<li aria-level="2"><a href="https://snipboard.io/jzQ0Cg.jpg">screenshot</a></li>
+</ul>
+</li>
+<li aria-level="1">Hubert also improved debugger performance by lazy loading information for the Quick open panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853296">bug</a>)</li>
+<li aria-level="1">Hubert fixed a Debugger crash that was due to a race condition when trying to add a breakpoint during page load between page load and adding breakpoint (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844630">bug</a>)</li>
+<li aria-level="1">Nicolas made paused thread styling in the Threads panel more noticeable (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838393">bug</a>)
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2023/10/headlines146_2.png" /></li>
+<li aria-level="2"><a href="https://snipboard.io/fJDHMS.jpg">screenshot</a></li>
+</ul>
+</li>
+<li aria-level="1">The accessibility team ran an audit of the most important panels (Inspector, Console, Debugger) and reported <a href="https://bugzilla.mozilla.org/buglist.cgi?f1=blocked&amp;resolution=---&amp;query_format=advanced&amp;o1=substring&amp;list_id=16732145&amp;classification=Client%20Software&amp;classification=Developer%20Infrastructure&amp;classification=Components&amp;classification=Server%20Software&amp;classification=Other&amp;v1=1843276">a list of issues</a> . Nicolas will dedicate 6 weeks to fix (at least all P2s). A few bugs are already resolved (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844049">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844086">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844074">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855202">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844091">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843309">bug</a> , <a href="https://fx-devtools-2023-a11y-project-burnchart.glitch.me/">progress chart</a>)</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">Julian added the browsingContext.navigationStarted event, which is emitted whenever a navigation to another document occurs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1756595">bug</a>).</li>
+<li aria-level="1">Sasha implemented the script.realmCreated event, which is emitted when a realm is available as a target for script evaluation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1788657">bug</a>).</li>
+<li aria-level="1">Sasha added support for the serialization of generator and proxy (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841786">bug</a>).</li>
+<li aria-level="1">Henrik released a new geckodriver version: 0.49.0, including support for all the Web Authentication extension commands (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853768">bug</a>).</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li aria-level="1">XPCOMUtils.defineLazyModuleGetter has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1774888">now been removed</a>.</li>
+<li aria-level="1">Support for Cu.import <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854948">has been removed</a> from most of ESLint. A rule remains to disallow its use.</li>
+<li aria-level="1"><a href="https://spidermonkey.dev/areweesmifiedyet/">ESMified status</a>:
+<ul>
+<li aria-level="2">browser: 87%</li>
+<li aria-level="2">toolkit: 99%</li>
+<li aria-level="2">Total:  95.72% (up from 95.55%)</li>
+</ul>
+</li>
+<li aria-level="1">#esmification on Matrix</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">New documentation has been added describing <a href="https://firefox-source-docs.mozilla.org/code-quality/lint/linters/eslint/enabling-rules.html">how to add and roll-out new ESLint rules, and for adding new plugins</a>.
+<ul>
+<li aria-level="2">Any questions please ask in the #lint:mozilla.org channel on Matrix.</li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://firefox-source-docs.mozilla.org/code-quality/lint/linters/eslint-plugin-mozilla/use-chromeutils-generateqi.html">ESLint rule mozilla/use-chromeutils-generateqi</a> has been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854913">turned off for mochitest-plain tests</a> as it doesn&#8217;t apply there.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818237">We’ve got patches up</a> to add the capability of importing from other browsers when Firefox is installed as a Snap package on Ubuntu Linux. Going through review now, and we’re hoping to have this capability available in Firefox 120.</li>
+<li aria-level="1">We did a quick audit and check via Telemetry events, and it seems like we no longer have any usage of the legacy migration wizard out in the wild. We’re going to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855280">remove the pref to re-enable it soon</a>, and then <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824851">remove the old wizard altogether shortly after.</a></li>
+<li aria-level="1">For device migration, we have designs from UX to add calendar and email reminders to the wizard on <a href="https://support.mozilla.org/en-US/kb/switching-devices">SUMO</a>. <a href="https://github.com/mozilla/sumo/issues/1494">This ticket</a> is our first foray into this work.</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Marco fixed a bug where the address bar’s “Remove from history” command was not applying to adaptive history results. This was fixed in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844771">1844771</a></li>
+<li aria-level="1">Dao has done a lot of refactoring complicated UrlbarView CSS to use nested CSS @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853911">1853911</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853918">1853918</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854082">1854082</a>  and more</li>
+<li aria-level="1">Drew has worked on integrating the new cross platform rust component for suggest results @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854060">1854060</a></li>
+<li aria-level="1">Daisuke refactored UrlbarProviderSearchTips to avoid main thread I/O @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1620576">1620576</a></li>
+<li aria-level="1">Stephanie is working on adding categorisation logic to search telemetry @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846368">1846368</a></li>
+<li aria-level="1">Mark has replaced the SearchService ‘init-complete’ notification with a promise API @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1832704">1832704</a></li>
+<li aria-level="1">Preparing for Sarah and Sam to take over ownership of the Session Restore module as they have been</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">mconley landed a patch to use moz-toggle in the about:newtab personalization panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1812135">Bug 1812135</a>)</li>
+<li aria-level="1">hjones updated our Storybook mach commands so you can now use ./mach storybook to start the Storybook server and launch the site in a local build of Firefox (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818007">Bug 1818007</a>)
+<ul>
+<li aria-level="2">you can run ./mach storybook –no-open if you don’t want to spin up a local build</li>
+</ul>
+</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

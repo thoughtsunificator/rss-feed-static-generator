@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>JSforce: A Quick Path to Salesforce Development</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">JSforce: A Quick Path to Salesforce Development</h2>
+		<a target="_blank" href="https://www.endpointdev.com/blog/2023/10/jsforce-quick-path-to-salesforce-development/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://www.endpointdev.com/blog/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+        <p><img src="/blog/2023/10/jsforce-quick-path-to-salesforce-development/desert-sky.webp" alt="A completely clear blue sky is broken by a desert mountain with exposed light rock, covered partly by striking green trees and bushes. Above the mountain is a half-moon."></p>
+<!-- Photo by Seth Jensen, 2023. -->
+<p>Using JavaScript with JSforce can get you working on a Salesforce project quickly if you don&rsquo;t have a Salesforce expert on hand. It provides easy access to Salesforce&rsquo;s API, which will allow you to focus on development instead of learning a new system.</p>
+<h3 id="no-salesforce-learning-curve">No Salesforce learning curve</h3>
+<p>Apex is a platform-specific language created so that developers can interact with Salesforce classes/​objects and write custom code. Apex allows you to do some cool things such as directly triggering custom Apex code based on an action in Salesforce.</p>
+<p>The problem with Apex is that it is its own world, with its own IDEs, deployment processes, etc. There&rsquo;s a steep learning curve to getting up to speed with the Apex ecosphere.</p>
+<p>JSforce is a wrapper/​abstraction of the Salesforce API. It allows you to do a lot, like search, perform CRUD actions, and even send emails. These functions aren&rsquo;t as streamlined as their built-in Apex counterpart, but JSforce allows any JS developer to jump right into the code without wasting costly training time.</p>
+<h3 id="using-jsforce-cli">Using JSforce CLI</h3>
+<p>Below are some examples of connecting and performing basic CRUD operations.</p>
+<h4 id="connecting">Connecting</h4>
+<p>Installation:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">$ npm install jsforce -g
+</code></pre></div><p>Connection:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">$ jsforce
+&gt; login(&#39;user@example.org&#39;, &#39;password123&#39;);
+{ id: &#39;00550000000vwsFAAQ&#39;,
+  organizationId: &#39;00D500000006xKGEAY&#39;,
+  url: &#39;https://login.salesforce.com/id/00D500000006xKGEAY/00550000000vwsFAAQ&#39; }
+&gt;
+</code></pre></div><h4 id="get">GET</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">conn.sobject(<span style="color:#d20;background-color:#fff0f0">&#34;Account&#34;</span>).retrieve(<span style="color:#d20;background-color:#fff0f0">&#34;0017000000hOMChAAO&#34;</span>, <span style="color:#080;font-weight:bold">function</span>(err, account) {
+  <span style="color:#080;font-weight:bold">if</span> (err) { <span style="color:#080;font-weight:bold">return</span> console.error(err); }
+  console.log(<span style="color:#d20;background-color:#fff0f0">&#34;Name : &#34;</span> + account.Name);
+  <span style="color:#888">// ...
+</span><span style="color:#888"></span>});
+</code></pre></div><h4 id="post">POST</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">conn.sobject(<span style="color:#d20;background-color:#fff0f0">&#34;Account&#34;</span>).create({ Name : <span style="color:#d20;background-color:#fff0f0">&#39;My Account #1&#39;</span> }, <span style="color:#080;font-weight:bold">function</span>(err, ret) {
+  <span style="color:#080;font-weight:bold">if</span> (err || !ret.success) { <span style="color:#080;font-weight:bold">return</span> console.error(err, ret); }
+  console.log(<span style="color:#d20;background-color:#fff0f0">&#34;Created record id : &#34;</span> + ret.id);
+  <span style="color:#888">// ...
+</span><span style="color:#888"></span>});
+</code></pre></div><h4 id="put">PUT</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">conn.sobject(<span style="color:#d20;background-color:#fff0f0">&#34;Account&#34;</span>).update({ 
+  Id : <span style="color:#d20;background-color:#fff0f0">&#39;0017000000hOMChAAO&#39;</span>,
+  Name : <span style="color:#d20;background-color:#fff0f0">&#39;Updated Account #1&#39;</span>
+}, <span style="color:#080;font-weight:bold">function</span>(err, ret) {
+  <span style="color:#080;font-weight:bold">if</span> (err || !ret.success) { <span style="color:#080;font-weight:bold">return</span> console.error(err, ret); }
+  console.log(<span style="color:#d20;background-color:#fff0f0">&#39;Updated Successfully : &#39;</span> + ret.id);
+  <span style="color:#888">// ...
+</span><span style="color:#888"></span>});
+</code></pre></div><h4 id="delete">DELETE</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">conn.sobject(<span style="color:#d20;background-color:#fff0f0">&#34;Account&#34;</span>).destroy(<span style="color:#d20;background-color:#fff0f0">&#39;0017000000hOMChAAO&#39;</span>, <span style="color:#080;font-weight:bold">function</span>(err, ret) {
+  <span style="color:#080;font-weight:bold">if</span> (err || !ret.success) { <span style="color:#080;font-weight:bold">return</span> console.error(err, ret); }
+  console.log(<span style="color:#d20;background-color:#fff0f0">&#39;Deleted Successfully : &#39;</span> + ret.id);
+});
+</code></pre></div><p>For a deeper dive into setup and uses of JSforce check out <a href="/blog/2020/03/salesforce-integration-with-node/">this post</a> by my coworker Dylan Wooters.</p>
+
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

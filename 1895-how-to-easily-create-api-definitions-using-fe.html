@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Easily Create API Definitions Using Fern</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Easily Create API Definitions Using Fern</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-easily-create-api-definitions-using-fern/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Building robust and well-documented APIs is essential for modern software development. However, the process of defining APIs and generating the necessary boilerplate code can be time-consuming and error-prone. Fortunately, <a href="https://github.com/fern-api/fern">Fern</a>, is an open-source toolkit that can generate SDKs and documentation.</p>
+<p>Through a powerful integration with FastAPI, Fern streamlines this process by automatically generating Pydantic models, exception classes, and networking logic based on <a href="https://nordicapis.com/standard-api-definitions-demystified/">API definitions</a>. In this article, we&#8217;ll explore how to leverage Fern to easily create API definitions and generate the required code.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>To get started with Fern, you&#8217;ll need to install the <code>fern-api</code> package globally using npm:</p>
+<pre><code>npm <span class="hljs-keyword">install</span> -g fern-api
+</code></pre>
+<h3 id="the-fern-directory">The <code>fern/</code> Directory</h3>
+<p>The <code>fern/</code> directory is the core of your API definition. It typically resides in your backend repository, although you can also have a dedicated repository for your API. To set up the directory structure, navigate to the root of your project and run the following command:</p>
+<pre><code><span class="hljs-attribute">fern init</span>
+</code></pre>
+<p>This command will create the following structure within your project:</p>
+<pre><code>fern/
+├─ fern.config.json    <span class="hljs-comment"># Root-level configuration</span>
+└─ api/                <span class="hljs-comment"># Your API</span>
+   ├─ generators.yml    <span class="hljs-comment"># Generators you're using</span>
+   └─ definition/
+</code></pre>
+<h3 id="already-have-an-openapi-spec-">Already Have an OpenAPI Spec?</h3>
+<p>If you already have an existing OpenAPI specification, you can import it into Fern by running the following command:</p>
+<pre><code>fern init --openapi /path/to/openapi<span class="hljs-selector-class">.yml</span>
+`
+</code></pre>
+<h3 id="generating-an-sdk">Generating an SDK</h3>
+<p>To generate a TypeScript SDK and an <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/">OpenAPI specification</a>, execute the following command:</p>
+<pre><code>fern <span class="hljs-keyword">generate</span>
+</code></pre>
+<p>By leveraging Fern&#8217;s code generation capabilities, you can save significant time and effort. Instead of manually writing <a href="https://github.com/tiangolo/fastapi">FastAPI</a> and Pydantic code, Fern generates it for you, ensuring consistency and accuracy. This automation eliminates the potential for human errors, such as typos or missing endpoints.</p>
+<p>One of the significant advantages of using Fern&#8217;s auto-generated code is compile-time safety. Since the code is generated based on your API definition, any errors or inconsistencies will be caught during the compilation phase. For example, if you forget to define the getMovie endpoint in your API definition, attempting to compile the code will result in an error. This feature provides an extra layer of confidence that your API implementation is correct and aligned with the defined API structure.</p>
+<h2 id="step-1-define-the-api">Step 1: Define the API</h2>
+<p>The first step in utilizing Fern is to define your API using the Fern API definition language. This language allows you to specify service configurations, endpoints, types, and errors in a concise and structured manner. Let&#8217;s take a look at an example API definition for a movie API:</p>
+<pre><code><span class="hljs-attr">service:</span>
+<span class="hljs-attr">  auth:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">  base-path:</span> /movies
+<span class="hljs-attr">  endpoints:</span>
+<span class="hljs-attr">    getMovie:</span>
+<span class="hljs-attr">      method:</span> GET
+<span class="hljs-attr">      path:</span> /{movieId}
+<span class="hljs-attr">      path-parameters:</span>
+<span class="hljs-attr">        movieId:</span> MovieId
+<span class="hljs-attr">      response:</span> Movie
+<span class="hljs-attr">      errors:</span>
+<span class="hljs-bullet">        -</span> MovieDoesNotExistError
+
+<span class="hljs-attr">types:</span>
+<span class="hljs-attr">  MovieId:</span> string
+
+<span class="hljs-attr">  Movie:</span>
+<span class="hljs-attr">    properties:</span>
+<span class="hljs-attr">      id:</span> MovieId
+<span class="hljs-attr">      title:</span> string
+<span class="hljs-attr">      rating:</span>
+<span class="hljs-attr">        type:</span> double
+<span class="hljs-attr">        docs:</span> The rating scale is one to five stars
+
+<span class="hljs-attr">  CreateMovieRequest:</span>
+<span class="hljs-attr">    properties:</span>
+<span class="hljs-attr">      title:</span> string
+<span class="hljs-attr">      rating:</span> double
+
+<span class="hljs-attr">errors:</span>
+<span class="hljs-attr">  MovieDoesNotExistError:</span>
+<span class="hljs-attr">    status-code:</span> <span class="hljs-number">404</span>
+<span class="hljs-attr">    type:</span> MovieId
+</code></pre>
+<p>In this example, we define the base path for the API as <code>/movies</code> and create an endpoint for retrieving movie details. We specify the method, path, path parameters, response type, and <a href="https://nordicapis.com/best-practices-api-error-handling/">error handling</a>.</p>
+<h2 id="step-2-run-fern-generate-">Step 2: Run <code>fern generate</code></h2>
+<p>Once you have defined your API using the Fern API definition language, you can use the <code>fern generate</code> command to automatically generate the boilerplate code. Fern analyzes your API definition and generates the necessary files and directories. Let&#8217;s run the command and see the generated code:</p>
+<pre><code>$ fern <span class="hljs-keyword">generate</span>
+[api]: fernapi/fern-fastapi-starter Downloaded to backend/src/fern_fastapi_starter/api/generated
+┌─
+│ ✓  fernapi/fern-fastapi-server
+└─
+</code></pre>
+<p>After running <code>fern generate</code>, you can locate the auto-generated FastAPI and Pydantic code in the <code>backend/src/fern_fastapi_starter/api/generated</code> directory. Inside this directory, you&#8217;ll find the necessary files, including FastAPI routers, Pydantic models, exception classes, and other code that handles the networking and HTTP logic of your API. These generated files serve as the foundation for your API implementation.</p>
+<h2 id="step-3-implement-the-server">Step 3: Implement the Server</h2>
+<p>With the generated code in place, you can focus solely on implementing the business logic of your API. Fern takes care of the networking and HTTP logic, allowing you to concentrate on defining the behavior of your endpoints. Let&#8217;s implement the movie API service:</p>
+<pre><code><span class="hljs-comment"># movie_service.py</span>
+<span class="hljs-keyword">from</span> .api.generated.resources.imdb.service.service <span class="hljs-keyword">import</span> AbstractImdbService
+<span class="hljs-keyword">from</span> .api.generated <span class="hljs-keyword">import</span> Movie, MovieId
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoviesService</span><span class="hljs-params">(AbstractImdbService)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_movie</span><span class="hljs-params">(self, *, movie_id: str)</span> -&gt; Movie:</span>
+        <span class="hljs-keyword">return</span> Movie(
+            title=<span class="hljs-string">"Goodwill Hunting"</span>,
+            rating=<span class="hljs-number">9.8</span>,
+            id=MovieId.from_str(<span class="hljs-string">"tt0119217"</span>),
+        )
+
+<span class="hljs-comment"># server.py</span>
+<span class="hljs-keyword">import</span> uvicorn
+<span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI
+<span class="hljs-keyword">from</span> fastapi.middleware.cors <span class="hljs-keyword">import</span> CORSMiddleware
+
+<span class="hljs-keyword">from</span> .api.generated.register <span class="hljs-keyword">import</span> register
+<span class="hljs-keyword">from</span> .movies_service <span class="hljs-keyword">import</span> MoviesService
+
+app = FastAPI()
+
+register(app, imdb=MoviesService())
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[<span class="hljs-string">"http://localhost:5173"</span>],
+    allow_credentials=<span class="hljs-keyword">True</span>,
+    allow_methods=[<span class="hljs-string">"*"</span>],
+    allow_headers=[<span class="hljs-string">"*"</span>],
+)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> -&gt; <span class="hljs-keyword">None</span>:</span>
+    uvicorn.run(
+        <span class="hljs-string">"src.fern_fastapi_starter.server:app"</span>,
+        host=<span class="hljs-string">"0.0.0.0"</span>,
+        port=<span class="hljs-number">8080</span>,
+        reload=<span class="hljs-keyword">True</span>,
+    )
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    start()
+</code></pre>
+<p>In this example, we create a <code>MoviesService</code> class that extends the <code>AbstractMoviesService</code> generated by Fern. We provide an implementation for the <code>get_movie</code> method, which retrieves movie details based on the provided <code>movie_id</code>. We also register the endpoints with FastAPI using the register function provided by Fern.</p>
+<h2 id="step-4-compile">Step 4: Compile</h2>
+<p>To ensure the correctness of your API implementation, you can use a type checker like <code>mypy</code> to catch any potential errors in your code. Running the type checker ensures the code is valid and adheres to the defined API structure.</p>
+<pre><code>$ poetry run mypy
+<span class="hljs-keyword">Success: </span>no issues found in 24 source files
+</code></pre>
+<h2 id="step-5-run-the-server">Step 5: Run the Server</h2>
+<p>Once you have successfully registered your endpoints and compiled your code, you can start the server and see your API in action. Running the server begins the FastAPI server, which handles the routing and HTTP requests, while Fern&#8217;s generated code performs the necessary logic based on your implemented business logic.</p>
+<pre><code>$ poetry run start
+<span class="hljs-string">INFO:</span>     Uvicorn running on <span class="hljs-string">http:</span><span class="hljs-comment">//0.0.0.0:8080 (Press CTRL+C to quit)</span>
+<span class="hljs-string">INFO:</span>     Started reloader process [<span class="hljs-number">32816</span>] using StatReload
+<span class="hljs-string">INFO:</span>     Started server process [<span class="hljs-number">32829</span>]
+<span class="hljs-string">INFO:</span>     Waiting <span class="hljs-keyword">for</span> application startup.
+<span class="hljs-string">INFO:</span>     Application startup complete.
+</code></pre>
+<p>You can now use this like any other API. You can call it from any of your apps or websites, but for testing purposes we will use <a href="https://nordicapis.com/understanding-the-hidden-powers-of-curl/">curl</a>:</p>
+<pre><code><span class="hljs-string">curl </span><span class="hljs-built_in">--location</span> <span class="hljs-built_in">--request</span> <span class="hljs-string">GET </span><span class="hljs-built_in">--silent</span> <span class="hljs-string">'localhost:8080/movies/goodwillhunting'</span> | <span class="hljs-string">jq </span>.
+</code></pre>
+<p>And here is a sample response:</p>
+<pre><code><span class="hljs-string">paper@</span><span class="hljs-string">paper-System-</span><span class="hljs-string">Product-Name:</span>~/<span class="hljs-string">GeekyHumans/</span><span class="hljs-string">fastapi-starter-</span><span class="hljs-string">main$</span> <span class="hljs-string">curl </span><span class="hljs-built_in">--location</span> <span class="hljs-built_in">--request</span> <span class="hljs-string">GET </span><span class="hljs-built_in">--silent</span> <span class="hljs-string">'localhost:8080/movies/goodwillhunting'</span> | <span class="hljs-string">jq </span>.
+{
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"tt0119217"</span>,
+    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Goodwill Hunting"</span>,
+    <span class="hljs-string">"rating"</span>: 9.8
+}
+</code></pre>
+<h2 id="final-words">Final Words</h2>
+<p>Creating API definitions and generating <a href="https://nordicapis.com/how-sdks-benefit-api-developer-experience/">the associated code</a> can be a complex and time-consuming task. However, this process becomes significantly easier with Fern&#8217;s integration with FastAPI.</p>
+<p>By defining your API using Fern&#8217;s API definition language, running the code generation command, implementing the business logic, and registering the endpoints with FastAPI, you can quickly develop robust APIs.</p>
+<p>Fern automates the tedious parts, such as generating models, exceptions, and networking logic, allowing you to focus on building the core functionality of your API. With Fern, you can streamline the API development process and more easily create well-designed, documented, and efficient APIs.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

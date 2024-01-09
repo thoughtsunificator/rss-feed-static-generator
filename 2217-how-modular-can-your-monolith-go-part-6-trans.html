@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How modular can your monolith go? Part 6 - transaction management for commands</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How modular can your monolith go? Part 6 - transaction management for commands</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2023/11/13/how-modular-can-your-monolith-go-part-6-transactional-commands.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h1 id="how-modular-can-your-monolith-go-part-6---transaction-management-for-commands">How modular can your monolith go? Part 6 - transaction management for commands</h1>
+
+<p>This article is the sixth in a series of articles about modular monoliths.
+The other articles are:</p>
+
+<ul>
+  <li><a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html">Part 1 - the basics</a></li>
+  <li><a href="/post/architecture/2023/08/20/how-modular-can-your-monolith-go-part-2.html">Part 2 - a first look at how subdomains collaborate</a></li>
+  <li><a href="/post/architecture/2023/08/28/how-modular-can-your-monolith-go-part-3.html">Part 3 - encapsulating a subdomain behind a facade</a></li>
+  <li><a href="/post/architecture/2023/09/12/how-modular-can-your-monolith-go-part-4-physical-design.html">Part 4 - physical design principles for faster builds</a></li>
+  <li><a href="/post/architecture/2023/10/30/how-modular-can-your-monolith-go-part-5-domain-observers.html">Part 5 - decoupling domains with the Observer pattern</a></li>
+</ul>
+
+<p>In previous articles in this series, I glossed over the issue of transaction management.
+I simply assumed that each operation (e.g. request) was implemented as a single transaction.
+For example, the system command <code class="language-plaintext highlighter-rouge">createOrder()</code>, which is triggered by an <code class="language-plaintext highlighter-rouge">HTTP POST /orders</code> request, would be implemented as a single transaction that creates an <code class="language-plaintext highlighter-rouge">Order</code>, updates a <code class="language-plaintext highlighter-rouge">Customer</code> to reserve credit, and sends an email to the <code class="language-plaintext highlighter-rouge">Customer</code>.</p>
+
+<p>In this article, I dig deeper into the topic of transaction management in a modular monolith.
+I’ll talk about transaction management when implementing system commands that update multiple domains.
+I’ll cover three different transaction management strategies:</p>
+
+<ul>
+  <li>One transaction per operation - simple ACID transactions</li>
+  <li>One transaction per domain - more complex eventually consistent transactions</li>
+  <li>Multiple transactions per operation - carefully designed to avoid some of the complexity of eventual consistency</li>
+</ul>
+
+<p>Let’s start by looking about the need for transactions.</p>
+
+<h2 id="system-commands-need-to-be-transactional-ish">System commands need to be transactional-ish</h2>
+
+<p>System operations need to have ACID-style semantics.
+Specifically, system commands must have the following characteristics:</p>
+
+<ul>
+  <li>
+    <p>Atomic - all of the updates performed by an operation need to be committed or none of them should be.
+Partial updates would leave the system in an inconsistent state.</p>
+  </li>
+  <li>
+    <p>Isolated - the outcome of executing multiple operations concurrently (e.g. <code class="language-plaintext highlighter-rouge">opA()</code> and <code class="language-plaintext highlighter-rouge">opB()</code> ) needs to be the same as if they were executed serially (e.g. either <code class="language-plaintext highlighter-rouge">opA() -&gt; opB()</code> or <code class="language-plaintext highlighter-rouge">opB() -&gt; opA()</code>).</p>
+  </li>
+</ul>
+
+<p>If an operation doesn’t have these properties then it’s likely to be buggy.
+For example, if <code class="language-plaintext highlighter-rouge">createOrder()</code> did not create <code class="language-plaintext highlighter-rouge">Order</code> <strong>and</strong> update a <code class="language-plaintext highlighter-rouge">Customer</code> to reserve credit, then the database would be left in an inconsistent state.</p>
+
+<h2 id="simplest-approach-an-operation--acid-database-transaction">Simplest approach: an operation = ACID database transaction</h2>
+
+<p>The simplest solution is to use a relational database and implement each operation as a single ACID transaction.
+While there are some subtle issues around transaction isolation levels (real world databases don’t implement textbook ACID transactions), this approach is generally simple and easy to implement.
+The database will ensure that the operations are atomic and isolated (as well as consistent and durable).</p>
+
+<h3 id="acid-transactions--key-benefit-of-the-monolithic-architecture">ACID transactions = key benefit of the monolithic architecture</h3>
+
+<p>The ability to use ACID transactions is one of the <a href="/articles/dark-energy-dark-matter/dark-matter/prefer-acid-over-base.html">key benefits of monolithic architecture</a>.
+For example, you can simply use the <code class="language-plaintext highlighter-rouge">@Transactional</code> annotation in a Spring Boot application to make every operation transactional.</p>
+
+<h3 id="lack-of-acid-for-distributed-operations--key-drawback-of-microservices">Lack of ACID for distributed operations = key drawback of microservices</h3>
+
+<p>Conversely, one of the key drawbacks of <a href="/patterns/microservices.html">microservice architecture</a> is that those operations that are distributed over multiple services must use the <a href="/post/patterns/2023/07/29/service-collaboration-patterns.html">eventually consistent service collaboration patterns</a>.
+For example, a system command, such a <code class="language-plaintext highlighter-rouge">createOrder()</code>, that updates multiple services would need to be implemented as a <a href="/patterns/data/saga.html">Saga</a> that consists of the following steps (each of which is an ACID transaction):</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Order Service</code> - create an <code class="language-plaintext highlighter-rouge">Order</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Customer Service</code> - update the <code class="language-plaintext highlighter-rouge">Customer</code> to reserve credit.</li>
+  <li><code class="language-plaintext highlighter-rouge">Notification Service</code> - send an email to the <code class="language-plaintext highlighter-rouge">Customer</code>.</li>
+</ol>
+
+<h3 id="sagas-can-be-complicated">Sagas can be complicated</h3>
+
+<p>On the surface, sagas might seem simple but they require you, as a developer, to deal with various issues that were previously handled by the database.
+For example, you must implement <a href="/post/microservices/2019/07/09/developing-sagas-part-1.html##what-are-compensating-transactions">compensating transactions</a>, which undo previously committed updates.
+For example, in the <code class="language-plaintext highlighter-rouge">Create Order Saga</code>, the credit reservation step could fail due to insufficient credit, and so the first step would need a compensating transaction that rejects the order.</p>
+
+<p>You must also handle lack of automatic isolation - sagas are ACD - by using <a href="https://www.slideshare.net/chris.e.richardson/microcph-managing-data-consistency-in-a-microservice-architecture-using-sagas#28">countermeasures, which are application-level design techniques that implement isolation</a>.</p>
+
+<h3 id="robust-asynchronous-messaging-is-complicated">Robust asynchronous messaging is complicated</h3>
+
+<p>Moreover, since sagas often use asynchronous messaging for coordination you must also handle several low level issues.
+You must, for example, implement the <a href="/patterns/data/transactional-outbox.html">Transaction outbox pattern</a> to ensure that an operation atomically updates the database and sends a message.
+Also, since a message broker can deliver the same message multiple times you need to implement the <a href="/patterns/communication-style/idempotent-consumer.html">Idempotent receiver pattern</a> to ensure that message handlers are idempotent.</p>
+
+<h3 id="lack-of-acid-is-the-price-to-pay-for-the-benefits-of-microservices">Lack of ACID is the price to pay for the benefits of microservices</h3>
+
+<p>Of course, if you have decided to use microservices for your application, then it’s because the benefits of having independently deployable services outweigh the drawbacks of some operations needing to be eventually consistent.
+Specifically, you use microservices instead of a monolith because it better resolves one or more of the <a href="/post/architecture/2023/03/26/dark-energy-dark-matter-force-descriptions.html">dark energy forces</a>.
+For example, improved team autonomy, faster deployment pipeline, etc.</p>
+
+<h2 id="modular-monolith-one-transaction-per-domain">Modular monolith: one transaction per domain?</h2>
+
+<p>You could implement operations in a modular monolith using <em>one transaction per domain</em>.
+A multi-domain operation such as <code class="language-plaintext highlighter-rouge">createOrder()</code> would be implemented as a saga with each step being an ACID transaction in a different domain:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Order Management</code> - create an <code class="language-plaintext highlighter-rouge">Order</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Customer Management</code> - update the <code class="language-plaintext highlighter-rouge">Customer</code> to reserve credit.</li>
+  <li><code class="language-plaintext highlighter-rouge">Notification Management</code> - send an email to the <code class="language-plaintext highlighter-rouge">Customer</code>.</li>
+</ol>
+
+<p>The downside, however, is that, as I described above, this is much more complex than <em>one transaction per operation</em>.</p>
+
+<h2 id="modular-monolith-one-transaction-per-operation">Modular monolith: one transaction per operation</h2>
+
+<p>As you can see, there are compelling reasons to implement each system command as an ACID transaction.
+I’d argue that in a modular monolith, an operations that spans multiple domains should be implemented as a single ACID transaction.
+It’s simply…. err.. simpler.
+It avoids the complexities and overhead of patterns, such as Saga, Transaction outbox, Idempotent receiver, etc.
+For example, even if you use the <a href="/post/architecture/2023/10/30/how-modular-can-your-monolith-go-part-5-domain-observers.html">observer pattern (e.g. pub-sub)</a> within your monolith, then the observers should execute with the operation’s transaction.</p>
+
+<h3 id="but-transactions-spanning-domains-is-not-modular">But transactions spanning domains is not modular?</h3>
+
+<p>I suppose that an ACID transaction span multiple domains might violate encapsulation.
+But on the other hand, I’m not sure what problems that typically creates.
+Conversely, limiting each transaction to a single domain demonstrably adds complexity without any of the upsides of microservices.</p>
+
+<h3 id="but-what-about-one-ddd-aggregate-per-transaction">But what about one DDD aggregate per transaction?</h3>
+
+<p>Interestingly, there are some in the DDD community that argue that a database should only update a single aggregate.
+The basis of this argument is the rule that an aggregate is a consistency boundary.
+While this rule makes sense, I don’t interpret as requiring a database transaction to a single aggregate.
+An aggregate is simply responsible for maintaining the consistency of its constituent entities and value objects.</p>
+
+<h2 id="when-to-use-eventual-consistency">When to use eventual consistency</h2>
+
+<p>Of course, very few design rules are absolute.
+You should consider breaking <code class="language-plaintext highlighter-rouge">one command = one transaction</code> rule when it creates a tangible problem.
+But you need to be sure that it’s worth the complexity and overhead of using eventual consistency.</p>
+
+<p>Moreover, I’d try to avoid using compensating transactions.
+You should structure the Saga so there are no <em>compensatable transactions</em>.
+Its first step, which might span multiple domains, is the only one that can fail due to business rule violations - it’s the saga’s <a href="https://www.slideshare.net/chris.e.richardson/microcph-managing-data-consistency-in-a-microservice-architecture-using-sagas#25">pivot transaction</a>.
+The remaining steps are <a href="https://www.slideshare.net/chris.e.richardson/microcph-managing-data-consistency-in-a-microservice-architecture-using-sagas#25">retriable transactions</a>, which cannot violate business rules, and could be triggered via pub-sub.</p>
+
+<p><img src="/i/modular-monoliths/Transactional_Commands.png" class="img-responsive" /></p>
+
+<p>For example, the <code class="language-plaintext highlighter-rouge">Create Order Saga</code> consists of the following steps (each an ACID transaction):</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Customer Management</code> and <code class="language-plaintext highlighter-rouge">Order Management</code> - create an <code class="language-plaintext highlighter-rouge">Order</code>, update the <code class="language-plaintext highlighter-rouge">Customer</code> to reserve credit and publish an event (using the Transaction Outbox pattern) that triggers step 2</li>
+  <li><code class="language-plaintext highlighter-rouge">Notification Management</code> - send an email to the customer.</li>
+</ol>
+
+<p>The first step implements the business rules that could cause the operation to fail.
+Since it uses the Transaction Outbox pattern, the second second is only trigger if the first step succeeds.</p>
+
+<h2 id="in-summary-in-a-modular-monolith-avoid-eventual-consistency-unless-it-solves-a-problem">In summary: in a modular monolith avoid eventual consistency unless it solves a problem</h2>
+
+<p>Life’s too short.
+Keep things simple as possible.
+Solve actual business problems.</p>
+
+<h2 id="whats-next">What’s next</h2>
+
+<p>In this article, I described the trade-offs of using ACID transactions and Sagas to implement system commands that update multiple domains.
+In a later articles, I’ll discuss other related modular monolith design issues including how to implement queries.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

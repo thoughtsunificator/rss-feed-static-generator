@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebGPU now available for testing in Safari Technology Preview</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">WebGPU now available for testing in Safari Technology Preview</h2>
+		<a target="_blank" href="https://webkit.org/blog/14879/webgpu-now-available-for-testing-in-safari-technology-preview/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API">WebGPU</a> is a new <a href="https://www.w3.org/TR/webgpu/">standards-compliant</a> API that enables high-performance 3D graphics and general-purpose <a href="https://en.wikipedia.org/wiki/Data_parallelism">computations</a> on the Web. WebGPU programs are written in JavaScript but expose GPU functionality, allowing GPU computing to be used in Web content for the first time. Starting in <a href="https://developer.apple.com/safari/technology-preview/">Safari Technology Preview</a> 185, WebGPU can be enabled for early testing and development.</p>
+<p>To enable WebGPU, turn on the “WebGPU”, “GPU Process: DOM Rendering” and “GPU Process: Canvas Rendering” feature flags in the <a href="https://developer.apple.com/documentation/safari-developer-tools/feature-flag-settings">Feature Flags</a> tab in Safari Preferences. If you don’t see the Feature Flags tab, you need to first check “<a href="https://developer.apple.com/documentation/safari-developer-tools/enabling-developer-features">Show features for web developers</a>” in the Advanced tab.</p>
+<p>Once you have WebGPU enabled in Safari Technology Preview 185, <a href="https://webgpu.github.io/webgpu-samples/samples/particles">try out this example of WebGPU</a>. It utilizes many of the best features of WebGPU.</p>
+<figure class="widescreen"><video autoplay loop muted src="https://webkit.org/blog-files/webgpu-particles.mov"></video></figure>
+<h2>WebGPU JavaScript API</h2>
+<p>The WebGPU API is accessed through JavaScript, similar to WebGL.</p>
+<h3>Creating a GPUDevice</h3>
+<p>In order to use WebGPU, a device must be created. Resources and pipeline state are created from a <code>GPUDevice</code> instance. To create a device with default limits and features which are supported on all devices supporting WebGPU, we can pass zero parameters to the invocations of <code>requestAdapter</code> and <code>requestDevice</code>.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">adapter</span> <span class="operator">=</span> <span class="identifier">await</span> <span class="identifier">navigator</span>.<span class="identifier">gpu</span>.<span class="identifier">requestAdapter</span>();
+<span class="identifier">device</span> <span class="operator">=</span> <span class="identifier">await</span> <span class="identifier">adapter</span>.<span class="identifier">requestDevice</span>();
+</code></pre>
+<h3>Configuring a GPUCanvasContext</h3>
+<p>The <code>GPUCanvasContext</code> is an interface that allows you to configure how your content will be displayed in the corresponding <code>HTMLCanvas</code> element on the page.</p>
+<pre><code class="js"><span class="identifier">context</span> <span class="operator">=</span> <span class="identifier">canvas</span>.<span class="identifier">getContext</span>(<span class="char">'webgpu'</span>);
+<span class="keyword type">const</span> <span class="identifier">canvasFormat</span> <span class="operator">=</span> <span class="string">"bgra8unorm"</span>;
+
+<span class="keyword type">const</span> <span class="identifier">contextConfiguration</span> <span class="operator">=</span> {
+    <span class="identifier">device</span><span class="operator">:</span> <span class="identifier">device</span>,
+    <span class="identifier">format</span><span class="operator">:</span> <span class="identifier">canvasFormat</span>,
+    <span class="identifier">alphaMode</span><span class="operator">:</span> <span class="char">'opaque'</span>,
+};
+<span class="identifier">context</span>.<span class="identifier">configure</span>(<span class="identifier">contextConfiguration</span>);
+</code></pre>
+<h3>Creating a GPURenderPipeline</h3>
+<p>A <code>GPURenderPipeline</code> or a corresponding <code>GPUComputePipeline</code> are used to configure the pipeline state of the graphics driver. This pipeline state is then used in a <code>GPURenderPassEncoder</code> or <code>GPUComputePassEncoder</code> as later illustrated.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">shaderModule</span> <span class="operator">=</span> <span class="identifier">device</span>.<span class="identifier">createShaderModule</span>({ <span class="identifier">code</span><span class="operator">:</span> <span class="identifier">wgslSource</span> });
+<span class="keyword type">const</span> <span class="identifier">vertexStageDescriptor</span> <span class="operator">=</span> { <span class="identifier">module</span><span class="operator">:</span> <span class="identifier">shaderModule</span>, <span class="identifier">entryPoint</span><span class="operator">:</span> <span class="string">"vsmain"</span> };
+<span class="keyword type">const</span> <span class="identifier">fragmentStageDescriptor</span> <span class="operator">=</span> { <span class="identifier">module</span><span class="operator">:</span> <span class="identifier">shaderModule</span>, <span class="identifier">entryPoint</span><span class="operator">:</span> <span class="string">"fsmain"</span> };
+<span class="keyword type">const</span> <span class="identifier">renderPipelineDescriptor</span> <span class="operator">=</span> {
+    <span class="identifier">layout</span><span class="operator">:</span> <span class="char">'auto'</span>,
+    <span class="identifier">vertex</span><span class="operator">:</span> <span class="identifier">vertexStageDescriptor</span>,
+    <span class="identifier">fragment</span><span class="operator">:</span> <span class="identifier">fragmentStageDescriptor</span>,
+    <span class="identifier">primitive</span><span class="operator">:</span> {<span class="identifier">topology</span><span class="operator">:</span> <span class="string">"triangle-list"</span> },
+};
+<span class="keyword type">const</span> <span class="identifier">renderPipeline</span> <span class="operator">=</span> <span class="identifier">device</span>.<span class="identifier">createRenderPipeline</span>(<span class="identifier">renderPipelineDescriptor</span>);
+</code></pre>
+<h3>Issuing draw calls</h3>
+<p>A <code>GPURenderPassEncoder</code> is created to send draw calls to the graphics driver. In the below example, we draw a simple triangle which contains three vertices. A <code>GPURenderPassEncoder</code> can also draw multiple instances of the same geometry or draw from an offset of a vertex buffer.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">colorAttachmentDescriptor</span> <span class="operator">=</span> {
+    <span class="identifier">view</span><span class="operator">:</span> <span class="identifier">renderAttachment</span>,
+    <span class="identifier">loadOp</span><span class="operator">:</span> <span class="string">"clear"</span>,
+    <span class="identifier">storeOp</span><span class="operator">:</span> <span class="string">"store"</span>,
+    <span class="identifier">clearColor</span><span class="operator">:</span> { <span class="identifier">r</span><span class="operator">:</span> <span class="number">0.15</span>, <span class="identifier">g</span><span class="operator">:</span> <span class="number">0.15</span>, <span class="identifier">b</span><span class="operator">:</span> <span class="number">0.5</span>, <span class="identifier">a</span><span class="operator">:</span> <span class="number">1</span> }
+};
+<span class="keyword type">const</span> <span class="identifier">renderPassDescriptor</span> <span class="operator">=</span> { <span class="identifier">colorAttachments</span><span class="operator">:</span> [<span class="identifier">colorAttachmentDescriptor</span>] };
+<span class="keyword type">const</span> <span class="identifier">commandEncoder</span> <span class="operator">=</span> <span class="identifier">device</span>.<span class="identifier">createCommandEncoder</span>();
+<span class="keyword type">const</span> <span class="identifier">renderPassEncoder</span> <span class="operator">=</span> <span class="identifier">commandEncoder</span>.<span class="identifier">beginRenderPass</span>(<span class="identifier">renderPassDescriptor</span>);
+<span class="identifier">renderPassEncoder</span>.<span class="identifier">setPipeline</span>(<span class="identifier">renderPipeline</span>);
+<span class="keyword type">const</span> <span class="identifier">vertexBufferSlot</span> <span class="operator">=</span> <span class="number">0</span>;
+<span class="identifier">renderPassEncoder</span>.<span class="identifier">setVertexBuffer</span>(<span class="identifier">vertexBufferSlot</span>, <span class="identifier">vertexBuffer</span>, <span class="number">0</span>);
+<span class="identifier">renderPassEncoder</span>.<span class="identifier">draw</span>(<span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>); <span class="comment">// 3 vertices, 1 instance, 0th vertex, 0th instance.
+</span><span class="identifier">renderPassEncoder</span>.<span class="identifier">end</span>();
+<span class="keyword type">const</span> <span class="identifier">commandBuffer</span> <span class="operator">=</span> <span class="identifier">commandEncoder</span>.<span class="identifier">finish</span>();
+<span class="keyword type">const</span> <span class="identifier">queue</span> <span class="operator">=</span> <span class="identifier">device</span>.<span class="identifier">queue</span>;
+<span class="identifier">queue</span>.<span class="identifier">submit</span>([<span class="identifier">commandBuffer</span>]);
+</code></pre>
+<h2>WebGPU Shading Language</h2>
+<p>WebGPU introduces WGSL, a platform independent shading language for the web. Here is an example of a WGSL shader source that would be passed in place of <code>wgslSource</code> in the above API call:</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">wgslSource</span> <span class="operator">=</span> `
+    <span class="identifier">struct</span> <span class="identifier">Vertex</span> {
+        @<span class="identifier">builtin</span>(<span class="identifier">position</span>) <span class="identifier">Position</span><span class="operator">:</span> <span class="identifier">vec4</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>,
+        @<span class="identifier">location</span>(<span class="number">0</span>) <span class="identifier">color</span><span class="operator">:</span> <span class="identifier">vec4</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>,
+    }
+
+    @<span class="identifier">vertex</span> <span class="identifier">fn</span> <span class="identifier">vsmain</span>(@<span class="identifier">builtin</span>(<span class="identifier">vertex_index</span>) <span class="identifier">VertexIndex</span><span class="operator">:</span> <span class="identifier">u32</span>) <span class="operator">-</span><span class="operator">&gt;</span> <span class="identifier">Vertex</span>
+    {
+        <span class="keyword type">var</span> <span class="identifier">pos</span><span class="operator">:</span> <span class="identifier">array</span><span class="operator">&lt;</span><span class="identifier">vec2</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>, <span class="number">3</span><span class="operator">&gt;</span> <span class="operator">=</span> <span class="identifier">array</span><span class="operator">&lt;</span><span class="identifier">vec2</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>, <span class="number">3</span><span class="operator">&gt;</span>(
+            <span class="identifier">vec2</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>( <span class="number">0.0</span>,  <span class="number">0.5</span>),
+            <span class="identifier">vec2</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>(<span class="operator">-</span><span class="number">0.5</span>, <span class="operator">-</span><span class="number">0.5</span>),
+            <span class="identifier">vec2</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>( <span class="number">0.5</span>, <span class="operator">-</span><span class="number">0.5</span>));
+        <span class="keyword type">var</span> <span class="identifier">vertex_out</span> <span class="operator">:</span> <span class="identifier">Vertex</span>;
+        <span class="identifier">vertex_out</span>.<span class="identifier">Position</span> <span class="operator">=</span> <span class="identifier">vec4</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>(<span class="identifier">pos</span>[<span class="identifier">VertexIndex</span>], <span class="number">0.0</span>, <span class="number">1.0</span>);
+        <span class="identifier">vertex_out</span>.<span class="identifier">color</span> <span class="operator">=</span> <span class="identifier">vec4</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>(<span class="identifier">pos</span>[<span class="identifier">VertexIndex</span>] <span class="operator">+</span> <span class="identifier">vec2</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>(<span class="number">0.5</span>, <span class="number">0.5</span>), <span class="number">0.0</span>, <span class="number">1.0</span>);
+        <span class="keyword control">return</span> <span class="identifier">vertex_out</span>;
+    }
+
+    @<span class="identifier">fragment</span> <span class="identifier">fn</span> <span class="identifier">fsmain</span>(<span class="keyword operator">in</span><span class="operator">:</span> <span class="identifier">Vertex</span>) <span class="operator">-</span><span class="operator">&gt;</span> @<span class="identifier">location</span>(<span class="number">0</span>) <span class="identifier">vec4</span><span class="operator">&lt;</span><span class="identifier">f32</span><span class="operator">&gt;</span>
+    {
+        <span class="keyword control">return</span> <span class="keyword operator">in</span>.<span class="identifier">color</span>;
+    }
+`;
+</code></pre>
+<h2>Try WebGPU and file bugs!</h2>
+<p>We’re very excited to have an early version of WebGPU and WGSL in the latest version of Safari Technology Preview. Please do try it out. Check out the <a href="https://webgpu.github.io/webgpu-samples/samples/helloTriangle">public repository of WebGPU samples</a>. And file bugs or issues you discover at <a href="http://bugs.webkit.org/">bugs.webkit.org</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

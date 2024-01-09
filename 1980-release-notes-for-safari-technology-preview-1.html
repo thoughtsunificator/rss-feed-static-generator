@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 180</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 180</h2>
+		<a target="_blank" href="https://webkit.org/blog/14664/release-notes-for-safari-technology-preview-180/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 180 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/68e96f24aae90f5a0a5e0c56c932c93616766cc7...61e2bf8a7a108046d848b944f487c665a25bab28">267603@main&#8230;268059@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed parsing the ARIA <code>role</code> attribute to ignore leading and trailing whitespace, including line breaks. (<a href="https://commits.webkit.org/267930@main">267930@main</a>)</li>
+<li>Fixed exposing column headers of cells within <code>role="row"</code> elements with <code>display: contents</code> to assistive technologies. (<a href="https://commits.webkit.org/267838@main">267838@main</a>)</li>
+<li>Fixed empty accessibility label for <code>role="treeitem"</code> elements with <code>display: contents</code> who have child text starting with a newline. (<a href="https://commits.webkit.org/267839@main">267839@main</a>)</li>
+<li>Fixed form landmarks being incorrectly exposed when they are missing a label. (<a href="https://commits.webkit.org/268025@main">268025@main</a>)</li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>rect()</code> shape for <code>shape-outside</code>, <code>clip-path</code>, and <code>offset-path</code>. (<a href="https://commits.webkit.org/267863@main">267863@main</a>)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the default link color contrast for the dark color scheme. (<a href="https://commits.webkit.org/267847@main">267847@main</a>)</li>
+<li>Fixed <code>:has(:scope)</code> matching. (<a href="https://commits.webkit.org/267856@main">267856@main</a>)</li>
+<li>Fixed invalidating scope-breaking <code>:has(:is(...))</code> selectors. (<a href="https://commits.webkit.org/268038@main">268038@main</a>)</li>
+<li>Fixed <code>backface-visibility</code> to create a stacking context and containing block. (<a href="https://commits.webkit.org/267980@main">267980@main</a>)</li>
+<li>Fixed basic shapes to use an offset motion path. (<a href="https://commits.webkit.org/267866@main">267866@main</a>)</li>
+<li>Fixed grid to not always put first and last baseline aligned items into different alignment contexts. (<a href="https://commits.webkit.org/267922@main">267922@main</a>)</li>
+<li>Fixed <code>:has(~ :is(.x ~ .y))</code> to consider all siblings of the <code>:has</code> scope when invalidating. (<a href="https://commits.webkit.org/267932@main">267932@main</a>)</li>
+<li>Fixed invalidating <code>:default</code> pseudo-class changes on input elements. (<a href="https://commits.webkit.org/267848@main">267848@main</a>)</li>
+<li>Fixed <code>calc(clamp(1px, 1em, 1vh))</code> to collapse to <code>clamp(1px, 1em, 1vh)</code>. (<a href="https://commits.webkit.org/267840@main">267840@main</a>)</li>
+<li>Fixed determing baseline for grid by considering the first and last baseline-aligned grid items. (<a href="https://commits.webkit.org/268029@main">268029@main</a>)</li>
+<li>Fixed the serialization of the computed style of <code>grid-area</code>. (<a href="https://commits.webkit.org/268026@main">268026@main</a>)</li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed support for the <code>auto</code> value from <code>alignment-baseline</code>. (<a href="https://commits.webkit.org/268008@main">268008@main</a>)</li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>CanDeclareGlobalFunction</code> abstract operation and related implementations. (<a href="https://commits.webkit.org/267655@main">267655@main</a>)</li>
+<li>Added support for <code>HasVarDeclaration</code> abstract operation. (<a href="https://commits.webkit.org/267891@main">267891@main</a>)</li>
+</ul>
+<h3>Loading</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue with a workaround to handle cases where websites serve Data URLs with malformed padding. This issue prevented some images in Word documents from failing to display when hosted by Box and Sharepoint. (<a href="https://commits.webkit.org/267987@main">267987@main</a>)</li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed WebCodecs hardware encoders losing a frame. (<a href="https://commits.webkit.org/267865@main">267865@main</a>)</li>
+</ul>
+<h3>Web Animations</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>color-scheme</code> to support discrete animation. (<a href="https://commits.webkit.org/267750@main">267750@main</a>)</li>
+</ul>
+<h3>Web API</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed URL encoding for <code>Request</code>&#8216;s <code>referrer</code> feature and <code>Response.redirect()</code>. They now always use UTF-8. (<a href="https://commits.webkit.org/267841@main">267841@main</a>)</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

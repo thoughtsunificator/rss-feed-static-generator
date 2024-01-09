@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How Decentralized Identity Will Transform Banking</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How Decentralized Identity Will Transform Banking</h2>
+		<a target="_blank" href="https://nordicapis.com/how-decentralized-identity-will-transform-banking/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>When Jesse James, noted outlaw of the old West, was asked why he robbed banks, he said, &#8220;Because that&#8217;s where the money is.&#8221; And he was right, but he may not be right for much longer. Because the way we access our finances is changing and changing rapidly.</p>
+<p>For many years, <a href="https://nordicapis.com/how-apis-are-enabling-open-banking/">banking and finance</a> have relied on the presence of key identity markers: photo identification, handwritten signatures, and account numbers. Recently, that list has expanded to include digital signifiers like <a href="https://nordicapis.com/8-apis-for-two-factor-authentication/">two-factor authentication</a> (2FA) via SMS messages or similar.</p>
+<p>Banks have become the guardians not just of &#8220;the money&#8221; but of identities as well. That&#8217;s proven problematic, with <a href="https://www.upguard.com/blog/biggest-data-breaches-financial-services">data breaches in finance</a> resulting in names, social security numbers, credit card numbers, and more being leaked. And, as we&#8217;ll see below, there are other reasons why relying on banks or financial institutions to be the stewards of identity can be dangerous.</p>
+<p>Is decentralized identity the answer to some of these problems? And how might APIs factor in?</p>
+<h2 id="what-is-decentralized-identity-">What Is Decentralized Identity?</h2>
+<p>Until recently, digital identity has mostly been centralized: when an individual joins a social media site or signs up for a new bank account, they verify themselves with that platform to create a digital identity that&#8217;s managed by the service in question and offers the user little control over it.</p>
+<p>In a nutshell, <a href="https://curity.io/decentralized-identity/">decentralized identity</a> is a method of identifying and authenticating users or entities online <strong>without</strong> the need for a centralized authority. With this digital identity model, users can manage their verifiable credentials and port them between different services.</p>
+<p>This strategy also aims to alleviate some of the issues with using centralized identities, which are usually tied to verified email addresses, usernames, and so on. For example, the lack of ownership associated with such identifiers increases the risk of data breaches and spoofability.</p>
+<h2 id="moving-from-centralized-to-decentralized-identifiers">Moving From Centralized to Decentralized Identifiers</h2>
+<p>Previously, confirming one&#8217;s identity to a financial institution has relied on things like bringing a driving license or passport into a branch, along with a utility bill dated within the last three months. Business accounts might also require proof of incorporation or tax documents.</p>
+<p>For various reasons — like bank branch closures or utility companies migrating from paper billing to online platforms — the process above is no longer always practical. Financial institutions are increasingly likely to verify identity using digital means, sometimes using tools like <a href="https://onfido.com/">Onfido</a>.</p>
+<p>But this is still just a half measure. Nor does it solve the potential problem of individuals <strong>within</strong> financial institutions misusing the data they hold. Take, for example, the issue of India&#8217;s Bank of Baroda <a href="https://www.aljazeera.com/economy/2023/7/11/indias-bank-of-baroda-misused-customer-data-to-flog-app">tampering with customer accounts</a> to meet onboarding targets.</p>
+<p>And then there&#8217;s the elephant in the room: any database or verification log that contains information about user identities represents the motherload to cyberattackers. (Using the right <a href="https://nordicapis.com/using-opa-for-api-authorization/">authorization</a> policies, encryption, and tokenization in conjunction with APIs can help here!)</p>
+<p>With the right security measures in place, the verifiable credential model &#8220;overcomes the conundrum of &#8216;data honeypots&#8217;,&#8221; according to <a href="https://www.ft.com/partnercontent/onyx/how-digital-identity-unleashes-the-power-of-institutional-defi.html">J.P. Morgan</a>, which can be mined to ascertain identity and are notorious for being vulnerable to abuse.</p>
+<h2 id="decentralized-identity-blockchain-and-self-sovereign-identity">Decentralized Identity, Blockchain, and Self-Sovereign Identity</h2>
+<p>Dock <a href="https://www.dock.io/post/decentralized-identifiers">defines</a> decentralized identifiers as one of three pillars of self-sovereign identity (SSI):</p>
+<ol>
+<li><strong>Blockchain</strong>: A decentralized database shared among computers in the blockchain network</li>
+<li><strong>Decentralized identifiers</strong>: Verifiable user-created identifiers independent of any organization</li>
+<li><strong>Verifiable credentials</strong>: Cryptographically secure versions of paper/digital credentials</li>
+</ol>
+<p>When used properly, like in compliance with know your customer (KYC) and anti-money laundering (AML) requirements, SSI can be (and is being) deployed in the financial space. Cryptocurrency exchanges, which are subject to KYC and AML measures in the US, are a good example of this. In more traditional forms of banking, however, adoption lags behind.</p>
+<p>That&#8217;s not surprising for a couple of different reasons. First, there&#8217;s a lack of standardization and interoperability (despite the huge potential for the latter) in DID right now. Second, and just as important, is the need for stringent security protocols that prevent cyberattackers and other banks from accessing data they should not be able to.</p>
+<p>There&#8217;s a need to find common ground, or a stepping stone, between SSI and KYC before we can expect to see wider adoption, and APIs are, in some ways, a solid contender for this.</p>
+<p>The use of blockchain APIs could really help to open up banking in a meaningful way, allowing financial institutions to engage with the concept of decentralized identity while sidestepping some of the complexity associated with building infrastructure from scratch.</p>
+<h2 id="decentralized-identity-in-financial-contexts">Decentralized Identity in Financial Contexts</h2>
+<p>Plenty of companies out there have embraced decentralized identifiers, and as more do so, this will have a significant impact on API security and management — especially in banking and finance.</p>
+<p>At our 2023 Platform Summit, Curity&#8217;s Jacob Ideskog <a href="https://www.youtube.com/watch?v=nu3h_r9bVzg">spoke at length</a> about how the adoption of decentralized identities might affect how we plan future APIs. He suggests the following considerations:</p>
+<ul>
+<li>Plan for <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/">token-based architecture with OAuth</a>.</li>
+<li>Use a unique identifier as subject (independent of login mechanism, independent of sub-division, independent of the system being accessed, independent of whether accounts exist).</li>
+<li>Always normalize claims: &#8220;An email is an email is an email.&#8221;</li>
+<li>Don&#8217;t overshare information: If an API doesn&#8217;t need it, don&#8217;t send it. Since oversharing can break GDPR, <a href="https://nordicapis.com/what-is-the-principle-of-least-privilege/">follow the rule of least privilege</a>.</li>
+<li>Token sanity checking: Know when to implement the proper checks, such as when to use date of birth versus age or a boolean like <code>is_over_18</code>.</li>
+</ul>
+<p>He also highlights how selective disclosure might play a significant role in the upcoming decentralized future. This refers to the capacity to redact information that comes when credentials are issued once and owned by users.</p>
+<p>As for the <a href="https://nordicapis.com/10-examples-of-open-banking-apis/">banking and finance space</a>, he underscores the importance of determining who (which verified credentials) you&#8217;re going to trust. He concludes by saying that decentralized identity is coming, and &#8220;it&#8217;s really going to change how we do identity.&#8221;</p>
+<p>In the meantime, if (or perhaps when) different financial organizations adopt different blockchains or APIs associated with decentralized ID providers, we&#8217;ll need to see more ways for those services to talk to one another. That&#8217;s another area in which APIs might come into their own.</p>
+<div class="well">Watch Jacob Ideskog&#8217;s presentation, <em>Decentralized Identities Changes Everything, Even Your APIs</em>, at the the 2023 Platform Summit in Stockholm:<br />
+<div class="responsive-iframe-container responsive-iframe-container-16x9"><iframe loading="lazy" title="YouTube video player" src="https://www.youtube.com/embed/nu3h_r9bVzg?si=mMaS_eYXRjCZOWUW" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></div>
+<h2 id="the-future-of-decentralized-identity-and-banking">The Future of Decentralized Identity and Banking</h2>
+<p>Although there are plenty of APIs out there relating to DeFi (decentralized finance), most of these focus primarily on cryptocurrency: <a href="https://chainstack.com/defi-api/">Chainstack&#8217;s DeFi API</a>, for example, allows consumers to fetch trading data, access liquidity pairs and reserves, analyze market trends, and so on.</p>
+<p>The <a href="https://de.fi/api">De.Fi API</a>, meanwhile, allows for integrating their antivirus and audit solutions, as well as wallet balances or supported chains. Various crypto exchanges have also <a href="https://nordicapis.com/9-apis-for-real-time-cryptocurrency-data/">exposed functionality using APIs</a>. For example, <a href="https://docs.cloud.coinbase.com/exchange/docs/welcome">Coinbase</a> offers Market Data APIs and Trading APIs for placing orders or accessing account information.</p>
+<p>It probably won&#8217;t have escaped you that two of the major problems associated with DID and banking — lack of standardization and interoperability and a need for security without compromising on functionality — are two areas in which APIs have already been shown to excel.</p>
+<p>A great article by Peaka that <a href="https://www.peaka.com/blog/api-open-banking-defi/">highlights some of the similarities</a> between DeFi and open banking details an example of how Stripe Capital leverages APIs to &#8220;lend money to merchants conducting trade on the Shopify platform&#8221; and &#8220;introduces capital from legacy banks to small businesses in a frictionless way.&#8221;</p>
+<p>The piece concludes that &#8220;crypto exchanges facilitate DeFi transactions by opening APIs and letting users perform transactions via those APIs…In that regard, DeFi practices are not far off from open banking practices.&#8221; It won&#8217;t, we&#8217;re sure, be the last time that comparison is made.</p>
+<p>The rise of the <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/">OpenAPI Specification</a> could prove a compelling template for the standardization of centralized identifiers. Or, APIs may be used to facilitate communication between blockchains or DID providers. Regardless, we&#8217;re excited to see what the future of APIs and decentralized identity holds.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

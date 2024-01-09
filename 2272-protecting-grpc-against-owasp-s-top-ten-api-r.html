@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Protecting gRPC Against OWASP’s Top Ten API Risks</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Protecting gRPC Against OWASP’s Top Ten API Risks</h2>
+		<a target="_blank" href="https://nordicapis.com/protecting-grpc-against-owasps-top-ten-api-risks/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>gRPC is an incredibly powerful tool in the modern API landscape. Highly performant and open-source, it has become commonplace for many implementations to leverage remote procedure calls. However, as with any technology, it has security risks that should be understood and planned against.</p>
+<p>Below, we&#8217;ll examine these risks in the context of the OWASP <a href="https://owasp.org/www-project-api-security/">API Security Top 10 2023</a> and discuss the specific mitigation strategies developers can use to secure these environments.</p>
+<h2 id="api01-broken-object-level-authorization-bola-">API01: Broken Object-Level Authorization (BOLA)</h2>
+<p>Broken object-level authorization (BOLA), previously called insecure direct object reference (IDOR), is a vulnerability where an API exposes objects without adequate authorization controls. Exploiting this loophole, an attacker can illicitly access data by manipulating input attributes.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p><a href="https://nordicapis.com/using-grpc-to-connect-a-microservices-ecosystem/">gRPC services</a> are susceptible to BOLA vulnerabilities if object-level security controls are not implemented properly. A gRPC service may authenticate a user and authorize them to fetch data, but without proper object-level authorization, a malicious user might manipulate request parameters to access objects they shouldn&#8217;t be able to see.</p>
+<p>Mitigating BOLA in gRPC means developing and applying rigorous object-level authorization checks at the service logic level. One approach is to use attribute-based access control or role-based access control policies. These consider the user&#8217;s identity and their roles, permissions, and other attributes when determining whether to grant access to specific objects.</p>
+<p>To minimize this risk further, consider integrating gRPC services with <a href="https://nordicapis.com/review-of-curity-identity-server-community-edition/">identity providers</a> and management systems that support fine-grained authorization policies.</p>
+<h2 id="api02-broken-authentication">API02: Broken Authentication</h2>
+<p><a href="https://nordicapis.com/how-to-fix-broken-access-control/">Broken authentication</a> is an issue with flaws in the actual authentication mechanisms, allowing for direct and indirect attacks against the underlying codebase and system.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>gRPC offers several native mechanisms for handling authentication. However, massive exposure is possible if these mechanisms are incorrectly implemented or configured. Failing to <a href="https://nordicapis.com/the-difference-between-api-keys-and-api-tokens/">validate tokens properly</a>, using weak cryptographic algorithms, or mishandling secure session data transit could allow attackers to impersonate legitimate users and even bypass authentication mechanisms altogether.</p>
+<p>To mitigate this risk, organizations should adhere to <a href="https://curity.io/resources/learn/scope-best-practices/">best practices for secure authentication</a>. Use strong, industry-accepted cryptographic algorithms and protocols. When implementing token-based authentication, ensure that tokens are securely generated, transmitted, and stored. Include mechanisms like token expiration to limit the attack window. <a href="https://nordicapis.com/4-multi-factor-authentication-mfa-apis/">Multi-factor authentication</a> can add an additional layer of security by requiring two or more verification methods from different categories. For instance, it requires something the user knows (password), something the user has (a security token), and something the user is (biometric verification). Regular security audits and penetration testing can help to identify and fix any vulnerabilities in your authentication mechanisms before they are used for an attack.</p>
+<div class="well">Also read our other articles on mitigating the OWASP Top Ten API Risks for <a href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/">GraphQL</a>, <a href="https://nordicapis.com/protecting-webhooks-against-owasps-top-ten-api-risks/">webhooks</a>, and SOAP.</div>
+<h2 id="api03-broken-object-property-level-authorization-bopla-">API03: Broken Object Property Level Authorization (BOPLA)</h2>
+<p>This issue allows users to access specific fields in an API object that they don&#8217;t have the proper authorization to access. Poor or inadequate authorization validation at the property level surfaces data, exposes resources to manipulation, and potentially, through combinatory attacks, can lead to much larger attacks.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>gRPC services can be vulnerable to broken object property-level authorization if they do not sufficiently control access to specific properties within an object. While gRPC allows for fine-grained control over request and response messages, it doesn&#8217;t natively handle field-level authorization, leaving the service vulnerable to unauthorized data exposure or manipulation.</p>
+<p>Granular authorization checks must be implemented at the object property level to prevent this error. Adhering to the <a href="https://nordicapis.com/what-is-the-principle-of-least-privilege/">principle of least privilege</a> will be a great way to ensure that property-level security is maintained.</p>
+<h2 id="api04-unrestricted-resource-consumption">API04: Unrestricted Resource Consumption</h2>
+<p>Resource consumption is a critical issue with most APIs, and issues in this category pertain to a lack of mechanisms to <a href="https://nordicapis.com/different-algorithms-to-implement-rate-limiting-in-apis/">control this consumption</a>. This can lead to common issues like denial of service, which can affect a service&#8217;s business logic and cause economic damage.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>gRPC services are designed for high performance and low latency, but they are not immune to this kind of threat. Theoretically, any request could be scaled to cause damaging, unrestricted resource consumption.</p>
+<p>For gRPC, this means scaling through the number of requests. Accordingly, it is important to utilize heuristic systems to decide what an unreasonable amount of requests looks like.</p>
+<p>Luckily, gRPC uses HTTP/2, which has built-in protections against certain resource exhaustion attacks. This is not wholly sufficient, so additional restrictions utilizing <a href="https://nordicapis.com/api-rate-limiting-vs-api-throttling-how-are-they-different/">rate limiting</a>, resource quotas, client restrictions, and alert systems will be essential tools to round out a proper mitigation strategy.</p>
+<h2 id="api05-broken-function-level-authorization-bfla-">API05: Broken Function Level Authorization (BFLA)</h2>
+<p>This issue arises when users can execute functions they otherwise would not be allowed to due to broken authorization systems at the function level. This exposes functions that should otherwise not be exposed, resulting in data and logic exposure as well as escalated threats to internal systems.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>gRPC services are also vulnerable to this kind of attack if proper authorization checks are not in place at the function level. In a gRPC service, each remote procedure call typically maps to a specific function on the server. If an attacker can bypass or exploit the authorization checks, they may gain access to functions that should be restricted, leading to unauthorized data access.</p>
+<p>Mitigating this threat requires stringent authorization controls, which can be paired with checks against heuristic behavior analysis and common threat identification. If you know that a function is more prone to attacks — or, in other words, would be of higher value to a potential attacker — doubling security methods with additional verification or monitoring will go a long way toward ensuring these attacks are restricted in scope and damage. Separate out roles and permissions clearly and apply the principle of least privilege in tandem, and you will have quite secure functions.</p>
+<div class="well:">Also read: <a href="https://nordicapis.com/7-api-testing-tools-that-support-grpc/">7 API Testing Tools That Support gRPC</a></div>
+<h2 id="api06-unrestricted-access-to-sensitive-business-flows">API06: Unrestricted Access to Sensitive Business Flows</h2>
+<p>Business flows, such as purchasing an item or confirming a subscription, often expose underlying systems, business logic, and information. Unrestricted access to these flows can result in API abuse and critical business damage.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>Because of the nature of gRPC, a good amount of the underlying API business flow will necessarily be exposed. RPC functions typically map to service resources quite closely, which means an increase in efficiency and clarity but an increase in exposure. Accordingly, mitigating this threat will require access controls based on proper use that leverage heuristics and external knowledge of likely attacks to restrict abuse.</p>
+<p>Rate limiting, client quotas, and other strategies are a good start, but if you know that a situation may arise — such as the release of a new console that is likely to attract scalpers who will abuse the business logic systems — increasing these limits or making automatic tiers based upon generalized behavior as detected in the system can improve your posture&#8217;s effectiveness.</p>
+<h2 id="api07-server-side-request-forgery-ssrf-">API07: Server-Side Request Forgery (SSRF)</h2>
+<p>SSRF is a type of attack that utilizes any methodology to force a server to make a request on behalf of the user. Because this has the potential to circumvent many authorization and authentication controls, it could allow unrestricted access to critical systems and functions.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>Server-side request forgery (SSRF) is a particularly insidious vulnerability that can have severe consequences, and gRPC services are not immune to it. To mitigate SSRF risks in a <a href="https://nordicapis.com/rest-vs-grpc-advantages-and-disadvantages/">gRPC environment</a>, strictly validate and sanitize any data used to form a network request.</p>
+<p><a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/">Input sanitization</a> is a good idea in general, but it should be especially stringent in a gRPC environment. This is because unsanitized requests could expose the entirety of the underlying service through the closely coupled RPC-to-service paradigm. Ensure you have <a href="https://nordicapis.com/10-nodejs-packages-that-you-can-use-for-api-logging/">robust logging and service alerts</a> to immediately identify, document, and mitigate any unforeseen issues where possible.</p>
+<h2 id="api08-security-misconfiguration">API08: Security Misconfiguration</h2>
+<p>This broad catch-all category covers a range of security misconfigurations and the resulting exposures that cause data, process, flow, and functions to be exposed.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>Security misconfigurations are a common but preventable vulnerability that can expose services to various attacks. From failing to apply adequate access control or missing a small vector for escalation through inherited permissions, misconfigurations can start tiny and blow up to massive proportions quite quickly.</p>
+<p>Protecting against security misconfigurations requires organizations to adopt a configuration management strategy based on transparency and ongoing review. Regular audits of configurations and a controlled configuration workflow should be instituted to control changes as they occur and ensure that such changes are proper and necessary. Version control systems and <a href="https://nordicapis.com/what-is-contract-testing/">automated testing of the codebase</a> to ensure up-to-date configurations and dependencies can also control this risk area.</p>
+<h2 id="api09-improper-inventory-management">API09: Improper Inventory Management</h2>
+<p><a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">Inventory management</a>, specifically around API versioning and deprecations, is a huge part of maintaining a well-documented and usable API portfolio. Importantly, oversights in this category can lead to old or unprotected API endpoints being utilized for various attacks.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>Improper inventory management can lead to vulnerabilities in gRPC services when maintaining multiple versions, environments, or deprecated features. For example, an old version of a gRPC service may contain vulnerabilities that have been patched in newer versions, and if this older version remains accessible, it can create a significant and ongoing security vulnerability.</p>
+<p>To manage this risk, <a href="https://nordicapis.com/api-inventory-navigating-through-invisible-threats/">comprehensive inventory management solutions</a> must be deployed. This should include information about the versions, their operating environments, and any plans for deprecation or sunsetting. Deprecated services should be phased out, and when a security change must be implemented, such changes should be implemented as <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/">breaking changes</a> that do not allow existing functions to continue to work. Automated tools can help scan your environment to ensure that only approved services are running and appropriately patched and configured.</p>
+<h2 id="api10-unsafe-consumption-of-apis">API10: Unsafe Consumption of APIs</h2>
+<p>The benefit of APIs is that they can connect with other systems and services to be more than the sum of their parts. It is this benefit, unfortunately, that can result in significant issues unless the safety of each connected system can be assured. Third-party APIs are particularly dangerous, as unsafe consumption can lead to significant vulnerabilities with very few warning signs.</p>
+<h3 id="grpc-threat">gRPC Threat</h3>
+<p>Depending on your application, the unsafe consumption of external APIs could expose your gRPC services to risks such as data leaks or unauthorized access. If one connected system is compromised, it may put your entire service at risk.</p>
+<p>Here are some ways to protect against the dangers of unsafe API consumption:</p>
+<ol>
+<li>Always validate and sanitize data coming from third-party services.</li>
+<li>Employ a secure and isolated environment for interactions with external APIs, and use strong authentication and encryption methods when connecting to any service, regardless of location or proximity.</li>
+<li>Always keep your third-party dependencies up-to-date and patch them as soon as updates become available.</li>
+<li>Conduct regular security assessments of third-party services to evaluate their compliance with your security requirements.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Are there any other strategies for securing APIs against these common risks? Feel free to share your insights in the comment section!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>“URL” Gonna Want To Check This Out – These Weeks in Firefox: Issue 150</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">“URL” Gonna Want To Check This Out – These Weeks in Firefox: Issue 150</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2023/12/04/url-gonna-want-to-check-this-out-these-weeks-in-firefox-issue-150/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3 dir="ltr">Highlights</h3>
+<ul>
+<li role="presentation">URL Paste Suggestions
+<ul>
+<li role="presentation">The URL Paste Suggestion feature is now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860548" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1860548&amp;source=gmail&amp;ust=1701801022537000&amp;usg=AOvVaw1Kken6hjx7twF8oLjactuz">enabled by default</a> in the Nightly version of Firefox. This enhancement provides a convenient way for users to quickly visit URLs copied to the clipboard in the address bar of Firefox Desktop. When the clipboard contains a URL, and the user focuses the URL bar, an autocomplete result appears automatically. Activating the clipboard suggestion will navigate the user to the URL with 1 click.</li>
+</ul>
+</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1521" src="https://blog.nightly.mozilla.org/files/2023/11/image5.png" alt="Screenshot of a &quot;Visit from clipboard&quot; prompt displayed on the URL bar, coming from the new URL Paste Suggestion feature." width="1494" height="276" srcset="https://blog.nightly.mozilla.org/files/2023/11/image5.png 1494w, https://blog.nightly.mozilla.org/files/2023/11/image5-300x55.png 300w, https://blog.nightly.mozilla.org/files/2023/11/image5-600x111.png 600w, https://blog.nightly.mozilla.org/files/2023/11/image5-768x142.png 768w, https://blog.nightly.mozilla.org/files/2023/11/image5-1000x185.png 1000w" sizes="(max-width: 1494px) 100vw, 1494px" /></p>
+<ul>
+<li role="presentation">Nicolas added selector warnings to unconstrained :has() in Rules view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863006" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863006&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0IcJ6TpOSUq1wftBlr_OQo">bug</a>)</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1523" src="https://blog.nightly.mozilla.org/files/2023/11/image3.png" alt="Screenshot of a selector warning in devtools saying &quot;This selector uses unconstrained :has(), which can be slow&quot;." width="644" height="232" srcset="https://blog.nightly.mozilla.org/files/2023/11/image3.png 644w, https://blog.nightly.mozilla.org/files/2023/11/image3-300x108.png 300w, https://blog.nightly.mozilla.org/files/2023/11/image3-600x216.png 600w" sizes="(max-width: 644px) 100vw, 644px" /></p>
+<ul>
+<li role="presentation">An issue where switching tabs was slow because of Firefox View has been fixed (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863783" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863783&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0kkBaFBgTK__37qlqrU-BS">bug</a>).
+<ul>
+<li role="presentation">Firefox view monitors open tabs, recently-closed tabs, history and synced tabs to render its lists. This patch ensures that no updates happen when firefox view is hidden, and when it is open, only the components that are visible will update and render.</li>
+<li role="presentation">We’re verifying this fix before uplifting to 120. Please let us know if you see anything untoward. We’re in #firefox-view:<a href="http://mozilla.org" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://mozilla.org&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw320bEyav_4uY_FTI57xEIp">mozilla.org</a> on matrix, #fx-desktop-dev:<a href="http://mozilla.org" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://mozilla.org&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw320bEyav_4uY_FTI57xEIp">mozilla.org</a> also works, or file a bug <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Firefox&amp;component=Firefox+View" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/enter_bug.cgi?product%3DFirefox%26component%3DFirefox%2BView&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0ZErLnvL3lgQ5AnB8emMEK">here</a>.</li>
+</ul>
+</li>
+<li role="presentation">Alex added a :trace console command to toggle JavaScript tracing (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1830915" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1830915&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw2ylLRaUEE7pSrXM6iZIXf4">bug</a>)
+<ul>
+<li role="presentation">Flip devtools.debugger.features.<wbr />javascript-tracing to true in about:config to test it out!</li>
+</ul>
+</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter wp-image-1524 size-full" src="https://blog.nightly.mozilla.org/files/2023/11/image2-1.png" alt="Screenshot of JavaScript tracing logs displayed in Firefox devtools." width="622" height="1048" srcset="https://blog.nightly.mozilla.org/files/2023/11/image2-1.png 622w, https://blog.nightly.mozilla.org/files/2023/11/image2-1-300x505.png 300w, https://blog.nightly.mozilla.org/files/2023/11/image2-1-600x1011.png 600w" sizes="(max-width: 622px) 100vw, 622px" /></p>
+<h3 dir="ltr">Friends of the Firefox team</h3>
+<h3 dir="ltr"><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1864482%2C1863869%2C1862507%2C1864834%2C1848877%2C1856182%2C1831482%2C1815556&amp;list_id=16807741" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/buglist.cgi?title%3DResolved%2520bugs%2520%2528excluding%2520employees%2529%26quicksearch%3D1864482%252C1863869%252C1862507%252C1864834%252C1848877%252C1856182%252C1831482%252C1815556%26list_id%3D16807741&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw1-dUbSFVDFZCDCEIMOpQjj">Resolved bugs (excluding employees)</a></h3>
+<p dir="ltr"><a href="https://github.com/niklasbaumgardner/NewContributorScraper" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://github.com/niklasbaumgardner/NewContributorScraper&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0f4ZRCu_anPAgpE2pkzLRY">Script to find new contributors from bug list</a></p>
+<h4 dir="ltr">Volunteers that fixed more than one bug</h4>
+<ul>
+<li dir="ltr" role="presentation">Patryk Gruszka</li>
+<li dir="ltr" role="presentation">Vinny Diehl</li>
+</ul>
+<h4 dir="ltr">New contributors (🌟 = first patch)</h4>
+<ul>
+<li dir="ltr" role="presentation">Komuhangi Tumuhairwe added a fix to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856182" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1856182&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0ACbaYWZL9Vo_u-USgs11r">ensure Translations panel closes</a> when a user chooses to never translate</li>
+<li dir="ltr" role="presentation">nzaih18 added <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863869" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863869&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0-nahJBb02sGQ5pHqkfTR5">default preferences</a> alwaysTranslateLanguages, neverTranslateLanguages, and permissionsUrls in loadTestPage</li>
+<li dir="ltr" role="presentation">🌟 Patryk Gruszka <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862507" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1862507&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw3K-O5EHCRdFbzCj_O7CBq9">fixed functions in mozStorageSQLFunctions.cpp</a> to not use &#8216;else&#8217; after &#8216;return&#8217; and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864834" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864834&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw1ZbAksI8ZnVeJMY0YG0aFd">removed reference</a> to ftp in SearchEngine icon downloading</li>
+</ul>
+<h3 dir="ltr">Project Updates</h3>
+<h4 dir="ltr">Accessibility</h4>
+<ul>
+<li dir="ltr" role="presentation">Tier 2 A11y-checks:
+<ul>
+<li dir="ltr" role="presentation">You can do a Try run by selecting a11y-checks jobs on Linux (`./mach try fuzzy &#8211;full` then `a11y-checks linux !wayland !ccov !tsan !asan !devedition !debug` would give you the best coverage and performance</li>
+<li dir="ltr" role="presentation">Locally, use flag `&#8211;enable-a11y-checks` with your `./mach test` command</li>
+<li dir="ltr" role="presentation">Reach out to #accessibility Matrix room if you have any questions</li>
+<li dir="ltr" role="presentation">Ayeddi and Jteh continue working on the remediation and fine-tuning of <a href="https://searchfox.org/mozilla-central/source/testing/mochitest/tests/SimpleTest/AccessibilityUtils.js" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://searchfox.org/mozilla-central/source/testing/mochitest/tests/SimpleTest/AccessibilityUtils.js&amp;source=gmail&amp;ust=1701801022538000&amp;usg=AOvVaw0IMyxqmgYuF19vEBhMwnV7">AccessibilityUtils</a>:
+<ul>
+<li dir="ltr" role="presentation">Added mustBeEnabled rule to be able to skip a11y-checks when we click disabled controls in mochitests to confirm nothing happens (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864577" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864577&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw3y_BaGL51lX1-4PoYxYfM0">bug 1864577</a>)</li>
+<li dir="ltr" role="presentation">Added two checks for focusable buttons within the Awesomebar to avoid false positive a11y-checks &#8211; isKeyboardFocusableOption(<wbr />accessible) and isKeyboardFocusableUrlbarButto<wbr />n(accessible), since the keyboard navigation pattern within the search bar is custom (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864751" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864751&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2nOPJaQqI9RWpo_tyFyT1c">bug 1864751</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Eeejay fixed mozilla::detail::<wbr />InvalidArrayIndex crash that unblocked multiple test files (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1849230" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1849230&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2JRPLd3Mek4i31HrTpYeTH">Bug 1849230</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Thanks to all the teams for reviews and collaboration!</li>
+</ul>
+<h4 dir="ltr">Add-ons / Web Extensions</h4>
+<h5 dir="ltr">Addon Manager &amp; about:addons</h5>
+<ul>
+<li dir="ltr" role="presentation">As part of changes needed for DSA (EU Digital Services Act) requirements, in Firefox 121 we are going to enable a new add-on abuse reporting form hosted on <a href="http://addons.mozilla.org" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://addons.mozilla.org&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2iwEvp0C4WKkCv4jNQZcWu">addons.mozilla.org</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863307" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863307&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw3z9wCNfKOvkM8SmW6oT8YE">Bug 1863307</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865840" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1865840&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw0_7TfhRO_l2nl58n_9FksR">Bug 1865840</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866565" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1866565&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw1661YQYJJrH4m4ASTbk_1B">Bug 1866565</a>, and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859791" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1859791&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw3xFdd1pQttBWsHZ_FMu00j">Bug 1859791</a>)</li>
+</ul>
+<p dir="ltr">WebExtensions Framework</p>
+<ul>
+<li dir="ltr" role="presentation">In preparation for the work related to sync loading about:blank, we applied a small tweak to the tabs API internals to prevent it to emit tab events for a tab still being adopted &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1859490" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1859490&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw03xK-TwWqOldWDrX1KkB4B">Bug 1859490</a></li>
+<li dir="ltr" role="presentation">Changed amIAddonManagerStartup encodeBlob to throw an NS_ERROR_OUT_OF_MEMORY error instead of triggering a crash when it fails internally (encodeBlob is used internally to encode the extensions and DNR rules startupCache files data) &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862172" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1862172&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2zkRbaAmf92VjXgBC_dqwN">Bug 1862172</a></li>
+</ul>
+<p dir="ltr">WebExtension APIs</p>
+<ul>
+<li dir="ltr" role="presentation">Thanks to Brad Werth for investigating and fixing <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854820" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1854820&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw0QrUlKRqDkfJIDbI7_E4vq">Bug 1854820</a>, a regression hit on macOS and Linux on browser.windows.update calls targeting windows being restored from a minimized state (due to an internal crude hack/workaround for issues on macOS, which was now conflicting with the more compressive fix for the underlying issue introduced by <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1631735" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1631735&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2w1zsEMLcm_e2mhMLUFhIm">Bug 1631735</a>)</li>
+</ul>
+<h4 dir="ltr">Developer Tools</h4>
+<h5 dir="ltr">DevTools</h5>
+<ul>
+<li role="presentation">Hubert also fixed an issue where offline mode in Netmonitor was not reset properly (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857244" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1857244&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw1JPqBf6K-JgGjv8yzvoslE">bug</a>)</li>
+<li role="presentation">Hubert made total transferred size to not include service worker requests (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1347146" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1347146&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2SnDm6AcGw293jof2wmGaN">bug</a>)</li>
+<li role="presentation">Nicolas added icon to select elements referenced in idref/idreflist attributes (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850953" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1850953&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw1xqt0mpoMGkkKFvHPNwaav">bug</a>)</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1525" src="https://blog.nightly.mozilla.org/files/2023/11/image1-1.png" alt="Screenshot of icons displayed for &quot;bezier&quot; and &quot;bezImg&quot; values of an attribute &quot;aria-details&quot; in a span element displayed in devtools." width="1272" height="454" srcset="https://blog.nightly.mozilla.org/files/2023/11/image1-1.png 1272w, https://blog.nightly.mozilla.org/files/2023/11/image1-1-300x107.png 300w, https://blog.nightly.mozilla.org/files/2023/11/image1-1-600x214.png 600w, https://blog.nightly.mozilla.org/files/2023/11/image1-1-768x274.png 768w, https://blog.nightly.mozilla.org/files/2023/11/image1-1-1000x357.png 1000w" sizes="(max-width: 1272px) 100vw, 1272px" /></p>
+<ul>
+<li role="presentation">Nicolas Add link capability to invoketarget attributes (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864186" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864186&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw28mVka2xpLS6JtveViqep3">bug</a>)
+<ul>
+<li role="presentation"><a href="https://open-ui.org/components/invokers.explainer/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://open-ui.org/components/invokers.explainer/&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2u-z3qfQPf3uP5YLHJFZGQ">Invokers</a> behind dom.element.invokers.enabled</li>
+</ul>
+</li>
+<li role="presentation">Alex added a toggle to enable/disable all debugger statements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1578220" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1578220&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw3B-6MB8hqOhmze4EN-Wofq">bug</a>)</li>
+<li role="presentation">Hubert added warnings in the debugger when mapping variables is disabled (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858076" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1858076&amp;source=gmail&amp;ust=1701801022539000&amp;usg=AOvVaw2Ml2GJDAkMXvOCeZzLFhtr">bug</a>)</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1522" src="https://blog.nightly.mozilla.org/files/2023/11/image4.png" alt="Screenshot of a new debugger warning in devtools saying &quot;Original variables name mapping is turned off&quot;." width="1812" height="1332" srcset="https://blog.nightly.mozilla.org/files/2023/11/image4.png 1812w, https://blog.nightly.mozilla.org/files/2023/11/image4-300x221.png 300w, https://blog.nightly.mozilla.org/files/2023/11/image4-600x441.png 600w, https://blog.nightly.mozilla.org/files/2023/11/image4-768x565.png 768w, https://blog.nightly.mozilla.org/files/2023/11/image4-1536x1129.png 1536w, https://blog.nightly.mozilla.org/files/2023/11/image4-1000x735.png 1000w" sizes="(max-width: 1812px) 100vw, 1812px" /></p>
+<ul>
+<li role="presentation">Alex added experimental feature to debug service workers directly from the Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1651522" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1651522&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw2GsKDJZfS_I5ZH2_7m2xla">bug</a>)
+<ul>
+<li role="presentation">behind devtools.debugger.features.<wbr />windowless-service-workers</li>
+<li role="presentation">looking for feedback</li>
+</ul>
+</li>
+<li role="presentation">Alex added the unload  and beforeunload events in the event listeners breakpoint panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1569775" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1569775&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw2nctp0WKmkxZANo40_tQzh">bug</a>)</li>
+<li role="presentation">Nicolas added the invoke event in the event listeners breakpoint panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864200" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864200&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw3e9FrdIFXmNrvypd-hBCvB">bug</a>)</li>
+<li role="presentation">Nicolas fixed DOM mutation breakpoints after page reload (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863398" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863398&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0NpPH9U30R0yNkkQFKK0Xc">bug</a>)</li>
+<li role="presentation">Nicolas fixed a few accessibility issues in the toolbox
+<ul>
+<li role="presentation">When editing selector/property name/property values, the Enter key won&#8217;t trigger a new edit on the next property, which is still possible (and more consistent/explicit) with Tab (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861674" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1861674&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0_FFyqrwbmiLmvdPLv2OET">bug</a>)</li>
+<li role="presentation">Made Property-toggle checkboxes keyboard accessible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844055" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1844055&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw1M2o9jfwLcOAFNKIyYpEIK">bug</a>)</li>
+<li role="presentation">Made grid highlighter color picker keyboard accessible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844072" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1844072&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw2hMYGVUtjkDT8j-D3M9ik_">bug</a>)</li>
+<li role="presentation">Made selector highlighter icon keyboard accessible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844053" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1844053&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw2rKUQan6nTWv5LGMM_ksak">bug</a>)</li>
+<li role="presentation">Made &#8220;Filter rules containing this property&#8221; keyboard accessible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844058" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1844058&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw22wx5WtVmrSXS3134C-Ym2">bug</a>)</li>
+<li role="presentation">Added focus indicator in JSON viewer (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865846" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1865846&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw3pMC95dYhjxPb2ytYz0hFK">bug</a>)</li>
+<li role="presentation">Added focus indicator in Tabs component (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866087" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1866087&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0lviTiIi2v4-CvBpAiUV4N">bug</a>)</li>
+<li role="presentation">Added focus indicator on Spectrum sliders (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865047" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1865047&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw1wHnh6G6EcPwCCERIMphoh">bug</a>)</li>
+<li role="presentation">Fixed highlighted properties color contrast (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843343" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1843343&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0gpMCCiY5LltAKlK0_XU_7">bug</a>)</li>
+<li role="presentation">Fixed contrast for Pseudo class in selector (e.g. :hover) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863472" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863472&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw15rXyP7npTSe2FPGknPOVK">bug</a>)</li>
+<li role="presentation">Fixed color contrast for search/filter input label/placeholder (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843332" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1843332&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw3MNx8kXHLHLZ-3_SzQznzJ">bug</a>)</li>
+<li role="presentation">Strike through unmatched selectors instead of only displaying the selector with a dimmer color (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844958" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1844958&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw2sc5udYTSESuhgMVeEJFNv">bug</a>)</li>
+<li role="presentation">Add label to Object Inspector toggle button (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844088" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1844088&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw3sXajGGRatERLBY6aUEp40">bug</a>)</li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">WebDriver BiDi</h4>
+<ul>
+<li dir="ltr" role="presentation">Sasha added the &#8220;browsingContext.<wbr />traverseHistory&#8221; command, which allows clients to go back and forward in the history by a given delta (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841018" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1841018&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0S2RL7qZ1zE8OtUuzUJXVe">bug</a>).</li>
+<li dir="ltr" role="presentation">Henrik incorporated the latest Puppeteer v21.5.2 into mozilla-central, resulting in an increase in the number of passing unit tests by 46 (to a total of 571). This places us just 3 tests away from reaching the milestone for the experimental status announcement (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862701" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1862701&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0SZ1GhzPoUAYWUnhMMVOmi">bug</a>)</li>
+<li dir="ltr" role="presentation">Henrik fixed a regression in Marionette which caused the “GetElementText” command to return an empty string for elements within a ShadowDOM utilizing a slot (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824664" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1824664&amp;source=gmail&amp;ust=1701801022540000&amp;usg=AOvVaw0_yrmpx9hTtM2c0x35v0te">bug</a>)</li>
+</ul>
+<h4 dir="ltr">ESMification status</h4>
+<ul>
+<li dir="ltr" role="presentation">Report broken site feature has been reworked and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852340" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1852340&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0KOAek-9V6CT18NFwc7eqS">removed their remaining use of jsm</a>.</li>
+<li dir="ltr" role="presentation">ESMified status:
+<ul>
+<li dir="ltr" role="presentation">browser: 89%</li>
+<li dir="ltr" role="presentation">toolkit: 99%</li>
+<li dir="ltr" role="presentation">Total:  96.41% (up from 96.33%)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">#esmification on Matrix</li>
+</ul>
+<h4 dir="ltr">Lint, Docs and Workflow</h4>
+<ul>
+<li dir="ltr" role="presentation">Source doc generation should now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865208" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1865208&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw3ktMmNrCCrq4uomnaVnfG2">fail with a fatal error</a> if referenced files are missing. Previously these were only treated as warnings, and hence some docs were missing the intended elements.</li>
+</ul>
+<h4 dir="ltr">Migration Improvements</h4>
+<ul>
+<li dir="ltr" role="presentation"><a href="https://support.mozilla.org/en-US/kb/switching-devices" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://support.mozilla.org/en-US/kb/switching-devices&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0lSz_FZaCIJt2aIt0PFyiU">The SUMO device migration page</a> now lets users send themselves emails or set up calendar events to remind themselves to download and install Firefox on their new devices
+<ul>
+<li dir="ltr" role="presentation">We’re working on another batch of Spotlight messages for users without an account but with a lot of stored local data to consider setting up an account / sync.</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Investigations are underway to see if we can introduce the ability to backup some portions of your Firefox profile to a separate file. We’re also looking at ways we can integrate with the <a href="https://support.microsoft.com/en-us/windows/back-up-your-windows-pc-87a81f8a-78fa-456e-b521-ac0560e32338" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://support.microsoft.com/en-us/windows/back-up-your-windows-pc-87a81f8a-78fa-456e-b521-ac0560e32338&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0xRWnUC3Prn2qO-72QS9dF">Windows Backup</a> feature.</li>
+</ul>
+<h4 dir="ltr">New Tab Page</h4>
+<ul>
+<li dir="ltr" role="presentation">Scott Downe (:thecount) has joined the Firefox Desktop team to work on about:newtab!</li>
+<li dir="ltr" role="presentation">mconley
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860668" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1860668&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw1_CammiTHh2fg3Bnfhx1ZO">Converted some karma tests to xpcshell to convert a JSM to an ESM</a></li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863400" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1863400&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0SuNMbh9Rff5wwnPOGFsS_">Split out about:welcome from the newtab code</a></li>
+<li dir="ltr" role="presentation">Has patches up to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1715158" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1715158&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw2wCfxj4y0vmvVrwgAl2o0h">remove the snippets infrastructure</a></li>
+<li dir="ltr" role="presentation">Has patches up to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866802" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1866802&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw02ZFedjssjmE9rOcbHqSry">move the ASRouter admin UI out to its own about:asrouter page</a>.</li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">Picture-in-Picture</h4>
+<ul>
+<li dir="ltr" role="presentation">kpatenio <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1835149" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1835149&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0xZPpswN7iPAAsr1n0g0nS">fixed an issue where PiP video controls don’t show/hide consistently when using the media play/pause button</a></li>
+</ul>
+<h4 dir="ltr">Performance</h4>
+<ul>
+<li dir="ltr" role="presentation">To help reduce hangs on Windows, mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1529276" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1529276&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0tz_NJTWpOmv8bU-ewOlY9">has written a new off-main-thread backend for the component that produces the “jump list”</a> (the menu that appears when right-clicking on the Firefox icon in the Windows task bar).
+<ul>
+<li dir="ltr" role="presentation">Currently disabled by default, but can be enabled and tested by setting browser.taskbar.lists.<wbr />legacyBackend to false and then restarting the browser.</li>
+<li dir="ltr" role="presentation">Found a difference in the behaviour between the new backend and the legacy backend? <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;blocked=1529276&amp;bug_ignored=0&amp;bug_severity=--&amp;bug_status=NEW&amp;cf_a11y_review_project_flag=---&amp;cf_accessibility_severity=---&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_has_str=---&amp;cf_install_update_workflow=---&amp;cf_performance_impact=---&amp;cf_status_firefox120=---&amp;cf_status_firefox121=---&amp;cf_status_firefox122=---&amp;cf_status_firefox_esr115=---&amp;cf_tracking_firefox120=---&amp;cf_tracking_firefox121=---&amp;cf_tracking_firefox122=---&amp;cf_tracking_firefox_esr115=---&amp;cf_tracking_firefox_relnote=---&amp;cf_webcompat_priority=---&amp;component=Shell%20Integration&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;filed_via=standard_form&amp;flag_type-203=X&amp;flag_type-37=X&amp;flag_type-41=X&amp;flag_type-607=X&amp;flag_type-708=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-748=X&amp;flag_type-787=X&amp;flag_type-799=X&amp;flag_type-800=X&amp;flag_type-803=X&amp;flag_type-846=X&amp;flag_type-855=X&amp;flag_type-864=X&amp;flag_type-930=X&amp;flag_type-936=X&amp;flag_type-937=X&amp;flag_type-963=X&amp;form_name=enter_bug&amp;maketemplate=Remember%20values%20as%20bookmarkable%20template&amp;op_sys=Unspecified&amp;priority=--&amp;product=Firefox&amp;rep_platform=Unspecified&amp;target_milestone=---&amp;version=unspecified" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to%3Dnobody%2540mozilla.org%26blocked%3D1529276%26bug_ignored%3D0%26bug_severity%3D--%26bug_status%3DNEW%26cf_a11y_review_project_flag%3D---%26cf_accessibility_severity%3D---%26cf_fx_iteration%3D---%26cf_fx_points%3D---%26cf_has_str%3D---%26cf_install_update_workflow%3D---%26cf_performance_impact%3D---%26cf_status_firefox120%3D---%26cf_status_firefox121%3D---%26cf_status_firefox122%3D---%26cf_status_firefox_esr115%3D---%26cf_tracking_firefox120%3D---%26cf_tracking_firefox121%3D---%26cf_tracking_firefox122%3D---%26cf_tracking_firefox_esr115%3D---%26cf_tracking_firefox_relnote%3D---%26cf_webcompat_priority%3D---%26component%3DShell%2520Integration%26contenttypemethod%3Dlist%26contenttypeselection%3Dtext%252Fplain%26defined_groups%3D1%26filed_via%3Dstandard_form%26flag_type-203%3DX%26flag_type-37%3DX%26flag_type-41%3DX%26flag_type-607%3DX%26flag_type-708%3DX%26flag_type-721%3DX%26flag_type-737%3DX%26flag_type-748%3DX%26flag_type-787%3DX%26flag_type-799%3DX%26flag_type-800%3DX%26flag_type-803%3DX%26flag_type-846%3DX%26flag_type-855%3DX%26flag_type-864%3DX%26flag_type-930%3DX%26flag_type-936%3DX%26flag_type-937%3DX%26flag_type-963%3DX%26form_name%3Denter_bug%26maketemplate%3DRemember%2520values%2520as%2520bookmarkable%2520template%26op_sys%3DUnspecified%26priority%3D--%26product%3DFirefox%26rep_platform%3DUnspecified%26target_milestone%3D---%26version%3Dunspecified&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw3jQhUnN1DmRco8G_UHL1oO">File a bug here!</a></li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">Search and Navigation</h4>
+<ul>
+<li dir="ltr" role="presentation">Notable bug fixes
+<ul>
+<li dir="ltr" role="presentation">Thank you to contributor Patryk for cleaning up <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864834" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864834&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw16RzOnp1fbCgsxEBi-lzV4">old ftp references</a> in search code.</li>
+<li dir="ltr" role="presentation">Dão added outlines to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1736657" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1736657&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw0UIc6yPhPPJ6z-QVnYIIUu">address bar buttons in High Contrast Mode</a>.</li>
+<li dir="ltr" role="presentation">Marc addressed an issue with <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1657237" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1657237&amp;source=gmail&amp;ust=1701801022541000&amp;usg=AOvVaw2YvNppVMMgMYRbeV2jHR4h">IDN urls flashing punycode during page loads</a>.</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Work continues on search configuration improvements, search engine result page telemetry and other activities.</li>
+</ul>
+<ul>
+<li dir="ltr" style="list-style-type: none;" role="presentation">
+<ul>
+<li dir="ltr" style="list-style-type: none;" role="presentation"></li>
+</ul>
+</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

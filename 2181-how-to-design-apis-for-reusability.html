@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How To Design APIs For Reusability</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How To Design APIs For Reusability</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-design-apis-for-reusability/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>In the digital era, application programming interfaces (APIs) have become the backbone of many systems, allowing applications to communicate with each other. Modern web applications are constructed of many components, often powered by APIs, which have been repurposed from their original purposes to serve new, innovative processes.</p>
+<p>Ensuring that an API is reusable is a major goal for many modern API developers. Reusable APIs can lead to significant cost savings, faster product development, and a more consistent experience across applications, and can ultimately lead to a stronger API ecosystem and industry.</p>
+<p>But the question remains: how do we design and develop reusable interfaces? Let&#8217;s delve into the practical aspects of designing APIs for internal reusability!</p>
+<h2 id="adopt-a-standard-approach">Adopt a Standard Approach</h2>
+<p>APIs are most reusable when they are predictable and understandable. In order to reuse an API, there can be no confusion as to the function, purpose, and use case for the assorted parts that make up the whole. While there are a variety of systems developers can adopt to clarify use cases, including having <a href="https://nordicapis.com/7-ways-to-improve-your-documentation-developer-experience/">quality documentation</a>, the general way to create a truly reusable state is to standardize as much as possible.</p>
+<p>This doesn&#8217;t mean that developers must pick a single language or technology and stick with it no matter what — what this does mean is that developers, once they have selected an option, should adhere to the <a href="https://nordicapis.com/best-practices-for-todays-api-platform-architect/">best practices</a> and styles of the chosen paradigm as closely as possible. RESTful development, for instance, should follow the <a href="https://nordicapis.com/web-service-what-is-a-rest-api-and-how-does-it-work/">REST principles</a> in the Fielding dissertation as closely as possible and should opt only for <a href="https://nordicapis.com/ultimate-guide-to-all-9-standard-http-methods/">standard HTTP methods</a> and sensible <a href="https://nordicapis.com/what-do-the-http-status-codes-mean/">status codes</a>. GraphQL must have a sensible and intuitive schema that correctly references content and avoids redundant fields.</p>
+<p>In essence, reusability is like building with LEGO. LEGO pieces connect so well because they all use the same fundamental design. Similarly, this idea should be a guiding thought for standardization in reusable APIs.</p>
+<h2 id="use-consistent-naming-conventions">Use Consistent Naming Conventions</h2>
+<p>Doubling down on the idea of standardized applications, ensure that your <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/">naming conventions</a> are consistent and sensible. Whenever you&#8217;re naming your endpoints, methods, or fields, use a consistent naming pattern. This ensures the names can be replicated in other situations and use cases.</p>
+<p>For instance, let&#8217;s say your endpoint lists out a set of users for a specific service, with an additional endpoint variable to search for a specific user. Adopting something like <code>/audioUsers</code> and <code>/audioUsers/{id}</code> means that any other service that reuses this piece of the API will forever have a reference to a set of users using a particular audio service. Instead, referring to the users via a standardized <code>/users</code> and <code>/users/{id}</code> design means you can lift the code chunk from the original API and seamlessly place it into a new scenario.</p>
+<p>It should also be noted that this has the effect of drastically reducing the learning curve for new users and adopters of your API. When conventions are named sensibly and consistently, new developer users can hop from one part of the API to the other without much of a pause, enhancing adaptability, extensibility, and <a href="https://nordicapis.com/how-to-design-a-scalable-graphql-schema/">long-term scalability</a> quite dramatically.</p>
+<h2 id="create-comprehensive-documentation">Create Comprehensive Documentation</h2>
+<p>No matter how standardized your API is, however, eventually, you&#8217;ll have a user who gets confused and needs further clarification. Not providing this clarification could result in a lost user or even an API misuse. Accordingly, creating comprehensive documentation is a must. If it exists in the API, it should be documented thoroughly and accurately, and this documentation should be treated as the <a href="https://nordicapis.com/using-a-schema-first-design-as-your-single-source-of-truth/">source of truth</a> for external users.</p>
+<p>Luckily, there&#8217;s a bevy of tools that providers can use to level up their documentation. Tools like <a href="https://nordicapis.com/tooling-review-swagger-inspector/">Swagger</a> or Postman could provide interactive documentation where developers can read about the endpoints and test them out. Including practical examples of how the API can be used, along with different scenarios and edge cases, is good. Creating replayable events that can be observed or replicated is <em>better</em>. Documenting version histories and changes using tools like <a href="https://git-scm.com/">Git</a> allows for up-to-date and accurate documentation.</p>
+<h2 id="make-apis-discoverable">Make APIs Discoverable</h2>
+<p>Even the best APIs are pointless if developers can&#8217;t find them. When you&#8217;re designing for reusability, the idea that your API can&#8217;t even be found should be viewed as an absolute nightmare. Luckily, there are a few ways to resolve this.</p>
+<p>First and foremost, API developers should thoroughly document every new service. Secondly, they could consider setting up an API gateway for all of the API component microservices meant for public consumption. This can serve as a central point of discovery for a family of related APIs but can also fill rate-limiting and authentication roles that can often be problematic in API reuse.</p>
+<p>In a more general sense, developers can explore the idea of an <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/">API catalog</a>. This is simply a list of all the APIs an organization provides and the documentation that goes with them. Good API catalogs should allow users to search and filter through categorized or tagged APIs but should also directly note the <a href="https://nordicapis.com/a-lifecycle-approach-to-api-versioning/">versioning and lifecycle status</a> of each API component.</p>
+<p>As we&#8217;ve mentioned before, <a href="https://nordicapis.com/everything-you-need-to-know-about-api-discovery/">automatic discovery</a> is also a potential way to ensure that developers and users can find your APIs, but it requires an adoption of standardized specifications and systems.</p>
+<h2 id="design-for-flexibility-and-extensibility">Design For Flexibility and Extensibility</h2>
+<p>While consistency is crucial, so is flexibility. Your API should be designed to be extensible, allowing for new features or changes without breaking existing implementations. Consider the <a href="https://nordicapis.com/a-lifecycle-approach-to-api-versioning/">versioning</a> underpinning your API — versions should be consistent, ensuring that breaking changes are used sparingly, are generally isolated, and (above all else) are <a href="https://nordicapis.com/how-to-manage-breaking-changes-throughout-an-apis-lifecycle/">well-communicated</a>.</p>
+<p>API components should be <a href="https://nordicapis.com/how-to-design-loosely-coupled-microservices/">loosely coupled</a>. Avoiding tightly coupled API components will mean they&#8217;re not tied to your specific implementation or technology, allowing for rapid iteration and reuse across the board. Where components must be tightly coupled, these components should exist as a single service, allowing for replicating one set of prerequisite components and functions rather than a distributed replication of multiple sets.</p>
+<p>Services should be able to scale through additional resourcing and instancing and should play nice with <a href="https://nordicapis.com/whats-the-difference-between-an-api-gateway-and-a-load-balancer/">load balancing</a> to ensure that smaller services don&#8217;t fundamentally break with higher traffic.</p>
+<h2 id="prioritize-high-performance-and-reliability">Prioritize High Performance and Reliability</h2>
+<p>For an API to be reused, it needs to be reliable. Beyond this reliability, it also needs to be performant. To ensure high performance, load balancing, rate limiting, and other approaches to distribute traffic should be considered as a core function. Additionally, wasteful procedures and inefficient processes should be resolved and streamlined to reduce bloat. Calls should be made as efficient as possible, and where this isn&#8217;t possible, this should be communicated in the documentation.</p>
+<p>Reliability is part and parcel to performance in that error resolution and efficiency should directly drive improvements toward uptime. Additional tooling, monitoring, and alert systems should be used to detect issues for quick resolution, and fallback solutions should be implemented so there&#8217;s never a single point of failure.</p>
+<h2 id="aim-for-backward-compatibility-with-lifecycle-management">Aim For Backward Compatibility With Lifecycle Management</h2>
+<p>Preserving backward compatibility ensures that applications relying on your API don&#8217;t break when changes are made. If you plan to deprecate any part of the API, communicate it well in advance. Provide a <a href="https://nordicapis.com/how-to-smartly-sunset-and-deprecate-apis/">clear migration path</a> and ample time for developers to adjust. Whenever possible, design your changes to be additive rather than modifying existing behavior.</p>
+<p>Backward compatibility is a major element of reusability that is often forgotten. If you make a change that fundamentally alters your API, you must keep in mind that you will never get 100% adoption for a version 2.0 — you&#8217;ll always have a drop in forward users. Accordingly, the more <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/">breaking changes</a> you implement that require a brand new version, the more drop off you&#8217;re going to get, and at a certain point, your community may be using very different parts of your overall system than might initially be designed or anticipated.</p>
+<p>More to the point, consider the long-term reality of your API lifecycle process. An API is not a one-off product – it has a lifecycle, from inception to deprecation, which requires managing and planning. If you intend on having your API be reused, you must plan for the entire lifecycle of its development early to allow for an onramp and offramp for external users.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-manage-breaking-changes-throughout-an-apis-lifecycle/">How to Manage Breaking Changes Throughout an API&#8217;s Lifecycle</a></div>
+<h2 id="automate-testing">Automate Testing</h2>
+<p>To maintain the reliability and robustness of your API, testing should be regularly performed and should be core to future development. Initial testing on individual API components to ensure proper functionality is critical, but further testing is necessary when pulling in external partners.</p>
+<p>Integration testing, that is, testing on how well your API interacts with other systems and services, will be vital for the long-term reusability of the API. End-to-end tests, which simulate real-world scenarios to ensure the API behaves as expected in complete workflows, can help reveal issues that may otherwise fly under the radar or be hard to pinpoint.</p>
+<p>Adopting an adequate automated testing regimen will help ensure that your API remains reusable, understandable, and consistent over the long term.</p>
+<h2 id="utilize-feedback">Utilize Feedback</h2>
+<p>The users of your API, especially internal users, can offer <a href="https://nordicapis.com/accumulating-feedback-4-questions-api-providers-need-to-ask-their-users/">invaluable feedback</a> in the realm of reusability. Have mechanisms in place where users can report issues or provide suggestions for future development. Utilize this feedback to create an API that people <em>want</em> to reuse.</p>
+<p>Utilizing this feedback, focus on iteration over time. As more people use the API and reuse its components, developers will get a clearer picture of which parts of the API are heavily used and which ones are not. This can guide enhancements or deprecations, making for a more efficient and reusable API in the macro view.</p>
+<p>Taking this a step further, stepping up this feedback cycle can reap massive dividends. Regularly holding workshops and training sessions to introduce developers to your API and its capabilities can help expose untapped needs in the broader collective but can also help proactively identify malformed assumptions or solutions. Organizing sessions where developers can share their experiences, challenges, and insights about the API can help streamline this process and improve the overall output of the API dramatically.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Building APIs for reusability is both an art and a science. While foundational principles guide the process, the nuances of each developer and <a href="https://nordicapis.com/how-to-measure-and-improve-internal-developer-experience/">their specific needs</a> will influence the approach. The key is to keep the end-user, whether an internal developer or an external partner, at the forefront of the design philosophy. By offering a consistent, secure, and well-documented experience, APIs can truly become the building blocks for scalable and sustainable digital ecosystems.</p>
+<p>What do <em>you</em> think the guiding principle for API reusability should be? Have we missed any major points? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

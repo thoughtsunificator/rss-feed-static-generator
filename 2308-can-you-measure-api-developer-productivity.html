@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Can You Measure API Developer Productivity?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Can You Measure API Developer Productivity?</h2>
+		<a target="_blank" href="https://nordicapis.com/can-you-measure-api-developer-productivity/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The rise of remote work, necessitated by the pandemic and now under attack, has fueled an obsession among managers everywhere: productivity. In August 2023, McKinsey published an article about <a href="https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/yes-you-can-measure-software-developer-productivity">how to measure developer productivity</a>. Generally speaking, developers did… not like it.</p>
+<p>Critics argue that attempting to boil down the output of a software developer to a single productivity metric, or collection of metrics, is doomed to fail. They make the case that prioritizing, say, deployment frequency will only lead to buggier code and broken products.</p>
+<p>And, to be fair to McKinsey, they do acknowledge that point in their article: &#8220;In software development, the link between inputs and outputs is considerably less clear…[It] is also highly collaborative, complex, and creative work and requires different metrics for different levels.&#8221;</p>
+<p>Despite that, they ultimately reach the conclusion that even though &#8220;building a developer productivity initiative can seem daunting… there is no time like the present to begin to lay the groundwork.&#8221; In other words, the productivity movement is not going away any time soon.</p>
+<p>Which begs the question: Can you really measure API developer productivity? And perhaps an even better question: Should we? Below, we&#8217;ll endeavor to answer both of these questions.</p>
+<h2 id="dora-the-space-explorer">DORA the (SPACE) Explorer</h2>
+<p>Before we can get into measuring productivity in API development, let&#8217;s look at some of the metrics suggested for measuring overall software development productivity. These are often called the DORA metrics because they were proposed by the <a href="https://dora.dev/">DevOps Research and Assessment (DORA) team</a> at Google:</p>
+<ul>
+<li><strong>Deployment frequency</strong>: How often changes are shipped.</li>
+<li><strong>Lead time for changes</strong>: The time it takes for commits to reach production.</li>
+<li><strong>Change failure rate</strong>: The percentage of releases that fail, leading to downtime or rollbacks.</li>
+<li><strong>Time to restore service</strong>: The average time it takes to respond to issues.</li>
+</ul>
+<p>Although these seem like positive indicators of agility and productivity in isolation, it&#8217;s worth noting that there&#8217;s some inherent conflict between them. Amping up deployment frequency, for example, is likely to have a negative impact on change failure rate if things are rushed.</p>
+<p>In 2021, GitHub researchers suggested another acronym, SPACE, designed not to replace DORA metrics but to complement them. Here&#8217;s what those letters stand for:</p>
+<ul>
+<li>Satisfaction and well-being</li>
+<li>Performance</li>
+<li>Activity</li>
+<li>Communication and collaboration</li>
+<li>Efficiency and flow</li>
+</ul>
+<p>Where DORA seeks to measure the productivity of a development team, SPACE ostensibly zeroes in on measuring individual performance. We&#8217;ll get into how useful (or not, as the case may be) trying to do that is below, given that developers rarely work in isolation.</p>
+<p>SPACE outlines a broad set of attributes that are not easy to measure. Methods for <a href="https://hubstaff.com/blog/measuring-employee-satisfaction-with-survey/">gauging employee satisfaction</a>, for example, are often called into question because of how easily they can be manipulated. Their output is more likely to be qualitative than quantitative, so it can (consciously or unconsciously) be skewed by employers, employees, or both.</p>
+<p>However they aim to do it, anyone <a href="https://devops.com/should-you-measure-developer-productivity/">measuring developer productivity</a> faces an uphill battle. There&#8217;s no silver bullet for measuring developer productivity… which is exemplified by the vagueness of the SPACE framework and friction between DORA metrics.</p>
+<p>So, does the situation get any easier in the context of APIs?</p>
+<h2 id="productivity-and-the-api-development-lifecycle">Productivity and the API Development Lifecycle</h2>
+<p>In our article on <a href="https://nordicapis.com/8-key-metrics-to-track-when-productizing-apis/">API metrics</a> to track when productizing APIs, we include the following for building a picture of an API&#8217;s performance:</p>
+<ul>
+<li>Time To First Hello World (TTFHW)</li>
+<li>Time To First Value (TTFV)</li>
+<li>Number of active monthly users</li>
+<li>Revenue growth</li>
+<li>Churn rate</li>
+<li>Requests per minute (total/per client)</li>
+<li>Error rates</li>
+<li>Uptime</li>
+</ul>
+<p>Ease of use and reliability are things that we come back to time and time again when talking about creating an effective API. Of the above, the first four or five (adoption and retention metrics) speak to ease of use, while the later entries (mostly operational metrics) lean closer to reliability.</p>
+<p>Reliability has been a key factor in changing the perception of APIs from fun side projects to legitimate business tools. Coincidentally, its importance was also highlighted by DORA when they later <a href="https://cloud.google.com/blog/products/devops-sre/announcing-dora-2021-accelerate-state-of-devops-report">added reliability</a> to their list of productivity metrics.</p>
+<p>Early in 2023, we wrote extensively about the concept of <a href="https://nordicapis.com/what-is-api-lifecycle-management/">API lifecycle management</a>. We covered things like the utility of the <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/">OpenAPI Specification</a> for planning APIs and using apps like <a href="https://smartbear.com/product/ready-api/api-functional-testing/">ReadyAPI</a> or <a href="https://www.postman.com/api-platform/api-testing/">Postman</a> for API testing. Could these also be used to track productivity?</p>
+<p>Theoretically, creating KPIs around these points — % adherence to OpenAPI Specs, number of Postman collections created, or successful linting of APIs — could be used to track API developer productivity… or something close to it. And following uptime and churn rate could give a broader picture as well.</p>
+<h2 id="examples-of-productivity-measurement-in-practice">Examples of Productivity Measurement In Practice</h2>
+<p>It&#8217;s tough finding examples of API providers measuring developer productivity. But we can look at some other references for more context. For instance, 7pace <a href="https://www.7pace.com/blog/how-to-measure-developer-productivity">suggests</a> a range of sample metrics for measuring developer productivity, including pull request size, code coverage, time spent fixing bugs/errors, and time-to-open. They&#8217;re not all relevant to API developers. Still, we approve their suggestion of using &#8220;metrics with a strong correlation with business outcomes (e.g. revenue)&#8230;while being resistant to people gaming the system.&#8221;</p>
+<p>Currently, it seems that many companies are using simpler, more traditional metrics than these. A <a href="https://www.vox.com/technology/23710261/productivity-definition-measures-remote-work-management">Vox article</a> on productivity, for example, suggests that Hubspot records the &#8220;amount of time that software engineers spend revising code.&#8221; (To Hubspot&#8217;s credit, though, they do seem to be <a href="https://www.hubspot.com/hubfs/2023%20Hybrid%20Work%20Report_FINAL.pdf">investing resources</a> in building a connected workforce that embraces WFH and hybrid working, rather than using productivity as an excuse to bring workers back into the office.)</p>
+<p>In a blog post on employee productivity, tech brand Doist <a href="https://blog.doist.com/measure-improve-employee-productivity/">suggests</a> &#8220;standardized yet flexible&#8221; goal–setting for benchmarking productivity, like &#8220;releasing minimum-viable products on time,&#8221; and helping team members to find work that aligns with their strengths.</p>
+<p>But, Doist also acknowledge what many of us are thinking right now:<br />
+&#8220;The old &#8216;productivity = output divided by input&#8217; model fails us on many fronts.&#8221;</p>
+<h2 id="the-future-of-api-developer-productivity">The Future of (API) Developer Productivity</h2>
+<p>We should point out that, although our suggestions above measuring API performance are a little more involved, they don&#8217;t so much measure developer productivity as they measure developer output. It&#8217;s a minor distinction based on the following assumption:</p>
+<p><em>Any team putting out high-performance APIs is, by definition, a productive one.</em></p>
+<p>Much of the pearl-clutching around productivity right now — often centered around remote working and the use of AI in writing code — may come to be seen as overkill in the future. Not least because obsessing over productivity can be harmful when policed too harshly.</p>
+<p>As a former boss told me not long after the company introduced flexi-time, remote working, and an unlimited vacation policy: &#8220;I don&#8217;t mind how your work gets done, as long as it gets done, and done to the best of your ability.&#8221; Productivity was based on outcomes, not processes.</p>
+<p>We can get around productivity being difficult to measure by shifting focus to the quality of the end result. This can be facilitated by an <a href="https://nordicapis.com/ebooks/api-as-a-product/">API-as-a-Product</a> mindset, where measurables include:</p>
+<ul>
+<li>Number of successful API integrations</li>
+<li>Durability of the platform</li>
+<li>Overall satisfaction of API consumers*</li>
+<li>Revenue that an API platform brings in</li>
+<li>The degree of breaking changes new development produces</li>
+</ul>
+<p>Of course, developer satisfaction can also be tricky to measure! For example, it&#8217;s tough to quantify the success of developer documentation, but we <strong>know</strong> that <a href="https://nordicapis.com/5-examples-of-api-documentation-with-great-developer-experience/">great API documentation</a> can be a game-changer for API adoption.</p>
+<p>Let&#8217;s be clear: productivity is important. We understand that managers are worried their development team is sitting around doing nothing, especially because many C-level execs don&#8217;t have coding experience. But creating boxes to tick is probably not the right way to remedy that.</p>
+<p>When developers are given rewarding and challenging work — and, let&#8217;s face it, API development can be both rewarding and challenging — they&#8217;ll engage with that work. And it will quickly become apparent if a developer isn&#8217;t engaging for hours, or days, on end. Address that then, not before.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

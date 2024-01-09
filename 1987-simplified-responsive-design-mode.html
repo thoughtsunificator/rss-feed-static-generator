@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Simplified Responsive Design Mode</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Simplified Responsive Design Mode</h2>
+		<a target="_blank" href="https://webkit.org/blog/14670/simplified-responsive-design-mode/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Responsive design is a well-established practice of creating designs that adapt to different screen sizes. Gone are the days when you could create a new website designed for one screen size. Today’s devices are a menagerie of resolutions, from screens that fit on your wrist to the one you hold in your hand or rest on your lap, and even virtual screens that wrap around your entire field of vision.</p>
+<p>There are so many screen sizes today that it’s made designing to a specific set of resolutions almost meaningless. Instead, we’re using powerful modern layout tools like Container Queries, Grid, and Flexbox to create fluid layouts so that designs can adapt to <em>any</em> screen size.</p>
+<p>Creating resilient, adaptive designs requires tools that help you quickly explore your layouts in every resolution. Responsive Design Mode in Safari does just that. It gives you a fast preview of how your web page layout adapts to different viewport dimensions and aspect ratios in real time.</p>
+<p>As part of the suite of developer tools, Responsive Design Mode is available when you <a href="https://developer.apple.com/documentation/safari-developer-tools/enabling-developer-features">enable</a> <strong>Show features for web developers</strong> in Safari’s <strong>Advanced</strong> settings. Once enabled, you can jump into <a href="https://developer.apple.com/documentation/safari-developer-tools/responsive-design-mode">Responsive Design Mode</a> for the currently focused tab or window by choosing <strong>Enter Response Design Mode</strong> from the <strong>Develop</strong> menu or pressing Command-Control-R (⌃⌘R).</p>
+<h2>New Design</h2>
+<p>With its streamlined design in Safari 17, Responsive Design Mode makes it faster and easier to test your designs.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/simplified-rdm-dark.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" width="1920" height="1222" src="https://webkit.org/wp-content/uploads/simplified-rdm.png" alt="Screenshot of webkit.org in the simplified Responsive Design Mode" class="wp-image-14674" srcset="https://webkit.org/wp-content/uploads/simplified-rdm.png 1920w, https://webkit.org/wp-content/uploads/simplified-rdm-300x191.png 300w, https://webkit.org/wp-content/uploads/simplified-rdm-1024x652.png 1024w, https://webkit.org/wp-content/uploads/simplified-rdm-768x489.png 768w, https://webkit.org/wp-content/uploads/simplified-rdm-1536x978.png 1536w" sizes="(max-width: 1920px) 100vw, 1920px" /></picture></figure>
+<h3>Resizing</h3>
+<p>Notably, the row of device and window icons is gone, helping you focus on creating adaptive designs that fluidly respond to any screen size as the web moves away from rigid, resolution-specific designs.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/close-up-RDM-dark.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" width="1380" height="440" src="https://webkit.org/wp-content/uploads/close-up-RDM.png" alt="Close up cropped image of Responsive Design Mode showing with display size controls showing 485 × 985 (82%), 3x,  Open with Simulator button" class="wp-image-14678" srcset="https://webkit.org/wp-content/uploads/close-up-RDM.png 1380w, https://webkit.org/wp-content/uploads/close-up-RDM-300x96.png 300w, https://webkit.org/wp-content/uploads/close-up-RDM-1024x326.png 1024w, https://webkit.org/wp-content/uploads/close-up-RDM-768x245.png 768w" sizes="(max-width: 1380px) 100vw, 1380px" /></picture></figure>
+<p>Resizing is as easy as clicking the “handles” at any side of the viewport preview and dragging them to <em>any</em> size. You can watch the dimensions of the viewport change in the size display shown in screen point units at the upper-left.</p>
+<p>You can even test viewport sizes beyond the size of the display you’re actively using. Keep dragging the handles, and the preview fluidly scales, showing the zoom level as a percentage of the actual size of the viewport. At 100%, each pixel of web content is visible in the preview. When the viewport grows to a size larger than the window size of Safari, the zoom level decreases, indicating the preview is scaled down to fit the available space in the window.</p>
+<h3>Pixel Density</h3>
+<p>Another dimension of screen size designers need to consider today is the pixel density of screens. Pixels have gotten much smaller on modern devices, affecting the pixel-based assets in your designs, like interface icons, photos, or videos. A menu next to the effective viewport dimension allows you to change the pixel ratio used in the preview. The 1x, 2x, and 3x settings help you test all the assets you went the extra mile to prepare to give your users the best experience regardless of their device capabilities.</p>
+<p>Instead of generating each asset by hand, many folks opt to configure their build tools to automatically resize assets for the <code>srcset</code> attribute on image elements or the <code>image-set()</code> function in CSS to set the pixel ratio for a <code>background-image</code>.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">img</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"image_1x.jpg"</span> <span class="keyword attribute">srcset</span>=<span class="attribute value string">"image_2x.jpg 2x, image_3x.jpg 3x"</span>&gt;</span>
+
+<span class="tag">&lt;<span class="keyword">style</span>&gt;</span>
+body {
+    background-image: image-set("background_1x.jpg" 1x, "background_2x.jpg" 2x);
+}
+<span class="tag">&lt;/<span class="keyword">style</span>&gt;</span>
+</code></pre>
+<p>Here, the pixel ratio control helps you ensure your tooling is configured correctly to generate all the needed assets.</p>
+<p>In CSS you can use media queries to apply styles based on the pixel ratio of the display. For instance, you can set thinner lines on a 2x display:</p>
+<pre><code class="css"><span class="keyword">@media</span> (<span class="keyword">min-resolution</span>: 2<span class="keyword">dppx</span>) {
+  .<span class="attribute">dividerLine</span> {
+    <span class="attribute">border</span>: <span class="number">0.5px</span> <span class="identifier">solid</span> <span class="identifier">grey</span>;
+  }
+}
+</code></pre>
+<p>The pixel ratio control also allows you to test those styles.</p>
+<h3>Simulators</h3>
+<p>Responsive Design Mode shows you a good approximation of how your web page layout will be affected by viewport sizes. But iOS, iPadOS, watchOS, and visionOS have different rendering behaviors optimized to their form factors that are necessarily different than macOS.</p>
+<p>Fast, real-time feedback is what makes Responsive Design Mode so helpful, but it comes with a tradeoff in accuracy. It’s a familiar problem in technology. For example, Xcode offers SwiftUI developers a preview mode that allows them to see the interfaces their code generates and even lets them interact with the interface in a limited capacity. But the complete experience requires building the project to see the result run in a simulator or on an actual device.</p>
+<p>So now, it’s easy to jump into device simulators to try your site designs with the same full-fidelity experience as an actual device.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/rdm-simulator-dark.jpg" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" width="1920" height="1200" src="https://webkit.org/wp-content/uploads/rdm-simulator.jpg" alt="Screenshot of webkit.org in Responsive Design Mode alongside an iPhone 14 Pro Max simulator with webkit.org loaded in Safari" class="wp-image-14684" srcset="https://webkit.org/wp-content/uploads/rdm-simulator.jpg 1920w, https://webkit.org/wp-content/uploads/rdm-simulator-300x188.jpg 300w, https://webkit.org/wp-content/uploads/rdm-simulator-1024x640.jpg 1024w, https://webkit.org/wp-content/uploads/rdm-simulator-768x480.jpg 768w, https://webkit.org/wp-content/uploads/rdm-simulator-1536x960.jpg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" /></picture></figure>
+<p>Responsive Design Mode offers a new <strong>Open with Simulator</strong> menu for quickly jumping into an Xcode device simulator for the current web page. It shows a list of suggested simulators, but many more are available than what’s listed. You’ll need to download and install Xcode from the App Store for free to run simulators. Selecting the <strong>Add simulators…</strong> option from the Open with Simulator menu will open a new tab in Safari with instructions on adding more simulators.</p>
+<p>To get a more accurate idea of how your web pages will behave in those environments, you can use simulators without needing access to the devices themselves.</p>
+<h2>Web Inspector</h2>
+<p>Responsive Design Mode becomes an even more powerful tool when combined with Web Inspector. It allows you to find the source of layout issues while resizing the page or adjusting the pixel ratio. With developer features enabled, select <strong>Show Web Inspector</strong> from the <strong>Develop</strong> menu or press Command-Option-I (⌥⌘I).</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/rdm-docked-web-inspector-dark.png" media="(prefers-color-scheme: dark)" /><img loading="lazy" decoding="async" width="1500" height="927" src="https://webkit.org/wp-content/uploads/rdm-docked-web-inspector.png" alt="Screenshot of webkit.org in Responsive Design Mode with Web Inspector docked to the right side of the window" class="wp-image-14691" srcset="https://webkit.org/wp-content/uploads/rdm-docked-web-inspector.png 1500w, https://webkit.org/wp-content/uploads/rdm-docked-web-inspector-300x185.png 300w, https://webkit.org/wp-content/uploads/rdm-docked-web-inspector-1024x633.png 1024w, https://webkit.org/wp-content/uploads/rdm-docked-web-inspector-768x475.png 768w" sizes="(max-width: 1500px) 100vw, 1500px" /></picture></figure>
+<p>When debugging narrow viewport sizes, you might find it helpful to click the <strong>Dock to left</strong> or <strong>Dock to right</strong> button in Web Inspector to put it side-by-side with the preview viewport.</p>
+<h2>Feedback</h2>
+<p>The updated Responsive Design Mode distills the tools to the essentials for quickly assessing the layout of your web pages at any screen size. It gives you at a glance access to layout issues and accelerates testing your pages in a variety of device-accurate simulators.</p>
+<p>We love to hearing from you. Send a tweet to <a href="https://twitter.com/webkit">@webkit</a> to share your thoughts Responsive Design Mode. Find us on Mastodon at <a href="https://front-end.social/@jensimmons">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis">@jondavis@mastodon.social</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/">feedback</a> on Safari UI like Responsive Design Mode, or your <a href="https://bugs.webkit.org/">WebKit bug report</a> about web technologies or Web Inspector. Reporting issues makes an enormouse difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/download/">Safari Technology Preview</a> to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<div class="note">Note: Learn more about Web Inspector from the <a href="/web-inspector/">Web Inspector Reference</a> documentation.</div>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>
