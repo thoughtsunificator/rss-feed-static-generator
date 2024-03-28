@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 189</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 189</h2>
+		<a target="_blank" href="https://webkit.org/blog/15050/release-notes-for-safari-technology-preview-189/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 189 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/b96b33ee6c4c6dde7bf51c3744d6ccbc19a517e8...6b46c24db81426c056f4f1f6fe915c2cdd687a1e">273602@main&#8230;274066@main</a>.</p>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>light-dark()</code> function for color values. (<a href="https://commits.webkit.org/273634@main">273634@main</a>)  (117033939)  </li>
+<li>Added support for <code>@starting-style</code>. (<a href="https://commits.webkit.org/273740@main">273740@main</a>)  (121918611)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed named at-rule container getting skipped when the container is named in a <code>:host</code> selector. (<a href="https://commits.webkit.org/273987@main">273987@main</a>)  (120428386) </li>
+<li>Fixed the name for a <code>::slotted</code> pseudo-element in a container query getting resolved against the wrong scope. (<a href="https://commits.webkit.org/274050@main">274050@main</a>) (122224135)</li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed <code>:-webkit-full-screen-ancestor</code> pseudo-class. (<a href="https://commits.webkit.org/273620@main">273620@main</a>)  (100782937)  </li>
+<li>Removed <code>:-webkit-full-screen-controls-hidden</code> pseudo-class. (<a href="https://commits.webkit.org/273619@main">273619@main</a>)  (121323330)  </li>
+<li>Removed <code>:-webkit-full-page-media</code> pseudo-class. (<a href="https://commits.webkit.org/273618@main">273618@main</a>)  (121752962)  </li>
+<li>Removed <code>:-webkit-full-screen-document</code> pseudo-class. (<a href="https://commits.webkit.org/273639@main">273639@main</a>)  (121816310)  </li>
+</ul>
+<h3>HTML</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed parsing a self-closing SVG script element. It now successfully executes. (<a href="https://commits.webkit.org/273697@main">273697@main</a>)  (121887875)  </li>
+<li>Fixed &#8220;about:blank&#8221; <code>document.referrer</code> initialization. (<a href="https://commits.webkit.org/273830@main">273830@main</a>)  (97689906)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed throwing a <code>RangeError</code> if <code>Set</code> methods are called on an object with negative <code>size</code> property. (<a href="https://commits.webkit.org/274009@main">274009@main</a>)  (121310940)  </li>
+<li>Fixed <code>eval()</code> function from another realm to not cause a direct <code>eval</code> call. (<a href="https://commits.webkit.org/273782@main">273782@main</a>)  (121546048)  </li>
+<li>Fixed <code>eval()</code> call with <code>...spread</code> syntaxt to be a direct call. (<a href="https://commits.webkit.org/273788@main">273788@main</a>)  (121547890)  </li>
+<li>Fixed programming style for bitwise and in setExpectionPorts. (<a href="https://commits.webkit.org/273960@main">273960@main</a>)  (122138733)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Greek uppercase transforms failing for some characters. (<a href="https://commits.webkit.org/274036@main">274036@main</a>)  (90364897)  </li>
+<li>Fixed lingering boxes with <code>content-visibility: hidden</code>.  (<a href="https://commits.webkit.org/273602@main">273602@main</a>) (117916396)  </li>
+<li>Fixed parts of the content disappear when interacting with overflow:scroll, z-index and positioning (including Heroku apps). (<a href="https://commits.webkit.org/273999@main">273999@main</a>)  (120373474)  </li>
+<li>Fixed <code>align-content</code> and <code>justify-content</code> on scroll containers causing overflowing content to become inaccessible. (<a href="https://commits.webkit.org/273737@main">273737@main</a>)  (121366949)  </li>
+<li>Fixed line break at gaps between two inline elements in a container with <code>white-space: nowrap</code>.  (121859917)  </li>
+<li>Fixed a floating element causing the latter half of a hyphenated word to disappear. (<a href="https://commits.webkit.org/273836@main">273836@main</a>)  (121889487)  </li>
+<li>Fixed cropped first letter for custom fonts that report negative advance width.  (121891210)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed SVG title to have <code>display: none</code> as the default UA style rule. (<a href="https://commits.webkit.org/273991@main">273991@main</a>)  (122185838)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>history.pushState()</code> and <code>history.replaceState()</code> to ignore the <code>title</code> argument. (<a href="https://commits.webkit.org/273650@main">273650@main</a>)  (75695791)  </li>
+<li>Fixed <code>lang</code> attribute in no namespace to only apply to HTML and SVG elements. (<a href="https://commits.webkit.org/273726@main">273726@main</a>)  (117795695)  </li>
+<li>Fixed spelling of <code>clonable</code>. (<a href="https://commits.webkit.org/274063@main">274063@main</a>)  (121516711)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed <code>which</code> from <code>KeyboardEvent</code>. (<a href="https://commits.webkit.org/273701@main">273701@main</a>)  (106580687)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added a Media details panel to Web Inspector when selecting a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element in the Elements tab. (<a href="https://commits.webkit.org/273777@main">273777@main</a>)  (118865793)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed font sizes in the Audits tab. (<a href="https://commits.webkit.org/273615@main">273615@main</a>)  (76162927)  </li>
+</ul>
+<h3>WebAuthn</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>navigator.credentials.create()</code> rejects with &#8220;NotAllowedError: Operation Failed&#8221; after a conditional UI request is aborted. (<a href="https://commits.webkit.org/273918@main">273918@main</a>)  (109936742)  </li>
+</ul>
+<h3>WebGL</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled support for <code>EXT_texture_mirror_clamp_to_edge</code>, <code>WEBGL_render_shared_exponent</code>, and <code>WEBGL_stencil_texturing</code>. (<a href="https://commits.webkit.org/273645@main">273645@main</a>)  (121835897)  </li>
+</ul>
+<h3>WebRTC</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for missing WebRTC stats. (<a href="https://commits.webkit.org/273643@main">273643@main</a>)  (121594743)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a bug that prevented HTML canvas elements from always being marked dirty on initialization. This could cause some video effects to have choppy animations. (<a href="https://commits.webkit.org/273897@main">273897@main</a>) (121257960)  </li>
+<li>Fixed VideoTrackGenerator writer to close when its generator track (and all its clones) are stopped. (<a href="https://commits.webkit.org/273778@main">273778@main</a>)  (121835553)  </li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

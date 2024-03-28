@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Mitchell: Today we launched Flox 1.0</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Mitchell: Today we launched Flox 1.0</h2>
+		<a target="_blank" href="https://lwn.net/Articles/965584/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Zach Mitchell has <a href="https://tinkering.xyz/releasing-flox/">announced</a> the 1.0 release of <a href="https://github.com/flox/flox">Flox</a>, a tool that lets its users install packages from <a href="https://flox.dev/blog/nixpkgs">nixpkgs</a> inside portable virtual environments, and share those virtual environments with others as an <a href="https://tinkering.xyz/releasing-flox/#containers-are-fine-right">alternative</a> to Docker-style containers. Flox is based on Nix but allows users to skip learning how to work with the Nix language:</p>
+
+<blockquote class="bq">
+With Flox we're providing a substantially better user experience. We provide the suite of package manager functionality with <tt>install</tt>, <tt>uninstall</tt>, etc, but we also provide an entire new suite of functionality with the ability to share environments via <tt>flox push</tt>, <tt>flox pull</tt>, and <tt>flox activate --remote</tt>.
+</blockquote>
+
+<p>Flox is GPLv2-licensed, and <a href="https://github.com/flox/flox/releases">releases</a> are available as RPMs and Debian packages for x86_64 and arm64 systems.</p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

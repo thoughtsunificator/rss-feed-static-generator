@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Crafting an Excellent Developer Experience for API Versioning</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Crafting an Excellent Developer Experience for API Versioning</h2>
+		<a target="_blank" href="https://nordicapis.com/crafting-an-excellent-developer-experience-for-api-versioning/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Versioning is a fact of life. For most APIs, there&#8217;s no avoiding it. But API versioning doesn&#8217;t have to mean broken clients. Thankfully, with proper planning and forethought, software providers can make the developer experience around versioning quite positive.</p>
+<p>While there is no silver bullet to creating a great developer experience, some general proven strategies can help improve the API versioning process. Below, we&#8217;ll look at some techniques you can deploy to improve this experience.</p>
+<h2 id="adopt-clear-communication">Adopt Clear Communication</h2>
+<p>Versioning is, at its most basic, an avenue of communication between the developer and the user. Accordingly, adopting a policy and approach of clear communication will be a vital first step towards ensuring the developer experience is as <a href="https://nordicapis.com/methods-to-communicate-api-change-effectively/">positive and effective</a> as possible.</p>
+<p>Consider your communication channels, both in terms of quality and quantity. Using too many channels is just as bad as a single poor-quality channel since communication can be muddied and lost in the noise. So, keep your channels clearly delineated. For instance, some developers find that having email reserved just for critical communication is an effective approach. In general, adopting a clear and directed communication pathway will mitigate noise while reducing notification fatigue.</p>
+<p>Also, consider the timing and historical record of this information. Letting developers know a breaking change is coming in a day or two is not effective communication, so plan your <a href="https://nordicapis.com/how-to-measure-and-improve-internal-developer-experience/">developer outreach</a> to give ample time and notice for huge changes. Lastly, ensure there is a historical record. Keeping a <a href="https://nordicapis.com/6-strategies-for-documenting-webhooks/">log of changes</a> will inform future users about the logic and purpose behind different version changes.</p>
+<h2 id="leverage-technical-solutions">Leverage Technical Solutions</h2>
+<p>As an API provider, you have various technical solutions to ensure a smooth and efficient versioning process. Firstly, leverage HTTP standards to communicate with active users. <a href="https://nordicapis.com/what-do-the-http-status-codes-mean/">HTTP Codes</a> can effectively communicate with the end user about the state of the underlying resource or point to new resource locations.</p>
+<p>Version information can also be built into the API design itself. While you can easily pass versioning as part of the URI Path Parameter, there are many methods you can employ to communicate the version and current state of the API to the end user. <a href="https://nordicapis.com/a-lifecycle-approach-to-api-versioning/">Matthias Biehl</a> also suggests indicating API versioning in the Accept Header, using a custom HTTP Header, or defining API versioning as a new subdomain. All approaches still represent solid options.</p>
+<p>Metadata is also one of the best technical tools to contextualize this information and version history. Providing ample information about your <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">APIs, versions, and projects</a> can help give developers vital context for the current and future versions of your service.</p>
+<h2 id="have-a-source-of-truth">Have A Source of Truth</h2>
+<p>A &#8220;source of truth&#8221; is a helpful strategy to set the context for internal and external users. Using a single source of truth, as in developing against a standard <a href="https://nordicapis.com/the-benefits-of-using-api-specifications/">specification</a>, can help guide the development of an API and its associated microservices and serve as a boundary when it comes to versioning. This boundary can strengthen the form and function of the service and can drive development in a way that is compliant and aligned with the rest of the ecosystem.</p>
+<p>Notably, a single source of truth brings <a href="https://nordicapis.com/simultaneous-platform-wide-versioning-how-to-implement-api-to-sdk-synchronicity/">synchronicity</a> benefits. When you have a source you can synchronize with, you can ensure your service, documentation, <a href="https://nordicapis.com/creating-support-resources-to-improve-developer-experience/">developer resources</a>, and public materials are aligned. This results in better alignment between internal services and external resources, reducing overall complexity and improving the trust developers can have in your offerings.</p>
+<h2 id="make-quality-documentation">Make Quality Documentation</h2>
+<p>Just having a source of truth isn&#8217;t really enough, though — <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/">you have to ensure that the documentation is high quality</a>. The documentation should be intuitively designed and as sensibly well-thought-out as your service.</p>
+<p>Your documentation should eliminate as much surprise as possible in the life of your end developer. It should provide ample and clear context to show where your product is in its lifecycle and where it is heading in the short and long term. The documentation should provide migration guides for <a href="https://nordicapis.com/using-oasdiff-to-detect-breaking-changes-in-apis/">breaking changes</a>, including <a href="https://nordicapis.com/how-to-smartly-sunset-and-deprecate-apis/">deprecation timelines</a> as well as reasoning for why those services are no longer useful, and so on.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/">5 Ways to Detect Breaking Changes In Your APIs</a></div>
+<h2 id="develop-intelligently">Develop Intelligently</h2>
+<p>Much of the issue of versioning is not in the process itself but the reasoning behind it. The simple reality is that a significant portion of developers implement new versions when they don&#8217;t have to, introducing complexity and generating a fog of war that makes the developer&#8217;s life quite difficult.</p>
+<p>Mitigating this issue requires some intelligent development practices. Firstly, you must be <a href="https://nordicapis.com/the-ten-rest-commandments/">consistent and organized</a>. APIs live and die by their utility — even the best API will ultimately fail if it&#8217;s difficult to understand or deploy. By adopting an API development pattern that clarifies and justifies both its business use case and its design ethos, your API will naturally trend toward stability rather than chaos.</p>
+<p>Secondly, design for reusability. Reusability requires thought-out and replicable pieces and implements a self-enforced logical organization. If pieces are <a href="https://nordicapis.com/how-to-design-apis-for-reusability/">reusable</a>, this institutes many policies, such as consistent naming conventions and improved discoverability, that port over to developer experience quite nicely.</p>
+<h2 id="mitigate-versioning-impacts">Mitigate Versioning Impacts</h2>
+<p>The simple fact is that versioning will happen at some point, and in many cases, those versions may be substantial enough to negatively impact your developers. Luckily, there are some ways around the negative <a href="https://nordicapis.com/introduction-to-api-versioning-best-practices/">impacts of versioning</a>.</p>
+<p>First, consider a <a href="https://nordicapis.com/using-canary-release-to-ease-api-versioning/">canary release</a> strategy. This strategy allows developers to roll out new versions of a service to a small subset of users. Once this subset has grown and proven the latest version is effective and desirable, it can become the default. This approach allows for the <a href="https://devops.com/maintaining-progressive-delivery-quality-with-feature-flags/">gradual rollout</a> of a new version. Also, it gives developers a clear opportunity to address systemic issues before they are rolled out in a dramatic fashion.</p>
+<p>Second, consider bundling multiple breaking updates into major releases. <a href="https://nordicapis.com/how-to-manage-breaking-changes-throughout-an-apis-lifecycle/">Breaking updates</a> are typically a poor developer experience — this is only made worse when they happen in rapid succession without a clearly communicated benefit or endpoint. Bundling these updates into one major update and communicating the how and why can shift the conversation to &#8220;adopting version 2&#8221; rather than a never-ending series of minor, annoying updates.</p>
+<div class="well">Related: <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/">What Are Breaking Changes and How Do You Avoid Them?</a></div>
+<h2 id="consider-non-versioning">Consider Non-Versioning</h2>
+<p>Some options are close to &#8220;non-versioning.&#8221; While these solutions are still technically variations on versioning, they result in a developer experience that feels worlds apart.</p>
+<p><a href="https://nordicapis.com/whats-the-difference-between-versioning-and-revisioning-apis/">Revisioning</a> allows for the introduction of new functionality while ensuring legacy support for older methods. In some cases, these changes can be substantial to the business use case but can technically be very small, <a href="https://nordicapis.com/everything-you-need-to-know-about-api-versioning/">preventing the need for a new version altogether</a>. This prevents &#8220;version fatigue&#8221; and breaking changes, but carries with it a development cost that can add up over time.</p>
+<p>Other strategies, such as continuous versioning, <a href="https://nordicapis.com/continuous-versioning-strategy-for-internal-apis/">utilize a hybrid of these strategies</a> to allow for continual evolution without introducing breaking changes that disrupt the end developer experience.</p>
+<h2 id="three-companies-doing-api-versioning-right">Three Companies Doing API Versioning Right</h2>
+<p>Luckily, there are some great examples of companies doing API versioning right. Let&#8217;s quickly look at three helpful examples:</p>
+<ul>
+<li><strong>Stripe</strong>: Stripe provides a release system to control the version of the API you are utilizing and provides ample documentation around each change. By <a href="https://stripe.com/docs/upgrades">setting a flag in the request</a>, you can control the version you are using. Stripe also keeps a record of backward-compatible functions, allowing developers to gain a fuller context of how each version functions.</li>
+<li><strong>GitHub</strong>: GitHub allows developers to <a href="https://docs.github.com/en/rest/about-the-rest-api/api-versions?apiVersion=2022-11-28">set the version</a> in their requests. Notably, GitHub ports new non-breaking updates to all supported API versions.</li>
+<li><strong>Microsoft Graph API</strong>: Microsoft utilizes both URI versioning and feature flags for the Graph API. More importantly, however, Microsoft has a very clear policy that new versions of the API declare the new increment as the standard, and the previous version is subject to a 24-month depreciation period. This gives ample time for developers to shift over to the new version.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ultimately, with some forethought, developer experience around API versioning can be very positive and supportive. By planning your development practices and ensuring clear and consistent communication, you can ensure that your API can evolve without losing its most dedicated users — the developers who champion your product.</p>
+<p>Did we miss any strategies to improve the developer experience around API versioning? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

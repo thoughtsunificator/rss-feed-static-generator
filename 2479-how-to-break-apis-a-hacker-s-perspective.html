@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Break APIs: A Hacker’s Perspective</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Break APIs: A Hacker’s Perspective</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-break-apis-a-hackers-perspective/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>As API reliance increases across the board, APIs are becoming high-value attack targets. Many of these endpoints are <a href="https://securityboulevard.com/2021/07/for-hackers-apis-are-low-hanging-fruit/">low-hanging fruit</a> — due to rampant access control problems, hackers can easily specialize in hacking them and apply similar tactics from API to API.</p>
+<div id="attachment_18367" style="width: 180px" class="wp-caption alignright"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-18367" class=" wp-image-18367" src="https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-300x300.jpg" alt="Katie Paxton-Fear" width="170" height="170" srcset="https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-300x300.jpg 300w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-150x150.jpg 150w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-120x120.jpg 120w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-100x100.jpg 100w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-70x70.jpg 70w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-50x50.jpg 50w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-220x220.jpg 220w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-200x200.jpg 200w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-180x180.jpg 180w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-60x60.jpg 60w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear-125x125.jpg 125w, https://nordicapis.com/wp-content/uploads/Katie-Paxton-Fear.jpg 480w" sizes="(max-width: 170px) 100vw, 170px" /><p id="caption-attachment-18367" class="wp-caption-text">At Austin API Summit 2024, <a href="https://nordicapis.com/speakers/katie-paxton-fear/">Katie Paxton-Fear</a> will share API hacking tips to encourage better defensive strategies.</p></div>
+<p>According to <a href="https://nordicapis.com/speakers/katie-paxton-fear/">Katie Paxton-Fear</a>, API Security Educator at <a href="https://www.traceable.ai/">Traceable AI</a>, many APIs are hurriedly rushed through production, which often sacrifices proper security forethought, meaning not all APIs adopt the <a href="https://nordicapis.com/how-should-apis-adopt-a-least-privilege-security-model/">principle of least privilege</a> or have a <a href="https://nordicapis.com/four-tips-for-improving-your-api-gateway-with-zero-trust-methods/">zero-trust approach</a>. In short, this sort of culture can leave many forgotten endpoints open to hacking.</p>
+<p>Ahead of <a href="https://nordicapis.com/events/austin-api-summit-2024/">Austin API Summit 2024</a>, we&#8217;re catching up with key speakers to discover what they&#8217;re passionate about and to get their perspective on the API economy in general. Katie Paxton-Fear is an API hacker and cyber security content creator. She started her hacking journey in 2019 and, since then, has discovered over 30 vulnerabilities in real organizations. She also maintains a <a href="https://www.youtube.com/channel/UCPiN9NPjIer8Do9gUFxKv7A">YouTube channel</a> all about cybersecurity and hacking.</p>
+<p>I recently caught up with Katie to explore how to go from making APIs to breaking them, a theme of her <a href="https://nordicapis.com/sessions/im-an-api-hacker-heres-how-to-go-from-making-apis-to-breaking-them/">upcoming session</a>. Below, we&#8217;ll review some common API hacking techniques and briefly consider how API providers should respond. Check out Katie&#8217;s answers below, and be sure to attend Austin <a href="https://nordicapis.com/events/austin-api-summit-2024/">API Summit 2024</a> for deeper discussions on this topic and plenty of others!</p>
+<a href="https://nordicapis.com/events/austin-api-summit-2024/"><img loading="lazy" decoding="async" class="aligncenter wp-image-18151 size-full" src="https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3.webp" alt="" width="600" height="338" srcset="https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3.webp 600w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-300x169.webp 300w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-213x120.webp 213w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-178x100.webp 178w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-124x70.webp 124w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-90x50.webp 90w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-200x113.webp 200w, https://nordicapis.com/wp-content/uploads/Austin_API-Summit-2024-1-1024x576-3-400x225.webp 400w" sizes="(max-width: 600px) 100vw, 600px" /></a>
+<p><strong>Why are web APIs so attractive for hackers right now?</strong></p>
+<p>I think it&#8217;s two-fold. One, they are everywhere. And two, they&#8217;re often created with the assumption that only internal developers will see them, even if they are published externally. But if you think about it, it makes sense for a hacker to specialize in APIs because if you&#8217;re targeting an API, it&#8217;s one skillset — you don&#8217;t have to learn WAF bypasses, how mobile apps implement Firebase, or how to fire off a JavaScript XSS payload in any JavasScript framework.</p>
+<p><strong>What are the low-hanging fruits for hackers when they try to attack APIs?</strong></p>
+<p><a href="https://nordicapis.com/use-oauth-to-mitigate-top-of-the-top-api-risks/">Access control issues</a> are by far the most common vulnerability I see. Usually, it&#8217;s because the API gets forgotten when development cycles push releasing code over securing that code. Typical scenarios include accessing another tenant&#8217;s data because you&#8217;re an admin in your own tenant, viewing data via the API that should be private to a specific user, or editing a resource as long as you know its identifier.</p>
+<p><strong>How do you think like a bad guy? What sort of strategies should API owners consider when testing out their APIs?</strong></p>
+<p>I honestly don&#8217;t actually think like a bad guy. For context, I used to work as a developer writing an internal CRM with a Laravel backend. If I were building that API, how would I build it incorrectly, what mistakes would I make, or what trade-offs would I consider to get code out the door? Some of the best strategies API owners can take are prioritizing security as much as new features, encouraging more eyes in the API review process, and testing for the OWASP API top 10 when in doubt.</p>
+<div class="well">Related: <a href="https://nordicapis.com/a-look-at-the-owasp-api-security-top-10-2023/">A Look at the OWASP API Security Top 10 2023</a></div>
+<p><strong>Who should have the onus of API security responsibility? The developer team, security team, DevSecOps, developer user, end consumer, or others?</strong></p>
+<p>It would be great to say, &#8216;Okay, you make the API, you secure it,&#8217; or &#8216;You are the security team, you&#8217;re responsible for security.&#8217; However, that attitude leads to security being a &#8216;not my circus, not my monkeys&#8217; scenario. Security is <em>everyone&#8217;s</em> responsibility, and that means we all win and lose together.</p>
+<p><strong>What are some examples of high-worth endpoints to focus on securing?</strong></p>
+<p>You&#8217;ll have to come to the session <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" />. But anything that deals with money or accounts is always high on my list!</p>
+<p><strong>Why are you looking forward to the Austin API Summit? (Assuming you are</strong> <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" />)</p>
+<p>I&#8217;m looking forward to getting out of the security bubble and understanding some of the real-world challenges that API owners, developers, and operations are facing, including challenges outside of security, specifically.</p>
+<p><strong>What do you hope attendees will take away from your session?</strong></p>
+<p>I would love everyone from my session to go home and hack an API. I taught my mum to hack, and she&#8217;s scared of the start menu when it pops up after she hits the Windows key. If she can do it, anyone can!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Herb Sutter on increasing safety in C++</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Herb Sutter on increasing safety in C++</h2>
+		<a target="_blank" href="https://lwn.net/Articles/965147/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>
+Herb Sutter, chair of the ISO C++ standards committee,
+<a href="https://herbsutter.com/2024/03/11/safety-in-context/">
+writes</a> about the current problems with writing secure C++,
+and his personal opinion on next steps to address this while maintaining
+backward compatibility.
+</p>
+
+<blockquote class="bq">
+<strong>If there were 90-98% fewer C++ type/bounds/initialization/lifetime
+vulnerabilities we wouldn't be having this discussion.</strong> All languages have CVEs,
+C++ just has more (and C still more); so far in 2024,
+<a href="https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=rust">
+Rust has 6 CVEs</a>, and
+<a href="https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=c++">
+C and C++ combined have 61 CVEs</a>. So zero isn't the goal; something like a 90%
+reduction is necessary, and a 98% reduction is sufficient, to achieve security
+parity with the levels of language safety provided by MSLs [memory-safe languages]… and has the strong
+benefit that I believe it can be achieved with <em>perfect backward link
+compatibility</em> (i.e., without changing C++'s object model, and its lifetime
+model which does not depend on universal tracing garbage collection and is not
+limited to tree-based data structures) which is essential to our being able to
+adopt the improvements in existing C++ projects as easily as we can adopt other
+new editions of C++. — After that, we can pursue additional improvements to
+other buckets, such as thread safety and overflow safety.
+</blockquote></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

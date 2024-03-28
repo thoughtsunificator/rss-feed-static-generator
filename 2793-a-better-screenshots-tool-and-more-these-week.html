@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A Better Screenshots Tool and More – These Weeks in Firefox: Issue 156</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">A Better Screenshots Tool and More – These Weeks in Firefox: Issue 156</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/03/11/a-better-screenshots-tool-and-more-these-weeks-in-firefox-issue-156/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3 dir="ltr">Highlights</h3>
+<ul>
+<li role="presentation">The new Screenshots component (which replaces the Screenshots built-in extension) is now enabled by default on Nightly (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1789727" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1789727&amp;source=gmail&amp;ust=1710261446787000&amp;usg=AOvVaw3WupAdjFJpXiWod04ngwB0">bug 1789727</a>)! This improves upon the extension version of the feature in a number of ways:
+<ul>
+<li role="presentation">You can capture screenshots of about: pages and other pages that extensions cannot normally manipulate</li>
+</ul>
+</li>
+</ul>
+<p><img decoding="async" fetchpriority="high" class="aligncenter wp-image-1577 size-full" src="https://blog.nightly.mozilla.org/files/2024/03/image4.png" alt="The Screenshots feature in Firefox functioning within the about:config page" width="854" height="498" srcset="https://blog.nightly.mozilla.org/files/2024/03/image4.png 854w, https://blog.nightly.mozilla.org/files/2024/03/image4-300x175.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image4-600x350.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image4-768x448.png 768w" sizes="(max-width: 854px) 100vw, 854px" /></p>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li role="presentation">Improved performance!</li>
+<li role="presentation">Greatly improved keyboard and visual accessibility</li>
+<li role="presentation">You can ensure it’s on by default by checking if screenshots.browser.component.<wbr />enabled is set to true in about:config</li>
+<li role="presentation">Found issues with the new component? <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;bug_ignored=0&amp;bug_severity=--&amp;bug_status=NEW&amp;cf_a11y_review_project_flag=---&amp;cf_accessibility_severity=---&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_has_str=---&amp;cf_install_update_workflow=---&amp;cf_performance_impact=---&amp;cf_status_firefox123=---&amp;cf_status_firefox124=---&amp;cf_status_firefox125=---&amp;cf_status_firefox_esr115=---&amp;cf_tracking_firefox123=---&amp;cf_tracking_firefox124=---&amp;cf_tracking_firefox125=---&amp;cf_tracking_firefox_esr115=---&amp;cf_tracking_firefox_relnote=---&amp;cf_webcompat_priority=---&amp;component=Screenshots&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;filed_via=standard_form&amp;flag_type-203=X&amp;flag_type-37=X&amp;flag_type-41=X&amp;flag_type-607=X&amp;flag_type-708=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-748=X&amp;flag_type-787=X&amp;flag_type-799=X&amp;flag_type-803=X&amp;flag_type-846=X&amp;flag_type-855=X&amp;flag_type-864=X&amp;flag_type-930=X&amp;flag_type-936=X&amp;flag_type-937=X&amp;flag_type-963=X&amp;needinfo_role=other&amp;needinfo_type=needinfo_from&amp;op_sys=Unspecified&amp;priority=--&amp;product=Firefox&amp;rep_platform=Unspecified&amp;target_milestone=---&amp;version=unspecified" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to%3Dnobody%2540mozilla.org%26bug_ignored%3D0%26bug_severity%3D--%26bug_status%3DNEW%26cf_a11y_review_project_flag%3D---%26cf_accessibility_severity%3D---%26cf_fx_iteration%3D---%26cf_fx_points%3D---%26cf_has_str%3D---%26cf_install_update_workflow%3D---%26cf_performance_impact%3D---%26cf_status_firefox123%3D---%26cf_status_firefox124%3D---%26cf_status_firefox125%3D---%26cf_status_firefox_esr115%3D---%26cf_tracking_firefox123%3D---%26cf_tracking_firefox124%3D---%26cf_tracking_firefox125%3D---%26cf_tracking_firefox_esr115%3D---%26cf_tracking_firefox_relnote%3D---%26cf_webcompat_priority%3D---%26component%3DScreenshots%26contenttypemethod%3Dlist%26contenttypeselection%3Dtext%252Fplain%26defined_groups%3D1%26filed_via%3Dstandard_form%26flag_type-203%3DX%26flag_type-37%3DX%26flag_type-41%3DX%26flag_type-607%3DX%26flag_type-708%3DX%26flag_type-721%3DX%26flag_type-737%3DX%26flag_type-748%3DX%26flag_type-787%3DX%26flag_type-799%3DX%26flag_type-803%3DX%26flag_type-846%3DX%26flag_type-855%3DX%26flag_type-864%3DX%26flag_type-930%3DX%26flag_type-936%3DX%26flag_type-937%3DX%26flag_type-963%3DX%26needinfo_role%3Dother%26needinfo_type%3Dneedinfo_from%26op_sys%3DUnspecified%26priority%3D--%26product%3DFirefox%26rep_platform%3DUnspecified%26target_milestone%3D---%26version%3Dunspecified&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw004Z3-ErYXrmJVi_4ACAuZ">File them here!</a></li>
+<li role="presentation">You can access the Screenshot feature via the keyboard shortcut (<span id="m_-8907795050043134525gmail-docs-internal-guid-9dbc5e50-7fff-f8a1-a930-35f5bf3cac3f">ctrl + shift + s</span> or <span id="m_-8907795050043134525gmail-docs-internal-guid-fdd5f994-7fff-7a6f-1245-ed0f2225479e">cmd + shift + s</span> for macos), the context menu, or by adding the Screenshot button to your toolbar <a href="https://support.mozilla.org/en-US/kb/customize-firefox-controls-buttons-and-toolbars" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://support.mozilla.org/en-US/kb/customize-firefox-controls-buttons-and-toolbars&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw3SAz5mFOm4TII7I--NAiOH">via toolbar customization</a></li>
+</ul>
+</li>
+<li role="presentation">The Firefox Profiler has a new &#8220;Network Bandwidth&#8221; feature to record the network bandwidth used between every profiler sample. <a href="https://share.firefox.dev/3InOB8N" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://share.firefox.dev/3InOB8N&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw1X7q9HnLw7o3PQkPl5NTng">Example profile</a></li>
+<li><img decoding="async" class="aligncenter size-full wp-image-1572" src="https://blog.nightly.mozilla.org/files/2024/03/image9.png" alt="Two different timelines - one for Network and one for Bandwidth - in Firefox Profiler." width="1780" height="554" srcset="https://blog.nightly.mozilla.org/files/2024/03/image9.png 1780w, https://blog.nightly.mozilla.org/files/2024/03/image9-300x93.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image9-600x187.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image9-768x239.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image9-1536x478.png 1536w, https://blog.nightly.mozilla.org/files/2024/03/image9-1000x311.png 1000w" sizes="(max-width: 1780px) 100vw, 1780px" /></li>
+<li role="presentation"><a href="https://www.youtube.com/watch?v=Ly7ve5ftRnU" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3DLy7ve5ftRnU&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw2xZpxftsd6j9Nb-DcVWsUY">Florian gave a FOSDEM talk about the Firefox power profiling</a></li>
+<li role="presentation">Nicolas added support for incoming input[type=range]::slider-* pseudo elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881940" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881940&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw2ctcaskbw7MKOrTLwYvup2">bug</a>)
+<ul>
+<li role="presentation">behind layout.css.modern-range-<wbr />pseudos.enabled</li>
+</ul>
+</li>
+</ul>
+<p><img decoding="async" class="aligncenter size-full wp-image-1576" src="https://blog.nightly.mozilla.org/files/2024/03/image5.png" alt="The devTools inspector showing CSS rules for several input slider pseudo elements" width="1999" height="1087" srcset="https://blog.nightly.mozilla.org/files/2024/03/image5.png 1999w, https://blog.nightly.mozilla.org/files/2024/03/image5-300x163.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image5-600x326.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image5-768x418.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image5-1536x835.png 1536w, https://blog.nightly.mozilla.org/files/2024/03/image5-1000x544.png 1000w" sizes="(max-width: 1999px) 100vw, 1999px" /></p>
+<ul>
+<li role="presentation">Karandeep <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1882478" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1882478&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw1QX7P3y9hH2ouZKCW57Sz_">made a clipboard feature for the address bar</a>. Currently, we plan to ship this enabled by default in Firefox 125!</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1578" src="https://blog.nightly.mozilla.org/files/2024/03/image3.png" alt="The Firefox address bar with a &quot;Visit from clipboard&quot; button" width="1290" height="178" srcset="https://blog.nightly.mozilla.org/files/2024/03/image3.png 1290w, https://blog.nightly.mozilla.org/files/2024/03/image3-300x41.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image3-600x83.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image3-768x106.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image3-1000x138.png 1000w" sizes="(max-width: 1290px) 100vw, 1290px" /></p>
+<h3 dir="ltr">Friends of the Firefox team</h3>
+<h3 dir="ltr"><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1878635%2C1862253%2C1881979%2C1677823%2C1839845%2C1882981%2C1619201" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/buglist.cgi?title%3DResolved%2520bugs%2520(excluding%2520employees)%26quicksearch%3D1878635%252C1862253%252C1881979%252C1677823%252C1839845%252C1882981%252C1619201&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw2o-NiYEUem9tB2PrLiyvqV">Resolved bugs (excluding employees)</a></h3>
+<p dir="ltr"><a href="https://github.com/niklasbaumgardner/NewContributorScraper" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://github.com/niklasbaumgardner/NewContributorScraper&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw1It7y2oN055iYtJyMXTJ0l">Script to find new contributors from bug list</a></p>
+<h4 dir="ltr">Volunteers that fixed more than one bug</h4>
+<ul>
+<li dir="ltr" role="presentation">Bojidar Marinov [:bojidar-bg]</li>
+<li dir="ltr" role="presentation">Nikki Bernobic [:echrs]</li>
+</ul>
+<h4 dir="ltr">New contributors (🌟 = first patch)</h4>
+<ul>
+<li dir="ltr" role="presentation">🌟 Artem Manushenkov <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1619201" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1619201&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw3YFlKD_bwdMMFOTKittPx9">changed Watch expressions</a> input field placeholder from &#8220;Add watch expression&#8221; to &#8220;Add expression&#8221;</li>
+<li dir="ltr" role="presentation">🌟 Bojidar Marinov [:bojidar-bg] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1677823" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1677823&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw0chbqUD981vN0-9SdlXaqz">updated about: pages</a> to use OTHER_LOCAL instead of HISTORY and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1839845" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1839845&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw3fgcG40ufy3ZKGZloHTy0Y">added about:settings</a> as alias of about:preferences</li>
+<li dir="ltr" role="presentation">🌟 Patrycja Rosa [:ptrcnull] (she/her) to use <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881979" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881979&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw23fS35Z2dzvUo1WR65dxjR">c_int as ptrace request type</a> on musl libc</li>
+<li dir="ltr" role="presentation">Nikki Bernobic [:echrs] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862253" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1862253&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw0EgkWGD5evXMZJ0as5tnJc">added a storybook story</a> that shows an example of Moz Message Bar with a Heading plus Message and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878635" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1878635&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw02PHK2cUNc7mMZ1j2iCw3c">removed Deprecated.sys.mjs</a></li>
+</ul>
+<h3 dir="ltr">Project Updates</h3>
+<h4 dir="ltr">Developer Tools</h4>
+<h5 dir="ltr">DevTools</h5>
+<ul>
+<li role="presentation">Arai fixed an issue where ReadableStream.values() was eagerly evaluated  (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881359" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881359&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw1FimqQYDLoLNOpZTmoXBx6">bug</a>)</li>
+<li role="presentation">Alex added a button dedicated to source map settings in the editor footer (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853899" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1853899&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw05THqn5lzSCvWVlPmvIbq1">bug</a>)</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter wp-image-1570 size-full" src="https://blog.nightly.mozilla.org/files/2024/03/image11.png" alt="Tooltip at the bottom of the devTools editor displaying available Source Map settings and which of those settings are enabled." width="1182" height="898" srcset="https://blog.nightly.mozilla.org/files/2024/03/image11.png 1182w, https://blog.nightly.mozilla.org/files/2024/03/image11-300x228.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image11-600x456.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image11-768x583.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image11-1000x760.png 1000w" sizes="(max-width: 1182px) 100vw, 1182px" /></p>
+<ul>
+<li role="presentation">By popular demand, Alex added back the preference to control the Debugger Pause Overlay (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865439" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1865439&amp;source=gmail&amp;ust=1710261446788000&amp;usg=AOvVaw3kmccJt24TVCJNxP0aRvHs">bug</a>)
+<ul>
+<li role="presentation">set  devtools.debugger.features.<wbr />overlay to false if you want to disable it</li>
+</ul>
+</li>
+<li role="presentation">Alex fixed performance issues in the debugger when a page had a lot of sources (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880809" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1880809&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1AQjkdMtRFLvsa9XKhPKFL">bug</a>)</li>
+<li role="presentation">Hubert fixed an issue in the debugger where the Outline view wouldn&#8217;t populate (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879322" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1879322&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw0106RudkmvL6TBSpuHPlSq">bug</a>)</li>
+<li role="presentation">Julian fixed opening relative URL of &lt;img&gt; on pages with a &lt;base&gt; (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw0KpWfwdrFNATlyu_69oBP-">MDN</a>) tag (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1871391" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1871391&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1B6MyEhLurOHkXXiBDPKGU">bug</a>)</li>
+<li role="presentation">Alex added an option in the tracer to track all DOM Mutations (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879087" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1879087&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw3KuVLkoMMk3wJljjk4X6fs">bug</a>)</li>
+<li>from the console :trace &#8211;dom-mutations</li>
+<li>(Set devtools.debugger.features.<wbr />javascript-tracing to true to enable the tracer)</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1579" src="https://blog.nightly.mozilla.org/files/2024/03/image2.png" alt="The Tracer in Firefox devTools notifying when and at what time a DOM mutation occurs" width="1260" height="290" srcset="https://blog.nightly.mozilla.org/files/2024/03/image2.png 1260w, https://blog.nightly.mozilla.org/files/2024/03/image2-300x69.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image2-600x138.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image2-768x177.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image2-1000x230.png 1000w" sizes="(max-width: 1260px) 100vw, 1260px" /></p>
+<h5 dir="ltr">WebDriver BiDi</h5>
+<ul>
+<li dir="ltr" role="presentation">Thanks to Kagami who implemented set_permission for marionette driver (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881515" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881515&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1keu4kmXn-yaYiOcDYELcD">bug</a>)</li>
+<li dir="ltr" role="presentation">Sasha implemented the storage.deleteCookies command for WebDriver BiDi. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854581" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1854581&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2DhC7u4Kop-6p4ASRo-6LS">bug</a>)</li>
+<li dir="ltr" role="presentation">Sasha added support for the userContext field of the partition parameter for storage.getCookie and storage.setCookie commands. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875255" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1875255&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw3l_y-02IKFnbK9ncEoDsBT">bug</a>)</li>
+<li dir="ltr" role="presentation">Julian implemented a basic version of the network.provideResponse command. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880477" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1880477&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw35GYN8glIYDp3ZeZYuogbO">bug</a>)</li>
+</ul>
+<h4 dir="ltr">ESMification status</h4>
+<ul>
+<li>ESMified status:
+<ul>
+<li>browser: 100%</li>
+<li>toolkit: 99.83%
+<ul>
+<li>This one is <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1779629" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1779629&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1TOoTqljM8PU_DJ8elmRcN">being fixed here</a></li>
+</ul>
+</li>
+<li>devtools: 89.29%</li>
+<li>dom: 96%
+<ul>
+<li>This one is <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1770944" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1770944&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2hN7sOujK3JOTIQTMRMW_b">being fixed here</a></li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">services: 98.94%</li>
+<li dir="ltr" role="presentation">Only 10 JSMs left in the tree!</li>
+<li dir="ltr" role="presentation">Total:  99.35% (+0.00% from last time)</li>
+</ul>
+</li>
+<li dir="ltr">
+<p dir="ltr" role="presentation">#esmification on Matrix</p>
+</li>
+</ul>
+<h4 dir="ltr">Lint, Docs and Workflow</h4>
+<ul>
+<li dir="ltr" role="presentation">:Mossop, :Gijs and Standard8 met and discussed the remaining rules (and a few others) that are recommended by ESLint but that we haven&#8217;t enabled yet.
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881262" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881262&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw3IHKjpMTj0neTo74r4Kbnj">no-useless-escape has been turned off</a>, as the work to enable it would have been significant, and it doesn&#8217;t catch any real errors.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881265" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881265&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw0bW5hmjt_eEtikbBmYu8cI">getter-return</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881266" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881266&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2GHT61-gHNM2qjPKQfMAzi">no-constant-condition and no-case-declarations</a> have all been turned on.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881497" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881497&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1mfRQqbj06s8nVQE465U-o">object-shorthand</a> has been enabled on the debugger code.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883371" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1883371&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw0Wg-81YFrUhDdRipXB0ZDA">no-console</a> is to be enabled soon for production code.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881496" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1881496&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw258K_A77ZSmGjve2ABf5SU">no-shadow</a> is also on the list to enable for production code (with various exceptions)</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870205" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1870205&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1fMhmkFgbdUsnWePaxbiNI">no-use-before-define</a> is also likely to be enabled with a limited set of options</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">:Mossop is working on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864896" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1864896&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw01o4_liMexRp2qn0IoISSU">enabling argument linting from no-unused-vars</a>. 47 patches have already landed, 11 to go!</li>
+<li dir="ltr" role="presentation">:Gijs has enabled a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1780071" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1780071&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2XGh1KkkQ8wmqxa4752oVw">new rule</a> to prevent comparison or assignments within ok() assertions in tests.</li>
+<li dir="ltr" role="presentation">The ESLint configuration has been changed so that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878553" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1878553&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2eeapyq3UNCK1rqx0v2JsH">all .jsx files are now assumed to be ES modules</a>.</li>
+<li dir="ltr" role="presentation">Pocket&#8217;s files that are modules have been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1778106" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1778106&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2ZfLZzEco7qNlSxENLKke-">renamed to use .mjs extensions</a></li>
+</ul>
+<h4 dir="ltr">Migration Improvements</h4>
+<ul>
+<li dir="ltr" role="presentation">We’ve started early investigations on a profile backup feature. This feature will, in theory, allow users to create backups of their user profile in an archive on the local file system. We’re still very early days here, but <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883052" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1883052&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw2BKkdjB_hxQrvX7TM8vARc">we have a meta bug here</a> that people can follow along with.
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1882171" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1882171&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1tB4SVYjsK5jSOQ5wmPFJ4">We’ve got some basic infrastructure landed</a>, and we’re <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883503" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1883503&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw32A2qFswa931hv5ZU6EjPK">starting with some measurements to see how big these archive files might end up being.</a></li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">New Tab Page</h4>
+<ul>
+<li dir="ltr">
+<p dir="ltr" role="presentation">We’re in the early phases of building out an experiment that lets people set wallpapers on about:home/about:newtab. Stay tuned!</p>
+</li>
+</ul>
+<h4 dir="ltr">Performance Tools (aka <a href="https://profiler.firefox.com/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://profiler.firefox.com/&amp;source=gmail&amp;ust=1710261446789000&amp;usg=AOvVaw1CQ1pFdeCuJT_n0ISwO3DJ">Firefox Profiler</a>)</h4>
+<ul>
+<li>Made the call tree sidebar localizable.</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1574" src="https://blog.nightly.mozilla.org/files/2024/03/image7.png" alt="Call tree sidebar in Firefox Profiler displaying various characters and letters to demonstrate that it can be localized into different languages." width="1999" height="1341" srcset="https://blog.nightly.mozilla.org/files/2024/03/image7.png 1999w, https://blog.nightly.mozilla.org/files/2024/03/image7-300x201.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image7-600x403.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image7-768x515.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image7-1536x1030.png 1536w, https://blog.nightly.mozilla.org/files/2024/03/image7-1000x671.png 1000w" sizes="(max-width: 1999px) 100vw, 1999px" /></p>
+<ul>
+<li>Marker count is shown next to the marker name in the marker chart when a marker is hovered.</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1571" src="https://blog.nightly.mozilla.org/files/2024/03/image10.png" alt="A table in Firefox Profiler showing DOMEvent as a listed event that was counted up to 410 times." width="424" height="468" srcset="https://blog.nightly.mozilla.org/files/2024/03/image10.png 424w, https://blog.nightly.mozilla.org/files/2024/03/image10-300x331.png 300w" sizes="(max-width: 424px) 100vw, 424px" /></p>
+<ul>
+<li role="presentation">Improved performance of the marker chart when there are so many overlapping markers.</li>
+<li>
+<p role="presentation">Improved the power graph and made it easier to see very small values in the graph by hiding the zero values.</p>
+</li>
+<li role="presentation">Before:</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1580" src="https://blog.nightly.mozilla.org/files/2024/03/image1.png" alt="The power graph in Firefox Profiler before implementing changes that make it easier to see small values" width="1268" height="198" srcset="https://blog.nightly.mozilla.org/files/2024/03/image1.png 1268w, https://blog.nightly.mozilla.org/files/2024/03/image1-300x47.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image1-600x94.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image1-768x120.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image1-1000x156.png 1000w" sizes="(max-width: 1268px) 100vw, 1268px" /></p>
+<ul>
+<li role="presentation">After:</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1575" src="https://blog.nightly.mozilla.org/files/2024/03/image6.png" alt="The power graph in Firefox Profiler after implementing changes that make it easier to see small values" width="1268" height="214" srcset="https://blog.nightly.mozilla.org/files/2024/03/image6.png 1268w, https://blog.nightly.mozilla.org/files/2024/03/image6-300x51.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image6-600x101.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image6-768x130.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image6-1000x169.png 1000w" sizes="(max-width: 1268px) 100vw, 1268px" /></p>
+<ul>
+<li role="presentation">Fixed the hittesting on the activity graph.</li>
+</ul>
+<p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1573" src="https://blog.nightly.mozilla.org/files/2024/03/image8.png" alt="Activity graph for a sample Firefox Profiler profile that ran for 686ms." width="1999" height="981" srcset="https://blog.nightly.mozilla.org/files/2024/03/image8.png 1999w, https://blog.nightly.mozilla.org/files/2024/03/image8-300x147.png 300w, https://blog.nightly.mozilla.org/files/2024/03/image8-600x294.png 600w, https://blog.nightly.mozilla.org/files/2024/03/image8-768x377.png 768w, https://blog.nightly.mozilla.org/files/2024/03/image8-1536x754.png 1536w, https://blog.nightly.mozilla.org/files/2024/03/image8-1000x491.png 1000w" sizes="(max-width: 1999px) 100vw, 1999px" /></p>
+<ul>
+<li role="presentation">Fixed the marker stacks that were broken because of a symbolication issue.</li>
+</ul>
+<p><span> </span></p>
+<h4 dir="ltr">Search and Navigation</h4>
+<ul>
+<li dir="ltr" role="presentation">Work continues on Consolidated Search Configuration and improvements from mcheang and standard8)
+<ul>
+<li dir="ltr" role="presentation">Mandy landed a bunch of patches to get tests ready for the roll out of new search configuration &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870684" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1870684&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw1rhVIcqxPBjMHWssYN31gr">1870684</a></li>
+<li dir="ltr" role="presentation">Standard8 refactored some code for search settings. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879625" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1879625&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw3Gn3fXlNyb0wzoAE7A-wXs">1879625 </a></li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">General Improvements
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1677823" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1677823&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw0a__Ag8O5s4pahbEz-af58">Bug 1677823 &#8211; Autocomplete about: URLs</a></li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1882043" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1882043&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw0HD_BbQS1aC9yUweomHv8-">Bug 1882043 &#8211; Recent searches section is mispositioned in the Address Bar</a></li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878519" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1878519&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw0OxKQTble_eL9A7m5Axa-f">Bug 1878519 &#8211; Prefer recent searches over trending</a></li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Switch-to-tab container improvements (marc &amp; mak)
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880066" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1880066&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw3eCsw0gyLAfVSUejBogUwv">Bug 1880066 &#8211; Switch-to-tab container icons are blurry on Windows/Ubuntu</a></li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880069" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1880069&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw317M6BxiJ_Us7gZr7YZ218">Bug 1880069 &#8211; Switch-to-tab in a regular tab loads the url already opened in container tabs</a></li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880078" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1880078&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw1nWXet6HKfq3iOZwyaeXQ5">Bug 1880078 &#8211; Previously opened container tabs are still shown in the Tabs/Firefox suggest section after a browser restart</a></li>
+<li dir="ltr" role="presentation">Last week was Marc Seibert’s (Berlin Student) last week at Mozilla. Thanks Marc for all your contributions to Firefox throughout the year. 🎉</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Work continues on Cross-Platform Suggest from adw, daisuke, and karandeep. These fixes include:
+<ul>
+<li>Yelp suggestions, improving the suggestion feedback button, fixes to weather suggestion</li>
+<li>Urlbar.impression telemetry removed that is no longer needed</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Work continues on Search and SERP telemetry categorization from scunnane and jteow</li>
+</ul>
+<h4 dir="ltr">Storybook/Reusable Components</h4>
+<ul>
+<li dir="ltr" role="presentation">Thanks to :echrs for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862253" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1862253&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw05v0xYKqn4V4kt2T9-ZR9s">adding a story to moz-message-bar</a></li>
+<li dir="ltr" role="presentation">Thanks to :kcochrane for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850591" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1850591&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw3kdGLUh4P-9mPPTe1ATX6d">creating the moz-page-nav component</a></li>
+<li dir="ltr" role="presentation">:mstriemer landed the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1791816" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1791816&amp;source=gmail&amp;ust=1710261446790000&amp;usg=AOvVaw1tHbe8vFRGnp-Y8uszsbsX">moz-button component</a></li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

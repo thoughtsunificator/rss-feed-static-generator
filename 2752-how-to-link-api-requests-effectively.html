@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Link API Requests Effectively</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Link API Requests Effectively</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-link-api-requests-effectively/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The need to link API requests has been around for as long as there have been APIs. APIs enable a composable software architecture that naturally promotes the distribution of systems and the operations they support. &#8220;Functions&#8221; of an organization or business tend to become an aggregation of several API calls to distributed systems.</p>
+<p>There is an argument that if you are implementing REST, then linking API requests should be unnecessary, especially given the role that hypermedia should play in providing context between requests. However, the interconnectedness of systems and — rightly or wrongly — the general mixing of architectural styles across platforms makes it increasingly difficult to rely on a single, well-scoped API call to accomplish something. Knitting together API requests from one or more API providers is critical to delivering functioning software systems.</p>
+<p>There is, however, an important point to be made. We should consider that linking API requests is a <strong><em>design-time activity</em></strong>. Countless platforms allow implementers to orchestrate a sequence of API requests, but far fewer publish the information needed to make those platforms work <em>programmatically</em>. When API providers publish operations, they should consider how different operations relate to each other and make this information available to API consumers. API providers can obviously do this in <a href="https://nordicapis.com/7-tips-on-how-to-navigate-api-documentation/">API portals and documentation</a>. However, in a world of automation and an increasing AI footprint, there is a use case for providing machine-readable documents.</p>
+<p>In this post, we look at a couple of ways that API providers can provide descriptions of how API requests are linked together. We look at standards from the early days of the API economy to give some context to the problem space. We then discuss two approaches to providing design-time linking through OpenAPI Initiative (OAI) specifications.</p>
+<h2 id="integration-architectures-and-linking-api-requests">Integration Architectures and Linking API Requests</h2>
+<p>The goal of linking requests has already been tackled repeatedly in integration architectures. As software and systems architectures have become distributed and tasks have moved off <a href="https://nordicapis.com/whats-the-difference-microservice-macroservice-monolith/">monolithic computing systems</a>, there has been an increasing need to stitch activities together in a sensible way. The solutions have tended to follow the salient integration architectures of the day.</p>
+<p>One example is <a href="https://www.oasis-open.org/committees/download.php/23964/wsbpel-v2.0-primer.htm">Business Process Execution Language</a> (BPEL), which is associated with <a href="https://nordicapis.com/how-are-microservices-and-web-services-different/">web services</a> and software-oriented architecture (SOA). BPEL is considered an orchestration language as it describes a sequence of activities controlled by a software component rather than — as choreography is described — a series of events with which software components interact.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/what-is-api-orchestration/">What is API Orchestration?</a></div>
+<p>BPEL is notable in that it provides a machine-readable description of a sequence of activities. Machine-readable descriptions are important in the API world when we consider them in the context of API specification languages, which are a critical part of providing information about a given API.</p>
+<p>From the perspective of the API economy, however, BPEL does not provide a means to link API requests effectively for an API consumer. This is because the process is executed server-side, with a workflow server orchestrating activities and a document provided in Web Services Description Language (WSDL) notation describing the operation parameters. An API consumer cannot orchestrate the activity <em>themselves</em>, which will routinely be suboptimal for their use cases.</p>
+<p>For this reason (and a number of others we will not go into here), BPEL and other similar standards from SOA have not been transposed into the API economy. API providers need other means to describe and implement linking between API requests that do not divest control for the API consumer. One example of how to accomplish this at design-time is to use Links in an OpenAPI document.</p>
+<h2 id="linking-at-design-time-using-links-in-openapi">Linking At Design Time: Using Links in OpenAPI</h2>
+<p>Links — specifically the <a href="https://spec.openapis.org/oas/v3.1.0#link-object">Link Object</a> — is a means to link one request to another when designing an API and providing a description document to API consumers. The specification describes a Link object as a means to describe <em>&#8220;&#8230;a known relationship and traversal mechanism between responses and other operations.&#8221;</em> This is helpful to API consumers as they are given knowledge of the relationship between endpoints that are <em>consumed programatically</em>, letting tooling that understands the Link object mediate the flow of data between API calls. The specification makes use of the <a href="https://spec.openapis.org/oas/v3.1.0#runtimeExpression">Runtime Expression</a> (which we mentioned in our recent <a href="https://nordicapis.com/whats-new-in-asyncapi-v3-0/">AsyncAPI article</a>) to describe how to access information from API responses to make a subsequent API request.</p>
+<p>Here is a very simple example. The following is an excerpt of an OpenAPI document that describes two operations for a hypothetical foreign exchange API: Getting a quote, and then executing a trade based on the quoted price.</p>
+<pre><code class="lang-yaml"><span class="hljs-symbol">paths:</span>
+  /quotes:
+<span class="hljs-symbol">    post:</span>
+<span class="hljs-symbol">      summary:</span> Create a new quote for a given currency pair
+<span class="hljs-symbol">      operationId:</span> CreateQuote
+<span class="hljs-symbol">      requestBody:</span>
+<span class="hljs-symbol">        content:</span>
+          application/json:
+<span class="hljs-symbol">            schema:</span>
+<span class="hljs-symbol">              type:</span> object
+<span class="hljs-symbol">              required:</span>
+                - tradeType
+                - sellCurrency
+                - buyCurrency
+                - amount
+<span class="hljs-symbol">              properties:</span>
+<span class="hljs-symbol">                tradeType:</span>
+<span class="hljs-symbol">                  type:</span> string
+<span class="hljs-symbol">                sellCurrency:</span>
+<span class="hljs-symbol">                  type:</span> string
+<span class="hljs-symbol">                buyCurrency:</span>
+<span class="hljs-symbol">                  type:</span> string
+<span class="hljs-symbol">                amount:</span>
+<span class="hljs-symbol">                  type:</span> number
+<span class="hljs-symbol">      responses:</span>
+        <span class="hljs-number">201</span>:
+<span class="hljs-symbol">          description:</span> Created
+<span class="hljs-symbol">          content:</span>
+            application/json:
+<span class="hljs-symbol">              schema:</span>
+<span class="hljs-symbol">                type:</span> object
+<span class="hljs-symbol">                required:</span>
+                  - quoteId
+<span class="hljs-symbol">                properties:</span>
+<span class="hljs-symbol">                  quoteId:</span>
+<span class="hljs-symbol">                    type:</span> string
+            <span class="hljs-meta"># ... other quote properties</span>
+<span class="hljs-symbol">          links:</span>
+<span class="hljs-symbol">            executeTradeBasedOnQuote:</span>
+<span class="hljs-symbol">              operationId:</span> CreateTrade
+<span class="hljs-symbol">              requestBody:</span> $.response.body<span class="hljs-meta">#quoteId</span>
+  /trades:
+<span class="hljs-symbol">    post:</span>
+<span class="hljs-symbol">      summary:</span> Execute a trade based on a previous quote using quoteId
+<span class="hljs-symbol">      operationId:</span> CreateTrade
+<span class="hljs-symbol">      requestBody:</span>
+<span class="hljs-symbol">        content:</span>
+          application/json:
+<span class="hljs-symbol">            schema:</span>
+<span class="hljs-symbol">              type:</span> object
+<span class="hljs-symbol">              required:</span>
+                - quoteId
+<span class="hljs-symbol">              properties:</span>
+<span class="hljs-symbol">                quoteId:</span>
+<span class="hljs-symbol">                  type:</span> string
+</code></pre>
+<p>The Operation labeled <code>CreateQuote</code> indicates to API consumers that they can execute a trade using the operation <code>CreateTrade</code> based on the response. The client must retrieve the value of <code>quoteId</code> from the response and use this to populate the request body.</p>
+<p>This example shows how API providers can describe information about links between requests using OpenAPI which, when implemented using an <code>operationRef</code> property, can bridge between <em>different</em> OpenAPI documents. Providing this information is a very powerful feature as it removes the guesswork for API consumers who can leverage tools to automate the linking of requests.</p>
+<p>However, there are times when it makes sense to describe linking <em>across APIs from different providers</em>. This is where the OAI Workflows can help.</p>
+<h2 id="linking-across-apis-openapi-workflows">Linking Across APIs: OpenAPI Workflows</h2>
+<p>As we&#8217;ve already said, linking across APIs is a common goal in an environment where platforms are the sum of their parts and integrate many different systems to provide a given function. Software developers often have to figure out how to make API calls in the correct sequence, carrying the right context between calls.</p>
+<p>While this is acceptable for simple APIs, larger, more complex sequences are more demanding and can result in complex support requirements for API providers. This is where the OAI Workflows Special Interest Group (SIG) has attempted to fill the gap with the <a href="https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md">Workflows</a> specification. The idea of this specification is to provide a description document that can be understood by both humans and machines, allowing them to seamlessly knit a sequence of events together.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-apis-enable-the-composable-enterprise-model/">How APIs Enable the Composable Enterprise Model</a></div>
+<p>A given Workflow document is intended to be implemented however the API consumer chooses — unlike the BPEL example — using their own choice of compute and software. This gives the API consumer a considerable &#8220;leg-up&#8221; in their implementation without compromising their control over how they orchestrate multiple API requests.</p>
+<p>Taking the example from the specification — a workflow based on logging into the <a href="https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml">Petstore API</a> — a workflow provider first describes and uniquely identifies the workflow. In this definition, they specify external inputs to the workflow, in this case <code>username</code> and <code>password</code>:</p>
+<pre><code class="lang-yaml">workflows:
+- workflowId: loginUserAndRetrievePet
+  summary: Login User <span class="hljs-keyword">and</span> <span class="hljs-keyword">then</span> retrieve pets
+  description: This workflow lays <span class="hljs-keyword">out</span> the steps <span class="hljs-keyword">to</span> login a user <span class="hljs-keyword">and</span> <span class="hljs-keyword">then</span> retrieve pets
+  inputs:
+      <span class="hljs-keyword">type</span>: <span class="hljs-keyword">object</span>
+      properties:
+          username:
+              <span class="hljs-keyword">type</span>: <span class="hljs-keyword">string</span>
+          password:
+              <span class="hljs-keyword">type</span>: <span class="hljs-keyword">string</span>
+</code></pre>
+<p>The workflow provider then outlines the steps in the workflow — in the example, the <code>loginStep</code> followed by the <code>getPetStep</code> — using Runtime Expressions to provide the reference to the input values and values to be reused between steps. For example, the input <code>username</code> is referenced using the expression <code>$inputs.username</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">  steps:</span>
+<span class="hljs-attr">  - stepId:</span> loginStep
+<span class="hljs-attr">    description:</span> This step demonstrates the user login step
+<span class="hljs-attr">    operationId:</span> loginUser
+<span class="hljs-attr">    parameters:</span>
+      <span class="hljs-comment"># parameters to inject into the loginUser operation (parameter name must be resolvable at the referenced operation and the value is determined using {expression} syntax)</span>
+<span class="hljs-attr">      - name:</span> username
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> $inputs.username
+<span class="hljs-attr">      - name:</span> password
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> $inputs.password
+<span class="hljs-attr">    successCriteria:</span>
+      <span class="hljs-comment"># assertions to determine step was successful</span>
+<span class="hljs-attr">      - condition:</span> $statusCode == <span class="hljs-number">200</span>
+<span class="hljs-attr">    outputs:</span>
+      <span class="hljs-comment"># outputs from this step</span>
+<span class="hljs-attr">      tokenExpires:</span> $response.header.X-Expires-After
+<span class="hljs-attr">      rateLimit:</span> $response.header.X-Rate-Limit
+<span class="hljs-attr">      sessionToken:</span> $response.body
+<span class="hljs-attr">  - stepId:</span> getPetStep
+<span class="hljs-attr">    description:</span> retrieve a pet by status from the GET pets endpoint
+<span class="hljs-attr">    operationRef:</span> https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml<span class="hljs-comment">#/paths/~1pet~1findByStatus/get</span>
+<span class="hljs-attr">    dependsOn:</span> loginStep
+<span class="hljs-attr">    parameters:</span>
+<span class="hljs-attr">      - name:</span> status
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> <span class="hljs-string">'available'</span>
+<span class="hljs-attr">      - name:</span> Authorization
+<span class="hljs-attr">        in:</span> header
+<span class="hljs-attr">        value:</span> $steps.loginUser.outputs.sessionToken
+<span class="hljs-attr">    successCriteria:</span>
+<span class="hljs-attr">      - condition:</span> $statusCode == <span class="hljs-number">200</span>
+<span class="hljs-attr">    outputs:</span>
+      <span class="hljs-comment"># outputs from this step</span>
+<span class="hljs-attr">      availablePets:</span> $response.body
+<span class="hljs-attr">  outputs:</span>
+<span class="hljs-attr">      available:</span> $steps.getPetStep.availablePets
+</code></pre>
+<p>The steps also provide success criteria, allowing workflow consumers to understand what to watch for in their code, dependencies, and the outputs from each step that can be consumed later.</p>
+<p>The benefits of the Workflow specification are immediately apparent when you consider a Workflow document that helps API consumers implement integrations with multiple APIs. There is also the potential, however, for publishers in an <a href="https://nordicapis.com/the-evolution-of-the-api-marketplace/">API marketplace</a> to leverage Workflow documents as well, knitting together sequences of API calls across multiple, separate APIs from different providers. The Workflow use case, while not necessarily new, therefore has great potential for simplifying the consumption of APIs for API consumers while still allowing them to control how they consume APIs.</p>
+<div class="well">For a more detailed look at OAI Workflows please see <a href="https://swagger.io/blog/meet-the-new-api-workflows-specification/" target="_blank" rel="noopener">this post</a> over at the Swagger website.</div>
+<h2 id="final-thoughts-adopting-standards-for-linking-api-requests">Final Thoughts: Adopting Standards for Linking API Requests</h2>
+<p>The examples above are one small part of the tools a developer can use to link between API requests. In this article, we&#8217;ve focused on linking at design-time and providing sequencing information through specification documents. Developers will, however, likely use other tools based on their programming language of choice or the platforms provided by the organization they work for.</p>
+<p>Links in OpenAPI and OAI Workflows are not, however, just documents to be read by humans or their chosen AI. These specifications are machine-readable by design but are only really effective if tools support them. It&#8217;s in the gift of tooling makers and their communities to make these standards for linking API requests successful by implementing support for them.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

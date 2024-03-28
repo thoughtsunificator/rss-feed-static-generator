@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Another runc container breakout</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Another runc container breakout</h2>
+		<a target="_blank" href="https://lwn.net/Articles/961086/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Once again, <a
+href="https://github.com/opencontainers/runc">runc</a>&mdash;a tool
+for spawning and running OCI containers&mdash;is drawing attention due to a <a
+href="https://lwn.net/ml/oss-security/20240131.201014-manual.rungs.vicious.preface-640Q4W5TLTW7@cyphar.com/">high
+severity container breakout attack</a>. This vulnerability is interesting for
+several reasons: its potential for widespread impact, the continued difficulty
+in actually <em>containing</em> containers, the dangers of running containers
+as a privileged user, and the fact that this vulnerability is made possible
+in part by a response to <a href="https://lwn.net/Articles/781013/">a previous
+container breakout flaw in runc</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using OPA To Achieve Zero-Trust APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Using OPA To Achieve Zero-Trust APIs</h2>
+		<a target="_blank" href="https://nordicapis.com/using-opa-to-achieve-zero-trust-apis/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>OPA, or Open Policy Agent, is a strong standard for handling authentication and identity within a distributed zero-trust model. Exactly how it does that — and why it should be doing that — was the subject of a talk given recently by <a href="https://nordicapis.com/speakers/anders-eknert-2/">Anders Eknert</a> from Styra at the Nordic APIs 2023 Platform Summit in Stockholm, Sweden. Below, we&#8217;ll discuss this topic and dive into the proposed solution delivered by Eknert.</p>
+<div class="well">Watch Eknert present about using OPA for zero trust at the Platform Summit:<div class="responsive-iframe-container"><iframe title="YouTube video player" src="https://www.youtube.com/embed/Yo5OTz92l1Y?si=oO1hijbCrgvj9EM7" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></div>
+<h2 id="the-evolution-of-api-authorization">The Evolution of API Authorization</h2>
+<p>As APIs have changed, so too have their <a href="https://nordicapis.com/what-is-the-difference-between-authentication-and-authorization/">mechanisms for authorization</a>. In the early days of API development, codebases tended to be monolithic. Massive bodies of code designed for an application existed as a single entity.</p>
+<blockquote><p>&#8220;The monolith basically means the application does everything — [it] does authentication, it does access control, it has to verify the identity of the user, it has to verify that the authentication and access control are done in one single place.&#8221;</p></blockquote>
+<p>While this was acceptable for the era, it came with various negative outcomes. <a href="https://nordicapis.com/back-to-the-monolith-why-did-amazon-dump-microservices/">Monolithic codebases</a> were hard to change and upgrade, as even a minor update required the entire stack to be rebuilt. The code was typically inefficient, as scalability and extensibility were wholly impactful, regardless of how small the alteration actually was. While they granted strong controls, they were quite expensive and required a support apparatus that could become large and unwieldy.</p>
+<p>Over time, APIs began to change. The monolith gradually fell out of favor for a new solution — <a href="https://nordicapis.com/whats-the-difference-between-monolith-and-microservices/">distributed microservices</a>. Microservices were comparatively more complex because the monolith exploded into multiple pieces, but this complexity granted huge benefits to process efficiency, extensibility, and scalability.</p>
+<p>However, one major question in this new paradigm was the authorization and authentication process. In a monolithic service, this was handled by a single agent, a single process, and all was well. In a distributed service, however, the question was not resolved. After all, when multiple systems are involved, things get a lot more complicated.</p>
+<div class="well">Also read this case study: <a href="https://nordicapis.com/case-study-soundclouds-multi-year-journey-breaking-the-monolith/">SoundCloud&#8217;s Multi-Year Journey Breaking the Monolith</a></div>
+<h3 id="identity-in-distributed-systems">Identity in Distributed Systems</h3>
+<p>Something had to change. The monolithic approach to handling authorization and authentication could no longer stand in the distributed and microservice-heavy modality of the future.</p>
+<blockquote><p>&#8220;[There are] a whole bunch of problems with this model. [On the identity side], we&#8217;d rather not pass around credentials between services. That is problematic from a whole bunch of standpoints&#8230; The more services you get, the more this is going to be a bottleneck.&#8221;</p></blockquote>
+<p>Accordingly, some shifts began to take place. Where <a href="https://nordicapis.com/simplify-identity-lifecycle-management-with-scim/">identity management</a> was once embedded within the application itself, these new design paradigms required external identity systems to control the flow. This improved scalability and security but also introduced further caveats.</p>
+<p>One concern was in the domain of trust. When you adopt scalable external services as a solution, you need to establish a system where trust can be maintained or, at the very least, verified. Another huge issue is portability. Distributed systems rely on the portability of systems, so any solution for authentication (and authorization) would need to be portable.</p>
+<h3 id="token-based-authentication">Token-Based Authentication</h3>
+<p>A solution arose in the adoption of token-based authentication. The idea was simple — by using something like <a href="https://nordicapis.com/why-cant-i-just-send-jwts-without-oauth/">JSON Web Tokens (JWTs)</a>, a piece of data (a token) could be created holding the authentication information from the service in question. This token could then be brought by request to other systems, allowing for high portability throughout the distributed system without repetitive queries or checks.</p>
+<p>This required some new tooling to be created. The older systems simply did not have the functions needed to do this well. While the idea of tokens was not new per se, implementing them within the distributed system was novel. It required some new solutions to manage the creation, management, and revocation of these systems.</p>
+<h3 id="oauth-2-0-and-openid-connect">OAuth 2.0 and OpenID Connect</h3>
+<p>A major issue with early <a href="https://curity.io/product/token-service/">token-based authentication</a> was that these systems were often limited only to the service in which they were created. Without having a standard mechanism, you could only validate the interaction on the service that created the token. This was fine for some use cases, but in the era of <a href="https://nordicapis.com/4-examples-of-microservices-architectures-done-right/">mass-distributed systems</a>, this was simply not good enough. There was a sudden need for mass-distributed token standards.</p>
+<p>One such combination of tools created to meet this need was OAuth (currently <a href="https://nordicapis.com/what-is-oauth-2-0-and-what-is-it-good-for/">OAuth 2.0</a>) and <a href="https://nordicapis.com/what-is-openid-connect/">OpenID Connect</a>. The core concept was simple: by creating an industry-standard protocol for authorization and then layering it with an identity service to facilitate this authentication, tokens could be created for internal systems that could also be ported to external services.</p>
+<p>While this allowed for standard tokens and user attributes, there was a caveat — there was very little in the way of fine-grained authorization. While you could hack your way around this, the technology did not define a robust solution for fine-grained controls.</p>
+<blockquote><p>&#8220;The OAuth authorization framework doesn&#8217;t really solve the problem of authorization — at least not on a more fine-grained level, which is what we&#8217;re looking for.&#8221;</p></blockquote>
+<div class="well">Also read: <a href="https://nordicapis.com/oauth-a-breakdown-for-beginners/">What Is OAuth? A Breakdown for Beginners</a></div>
+<h3 id="challenges-in-distributed-authorization">Challenges in Distributed Authorization</h3>
+<p>In the same vein, while there was no definition for fine-grained control through tokens, there was also no definition for exactly how these credentials should be passed. There were some defined flows and optional methodologies, but the way services could pass these credentials was ill-defined.</p>
+<p>To add to the mess, there was a concern around complex authorization needs. With complex setups, these issues were only exacerbated, with different levels of consideration, domains of control, and more adding unknowns and difficulties into the flow. There was also a major concern of trust — ironically enough, without a clear methodology to determine and control credential flow, there was a weakness in defining specific mechanisms for trusting other verification services.</p>
+<h2 id="zero-trust-a-forward-thinking-model">Zero-Trust: A Forward-Thinking Model</h2>
+<p>Enter the <a href="https://nordicapis.com/how-to-build-zero-trust-event-based-architectures/">zero-trust model</a>. This model is straightforward — every service does its own authentication and authorization for the functions in question and assumes that all services — even internal ones — are untrusted. This additional layer of verification essentially adopts a practice of questioning everything while accepting the veracity of outside services.</p>
+<p>Think of it this way. In a <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">zero-trust architecture</a>, a service might look at a token-bearing request and say, &#8220;Yes, I trust that you&#8217;ve come from this other service, but you have to pass my tests as well&#8221;. This way, the specific request can be accepted as coming from a specific service, but the functional request can still be validated and verified.</p>
+<p>This approach solved a lot of issues. And increased security demands had caused concerns about ensuring all services aligned to the same standards. Zero-trust models made it so that it didn&#8217;t matter how security differed between services, as the function would still have to be validated when it arrived.</p>
+<p>This substantially <a href="https://nordicapis.com/how-decentralized-identity-will-affect-api-security/">decentralized the authorization logic</a>, allowing services to set permissions directly instead of relying on an external centralized database. In many ways, this was the obvious next step in the adoption of decentralizing APIs. This also led to significantly reduced latency and external dependencies, making development more effective and portable over the long term.</p>
+<blockquote><p>&#8220;We still have a few more problems with this model, though. One of them is the authorization logic embedded in the services. The more [and] the larger your organization, the more complex it is, the more heterogeneous, the more of these programming languages and frameworks you introduce — these will all do authorization in their own specific way. And, of course, they will all have their specific bugs related to authorization. This is a nightmare to audit.&#8221;</p></blockquote>
+<p>This model, on its own, has some issues that are persistent. Decentralizing authorization has many benefits, but it does introduce substantial complexity into the system, which can ultimately make the situation worse, not better.</p>
+<h2 id="open-policy-agent-opa-">Open Policy Agent (OPA)</h2>
+<p><a href="https://github.com/open-policy-agent/opa">Open Policy Agent</a> takes this one step further, presenting a unified but decentralized open-source solution for setting standards for authorization. By adopting OPA, you get the best of both worlds — a decentralized stack that still has a unified policy engine. This engine can help delegate authorization decisions while enforcing more granular control across the service, allowing systems to communicate effectively while adopting a standard implementation.</p>
+<h3 id="rego-language-for-definition">Rego Language for Definition</h3>
+<p>To set these policies, a language was needed. Rego, a declarative language, was adopted as the language of choice. This language allows for very clear and specified requirements to be set and enforced across various platforms, reducing the impacts of differential frameworks, languages, and systems.</p>
+<h3 id="implementation-and-enforcement">Implementation and Enforcement</h3>
+<p>In practice, the system works by decentralizing the decision logic as a flow of its own. In this process, there are several elements:</p>
+<ul>
+<li><strong>Service</strong>: The system in question which has had a query made to it.</li>
+<li><strong>OPA</strong>: The agent that routes the query through to the policy engine.</li>
+<li><strong>Policy</strong>: The policy definition that allows for strict decision-making and authorization choices.</li>
+<li><strong>Data</strong>: Additional context around external deployment context.</li>
+</ul>
+<p>In the standard flow, a service passes a query through OPA. At this point, OPA splits the request in several directions. First, it routes the request authorization itself to the Policy engine. From here, the engine can review the information at hand and decide whether the request can actually be fulfilled. At the same time, additional data around the deployment context can be provided at this time, allowing for more context-driven decisions.</p>
+<p>Once a decision is rendered, it&#8217;s fed back through OPA and then to the service for proper response. This decentralized ability to set standards allows multiple systems to connect to a highly granular and deployment-independent policy. This is a huge leap towards enabling zero-trust, enabling each service to own its centralization logic regardless of the method or modality of interaction.</p>
+<div class="well">For more read: <a href="https://nordicapis.com/how-to-build-zero-trust-event-based-architectures/">How to Build Zero-Trust Event-Based Architectures</a></div>
+<h2 id="managing-at-scale">Managing At Scale</h2>
+<p>The reality of adopting this strategy means that a substantial management service is needed to actually control these standards in some cases. With increasing complexity, you begin to need some sort of collation or collection point. For APIs, this is often the <a href="https://nordicapis.com/6-open-source-api-gateways/">API gateway</a> — a single unified point by which all interactions can be filtered and seen. For policy management, however, this gets more complex.</p>
+<blockquote><p>&#8220;When you start to have this for hundreds or thousands of services, you&#8217;ll need some way of managing all this to control that.&#8221;</p></blockquote>
+<p>Ecknert suggests using Styra, a commercial control plane, for this purpose. Yet, the main point is to have an appropriate solution for your use case. At this level of policy management, complexity will become your biggest issue, and how you manage this complexity will ultimately pay huge dividends.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>OPA is a great solution for enabling zero-trust APIs. Adopting the decentralization paradigm is hugely beneficial and allows for more granular controls across multiple services without adopting a centralized solution.</p>
+<p>What do you think of OPA as an authorization solution? Let us know in the comments below! Additionally, let us know of any other software architecture design trends you&#8217;d like to see covered on Nordic APIs!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] So you think you understand IP fragmentation?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] So you think you understand IP fragmentation?</h2>
+		<a target="_blank" href="https://lwn.net/Articles/960913/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      What is IP fragmentation, why is it important, and do people understand
+it? The answer to that last question is "not as well as they think". This
+article will also answer the rest of those
+questions and introduce <a
+href="https://valerieaurora.org/fragquiz.html">fragquiz</a>, a game that I
+wrote to allow players to guess how IP packets will behave when they are
+too large for the network. As evidence that IP fragmentation is not
+well-understood, a room full of networking experts played fragquiz and got
+a score that was
+nowhere close to perfect.  In addition, I will describe a new algorithm for
+fragmentation avoidance, which some colleagues and I
+developed, that helped motivate development of fragquiz.
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

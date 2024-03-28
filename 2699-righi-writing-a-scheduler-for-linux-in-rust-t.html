@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Righi: Writing a scheduler for Linux in Rust that runs in user-space</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Righi: Writing a scheduler for Linux in Rust that runs in user-space</h2>
+		<a target="_blank" href="https://lwn.net/Articles/962897/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">Andrea Righi has <a
+href="https://arighi.blogspot.com/2024/02/writing-scheduler-for-linux-in-rust.html">started
+a blog series</a> on writing a user-space CPU scheduler with the BPF-based
+<a href="https://lwn.net/Articles/922405/">extensible scheduler class</a>:
+<p>
+<blockquote class="bq">
+	<tt>.select_cpu()</tt> implements the logic to assign a target CPU to a task
+	that wants to run, typically you have to decide if you want to keep
+	the task on the same CPU or if it needs to be migrated to a
+	different one (for example if the current CPU is busy); if we can
+	find an idle CPU at this stage there's no reason to call the
+	scheduler, the task can be immediately dispatched here.
+</blockquote></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

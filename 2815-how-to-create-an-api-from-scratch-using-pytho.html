@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Create an API From Scratch Using Python and Flask</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Create an API From Scratch Using Python and Flask</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-create-an-api-from-scratch-using-python-and-flask/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>It&#8217;s never been easier to create your own APIs. It&#8217;s also never been cheaper, thanks to numerous <a href="https://nordicapis.com/8-open-source-frameworks-for-building-apis-in-python/">powerful frameworks</a>, libraries, and packages that have popped up in the wake of the mass adoption and popularity of APIs.</p>
+<p>Knowing how to create your own APIs confers all manner of benefits. Understanding what&#8217;s happening behind the scenes liberates you from proprietary tools and solutions. It also helps you think like an API designer, as it facilitates visualizing API architecture, endpoints, availability and access to resources, and so on.</p>
+<p>In this tutorial, we&#8217;re going to show you how to create your own API from scratch using <a href="https://nordicapis.com/how-to-create-an-api-using-the-flask-framework/">Python and Flask</a>. Python is the third most popular programming in the world, according to Statista, closely ranking behind JavaScript and HTML.</p>
+<div id="attachment_19164" style="width: 714px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-19164" class="size-full wp-image-19164" src="https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages.png" alt="Statista research popular programming languages" width="704" height="451" srcset="https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages.png 704w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-300x192.png 300w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-187x120.png 187w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-156x100.png 156w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-109x70.png 109w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-78x50.png 78w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-200x128.png 200w, https://nordicapis.com/wp-content/uploads/Statista-research-popular-programming-languages-400x256.png 400w" sizes="(max-width: 704px) 100vw, 704px" /><p id="caption-attachment-19164" class="wp-caption-text">Source: <a href="https://www.statista.com/statistics/793628/worldwide-developer-survey-most-used-languages/">Statista</a></p></div>
+<p>Flask is one of the most popular Python libraries for web development, with almost 66,000 stars on GitHub and 16,200 forks, making it an easy pick for our API tutorial. Even better still, there&#8217;s a dedicated library for creating and hosting APIs in Flask, <a href="https://flask-restful.readthedocs.io/en/latest/">Flask_restful</a>, making it especially convenient to get up and running.</p>
+<h2 id="1-getting-started">1. Getting Started</h2>
+<p>Creating your own API from scratch couldn&#8217;t be easier. Numerous packages and libraries let you create an API from the command line and a simple text editor. Setup is simple — it&#8217;s what you <em>do</em> with the API once it&#8217;s deployed where things can get complex.</p>
+<p>For this tutorial, we&#8217;re going to create an API for creating your own ToDo list using Python, Flask, and Flask-restful. When you&#8217;re done, you&#8217;ll have a fully functional API, with every time getting its own endpoint.</p>
+<p>To start, create a folder for your project in your programming directory. We&#8217;ve called ours <code>FlaskApp</code>. Navigate to your new folder. For this exercise, we&#8217;re going to create a virtual environment. Inside of your development folder, run the following script:</p>
+<pre><code><span class="hljs-keyword">python</span> -m venv <span class="hljs-keyword">env</span>
+</code></pre>
+<p>To activate, find the <code>Activate.exe</code> file and run it. If you&#8217;re on Windows, it&#8217;ll be inside <code>.\env\Scripts</code>.</p>
+<p>Next, you&#8217;re going to install the Flask library. Input the following command into your command prompt.</p>
+<pre><code>pip <span class="hljs-keyword">install</span> Flask
+</code></pre>
+<p>Now, we&#8217;re going to do the same with Flask-restful, a library meant specifically for creating APIs in Python. Run the following code:</p>
+<pre><code>pip <span class="hljs-keyword">install</span> Flask-restful
+</code></pre>
+<h2 id="2-create-a-minimal-api-in-python">2. Create a Minimal API in Python</h2>
+<p>Now, we&#8217;re going to create a barebones API in Python using Flask and Flask-restful. Start by creating a new file using your text editor of choice. We&#8217;re using Notepad++ as it lets you save files in whatever format you want. Save this file as <code>API.py</code>.</p>
+<p>Inside of <code>API.py</code>, insert the following code:</p>
+<pre><code><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+<span class="hljs-keyword">from</span> flask_restful <span class="hljs-keyword">import</span> Resource, Api
+
+app = Flask(__name__)
+api = Api(app)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span><span class="hljs-params">(Resource)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">'hello'</span>: <span class="hljs-string">'world'</span>}
+
+api.add_resource(HelloWorld, <span class="hljs-string">'/'</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    app.run(debug=<span class="hljs-keyword">True</span>)
+</code></pre>
+<p>Save this file. Next, we&#8217;re going to run the file using:</p>
+<pre><code><span class="hljs-keyword">python</span> api.<span class="hljs-keyword">py</span>
+</code></pre>
+<p>You should get the following result:</p>
+<pre><code>* Running <span class="hljs-keyword">on</span> http:<span class="hljs-comment">//127.0.0.1:5000</span>
+</code></pre>
+<p>Next, open another instance of Command Prompt. Navigate to your programming folder again and run the following code to test the code.</p>
+<pre><code>curl <span class="hljs-string">http:</span><span class="hljs-comment">//127.0.0.1:5000/</span>
+</code></pre>
+<p>You should get the following result.</p>
+<pre><code>{
+    <span class="hljs-attr">"hello"</span>: <span class="hljs-string">"world"</span>
+}
+</code></pre>
+<h2 id="3-create-resourceful-routing">3. Create Resourceful Routing</h2>
+<p>Resources are the primary building blocks in Flask-restful. They&#8217;re built using Flask&#8217;s pluggable views, which lets you use multiple <a href="https://nordicapis.com/ultimate-guide-to-all-9-standard-http-methods/">HTTP methods</a> for each resource. Here&#8217;s an example of what Resourceful Routing might look like:</p>
+<pre><code><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request
+<span class="hljs-keyword">from</span> flask_restful <span class="hljs-keyword">import</span> Resource, Api
+
+app = Flask(__name__)
+api = Api(app)
+
+todos = {}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoSimple</span><span class="hljs-params">(Resource)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self, todo_id)</span>:</span>
+        <span class="hljs-keyword">return</span> {todo_id: todos[todo_id]}
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">put</span><span class="hljs-params">(self, todo_id)</span>:</span>
+        todos[todo_id] = request.form[<span class="hljs-string">'data'</span>]
+        <span class="hljs-keyword">return</span> {todo_id: todos[todo_id]}
+
+api.add_resource(TodoSimple, <span class="hljs-string">'/&lt;string:todo_id&gt;'</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    app.run(debug=<span class="hljs-keyword">True</span>)
+</code></pre>
+<p>This code specifies protocols for both get and push for the ToDo function. Every time a new item is shared to the server, a new ToDo endpoint is created. To test this out, use the following command:</p>
+<pre><code>curl <span class="hljs-string">http:</span><span class="hljs-comment">//localhost:5000/todo1 -d "data=Remember the milk" -X PUT</span>
+</code></pre>
+<p>This should return the following result to the ToDo1 endpoint.</p>
+<pre><code>{
+    <span class="hljs-attr">"todo1"</span>: <span class="hljs-string">"Remember the milk"</span>
+}
+</code></pre>
+<p>Although it&#8217;s simplistic, this example shows you how you can create a completely workable API, complete with custom endpoints, two libraries, a text editor, and 20 lines of code.</p>
+<h2 id="4-customize-endpoints">4. Customize Endpoints</h2>
+<p>Most APIs will feature more than one endpoint. Fortunately, you can create as many custom endpoints as you like in Flask-restful using the api.add_resource method. You can also use individual components of a path to create endpoints, such as the following:</p>
+<pre><code><span class="hljs-selector-tag">api</span><span class="hljs-selector-class">.add_resource</span>(Todo,
+    <span class="hljs-string">'/todo/&lt;int:todo_id&gt;'</span>, endpoint=<span class="hljs-string">'todo_ep'</span>)
+</code></pre>
+<h2 id="5-parse-arguments">5. Parse Arguments</h2>
+<p>Flask-restful features native argument parsing using the <code>reqparse</code> method, similar to the <code>argparse</code> method. This ensures your data is appropriately formatted. An example of <code>reqparse</code> in action:</p>
+<pre><code>from flask_restful import reqparse
+
+<span class="hljs-keyword">parser</span> = reqparse.<span class="hljs-type">RequestParser</span><span class="hljs-literal">()</span>
+<span class="hljs-keyword">parser</span>.add_argument(<span class="hljs-symbol">'rate'</span>, <span class="hljs-keyword">type</span>=<span class="hljs-built_in">int</span>, help=<span class="hljs-symbol">'Rate</span> <span class="hljs-keyword">to</span> charge <span class="hljs-keyword">for</span> this resource')
+args = <span class="hljs-keyword">parser</span>.parse_args<span class="hljs-literal">()</span>
+</code></pre>
+<p>Reqparse also includes built-in errors if the formatting&#8217;s not correct. For example, if you were to send:</p>
+<pre><code>curl -d <span class="hljs-string">'rate=foo'</span> <span class="hljs-string">http:</span><span class="hljs-comment">//127.0.0.1:5000/todos</span>
+</code></pre>
+<p>You might get the following result:</p>
+<pre><code>{
+    <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Did not attempt to load JSON data because the request Content-Type was not 'application/json'."</span>
+}
+</code></pre>
+<h2 id="6-example-flask-api-using-flask-restful-and-python">6. Example Flask API Using Flask-Restful and Python</h2>
+<p>Let&#8217;s finish up with a slightly more advanced API to help give you some idea of how easy it is to create an API that&#8217;s actually useful using Python, Flask, and Flask-Restful.</p>
+<p>You might create a secondary file for this example so as not to disturb your first working demo. We called ours <code>API2.py</code>. Create a new file and insert the following:</p>
+<pre><code><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+<span class="hljs-keyword">from</span> flask_restful <span class="hljs-keyword">import</span> reqparse, abort, Api, Resource
+
+app = Flask(__name__)
+api = Api(app)
+
+TODOS = {
+    <span class="hljs-string">'todo1'</span>: {<span class="hljs-string">'task'</span>: <span class="hljs-string">'build an API'</span>},
+    <span class="hljs-string">'todo2'</span>: {<span class="hljs-string">'task'</span>: <span class="hljs-string">'?????'</span>},
+    <span class="hljs-string">'todo3'</span>: {<span class="hljs-string">'task'</span>: <span class="hljs-string">'profit!'</span>},
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">abort_if_todo_doesnt_exist</span><span class="hljs-params">(todo_id)</span>:</span>
+    <span class="hljs-keyword">if</span> todo_id <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> TODOS:
+        abort(<span class="hljs-number">404</span>, message=<span class="hljs-string">"Todo {} doesn't exist"</span>.format(todo_id))
+
+parser = reqparse.RequestParser()
+parser.add_argument(<span class="hljs-string">'task'</span>)
+
+
+<span class="hljs-comment"># Todo</span>
+<span class="hljs-comment"># shows a single todo item and lets you delete a todo item</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Todo</span><span class="hljs-params">(Resource)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self, todo_id)</span>:</span>
+        abort_if_todo_doesnt_exist(todo_id)
+        <span class="hljs-keyword">return</span> TODOS[todo_id]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete</span><span class="hljs-params">(self, todo_id)</span>:</span>
+        abort_if_todo_doesnt_exist(todo_id)
+        <span class="hljs-keyword">del</span> TODOS[todo_id]
+        <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>, <span class="hljs-number">204</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">put</span><span class="hljs-params">(self, todo_id)</span>:</span>
+        args = parser.parse_args()
+        task = {<span class="hljs-string">'task'</span>: args[<span class="hljs-string">'task'</span>]}
+        TODOS[todo_id] = task
+        <span class="hljs-keyword">return</span> task, <span class="hljs-number">201</span>
+
+
+<span class="hljs-comment"># TodoList</span>
+<span class="hljs-comment"># shows a list of all todos, and lets you POST to add new tasks</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span><span class="hljs-params">(Resource)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> TODOS
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self)</span>:</span>
+        args = parser.parse_args()
+        todo_id = int(max(TODOS.keys()).lstrip(<span class="hljs-string">'todo'</span>)) + <span class="hljs-number">1</span>
+        todo_id = <span class="hljs-string">'todo%i'</span> % todo_id
+        TODOS[todo_id] = {<span class="hljs-string">'task'</span>: args[<span class="hljs-string">'task'</span>]}
+        <span class="hljs-keyword">return</span> TODOS[todo_id], <span class="hljs-number">201</span>
+
+<span class="hljs-comment">##</span>
+<span class="hljs-comment">## Actually setup the Api resource routing here</span>
+<span class="hljs-comment">##</span>
+api.add_resource(TodoList, <span class="hljs-string">'/todos'</span>)
+api.add_resource(Todo, <span class="hljs-string">'/todos/&lt;todo_id&gt;'</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    app.run(debug=<span class="hljs-keyword">True</span>)
+</code></pre>
+<p>Now, run your new file.</p>
+<pre><code><span class="hljs-selector-tag">Python</span> <span class="hljs-selector-tag">API2</span><span class="hljs-selector-class">.py</span>
+</code></pre>
+<p>Finally, you can try out your new API. Use this command to get a list of all of the items on your new ToDo list.</p>
+<pre><code>curl <span class="hljs-string">http:</span><span class="hljs-comment">//localhost:5000/todos</span>
+</code></pre>
+<p>You should get a response like this:</p>
+<pre><code>{
+    <span class="hljs-attr">"todo1"</span>: {
+        <span class="hljs-attr">"task"</span>: <span class="hljs-string">"build an API"</span>
+    },
+    <span class="hljs-attr">"todo2"</span>: {
+        <span class="hljs-attr">"task"</span>: <span class="hljs-string">"?????"</span>
+    },
+    <span class="hljs-attr">"todo3"</span>: {
+        <span class="hljs-attr">"task"</span>: <span class="hljs-string">"profit!"</span>
+    }
+}
+</code></pre>
+<h1 id="final-thoughts-on-creating-your-own-api-from-scratch">Final Thoughts On Creating Your Own API From Scratch</h1>
+<p>As we have seen, you don&#8217;t need to spend much time, money, energy, or resources to design and build your own API. You don&#8217;t need fancy and expensive proprietary software to create an API that&#8217;s actually useful for you and your organization, either. Designing your own API gives you a deep, masterful knowledge of every single aspect of your API, as well.</p>
+<p>With powerful tools like <a href="https://nordicapis.com/how-to-create-an-api-using-the-flask-framework/">Flask</a> and Flask-restful, you don&#8217;t even need extensive programming experience to create useful, practical APIs. Most importantly, developing your own API gives you a chance to <em>use your API</em>. All the theory in the world doesn&#8217;t compare to even simple, practical, real-world applications. Seeing your API in action helps you understand its strengths and shortcomings in ways that are difficult to anticipate.</p>
+<p>Knowing how to create your own API from scratch lets you design and implement your API however you want. This can improve your <a href="https://nordicapis.com/10-api-security-best-practices/">API&#8217;s security</a> and <a href="https://nordicapis.com/everything-you-need-to-know-about-api-discovery/">discoverability</a>, in addition to its many other benefits, as you can create your API following popular API standards like OpenAPI. Specifications also act as a template to pattern your API after, offering the best of all worlds. Custom APIs can be powerful, versatile, customizable, secure, and easy to create. There&#8217;s every incentive to experiment with creating an API from scratch for yourself!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

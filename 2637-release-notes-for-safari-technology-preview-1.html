@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 188</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 188</h2>
+		<a target="_blank" href="https://webkit.org/blog/15026/release-notes-for-safari-technology-preview-188/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 188 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/31001e9814a15c1e2639a8fb4836b1ec65cc2fd1...10a815cfebf7c0bb1cbae781a57de67cd96edeee">272449@main&#8230;273601@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the new CSS <code>content</code> alternative text syntax. (<a href="https://commits.webkit.org/272455@main">272455@main</a>)  (26942023)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed role assignment for <code>&lt;header&gt;</code> inside <code>&lt;main&gt;</code> and sectioning elements. (<a href="https://commits.webkit.org/273188@main">273188@main</a>)  (48370244)  </li>
+<li>Fixed text missing from accessibility labels for many common shadow DOM scenarios. (<a href="https://commits.webkit.org/272531@main">272531@main</a>)  (120223342)  </li>
+<li>Fixed the mapping for the iOS accessibility framework to speak &#8220;switch button&#8221;, &#8220;on&#8221;, and &#8220;off&#8221; for <code>&lt;input type=checkbox switch&gt;</code>. (<a href="https://commits.webkit.org/273206@main">273206@main</a>)  (121215059)  </li>
+<li>Fixed comboboxes to expose their linked objects correctly. (<a href="https://commits.webkit.org/273542@main">273542@main</a>)  (121242926)  </li>
+</ul>
+<h3>Animations</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the <code>transition</code> property to produce the shortest serialization. (<a href="https://commits.webkit.org/272513@main">272513@main</a>)  (119822401)  </li>
+<li>Fixed the <code>animation</code> property to produce the shortest serialization. (<a href="https://commits.webkit.org/272629@main">272629@main</a>)  (120439368)  </li>
+</ul>
+<h3>Browser Changes</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed loading a ⌘Click fragment link in a background tab. (<a href="https://commits.webkit.org/272906@main">272906@main</a>)  (119079650)  </li>
+<li>Fixed saving linked subresources when saving web page resources. (<a href="https://commits.webkit.org/272925@main">272925@main</a>)  (120491493)  </li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added <code>supports()</code> syntax for <code>@import</code> rules. (<a href="https://commits.webkit.org/273591@main">273591@main</a>)  (109060734)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>getComputedStyle()</code> for invalid pseudo-elements. (<a href="https://commits.webkit.org/272543@main">272543@main</a>)  (98504661)  </li>
+<li>Fixed <code>oklab</code> and <code>oklch</code> lightness value clamping. (<a href="https://commits.webkit.org/272501@main">272501@main</a>)  (116195533)  </li>
+<li>Fixed poor performance with <code>:has(+ :not(.class))</code> pseudo-class selector. (<a href="https://commits.webkit.org/272678@main">272678@main</a>)  (119819247)  </li>
+<li>Fixed CSS <code>content</code> computed value serialization. (<a href="https://commits.webkit.org/272476@main">272476@main</a>)  (120061551)  </li>
+<li>Fixed pseudo-element parsing in <code>getComputedStyle()</code> and <code>KeyframeEffect.prototype.pseudoElement</code> so they require them starting with <code>::</code> (or <code>:</code> for 4 legacy pseudo-elements). (<a href="https://commits.webkit.org/272499@main">272499@main</a>)  (120170550)  </li>
+<li>Fixed CSS <code>linear()</code> easing. (<a href="https://commits.webkit.org/272613@main">272613@main</a>)  (120290721)  </li>
+<li>Fixed: Aliased <code>:-webkit-full-screen</code> pseudo-class to <code>:fullscreen</code>. (<a href="https://commits.webkit.org/272577@main">272577@main</a>)  (120335917)  </li>
+<li>Fixed: Aliased <code>:-webkit-any-link</code> to <code>:any-link</code> and <code>:matches()</code> to <code>:is()</code>. (<a href="https://commits.webkit.org/272559@main">272559@main</a>)  (120337922)  </li>
+<li>Fixed <code>getComputedStyle()</code> pseudo-element parsing to support the full range of CSS syntax. (<a href="https://commits.webkit.org/272649@main">272649@main</a>)  (120471227)  </li>
+<li>Fixed <code>:not(:has(:not(foo)))</code> getting misclassified as scope breaking. (<a href="https://commits.webkit.org/273177@main">273177@main</a>)  (120492012)  </li>
+<li>Fixed <code>@supports</code> to correctly handle support for some <code>-webkit</code> prefixed pseudo-elements that were incorrectly treated as unsupported. (<a href="https://commits.webkit.org/272726@main">272726@main</a>)  (120577690)  </li>
+<li>Fixed updating media-query sensitive meta tags after style changes. (<a href="https://commits.webkit.org/272947@main">272947@main</a>)  (120854167)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed <code>-webkit-alt</code> and <code>alt</code> properties. (<a href="https://commits.webkit.org/272480@main">272480@main</a>)  (120051066)  </li>
+<li>Removed the non-standard <code>resize: auto</code> property. (<a href="https://commits.webkit.org/273035@main">273035@main</a>)  (120138995)  </li>
+<li>Made <code>-apple-</code> prefixed pseudo-elements no longer valid. (<a href="https://commits.webkit.org/272538@main">272538@main</a>)  (120268884)  </li>
+<li>Removed <code>:-webkit-animating-full-screen-transition</code> pseudo-class. (<a href="https://commits.webkit.org/273529@main">273529@main</a>)  (121302758)  </li>
+<li>Removed <code>:-khtml-drag</code> pseudo-class. (<a href="https://commits.webkit.org/273261@main">273261@main</a>)  (121303391)  </li>
+</ul>
+<h3>Forms</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>text-indent</code> to affect the selected file(s) label for file inputs. (<a href="https://commits.webkit.org/272837@main">272837@main</a>)  (105223868)  </li>
+</ul>
+<h3>Loading</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>navigator.cookieEnabled</code> to return <code>false</code> when cookies are blocked. (<a href="https://commits.webkit.org/273522@main">273522@main</a>)  (121284878)  </li>
+</ul>
+<h3>Lockdown Mode</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Lockdown Mode disabling on sites with COOP and COEP HTTP headers. (<a href="https://commits.webkit.org/273243@main">273243@main</a>)  (119503109)  </li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed HLS video captions where there are multiple text tracks available. (<a href="https://commits.webkit.org/272784@main">272784@main</a>)  (119839950)  </li>
+<li>Fixed fullscreen video not scaling to display size when the Safari window is in Full Screen App Mode. (<a href="https://commits.webkit.org/272733@main">272733@main</a>)  (119893556)  </li>
+<li>Fixed handling key renewal requests that cause playback errors for some DRM content. (<a href="https://commits.webkit.org/272592@main">272592@main</a>)  (120230860)  </li>
+<li>Fixed paint-on captions shifting during playback. (<a href="https://commits.webkit.org/272966@main">272966@main</a>)  (120847946)  </li>
+<li>Fixed blocked encrypted sampled not getting enqueued after a CDM is attached to a SourceBuffer. (<a href="https://commits.webkit.org/273340@main">273340@main</a>)  (120879185)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed resizing a <code>&lt;textarea&gt;</code> element with <code>1rem</code> padding. (<a href="https://commits.webkit.org/273029@main">273029@main</a>)  (90639221)  </li>
+<li>Fixed incorrectly oriented Traditional Mongolian script characters. (<a href="https://commits.webkit.org/272454@main">272454@main</a>)  (93426525)  </li>
+<li>Fixed handling images with color spaces not supported by the backend to fallback to render in sRGB. (<a href="https://commits.webkit.org/273204@main">273204@main</a>)  (118238178)  </li>
+<li>Fixed check boxes and radio buttons to avoid floats. (<a href="https://commits.webkit.org/273047@main">273047@main</a>)  (118660695)  </li>
+<li>Fixed rendering issues when editing text. (<a href="https://commits.webkit.org/273320@main">273320@main</a>)  (119833765)  </li>
+<li>Fixed a floating element causing a list item bullet to be orphaned on constrained lines. (<a href="https://commits.webkit.org/272451@main">272451@main</a>)  (120022893)  </li>
+<li>Fixed fully repainting form controls with visual overflow and <code>writing-mode: vertical-rl</code>. (<a href="https://commits.webkit.org/272799@main">272799@main</a>)  (120066970)  </li>
+<li>Fixed incorrect inline box (hugging) outline painting in vertical writing modes. (<a href="https://commits.webkit.org/272512@main">272512@main</a>)  (120217559)  </li>
+<li>Fixed incorrect <code>ch</code> unit value in <code>vertical-rl</code> and <code>vertical-lr</code> when <code>text-orientation</code> is not upright. (<a href="https://commits.webkit.org/272536@main">272536@main</a>)  (120293590)  </li>
+<li>Fixed the color correctness of the color matrix filter. (<a href="https://commits.webkit.org/272891@main">272891@main</a>)  (120795573)  </li>
+<li>Fixed <code>overflow: hidden</code> preventing CSS Subgrid. (<a href="https://commits.webkit.org/273134@main">273134@main</a>)  (120848131)  </li>
+<li>Fixed the repaint area for underline text decorations. (<a href="https://commits.webkit.org/273126@main">273126@main</a>)  (121082290)  </li>
+<li>Fixed rendering floats and an out-of-flow <code>&lt;br&gt;</code> element with <code>clear</code>. (<a href="https://commits.webkit.org/273407@main">273407@main</a>)  (121444267)  </li>
+</ul>
+<h3>Scrolling</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed unusable horizontal scrollbars with a right-to-left element. (<a href="https://commits.webkit.org/272466@main">272466@main</a>)  (109858866)  </li>
+<li>Fixed wheel overflow behavior with Shadow DOM elements. (<a href="https://commits.webkit.org/273181@main">273181@main</a>)  (118496293)  </li>
+<li>Fixed keyboard scrolling beyond the page getting stuck at a bad scroll offset. (<a href="https://commits.webkit.org/272957@main">272957@main</a>)  (120053910)  </li>
+<li>Fixed a variety of issues by disabling Scroll Anchoring. (<a href="https://commits.webkit.org/273238@main">273238@main</a>)  (121236706)  </li>
+</ul>
+<h3>Storage</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed cases where website data is unexpectedly evicted. (<a href="https://commits.webkit.org/272951@main">272951@main</a>)  (119818267)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed support for AppCache. (<a href="https://commits.webkit.org/273297@main">273297@main</a>)  (113343269)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed negative SVGTransform scale values to be correctly stringified. (<a href="https://commits.webkit.org/272885@main">272885@main</a>)  (118656892)  </li>
+<li>Fixed the layout of an SVG when it is inside an <code>&lt;iframe&gt;</code> without affecting the size of the <code>&lt;iframe&gt;</code>. (<a href="https://commits.webkit.org/272503@main">272503@main</a>)  (120178866)  </li>
+<li>Fixed displaying an SVG element inside a <code>&lt;switch&gt;</code> element. (<a href="https://commits.webkit.org/272831@main">272831@main</a>)  (120732837)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for CustomStateSet in custom elements and <code>:state()</code> pseudo-class. (<a href="https://commits.webkit.org/272474@main">272474@main</a>)  (120072599)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Added support for AES-GCM in WebCrypto. (<a href="https://commits.webkit.org/273488@main">273488@main</a>)  (101040216)  </li>
+<li>Fixed removing highlights in the Custom Highlights API. (<a href="https://commits.webkit.org/272723@main">272723@main</a>)  (119531671)  </li>
+<li>Fixed unnecessarily unsetting the iframe fullscreen flag. (<a href="https://commits.webkit.org/272462@main">272462@main</a>)  (120052751)  </li>
+<li>Fixed <code>getElementsByName()</code> to only return HTML elements, not SVG, MathML, or other types of elements. (<a href="https://commits.webkit.org/272530@main">272530@main</a>)  (120275680)  </li>
+<li>Fixed the <code>button</code> value for a <code>pointerup</code> event not matching the <code>pointerdown</code> event. (<a href="https://commits.webkit.org/273263@main">273263@main</a>)  (120429508)  </li>
+<li>Fixed a wheel event to fire on an element that has been re-inserted after <code>document.open</code>. (<a href="https://commits.webkit.org/272960@main">272960@main</a>)  (120893136)  </li>
+<li>Fixed Scroll To Text Fragment Text Directives to find text with additional unrendered white space in their node data. (<a href="https://commits.webkit.org/273016@main">273016@main</a>)  (120913588)  </li>
+<li>Fixed Media Capture API to capture the camera. (<a href="https://commits.webkit.org/273258@main">273258@main</a>)  (121256297)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed support for <code>KeyboardEvent.altGraphKey</code>. (<a href="https://commits.webkit.org/273379@main">273379@main</a>)  (102980723)  </li>
+<li>Removed AES-CFB support from WebCrypto. (<a href="https://commits.webkit.org/272615@main">272615@main</a>)  (120000331)  </li>
+<li>Removed the non-standard <code>KeyboardEvent.keyLocation</code>. (<a href="https://commits.webkit.org/273457@main">273457@main</a>)  (121564228)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>browsing.scripting.executeScript</code> to handle all valid argument types.  (120727491)  </li>
+</ul>
+<h3>WebAuthn</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>getClientCapabilities</code> to align with WebAuthn standards to use a record type with camelCase values. (<a href="https://commits.webkit.org/272998@main">272998@main</a>)  (120442670)  </li>
+</ul>
+<h3>WebGL</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled support for <code>EXT_conservative_depth</code> and <code>NV_shader_noperspective_interpolation</code>. (<a href="https://commits.webkit.org/272979@main">272979@main</a>)  (120907578)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed WebGL to be available in nested workers. (<a href="https://commits.webkit.org/272765@main">272765@main</a>)  (120279728)  </li>
+</ul>
+<h3>WebRTC</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed triggering resolution scaling in the case of WebRTC maintain-framerate <code>degradationPreference</code>. (<a href="https://commits.webkit.org/273172@main">273172@main</a>)  (121041723)  </li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

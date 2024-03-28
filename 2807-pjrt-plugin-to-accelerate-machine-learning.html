@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>PJRT Plugin to Accelerate Machine Learning</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">PJRT Plugin to Accelerate Machine Learning</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2024/03/pjrt-plugin-to-accelerate-machine-learning.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCfGMJbxXPdDqN4rxXhgUbFboHth4KdhwmcsQOTr0jibVxaAasbBERxg0gLPZM0oHsfhsR58vPuag3sX7d5GStc2DEEIGIMiZru8kOtsEVGuXkHXUIV7LSasSqX_6lnt6ipLxu7jB2QpRBhDbBBD4PxVkyhmd7LON6O3sXh6P4VLZ1eKTIWdRr9FuqNHE/s1600/Social%20-%20OSS%20-%20OpenXLA%20is%20Ready%20to%20Accelerate%20and%20Simplify%20ML%20Development%20%281%29.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCfGMJbxXPdDqN4rxXhgUbFboHth4KdhwmcsQOTr0jibVxaAasbBERxg0gLPZM0oHsfhsR58vPuag3sX7d5GStc2DEEIGIMiZru8kOtsEVGuXkHXUIV7LSasSqX_6lnt6ipLxu7jB2QpRBhDbBBD4PxVkyhmd7LON6O3sXh6P4VLZ1eKTIWdRr9FuqNHE/s1600/Social%20-%20OSS%20-%20OpenXLA%20is%20Ready%20to%20Accelerate%20and%20Simplify%20ML%20Development%20%281%29.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgloJc4q6jABOMsCiRbNN3mKFk9UjKYWszTNbaSl2OyIvq6PBqqc_NJZSmgy6KR2QrZl1jS4GBMXAya2OW9C8kHxEFmEvMUqd1-PHlt_uY63Es3C_0vGxDuoAyRym0QMM_7tcn6QwxP3mmm5GM-IyN42FYyX61KiivbU5fLGA_maZqARVEi-4l7h7HC4aQ/s1600/Header%20-%20OSS%20-%20OpenXLA%20is%20Ready%20to%20Accelerate%20and%20Simplify%20ML%20Development.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgloJc4q6jABOMsCiRbNN3mKFk9UjKYWszTNbaSl2OyIvq6PBqqc_NJZSmgy6KR2QrZl1jS4GBMXAya2OW9C8kHxEFmEvMUqd1-PHlt_uY63Es3C_0vGxDuoAyRym0QMM_7tcn6QwxP3mmm5GM-IyN42FYyX61KiivbU5fLGA_maZqARVEi-4l7h7HC4aQ/s1600/Header%20-%20OSS%20-%20OpenXLA%20is%20Ready%20to%20Accelerate%20and%20Simplify%20ML%20Development.png" /></a>
+
+<p>PJRT is an open, stable interface for device runtime and compiler, which simplifies ML hardware and framework integration. With PJRT, ML frameworks become hardware-agnostic and ML hardware becomes pluggable. For the ML developer, it simplifies the adoption of new ML hardware and models become more portable. This addresses ML infrastructure fragmentation across frameworks, compilers and runtimes enhancing the industry’s ability to productionize ML-driven advancements with velocity and at scale.</p>
+
+<p>This article provides an overview of what building a PJRT plugin entails, how frameworks (and models) can use this plugin, and some updates on the PJRT API. PJRT is now used by a <b>growing spectrum of hardware: Apple silicon, Google Cloud TPU, NVIDIA GPU, and Intel Max GPU</b>. We also share a spotlight on Apple’s adoption of PJRT with some details on the workflow and performance.</p>
+
+<p>If you’re developing an ML hardware accelerator or developing your own compiler and runtime, check out the PJRT source code on <a href="https://github.com/openxla/xla/blob/b3745173ea3d15306663c8a6f2124da8efea4289/xla/pjrt/c/pjrt_c_api.h" target="_blank">GitHub</a> and sign up for the PJRT <a href="https://groups.google.com/g/pjrt-announce/" target="_blank">mailing list</a> to quickly bootstrap your work.</p>
+
+<h2><span style="font-size: x-large;"><b>What’s in a PJRT Plugin</b></span></h2>
+
+<p><a href="https://opensource.googleblog.com/2023/05/pjrt-simplifying-ml-hardware-and-framework-integration.html" target="_blank">PJRT was introduced</a> to simplify the growing complexity of ML workload execution across hardware and frameworks. PJRT (used in conjunction with <a href="https://github.com/openxla/stablehlo" target="_blank">StableHLO</a>) is a stable interface for device runtime and compiler, which abstracts away device specific implementations from frameworks.</p>
+
+<p>An implementation of the PJRT API is called a PJRT plugin, which is usually a Python package for seamless ML model developer experience. To build a PJRT plugin for a hardware target, the following methods need to be implemented:</p>
+<ul>
+<li>Compile: compile (program) -&gt; executable</li>
+<li>Runtime: execute (executable, arguments) -&gt; results</li>
+<li>Memory management: transfer buffer from host to device, device to host, device to device, as well as buffer management such as buffer donation</li>
+<li>Topology information such as the platform, how many accelerators and how are they attached.</li>
+</ul>
+<p>ML frameworks will discover and load one or multiple PJRT plugins, and call the PJRT API to compile and execute the model. The PJRT plugins may be required to register to the ML frameworks depending on the specific discovery mechanism the framework uses.</p>
+
+<h2><span style="font-size: x-large;"><b>API Updates</b></span>
+
+</h2><h3 style="text-align: left;"><span style="font-size: medium;"><b>Versioning and ABI Compatibility</b></span></h3>
+
+<p>PJRT API has a major version and a minor version. If the framework is newer than the plugin, the framework provides a N-week (N=6 today) forwards compatibility window for minor version updates. The major version updates will be a coordinated update. Frameworks will not support plugins with a lower major version. If the plugin is newer than the framework, plugins will define their own backward compatibility policy.</p>
+
+<h3 style="text-align: left;"><span style="font-size: medium;"><b>Multi-Node</b></span></h3>
+
+<p>A PJRT client is per node, and the plugin may need some way to communicate among nodes in a distributed workload. The framework can pass in key-value store callbacks to the plugin. The plugin can use them to bootstrap multi-node initialization and other coordination needs. An example with the NVIDIA GPU CUDA plugin is as follows:</p>
+<ul>
+<li>JAX starts a distribution service and provides key-value store callbacks.</li>
+<li>NVIDIA GPU CUDA plugin uses these callbacks to (1) generate global PJRT device topology that includes PJRT device information from all nodes, and (2) generate NCCL ids.</li>
+</ul>
+
+<h3 style="text-align: left;"><span style="font-size: medium;"><b>DLPack</b></span></h3>
+
+<p>A few C APIs were added to PJRT to support DLPack.</p>
+<ul>
+<li>PJRT_Client_CreateViewOfDeviceBuffer supports receiving buffers from DLPack.</li>
+<li>Exporting buffers to DLPack requires: PJRT_Buffer_IncreaseExternalReferenceCount, PJRT_Buffer_DecreaseExternalReferenceCount to get a PJRT_Buffer_OpaqueDeviceMemoryDataPointer.</li>
+</ul>
+
+<h3 style="text-align: left;"><span style="font-size: medium;"><b>Extension</b></span></h3>
+
+<p>PJRT API provides an extension mechanism that the plugin can provide extensions which are optional or experimental features. These extensions can have their own compatibility guarantee and do not need to support the ABI compatibility of PJRT API.</p>
+
+<h2><span style="font-size: x-large;"><b>Industry Adoption</b></span></h2>
+
+<p>PJRT is the only interface for JAX, the primary interface for TensorFlow and fully supported for PyTorch through <a href="https://pytorch.org/xla/release/2.0/index.html#" target="_blank">PyTorch/XLA</a>. PJRT is not tied to a specific compiler and runtime. The toolchain-independent architecture and open-source availability as part of the <a href="https://github.com/openxla" target="_blank">OpenXLA Project</a> allows it to be leveraged by any hardware, framework or compiler, with extensibility for unique features. This has allowed PJRT to be adopted by various industry partners through close collaboration. A brief account of Apple’s adoption of PJRT follows.</p>
+
+<h3 style="text-align: left;"><span style="font-size: large;"><b>JAX on Apple Silicon</b></span></h3>
+
+<p>Apple’s PJRT plugin for the Metal training backend accelerates <a href="https://github.com/google/jax" target="_blank">JAX</a> models on Apple silicon and AMD GPUs. This empowers any ML developers to leverage the full potential of Apple silicon and AMD GPUs on their Apple hardware to accelerate JAX models for faster experimentation. The integration and user experience to accelerate JAX on Apple silicon GPUs is similar to the existing PyTorch and TensorFlow implementations.</p>
+
+<p>The Metal plug-in uses the <a href="https://github.com/openxla/xla" target="_blank">OpenXLA</a> compiler and PJRT runtime to optimize and accelerate JAX workloads on GPU. When a JAX program is executed, the JAX graph is lowered into StableHLO, which is then passed to PJRT for compilation and execution. The StableHLO is converted to MPSGraph executables and the Metal runtime APIs are invoked to dispatch to the GPU.</p>
+
+<h3 style="text-align: left;"><span style="font-size: medium;"><b>Performance</b></span></h3>
+
+<p>The Metal backend with PJRT plugin provides impressive performance speedup for JAX. On an Apple MacBook Pro with M2 Max, training common networks in JAX see performance speedups of up to 28x, with an average of 10x over a CPU baseline. This empowers any ML developer to leverage the full potential of Apple Silicon on their Apple hardware to accelerate JAX models for faster experimentation.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="graph of performance speedups of up to 28x on Apple MacBook Pro with M2 Max over CPU for JAX training." border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEcbtEzojZ95Dq3H2JxfH_t_W7kquIlxghzlOuQBwyO1F5XNiweuJuUfugCJKVkn86IDBPJU91JqQyw34zDMWvc67ZY26awz150ufQCHfcyjWBNq_XiuEv663LXvqx79Tp3ZLWFyFmAm5Ak-K8l_escWelzFHs0hZ-BJlXeDMLnJQ07u1YiUgKx3PBeUs/s1600/image1.png" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i>Figure 1: Performance speedups of up to 28x on Apple MacBook Pro with M2 Max over CPU for JAX training.</i></td></tr></tbody></table></div>
+
+<h3 style="text-align: left;"><span style="font-size: medium;"><b>Getting Started</b></span></h3>
+
+<p>Adding Metal support to JAX is as simple as a single pip install:</p>
+
+<div style="background: rgb(255, 255, 255); border: 0px; overflow: auto; width: auto;"><pre style="line-height: 125%; margin: 0px;"><span style="font-family: courier;">python <span>-</span>m pip install jax<span>-</span>metal
+python <span>-</span>c 'import jax<span>; print(jax.numpy.arange(10))'</span></span>
+</pre></div>
+
+<p>For more details on environment setup and installation of JAX on Apple hardware, please refer to the <a href="https://developer.apple.com/metal/jax/" target="_blank">Metal Developer Resources</a> page.</p>
+
+<h3 style="text-align: left;"><span style="font-size: large;"><b>Google Cloud TPU</b></span></h3>
+
+<p>PJRT is the default runtime for <a href="https://cloud.google.com/tpu/docs/release-notes#March_24_2023" target="_blank">PyTorch 2.0 on Google Cloud TPU</a>. <a href="https://github.com/pytorch/xla/blob/master/docs/pjrt.md" target="_blank">GitHub Readme</a> has more details.</p>
+
+<h3 style="text-align: left;"><span style="font-size: large;"><b>NVIDIA GPU</b></span></h3>
+
+<p>The NVIDIA GPU CUDA implementation in JAX is extracted and packaged as a PJRT plugin. The ML model developers can install the NVIDIA GPU CUDA plugin from pypi. This plugin uses the newly added features such as multi-node, DLPack, and extensions.</p>
+
+<h3 style="text-align: left;"><span style="font-size: large;"><b>Intel GPU</b></span></h3>
+
+<p><a href="https://opensource.googleblog.com/2023/06/accelerate-jax-models-on-intel-gpus-via-pjrt.html" target="_blank">Intel is leveraging PJRT</a> in <a href="https://intel.github.io/intel-extension-for-tensorflow/latest/docs/guide/OpenXLA_Support_on_GPU.html" target="_blank">Intel® Extension for TensorFlow</a> to provide the Intel GPU backend for TensorFlow, JAX and PyTorch. The example of executing a JAX program on Intel GPU demonstrates how this greatly simplifies the framework and hardware integration.</p>
+
+  <h2><span style="font-size: x-large;"><b>PJRT Resources</b></span></h2>
+
+<p>PJRT is available on GitHub: source code for the <a href="https://github.com/openxla/xla/blob/b3745173ea3d15306663c8a6f2124da8efea4289/xla/pjrt/c/pjrt_c_api.h" target="_blank">API</a>, <a href="https://github.com/openxla/xla/blob/b3745173ea3d15306663c8a6f2124da8efea4289/xla/pjrt/c/docs/pjrt_integration_guide.md" target="_blank">integration guides</a> and <a href="https://groups.google.com/g/pjrt-announce/" target="_blank">issues</a>. If you develop ML frameworks, compilers, runtimes or are interested in improving portability of workloads across hardware, we want your feedback. We encourage you to contribute code, design ideas and feature suggestions. We also invite you to join the PJRT <a href="https://groups.google.com/g/pjrt-announce/" target="_blank">mailing list</a> to stay updated with the latest product and community announcements and to help shape the future of an interoperable ML infrastructure.</p>
+
+<h3 style="text-align: left;"><span style="font-size: medium;"><b>Acknowledgements</b></span></h3>
+
+<div style="text-align: left;">Chalana Bezawada, Daniel Doctor, Kulin Seth, Shuhan Ding from Apple&nbsp;</div>
+<div style="text-align: left;">Penporn Koanantakool, Peter Hawkins, Skye Wanderman-Milne, Xiao Yu from Google.</div>
+  
+<p><em>By Aman Verma – Product Manager, Machine Learning Infrastructure, Google and Jieying Luo – Software Engineer, Machine Learning Infrastructure, Google</em></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

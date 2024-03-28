@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using oasdiff to Detect Breaking Changes in APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Using oasdiff to Detect Breaking Changes in APIs</h2>
+		<a target="_blank" href="https://nordicapis.com/using-oasdiff-to-detect-breaking-changes-in-apis/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>API versioning is increasingly common, and not just for massively popular or commercial APIs. Even hobby and special interest APIs <a href="https://developer.sportradar.com/docs/read/Home">like Sportradar</a> feature multiple versions. This can create problems for developers and users alike.</p>
+<div id="attachment_19079" style="width: 210px" class="wp-caption alignright"><a href="https://www.oasdiff.com/"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-19079" class="size-full wp-image-19079" src="https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo.jpeg" alt="oasdiff-logo" width="200" height="200" srcset="https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo.jpeg 200w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-150x150.jpeg 150w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-120x120.jpeg 120w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-100x100.jpeg 100w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-70x70.jpeg 70w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-50x50.jpeg 50w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-180x180.jpeg 180w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-60x60.jpeg 60w, https://nordicapis.com/wp-content/uploads/oasdiff-detect-breaking-changes-openapi-logo-125x125.jpeg 125w" sizes="(max-width: 200px) 100vw, 200px" /></a><p id="caption-attachment-19079" class="wp-caption-text"><a href="https://www.oasdiff.com/" target="_blank" rel="noopener">oasdiff</a>: A command-line and Go package to compare and detect breaking changes in OpenAPI specs.</p></div>
+<p>Versioning has a tendency to break things. Existing code might not get updated along with the API. <a href="https://www.oasdiff.com/">oasdiff</a>, an open-source tool for detecting changes in OpenAPI specifications, was created to prevent drift from causing issues for your developers and customers.</p>
+<p>oasdiff can be run as either a Golang package or a command-line utility. The tool compares OpenAPI specifications, usually in either JSON or YAML format, and returns a report highlighting the differences. oasdiff analyzes everything from endpoints to request/response parameters for updates and revisions, particularly looking for changes that can lead to breaking integrations. It&#8217;s an invaluable tool for <a href="https://nordicapis.com/the-differences-between-continuous-integration-continuous-delivery-and-continuous-deployment/">CI/CD pipelines</a>.</p>
+<p>Below, we&#8217;ll show you how to get started with oasdiff to prevent any breakage or service outages when you update your API.</p>
+<h2 id="1-install-oasdiff">1. Install oasdiff</h2>
+<p>Numerous options for installing oasdiff are mentioned in the <a href="https://github.com/tufin/oasdiff">oasdiff repository</a>, ranging from macOS, Windows, and Linux installers to loading with Go. For this tutorial, we&#8217;ll use the Go method, as the Go package allows easy integration into a CI/CD pipeline.</p>
+<p>First, you&#8217;ll need to <a href="https://go.dev/dl/">install Go</a> if you haven&#8217;t already.</p>
+<p>Once Go is installed, input the following command into your Terminal.</p>
+<pre><code>go install github.com<span class="hljs-regexp">/tufin/</span>oasdiff<span class="hljs-meta">@latest</span>
+</code></pre>
+<p>Note that if you&#8217;ve just installed Go and you get an error when you run that command, open a fresh instance of Terminal, which should fix the problem.</p>
+<p>If you&#8217;re using macOS, you can also install oasdiff using Brew with the following command:</p>
+<pre><code><span class="hljs-keyword">brew </span>tap tufin/homebrew-tufin
+<span class="hljs-keyword">brew </span>install oasdiff
+</code></pre>
+<h3 id="oasdiff-wrappers">oasdiff Wrappers</h3>
+<p>oasdiff has several wrappers, too, if you want to try it without installing anything.</p>
+<ul>
+<li><a href="https://github.com/oasdiff/oasdiff-action">GitHub Action</a></li>
+<li><a href="https://github.com/tufin/oasdiff#openapi-diff-breaking-changes-and-changelog-as-a-service">Cloud Service</a></li>
+<li><a href="https://github.com/oasdiff/sync/">OpenAPI Sync</a></li>
+</ul>
+<h2 id="2-try-oasdiff">2. Try oasdiff</h2>
+<p>Once oasdiff is installed, you can test it to see how it works. First, make sure you&#8217;ve cloned the <a href="https://github.com/tufin/oasdiff">GitHub Repository</a>. Once you have, you can run <code>oasdiff diff</code> to see the difference between two local YAML files.</p>
+<p>Input the following command.</p>
+<pre><code><span class="hljs-title">oasdiff</span> diff <span class="hljs-class"><span class="hljs-keyword">data</span>/openapi-test1.yaml <span class="hljs-keyword">data</span>/openapi-test2.yaml</span>
+</code></pre>
+<p>When you do, you should get the following output.</p>
+<pre><code><span class="hljs-symbol">info:</span>
+<span class="hljs-symbol">    contact:</span>
+<span class="hljs-symbol">        added:</span> true
+<span class="hljs-symbol">    version:</span>
+<span class="hljs-symbol">        from:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span>
+<span class="hljs-symbol">        to:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.1</span>
+<span class="hljs-symbol">paths:</span>
+<span class="hljs-symbol">    deleted:</span>
+        - /subscribe
+        - <span class="hljs-meta-keyword">/api/</span>{domain}<span class="hljs-class">/{project}/install-command
+        - /register
+<span class="hljs-symbol">    modified:</span>
+        <span class="hljs-meta-keyword">/api/</span>{domain}/{project}<span class="hljs-meta-keyword">/badges/</span>security-score:
+<span class="hljs-symbol">            operations:</span>
+<span class="hljs-symbol">                added:</span>
+                    - POST
+<span class="hljs-symbol">                modified:</span>
+<span class="hljs-symbol">                    GET:</span>
+<span class="hljs-symbol">                        tags:</span>
+<span class="hljs-symbol">                            deleted:</span>
+                                - security
+<span class="hljs-symbol">                        operationID:</span>
+<span class="hljs-symbol">                            from:</span> GetSecurityScores
+<span class="hljs-symbol">                            to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                        parameters:</span>
+<span class="hljs-symbol">                            deleted:</span>
+<span class="hljs-symbol">                                cookie:</span>
+                                    - test
+<span class="hljs-symbol">                                header:</span>
+                                    - user
+                                    - X-Auth-Name
+<span class="hljs-symbol">                            modified:</span>
+<span class="hljs-symbol">                                path:</span>
+<span class="hljs-symbol">                                    domain:</span>
+<span class="hljs-symbol">                                        schema:</span>
+<span class="hljs-symbol">                                            type:</span>
+<span class="hljs-symbol">                                                from:</span> string
+<span class="hljs-symbol">                                                to:</span> integer
+<span class="hljs-symbol">                                            format:</span>
+<span class="hljs-symbol">                                                from:</span> hyphen-separated list
+<span class="hljs-symbol">                                                to:</span> non-negative integer
+<span class="hljs-symbol">                                            description:</span>
+<span class="hljs-symbol">                                                from:</span> Hyphen-separated list of lowercase string
+<span class="hljs-symbol">                                                to:</span> Non-negative integers (including zero)
+<span class="hljs-symbol">                                            example:</span>
+<span class="hljs-symbol">                                                from:</span> generic-bank
+<span class="hljs-symbol">                                                to:</span> <span class="hljs-string">"100"</span>
+<span class="hljs-symbol">                                            min:</span>
+<span class="hljs-symbol">                                                from:</span> null
+<span class="hljs-symbol">                                                to:</span> <span class="hljs-number">7</span>
+<span class="hljs-symbol">                                            pattern:</span>
+<span class="hljs-symbol">                                                from:</span> ^(?:([a-z]+-)*([a-z]+)?)$
+<span class="hljs-symbol">                                                to:</span> ^(?:\d+)$
+<span class="hljs-symbol">                                query:</span>
+<span class="hljs-symbol">                                    filter:</span>
+<span class="hljs-symbol">                                        content:</span>
+<span class="hljs-symbol">                                            mediaTypeModified:</span>
+                                                application/json:
+<span class="hljs-symbol">                                                    schema:</span>
+<span class="hljs-symbol">                                                        properties:</span>
+<span class="hljs-symbol">                                                            modified:</span>
+<span class="hljs-symbol">                                                                color:</span>
+<span class="hljs-symbol">                                                                    type:</span>
+<span class="hljs-symbol">                                                                        from:</span> string
+<span class="hljs-symbol">                                                                        to:</span> number
+<span class="hljs-symbol">                                    image:</span>
+<span class="hljs-symbol">                                        explode:</span>
+<span class="hljs-symbol">                                            from:</span> null
+<span class="hljs-symbol">                                            to:</span> true
+<span class="hljs-symbol">                                        schema:</span>
+<span class="hljs-symbol">                                            description:</span>
+<span class="hljs-symbol">                                                from:</span> alphanumeric
+<span class="hljs-symbol">                                                to:</span> alphanumeric with underscore, dash, period, slash and colon
+<span class="hljs-symbol">                                        examples:</span>
+<span class="hljs-symbol">                                            deleted:</span>
+                                                - <span class="hljs-string">"0"</span>
+<span class="hljs-symbol">                                    token:</span>
+<span class="hljs-symbol">                                        schema:</span>
+<span class="hljs-symbol">                                            anyOf:</span>
+<span class="hljs-symbol">                                                added:</span>
+                                                    - RevisionSchema[<span class="hljs-number">0</span>]
+                                                    - RevisionSchema[<span class="hljs-number">1</span>]
+<span class="hljs-symbol">                                            type:</span>
+<span class="hljs-symbol">                                                from:</span> string
+<span class="hljs-symbol">                                                to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                                            format:</span>
+<span class="hljs-symbol">                                                from:</span> uuid
+<span class="hljs-symbol">                                                to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                                            description:</span>
+<span class="hljs-symbol">                                                from:</span> RFC <span class="hljs-number">4122</span> UUID
+<span class="hljs-symbol">                                                to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                                            example:</span>
+<span class="hljs-symbol">                                                from:</span> <span class="hljs-number">26734565</span>-dbcc<span class="hljs-number">-449</span>a-a370<span class="hljs-number">-0</span>beaaf04b0e8
+<span class="hljs-symbol">                                                to:</span> null
+<span class="hljs-symbol">                                            maxLength:</span>
+<span class="hljs-symbol">                                                from:</span> <span class="hljs-number">29</span>
+<span class="hljs-symbol">                                                to:</span> null
+<span class="hljs-symbol">                                            pattern:</span>
+<span class="hljs-symbol">                                                from:</span> ^(?:[<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">8</span>}-[<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">4</span>}-[<span class="hljs-number">0</span><span class="hljs-number">-5</span>][<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">3</span>}-[<span class="hljs-number">089</span>ab][<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">3</span>}-[<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">12</span>})$
+<span class="hljs-symbol">                                                to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                        responses:</span>
+<span class="hljs-symbol">                            added:</span>
+                                - default
+<span class="hljs-symbol">                            deleted:</span>
+                                - <span class="hljs-string">"200"</span>
+                                - <span class="hljs-string">"201"</span>
+                                - <span class="hljs-string">"400"</span>
+<span class="hljs-symbol">            parameters:</span>
+<span class="hljs-symbol">                deleted:</span>
+<span class="hljs-symbol">                    path:</span>
+                        - domain
+<span class="hljs-symbol">endpoints:</span>
+<span class="hljs-symbol">    added:</span>
+        - method: POST
+<span class="hljs-symbol">          path:</span> <span class="hljs-meta-keyword">/api/</span>{domain}/{project}<span class="hljs-meta-keyword">/badges/</span>security-score
+<span class="hljs-symbol">    deleted:</span>
+        - method: POST
+<span class="hljs-symbol">          path:</span> /register
+        - method: POST
+<span class="hljs-symbol">          path:</span> /subscribe
+        - method: GET
+<span class="hljs-symbol">          path:</span> <span class="hljs-meta-keyword">/api/</span>{domain}/{project}/install-command
+<span class="hljs-symbol">    modified:</span>
+        ?   method: GET
+<span class="hljs-symbol">            path:</span> <span class="hljs-meta-keyword">/api/</span>{domain}/{project}<span class="hljs-meta-keyword">/badges/</span>security-score
+        :   tags:
+<span class="hljs-symbol">                deleted:</span>
+                    - security
+<span class="hljs-symbol">            operationID:</span>
+<span class="hljs-symbol">                from:</span> GetSecurityScores
+<span class="hljs-symbol">                to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">            parameters:</span>
+<span class="hljs-symbol">                deleted:</span>
+<span class="hljs-symbol">                    cookie:</span>
+                        - test
+<span class="hljs-symbol">                    header:</span>
+                        - user
+                        - X-Auth-Name
+<span class="hljs-symbol">                modified:</span>
+<span class="hljs-symbol">                    path:</span>
+<span class="hljs-symbol">                        domain:</span>
+<span class="hljs-symbol">                            schema:</span>
+<span class="hljs-symbol">                                type:</span>
+<span class="hljs-symbol">                                    from:</span> string
+<span class="hljs-symbol">                                    to:</span> integer
+<span class="hljs-symbol">                                format:</span>
+<span class="hljs-symbol">                                    from:</span> hyphen-separated list
+<span class="hljs-symbol">                                    to:</span> non-negative integer
+<span class="hljs-symbol">                                description:</span>
+<span class="hljs-symbol">                                    from:</span> Hyphen-separated list of lowercase string
+<span class="hljs-symbol">                                    to:</span> Non-negative integers (including zero)
+<span class="hljs-symbol">                                example:</span>
+<span class="hljs-symbol">                                    from:</span> generic-bank
+<span class="hljs-symbol">                                    to:</span> <span class="hljs-string">"100"</span>
+<span class="hljs-symbol">                                min:</span>
+<span class="hljs-symbol">                                    from:</span> null
+<span class="hljs-symbol">                                    to:</span> <span class="hljs-number">7</span>
+<span class="hljs-symbol">                                pattern:</span>
+<span class="hljs-symbol">                                    from:</span> ^(?:([a-z]+-)*([a-z]+)?)$
+<span class="hljs-symbol">                                    to:</span> ^(?:\d+)$
+<span class="hljs-symbol">                    query:</span>
+<span class="hljs-symbol">                        filter:</span>
+<span class="hljs-symbol">                            content:</span>
+<span class="hljs-symbol">                                mediaTypeModified:</span>
+                                    application/json:
+<span class="hljs-symbol">                                        schema:</span>
+<span class="hljs-symbol">                                            properties:</span>
+<span class="hljs-symbol">                                                modified:</span>
+<span class="hljs-symbol">                                                    color:</span>
+<span class="hljs-symbol">                                                        type:</span>
+<span class="hljs-symbol">                                                            from:</span> string
+<span class="hljs-symbol">                                                            to:</span> number
+<span class="hljs-symbol">                        image:</span>
+<span class="hljs-symbol">                            explode:</span>
+<span class="hljs-symbol">                                from:</span> null
+<span class="hljs-symbol">                                to:</span> true
+<span class="hljs-symbol">                            schema:</span>
+<span class="hljs-symbol">                                description:</span>
+<span class="hljs-symbol">                                    from:</span> alphanumeric
+<span class="hljs-symbol">                                    to:</span> alphanumeric with underscore, dash, period, slash and colon
+<span class="hljs-symbol">                            examples:</span>
+<span class="hljs-symbol">                                deleted:</span>
+                                    - <span class="hljs-string">"0"</span>
+<span class="hljs-symbol">                        token:</span>
+<span class="hljs-symbol">                            schema:</span>
+<span class="hljs-symbol">                                anyOf:</span>
+<span class="hljs-symbol">                                    added:</span>
+                                        - RevisionSchema[<span class="hljs-number">0</span>]
+                                        - RevisionSchema[<span class="hljs-number">1</span>]
+<span class="hljs-symbol">                                type:</span>
+<span class="hljs-symbol">                                    from:</span> string
+<span class="hljs-symbol">                                    to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                                format:</span>
+<span class="hljs-symbol">                                    from:</span> uuid
+<span class="hljs-symbol">                                    to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                                description:</span>
+<span class="hljs-symbol">                                    from:</span> RFC <span class="hljs-number">4122</span> UUID
+<span class="hljs-symbol">                                    to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">                                example:</span>
+<span class="hljs-symbol">                                    from:</span> <span class="hljs-number">26734565</span>-dbcc<span class="hljs-number">-449</span>a-a370<span class="hljs-number">-0</span>beaaf04b0e8
+<span class="hljs-symbol">                                    to:</span> null
+<span class="hljs-symbol">                                maxLength:</span>
+<span class="hljs-symbol">                                    from:</span> <span class="hljs-number">29</span>
+<span class="hljs-symbol">                                    to:</span> null
+<span class="hljs-symbol">                                pattern:</span>
+<span class="hljs-symbol">                                    from:</span> ^(?:[<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">8</span>}-[<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">4</span>}-[<span class="hljs-number">0</span><span class="hljs-number">-5</span>][<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">3</span>}-[<span class="hljs-number">089</span>ab][<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">3</span>}-[<span class="hljs-number">0</span><span class="hljs-number">-9</span>a-f]{<span class="hljs-number">12</span>})$
+<span class="hljs-symbol">                                    to:</span> <span class="hljs-string">""</span>
+<span class="hljs-symbol">            responses:</span>
+<span class="hljs-symbol">                added:</span>
+                    - default
+<span class="hljs-symbol">                deleted:</span>
+                    - <span class="hljs-string">"200"</span>
+                    - <span class="hljs-string">"201"</span>
+                    - <span class="hljs-string">"400"</span>
+<span class="hljs-symbol">security:</span>
+<span class="hljs-symbol">    deleted:</span>
+        - bearerAuth
+<span class="hljs-symbol">servers:</span>
+<span class="hljs-symbol">    deleted:</span>
+        - tufin.com
+<span class="hljs-symbol">tags:</span>
+<span class="hljs-symbol">    deleted:</span>
+        - security
+        - reuven
+<span class="hljs-symbol">externalDocs:</span>
+<span class="hljs-symbol">    deleted:</span> true
+<span class="hljs-symbol">components:</span>
+<span class="hljs-symbol">    schemas:</span>
+<span class="hljs-symbol">        deleted:</span>
+            - network-policies
+            - rules
+<span class="hljs-symbol">    parameters:</span>
+<span class="hljs-symbol">        deleted:</span>
+            - network-policies
+<span class="hljs-symbol">    headers:</span>
+<span class="hljs-symbol">        deleted:</span>
+            - testc
+            - new
+            - test
+<span class="hljs-symbol">    requestBodies:</span>
+<span class="hljs-symbol">        deleted:</span>
+            - reuven
+<span class="hljs-symbol">    responses:</span>
+<span class="hljs-symbol">        deleted:</span>
+            - OK
+<span class="hljs-symbol">    securitySchemes:</span>
+<span class="hljs-symbol">        deleted:</span>
+            - AccessToken
+            - OAuth
+            - bearerAuth</span>
+</code></pre>
+<p>As you can see, oasdiff&#8217;s output goes into incredible detail about all of the revisions that have taken place between the two versions. For instance, the following endpoints have been deleted in this example: <code>/subscribe</code>, <code>/api/{domain}/{project}/install-command</code>, and <code>/register</code>.</p>
+<p>Under the <code>modified</code> section, you can see that the <code>/api/{domain}/{project}/badges/security-score:</code> endpoint has added a POST command. A number of features have been deprecated, as well, which are also detailed.</p>
+<p>You can also return the results as HTML if you want a neater list. Instead of using the <code>-f text</code> command at the end of the string, use <code>-f html</code> instead, like so.</p>
+<pre><code>oasdiff diff data/openapi-test1<span class="hljs-selector-class">.yaml</span> data/openapi-test2<span class="hljs-selector-class">.yaml</span> -f html
+</code></pre>
+<p>Oasdiff doesn&#8217;t only work on local files, either. You can just as easily see the difference between remote APIs using HTTP/s.</p>
+<p>Start by inputting the following:</p>
+<pre><code>oasdiff diff https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/Tufin/</span>oasdiff<span class="hljs-regexp">/main/</span>data<span class="hljs-regexp">/openapi-test1.yaml https:/</span><span class="hljs-regexp">/raw.githubusercontent.com/</span>Tufin<span class="hljs-regexp">/oasdiff/m</span>ain<span class="hljs-regexp">/data/</span>openapi-test3.yaml -f text
+</code></pre>
+<p>The results show that four endpoints have been modified: <code>security-score</code>, <code>install-command</code>, <code>register</code>, and <code>subscribe</code>.</p>
+<p>If you want to see any breaking changes between the two versions, try the following:</p>
+<pre><code>oasdiff breaking https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/Tufin/</span>oasdiff<span class="hljs-regexp">/main/</span>data<span class="hljs-regexp">/openapi-test1.yaml https:/</span><span class="hljs-regexp">/raw.githubusercontent.com/</span>Tufin<span class="hljs-regexp">/oasdiff/m</span>ain<span class="hljs-regexp">/data/</span>openapi-test3.yaml
+</code></pre>
+<p>These results show that exchanging the success status for a <code>200</code> or <code>201</code> in the <code>security-score</code> endpoint results in breaking.</p>
+<p>There&#8217;s even a dedicated command for assessing endpoints with <code>/API</code> in the path.</p>
+<pre><code>oasdiff diff https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/Tufin/</span>oasdiff<span class="hljs-regexp">/main/</span>data<span class="hljs-regexp">/openapi-test1.yaml https:/</span><span class="hljs-regexp">/raw.githubusercontent.com/</span>Tufin<span class="hljs-regexp">/oasdiff/m</span>ain<span class="hljs-regexp">/data/</span>openapi-test3.yaml -f text -p <span class="hljs-string">"/api"</span>
+</code></pre>
+<p>You can exclude endpoints, as well. You can filter out path names using the <code>–match-path</code> command to filter out paths that don&#8217;t match a particular expression. You can also filter out specific extensions using the <code>–filter-extension</code> command.</p>
+<h2 id="3-integrate-oasdiff-into-go-projects">3. Integrate oasdiff Into Go Projects</h2>
+<p>One of the biggest reasons to use oasdiff is integration into an automated workflow. If you&#8217;re developing in Go, you can use oasdiff directly inside your code. Simply use the following command:</p>
+<pre><code><span class="hljs-selector-tag">diff</span><span class="hljs-selector-class">.Get</span>(&amp;<span class="hljs-selector-tag">diff</span><span class="hljs-selector-class">.Config</span>{}, <span class="hljs-selector-tag">spec1</span>, <span class="hljs-selector-tag">spec2</span>)
+</code></pre>
+<p>Here&#8217;s an example of oasdiff in a Go program.</p>
+<pre><code>loader := openapi3.NewLoader()
+loader.IsExternalRefsAllowed = true
+
+s1, <span class="hljs-keyword">err</span> := loader.LoadFromFile(<span class="hljs-string">"../data/simple1.yaml"</span>)
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">err</span> != nil {
+    fmt.Fprintf(os.Stderr, <span class="hljs-string">"failed to load spec with %v"</span>, <span class="hljs-keyword">err</span>)
+    <span class="hljs-built_in">return</span>
+}
+
+s2, <span class="hljs-keyword">err</span> := loader.LoadFromFile(<span class="hljs-string">"../data/simple2.yaml"</span>)
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">err</span> != nil {
+    fmt.Fprintf(os.Stderr, <span class="hljs-string">"failed to load spec with %v"</span>, <span class="hljs-keyword">err</span>)
+    <span class="hljs-built_in">return</span>
+}
+
+diffReport, <span class="hljs-keyword">err</span> := diff.<span class="hljs-built_in">Get</span>(diff.NewConfig(), s1, s2)
+
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">err</span> != nil {
+    fmt.Fprintf(os.Stderr, <span class="hljs-string">"diff failed with %v"</span>, <span class="hljs-keyword">err</span>)
+    <span class="hljs-built_in">return</span>
+}
+
+bytes, <span class="hljs-keyword">err</span> := yaml.Marshal(diffReport)
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">err</span> != nil {
+    fmt.Fprintf(os.Stderr, <span class="hljs-string">"failed to marshal result with %v"</span>, <span class="hljs-keyword">err</span>)
+    <span class="hljs-built_in">return</span>
+}
+fmt.Printf(<span class="hljs-string">"%s\n"</span>, bytes)
+</code></pre>
+<p>Which returns the following output:</p>
+<pre><code>aths:
+    modified:
+        /api/test:
+            operations:
+                added:
+                    - POST
+                deleted:
+                    - GET
+endpoints:
+    added:
+        - <span class="hljs-function"><span class="hljs-keyword">method</span>:</span> POST
+          path: /api/test
+    deleted:
+        - <span class="hljs-function"><span class="hljs-keyword">method</span>:</span> GET
+          path: /api/test
+``
+</code></pre>
+<p>You can also use oasdiff to detect breaking changes inside of your code.</p>
+<pre><code class="lang-&#96;&#96;"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"os"</span>
+    <span class="hljs-string">"strings"</span>
+
+    <span class="hljs-string">"github.com/getkin/kin-openapi/openapi3"</span>
+    <span class="hljs-string">"github.com/tufin/oasdiff/checker"</span>
+    <span class="hljs-string">"github.com/tufin/oasdiff/diff"</span>
+    <span class="hljs-string">"github.com/tufin/oasdiff/load"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    loader := openapi3.NewLoader()
+    loader.IsExternalRefsAllowed = <span class="hljs-literal">true</span>
+
+    s1, err := load.LoadSpecInfo(loader, load.NewSource(<span class="hljs-string">"../data/openapi-test1.yaml"</span>))
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"failed to load spec with %v"</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    s2, err := load.LoadSpecInfo(loader, load.NewSource(<span class="hljs-string">"../data/openapi-test3.yaml"</span>))
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"failed to load spec with %v"</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    diffConfig := diff.NewConfig().WithCheckBreaking()
+
+    diffRes, operationsSources, err := diff.GetPathsDiff(diffConfig,
+        []*load.SpecInfo{s1},
+        []*load.SpecInfo{s2},
+    )
+
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"diff failed with %v"</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    errs := checker.CheckBackwardCompatibility(checker.GetDefaultChecks(), diffRes, operationsSources)
+
+    <span class="hljs-comment">// process configuration file for ignoring errors</span>
+    errs, err = checker.ProcessIgnoredBackwardCompatibilityErrors(checker.ERR, errs, <span class="hljs-string">"../data/ignore-err-example.txt"</span>, checker.NewDefaultLocalizer())
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"ignore errors failed with %v"</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// process configuration file for ignoring warnings</span>
+    errs, err = checker.ProcessIgnoredBackwardCompatibilityErrors(checker.WARN, errs, <span class="hljs-string">"../data/ignore-warn-example.txt"</span>, checker.NewDefaultLocalizer())
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"ignore warnings failed with %v"</span>, err)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// pretty print breaking changes errors</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(errs) &gt; <span class="hljs-number">0</span> {
+        localizer := checker.NewDefaultLocalizer()
+        count := errs.GetLevelCount()
+        fmt.Print(localizer(<span class="hljs-string">"total-errors"</span>, <span class="hljs-built_in">len</span>(errs), count[checker.ERR], <span class="hljs-string">"error"</span>, count[checker.WARN], <span class="hljs-string">"warning"</span>))
+        <span class="hljs-keyword">for</span> _, bcerr := <span class="hljs-keyword">range</span> errs {
+            fmt.Printf(<span class="hljs-string">"%s\n\n"</span>, strings.TrimRight(bcerr.SingleLineError(localizer, checker.ColorNever), <span class="hljs-string">" "</span>))
+        }
+    }
+
+}
+</code></pre>
+<p>Which returns:</p>
+<pre><code><span class="hljs-number">4</span> breaking <span class="hljs-string">changes:</span> <span class="hljs-number">1</span> error, <span class="hljs-number">3</span> warning
+error at ..<span class="hljs-regexp">/data/</span>openapi-test3.yaml, <span class="hljs-keyword">in</span> API GET <span class="hljs-regexp">/api/</span>{domain}<span class="hljs-regexp">/{project}/</span>badges/security-score removed the success response with the status <span class="hljs-string">'201'</span> [response-success-status-removed].
+
+warning at ..<span class="hljs-regexp">/data/</span>openapi-test3.yaml, <span class="hljs-keyword">in</span> API GET <span class="hljs-regexp">/api/</span>{domain}<span class="hljs-regexp">/{project}/</span>badges/security-score deleted the <span class="hljs-string">'cookie'</span> request parameter <span class="hljs-string">'test'</span> [request-parameter-removed].
+
+warning at ..<span class="hljs-regexp">/data/</span>openapi-test3.yaml, <span class="hljs-keyword">in</span> API GET <span class="hljs-regexp">/api/</span>{domain}<span class="hljs-regexp">/{project}/</span>badges/security-score deleted the <span class="hljs-string">'header'</span> request parameter <span class="hljs-string">'user'</span> [request-parameter-removed].
+
+warning at ..<span class="hljs-regexp">/data/</span>openapi-test3.yaml, <span class="hljs-keyword">in</span> API GET <span class="hljs-regexp">/api/</span>{domain}<span class="hljs-regexp">/{project}/</span>badges/security-score deleted the <span class="hljs-string">'query'</span> request parameter <span class="hljs-string">'filter'</span> [request-parameter-removed].
+</code></pre>
+<div class="well">Also read: <a href="https://nordicapis.com/everything-you-need-to-know-about-api-versioning/">Everything You Need to Know About API Versioning</a></div>
+<h2 id="final-thoughts-on-oasdiff">Final Thoughts on oasdiff</h2>
+<p>API versioning will only become increasingly common the longer APIs fuel the software industry. Telling the difference between two versions is just one of the potential uses of oasdiff, anyway. The ability to <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/">detect breaking changes</a>, especially before they happen, is even more of a reason to integrate oasdiff into your workflow. A few lines of code can prevent service outages and unexpected downtime for you and your customers.</p>
+<div class="well">For more context, watch oasdiff contributors <a href="https://nordicapis.com/speakers/reuven-harrison/">Reuven Harrison</a> and <a href="https://nordicapis.com/speakers/bianca-lisle/">Bianca Lisle</a> present at <a href="https://nordicapis.com/events/platform-summit-2023/">Platform Summit 2023</a>.<div class="responsive-iframe-container"><iframe loading="lazy" title="YouTube video player" src="https://www.youtube.com/embed/WRNLjdJTaE0?si=82TM1Vray55nmNAW" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></div>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

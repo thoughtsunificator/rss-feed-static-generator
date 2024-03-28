@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Shaw: Python 3.13 gets a JIT</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Shaw: Python 3.13 gets a JIT</h2>
+		<a target="_blank" href="https://lwn.net/Articles/957239/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      Anthony Shaw <a
+href="https://tonybaloney.github.io/posts/python-gets-a-jit.html">describes
+the new copy-and-patch JIT</a> that has been proposed for Python 3.13.
+<p>
+<blockquote class="bq">
+	Copy-and-patch was selected because the compilation from bytecodes
+	to machine code is done as a set of “templates” that are then
+	stitched together and patched at runtime with the correct
+	values. This means that your average Python user isn’t running this
+	complex JIT compiler architecture inside their Python
+	runtime. Python writing it’s own IL and JIT would also be
+	unreasonable since so many are available off-the-shelf like LLVMs
+	and ryuJIT. But a full-JIT would require those being bundled with
+	Python and all the added overheads. A copy-and-patch JIT only
+	requires the LLVM JIT tools be installed on the machine where
+	CPython is compiled from source, and for most people that means the
+	machines of the CI that builds and packages CPython for python.org.
+</blockquote>
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

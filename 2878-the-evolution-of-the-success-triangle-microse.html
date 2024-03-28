@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The evolution of the success triangle: microservices as the enabler of DevOps and team topologies</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The evolution of the success triangle: microservices as the enabler of DevOps and team topologies</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/03/28/success-triangle-microservices-as-an-enabler.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>In my 2018 book <a href="/book.html">Microservices Patterns</a> I described the success triangle.
+It shows the relationship between the three ingredients necessary for the rapid, frequent and reliable delivery of software.</p>
+
+<p><img src="/i/fast-flow/SuccessTriangle.png" class="img-responsive" /></p>
+
+<p>As I wrote in the book:</p>
+
+<blockquote>
+  <p>For a large, complex application, the microservice architecture is usually the best choice. But in addition to having the right architecture, successful software development requires you to also have organization and development and delivery processes.</p>
+</blockquote>
+
+<p>The delivery process is DevOps, which I define below.
+The organization structure is a loosely coupled network of small product teams.
+Six years later the success triangle is still very relevant. 
+It’s a great way to introduce the motivations behind microservices.</p>
+
+<p>In this article, I describe the evolution the success triangle and explain why the primary goal of using the microservice architecture is to enable DevOps and team topologies.
+I also briefly cover how to decide between the monolithic architecture and the microservice architecture for your application.</p>
+
+<h2 id="software-is-eating-the-vuca-world">Software is eating the VUCA world</h2>
+
+<p>One early enhancements to the success triangle was to include the two key trends that are driving the adoption of microservices. 
+Here’s the success triangle from my recent <a href="/post/architecture/2024/03/18/exploreddd-physical-design-principles-for-microservices.html">ExploreDDD 2024 presentation</a>:</p>
+
+<p><img src="/i/fast-flow/success-triangle-march-2024.png" class="img-responsive" /></p>
+
+<p>It shows the trends: software is eating the world; and increasing volatility, uncertainty, complexity and ambiguity (VUCA).
+Let’s look at each one in turn stating with software is eating the world.</p>
+
+<h3 id="trend-1-software-is-eating-the-world">Trend #1: Software is eating the world</h3>
+
+<p>The first trend, which is quite old, is the increasingly important role that software plays in the delivery of an enterprise’s products and services.
+This trend is captured by the phrase <a href="/post/microservices/2020/02/18/why-microservices-part-1.html#trend-1---software-is-eating-the-world">“software is eating the world”</a>, which was coined by Mark Andreessen in 2011.
+It doesn’t matter what industry you’re in, software is important.
+The <a href="https://www.transportation.gov/briefing-room/dot-penalizes-southwest-airlines-140-million-2022-holiday-meltdown">Southwest Airlines meltdown during Christmas 2022</a> is a great example of the importance of software.</p>
+
+<h3 id="trend-2-increasing-volatility-uncertainty-complexity-and-ambiguity-vuca">Trend #2: increasing volatility, uncertainty, complexity and ambiguity (VUCA)</h3>
+
+<p>The second trend is the <a href="/post/microservices/2020/02/18/why-microservices-part-1.html#trend-2---the-marketplace-is-becoming-increasingly-volatile-uncertain-complex-and-ambiguous">increasing volatility, uncertainty, complexity and ambiguity (VUCA)</a> of the business environment in particular, and the world in general.
+I used to introduce VUCA by talking about how, for example, changes to regulations meant that ancient banks suddenly needed to compete with fintech startups.
+But then the COVID pandemic happened.
+Not only was there terrible loss of life, but the pandemic also disrupted businesses and IT in ways that no one could have predicted.
+And, today other examples of VUCA include on-going wars and impact of climate change.</p>
+
+<h3 id="it-needs-to-deliver-those-applications-rapidly-frequently-and-reliably">IT needs to deliver those applications rapidly, frequently and reliably</h3>
+
+<p>A business must be much more nimble in order to thrive in today’s VUCA world.
+And since IT is responsible for the applications that power the business, it needs to deliver those applications much more rapidly, frequently and reliably.</p>
+
+<h2 id="team-topologies-and-the-devops-handbook">Team topologies and the DevOps handbook</h2>
+
+<p>Another enhancement to the success triangle was to include two books: <a href="/post/microservices/2020/01/07/books-about-high-performance-software-delivery.html">the DevOps Handbook and Team Topologies</a>.
+Team Topologies is a great addition to the success triangle since it describes an organizational structure (aka. topology) that organizes people into teams that can deliver software quickly and reliably.</p>
+
+<p>Also, to avoid any confusion about the term DevOps, I included the DevOps Handbook. Unfortunately, DevOps is frequently misinterpreted as merely a set of tools or a job title. The DevOps Handbook, however, describe how it’s a set of principles and practices that are essential for rapid and reliable software delivery.</p>
+
+<h2 id="architecture-as-the-enabler-of-devops-and-team-topologies">Architecture as the enabler of DevOps and team topologies</h2>
+
+<p>Initially, I merely characterized DevOps and Team Topologies as necessary components in the adoption of microservices.
+But at some point, a major shift occurred in how I thought about the relationship between process, organization and architecture.
+I started to see DevOps and team topologies as the goal and architecture as an enabler.
+In other words, embracing only DevOps and Team Topologies is not enough.
+Your application’s architecture must also support DevOps and Team Topologies.</p>
+
+<h2 id="architectural-requirements-for-devops-and-team-topologies">Architectural requirements for DevOps and Team topologies</h2>
+
+<p>DevOps and Team topologies require an architecture with the following characteristics:</p>
+
+<ul>
+  <li><a href="/articles/dark-energy-dark-matter/dark-matter/minimize-design-time-coupling.html">loosely (design-time) coupled</a> - a fundamental property of good software. 
+In particular, the ‘modules’ owned by different teams should be loosely coupled in order to minimize the need for coordination between teams.</li>
+  <li>testable - fast running automated tests that can be run locally and a fast deployment pipeline.</li>
+  <li>deployable - fast reliable, automated deployments in order to prevent the final step of the delivery pipeline from becoming a bottleneck.</li>
+  <li>observable - the production environment must emit a stream of telemetry - logs, metrics, traces - so that developers can understand both application and user behavior</li>
+</ul>
+
+<p>An organization that wants to use DevOps and Team Topologies picks an architecture that has these characteristics.
+For some applications, that architecture can be a (modular) monolith and for others it can be microservices.</p>
+
+<h2 id="designing-an-architecture-that-supports-devops-and-team-topologies">Designing an architecture that supports DevOps and Team Topologies</h2>
+
+<p>The first step in designing an architecture is to decide between the <a href="https://microservices.io/patterns/monolithic.html">monolithic architecture</a> and the <a href="https://microservices.io/patterns/microservices.html">microservice architecture</a>.
+The <a href="/post/architecture/2023/03/26/dark-energy-dark-matter-force-descriptions.html">dark energy forces</a> are a useful framework for making this decision.
+For example, see <a href="https://speakerdeck.com/cer/ddd-necessary-but-insufficient-physical-design-principles-for-microservices-c384bb76-6160-4440-9d94-455b9bebcccb?slide=37">this slide from a recent presentation</a> that describes how your context determines the relevant dark energy forces to your application.
+The strength of these forces determines which architecture is the best choice.</p>
+
+<h3 id="designing-a-monolithic-architecture">Designing a monolithic architecture</h3>
+
+<p>If you choose to use a monolithic architecture, it’s usually best to design a <a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html">modular monolith</a>.
+When designing a monolith, it’s important to ensure that its modules are loosely coupled from both a design-time and build-time perspective.</p>
+
+<p>Loose design time coupling improves developer productivity by ensuring that changes to one module don’t require changes to other modules.
+Loose build-time coupling accelerates the deployment pipeline by ensuring that changes to one module don’t require other modules to be built and tests.</p>
+
+<h3 id="designing-a-microservice-architecture">Designing a microservice architecture</h3>
+
+<p>If you choose to use the microservice architecture, you must design the <a href="/post/architecture/2023/10/17/assemblage-step-3-defining-a-service-architecture.html">service architecture</a>.
+The <a href="/post/architecture/2023/02/09/assemblage-architecture-definition-process.html">Assemblage design process</a> is a great way to design a service architecture.
+It uses the dark energy and dark matter forces to shape the service architecture.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Redis is no longer free software</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Redis is no longer free software</h2>
+		<a target="_blank" href="https://lwn.net/Articles/966133/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">The Redis in-memory database system has <a
+href="https://redis.com/blog/redis-adopts-dual-source-available-licensing/">had
+its license changed</a> to either the <a
+href="https://redis.com/legal/rsalv2-agreement/">Redis Source Available
+License</a> or the <a
+href="https://redis.com/legal/server-side-public-license-sspl/">Server Side
+Public License</a> (<a href="https://lwn.net/Articles/768670/">covered here</a> in 2018);
+neither license qualifies as free software.
+<p>
+<blockquote class="bq">
+	Under the new license, cloud service providers hosting Redis
+	offerings will no longer be permitted to use the source code of
+	Redis free of charge. For example, cloud service providers will be
+	able to deliver Redis 7.4 only after agreeing to licensing terms
+	with Redis, the maintainers of the Redis code.
+</blockquote>
+<p>
+Distributors like Fedora are already <a
+href="https://lwn.net/ml/fedora-devel/CAEg-Je_GoiJN6kOj1_K5WqTvA6n0j8r4fi9=C7-WbXLHovM3ow@mail.gmail.com/">looking
+at</a> removing Redis as a consequence.  (Thanks to  Emmanuel Seyman).</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

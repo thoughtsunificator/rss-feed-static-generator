@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A tour of two sagas</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">A tour of two sagas</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/03/20/tour-of-two-sagas.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>During a recent <a href="https://chrisrichardson.net/training.html">microservice architecture workshop</a>, my client asked for a code walkthrough of some example <a href="/patterns/data/saga.html">sagas</a>.
+I had planned to walk through the code in Intellij, but I thought it would be more useful to use Visual code’s <a href="https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour">Code Tour</a> extension.</p>
+
+<h2 id="what-is-codetour">What is CodeTour?</h2>
+
+<p>To quote the docs:</p>
+
+<blockquote>
+  <p>CodeTour is a Visual Studio Code extension, which allows you to record and play back guided walkthroughs of your codebases.</p>
+</blockquote>
+
+<p>Once you’ve configured a CodeTour and pushed the changes to Github, anyone can run the tour in either Visual Studio Code or a (browser-based) Github Codespace. 
+The tour will guide them through the code, highlighting important methods and classes along the way.</p>
+
+<p>Here’s what you see:</p>
+
+<p><img src="/i/posts/saga-tour.png" class="img-responsive" /></p>
+
+<h2 id="a-tour-of-two-sagas">A tour of two sagas</h2>
+
+<p>Here are the tours of the two example sagas, which are implemented using the <a href="https://eventuate.io/">Eventuate Platform</a>:</p>
+
+<ul>
+  <li><a href="https://github.com/eventuate-tram/eventuate-tram-examples-customers-and-orders/tree/development?tab=readme-ov-file#get-a-tour-of-the-code">Choreography-based saga</a></li>
+  <li><a href="https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders/tree/development?tab=readme-ov-file#get-a-tour-of-the-code">Orchestration-based saga</a></li>
+</ul>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

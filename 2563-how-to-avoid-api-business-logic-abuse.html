@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How To Avoid API Business Logic Abuse</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How To Avoid API Business Logic Abuse</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-avoid-api-business-logic-abuse/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The <a href="https://owasp.org/API-Security/editions/2023/en/0x00-header/">2023 OWASP Security Top 10</a> introduced some new security risks and vulnerabilities threatening APIs. These new additions are common threats and security risks that have arisen since OWASP published its first list of top API security risks in 2019. One of the new additions, <a href="https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/">API6:2023 Unrestricted Access to Sensitive Business Flows</a>, reveals an alarming new trend of abusing an API&#39;s business functions. </p>
+<p>Business logic abuse has the potential to put a company at risk for some <a href="https://nordicapis.com/8-significant-api-breaches-of-recent-years/"><em>very</em> expensive mistakes</a>. To make matters even worse, OWASP lists Business Logic Abuse as very easy to exploit. It&#39;s also extremely prevalent and moderately difficult to detect.</p>
+<p>To help ensure that your API is safe and secure from this API security risk, we&#39;ve put together some tips on how to avoid API Business Logic Abuse. Let&#39;s start by learning about business logic itself. </p>
+<h2 id="what-is-business-logic-">What Is Business Logic?</h2>
+<p>Business logic means something specific when it comes to APIs. Generally speaking, business logic is all interactions between a user, a business, and its infrastructure. Dataflow is an example of business logic. So are database interactions.</p>
+<p>Regarding APIs, business logic can sometimes be referred to as business flows or process flows. These alternate titles reveal some risks a vulnerable business process poses. It also offers a hint about some preventive measures that can be taken. A ticket reservation endpoint is an example of a business process flow, for example. Each interaction might modify the database, request payment from the user&#39;s wallet of choice, and serve up a captcha for human verification. </p>
+<p>API endpoints that conduct business transactions often perform a number of processes, which is why they&#39;re called flows. To help ensure API security, it&#39;s vital that you understand each component of a business flow and how they work together.</p>
+<h2 id="the-risks-of-vulnerable-business-logic">The Risks of Vulnerable Business Logic</h2>
+<p>According to OWASP, attackers often begin by determining which API handles business processes. They use this information to create automations that can exploit these vulnerabilities. This puts your organization at risk in several different ways, depending on which business process is being targeted.</p>
+<p>Say that you have an item in high demand in your inventory, for example. This could be anything from concert tickets to an especially trendy item of clothing. If there are no limitations in place, an attacker could <a href="https://nordicapis.com/5-reasons-you-need-api-runtime-security/">exploit a business logic endpoint</a> to automatically purchase all available stock and then immediately turn around and re-sell it. A reservation system is another example of a business logic flow that&#39;s particularly susceptible to exploitation. An attacker could simply book all available slots through the Reservations endpoint, leaving nothing for actual paying customers.</p>
+<p>Both of these scenarios reveal another risk caused by <a href="https://nordicapis.com/5-common-api-vulnerabilities-and-how-to-fix-them/">business logic flaws</a>. Sensitive business flows can also cause serious damage to a company&#39;s reputation. It wouldn&#39;t take long for people looking for a hotel to look elsewhere if someplace is always listed as booked.</p>
+<h2 id="examples-of-api-business-logic-abuse">Examples of API Business Logic Abuse</h2>
+<p>OWASP offers some other theoretical examples of API business logic abuse that help make the concept much more concrete. The first is the concert ticket scalping scenario we mentioned previously. That&#39;s just one potential scenario that cybercriminals could take advantage of, though.</p>
+<p>OWASP also mentions another hypothetical example involving a business logic flow for making purchases. In another rhetorical example, they bring up a scenario where someone uses an endpoint to purchase all of the available tickets for a flight when there are no cancellation fees. In this scenario, the attacker then returns the ticket much closer to the flight. The airline is then forced to sell all the tickets at a deep discount to try and fill the vacancies. The attacker could then get a ticket much cheaper than the standard fare.</p>
+<p>Finally, OWASP mentions a situation where a ride-sharing app might offer a user credits for referring new users. In this scenario, an attacker might write a script crediting <em>every</em> new registered user to their account. They could then use these credits for indefinite free rides or even sell their account for cash.</p>
+<h2 id="how-to-avoid-api-business-logic-abuse">How To Avoid API Business Logic Abuse</h2>
+<p>OWASP recommends breaking API business logic into two sections and addressing each to help prevent API business logic vulnerabilities. They recommend dividing a business logic flow into a business side and an engineering side.</p>
+<p>For the business side, OWASP recommends identifying every component that can perform a business function. To ensure <a href="https://nordicapis.com/how-ai-can-be-used-in-api-security/">API security</a> against business logic abuse from the business side, start by taking a thorough inventory of each business process <em>as well as each component</em>. Then, identify which ones could put your business at risk. Once you have these insights, protecting your business from malicious actors is much easier. In the ticket scenario we mentioned earlier, for example, you might put a simple restriction in place that would return an error if a user tries to conduct more than five transactions.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">10 Steps to Catalog Your Growing API Inventory</a></div>
+<p>The engineering side of the equation deals with the logistics of how to prevent API Business Logic Abuse. You&#39;ll spend a lot more time on this side of the equation, naturally, but the business component is still a vital part of preventing vulnerabilities due to faulty business flows.</p>
+<p>OWASP recommends several ways developers can help prevent business logic abuse on the engineering side of things. Inserting a captcha solution into the dataflow is one way to help prevent automated attacks, for instance. If you want an even more robust security solution, you might even implement <a href="https://nordicapis.com/8-biometrics-apis-at-your-fingertips/">advanced biometric analysis</a>, such as detecting human typing patterns.</p>
+<p>You can monitor the inhuman, as well. Taking less than one second to go from adding an item to a shopping cart to completing a purchase is a dead giveaway an automated script is attacking a purchase endpoint. Simply blocking the IP addresses of TOR exit nodes and well-known proxies is an easy way to deter cybercriminals looking to exploit vulnerable business flows, as well.</p>
+<p>When setting up API testing scenarios, pay special attention to your business logic endpoints. Put plenty of preventive measures in place, as well, like <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/">validating <strong>all</strong> user input</a>, no matter where it comes from. Monitoring and logging user input and data is also a good touch, as it will give you records of attempted attacks on your business logic flows.</p>
+<p>Many business logic flaws are caused by faulty design and messy coding. Simply documenting the processes and data flows of business logic processes is an easy way to prevent improper access and vulnerabilities. Restricting user access and following the <a href="https://nordicapis.com/what-is-the-principle-of-least-privilege/">principle of least privilege</a> (PLOP) is an example of how solid design can help prevent business logic flaws. Good, clear documentation is another simple way to avoid business logic errors. Taking regular inventory of your network is yet another way to ensure system security, as it limits the risk of <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/">shadow and zombie APIs</a> that might provide access to sensitive assets.</p>
+<h2 id="final-thoughts-on-preventing-api-business-logic-flaws">Final Thoughts on Preventing API Business Logic Flaws</h2>
+<p>API security can be the weak point in an organization&#39;s cybersecurity network. Even careful and canny developers can sometimes overlook vulnerabilities they&#39;d <em>never</em> miss in a monolithic scenario. It&#39;s vitally important to ensure <em>every</em> API endpoint is as safe and secure as possible, even if it&#39;s only available for internal use.</p>
+<p>It only takes one business logic vulnerability to do severe damage to an organization. Luckily, it&#39;s not hard to secure your business flows when you know what you&#39;re looking for and what to do about potential problems when you find them.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

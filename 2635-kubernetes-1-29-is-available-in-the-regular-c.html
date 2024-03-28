@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Kubernetes 1.29 is available in the Regular channel of GKE</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Kubernetes 1.29 is available in the Regular channel of GKE</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2024/02/kubernetes-129-is-available-in-gke.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsO3fBypitqZc39RONmeDN_gUq-PSMIIWAscgH-UdLu18lZyoIkED-djnhGW-zv2iJYHNkb91JYP7Y6NFQCBOrBpgpJ0aKaI1w2QZ2-rf-iLRuXffl9XUAY91MLHfGPuLbzP7rZFzpqPzhrAfLeaEwAwg69FmQc1r3WG6FPlPkV-HnwdyjZWR4aYVg_Cg/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsO3fBypitqZc39RONmeDN_gUq-PSMIIWAscgH-UdLu18lZyoIkED-djnhGW-zv2iJYHNkb91JYP7Y6NFQCBOrBpgpJ0aKaI1w2QZ2-rf-iLRuXffl9XUAY91MLHfGPuLbzP7rZFzpqPzhrAfLeaEwAwg69FmQc1r3WG6FPlPkV-HnwdyjZWR4aYVg_Cg/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirJLzIPZkRCtwmhZjPugTzmJvEvWgcQgHG0fGseI2XfsYNPb1VgNaijSLJj_O_yFoI-S46vr-LxpYMy_bM9okbrqFwkJNFsRo0t6EV_WP6J1XUgPOyBtaALBbXvK7N1M3Skl4ze1-D1czvBrYbaATPmFDV-KK10rO1SOGFmiW5bRzHWnIFS-ZezEVuOOg/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirJLzIPZkRCtwmhZjPugTzmJvEvWgcQgHG0fGseI2XfsYNPb1VgNaijSLJj_O_yFoI-S46vr-LxpYMy_bM9okbrqFwkJNFsRo0t6EV_WP6J1XUgPOyBtaALBbXvK7N1M3Skl4ze1-D1czvBrYbaATPmFDV-KK10rO1SOGFmiW5bRzHWnIFS-ZezEVuOOg/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" /></a>
+
+<p>Kubernetes 1.29 is now available in the GKE Regular Channel since <a href="https://cloud.google.com/kubernetes-engine/docs/release-notes-regular#January_26_2024" target="_blank">January 26th</a>, and was available in the Rapid Channel <a href="https://cloud.google.com/kubernetes-engine/docs/release-notes#rapid-channel_1" target="_blank"><b>January 11th</b></a>, less than 30 days after the OSS release! For more information about the content of Kubernetes 1.29, read the <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#urgent-upgrade-notes" target="_blank">Kubernetes 1.29 Release Notes</a>.</p>
+
+<h2><b>New Features</b></h2>
+
+<h4><span style="font-size: large;"><b>Using CEL for Validating Admission Policy</b></span></h4>
+
+<p>Validating admission policies offer a declarative, in-process alternative to validating admission webhooks.
+
+</p><p>Validating admission policies use the Common Expression Language (CEL) to declare the validation rules of a policy. Validation admission policies are highly configurable, enabling policy authors to define policies that can be parameterized and scoped to resources as needed by cluster administrators. [<a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/" target="_blank">source</a>]
+
+</p><p>Validating Admission Policy graduates to beta in 1.29. We are especially excited about the work that Googlers Cici Huang, Joe Betz, and Jiahui Feng have led in this release to get to the beta milestone. As we move toward v1, we are actively working to ensure scalability and would appreciate any end-user feedback. [<a href="https://docs.google.com/document/d/1RkVI_RIc-ZxaW0ew-NaBgrqejcxPuO1jCTHRr83ewoQ/edit?usp=sharing&resourcekey=0-uAlqxV8HT-ZeORalxIRtYg" target="_blank">public doc</a> here for those interested] </p>
+
+<p>The beta of <a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/" target="_blank">ValidatingAdmissionPolicy</a> feature can be opted into by <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/use-beta-apis#available-beta-apis" target="_blank">enabling the beta APIs</a>.</p>
+
+<h4><span style="font-size: large;"><b>InitContainers as a Sidecar</b></span></h4>
+
+<p>InitContainers can now be configured as sidecar containers and kept running alongside normal containers in a Pod. This is only supported by nodes running version 1.29 or later, so ensure all nodes in a cluster are at version 1.29 or later before using this feature in Pods. The feature was long awaited. This is evident by the fact that Istio has already widely tested it and the Istio community working hard to make sure that the enablement of it can be done early with minimal disruption for the clusters with older nodes. You can participate in the discussion <a href="https://github.com/istio/istio/issues/48794" target="_blank">here</a>.</p>
+  
+<p>A big driver to deliver the feature is the growing number of AI/ML workloads which are often represented by Pods running to completion. Thos Pods need infrastructure sidecars - Istio and <a href="https://github.com/GoogleCloudPlatform/gcsfuse" target="_blank">GCSFuse</a> are examples of it, and Google recognizes this trend. </p>
+
+<p>Implementation of sidecar containers is and continues to be the community effort. We are proud to highlight that Googler <b>Sergey Kanzhelev</b> is driving it via the Sidecar working group, and it was a great effort of many other Googlers to make sure this KEP landed so fast. <b>John Howard</b> made sure the early versions of implementation were tested with Istio, <b>Wojciech Tyczyński</b> made sure the safe rollout vie production readiness review, <b>Tim Hockin</b> spent many hours in API review of the feature, and <b>Clayton Coleman</b> gave advice and helped with code reviews.</p>
+
+<h2><b>New APIs</b></h2>
+
+<h4><span style="font-size: large;"><b>API Priority and Fairness/Flow Control</b></span></h4>
+
+<p>We are super excited to share that API Priority and Fairness graduated to Stable V1 / GA in 1.29! Controlling the behavior of the Kubernetes API server in an overload situation is a key task for cluster administrators, and this is what APF addresses. This ambitious project was initiated by Googler and founding API Machinery SIG lead <b>Daniel Smith</b>, and expanded to become a community-wide effort. Special thanks to Googler <b>Wojciech Tyczyński</b> and API Machinery members <b>Mike Spreitzer</b> from IBM and <b>Abu Kashem</b> from RedHat, for landing this critical feature in Kubernetes 1.29 (more details in the <a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/" target="_blank">Kubernetes publication</a>). In Google GKE we tested and utilized it early. In fact, any version above 1.26.4 is setting higher kubelet QPS values trusting the API server to handle it gracefully.</p>
+
+<h2><b>Deprecations and Removals</b></h2>
+<ul>
+<li>The previously deprecated <b>v1beta2 Priority and Fairness APIs</b> are no longer served in 1.29, so <a href="https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-29" target="_blank">update usage to v1beta3</a> before upgrading to 1.29.</li>
+<li>With the API Priority and Fairness graduation to v1, the <b>v1beta3 Priority and Fairness APIs</b> are newly deprecated in 1.29, and <a href="https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-29" target="_blank">will no longer be served in 1.32</a>.</li>
+<li>In the <b>Node API</b>, take a look at the changes to the <b>status.kubeProxyVersion field</b>, which will not be populated starting in v1.33. The field is currently populated with the kubelet version, not the kube-proxy version, and might not accurately reflect the kube-proxy version in use. For more information, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/4004-deprecate-kube-proxy-version" target="_blank">KEP-4004</a>.</li>
+<li>1.29 <b>removed support for the insecure SHA1 algorithm</b>. To prevent impact on your clusters, you must replace incompatible certificates of <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#configure-admission-webhooks-on-the-fly" target="_blank">webhook servers</a> and <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/" target="_blank">extension API servers</a> before upgrading your clusters to version 1.29.</li>
+<ul><li>GKE will not auto-upgrade clusters with webhook backends using incompatible certificates to 1.29 until you replace the certificates or until version 1.28 reaches end of life. For more information refer to the <a href="https://cloud.devsite.corp.google.com/kubernetes-engine/docs/deprecations/sha1-1-29" target="_blank">official GKE documentation</a>.</li></ul>
+<li>The <b>Ceph CephFS</b> (<span style="color: #0d904f; font-family: courier;">kubernetes.io/cephfs</span>) and <b>RBD</b> (<span style="color: #0d904f; font-family: courier;">kubernetes.io/rbd</span>) volume plugins are deprecated since 1.28 and will be removed in a future release</li>
+<ul><li>For more information, refer to the <a href="https://groups.google.com/a/kubernetes.io/g/dev/c/U0--uNBae0Q/m/yhmcWHi3AAAJ?utm_medium=email&amp;utm_source=footer" target="_blank">OSS Kubernetes announcement</a> and <a href="https://github.com/ceph/ceph-csi/" target="_blank">https://github.com/ceph/ceph-csi</a>/</li></ul>
+</ul>
+
+<h2><b>Shoutout to the Production Readiness Review (PRR) team</b></h2>
+<p>For each new Kubernetes Release, there is a dedicated sub group of SIG Architecture, composed of very senior contributors  in the Kubernetes Community, that regularly conducts <a href="https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md" target="_blank">Production Readiness reviews</a> for each new release, going through each feature.</p>
+<ul>
+<li>OSS Production Readiness Reviews (PRR) <b>reduce toil for all the different Cloud Providers</b>, by shifting the effort onto OSS developers.</li>
+<li>OSS Production Readiness Reviews surface <b>production safety, observability, and scalability issues</b> with OSS features at design time, when it is still possible to affect the outcomes.</li>
+<li>By ensuring feature gates, solid enable → disable → enable testing, and attention to upgrade and rollout considerations, OSS Production Readiness Reviews enable <b>rapid mitigation of failures in new features</b>.</li>
+</ul>
+
+<p>As part of this group, we want to thank Googlers John Belamaric and Wojciech Tyczyński for doing this remarkable, heavy lifting on non shiny, and often invisible work. Additionally, we’d like to congratulate Googler Joe Betz who recently graduated as a new PRR reviewer, after shadowing during all 2023 the process.</p>
+
+<p><em>By Jordan Liggitt, Jago Macleod, Sergey Kanzhelev, and Federico Bongiovanni – Google Kubernetes Kernel team </em></p> 
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

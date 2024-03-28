@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Announcing MotionMark 1.3</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Announcing MotionMark 1.3</h2>
+		<a target="_blank" href="https://webkit.org/blog/14908/motionmark-1-3/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>We are glad to announce an update to <a href="https://browserbench.org/MotionMark/">MotionMark</a>, Apple’s graphics benchmark for web browsers, taking it to version 1.3. This is a minor update, intended to improve the behavior of the benchmark on a wider variety of hardware devices and to improve the reliability of the scores.</p>
+<figure><img loading="lazy" decoding="async" src="https://webkit.org/wp-content/uploads/motionmark3.png" alt="Motion Mark 3 logo" width="1168" height="368" class="aligncenter size-full wp-image-14909" srcset="https://webkit.org/wp-content/uploads/motionmark3.png 1168w, https://webkit.org/wp-content/uploads/motionmark3-300x95.png 300w, https://webkit.org/wp-content/uploads/motionmark3-1024x323.png 1024w, https://webkit.org/wp-content/uploads/motionmark3-768x242.png 768w" sizes="(max-width: 1168px) 100vw, 1168px" /></figure>
+<p>The most significant behavior change is that the benchmark now adapts to the browser’s refresh rate, automatically detecting the frequency of <code>requestAnimationFrame</code> callbacks and using the result to set the target frame rate. Previously, it assumed that the target was 60 frames per second; if the browser called <code>requestAnimationFrame</code> at some different frequency, the results would be invalid.</p>
+<p>With this change, comparing benchmark scores between browsers on devices with non-60Hz displays requires some care; a browser that chooses to run <code>requestAnimationFrame</code> at 120Hz has less time to do work per frame, so it will return a lower score. We advise that the display refresh rate is set to 60Hz for such comparisons, as described in the About page.</p>
+<p>Minor changes were made to various sub-tests for improved reliability. The maximum complexity of the Multiply subtest was increased because newer, faster configurations could easily hit the cap. The way that elements are hidden in Multiply was changed to ensure only the visible elements contribute to the rendering cost. The Paths test was tweaked to ensure a more consistent workload. And finally, the Design subtest was changed to avoid text getting clipped out at the stage boundary, which would lead to artificially high scores.</p>
+<p>There are two scoring-related changes. First, scoring previously chose between a “flat” profile and a “slope” profile based on which had the lowest variance, but the “flat” profile often produced inaccurate scores; it was removed. Second, this version changes which particular frames contribute to the score. The benchmark works by ramping the scene complexity and measuring the duration of some number of frames at each complexity level. In the HTML and SVG sub-tests, the changes in scene complexity involve DOM mutations, in the form of removing elements (since complexity ramps down as the test runs). So there are two types of frames: “mutation” frames and “animation” frames. Previously, the durations of both types of frames fed into the score computation. However, “mutation” frames generally take longer because DOM mutation tends to be more expensive than just animating existing elements, and this adds noise to the results. Since MotionMark is intended to be an animation benchmark, it makes sense for only “animation” frames to contribute to the score.</p>
+<p>MotionMark development is now in <a href="https://github.com/WebKit/MotionMark">GitHub</a>; we welcome your participation there.</p>
+<h2>Change log</h2>
+<ul>
+<li><a href="https://github.com/WebKit/MotionMark/commit/c0a884c2df3287362a126484cd8c07c940015463">Automatic frame rate detection</a></li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/37c610115c8c3fae8a74a18305727064c1fd4edc">Ignore mutation frames when scoring</a> (with preparatory changes <a href="https://github.com/WebKit/MotionMark/commit/b9253e7f262b545164fa6b996f6316542452af83">1</a> and <a href="https://github.com/WebKit/MotionMark/commit/c401061575ae378480e7b2030028cf73515a8519">2</a>)</li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/465dd49026a40a7bd8d30d64a264492165c711e8">Make the “slope” profile the default profile</a></li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/2b2e9d4e89dbd83922e7960872e8ad5f2d23d043">Adjust the maximum complexity of the Multiply subtest</a></li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/9edd41ad33d24cc10b60576b8eb9626178f66122">Use &#8216;display&#8217; style as the default visibility property for the Multiply test</a></li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/ff00967f5d6e92624d4e50e92f719a5ad7de95b7">Fix instability in the Design subtest</a></li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/3090053c0fca81a9feb037075ef934275c690f3e">Make the Paths subtest workload more consistent</a></li>
+<li><a href="https://github.com/WebKit/MotionMark/commit/da952728b532387c1d93789f36a44115e2d3cb84">The first frame of each ramp has an erroneously long frame duration</a></li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

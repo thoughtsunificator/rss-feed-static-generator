@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 185</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 185</h2>
+		<a target="_blank" href="https://webkit.org/blog/14885/release-notes-for-safari-technology-preview-185/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 185 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/3e109296984d430615fc4d881514ca9d7d0e7afa...5b14c827a3e38d548c4635dc387049eef09133e4">271111@main&#8230;271831@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Removed the default ARIA-level heading for a heading role, matching removal from ARIA specifications. (<a href="https://commits.webkit.org/271497@main">271497@main</a>)  (119059172)  </li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>align-content</code> on block containers. (<a href="https://commits.webkit.org/271818@main">271818@main</a>)  (114740670)  </li>
+<li>Added percentage values support for <code>letter-spacing</code> and <code>word-spacing</code>. (<a href="https://commits.webkit.org/271357@main">271357@main</a>)  (116562262)  </li>
+<li>Added support for scroll anchoring with <code>overflow-anchor</code>. (<a href="https://commits.webkit.org/271790@main">271790@main</a>)  (118365809)  </li>
+<li>Added support for <code>@scope</code>. (<a href="https://commits.webkit.org/271670@main">271670@main</a>)  (119261250)  </li>
+<li>Added support for <code>::grammar-error</code> and <code>::spelling-error</code> (<a href="https://commits.webkit.org/271684@main">271684@main</a>)  (119314048)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed CSS counters to update properly on style changes. (<a href="https://commits.webkit.org/271451@main">271451@main</a>)  (109416780)  </li>
+<li>Fixed: Updated Full Size Kana table to Unicode 15. (<a href="https://commits.webkit.org/271276@main">271276@main</a>)  (111508663)  </li>
+<li>Fixed missing user-agent stylesheet rules for MathML fractions. (<a href="https://commits.webkit.org/271337@main">271337@main</a>)  (116922348)  </li>
+<li>Fixed selection gaps to get painted with the expected <code>::selection</code> pseudo-element color. (<a href="https://commits.webkit.org/271129@main">271129@main</a>)  (117796745)  </li>
+<li>Fixed <code>::backdrop</code> to be allowed after <code>::slotted()</code>. (<a href="https://commits.webkit.org/271366@main">271366@main</a>)  (119015204)  </li>
+<li>Fixed: Removed support for special first track handling to align with the evolving Masonry standard. (<a href="https://commits.webkit.org/271757@main">271757@main</a>)  (119041053)  </li>
+</ul>
+<h3>HTML</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>&lt;input type="checkbox" switch&gt;</code>. (<a href="https://commits.webkit.org/271736@main">271736@main</a>)  (119378678)  </li>
+</ul>
+<h3>Media</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added WebCodecs VP9 profile 2 support. (<a href="https://commits.webkit.org/271238@main">271238@main</a>)  (118879753)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an HEVC decoder issue when translating annexb data. (<a href="https://commits.webkit.org/271728@main">271728@main</a>)  (116768196)  </li>
+<li>Fixed AV1-in-MP4 codec string not shown in Show Media Stats. (<a href="https://commits.webkit.org/271187@main">271187@main</a>)  (118850797)  </li>
+<li>Fixed <code>getDisplayMedia</code> <code>frameRate</code> always at 30 regardless of constraints. (<a href="https://commits.webkit.org/271233@main">271233@main</a>)  (118874132)  </li>
+<li>Fixed to not loop if current time or duration is zero. (<a href="https://commits.webkit.org/271256@main">271256@main</a>)  (118902468)  </li>
+<li>Fixed in-band captions wrapping unnecessarily. (<a href="https://commits.webkit.org/271415@main">271415@main</a>)  (119024855)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Removed the <code>&lt;font&gt;</code> <code>text-decoration</code> color override quirk. (<a href="https://commits.webkit.org/271338@main">271338@main</a>)  (102920597)  </li>
+<li>Fixed shadow invalidation issue in <code>vertical-rl</code> mode. (<a href="https://commits.webkit.org/271416@main">271416@main</a>)  (111915460)  </li>
+<li>Fixed text in flex items not breaking under specific conditions. (<a href="https://commits.webkit.org/271122@main">271122@main</a>)  (118796634)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added <code>Element.prototype.setHTMLUnsafe()</code>, <code>ShadowRoot.prototype.setHTMLUnsafe()</code>, and <code>Document.parseHTMLUnsafe()</code> methods. (<a href="https://commits.webkit.org/271423@main">271423@main</a>)  (115345128)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed updating <code>resizeBy</code> and <code>resizeTo</code> to use <code>int</code> rather than <code>float</code> to align with specifications. (<a href="https://commits.webkit.org/271194@main">271194@main</a>)  (118872048)  </li>
+<li>Fixed the CookieChangeEvent to not be exposed when the Cookie Store API is disabled. (<a href="https://commits.webkit.org/271243@main">271243@main</a>)  (118902989)  </li>
+<li>Fixed <code>&lt;progress&gt;</code> to use the page&#8217;s preferred rendering update interval. (<a href="https://commits.webkit.org/271431@main">271431@main</a>)  (118976548)  </li>
+<li>Fixed <code>Element.prototype.setAttributeNode()</code> to not treat attribute names case insensitively. (<a href="https://commits.webkit.org/271363@main">271363@main</a>)  (119013600)  </li>
+<li>Fixed WebGL OffscreenCanvas returning the previously created WebGL1 context when asking for WebGL2. (<a href="https://commits.webkit.org/271546@main">271546@main</a>)  (119028794)  </li>
+<li>Fixed to allow <code>:checked</code> and <code>:indeterminate</code> to match at the same time. (<a href="https://commits.webkit.org/271430@main">271430@main</a>)  (119075969)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>New Features</h4>
+<ul>
+<li>Expanded OffscreenCanvas support for <code>bitmaprenderer</code>, <code>webgl</code>, and <code>webgl2</code>. (<a href="https://commits.webkit.org/271300@main">271300@main</a>)  (109594232)  </li>
+<li>Added Grid overlay support for Masonry layout. (<a href="https://commits.webkit.org/271332@main">271332@main</a>)  (118833618)  </li>
+</ul>
+<h3>WebAuthn</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>getClientCapabilities()</code>. (<a href="https://commits.webkit.org/271584@main">271584@main</a>)  (119058559)  </li>
+</ul>
+<h3>WebGPU</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled WebGPU to be testable via a feature flag. (<a href="https://commits.webkit.org/271725@main">271725@main</a>)  (119262908)  </li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

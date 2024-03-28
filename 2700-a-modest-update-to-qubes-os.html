@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] A modest update to Qubes OS</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] A modest update to Qubes OS</h2>
+		<a target="_blank" href="https://lwn.net/Articles/962787/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://www.qubes-os.org/">Qubes OS</a> is a security-focused desktop Linux distribution built on Fedora Linux and the <a href="https://www.qubes-os.org/faq/#why-does-qubes-use-xen-instead-of-kvm-or-some-other-hypervisor">Xen hypervisor</a>. Qubes uses virtualization to run applications, system services, and devices access via virtual machines called "<a href="https://www.qubes-os.org/doc/glossary/#qube">qubes</a>" that have varying levels of trust and <a href="https://www.qubes-os.org/doc/how-to-use-disposables/">persistence</a> to provide an open-source "<q>reasonably secure</q>" operating system with "<q>serious privacy</q>". The Qubes 4.2.0 release, from <a href="https://www.qubes-os.org/doc/releases/4.2/release-notes/">December 2023</a>, brings a number of refinements to make Qubes OS easier to manage and use.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

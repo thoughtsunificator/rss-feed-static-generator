@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Announcing Interop 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Announcing Interop 2024</h2>
+		<a target="_blank" href="https://hacks.mozilla.org/2024/02/announcing-interop-2024/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://hacks.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The <a href="https://github.com/web-platform-tests/interop#the-interop-project">Interop Project</a> has become one of the key ways that browser vendors come together to improve the web platform. By working to identify and improve key areas where differences between browser engines are impacting users and web developers, Interop is a critical tool in ensuring the long-term health of the open web.</p>
+<p>The web platform is built on interoperability based on common standards. This offers users a degree of choice and control that sets the web apart from proprietary platforms defined by a single implementation. A commitment to ensuring that the web remains open and interoperable forms a fundamental part of Mozilla&#8217;s <a href="https://www.mozilla.org/about/manifesto/">manifesto</a> and <a href="https://www.mozilla.org/en-US/about/webvision/">web vision</a>, and is why we&#8217;re so committed to shipping Firefox with our own <a href="https://en.wikipedia.org/wiki/Gecko_(software)">Gecko</a> engine.</p>
+<p>However interoperability requires care and attention to maintain. When implementations ship with differences between the standard and each other, this creates a <a href="https://2023.stateofcss.com/en-US/usage/#css_pain_points">pain point</a> for web authors; they have to choose between avoiding the problematic feature entirely and coding to specific implementation quirks. Over time if enough authors produce implementation-specific content then interoperability is lost, and along with it user agency.</p>
+<p>This is the problem that the Interop Project is designed to address. By bringing browser vendors together to focus on interoperability, the project allows identifying areas where interoperability issues are causing problems, or may do in the near future. Tracking progress on those issues with a public metric provides accountability to the broader web community on addressing the problems.</p>
+<p>The project works by identifying a set of high-priority focus areas: parts of the web platform where everyone agrees that making interoperability improvements will be of high value. These can be existing features where we know browsers have slightly different behaviors that are causing problems for authors, or they can be new features which web developer feedback shows is in high demand and which we want to launch across multiple implementations with high interoperability from the start. For each focus area a set of web-platform-tests is selected to cover that area, and the score is computed from the pass rate of these tests.</p>
+<h2>Interop 2023</h2>
+<p>The <a href="https://hacks.mozilla.org/2023/02/announcing-interop-2023/">Interop 2023</a> project covered high profile features like the new :has() selector, and web-codecs, as well as areas of historically poor interoperability such as pointer events.</p>
+<p><img decoding="async" fetchpriority="high" class="alignnone size-large wp-image-48086" src="https://hacks.mozilla.org/files/2024/01/Interop-2023-500x407.png" alt="" width="500" height="407" srcset="https://hacks.mozilla.org/files/2024/01/Interop-2023-500x407.png 500w, https://hacks.mozilla.org/files/2024/01/Interop-2023-250x204.png 250w, https://hacks.mozilla.org/files/2024/01/Interop-2023.png 767w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+<p>The <a href="https://wpt.fyi/interop-2023">results</a> of the project speak for themselves: every browser ended the year with scores in excess of 97% for the prerelease versions of their browsers. Moreover, the overall Interoperability score — that is the fraction of focus area tests that pass in all participating browser engines — increased from 59% at the start of the year to 95% now. This result represents a huge improvement in the consistency and reliability of the web platform. For users this will result in a more seamless experience, with sites behaving reliably in whichever browser they prefer.</p>
+<p>For the :has() selector — which we know from author feedback has been one of the most in-demand CSS features for a long time — every implementation is <a href="https://wpt.fyi/results/css/selectors?label=experimental&amp;label=master&amp;product=chrome&amp;product=firefox&amp;product=safari&amp;aligned&amp;view=interop&amp;q=label%3Ainterop-2023-has">now passing 100%</a> of the web-platform-tests selected for the focus area. Launching a major new platform feature with this level of interoperability demonstrates the power of the Interop project to progress the platform without compromising on implementation diversity, developer experience, or user choice.</p>
+<p>As well as focus areas, the Interop project also has &#8220;investigations&#8221;. These are areas where we know that we need to improve interoperability, but aren&#8217;t at the stage of having specific tests which can be used to measure that improvement. In 2023 we had two investigations. The first was for accessibility, which covered writing many more tests for ARIA <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">computed role</a> and <a href="https://developer.mozilla.org/en-US/docs/Glossary/Accessible_name">accessible name</a>, and ensuring they could be run in different browsers. The second was for mobile testing, which has resulted in both Mobile Firefox and Chrome for Android having their initial <a href="https://wpt.fyi/runs?label=master&amp;from=2024-01-10T00%3A00&amp;product=firefox_android&amp;product=chrome_android">results in wpt.fyi</a>.</p>
+<h2>Interop 2024</h2>
+<p>Following the success of Interop 2023, we are pleased to confirm that the project will continue in 2024 with a new selection of focus areas, representing areas of the web platform where we think we can have the biggest positive impact on users and web developers.</p>
+<h3>New Focus Areas</h3>
+<p>New focus areas for 2024 include, among other things:</p>
+<ul>
+<li aria-level="1"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API">Popover API</a> &#8211; This provides a declarative mechanism to create content that always renders in the topmost-layer, so that it overlays other web page content. This can be useful for building features like tooltips and notifications. Support for popover was the #1 author request in the recent State of HTML survey.</li>
+<li aria-level="1"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting">CSS Nesting</a> &#8211; This is a feature that&#8217;s already shipping, which allows writing more compact and readable CSS files, without the need for external tooling such as preprocessors. However different browsers shipped slightly different behavior based on different revisions of the spec, and Interop will help ensure that everyone aligns on a single, reliable, syntax for this popular feature.</li>
+<li aria-level="1">Accessibility &#8211; Ensuring that the web is accessible to all users is a critical part of <a href="https://www.mozilla.org/en-US/about/manifesto/">Mozilla&#8217;s manifesto</a>. Our ability to include Accessibility testing in Interop 2024 is a direct result of the success of the Interop 2023 Accessibility Investigation in increasing the test coverage of key accessibility features.</li>
+</ul>
+<p>The full list of focus areas is available in the <a href="https://github.com/web-platform-tests/interop/blob/main/2024/README.md">project README</a>.</p>
+<h3>Carryover</h3>
+<p>In addition to the new focus areas, we will carry over some of the 2023 focus areas where there&#8217;s still more work to be done. Of particular interest is the Layout focus area, which will combine the previous <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid">Grid</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid">Subgrid</a> focus area into one area covering all the most important layout primitives for the modern web. On top of that the Custom Properties, URL and Mouse and Pointer Events focus areas will be carried over. These represent cases where, even though we&#8217;ve already seen large improvements in Interoperability, we believe that users and web authors will benefit from even greater convergence between implementations.</p>
+<h3>Investigations</h3>
+<p>As well as focus areas, Interop 2024 will also feature a new investigation into improving the integration of WebAssembly testing into web-platform-tests. This will open up the possibility of including WASM features in future Interop projects. In addition we will extend the Accessibility and Mobile Testing investigations, as there is more work to be done to make those aspects of the platform fully testable across different implementations.</p>
+<h2>Partner Announcements</h2>
+<ul>
+<li><strong>Apple</strong>: <a href="https://webkit.org/blog/14955/the-web-just-gets-better-with-interop/">The web just gets better with Interop, now for 2024</a></li>
+<li><strong>Bocoup</strong>: <a href="https://bocoup.com/blog/interop-2024">Interop 2024</a></li>
+<li><strong>Google</strong>: <a href="https://web.dev/blog/interop-2024">Interop 2024</a></li>
+<li><strong>Igalia</strong>: <a href="https://www.igalia.com/2024/interop-2024-launches.html">Interop 2024 Launches</a></li>
+<li><strong>Microsoft</strong>: <a href="https://blogs.windows.com/msedgedev/2024/02/01/microsoft-edge-and-interop-2024/">Microsoft Edge and Interop 2024</a></li>
+</ul>
+<p>The post <a href="https://hacks.mozilla.org/2024/02/announcing-interop-2024/">Announcing Interop 2024</a> appeared first on <a href="https://hacks.mozilla.org">Mozilla Hacks - the Web developer blog</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>7 Practices to Secure Third-Party API Usage</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">7 Practices to Secure Third-Party API Usage</h2>
+		<a target="_blank" href="https://nordicapis.com/7-practices-to-secure-third-party-api-usage/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Third-party API use is growing, which may be a potential risk for many developers. Leaning on external APIs is necessary for modern software development, but it requires a level of trust that may expose the codebase and the system unduly. Below, we&#8217;ll dive into this particular problem and look at some best practices to secure systems that utilize third-party implementations.</p>
+<h2 id="where-this-problem-comes-from">Where This Problem Comes From</h2>
+<p>Part of the magic of APIs is that they can be used in various use cases, both <a href="https://nordicapis.com/tips-for-internal-api-first-approaches/">first-party</a> and <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">third-party</a>. The idea that an API can be used across the internet for a variety of interactions and flows is the ultimate promise of the <a href="https://nordicapis.com/why-api-platforms-should-be-open/">platform effect</a>, and it is one that modern API development and iteration depend on heavily. This kind of external consumption of a first-party resource is broadly called &#8220;third-party usage.&#8221;</p>
+<p>Unfortunately, with this expansive third-party API use comes a bevy of risks. So much so that OWASP now lists <a href="https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/">Unsafe Consumption of APIs</a> as one of the top threats faced by organizations. Businesses have often trusted third-party API implementations at a level different from typical user input, but this trust can often be misplaced or misaligned, and it depends wholly on ensuring that the other party — the implementer you depend on — has done their due diligence at every possible level. Even when this trust is warranted, the reality is that implementers often choose a different security posture depending on their perceived trust. According to OWASP:</p>
+<blockquote><p>&#8220;Developers tend to trust data received from third-party APIs more than user input. This is especially true for APIs offered by well-known companies. Because of that, developers tend to adopt weaker security standards, for instance, in regards to input validation and sanitization.&#8221;</p></blockquote>
+<p>The problem here isn&#8217;t just about trust, however. Even if a system is implemented well and carries its own secure implementations on the third-party integrator, there&#8217;s still a level of obfuscation that cannot be ignored. Compared to <a href="https://nordicapis.com/7-open-source-api-security-tools/">open-source tools</a> that provide a view into the internal code, third-party APIs are out of your hands as they operate in a black box.</p>
+<p>Ultimately, developers need to adopt some best practices to ensure that their use of third-party APIs is as safe as possible. Let&#8217;s dig into these best practices.</p>
+<h2 id="best-practices-for-securing-third-party-api-usage">Best Practices for Securing Third-Party API Usage</h2>
+<h3 id="1-adopt-zero-trust">1. Adopt Zero Trust Principles</h3>
+<p>The premise of <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">zero-trust security</a> is simple: trust nothing, verify everything. While this might seem obvious for external data, the reality is that many threats occur due to internal issues. Many scenarios, such as improperly configured instances, leaning on insecure third-party solutions, or even having a single weak point in the staffed organization, can result in a massive issue of insecurity.</p>
+<p>Accordingly, adopting a <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/">zero-trust model</a> is the only way to correct the course. Zero trust requires that everything — even internal users and internal calls — must verify that:</p>
+<ul>
+<li>They are who they say they are</li>
+<li>They are accessing what they say they are accessing</li>
+<li>They have all the rights that are required to perform the action</li>
+</ul>
+<p>This control is often enabled through fine-grained policy and rights control, with a <a href="https://nordicapis.com/introducing-the-api-security-maturity-model/">multi-layered system</a> using varied [claims and role-based enforcement. Put simply, when you trust nothing and everything is automatically suspect, you are already 99% of the way towards securing third-party implementation.</p>
+<p>Data validation and sanitization are a big part of ensuring you are correctly ingesting third-party APIs. You never know what an API might send when the API is outside of your control, and blindly trusting the output of anything violates the principle of zero trust. Therefore, it&#8217;s a good practice to <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/">validate and properly sanitize any data</a> received from integrated APIs before using it.</p>
+<h3 id="2-catalog-use-cases-and-implementations-and-audit-them-too-">2. Catalog Use Cases and Implementations (And Audit Them, Too!)</h3>
+<p>Visibility is a huge element for any security posture, but this is even more true regarding third-party implementations. Obfuscation is the enemy of true security, and when we&#8217;re talking about third-party systems, we need a higher amount of visibility and documentation.</p>
+<p>Therefore, every single use case and third-party implementation must be documented. This documentation must include the technical details, of course, documenting what third-party system is being utilized, how it&#8217;s being implemented, and the dependencies that are needed. Additionally, however, it&#8217;s vital to include the logic behind the implementation. Why was this solution used? What does it enable from the business logic perspective? And is it critical for ongoing development?</p>
+<p>Answering these questions grants much-needed context, which can help further improve the <a href="https://nordicapis.com/api-inventory-navigating-through-invisible-threats/">security posture</a>. For instance, if an integration was made in a rapidly short time frame, this might suggest it should be audited from a security standpoint.</p>
+<p>Additionally, OWASP suggests the generation of an allow list for third-party APIs. Maintaining an allowed list of trusted and well-known API locations prevents redirects from being used maliciously, and as long as you do not blindly follow redirects, you can gain substantial security.</p>
+<p>Auditing will be a key part of all of this. Review often, trust nothing, and double-check everything!</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/">7 Reasons Why Cataloging Your API Inventory Matters</a></div>
+<h3 id="3-implement-proper-authorization-and-authentication">3. Implement Proper Authorization and Authentication</h3>
+<p>Developers often assume third-party implementations to be secure, depending on the source. After all, if something is coming from Amazon, it has to be secure, right? Not necessarily. Everything is exposed to attackers at all times, and assuming that a major party is not just at risk as anyone else is setting yourself up for major disappointment.</p>
+<p>Accordingly, implementing proper <a href="https://nordicapis.com/what-is-the-difference-between-authentication-and-authorization/">authorization and authentication</a> is vital. Ensuring that these systems exist and implement granular controls is the very least you can do, but it goes further than that.</p>
+<p>What happens if a massive security risk requires you to break formerly trusted pipelines? You&#8217;ll need to depend on revocable systems such as revocation of tokens. What happens when an administration API gets breached? You better have heuristics-based authentication systems to detect illicit use! Or, suppose a new company has bought a third-party implementation and injected it with malicious code! If you adopt a zero-trust environment, you can automatically reject those malicious endpoints and requests.</p>
+<p>Setting up proper authentication and authorization is critical in typical APIs, but even more so in this use case. So, do the right thing and implement this correctly.</p>
+<h3 id="4-establish-rules-of-governance">4. Establish Rules of Governance</h3>
+<p>Implementing a trusted system implies that there is something between being trusted and not being trusted. Without clearly defining what that line is, no developer is going to be able to enforce their security posture. Again, obfuscation is the enemy of security here, so transparency is the name of the game.</p>
+<p>Every developer should establish <a href="https://nordicapis.com/6-enablers-for-advancing-api-governance-maturity/">rules of governance</a> for their third-party implementations. These should be very clear, but they should also be well-documented, representing the technical as well as the logical implementations, decisions, and reasoning. Clarity at this stage will help clarify when something breaches your rules and becomes an insecurity. Without these rules of governance, you have very shaky ground to stand on.</p>
+<h3 id="5-consider-resourcing-as-a-team">5. Consider Resourcing as a Team</h3>
+<p>Not all solutions are technical in nature. Sometimes, third-party integrations rise to a different level. When your codebase substantially utilizes third-party implementations, that&#8217;s one thing. When can it literally not function without them, or enable critical functions through them? That becomes a potential business exposure.</p>
+<p>In such a case, resourcing an entire team starts to make more sense. Establishing a team whose sole purpose is to govern and secure third-party integrations might seem outlandish, but what we&#8217;re looking at is the prevention of a chokepoint through proper resourcing. If preventing this business crunch just means spending a bit more money and time on a team, then that is really an obvious solution.</p>
+<h3 id="6-monitor-third-party-implementation-through-centralized-observability">6. Monitor Third-Party Implementation through Centralized Observability</h3>
+<p>Visibility is critical for the secure implementation of third-party systems, so anything that can be done to boost this visibility is going to be critical. Consider implementing a <a href="https://nordicapis.com/why-opentelemetry-is-the-next-big-thing-in-api-monitoring/">centralized observability plane</a> through the use of dashboards, tracking systems, and other solutions. By collecting the entirety of your third-party performance on a single view, you can start to see how this body of code is acting and interacting with your service, allowing for invaluable insight.</p>
+<p>This can also open up options for controls that you may not otherwise have. Heuristics-based systems, automation at scale, and <a href="https://blog.treblle.com/how-ai-can-enable-zero-trust-api-security/">AI-guided security controls</a> all depend on increasing visibility to a high degree.</p>
+<h3 id="7-adopt-proper-management-tools">7. Adopt Proper Management Tools</h3>
+<p>Developers may also benefit from using <a href="https://nordicapis.com/6-open-source-api-gateways/">API gateways</a> to help control a high amount of third-party implementations. At a certain point, a high enough number of integrations almost becomes an external API in and of itself, and in such a case, a gateway would be warranted to collect those disparate functions and calls into a single source. At this point, you could then use internal security systems to filter malicious calls and control the flow of data.</p>
+<p>Even with APIs that don&#8217;t have a mass amount of calls, this solution might start to make more sense if you are repeating security implementations in multiple places. Simplicity can be a positive element in a security posture, as it prevents overlooking configurations that may result in increased exposure.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ultimately, third-party implementations should be seen for what they are: powerful options that nonetheless present a potential inflection point for security postures. Adopting proper security forethought around these implementations can lead to extensibility and scalability with increased security and more positive outcomes. On the other hand, an improper security posture around third-party APIs could expose you to fundamental risks. Accordingly, do your due diligence and ensure implementation is secure at all costs.</p>
+<p>What do you think of these best practices? Have we missed anything that you would add to this list? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

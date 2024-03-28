@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to use Media Source Extensions with AirPlay</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to use Media Source Extensions with AirPlay</h2>
+		<a target="_blank" href="https://webkit.org/blog/15036/how-to-use-media-source-extensions-with-airplay/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Media Source Extensions (MSE) is a popular way to provide streaming video on the web. It gives JavaScript control of the way bytes are sent to the browser for playback. At the 2023 Worldwide Developer conference, Apple <a href="https://developer.apple.com/videos/play/wwdc2023/10122/">announced a new Managed Media Source API</a> that improves on MSE with efficient video streaming and longer battery life for iOS and other devices.</p>
+<p>However, MMS and MSE, by nature, are not compatible with AirPlay, which requires a unique playback URL. AirPlay allows you to start playback of your favorite videos on your phone, move them to your TV and then switch off that phone. An AirPlay-compatible URL can be of any format such as an mp4, mpeg-ts, or HTTP Live Streaming (HLS).</p>
+<p>This post will guide you through providing both sources and, in the process, build out a demo example.</p>
+<p><img loading="lazy" decoding="async" width="3080" height="1732" src="https://webkit.org/wp-content/uploads/mse-airplay-1.png" alt="WebKit MSE + AirPlay Demo" class="wp-image-15041" srcset="https://webkit.org/wp-content/uploads/mse-airplay-1.png 3080w, https://webkit.org/wp-content/uploads/mse-airplay-1-300x169.png 300w, https://webkit.org/wp-content/uploads/mse-airplay-1-1024x576.png 1024w, https://webkit.org/wp-content/uploads/mse-airplay-1-768x432.png 768w, https://webkit.org/wp-content/uploads/mse-airplay-1-1536x864.png 1536w, https://webkit.org/wp-content/uploads/mse-airplay-1-2048x1152.png 2048w" sizes="(max-width: 3080px) 100vw, 3080px" /></p>
+<p>Since MMS/MSE uses binary blobs appended to a SourceBuffer it won’t work with AirPlay. But, if you create an alternative source that can be served as an AirPlay-compatible URL, there is a way to get them to work together.</p>
+<p>When it comes to an AirPlay-compatible alternative, HLS is an option that offers a great deal of efficiency for users. There are numerous resources that can guide you in converting your video content to serve it with HLS. <a href="https://developer.apple.com/documentation/http-live-streaming/using-apple-s-http-live-streaming-hls-tools">Apple offers a toolkit you can use</a> and there are many other options as well.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">airplayURL</span> <span class="operator">=</span> <span class="char">'./video/demo.m3u8'</span>;
+<span class="keyword type">const</span> <span class="identifier">videoURL</span> <span class="operator">=</span> <span class="char">'./video/demo.mp4'</span>;
+<span class="keyword type">const</span> <span class="identifier">mediaType</span> <span class="operator">=</span> <span class="char">'video/mp4; codecs="avc1.640028"'</span>;
+
+<span class="comment">// Create a video element
+</span><span class="keyword type">const</span> <span class="identifier">video</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'video'</span>);
+
+<span class="comment">// Set video element properties for the demo
+</span><span class="identifier">video</span>.<span class="identifier">controls</span> <span class="operator">=</span> <span class="keyword literal">true</span>;
+<span class="identifier">video</span>.<span class="identifier">loop</span> <span class="operator">=</span> <span class="keyword literal">true</span>;
+<span class="identifier">video</span>.<span class="identifier">muted</span> <span class="operator">=</span> <span class="keyword literal">true</span>;
+<span class="identifier">video</span>.<span class="identifier">autoplay</span> <span class="operator">=</span> <span class="keyword literal">true</span>;
+</code></pre>
+<p>In setting up the MediaSource, it’s easy to use feature detection to use Managed Media Source API to offer power-efficient streaming on browsers that support it and gracefully fallback to MSE where its not available:</p>
+<pre><code class="js"><span class="comment">// Feature detect MMS and fallback to MSE
+</span><span class="keyword type">const</span> <span class="identifier">MediaSource</span> <span class="operator">=</span> <span class="identifier">self</span>.<span class="identifier">ManagedMediaSource</span> <span class="operator">|</span><span class="operator">|</span> <span class="identifier">self</span>.<span class="identifier">MediaSource</span>;
+<span class="keyword type">const</span> <span class="identifier">source</span> <span class="operator">=</span> <span class="keyword operator">new</span> <span class="identifier">MediaSource</span>();
+</code></pre>
+<p>We also need a way to offer both our Media Source and AirPlay sources at the same time. The HTML <code>video</code> element’s ability to define multiple sources will do just that. It was originally intended to allow a user-agent to choose the best format of the video to be played and fallback should it not be supported.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">video</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"format/video.m3u8"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"application/x-mpegURL"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"format/video.ogg"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"video/ogg"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"format/video.mp4"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"video/mp4"</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"format/video.webm"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"video/webm"</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">video</span>&gt;</span>
+</code></pre>
+<p>The browser will look over the list of available formats from top to bottom. If no matches are found, or if decoding fails along the way, it will select the next element in the list.</p>
+<p>We can make use of this behavior, combining the ability for the user-agent to choose the best format and allowing AirPlay to select a playable source. You’ll create a URL from your Media Source and add it to a video element as the first source. This URL is local to the user-agent and can’t be shared, as it has no meaning outside the local context. Then you add the AirPlay-compatible URL as the second source.</p>
+<pre><code class="js"><span class="comment">// Add MSE/MMS streaming source
+</span><span class="keyword type">const</span> <span class="identifier">videoSource1</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'source'</span>);
+<span class="identifier">videoSource1</span>.<span class="identifier">type</span> <span class="operator">=</span> <span class="char">'video/mp4'</span>;
+<span class="identifier">videoSource1</span>.<span class="identifier">src</span> <span class="operator">=</span> <span class="identifier">URL</span>.<span class="identifier">createObjectURL</span>(<span class="identifier">source</span>); <span class="comment">// Create URL from MediaSource
+</span><span class="identifier">video</span>.<span class="identifier">appendChild</span>(<span class="identifier">videoSource1</span>);
+
+<span class="comment">// Add AirPlay-compatible HLS source
+</span><span class="keyword type">const</span> <span class="identifier">videoSource2</span> <span class="operator">=</span> <span class="identifier">document</span>.<span class="identifier">createElement</span>(<span class="char">'source'</span>);
+<span class="identifier">videoSource2</span>. <span class="identifier">type</span> <span class="operator">=</span> <span class="char">'application/x-mpegURL'</span>;
+<span class="identifier">videoSource2</span>.<span class="identifier">src</span> <span class="operator">=</span> <span class="identifier">airplayURL</span>;
+<span class="identifier">video</span>.<span class="identifier">appendChild</span>(<span class="identifier">videoSource2</span>);
+</code></pre>
+<p>Now when Safari detects that an alternative source is available in addition to the MediaSource URL object, it will display the familiar AirPlay icon to the video player control. Should the user select AirPlay, it will switch over from MSE to the AirPlay-compatible URL.</p>
+<p><iframe id="mms-airplay-demo" src="https://webkit.org/demos/mms-airplay/index.html"></iframe></p>
+<p>The streaming code for this demo is very basic and serves as an example of getting the bytes from the video to the browser.</p>
+<pre><code class="js"><span class="identifier">document</span>.<span class="identifier">onload</span> <span class="operator">=</span> <span class="identifier">async</span> () <span class="operator">=</span><span class="operator">&gt;</span> {
+  <span class="keyword control">if</span> (<span class="operator">!</span><span class="identifier">MediaSource</span>.<span class="identifier">isTypeSupported</span>(<span class="identifier">mediaType</span>)) {
+    <span class="keyword control">return</span> <span class="identifier">console</span>.<span class="identifier">log</span>(<span class="char">'Media type is not supported.'</span>);
+  }
+
+  <span class="identifier">await</span> <span class="keyword operator">new</span> <span class="identifier">Promise</span>((<span class="identifier">resolve</span>) <span class="operator">=</span><span class="operator">&gt;</span> {
+    <span class="identifier">source</span>.<span class="identifier">addEventListener</span>(<span class="string">"sourceopen"</span>, <span class="identifier">resolve</span>, { <span class="identifier">once</span><span class="operator">:</span> <span class="keyword literal">true</span> });
+    <span class="identifier">document</span>.<span class="identifier">body</span>.<span class="identifier">appendChild</span>(<span class="identifier">video</span>);
+  });
+
+  <span class="keyword type">const</span> <span class="identifier">sourceBuffer</span> <span class="operator">=</span> <span class="identifier">source</span>.<span class="identifier">addSourceBuffer</span>(<span class="identifier">mediaType</span>);
+
+  <span class="identifier">async</span> <span class="keyword type">function</span> <span class="identifier">loadSegment</span>() {
+    <span class="keyword type">const</span> <span class="identifier">response</span> <span class="operator">=</span> <span class="identifier">await</span> <span class="identifier">fetch</span>(<span class="identifier">videoURL</span>);
+    <span class="keyword type">const</span> <span class="identifier">buffer</span> <span class="operator">=</span> <span class="identifier">await</span> <span class="identifier">response</span>.<span class="identifier">arrayBuffer</span>();
+    <span class="identifier">await</span> <span class="keyword operator">new</span> <span class="identifier">Promise</span>((<span class="identifier">resolve</span>) <span class="operator">=</span><span class="operator">&gt;</span> {
+      <span class="identifier">sourceBuffer</span>.<span class="identifier">addEventListener</span>(<span class="string">"updateend"</span>, <span class="identifier">resolve</span>, { <span class="identifier">once</span><span class="operator">:</span> <span class="keyword literal">true</span> });
+      <span class="identifier">sourceBuffer</span>.<span class="identifier">appendBuffer</span>(<span class="identifier">buffer</span>);
+    });
+  }
+
+  <span class="keyword control">if</span> (<span class="keyword operator">typeof</span>(<span class="identifier">source</span>.<span class="identifier">onstartstreaming</span>) <span class="operator">!</span><span class="operator">=</span><span class="operator">=</span> <span class="char">'undefined'</span>) {
+    <span class="identifier">source</span>.<span class="identifier">onstartstreaming</span> <span class="operator">=</span> <span class="identifier">async</span> () <span class="operator">=</span><span class="operator">&gt;</span> {
+      <span class="identifier">loadSegment</span>();
+    };
+  } <span class="keyword control">else</span> <span class="identifier">loadSegment</span>();
+});
+</code></pre>
+<h2>Feedback</h2>
+<p>Offering support for MMS/MSE and AirPlay is gives users the best of all worlds and the <code>video</code> element makes it easy to offer multiple sources. You can learn more about the <a href="https://github.com/w3c/media-source/issues/320">Managed Media Source API proposal</a> at the W3C, and learn about <a href="https://developer.apple.com/documentation/http-live-streaming">HTTP Live Streaming</a> from Apple’s documentation.</p>
+<p>We love to hearing from you. Send a tweet to <a href="https://twitter.com/webkit">@webkit</a> to share your thoughts on this feature. Find us on Mastodon at <a href="https://front-end.social/@jensimmons">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis">@jondavis@mastodon.social</a>. You can also <a href="https://www.linkedin.com/in/apple-webkit/">follow WebKit on LinkedIn</a>. If you run into any issues, we welcome your <a href="https://bugs.webkit.org/">WebKit bug reports</a> on WebKit-powered features like this. Reporting issues and sharing your feedback makes an enormous difference.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

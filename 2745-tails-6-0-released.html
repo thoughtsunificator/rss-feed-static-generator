@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Tails 6.0 released</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Tails 6.0 released</h2>
+		<a target="_blank" href="https://lwn.net/Articles/963986/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://tails.net/news/version_6.0/index.en.html">Tails 6.0</a> is now available. Based on Debian, <a href="https://tails.net/">Tails</a> is a portable operating system designed to run from a USB stick and help users avoid surveillance and censorship. This release updates most Tails applications, and includes important security and usability improvements.</p>
+
+<p>One major new feature in 6.0 is to provide warnings to users about 
+<a href="https://tails.net/ioerror/">errors when reading or
+writing</a> to persistent storage. This release now ignores USB devices plugged in while the screen is locked, and <a href="https://tails.net/doc/encryption_and_privacy/secure_deletion/index.en.html">removes</a> some file and disk-wiping features from the Files application that are "<q>not reliable enough</q>" on USB sticks and SSDs to continue offering to users.</p>
+
+<p>Users of Tails prior to 6.0~rc1 will need to do a <a
+href="https://tails.net/doc/upgrade/index.en.html#manual">manual
+upgrade</a> to retain persistent storage. New users can download Tails for
+<a href="https://tails.net/install/download/index.en.html">USB</a>, or as
+an <a href="https://tails.net/install/download-iso/index.en.html">ISO</a>
+to create a DVD or run Tails in a virtual machine.</p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Deploying microservices: the path from laptop to production</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Deploying microservices: the path from laptop to production</h2>
+		<a target="_blank" href="http://microservices.io//post/deployment/2024/02/12/deploy-microservices-path-from-laptop-to-production.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>This is a talk that I gave at JFokus 2024.</p>
+
+<p><img src="/i/posts/deployment-pipeline-big-picture.png" class="img-responsive" /></p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Organizations usually adopt the microservice architecture to enable the rapid frequent and reliable delivery of changes to a large, complex application. When microservices are used in conjunction with continuous delivery, a stream of small changes flows from development into production, ideally as often as at least one commit per developer day. To support such rapid a rapid pace of development, it’s essential that each service has an automated deployment pipeline that can quickly build and test the service and then safely deploy it into production.</p>
+
+<p>In this talk, I will describe how to create a modern deployment pipeline that deploys microservices to Kubernetes, using a Spring Boot application as an example. You will learn about how to write fast yet effective tests for microservices including contract tests that enable services to be tested in isolation, and integration test that use the testcontainers library to run infrastructure services. I’ll describe how to deploy services using Flux CD, which is an open-source GitOps tool that ensures that the actual state of a Kubernetes matches the desired state defined in a Git repository. You will also learn about how to minimize the risk of changes by performing canary deployments using Flagger, which is an open-source tool for automated releases.</p>
+
+<h2 id="slides">Slides</h2>
+
+<iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/265a8053d6e54597a7f58d9a20b397a2" title="Deploying microservices: the path from laptop to production" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 420;" data-ratio="1.3333333333333333"></iframe>
+
+<h2 id="video">Video</h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PLBaBDN5iY0?si=vZYyiL_KWF4deqKQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

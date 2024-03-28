@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Differences Between Synchronous and Asynchronous APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The Differences Between Synchronous and Asynchronous APIs</h2>
+		<a target="_blank" href="https://nordicapis.com/the-differences-between-synchronous-and-asynchronous-apis/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Application programming interfaces (APIs) are the backbone of the modern web, connecting various systems and unlocking collaborative processes. In the context of API communication, two general paradigms have arisen: synchronous and asynchronous services.</p>
+<p>Synchronous and asynchronous design are fundamental principles in API design, and understanding their differences, benefits, and drawbacks is vital for new and veteran developers alike. Below, we&#8217;ll compare the differences between the two paradigms and review the exact formats, protocols, and frameworks used in each.</p>
+<h2 id="synchronous-apis">Synchronous APIs</h2>
+<p>Synchronous APIs operate on a very straightforward flow. When a client makes a request to the server, it waits for the response from that server before it moves on. Synchronous APIs are akin to a two-way conversation over the telephone, where each party speaks and waits for the other end to reply or contribute before continuing. Synchronous APIs are often a preferred approach for interactions that require real-time connections and are very common in microservice environments on the <a href="https://nordicapis.com/when-is-an-api-truly-rest-vs-rest-like/">modern web</a>.</p>
+<h3 id="synchronous-workflow">Synchronous Workflow</h3>
+<p>The synchronous workflow can broadly be broken into three stages:</p>
+<ul>
+<li><strong>Request</strong>: A client makes a request to a server to perform a specific action. This action can include retrieving a resource, editing an entity, or even forwarding this request elsewhere.</li>
+<li><strong>Processing</strong>: The server processes the request and prepares an appropriate response according to the type and mode of the request. During this processing, the client is essentially idle, awaiting the response.</li>
+<li><strong>Response</strong>: The server sends the response back to the requesting entity. This response could be the data requested or a confirmation that the function has been carried out (such as a resource has been deleted or the message has been forwarded). Once this step is completed, the client is free to make new requests.</li>
+</ul>
+<h3 id="synchronous-use-cases">Synchronous Use Cases</h3>
+<p>Synchronous APIs are best used when immediacy is necessary. When working with database representations or external resources, immediacy may be required. Transformational needs that are 1:1 may also require synchronous communication to mirror states across resources, such as when collaboratively editing a document.</p>
+<p>Ultimately, synchronous APIs are best used whenever a resource is being changed or modified, and that change or modification must be relayed to the client as such a change occurs.</p>
+<h3 id="advantages-and-disadvantages">Advantages and Disadvantages</h3>
+<h4 id="advantages">Advantages</h4>
+<p>Synchronous APIs are relatively straightforward to implement, meaning they often cost less to develop and maintain. Synchronous APIs also provide immediate feedback, which many developers may find easier to utilize for secondary applications. Synchronous can also result in a more sustained accuracy and specificity for many applications, as the client is immediately updated as to the effects of its request as the request is processed.</p>
+<h4 id="disadvantages">Disadvantages</h4>
+<p>Synchronous systems can, in effect, be less efficient in some applications. Because synchronous systems have to wait for a response on the client side and await prompting in many cases on the server side, scaling and resource efficiency issues can arise at scale when immediate synchronization is unneeded. In some applications, you simply do not need synchronous data exchange. In those cases, a synchronous exchange may introduce more cost than is actually required due to excessive polling.</p>
+<h2 id="asynchronous-apis">Asynchronous APIs</h2>
+<p><a href="https://nordicapis.com/the-world-is-asynchronous-get-used-to-it/">Asynchronous APIs</a> operate differently. They allow the client to make a request and then proceed without waiting for the response. The server processes the request in its own time and sends back a response when ready, where the client can handle, transform, and process the data at its own convenience. To make a real-world analogy, this is akin to mail — you send a letter through the mail and go about your life while waiting for the response to come back through the mailbox.</p>
+<h3 id="asynchronous-workflow">Asynchronous Workflow</h3>
+<ul>
+<li><strong>Request</strong>: A client makes a request to a server to perform a specific action. This action can include retrieving a resource, editing an entity, or even forwarding this request elsewhere.</li>
+<li><strong>Acknowledgement</strong>: The server acknowledges that a request has been made and provides a mechanism by which the client can call back for status updates.</li>
+<li><strong>Processing</strong>: The server processes the request in the background like any other request.</li>
+<li><strong>Notification</strong>: The server notifies the client through a callback, <a href="https://nordicapis.com/why-your-api-needs-webhooks/">webhook</a>, message queue, or other protocol that the request has been completed. At this time, the requested information is provided. Alternatively, confirmation that something has occurred may be provided, too.</li>
+</ul>
+<h3 id="asynchronous-use-cases">Asynchronous Use Cases</h3>
+<p><a href="https://nordicapis.com/why-asynchronous-apis-are-on-the-rise/">Asynchronous APIs</a> are particularly useful in scenarios where the processing of a request is expected to take time or does not need immediate attention. Video or audio processing, batch processing documents, or polling solutions that periodically check the status of an IoT device are all very good cases for functions that do not need immediate processing, which would benefit from an asynchronous design.</p>
+<h3 id="advantages-and-disadvantages">Advantages and Disadvantages</h3>
+<h4 id="advantages">Advantages</h4>
+<p>Asynchronous flows are often quite efficient, as they do not require any sort of waiting. This can result in services making better use of more limited computational and network power. This can lead to scalability benefits, allowing for determining if and when such processing is actually feasible.</p>
+<h4 id="disadvantages">Disadvantages</h4>
+<p>Asynchronous flows can be more complex in code, especially when considering the setup needed to handle responses with notifications after processing. While asynchronous flows can be more efficient in some use cases, the code required to get them there can often introduce costs that don&#8217;t scale well with more complicated ecosystems. Asynchronous systems also do not provide real-time responses, meaning they are at a disadvantage for systems requiring immediate interactivity.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/designing-asynchronous-microservices-with-asyncapi/">Designing Asynchronous Microservices With AsyncAPI</a></div>
+<h2 id="design-considerations">Design Considerations</h2>
+<p>When designing an API, developers must decide early on whether synchronous or asynchronous is a proper dynamic. The following factors are critical for this consideration:</p>
+<ul>
+<li><strong>Resource availability and demand</strong>: Asynchronous environments can scale responses due to low resource availability, delaying the response as much as is needed. Accordingly, asynchronous approaches may be more appropriate for resource-intensive applications that do not require immediacy.</li>
+<li><strong>Developer experience</strong>: Synchronous APIs often feel &#8220;snappier&#8221; than asynchronous APIs due to the immediacy of response. Where this is prioritized, synchronous makes sense. Asynchronous may win out when requests are made in the background more often.</li>
+<li><strong>Continuity</strong>: Synchronous APIs allow for immediate updating of the client, leading to greater consistency. When a client makes a request, that request is immediately fulfilled or handled per an appropriate channel. For asynchronous environments, users may have to wait for a time, introducing obstruction as to the current state of the request, what resources it is touching, and the overall system.</li>
+<li><strong>Immediacy and latency</strong>: Asynchronous APIs are best when high latency and low immediacy are tolerated or preferred. Synchronous APIs are required when immediate feedback and low latency are critical.</li>
+<li><strong>Idempotency</strong>: The <a href="https://nordicapis.com/understanding-idempotency-and-safety-in-api-design/">concept of idempotency</a> is simple — when an operation is run multiple times it should result in the same output as if it were run once. This is especially important in poor network environments and high variability in client type.</li>
+</ul>
+<p>Both asynchronous and synchronous systems can deliver idempotency as long as the function itself is designed to do so. Still, asynchronous environments especially should carry status codes and other data that assure the end client that the service they are touching remains the same, even if the context around that data might change (for instance, a 200 code can be delivered to confirm successful data recall even if the data itself is rapidly changing).</p>
+<h2 id="best-practices">Best Practices</h2>
+<p>Regardless of the solution, many API best practices remain applicable to both paradigms. The following is not a comprehensive list, but it does give you some places to start!</p>
+<ul>
+<li><strong><a href="https://nordicapis.com/8-developer-portal-best-practices/">Ensure good developer experience</a></strong>: Regardless of design choice, document thoroughly and provide adequate developer support through efficient and comprehensive developer portals.</li>
+<li><strong><a href="https://nordicapis.com/beware-oauth-misconfigurations-to-protect-your-web-apis/">Check configurations and avoid misconfiguration</a></strong>: Ensuring proper configuration is your first-line defense towards ensuring your environment is secure.</li>
+<li><strong><a href="https://nordicapis.com/how-to-manage-breaking-changes-throughout-an-apis-lifecycle/">Make sure your versioning is good</a></strong>: Manage breaking changes and versioning over the lifecycle of your API, ensuring that users are continually supported.</li>
+<li><strong><a href="https://nordicapis.com/what-is-the-principle-of-least-privilege/">Adopt proper security postures such as least privilege</a></strong>: Ensure you adhere to basic common-sense security solutions to secure the overall platform.</li>
+<li><strong><a href="https://nordicapis.com/whats-the-difference-between-an-api-gateway-and-a-load-balancer/">Implement gateways, load Balancers, and other solutions correctly</a></strong>: Ensure your environment is properly distributed and healthy by utilizing proven techniques to balance and unify your API flow.</li>
+</ul>
+<h2 id="examples-in-the-market">Examples in the Market</h2>
+<p>Let&#8217;s take a look at some concrete examples of these models. We&#8217;ll showcase some real-world examples of synchronous and asynchronous API styles, so you get a sense of how they differ.</p>
+<h3 id="synchronous-api-example">Synchronous API Example</h3>
+<p>A great example of a synchronous API is the <a href="https://developers.google.com/maps/documentation/geocoding/overview">Google Geocoding API</a>. This API allows you to send an address, a set of coordinates, or a place ID to an internal server, which then converts it to any of the other forms. For example, you can submit a set of coordinates and get an address and place ID, or you can submit a place ID and get an address and set of coordinates. The API responds immediately to the request, allowing for rapid transformation between various data forms. Providers may find this helpful when taking a collection of disparate location information and standardizing them to a single set.</p>
+<h3 id="asynchronous-api-example">Asynchronous API Example</h3>
+<p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops.html">AWS S3 Batch Operations</a> allows users to send a batch of processing requests through the AWS system without having to wait for the response or the status of other requests. When these requests are processed, a job ID is provided, which can be used to see the processing and get an alert when the job is done. This is an excellent example of an asynchronous API, as the user does not have to wait for anything while the processing is done, and in fact, multiple batch operations can be initiated parallel to one another.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Asynchronous and synchronous APIs have their places in the software world. Choosing between them will come down to your specific use case, the relative strengths and weaknesses of each solution, and the requirements of your end user. Understanding these factors will go a long way towards ensuring you are making the right choice.</p>
+<p>What do you think about this crash course? Is there something else you&#8217;d love us to do a deep dive into? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>An HTML Switch Control</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">An HTML Switch Control</h2>
+		<a target="_blank" href="https://webkit.org/blog/15054/an-html-switch-control/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>We’re very excited to introduce a new HTML form control as part of Safari 17.4: a switch.</p>
+<figure><img loading="lazy" decoding="async" width="1574" height="520" src="https://webkit.org/wp-content/uploads/switch.png" alt="" class="wp-image-15055" srcset="https://webkit.org/wp-content/uploads/switch.png 1574w, https://webkit.org/wp-content/uploads/switch-300x99.png 300w, https://webkit.org/wp-content/uploads/switch-1024x338.png 1024w, https://webkit.org/wp-content/uploads/switch-768x254.png 768w, https://webkit.org/wp-content/uploads/switch-1536x507.png 1536w" sizes="(max-width: 1574px) 100vw, 1574px" /><figcaption>Two switches as seen on iOS, with the second switch using a custom CSS <code>accent-color</code>.</figcaption></figure>
+<p>The HTML for this example looks roughly like this:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">style</span>&gt;</span> .special { accent-color: papayawhip } <span class="tag">&lt;/<span class="keyword">style</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">type</span>=<span class="keyword attribute">checkbox</span> <span class="keyword attribute">switch</span> <span class="keyword attribute">checked</span>&gt;</span>
+<span class="tag">&lt;<span class="keyword">input</span> <span class="keyword attribute">type</span>=<span class="keyword attribute">checkbox</span> <span class="keyword attribute">switch</span> <span class="keyword attribute">checked</span> <span class="keyword attribute">class</span>=<span class="keyword attribute">special</span>&gt;</span>
+</code></pre>
+<p>Switches are a popular control on mobile platforms as well as in a large variety of UI frameworks, but until now they were not built into the web platform. Seeing the widespread need for this control we decided to change that.</p>
+<p>The way we approached this is consistent with how other new form controls have been added to HTML:</p>
+<ul>
+<li>We wanted it to have the look and feel of the OS control by default. It should match the end user’s preferences, and they should be able to manipulate the “thumb” of the switch in various ways.</li>
+<li>We wanted to ensure it was backward compatible. A browser that does not support <code>&lt;input type=url&gt;</code> will treat it as <code>&lt;input type=text&gt;</code>. Likewise, a browser that does not support <code>&lt;input type=checkbox switch&gt;</code> will treat it as <code>&lt;input type=checkbox&gt;</code>.</li>
+<li>We wanted the markup and API to be familiar. It mirrors that of checkboxes, except that the <code>:indeterminate</code> pseudo-class never matches.</li>
+<li>We wanted the control to be accessible. Under the hood, it uses the ARIA <code>switch</code> role, announcing the states “On” and “Off” just like a switch from the OS. On macOS, if you enable “Differentiate Without Color”, or on iOS, if you enable “On/Off Labels”, the switch will show accessibility indicators.</li>
+<li>We wanted the control to be stylable. As with <code>&lt;input type=checkbox&gt;</code>, if you use <code>appearance: none</code>, you get full control over its appearance as a web developer. It goes even a bit further as we ensured all properties will have their initial values when you use <code>appearance: none</code>. (See also the experimental <code>::thumb</code> and <code>::track</code> pseudo-elements explained below for planned enhancements in this area.) Control over styling is more limited with <code>appearance: auto</code> (the default). The <code>accent-color</code> property is supported and will be applied to the switch’s “track” background, as demonstrated in the image above.</li>
+<li>We wanted the control to support a wide variety of languages, and as such, it has vertical rendering support out of the box. (This is in line with how we recently added vertical rendering support to the existing form controls.)</li>
+</ul>
+<p>We’d love to see what you do with it and what else you would like this control to do.</p>
+<h2>Switch versus checkbox</h2>
+<p>Generally, we recommend using a switch when the end user understands the user interface element as a setting that is either “on” or “off”. A checkbox is well suited for when the end user would understand the element as something to be selected.</p>
+<h2>Experimental <code>::thumb</code> and <code>::track</code> pseudo-elements</h2>
+<p>In Safari if you go to Settings → Feature Flags, you can enable “::thumb and ::track pseudo-elements”, which gives web developers more control over the individual parts that make up a switch: its thumb and track. Essentially, this turns a single element into three, one parent with two sibling children.</p>
+<p>We decided not to ship these pseudo-elements for now to give the standardization process additional time to finalize how they should work. We also want to make sure that when we ship them, they work for the other HTML controls they are designed for, such as <code>&lt;input type=range&gt;</code>. This way <code>@supports(::thumb)</code> will be all the feature detection you need.</p>
+<figure class="widescreen">
+<p><iframe src="https://webkit.org/demos/html-switch/"></iframe><figcaption><a href="https://webkit.org/demos/html-switch/" target="_blank" rel="noopener">Interactive demos of switch</a></figcaption></figure>
+<h2>Feedback appreciated</h2>
+<p>We’d love to hear what you make of this new HTML form control. Send a tweet to <a href="https://twitter.com/webkit">@webkit</a> to share your thoughts on this feature. You can find us on Mastodon at <a href="https://front-end.social/@jensimmons">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis">@jondavis@mastodon.social</a>. You can also <a href="https://www.linkedin.com/in/apple-webkit/">follow WebKit on LinkedIn</a>. If you run into any issues, we welcome your <a href="https://bugs.webkit.org/">WebKit bug reports</a> on WebKit features like this. Reporting issues makes an enormous difference.</p>
+<p>You can also download the latest <a href="https://developer.apple.com/safari/download/">Safari Technology Preview</a> to try out new web platform features like this before they appear in a Safari beta.</p>
+<p>And finally, a big thank you to Lily Spiniolas for doing a lot of work on this feature during her internship at Apple. Not just prototyping an implementation in WebKit, but also creating a pull request for the HTML Standard and carefully thinking through many aspects of its design.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

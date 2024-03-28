@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Creating Industry-Standard Webhooks with Standard Webhooks</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Creating Industry-Standard Webhooks with Standard Webhooks</h2>
+		<a target="_blank" href="https://nordicapis.com/creating-industry-standard-webhooks-with-standard-webhooks/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><div id="attachment_18667" style="width: 210px" class="wp-caption alignright"><a href="https://www.standardwebhooks.com/" target="_blank" rel="noopener"><img decoding="async" aria-describedby="caption-attachment-18667" class="wp-image-18667" src="https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-300x300.png" alt="Standard Webhooks logo" width="200" height="200" srcset="https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-300x300.png 300w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-150x150.png 150w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-120x120.png 120w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-100x100.png 100w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-70x70.png 70w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-50x50.png 50w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-220x220.png 220w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-200x200.png 200w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-180x180.png 180w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-60x60.png 60w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo-125x125.png 125w, https://nordicapis.com/wp-content/uploads/Standard-Webhooks-logo.png 500w" sizes="(max-width: 200px) 100vw, 200px" /></a><p id="caption-attachment-18667" class="wp-caption-text"><a href="https://www.standardwebhooks.com/">Standard Webhooks</a> is an initiative to bring common standards and guidelines to webhook development.</p></div>
+<p>In the API economy, the need for new standards appears to never stop. We use them at every turn, whether it&#8217;s using API specification languages like <a href="https://openapis.org">OpenAPI</a> and <a href="https://asyncapi.com">AsyncAPI</a> to describe our APIs or those focused on a given vertical like <a href="https://nordicapis.com/7-global-open-banking-standards/">open banking</a>. Some of the API styles we rely on are, from a standards perspective, subsumed by high-level standards that can describe them using only coarse-grained terms.</p>
+<p>Take <a href="https://nordicapis.com/your-guide-to-webhooks/">Webhooks</a>, for example. Webhooks are an acknowledged strand in the fabric of the API economy, and API providers use them to return information on long-running, asynchronous processes to API consumers. They serve to return the information in a timely manner and reduce the need for API consumers to <a href="https://nordicapis.com/stop-polling-and-consider-using-rest-hooks/">poll</a> for updates.</p>
+<p>In this context, API providers can easily describe the webhooks they implement or expect to be implemented by API consumers with OpenAPI, creating either a template document that an API consumer can implement or by using the <a href="https://spec.openapis.org/oas/latest.html#openapi-object"><code>webhooks</code> property</a> in the API description document they publish. They can use the semantics of HTTP to describe the URL (where it is mandated), supported HTTP methods (most likely just a POST), and expected HTTP return codes (probably a 200).</p>
+<p>Most implementers will be aware, however, that the nuances of describing webhooks needs more consideration than simply defining the signature of the implementation in OpenAPI. How is security defined comprehensively? How can a reference rather than a full payload be sent? These considerations have led to the creation of the <a href="https://www.standardwebhooks.com/">Standard Webhooks</a> specification, an effort to provide a richer means to specify Webhooks.</p>
+<p>In this post, we&#8217;ll dig into the Standard Webhooks specification, look at its key features, and assess what it can provide over or alongside using an existing specification language like OpenAPI.</p>
+<h2 id="what-standard-webhooks-provides">What Standard Webhooks Provides</h2>
+<p>Unlike the aforementioned <a href="https://nordicapis.com/asyncapi-vs-openapi-whats-the-difference/">AsyncAPI and OpenAPI</a>, Standard Webhooks is not a specification language. The specification describes itself as &#8220;a set of strict webhook guidelines based on the existing industry best practices.&#8221; It does not propose a syntax for defining a webhook nor a description document for providing a definition.</p>
+<p>What it does provide is a &#8220;set of conventions&#8221; that producers and consumers can observe to ensure webhooks are as interoperable as they can be. The conventions largely govern the data that is transmitted and the properties therein.</p>
+<p>The conventions include:</p>
+<ul>
+<li>How the data is transmitted over the wire: The specification recommends sending events over HTTP using a JSON payload.</li>
+<li>Expected JSON properties: A formatted event type, timestamp, and data wrapper property are described.</li>
+<li>The category of the event being transmitted: The specification describes <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#thin-vs-full-payloads">&#8220;thin&#8221; vs. &#8220;full&#8221; payloads</a> whereby an event contains all the data a consumer would require or just updates.</li>
+<li>How the authenticity of a webhook can be checked: The specification provides <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#verifying-webhook-authenticity">copious guidance</a> on signing and verification approaches.</li>
+<li>Header requirements: Where webhooks are signed, the <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#webhook-headers-sending-metadata-to-consumers">headers required</a> to ensure that an event can be verified successfully, including measures to ensure that the message signature can still be verified during key rotation activities.</li>
+<li>What are termed <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#operational-considerations">“operational considerations”</a>: Guidance on setting event types, retries, and preferred HTTP status codes.</li>
+</ul>
+<p>This list vastly summarizes the guidance provided by the specification, which, unlike many standards, uses more &#8220;friendly&#8221; language to specify the requirements. It also calls out that adherence to the standard on its own is not likely enough to communicate the shape of a given webhook: Using OpenAPI or <a href="https://nordicapis.com/a-guide-to-json-schema/">JSON Schema</a> should act as a complement to provide the shape of request and response payloads.</p>
+<p>Alongside the specification itself, Standard Webhooks provides <a href="https://github.com/standard-webhooks/standard-webhooks/tree/main/libraries">libraries</a> in several programming languages with signing and verification functions and simple examples. These provide a concrete, lightweight specification implementation, including guidance around timestamp tolerances.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/apis-vs-webhooks-how-are-they-different/">APIs vs. Webhooks: How Are They Different?</a></div>
+<h2 id="real-world-example-payment-responses-with-standard-webhooks">Real-World Example: Payment Responses with Standard Webhooks</h2>
+<p>As with most standards, it helps to explain them with a concrete example. Communicating the result of an asynchronous operation is an obvious and already discussed motivation for an API provider to require customers to implement a webhook, and this is particularly true when one considers payments use cases. The majority of <a href="https://nordicapis.com/10-payment-apis/">payment systems</a> are asynchronous, and providing a synchronous and complete response to a payment initiation request via an API is simply not feasible. Many payment providers, therefore, use webhooks to communicate payment status.</p>
+<p>For example, a payment provider in the UK might send a customer an event that indicates a wholesale payment has been completed using the CHAPS system that provides real-time gross settlement. They set the <code>type</code> to <code>chaps.payment.completed</code>, include a timestamp, and provide a number of <a href="https://iso20022.org">ISO 20022</a> identifiers prescribed by the backend payment system:</p>
+<pre><code class="lang-json">{
+  "type": "chaps.payment.completed",
+  "timestamp": "2023<span class="hljs-string">-12</span><span class="hljs-string">-25</span>T23:58:10.123456Z",
+  "data": {
+    “id”: “8817adab<span class="hljs-string">-38</span>ac<span class="hljs-string">-4667</span>-bda4<span class="hljs-string">-0</span>d2411016c5e”,
+    "paymentInitiationId": "8ed08d73<span class="hljs-string">-3</span>a7d<span class="hljs-string">-4</span>b87<span class="hljs-string">-885</span>c<span class="hljs-string">-7</span>a4119f4b2db",
+    "endToEndIdentification": "3eafcd70-c904<span class="hljs-string">-4</span>c96<span class="hljs-string">-95</span>a3-b6d4cfbc8a30",
+    "uetr": "3bb2f5a2<span class="hljs-string">-8752</span><span class="hljs-string">-450</span>b<span class="hljs-string">-913</span>a-e232e13411c8"
+  }
+}
+</code></pre>
+<p>The content of the message follows the &#8220;thin&#8221; message style as only a subset of information is sent that allows the webhook consumer to correlate the event with the payment instruction in their system-of-record for payments. Given the use case, however, the webhook producer needs to sign this message for non-repudiation purposes.</p>
+<p>A signature is therefore calculated, and the message is transmitted using the <code>{msg_id}.{timestamp}.{payload}</code> notation as shown below (JSON is abridged for readability):</p>
+<pre><code class="lang-bash">POST /chaps-notifications
+
+webhook-<span class="hljs-string">id:</span> <span class="hljs-number">2</span>ace281c-ffed<span class="hljs-number">-478</span>c-b61b<span class="hljs-number">-6</span>dc6bd07e1cc
+webhook-<span class="hljs-string">timestamp:</span> <span class="hljs-number">1703548799</span>
+webhook-<span class="hljs-string">signature:</span> v1,K5oZfzN95Z9UVu1EsfQmfVNQhnkZ2pj9o9NDN<span class="hljs-regexp">/H/</span>pI4= v1a,hnO3f9T8Ytu9HwrXslvumlUpqtNVqkhqw/enGzPCXe5BdqzCInXqYXFymVJaA7AZdpXwVLPo3mNl8EM+m7TBAg==
+
+<span class="hljs-number">2</span>ace281c-ffed<span class="hljs-number">-478</span>c-b61b<span class="hljs-number">-6</span>dc6bd07e1cc<span class="hljs-number">.1703548799</span>.{ ... }
+</code></pre>
+<p>On receipt, the webhook consumer will be able to verify the message, using either a Standard Webhooks library or a custom implementation. The key being used is correlated using the signature identifier that prefixes the value of <code>webhook-signature</code>, a mechanism that loosely resembles the key identifier or <code>kid</code> used for signed JSON Web Tokens (JWTs). The webhook consumer will then be able to parse the payload and correlate the event with their payment record, marking it as complete.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/why-your-api-needs-webhooks/">Why Your API Needs Webhooks</a></div>
+<h2 id="final-thoughts-standard-webhooks-and-api-descriptions">Final Thoughts: Standard Webhooks and API Descriptions</h2>
+<p>It&#8217;s clear that the Standard Webhooks specification provides a means for webhook producers to specify consistent and deterministic webhooks with libraries that make implementation easier. The specification itself is a body of work that tends towards implementation advice rather than providing concrete requirements or constraints for structuring webhooks.</p>
+<p>As the Standard Webhooks specification fully acknowledges, however, there is still work to be done to fully describe a webhook. The specification meets specific needs but does not provide the complete picture. Using a description language like OpenAPI, for example, can provide a schematic representation of the contents of the webhook messages expressed using a <a href="https://spec.openapis.org/oas/latest.html#schema-object">Schema Object</a>.</p>
+<p>When you consider the intersection between the Standard Webhooks specification and an API specification language like OpenAPI, there&#8217;s an important point to be made. Sometimes, tools that should be complementary do not work seamlessly together. For example, fully describing the Standards Webhooks <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#signature-scheme">signature</a> in OpenAPI is difficult because the built-in typing mechanisms tend towards objects and not plain strings. Sure, you could use a <code>string</code> with a <code>pattern</code> to describe the structure, but there needs to be an extra hop to extract the metadata and payload using a fully-formed Schema Object. In native OpenAPI, this is difficult and reflects the same situation with JWTs in OpenAPI that are similarly serialized but equally cannot be directly represented in a Schema Object.</p>
+<p>This is where specification owners and the communities that support them should be looking to plug the gap with supplements to the standards, overlays, or tooling that can support the parsing process. In this specific case, we can also hope that the <a href="https://github.com/OAI/moonwalk">Moonwalk initiative</a>, which is building version 4 of OpenAPI, addresses such use cases. Ensuring such interconnectedness of specifications is vital to ensuring that standards can support each other where there is a clear and relevant intersection. This can only make everyone&#8217;s lives easier — human or machine — when it comes to understanding the interfaces we publish.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

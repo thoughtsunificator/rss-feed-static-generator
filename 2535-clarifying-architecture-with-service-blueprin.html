@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Clarifying architecture with Service Blueprints: system operations + entities</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Clarifying architecture with Service Blueprints: system operations + entities</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/01/16/clarifying-architecture-with-service-blueprints-service-blueprints-part-2.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Previously, I described how to use <a href="/post/architecture/2023/12/07/clarifying-architecture-with-service-blueprints-service-blueprints.html">service blueprints to visualize the system operations</a> that implement a customer journey.
+In this article, I want show an enhanced version of the service blueprint that also shows the entities/aggregates that the system operations act upon.</p>
+
+<h2 id="system-operations-read-and-write-business-entities">System operations read and write business entities</h2>
+
+<p>A system operation reads and writes one or more business entities (a.k.a. DDD aggregates).
+A system command creates, updates, deletes, and reads entities, whereas a system query simply reads entities.
+For example, the following table shows the entities that are read and written by each of the system operations that support the <code class="language-plaintext highlighter-rouge">Create Order</code> customer journey.</p>
+
+<p><img src="/i/service-blueprints/operation-entity-table.png" class="img-responsive" /></p>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">updateDeliveryAddress(address, time)</code> is a command that updates the <code class="language-plaintext highlighter-rouge">ShoppingCart</code> with the delivery address and time; <code class="language-plaintext highlighter-rouge">findAvailableRestaurant()</code>is a query that searches the <code class="language-plaintext highlighter-rouge">Restaurants</code>; and <code class="language-plaintext highlighter-rouge">createOrder()</code> is a command that creates an <code class="language-plaintext highlighter-rouge">Order</code>, clears the <code class="language-plaintext highlighter-rouge">ShoppingCart</code> and reads various entities including the <code class="language-plaintext highlighter-rouge">Consumer</code>, <code class="language-plaintext highlighter-rouge">PaymentMethod</code> and <code class="language-plaintext highlighter-rouge">Restaurant</code>.</p>
+
+<h2 id="displaying-entities-on-a-service-blueprint">Displaying entities on a service blueprint</h2>
+
+<p>Let’s imagine that you are working your way through <a href="/post/architecture/refactoring/2023/07/27/assemblage-overview-part-1-defining-system-operations.html">step 1 of the Assemblage process</a> and discovering system operation.
+One approach is to first brainstorm the operations for a particular scenario and create the <a href="/post/architecture/2023/12/07/clarifying-architecture-with-service-blueprints-service-blueprints.html">service blueprint shown previously</a>.
+Next, you could analyze each of operation, and update the service blueprint with the entities that it acts upon:</p>
+
+<p><img src="/i/service-blueprints/place-order-service-blueprint-operations-with-entities.png" class="img-responsive" /></p>
+
+<p>This service blueprint visualizes the connection between each user action, the system operations that it triggers and the entities that each operation acts upon.
+A more elaborate service blueprint could show additional information, such as the key attributes of each entity.
+A blueprint could even have a collaboration diagram for each operation.
+There are no rigid rules about what to show: the goal is for a service blueprint to include whatever information is relevant.</p>
+
+<h2 id="whats-next">What’s next</h2>
+
+<p>In later articles, I’ll describe other example of how service blueprints clarify software architecture by connecting architectural elements to user actions.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

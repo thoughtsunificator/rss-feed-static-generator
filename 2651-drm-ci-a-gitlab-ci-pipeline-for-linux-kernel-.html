@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>DRM-CI: A GitLab-CI pipeline for Linux kernel testing (Collabora Blog)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">DRM-CI: A GitLab-CI pipeline for Linux kernel testing (Collabora Blog)</h2>
+		<a target="_blank" href="https://lwn.net/Articles/961655/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">Over on the Collabora blog, Helen Koike <a
+href="https://www.collabora.com/news-and-blog/blog/2024/02/08/drm-ci-a-gitlab-ci-pipeline-for-linux-kernel-testing/">writes</a>
+about the DRM-CI project for running automated continuous integration (CI)
+tests on multiple graphics devices in several different labs.  It uses the
+<a href="https://gitlab.freedesktop.org/drm/igt-gpu-tools">IGT GPU
+tools</a> for testing, though there are plans to expand:
+<blockquote class="bq">
+The roadmap for DRM-CI includes enabling other devices, incorporating
+additional tests like kselftests, adding support for vgem driver, and
+implementing further automations. DRM-CI builds upon the groundwork laid by
+<a href="https://gitlab.freedesktop.org/mesa/mesa/">Mesa3D CI</a>,
+including its GitLab YAML files and most of its setup, fostering 
+collaboration and mutual strengthening.
+<p>
+[...] Adapting the DRM-CI pipeline to other subsystems is feasible with a
+few modifications. The primary consideration is setting up dedicated
+GitLab-CI runners since Freedesktop's infrastructure is meant only for
+graphics. 
+<p>
+In light of this, our team is developing a versatile and user-friendly
+GitLab-CI pipeline. This new pipeline is envisioned to function as a
+flexible interface for kernel maintainers and developers that can be
+evolved to connect with different test environments that can also be hooked
+with CI systems such as KernelCI. This approach aims to simplify the
+integration process, making GitLab-CI more accessible and beneficial to a
+broader range of developers. 
+</blockquote></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

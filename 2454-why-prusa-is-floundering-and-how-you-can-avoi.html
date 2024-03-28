@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why Prusa is floundering, and how you can avoid their fate</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Why Prusa is floundering, and how you can avoid their fate</h2>
+		<a target="_blank" href="https://drewdevault.com/2023/12/26/2023-12-26-Prusa-is-floundering.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://drewdevault.com/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Prusa is a 3D printer manufacturer which has a long history of being admired by
+the 3D printing community for high quality, open source printers. They have been
+struggling as of late, and came under criticism for making the firmware of their
+Mk4 printer non-free.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><a href="https://lucumr.pocoo.org/2023/12/25/life-and-death-of-open-source/">Armin Ronacher</a> uses Prusa as a case-study in why open source companies
+fail, and uses this example to underline his argument that open source needs to
+adapt for commercial needs, namely by adding commercial exclusivity clauses to
+its licenses &ndash; Armin is one of the principal proponents of the non-free
+Functional Source License. Armin cites his experience with a Chinese
+manufactured 3D printer as evidence that intellectual property is at the heart
+of Prusa&rsquo;s decline, and goes on to discuss how this dynamic applies to his own
+work in developing a non-free license for use with Sentry. I find this work
+pretty interesting &ndash; FSL is a novel entry into the non-free license compendium,
+and it&rsquo;s certainly a better way to do software than proprietary models, assuming
+that it&rsquo;s not characterized as free or open source. But, allow me to use the
+same case study to draw different conclusions.</p>
+<p>It is clear on the face of it that Prusa&rsquo;s move to a non-free firmware is
+unrelated to their struggles with the Chinese competition &ndash; their firmware was
+GPL&rsquo;d, and the cited competitor (Bambu) evidently respects copyleft, and there&rsquo;s
+no evidence that Bambu&rsquo;s printers incorporate derivatives of Prusa&rsquo;s firmware in
+a manner which violates the GPL. Making the license non-free is immaterial to
+the market dynamics between Prusa and Bambu, so the real explanation must lie
+elsewhere.</p>
+<p>If you had asked me 10 years ago what I expected Prusa&rsquo;s largest risk would be,
+I would have simply answered &ldquo;China&rdquo; and you would have probably said the same.
+The Chinese economy and industrial base can outcompete Western manufacturing in
+almost every manufacturing market.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> This was always the obvious
+vulnerability in their business model, and they <em>absolutely</em> needed to be
+prepared for this situation, or their death was all but certain. Prusa made one
+of the classic errors in open source business models: they made their product,
+made it open source, sold it, and assumed that they were done working on their
+business model.</p>
+<p>It was inevitable that someday Chinese manufacturers would undercut Prusa on
+manufacturing costs. Prusa responded to this certainty by not diversifying their
+business model whatsoever. There has only ever been one Prusa product: their
+latest 3D printer model. The Mk4 costs $1,200. You can buy the previous
+generation (at $1,000), or the MINI (from 2019, $500). You can open your wallet
+and get their high-end printers, which are neat but fail to address the one
+thing that most users at this price-point really want, which is more build
+volume. Or, you can buy an Ender 3 off Amazon right now for $180 and you&rsquo;ll get
+better than half of the value of an Mk4 at an 85% discount. You could also buy
+Creality&rsquo;s flagship model for a cool $800 and get a product which beats the Mk4
+in every respect. China has joined the market, bringing with them all of the
+competitive advantages their industrial base can bring to bear, and Prusa&rsquo;s
+naive strategy is causing their position to fall like a rock.</p>
+<p>Someone new to 3D printing will pick up an Ender and will probably be happy with
+it for 1-2 years. When they upgrade, will they upgrade to a Prusa or an Ender 5?
+Three to five years a customer spends in someone else&rsquo;s customer pipeline is an
+incredibly expensive opportunity cost Prusa is missing out on. This opportunity
+cost is the kind of arithmetic that would make loss leaders like a cheap,
+low-end, low-or-negative-margin Prusa printer make financial sense. Hell, Prusa
+should have made a separate product line of white-labeled Chinese entry-level 3D
+printers just to get people on the Prusa brand.</p>
+<p>Prusa left many stones unturned. Bambu&rsquo;s cloud slicer is a massive lost
+opportunity for Prusa. On-demand cloud printing services are another lost
+opportunity. Prusa could have built a marketplace for models &amp; parts and skimmed
+a margin off of the top, but they waited until 2022 to launch Printables &ndash;
+waiting until the 11th hour when everyone was fed up with Thingiverse. Imagine a
+Prusa where it works out of the box, you can fire up a slicer in your browser
+which auto-connects to your printer and prints models from a Prusa-operated
+model repository, paying $10 for a premium model, $1 off the top goes to Prusa,
+with the same saved payment details which ensure that a fresh spool of Prusa
+filament arrives at your front door when it auto-detects that your printer is
+almost out. The print you want is too big for your build volume? Click here to
+have it cloud printed &ndash; do you want priority shipping for that? Your hot-end is
+reaching the end of its life &ndash; as one of our valued business customers on our
+premium support contract we would be happy to send you a temporary replacement
+printer while yours is shipped in for service.</p>
+<p>Prusa&rsquo;s early foothold in the market was strong, and they were wise to execute
+the way they did early on. But they <em>absolutely</em> had to diversify their lines of
+business. Prusa left gaping holes in the market and utterly failed to capitalize
+on any of them. Prusa could have been synonymous with 3D printing if they had
+invested in the brand (though they probably needed a better name). I should be
+able to walk into a Best Buy and pick up an entry-level Prusa for $250-$500, or
+into a Home Depot and pick up a workshop model for $1000-$2000. I should be able
+to bring it home, unbox it, scan a QR code to register it with PrusaConnect, and
+have a Benchy printing in less than 10 minutes.</p>
+<p>Chinese manufacturers did all of this and more, and they&rsquo;re winning. They aren&rsquo;t
+just cheaper &ndash; they offer an outright better product. These are not cheap
+knock-offs: if you want the best 3D printer today it&rsquo;s going to be a Chinese
+one, regardless of how much you want to spend, but, as it happens, you&rsquo;re going
+to spend less.</p>
+<p>Note that none of this is material to the license of the product, be it free or
+non-free. It&rsquo;s about building a brand, developing a customer relationship, and
+identifying and exploiting market opportunities. Hackers and enthusiasts who
+found companies like Prusa tend to imagine that the product is everything, but
+it&rsquo;s not. Maybe 10% of the work is developing the 3D printer itself &ndash;
+don&rsquo;t abandon the other 90% of your business. Especially when you make that 10%
+open: someone else is going to repurpose it, do the other 90%, and eat your
+lunch. FOSS is <em>great</em> precisely because it makes that 10% into community
+property and shares the cost of innovation, but you&rsquo;d be a fool to act as if
+that was all there was to it. You need to deal with sales and marketing, chase
+down promising leads, identify and respond to risks, look for and exploit new
+market opportunities, and much more to be successful.</p>
+<p>This is a classic failure mode of open source businesses, and it&rsquo;s <em>Prusa&rsquo;s
+fault</em>. They had an excellent foothold early in the market, leveraging open
+source and open hardware to great results and working hand-in-hand with
+enthusiasts early on to develop the essential technology of 3D printing. Then,
+they figured they were done developing their business model, and completely
+dropped the ball as a result. Open source is not an &ldquo;if you build it, the money
+will come&rdquo; situation, and to think otherwise is a grave mistake. Businesses need
+to identify their risks and then mitigate them, and if they don&rsquo;t do that due
+diligence, then it&rsquo;s <em>their fault</em> when it fails &ndash; it&rsquo;s not a problem with
+FOSS.</p>
+<p>Free and open source software is an incredibly powerful tool, including as a
+commercial opportunity. FOSS really has changed the world! But building a
+business is still hard, and in addition to its fantastic advantages, the FOSS
+model poses important and challenging constraints that you need to understand
+and work with. You have to be creative, and you must do a risk/reward assessment
+to understand how it applies to your business and how you can utilize it for
+commercial success. Do the legwork and you can utilize FOSS for a competitive
+advantage, but skip this step and you will probably fail within a decade.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>I sourced this information from Armin&rsquo;s blog post, but it didn&rsquo;t
+hold up to a later fact check: the
+<a href="https://github.com/prusa3d/Prusa-Firmware-Buddy">Mk4 firmware</a> seems to be
+free software. It seems the controversy here has to do with Prusa
+developing its slicer software behind closed doors and doing occasional
+source-code dumps, rather than managing a more traditional &ldquo;bazaar&rdquo; style
+project. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>That said, there are still vulnerabilities in the Chinese industrial
+base that can be exploited by savvy Western entrepreneurs. Chinese access to
+Western markets is constrained below a certain scale, for instance, in ways
+that Western businesses are not. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

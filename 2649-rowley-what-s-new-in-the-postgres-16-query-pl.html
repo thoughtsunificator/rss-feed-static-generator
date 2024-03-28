@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Rowley: What’s new in the Postgres 16 query planner / optimizer</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Rowley: What’s new in the Postgres 16 query planner / optimizer</h2>
+		<a target="_blank" href="https://lwn.net/Articles/961545/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">David Rowley <a
+href="https://www.citusdata.com/blog/2024/02/08/whats-new-in-postgres-16-query-planner-optimizer/">looks
+deeply</a> into the improvements coming to the query planner in
+PostgreSQL&nbsp;16.
+<p>
+<blockquote class="bq">
+	For a long time now, PostgreSQL has been able to remove a <tt>LEFT JOIN</tt>
+	where no column from the left joined table was required in the
+	query and the join could not possibly duplicate any rows.
+<p>
+	However, in versions prior to PostgreSQL 16, there was no support
+	for left join removals on partitioned tables. Why? Because the
+	proofs that the planner uses to determine if there’s any
+	possibility any inner-side row could duplicate any outer-side row
+	were not present for partitioned tables.
+<p>
+	The PostgreSQL 16 query planner now allows the LEFT JOIN removal
+	optimization with partitioned tables.
+</blockquote></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

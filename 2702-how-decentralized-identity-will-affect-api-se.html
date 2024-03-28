@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How Decentralized Identity Will Affect API Security</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How Decentralized Identity Will Affect API Security</h2>
+		<a target="_blank" href="https://nordicapis.com/how-decentralized-identity-will-affect-api-security/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>For the past several years, there&#8217;s been a spike in interest in federating digital user identity, largely due to demands brought on by the pandemic. Federation is a popular architecture for connecting users with many different software systems. Yet, federation is not perfect. It&#8217;s got numerous shortcomings, mainly from a performance angle.</p>
+<p>A new trend has been becoming increasingly prominent among developers. <a href="https://nordicapis.com/how-decentralized-identity-will-transform-banking/">Decentralized identity</a> promises to eliminate many of federated identity&#8217;s shortcomings, ensuring greater data privacy while improving performance at the same time.</p>
+<p>Curity&#8217;s Jacob Ideskog delivered a talk at the 2023 Platform Summit titled &#8220;<a href="https://www.youtube.com/watch?v=nu3h_r9bVzg">Decentralized Identities Changes Everything, Even Your APIs</a>,&#8221; where he explained decentralized identity in greater detail before delving into some ways it&#8217;s going to impact the way we currently approach identity, cybersecurity, and authentication.</p>
+<div class="well">Watch <a href="https://nordicapis.com/speakers/jacob-ideskog/">Jacob Ideskog</a>, CTO at <a href="https://curity.io/">Curity</a>, speak at the <a href="https://nordicapis.com/events/platform-summit-2023/">2023 Platform Summit</a>:<div class="responsive-iframe-container"><iframe loading="lazy" title="YouTube video player" src="https://www.youtube.com/embed/nu3h_r9bVzg?si=ewOB0Is1bb5rN353" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></div>
+<h2 id="what-is-an-identity-system-">What Is An Identity System?</h2>
+<p>Although we highly recommend watching Ideskog&#8217;s talk, where he addresses each of these points more thoroughly, it&#8217;s worth recapping some of his main points, as they will play an essential part in some of the issues pertaining to decentralized identity we will discuss.</p>
+<p>Ideskog begins by briefly defining identity systems, in general, which are systems where one system wants to access another. In daily practice, this is usually a user wanting to access a network. In identity systems, the user is known as the subject, and the system they&#8217;re trying to access is called the relying party.</p>
+<h2 id="what-is-federation-">What Is Federation?</h2>
+<p><a href="https://nordicapis.com/how-to-federate-graphql-across-an-enterprise/">Federation</a> acts as a mediator between two systems, primarily to prevent the user from having to input their password repetitively. Under federated identity, authentication is usually handled by an <a href="https://nordicapis.com/review-of-curity-identity-server-community-edition/">identity provider</a> (IdP). However, this solution has some inherent issues, namely performance and oversharing.</p>
+<p>Ideskog calls these issues The Digital Identity Dilemma.</p>
+<h3 id="the-digital-identity-dilemma">The Digital Identity Dilemma</h3>
+<ul>
+<li>You don&#8217;t know or control what data is shared</li>
+<li>The issuer knows when and where it was shared</li>
+<li>You need to overshare to prove it</li>
+</ul>
+<p>While explaining federation, Ideskog repeatedly returns to the analogy of a passport to illustrate how authentication is handled. When discussing authentication under federated identity, he compares it to each agent having to manually verify the passport&#8217;s validity. Decentralized identity means the passport would only need to be verified once, on the other hand.</p>
+<h3 id="federated-identity-vs-decentralized-identity">Federated Identity vs. Decentralized Identity</h3>
+<p>A side-by-side comparison makes understanding decentralized identity easier. Here are its its advantages in numerous authentication scenarios compared with federated identity.</p>
+<p><strong>Federated Identity</strong></p>
+<ul>
+<li>The credential is issued in every login.</li>
+<li>The relying party must call the issuer every time.</li>
+<li>The issuer owns the credential.</li>
+<li>The user doesn&#8217;t know what data is being shared with the relying party.</li>
+</ul>
+<p><strong>Decentralized Identity</strong></p>
+<ul>
+<li>The credential is issued once.</li>
+<li>The relying party trusts the issuer but can verify on its own.</li>
+<li>The <em>user</em> owns the credential.</li>
+<li>The user (can) know what&#8217;s being shared with the relying party.</li>
+</ul>
+<h2 id="what-is-decentralized-identity-">What Is Decentralized Identity?</h2>
+<p>Decentralized identity isn&#8217;t that dissimilar to federated identity. It uses slightly different terminology, but it&#8217;s primarily concerned with the same issues. In decentralized identity, the subject is called the holder. The issuing party is known as the issuer. The relying party is called the verifier.</p>
+<p>According to Ideskog, decentralized identity is going to rely heavily upon private keys, which will serve as the digital equivalent of the photo on a passport.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-decentralized-identity-will-transform-banking/">How Decentralized Identity Will Transform Banking</a></div>
+<h2 id="how-decentralized-identity-will-affect-apis">How Decentralized Identity Will Affect APIs</h2>
+<h3 id="token-based-architecture">Token-Based Architecture</h3>
+<p>As we have seen from some of our previous examples, decentralized identity heavily relies upon tokens. To return to the passport metaphor, once a system verifies the passport&#8217;s authenticity, subsequent interactions could all be handled with <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/">tokens</a>.</p>
+<p>As Ideskog succinctly puts it, &#8220;If you&#8217;re not currently using a token-based architecture, you need to be planning for it.&#8221;</p>
+<h3 id="familiarity-with-oauth-required">Familiarity With OAuth Required</h3>
+<p>According to Ideskog, OAuth is the only real token-based solution. If you&#8217;re not yet proficient in using <a href="https://nordicapis.com/sessions/oauth-and-openid-connect-in-practice/">OAuth for identity management</a>, you need to be.</p>
+<h3 id="perform-api-sanity-checks">Perform API Sanity Checks</h3>
+<p>When you&#8217;re using decentralized identity management, you&#8217;re going to get a lot more anonymous traffic due to users not logging in. Anonymous users might find themselves without the access they&#8217;re used to. Ideskog recommends putting an &#8220;API Sanity Check&#8221; in place to keep meltdowns to a minimum.</p>
+<p><strong>API Sanity Check</strong></p>
+<ul>
+<li>Always use a unique identifier as a subject
+<ul>
+<li>Independent of the login mechanism</li>
+<li>Independent of sub-division</li>
+<li>Independent of the system being accessed</li>
+<li>Independent of whether the account exists or not</li>
+</ul>
+</li>
+<li>Always normalize claims</li>
+</ul>
+<p>He also recommends a &#8220;Token Sanity Check&#8221; to ensure consistency across the network. For example, this might entail checking that a field called <code>email</code> is always called <code>email</code>. The Token Sanity Check will also help prevent oversharing, as it will help you think about what data needs to be consumed.</p>
+<h2 id="get-to-know-wallets">Get To Know Wallets</h2>
+<p>Wallets are the new identity store, according to Ideskog. While the <a href="https://openid.net/wordpress-content/uploads/2022/05/OIDF-Whitepaper_OpenID-for-Verifiable-Credentials_FINAL_2022-05-12.pdf">OpenID for Verifiable Identities standard</a> is still being developed by the <a href="https://openid.net/">OpenID Foundation</a>, you&#8217;ll want to make sure you&#8217;re comfortable with the most popular wallet formats like Google Wallet or Apple Wallet.</p>
+<h3 id="know-who-to-trust">Know Who To Trust</h3>
+<p>Ideskog recommends breaking down APIs into <a href="https://nordicapis.com/tips-for-internal-api-first-approaches/">internal APIs</a> and external APIs. This way, you can know how to extend trust to your internal APIs. For external APIs, he recommends using a single point of trust. How you deal with internal APIs in light of philosophies like <a href="https://nordicapis.com/how-oauth-enables-a-zero-trust-architecture/">zero-trust architecture</a> will differ from case to case.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/">Understanding The Need For Zero-Trust Architecture</a></div>
+<h2 id="final-thoughts-on-decentralized-identity">Final Thoughts on Decentralized Identity</h2>
+<p>As it stands, <a href="https://nordicapis.com/ebooks/identity-and-apis/">identity management</a> is currently facing some difficulties. It&#8217;s too tightly coupled, for one thing. And relying on third-party solutions like IDPs emphasizes problems around data transparency and privacy issues. Decentralized identity returns control to the user while improving performance by keeping API calls to a minimum.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

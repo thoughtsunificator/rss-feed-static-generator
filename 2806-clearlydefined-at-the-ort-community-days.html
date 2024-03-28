@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ClearlyDefined at the ORT Community Days</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">ClearlyDefined at the ORT Community Days</h2>
+		<a target="_blank" href="https://opensource.org/blog/clearlydefined-at-the-ort-community-days">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+<p>Once again Bosch’s campus in Berlin received <a href="https://github.com/oss-review-toolkit/ort/wiki/ORT-Community-Days-2024">ORT Community Days</a>, the annual event organized by the <a href="https://oss-review-toolkit.org/ort/">OSS Review Toolkit (ORT)</a> community. ORT is an Open Source suite of tools to automate software compliance checks.</p>
+
+
+
+<p>During this two day event, members from startups like Double Open and NexB, as well as large corporations like Mercedes-Benz, Volkswagen, CARIAD, Porsche, Here Technologies, EPAM, Deloitte, Sony, Zeiss, Fraunhofer, and Roche, came together to discuss best practices around software supply chain compliance.</p>
+
+
+
+<p>The <a href="https://clearlydefined.io/">ClearlyDefined</a> community had an important presence at the event, represented by E. Lynette Rayle and Lukas Spieß from GitHub and Qing Tomlinson from SAP. I had the pleasure to represent the <a href="https://opensource.org/">Open Source Initiative</a> as the community manager for ClearlyDefined. The mission of ClearlyDefined is to crowdsource a global database of licensing metadata for every software component ever published. We see the ORT community as an important partner towards achieving this mission.</p>
+
+
+
+<h3 class="wp-block-heading">Relevant talks</h3>
+
+
+
+<p>There were several interesting talks at ORT Community Days. These are the ones I found most relevant to ClearlyDefined:</p>
+
+
+
+<p>Philippe Ombredanne presented <a href="https://github.com/nexB/scancode-toolkit">ScanCode</a>, a project of great importance to ClearlyDefined, as we use this tool to detect licenses, copyrights, and dependencies. Philippe gave an overview of the project and its challenges. For ClearlyDefined, we would like to see better accuracy and performance improvements.&nbsp;</p>
+
+
+
+<p>Sebastian Schuberth presented the <a href="https://github.com/doubleopen-project/dos">Double Open Server (DOS)</a> companion for ORT. DOS is a server application that scans the source code of open source components, stores the scan results for use in license compliance pipelines, and provides a graphical interface for manually curating the license findings. I believe there’s an opportunity to integrate DOS with ClearlyDefined by providing access to our APIs to fetch licensing metadata and allowing the sharing of curations.</p>
+
+
+
+<p>Marcel Kurzmann and Martin Nonnenmacher presented <a href="https://projects.eclipse.org/projects/technology.apoapsis">Eclipse Apoapsis</a>, another ORT server that makes use of its integration APIs for dependency analysis, license scanning, vulnerability databases, rule engine, and report generation. Again, I feel we could also integrate Eclipse Apoapsis with ClearlyDefined the same way as with DOS.</p>
+
+
+
+<p>Till Jaeger gave an excellent talk about curation of ORT output from the perspective of FOSS license compliance. He highlighted the Cyber Resilient Act (CRA), which brings legal provisions for SBOMs, and which will likely increase the need for tools like ORT. Till shared the many challenges in the curation process, particularly the compatibility issues from dual licensing, and went on to showcase the <a href="https://www.osadl.org/Access-to-raw-data.oss-compliance-raw-data-access.0.html">OSADL compatibility matrix</a>.</p>
+
+
+
+<h3 class="wp-block-heading">Presenting ClearlyDefined</h3>
+
+
+
+<p>I had the privilege of presenting ClearlyDefined together with E. Lynette Rayle from GitHub and we got some really good feedback and questions from the audience.</p>
+
+
+
+<p>With the move towards SBOMs everywhere for compliance and security reasons, organizations will face great challenges to generate these at scale for each stage on the supply chain, for every build or release. Additionally, multiple organizations will have to curate the same missing or wrongly identified licensing metadata over and over again.</p>
+
+
+
+<p>ClearlyDefined is well suited to solve these problems by serving a cached copy of licensing metadata for each component through a simple API. Organizations will also be able to contribute back with any missing or wrongly identified licensing metadata, helping to create a database that is accurate for the benefit of all.</p>
+
+
+
+<p>GitHub is well aware of these challenges and is interested in helping its users in this regard. They recently <a href="https://github.blog/changelog/2023-07-10-new-license-information-for-17-5-million-packages/">added 17.5 million package licenses</a> sourced from ClearlyDefined to their database, expanding the license coverage for packages that appear in dependency graph, dependency insights, dependency review, and a repository&#8217;s software bill of materials (SBOM).</p>
+
+
+
+<p>To <a href="https://docs.clearlydefined.io/using-data">make use</a> of ClearlyDefined’s data, a user can simply make a call to its API service. For example, to fetch licensing metadata from the <em>lodash</em> library on <em>npm</em> at version 4.17.21, one would call:</p>
+
+
+
+<pre class="wp-block-code"><code><em>curl -X GET "https://api.clearlydefined.io/definitions/npm/npmjs/-/lodash/4.17.21" -H "accept: */*"</em></code></pre>
+
+
+
+<p>This API call would be processed by the <em>service for ClearlyDefined</em>, as illustrated in the diagram below. If there’s a match in the <em>definition store</em>, then that definition would be sent back to the user. Otherwise, this request would trigger the <em>crawler for ClearlyDefined</em> (part of the <a href="https://docs.clearlydefined.io/adding-sources">harvesting process</a>), which would download the <em>lodash</em> library from <em>npm</em>, scan the library, and write the results to the <em>raw results store</em>. The <em>service for ClearlyDefined</em> would then read the raw results, summarize it, and create a definition to be written in the <em>definition store</em>. Finally, the definition would be served to the user.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="640" height="358" src="https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_harvest.png?resize=640%2C358&#038;ssl=1" alt="" class="wp-image-21929" srcset="https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_harvest.png?w=791&amp;ssl=1 791w, https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_harvest.png?resize=300%2C168&amp;ssl=1 300w, https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_harvest.png?resize=768%2C429&amp;ssl=1 768w" sizes="(max-width: 640px) 100vw, 640px" data-recalc-dims="1" /></figure>
+
+
+
+<p>The <a href="https://docs.clearlydefined.io/data-curation">curation process</a> is done through another API call via PATCHes. For example, the below PATCH updates a declared license to Apache-2.0:</p>
+
+
+
+<pre class="wp-block-code"><code>"contributionInfo": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"summary": "&#91;Test] Update declared license",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"details": "The declared license should be Apache as per the LICENSE file.",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"resolution": "Updated declared license to Apache-2.0.",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type":"incorrect",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"removeDefinitions":false<br>&nbsp;&nbsp;},</code></pre>
+
+
+
+<p>This curation is handled by the <em>service for ClearlyDefined</em>, as illustrated in the diagram below. The curation would trigger the creation of a PR in <em>ClearlyDefined’s curated-data repository</em>, which would be reviewed by and signed off by two curators. The PR would then be merged and written in the <em>curated-data store</em>.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="640" height="358" src="https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_curation.png?resize=640%2C358&#038;ssl=1" alt="" class="wp-image-21930" srcset="https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_curation.png?w=791&amp;ssl=1 791w, https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_curation.png?resize=300%2C168&amp;ssl=1 300w, https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_curation.png?resize=768%2C429&amp;ssl=1 768w" sizes="(max-width: 640px) 100vw, 640px" data-recalc-dims="1" /></figure>
+
+
+
+<p>GitHub has deployed its own local <em>Harvester for ClearlyDefined</em>, as illustrated in the diagram below. GitHub’s <em>OSPO Policy Service</em> posts requests to GitHub’s <em>Harvester for ClearlyDefined</em>, which downloads any components and dependencies from various package managers, scans these components, and writes the results directly to ClearlyDefined’s <em>raw results store</em>. GitHub’s <em>OSPO Policy Service</em> fetches definitions from the <em>service for ClearlyDefined</em> as well as licenses and attributions from GitHub’s <em>Package License Gateway</em>. GitHub maintains a <em>local cache store</em> which is synced with any updates from ClearlyDefined’s <em>changes-notifications blob storage</em>.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="640" height="358" src="https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_github.png?resize=640%2C358&#038;ssl=1" alt="" class="wp-image-21931" srcset="https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_github.png?w=791&amp;ssl=1 791w, https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_github.png?resize=300%2C168&amp;ssl=1 300w, https://i0.wp.com/opensource.org/wp-content/uploads/2024/03/clearlydefined_github.png?resize=768%2C429&amp;ssl=1 768w" sizes="(max-width: 640px) 100vw, 640px" data-recalc-dims="1" /></figure>
+
+
+
+<p>ClearlyDefined’s development has seen an increased participation from various organizations <a href="https://opensource.org/blog/clearlydefined-recapping-a-year-of-progress-and-sharing-a-vision-for-2024">this past year</a>, including GitHub, SAP, Microsoft, Bloomberg, and CodeThink.</p>
+
+
+
+<p>Currently, maintainers of ClearlyDefined are focused on ongoing maintenance. Key goals for ClearlyDefined in 2024 include:</p>
+
+
+
+<ul>
+<li>Publishing periodic releases and switching to semantic versioning</li>
+
+
+
+<li>Bringing dependencies up to date (in particular using the latest scancode)</li>
+
+
+
+<li>Improving the NOASSERTION/OTHER issue</li>
+
+
+
+<li>Advancing usability and the curation process through the UI&nbsp;</li>
+
+
+
+<li>Enhancing the documentation and process for creating a local harvest</li>
+</ul>
+
+
+
+<p>Our slides are available <a href="https://opensource.org/wp-content/uploads/2024/03/clearlydefined_ort_community_days.pdf">here</a>.</p>
+
+
+
+<h3 class="wp-block-heading">Relevant breakout sessions</h3>
+
+
+
+<p>ORT Community Days provided several breakout sessions to allow participants to discuss pain points and solutions.</p>
+
+
+
+<p>A special discussion around curations was led by Sebastian Schuberth and E. Lynette Rayle. The ORT Package Curation Data can be broken down into two categories: metadata interpretations and legal curations. The group discussed their thoughts about the curation process and its challenges, including handling false positives and the sharing of curations.</p>
+
+
+
+<p>Nowadays, no conference would be complete without at least one talk or discussion about Artificial Intelligence. A group gathered to discuss the potential use of AI to improve user experience as well as for OSS compliance. The majority of attendees believed ORT’s documentation could be improved through the use of AI and even an assistant would be helpful to answer the most common questions. As for the use of AI for OSS compliance, there’s a lot of potential here, and one idea would be to use ClearlyDefined’s curation dataset to fine tune a LLM.</p>
+
+
+
+<h3 class="wp-block-heading">Conclusion</h3>
+
+
+
+<p>The second edition of ORT Community Days represented a unique opportunity for the ClearlyDefined community to better engage with the ORT community. We were able to meet the maintainers and members of ORT and learn from them about the current and future challenges. We were also able to explore how our communities can further collaborate.&nbsp;</p>
+
+
+
+<p>On behalf of the ClearlyDefined community, I would like to thank the organizers of this wonderful event: Marcel Kurzmann, Nikola Babadzhanov, Surya Santhi, and Thomas Steenbergen. I would also like to thank E. Lynette Rayle, Lukas Spieß and Qing Tomlinson from the ClearlyDefined community who have accepted my invitation to participate in this conference.</p>
+
+
+
+<p>If you are interested in Open Source supply chain compliance and security, I invite you to learn a bit more about the <a href="https://clearlydefined.io/">ClearlyDefined</a> and the <a href="https://oss-review-toolkit.org/ort/">ORT</a> communities. You might also be interested in my report from <a href="https://opensource.org/blog/three-perspectives-from-foss-backstage">FOSS Backstage</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

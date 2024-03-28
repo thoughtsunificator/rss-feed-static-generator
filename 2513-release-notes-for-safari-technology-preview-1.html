@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 186</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Release Notes for Safari Technology Preview 186</h2>
+		<a target="_blank" href="https://webkit.org/blog/14916/release-notes-for-safari-technology-preview-186/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/">Safari Technology Preview</a> Release 186 is now <a href="https://developer.apple.com/safari/resources/">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/7b65ded5da4652028c62f0958983f84d38e753f8...dcca261c751d3a4af2154720f3f6cb43f9c47ac1">271832@main&#8230;272448@main</a>.</p>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for invalidating <code>:any-link</code>, <code>:link</code>, and <code>:-webkit-any-link</code> inside <code>:has()</code> (<a href="https://commits.webkit.org/271919@main">271919@main</a>)  (116616425)  </li>
+<li>Added support for <code>@scope</code> invalidation. (<a href="https://commits.webkit.org/271897@main">271897@main</a>)  (119313058)  </li>
+<li>Added support for an implicit scoping root when there is no <code>&lt;scope-start&gt;</code>. (<a href="https://commits.webkit.org/272390@main">272390@main</a>)  (119659940)  </li>
+<li>Added support for <code>:scope</code> inside <code>@scope</code> prelude. (<a href="https://commits.webkit.org/272065@main">272065@main</a>)  (119661541)  </li>
+<li>Added support for <code>align-content</code> on table cells. (<a href="https://commits.webkit.org/272373@main">272373@main</a>)  (119701629)  </li>
+<li>Added support for <code>content-visibility</code> to be animate-able.  (<a href="https://commits.webkit.org/272364@main">272364@main</a>)  (119940258)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>querySelector()</code> to not throw an exception for <code>-webkit-</code> prefixed pseudo-elements. (<a href="https://commits.webkit.org/272337@main">272337@main</a>)  (99299129)  </li>
+<li>Fixed <code>:user-invalid</code> triggering while typing a date. (<a href="https://commits.webkit.org/272346@main">272346@main</a>)  (110687369)  </li>
+<li>Fixed nested <code>@supports</code> queries with declarations. (<a href="https://commits.webkit.org/271989@main">271989@main</a>)  (113652033)  </li>
+<li>Fixed <code>contain: inline-size</code> breaking <code>grid-template-rows: auto</code>. (<a href="https://commits.webkit.org/272085@main">272085@main</a>)  (113915953)  </li>
+<li>Fixed parsing and serialization of <code>-webkit-</code> prefixed pseudo-elements. (<a href="https://commits.webkit.org/272411@main">272411@main</a>)  (118081134)  </li>
+<li>Fixed incorrect scoping roots with nested <code>@scope</code>. (<a href="https://commits.webkit.org/271941@main">271941@main</a>)  (119511916)  </li>
+<li>Fixed <code>@scope</code> prelude to take nesting into account. (<a href="https://commits.webkit.org/272117@main">272117@main</a>)  (119711922)  </li>
+<li>Fixed grid with size containment and <code>min-height</code> not sizing row correctly. (<a href="https://commits.webkit.org/272276@main">272276@main</a>)  (119736473)  </li>
+<li>Fixed <code>@scope</code> to be able to have orphaned declarations with an implicit enclosing style rule.  (119937025)  </li>
+</ul>
+<h3>Forms</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added focus ring support for <code>&lt;input type="checkbox" switch&gt;</code>. (<a href="https://commits.webkit.org/271884@main">271884@main</a>)  (119499785)  </li>
+<li>Added vertical rendering support for <code>&lt;input type="checkbox" switch&gt;</code>. (<a href="https://commits.webkit.org/272405@main">272405@main</a>)  (119940157)  </li>
+</ul>
+<h3>HTML</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed missing support for the <code>direction</code> attribute in the list of attributes whose values are matched case-insensitively with attribute selectors. (<a href="https://commits.webkit.org/272219@main">272219@main</a>)  (119432066)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed async functions and generators to properly handle promises with throwing &#8220;constructor&#8221; getter. (<a href="https://commits.webkit.org/272291@main">272291@main</a>)  (119734587)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed rendering for a <code>&lt;div&gt;</code> within a transformed parent <code>&lt;div&gt;</code> with  <code>overflow: hidden</code>. (<a href="https://commits.webkit.org/271894@main">271894@main</a>)  (118901069)  </li>
+<li>Fixed <code>offsetHeight</code> and <code>offsetWidth</code> are 0 for an inline box wrapping a block. (<a href="https://commits.webkit.org/272386@main">272386@main</a>)  (119955792)  </li>
+</ul>
+<h3>Service Workers</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed duplicate load requests with an active service worker. (<a href="https://commits.webkit.org/272024@main">272024@main</a>)  (104377727)  </li>
+</ul>
+<h3>Web Animations</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed percentage transform animations when <code>width</code> and <code>height</code> are animated. (<a href="https://commits.webkit.org/272022@main">272022@main</a>)  (63309680)  </li>
+<li>Fixed a paused animation where <code>currentTime</code> is changed to 0 not restarting when unpaused. (<a href="https://commits.webkit.org/271872@main">271872@main</a>)  (118826588)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added a &#8220;gamepad&#8221; permission policy defaulting to <code>*</code> for the allow list. (<a href="https://commits.webkit.org/272199@main">272199@main</a>)  (83219098)  </li>
+<li>Added ShadowRoot <code>clonable</code> attribute. (<a href="https://commits.webkit.org/272096@main">272096@main</a>)  (119707278)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed invalid coordinates on <code>wheel</code> and <code>gesturechange</code> events inside an iframe. (<a href="https://commits.webkit.org/272176@main">272176@main</a>)  (105243167) (FB11986074)  </li>
+<li>Fixed HTMLAreaElement to align with the HTML Standard. (<a href="https://commits.webkit.org/272217@main">272217@main</a>)  (110028213)  </li>
+<li>Fixed Scroll To Text Fragment to not scroll after dynamic stylesheet loads and the user has scrolled. (<a href="https://commits.webkit.org/272151@main">272151@main</a>)  (112608578)  </li>
+<li>Fixed toggling the <code>spellcheck</code> attribute not toggling spelling markers on input elements. (<a href="https://commits.webkit.org/271927@main">271927@main</a>)  (119269616)  </li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

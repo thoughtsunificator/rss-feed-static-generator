@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How Platform Engineering Can Support API Development</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How Platform Engineering Can Support API Development</h2>
+		<a target="_blank" href="https://nordicapis.com/how-platform-engineering-can-support-api-development/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Development teams have been evolving traditional DevOps over the past several years. Some developers feel that the rise of newer disciplines, like CloudOps or DeploymentOps, will lead to a return to siloes. Others are reluctant to build, deploy, run, <em>and</em> maintain operations in addition to all their other duties. Clearly, there is a real need for new cloud-native development strategies that <em>aren&#8217;t</em> your typical DevOps. This is where platform engineering comes in.</p>
+<p>The interest in platform engineering is flourishing. A quick glance at Google Trends found an increase in search traffic for &#8220;platform engineering&#8221; of over 900% in the last five years. Gartner named it one of their <a href="https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2024">Top Strategic Technology Trends of 2024</a>. Judging from these trends, platform engineering is here to stay. Fortunately, this is good news for API developers, as platform engineering, a practice that typically involves internal developer platforms (IDPs), is especially suited for developing APIs in some particular ways.</p>
+<p>Before we review how platform engineering can support API development, let&#8217;s focus briefly on defining platform engineering for those new to the concept.</p>
+<h2 id="what-is-platform-engineering-">What Is Platform Engineering?</h2>
+<p>Platform engineering is a name for the discipline of designing, maintaining, and implementing toolchains and workflows for enabling <a href="https://nordicapis.com/the-role-of-apis-in-platform-engineering/">self-service strategies</a> in the cloud-native era. Instead of having to learn a third-party tool, developers could be focusing on shipping products and features instead. Not only is this bad for productivity, <em>it&#8217;s bad for morale</em>. Wasting time and energy is demoralizing. It&#8217;s also bad for profit margins and customer service.</p>
+<h2 id="7-ways-platform-engineering-benefits-api-development">7 Ways Platform Engineering Benefits API Development</h2>
+<h3 id="1-platform-engineering-improves-developer-experience">1. Platform Engineering Improves Developer Experience</h3>
+<p><a href="https://nordicapis.com/how-to-measure-and-improve-internal-developer-experience/">Developer experience</a> (DX) is increasingly essential in <em>every</em> aspect of tech. <a href="https://tyk.io/blog/how-platform-engineering-is-shaping-the-api-landscape/">Prioritizing DX</a> can avoid the budgetary pitfalls and loss of morale that come with using inappropriate tools. Platform engineering lets you design and build <em>exactly</em> what you&#8217;ll need.</p>
+<h3 id="2-apis-empower-integration">2. APIs Empower Integration</h3>
+<p>As in other cloud-native architectures like microservices, APIs are the wiring that connects each tool into a unified whole. As a result, API developers and platform engineers often work closely together, as it&#8217;s vital for each component to perform at peak efficiency to have a successful infrastructure.</p>
+<p>When designing an IDP, ensure that the platform engineers thoroughly understand the APIs you&#8217;ll be using. Indicate if the API will be using REST, GraphQl, or gRPC in your API documentation to ensure the platform can interact with the APIs. On the API development side, consider if your APIs are able to receive notifications from third-party applications in case of an event notification.</p>
+<h3 id="3-improved-internal-apis">3. Improved Internal APIs</h3>
+<p>APIs are one of the biggest reasons for the explosion in <a href="https://nordicapis.com/exploring-the-role-of-cloud-native-in-apis/">cloud-native technology</a>, as they allow individual components to be wired together in flexible ways. To date, container-based systems like Kubernetes have been the industry standard for cloud-native systems. Customizing Kubernetes&#8217; APIs is cumbersome and can be frustrating, however, as it requires a high-level understanding of their API. With platform engineering, you could set guardrails for designing and developing <a href="https://cloud.google.com/blog/products/api-management/platform-engineers-can-enable-developers-to-build-better-apis">internal APIs</a>, eliminating such roadblocks.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/tips-for-internal-api-first-approaches/">Tips For Internal API-First Approaches</a></div>
+<h3 id="4-improved-api-discovery">4. Improved API Discovery</h3>
+<p>Creating your own IDP greatly improves developer&#8217;s ability to find the API they need. They can function similarly to an <a href="https://nordicapis.com/8-tips-for-creating-an-api-catalog-and-why-you-need-one/">API catalog</a>, letting you keep track of all your internal APIs along with any third-party APIs you consume. This has a similar effect to platform engineering in general, as it helps save wasted time, money, energy, and effort by reducing the amount of wasted work due to <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/">poor service discovery</a>.</p>
+<h3 id="5-enables-api-management">5. Enables API Management</h3>
+<p>API management tools and platforms, like <a href="https://nordicapis.com/6-open-source-api-gateways/">API gateways</a>, for example, are becoming increasingly popular, as they handle everything from API discovery to improving API security through one central portal. Creating your own platform lets you find, secure, and consume APIs however you want. This also reduces the risk of redundant work due to an inability to find an existing API.</p>
+<h3 id="6-empowers-ci-cd-pipelines">6. Empowers CI/CD Pipelines</h3>
+<p>Continuous integration/continuous development (CI/CD) has become one of the most popular architectures for automating various processes, ranging from product deployment to testing. The basic building blocks of a <a href="https://nordicapis.com/the-differences-between-continuous-integration-continuous-delivery-and-continuous-deployment/">CI/CD pipeline</a> involves analyzing static code, unit testing, deployment, and testing to make sure integration is working. Doing any of this by hand makes the entire process time-consuming and impractical. API integrations let you control and monitor all of these processes from your development environment.</p>
+<h3 id="7-improves-templates">7. Improves Templates</h3>
+<p>Once you&#8217;ve got an established ecosystem and workflow for creating APIs, it&#8217;s easy to create custom materials to speed up development processes. APIs can enhance templates and custom workflows in all manner of ways. For example, you might create a mockup workflow with all of the necessary APIs already set up. CI/CD pipelines are commonly found in templates, also, as they&#8217;re so common in testing and deployment.</p>
+<h2 id="empowering-api-development-with-platform-engineering">Empowering API Development With Platform Engineering</h2>
+<p>If there&#8217;s one thing we&#8217;ve learned from the last ten years in tech, it&#8217;s that you should own as many of your resources as possible. Otherwise, you&#8217;re always at someone else&#8217;s mercy. At best, you might end up essentially paying rent for years on end. At worst, you could lose all your assets when a tool gets deprecated or a company goes under.</p>
+<p>Those are just a few of the ways that platform engineering can boost the API development process. And arguably, homegrown platforms could make your API development environment infinitely more customizable than out-of-the-box solutions. Factor in a boost to API discovery and API security, and there&#8217;s every incentive to experiment with platform engineering and API development.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

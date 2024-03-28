@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Huston: KeyTrap!</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Huston: KeyTrap!</h2>
+		<a target="_blank" href="https://lwn.net/Articles/965067/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">Geoff Huston <a
+href="https://www.potaroo.net/ispcol/2024-03/keytrap.html">digs into the
+details</a> of the KeyTrap DNS vulnerability, which was <a
+href="https://lwn.net/Articles/962924/">disclosed</a> in February.
+<p>
+<blockquote class="bq">
+	It's by no means "[devastating]" for the DNS, and the fix is much the
+	same as the previous fix. As well as limiting the number of queries
+	that a resolver can generate to resolve a queried name, a careful
+	resolver will limit both the elapsed time and perhaps the amount of
+	the resolver's processing resources that are used to resolve any
+	single query name.
+<p>
+	It's also not a novel discovery by the ATHENE folk. The
+	vulnerability was described five years ago by a student at the
+	University of Twente. I guess the issue was that the student failed
+	to use a sufficient number of hysterical adjectives in describing
+	this DNS vulnerability in the paper!
+</blockquote></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

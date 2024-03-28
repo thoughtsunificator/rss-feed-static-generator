@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Fixing a gap in the SEP regulation</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Fixing a gap in the SEP regulation</h2>
+		<a target="_blank" href="https://opensource.org/blog/fixing-a-gap-in-the-sep-regulation">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+<p>In<a href="https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/13109-Intellectual-property-new-framework-for-standard-essential-patents/F3434421_en"> OSI&#8217;s feedback</a> to<a href="https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/13109-Intellectual-property-new-framework-for-standard-essential-patents_en"> the European Commission&#8217;s proposed Standard Essential Patent (SEP) Regulation</a> (SEP-R), OSI recommended that the legislation add a waiting period for patent claims registered under the regulation as standard-essential after the standard has been ratified. The recommendation was based on the social purpose behind tolerating the presence of royalty-due patents in standards at all, rather than as an endorsement of it.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>SEPs in context</strong></h2>
+
+
+
+<p>Royalty-due SEPs are an artifact of a requirements-led standardization process. Not all standards are affected by SEPs, and not all SEPs require licensing on royalty-due terms. While some standards are encumbered by patents registered by contributors to the standards process, patents are not an essential or inherent aspect of standardization.</p>
+
+
+
+<p>Patents are mechanisms that exist for a societal reason — in order to create a benefit to society by encouraging inventors to openly share their techniques — not because there is any inherent “property” to recognize. So it is incumbent on government administrations to regulate their use so that a societal benefit is preserved.</p>
+
+
+
+<p>As I<a href="https://www.openforumeurope.org/wp-content/uploads/2019/03/OFA_-_Opinion_Paper_-_Simon_Phipps_-_OSS_and_FRAND.pdf"> explained for Open Forum Europe</a>, some standards are developed in a sequence of activities that starts from a statement of requirements aiming to create a new market (“requirements-led”) while others are developed as a harmonization of existing industry implementations in an existing market (“implementation-led”).</p>
+
+
+
+<ul>
+<li>The <strong>implementation-led</strong> approach (harmonizing existing markets) frequently arises in circumstances where recovery of R&amp;D costs is already in hand and patent monetization is not a proportionate compromise. As a result, projects developed under an implementation-led approach (such as at OASIS and W3C) frequently opt for restriction-free (RF) terms that result in a negotiation-free usage since royalties are waived and do not need to be negotiated.</li>
+
+
+
+<li>The <strong>requirements-led</strong> approach (specifying the interoperability for a future market) leads some standards development organizations (SDOs) to tolerate restricted licensing of included patented technologies due to the long lead-times in research and development investment by standards contributors. While royalty-due and negotiation-required licensing of SEPs is desirable for the commercial entities benefiting from the tradition, the bilateral negotiation with NDA-enforced privacy that results gives the incumbents market power that could be easily interpreted as anti-competitive.</li>
+</ul>
+
+
+
+<p>Despite the practice of accommodating royalty-due patents in standards leading to barriers to entry in the resulting markets, tolerating SEP monetization appears a compromise that its advocates assert can be a proportionate remedy to the delayed monetization opportunity for participants. As a result SDOs put in place safeguards during the standardization process to avoid triggering anti-trust regulations, such as ensuring equal terms of participation for all in the process, requiring disclosure by participants of patents that could prove standard-essential, and especially in requiring negotiated terms to be “Fair, Reasonable And Nondiscriminatory” (FRAND) — although<a href="https://www.juve-patent.com/insights/insights-from-the-cutting-edge-of-global-licence-rate-setting/creating-a-frand-framework-is-not-etsis-responsibility/"> not backing this up practically</a>.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Bugs in the process</strong></h2>
+
+
+
+<p>But these SDO safeguards only prevent the SDO <em>itself</em> from being regarded as anti-competitive, and do nothing to protect the markets that go on to be created by requirements-led standards.</p>
+
+
+
+<ol>
+<li><strong>What needs licensing is unclear.</strong> While the patents of those involved in the standardization process will have been declared, the resulting standard may not embody their claims, and others outside the SDO may make claims. Published standards are thus not accompanied by a list of patents that need to be licensed for implementation. The task of identifying exactly which patents need to be licensed for exactly which parts of the standard is therefore significant. That burden is only placed on smaller innovators and market entrants; the incumbents are likely to have cross-licensing agreements in place, making their market participation simpler and cheaper.<a href="https://www.huawei.com/en/news/2023/8/huawei-ericsson-cross-licensing"> 1</a><a href="https://www.huawei.com/en/news/2022/12/ipr-licensing-huawei-oppo"> 2</a></li>
+
+
+
+<li><strong>Power is with the incumbents.</strong> While the term “FRAND” (Fair, Reasonable And Nondiscriminatory patent licensing terms) is much used, the reality is that the negotiations for patent licenses are 1:1 and conducted in commercial secrecy under NDA. There is no way any party can know if the terms they are offered are like those offered to others, and the power is imbalanced heavily in favor of the patent owner who will use early legal proceedings to force a conclusion. Since the patent owners are frequently the dominant market players, small companies and new market entrants are at a significant disadvantage.</li>
+
+
+
+<li><strong>The cost of licensing is unknown.</strong> Since each patent is likely to need separate negotiation with large corporations, it&#8217;s hard to know what the cost of licensing a given standard will be, even after the list has been painstakingly built.</li>
+
+
+
+<li><strong>Patent pools can demand unwarranted licensing.</strong> Patent pools are held up as a partial remedy for this. They sometimes list all the patents they are licensing but don&#8217;t explain why they are essential. As a result, the lists they produce can be inaccurate, especially when the pool is not connected with the standardization process.<a href="https://www.juve-patent.com/cases/uk-court-rules-sisvel-patent-non-essential-to-4g-standard/"> 1</a><a href="https://www.juve-patent.com/cases/district-court-of-the-hague-declares-sisvel-patent-non-essential/"> 2</a><a href="https://www.unifiedpatents.com/insights/2023/6/15/interdigital-sisvels-av1-pool-us-9675556"> 3</a><a href="https://doi.org/10.18757/jos.2022.6695"> A</a></li>
+</ol>
+
+
+
+<h2 class="wp-block-heading"><strong>Better markets with SEP-R</strong></h2>
+
+
+
+<p>The proposed Standard Essential Patent Regulation addresses many of these issues as part of its proposals, and that&#8217;s the reason OSI broadly welcomed the proposal. Where royalty-due patents in standards are present, they should at least function to create a fair market for both patent owners and licensees.</p>
+
+
+
+<p>OSI&#8217;s concern relates to a potential loop-hole in the new arrangements. Knowing that some patent owners prefer not to participate in standardization activity, and that some owners prefer to be as non-specific about essentiality as possible, OSI was concerned that the otherwise excellent public registration system might be ignored by some patent owners in order to bias the market towards adoption without possessing the full costs, deeming them free to disregard the regulation&#8217;s collective pricing measures. OSI considers this a gap in the regulation.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>The late registration gap</strong></h2>
+
+
+
+<p>Because of the improvements in SEP-R, implementers will be able to know which entities will require negotiation and assess whether to use the standard based on the registrations made by patent owners as well as on the collectively-agreed total royalty. But there is a risk the improvements will be avoided intentionally by some patent owners.</p>
+
+
+
+<ul>
+<li>Late-registered patents are likely to be those not arising from the standards process. They are unlikely to be owned by participants in the collectively-agreed total royalty.</li>
+
+
+
+<li>Since implementors could not take these patents and their burden into account, their late registration is likely to require at best revised costings, probably new engineering, and at worst market withdrawal by some implementers.</li>
+
+
+
+<li>This represents market harm and needs to be discouraged and those in the market protected.</li>
+
+
+
+<li>But SEP-R does not do so, leaving predatory late disclosure as a viable control point for incumbents and NPEs (trolls) whose advantage has been impacted by SEP-R.</li>
+
+
+
+<li>The only major consequence of late-stage registration is the loss of royalties before the registration is valid; however, for a widely adopted standard this is likely to be of small consequence to the SEP owner over the long term. The market will already have formed and such a delay will significantly impact companies with products already in the market. Products with Open Source elements will be more significantly affected as they will likely need to remove affected capabilities.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><strong>Possible remedies</strong></h2>
+
+
+
+<p>Recognizing that the existence of patents is for the enablement of a social good from an effective market, and recognizing that late registration of patents as essential to a standard after it has been promulgated harms those trusting the registry, it seems reasonable to apply a remedy both to ameliorate and discourage late registration. The best remedy to late registration would be to simply prevent any patents registered as essential to a standard from being able to claim any royalties in association with the implementation of the standard.</p>
+
+
+
+<p>Realistically, this option would face huge opposition from SEP-dependent corporations and would be better considered a long term goal.&nbsp;</p>
+
+
+
+<p>Instead, OSI proposed that registering a patent as essential after the market has adopted a standard affected by it should result in a waiting period before royalties could be claimed. This would allow time for the adjustment of the allocation of the total estimated cost of licensing to accommodate the new patent, as well as allow the market to adjust to the new reality.</p>
+
+
+
+<p>Given the pace at which these changes will be made, it seems reasonable to have a waiting period of at least two years from registration before patent royalties can become due.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h3 class="wp-block-heading"><strong>Notes, Tags &amp; Mentions</strong></h3>
+
+
+
+<ul>
+<li>OSI&#8217;s interest in this topic arises from the well-documented reluctance of Open Source developers to entertain patent-encumbered standards. Their presence can sometimes be accommodated but reduces the<a href="https://meshedinsights.com/2024/01/31/stochastic-confidence-and-the-open-source-network-effect/"> stochastic confidence</a> level that leads to Open Source being an effective trigger for innovation.</li>
+
+
+
+<li>To read a similar discussion but from an Open Source perspective, see<a href="https://blog.opensource.org/why-open-source-should-be-exempt-from-standard-essential-patents/"> the OSI blog</a> and<a href="https://meshedinsights.com/2021/03/11/accommodating-open-source-in-standards-processes/"> my earlier article</a> exploring the topic.</li>
+
+
+
+<li>OSI made<a href="https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/13109-Intellectual-property-new-framework-for-standard-essential-patents_en"> an earlier submission</a> to the consultation and also published<a href="https://blog.opensource.org/osi-to-the-european-commission-make-space-for-patent-free-standards-too/"> a corresponding article</a>.</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

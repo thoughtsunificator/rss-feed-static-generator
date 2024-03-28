@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>4 Examples of JSON Schema In Production</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">4 Examples of JSON Schema In Production</h2>
+		<a target="_blank" href="https://nordicapis.com/examples-of-json-schema-in-production/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>JSON Schema is a declarative language for document annotation and validation. <a href="https://nordicapis.com/what-is-the-difference-between-json-and-xml/">JSON</a> is widely utilized as a data exchange format, but in this ubiquity, there is a need for consistency and portability. In order to meet this need, the OpenJS Foundation has published the <a href="https://json-schema.org/">JSON Schema format</a>, allowing for standardized validation, testing, and data exchange across any system utilizing JSON for data exchange.</p>
+<p>One of the big benefits of using <a href="https://nordicapis.com/a-guide-to-json-schema/">JSON Schema</a> is the community that has developed around it. Beyond the solid support for the core tooling, additional community-driven tools, frameworks, and libraries have popped up across various languages, providing ample support for a vast range of use cases.</p>
+<p>Below, we&#8217;re going to look at some of these use cases. We&#8217;ll outline some examples of JSON Schema in production and identify how JSON Schema has unlocked success at scale for some interesting scenarios.</p>
+<h2 id="github">GitHub</h2>
+<p>In a case study published to the <a href="https://json-schema.org/blog/posts/github-case-study">JSON Schema blog</a>, GitHub noted how JSON Schema was, in their words, an &#8220;obvious choice&#8221; at GitHub. GitHub had a very interesting problem: as one of the largest software development tools used by teams across the globe, documentation management presented a unique challenge for developers. Documentation was originally hosted across two static sites, but in 2020, these sites were merged into a single JSON application leveraging automation. Though the problem of split documentation was resolved, the lack of validation introduced bugs and issues across the documentation pages that were automated, which had significant potential for impacting user experience and trust.</p>
+<p>To resolve this issue, GitHub deployed JSON Schema at scale across the body of documentation and systems. All of the validation from JSON Schema occurs in production. In the article, GitHub notes three areas where this happens: While the application runs in production, when retrieving external data in automation pipelines, and when running continuous integration each time a change is made to the application.</p>
+<p>GitHub noted substantial improvement across the organization due to implementing JSON Schema. Beyond the impacts in accuracy, reliability, and resultant standardization, they noted that the JSON Schema adoption presented a lot of context that increased development output and productivity. Rachael Sewell and Robert Sese, Docs Engineers at GitHub, specifically noted:</p>
+<p>&#8220;JSON schema makes it so much easier to see the shape of a data and its property types. I can quickly open the file on disk and understand what the data structure looks like. This saves the whole team time when extending a feature that relies on data backed by a schema.&#8221;</p>
+<h2 id="postman">Postman</h2>
+<p>Postman is one of the most used solutions for <a href="https://nordicapis.com/what-is-api-lifecycle-management/">API lifecycle management</a>. Due to the relative ubiquity of JSON in the API ecosystem, it makes perfect sense for Postman to itself incorporate JSON Schema. What&#8217;s most interesting is the depth of the incorporation.</p>
+<p>Firstly, Postman uses JSON Schema in the way you might assume. Postman depends on a collection of microservices to do its foundational work through the API platform. As such, the interconnectedness and interoperability of these systems leans quite heavily on JSON. Postman utilizes JSON Schema to validate these connections and ensure its JSON is accurate and reusable.</p>
+<p>Postman uses JSON Schema in many other places, however. The Postman Collection data format is formally defined using JSON Schema. The Newman Collection Runner uses JSON Schema to validate custom reporters. The gRPC and Protocol Buffers support delivered by Postman in 2022 is supported by an internal JSON Schema converter for validation and testing.</p>
+<p>Perhaps the most interesting use case of JSON Schema at Postman is the Postman API Network. The network is the world&#8217;s largest registry of public APIs, and it hosts many JSON-defined API specifications. &#8220;The Postman API Network is therefore one of the largest datasets of production-grade JSON Schema definitions,&#8221; notes the company.</p>
+<p>For the end user, this large body of JSON Schema definitions allows for a large amount of mutation and integration and unlocks a variety of potential developments based on the JSON Schema provision.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/25-json-parsing-and-validation-tools/">25+ JSON Parsing and Validation Tools</a></div>
+<h2 id="manfred-awesomic-cv">Manfred Awesomic CV</h2>
+<p>Here&#8217;s a use case for a common need: CV creation. The <a href="https://github.com/getmanfred/mac">Manfred Awesomic CV</a>, or MAC, is a standard open-source format for creating and sharing CVs (also known as a resume). The core concept of MAC is to create a format that includes everything you might expect from a resume, as well as interconnected data such as interests and intended career paths.</p>
+<p>MAC utilizes JSON Schema to help create a machine-readable format built for sharing and exchange. Using JSON Schema to validate and standardize means that MAC is shareable in any system that accepts JSON. No more rejected fields or broken imports — if you use MAC, you can standardize precisely how the data is imported, processed, and stored, establishing a true standard for career documentation that is sorely needed.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/">How to Implement Input Validation for APIs</a></div>
+<h2 id="krakend">KrakenD</h2>
+<p>KrakenD is a high-performance <a href="https://nordicapis.com/6-open-source-api-gateways/">open-source API gateway</a> that uses JSON Schema in various ways. They separate their use of JSON Schema into five general use cases.</p>
+<h3 id="1-validation-of-incoming-requests-at-runtime">1. Validation of Incoming Requests at Runtime</h3>
+<p>KrakenD utilizes JSON Schema to ensure that data consistency is maintained before the request is ever processed by the internal endpoint. When a request is submitted, the incoming data is validated via JSON Schema to ensure that the fields follow the respective data types and restrictions, preventing malformed requests and ensuring that JSON behaves as expected. This way, JSON Schema acts as a gatekeeper for all internal systems, enforcing rigidity without sacrificing reliability.</p>
+<h3 id="2-ensuring-complete-responses-before-returning-to-the-user">2. Ensuring Complete Responses Before Returning to the User</h3>
+<p>When a response is crafted for the end user, KrakenD utilizes JSON Schema to ensure that the aggregated output from multiple internal systems and endpoints matches the expected structure and formation. When this format does not match the expected schema, a custom error is generated for the end user, and an error is documented internally for the system to rectify.</p>
+<h3 id="3-validation-of-configuration-files-for-deployment-and-building">3. Validation of Configuration Files for Deployment and Building</h3>
+<p>Since KrakenD requires the use of configuration files for the deployment and building process, the validity and formation of these files are vital for error reduction. The main problem is that split configuration files can result in errors due to malformed definitions that arise from combining otherwise valid definitions. KrakenD utilizes JSON Schema to ensure that these merged schemas are valid, and if there is an invalid entry, it will identify what has failed in the process to help rectify the situation.</p>
+<h3 id="4-documentation-of-krakend-offerings">4. Documentation of KrakenD Offerings</h3>
+<p>Finally, KrakenD utilizes JSON Schema to document its own software. Their thought process is simple: &#8220;If we have a JSON schema that can validate your configuration, why wouldn&#8217;t we add titles, descriptions, links, etc., and use it as the base for documentation?&#8221; The question results in the obvious answer that you can do so, which KrakenD has done, deploying all documentation as a snippet that renders the schema data directly for the user.</p>
+<p>KrakenD utilizes a simple element, <code>{{ &lt; schema data= "krakend.json" filter= "listen_ip,timeout"&gt;}}</code>, to render the schema directly in the form of a table, providing ample information in documentation that is accurate and well-formed.</p>
+<h3 id="5-end-to-end-test-specification">5. End-to-End Test Specification</h3>
+<p>Finally, KrakenD utilizes JSON Schema to engage in end-to-end testing. They specifically use this to test endpoints that might have different outputs resulting in different data (such as a timestamp). In such a case, KrakenD utilizes JSON Schema to validate the response formation rather than the response output, ensuring that the system behaves as expected regardless of the output.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>JSON Schema is a powerful way to ensure your JSON output is well-formed and controlled. It has become the common solution for a variety of use cases due to its standardized approach, delivering benefits to testing, documentation, lifecycle management, and more. The internet depends on stability, reliability, and accuracy. Adopting something like JSON Schema ensures that your data does not stand in the way of your next development success.</p>
+<p>What do you think of these use cases? Are there any other use cases you&#8217;d like us to document in a future piece? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Questions about machine-learning models for Fedora</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Questions about machine-learning models for Fedora</h2>
+		<a target="_blank" href="https://lwn.net/Articles/964739/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Kaitlyn Abdo of Fedora's <a href="https://fedoraproject.org/wiki/SIGs/AI-ML">AI/ML
+SIG</a> opened <a href="https://pagure.io/fesco/issue/3175">an issue</a> with the
+Fedora Engineering Steering Committee (FESCo) recently that carried a few tricky
+questions about packaging machine-learning (ML) models for Fedora. 
+Specifically, the SIG is looking for guidance on whether pre-trained weights for
+<a href="https://pytorch.org/">PyTorch</a> constitute code or content. And, if the models are released under a
+<a href="https://opensource.org/licenses">license approved</a> by the
+<a href="https://opensource.org/">Open Source Initiative</a> (OSI),
+does it matter what data the models were trained on? The issue was quickly
+tossed over to Fedora's <a href="https://lwn.net/ml/fedora-legal/821ab2c0-61a0-4a31-b6f5-c1ab0826100c@fedoraproject.org/">legal
+mailing list</a> and sparked an interesting discussion about how to
+handle these items, and a temporary path forward.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

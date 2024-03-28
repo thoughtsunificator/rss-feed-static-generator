@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] A sandbox mode for the kernel</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] A sandbox mode for the kernel</h2>
+		<a target="_blank" href="https://lwn.net/Articles/963734/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">The Linux kernel follows a monolithic design, and that brings a well-known
+problem: all code in the kernel has access to the entirety of the kernel's
+address space.  As a result, a bug in (for example) an obscure driver may
+well be exploitable to wreak havoc on core-kernel data structures.  Various
+attempts have been made over the years to increase the degree of isolation
+within the kernel.  The latest of these, <a
+href="https://lwn.net/ml/linux-kernel/20240214113035.2117-1-petrtesarik@huaweicloud.com/">"SandBox
+Mode"</a> proposed by Petr Tesařík, makes it possible for the kernel to run
+some limited code safely, but it has encountered a bit of a chilly reception.
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

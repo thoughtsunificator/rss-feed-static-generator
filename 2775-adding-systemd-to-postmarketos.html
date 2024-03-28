@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Adding systemd to postmarketOS</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Adding systemd to postmarketOS</h2>
+		<a target="_blank" href="https://lwn.net/Articles/964574/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The <a href="https://postmarketos.org/">postmarketOS</a> project, which produces
+a Linux distribution for phones and mobile devices,
+<a href="https://postmarketos.org/blog/2024/03/05/adding-systemd/">has announced</a>
+that it is in the early stages of adding systemd to make it easier to support GNOME and KDE.</p>
+
+<p>Users who prefer the <a href="https://wiki.gentoo.org/wiki/Project:OpenRC">OpenRC</a>
+init system are assured they will still have that option when building their own
+images "<q>as long as OpenRC is in Alpine Linux (on which postmarketOS is 
+based)</q>":</p> 
+
+<blockquote class="bq">
+As with text editors, some people are really passionate about their favorite init
+systems. When discussing this announcement, please keep a friendly tone. Remember
+that we all share the love for free and open source software, and that our
+communities work best if we focus on shared values instead of fighting over what
+implementations to use.
+</blockquote>
+
+<p>Proof-of-concept <a href="https://mirror.postmarketos.org/temp.fdcc091b56f5/">images</a>
+are available now for a limited set of devices. Users are warned these images are "<q>buggy, 
+unreliable, and NOT suitable for use on a device you rely on</q>". Those interested
+in helping with testing and development are encouraged to follow along and report
+bugs on the <a href="https://gitlab.com/postmarketOS/pmaports/-/issues/2632">systemd
+issue at GitLab</a>.</p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

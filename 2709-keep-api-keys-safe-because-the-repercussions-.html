@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Keep API Keys Safe, Because The Repercussions Are Huge</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Keep API Keys Safe, Because The Repercussions Are Huge</h2>
+		<a target="_blank" href="https://nordicapis.com/keep-api-keys-safe-because-the-repercussions-are-huge/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>API keys are a ubiquitous technology across the modern web. Considered one of the core technologies of API communication, keys help drive the mechanisms underpinning some of the most widely used platforms and systems across the internet. Despite this ubiquity, effective use of API keys depends heavily on proper implementation and secure management. The potential repercussions of API key misuse can be extremely damaging in the short and long term.</p>
+<p>Below, we&#8217;re going to look at proper API key use and security. We&#8217;ll look at some examples of poor API key security and extract some lessons that can be learned from these issues.</p>
+<h2 id="the-importance-of-securing-api-keys">The Importance of Securing API Keys</h2>
+<p>Before diving into specific examples of API key security failure, we should discuss why this topic is an important, growing concern.</p>
+<p>The reality is that API key exposure has rapidly grown in recent years. In 2019, <a href="https://www.zdnet.com/article/over-100000-github-repos-have-leaked-api-or-cryptographic-keys/">researchers estimated 100,000 GitHub repositories</a> had exposed API tokens and cryptographic keys. Exposed keys can lead to significant data exfiltration, which can be incredibly damaging to the organization&#8217;s economic stability and the user&#8217;s trust in the product.</p>
+<p>Preventing API key leaks is relatively easy, which is why this topic can be so frustrating. Simply adopting strong key management systems and secure data storage can improve the security posture, and additional investments in employee education can pay huge long-term dividends.</p>
+<h2 id="api-key-leak-consequences">API Key Leak Consequences</h2>
+<p>API key leaks carry some significant consequences, both direct and indirect. Generally, these can be separated into a handful of categories: financial, regulatory, and reputational.</p>
+<h3 id="financial-consequences">Financial Consequences</h3>
+<p>API key leaks can lead to costly consequences if keys are used for metering and quota governance. These systems rely on accuracy, and accuracy relies on veracity. When your keys no longer represent the true situation and use case for a client, those keys are no longer useful for business logic and planning and can become dangerous in their own right.</p>
+<p>There is also the very real threat of resource expenditure. Many <a href="https://nordicapis.com/why-api-keys-are-not-enough/">API key-based attacks</a> might focus on trying to DDoS systems or make for costly server run-ups, especially when calling exponential functions or complex calls that are without purpose. These attacks may focus entirely on creating as much direct cost as possible for the software provider.</p>
+<p>In many cases, insecure API keys could lead to the exposure of partner data. If you have <a href="https://nordicapis.com/how-to-set-slas-for-cloud-apis/">SLAs or contracts</a> that rely on securing this data, you could quickly run into legal issues that carry significant financial burdens. These attacks can also trigger a forensic investigation, remuneration for affected clients, mitigation costs, and more that could significantly run up costs.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/the-difference-between-api-keys-and-api-tokens/">The Difference Between API Keys and API Tokens</a></div>
+<h3 id="regulatory-consequences">Regulatory Consequences</h3>
+<p>Ignoring the direct monetary implications, there are also significant regulatory issues with API key exposure. <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/">Policies and regulations</a> such as GDPR or CCPA make the act of exposing data due to negligence an extremely costly proposal, with fines in the range of 4% of annual turnover — and that&#8217;s turnover, not profit.</p>
+<p>There are also criminal penalties for exposing certain kinds of data, such as <a href="https://nordicapis.com/how-to-protect-healthcare-applications-with-zero-trust/">healthcare data</a>, through negligence. In some cases, penalties can dissolve a business or create personal responsibility outside corporate liability protection.</p>
+<p>Fundamentally, regulatory consequences could be existential — they could mean breaking your business and collapsing your financial well-being.</p>
+<h3 id="reputational-consequences">Reputational Consequences</h3>
+<p>Finally, there are potential reputational consequences. Leaked data is always a reputational hit to a business, but how that data was leaked can change the average user&#8217;s response. When data is leaked because a third-party partner didn&#8217;t do their due diligence, the anger often shifts to that partner.</p>
+<p>If a leakage happens, however, because you exposed an API key, that&#8217;s different. That&#8217;s gross negligence and could lead to a mass migration of users. Some exposures have cost the reputation of departments and the careers of the people in those departments. Some <a href="https://nordicapis.com/5-major-modern-api-data-breaches-and-what-we-can-learn-from-them/">data exposures</a> have even spelled the end of entire companies.</p>
+<h2 id="high-profile-case-studies">High-Profile Case Studies</h2>
+<p>Unfortunately, some high-profile exposures have occurred due to issues around API keys in recent years. Let&#8217;s take a quick look at just a sample of them.</p>
+<h3 id="kronos">Kronos</h3>
+<p>In November of 2023, fintech firm Kronos revealed that it had suffered a major data breach stemming from the loss of several API keys. After the keys were lost, they were abused, resulting in what the company estimates as a <a href="https://twitter.com/ResearchKronos/status/1726203102842466650">$25 million USD loss</a>.</p>
+<h4 id="attack-vector">Attack Vector</h4>
+<p>Due to the fact that the Kronos breach is still being investigated, details are still forthcoming. While the company noted that the breach started with &#8220;unauthorized access to some of [their] API keys&#8221;, the access modality has yet to be publicly released. Nonetheless, because the API keys in question were part of the payment and wallet management APIs internal to the Kronos ecosystem, their abuse led to the exfiltration of Ethereum from the wallets of many users.</p>
+<h4 id="long-term-impact">Long-Term Impact</h4>
+<p>The most immediate impact of a breach of this nature is the financial and regulatory concerns. While digital currency doesn&#8217;t generally have the same financial regulatory protections afforded by the FDIC as a standard bank account, the business in question still depends on held currency values to secure ongoing business functions. Accordingly, a considerable loss of this kind brings significant investor concern, regulatory purview, and, in some cases, consumer protection actions.</p>
+<p>Beyond this, there is the reputational impact to consider. <a href="https://nordicapis.com/fintech-apis-open-banking-vs-platformication/">Fintech firms</a> have some of the highest profile requirements of the tech space, and failure of something at this magnitude could signal a lack of trustworthiness or ability to execute. A reputation loss could impact a fintech organization&#8217;s long-term business prospects.</p>
+<h3 id="dropbox">Dropbox</h3>
+<p>In 2022, Dropbox revealed a massive data breach. What&#8217;s quite interesting about this breach is the modality of the attack. It&#8217;s an eye-opening example of how damaging and quickly escalating a well-planned attack can be.</p>
+<h4 id="attack-vector">Attack Vector</h4>
+<p>The attack started with several stolen employee credentials lifted through a relatively advanced phishing attack. The attack targeted employees with a fake authentication page for CircleCI, allowing the attackers to steal both GitHub username/password pairs and the One Time Password values used as a two-factor method.</p>
+<p>While this is obviously not ideal, the attack should have stopped there. The real problem lay in the data that was accessed using that credential. The attacker was able to steal 130 code repositories stored by Dropbox on GitHub, and in those repositories was a treasure trove of API keys (in addition to past and present customer data, employee data, and vendor information)</p>
+<h4 id="long-term-impact">Long-Term Impact</h4>
+<p>The long-term impact of this attack has yet to be fully realized. While the immediate mitigation strategies employed by Dropbox allowed for some relatively rapid response to what could have been a much worse attack, this breach exposed a lot more than just data. It revealed the structure, library dependency, and development approach of a massive corporation. Such information could be used to inform attack vectors and strikes against infrastructure.</p>
+<p>An interesting consideration here is the reputational impact. Dropbox is a great example of clear communication and security controls playing a huge role in mitigating this impact. As the core problem was individual security lapses from employees and not something more systemic, it&#8217;s somewhat easier to forgive Dropbox — this, paired with the fact that mitigation strategies were deployed quickly, makes the reputational impact less significant.</p>
+<h3 id="imperva">Imperva</h3>
+<p>In 2019, Imperva revealed that it had experienced a data breach of customer data for a large segment of its user base. The attack was caused by accidental exposure of an API key, which led to a database snapshot being accessed, with the data exfiltrated, including email addresses, passwords (hashed and salted), and TLS/API keys for an unspecified number of users.</p>
+<h4 id="attack-vector">Attack Vector</h4>
+<p>This attack vector is an interesting one and highly specific. During a database migration to AWS Relational Database Service, Imperva created a snapshot of their database for testing. To facilitate this testing and development, they also created a compute instance containing an AWS API key. This instance was left publicly accessible.</p>
+<p>The attacker infiltrated this compute instance, exfiltrating the AWS API key. Using this key, they then pivoted their attack to the database snapshot, accessing it through the AWS API key and exfiltrating the data contents.</p>
+<h4 id="long-term-impact">Long-Term Impact</h4>
+<p>Exposing a compute instance in this manner resulted in a huge exposure. As such, this sort of attack could have long-term impacts on consumer trust. While Imperva responded very quickly once they were alerted of the issue, it took an external bug bounty request for them to realize what had happened, signaling a weakness in their logging and alerting systems and their access auditing.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Securing your API keys is critical to ensuring long-term health, security, and operational wellness. Accordingly, you should consider the security of API keys as a critical long-term business function and an existential issue. Be proactive, plan for the worst-case scenario, and treat it with the respect it deserves. Adopt updated security protocols and be vigilant — because you never know what the next attack vector will be.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

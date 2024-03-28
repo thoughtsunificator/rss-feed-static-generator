@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Nix at SCALE</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Nix at SCALE</h2>
+		<a target="_blank" href="https://lwn.net/Articles/965631/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>
+The first-ever <a href="https://2024-na.nixcon.org/">NixCon</a>
+in North America was co-located with
+<a href="https://www.socallinuxexpo.org/scale/21x">SCALE</a> this year. The
+event drew a mix of experienced
+<a href="https://nixos.org/">Nix</a> users
+and people new to the project.
+I attended talks that covered using Nix to build Docker images, upcoming changes
+to how NixOS performs early booting, and ideas for making the set of services
+provided in <a href="https://github.com/NixOS/nixpkgs">nixpkgs</a>
+more useful for self hosting. (LWN covered the relationship between
+Nix, NixOS, and nixpkgs in a
+<a href="https://lwn.net/Articles/962788">recent article</a>.)
+Near the end of the
+conference, a collection of Nix contributors gave a "State of the Union"
+about the growth of the project and highlighting areas of concern.
+</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

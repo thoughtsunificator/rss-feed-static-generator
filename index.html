@@ -1,0 +1,2561 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<style>
+			.feed-entry {
+				display: flex;
+				align-items: center;
+				column-gap: 20px;
+				flex-wrap: wrap;
+			}
+
+			.feed-entry h2 {
+				flex-grow: 1;
+			}
+		</style>
+		
+			<div class="feed-entry"><h2><a href="/2877-declarative-partitioning-in-postgresql.html">[$] Declarative partitioning in PostgreSQL</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>today</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2876-samba-4-20-0-released.html">Samba 4.20.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>today</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2875-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 191</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>today</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2874-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>today</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2873-crafting-an-excellent-developer-experience-fo.html">Crafting an Excellent Developer Experience for API Versioning</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>yesterday</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2872-lwn-net-weekly-edition-for-march-28-2024.html">[$] LWN.net Weekly Edition for March 28, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>yesterday</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2878-the-evolution-of-the-success-triangle-microse.html">The evolution of the success triangle: microservices as the enabler of DevOps and team topologies</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>yesterday</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2870-the-postgresql-community-mourns-simon-riggs.html">The PostgreSQL community mourns Simon Riggs</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>yesterday</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2869-high-performance-computing-with-ubuntu.html">[$] High-performance computing with Ubuntu</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>yesterday</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2868-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>yesterday</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2867-there-are-only-6-constraints-in-rest-let-s-us.html">There Are Only 6 Constraints in REST, Let’s Use Them All</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2871-wednesday-april-3-2024-security-releases.html">Wednesday, April 3, 2024 Security Releases</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2866-eight-new-stable-kernels.html">Eight new stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2864-node-v20-12-0-lts.html">Node v20.12.0 (LTS)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2863-node-v18-20-0-lts.html">Node v18.20.0 (LTS)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2862-gnome-46-puts-flatpaks-front-and-center.html">[$] GNOME 46 puts Flatpaks front and center</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2861-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2865-adding-the-password-grant-type-to-spring-auth.html">Adding the password grant type to Spring Authorization Server</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>2d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2860-understanding-the-benefits-of-api-observabili.html">Understanding The Benefits of API Observability</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2858-letter-to-u-s-commerce-secretary-raimondo-urg.html">Letter to U.S. Commerce Secretary Raimondo urging protection of openness and transparency in AI</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2857-nix-at-scale.html">[$] Nix at SCALE</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2855-open-source-ai-definition-weekly-update-mar-2.html">Open Source AI Definition – Weekly Update Mar 25</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2856-the-rest-of-the-6-9-merge-window.html">[$] The rest of the 6.9 merge window</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2854-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2853-emacs-29-3-released.html">Emacs 29.3 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>3d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2852-kernel-prepatch-6-9-rc1.html">Kernel prepatch 6.9-rc1</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>4d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2859-diving-into-the-node-js-website-redesign.html">Diving into the Node.js Website Redesign</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>4d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2851-exploreddd-2024-panel-the-crucial-intersectio.html">ExploreDDD 2024 - Panel: The Crucial Intersection of DDD With LLMs</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>5d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2850-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>6d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2849-hardening-the-kernel-against-heap-spraying-at.html">[$] Hardening the kernel against heap-spraying attacks</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>7d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2848-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>7d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2847-rust-1-77-0-released.html">Rust 1.77.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>7d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2846-perl-5-39-9-released.html">Perl 5.39.9 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>7d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2843-how-platform-engineering-can-support-api-deve.html">How Platform Engineering Can Support API Development</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2845-redis-is-no-longer-free-software.html">Redis is no longer free software</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2844-the-nova-driver-for-nvidia-chipsets.html">The "Nova" driver for NVIDIA chipsets</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2842-lwn-net-weekly-edition-for-march-21-2024.html">[$] LWN.net Weekly Edition for March 21, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2840-gnome-46-released.html">GNOME 46 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2839-managing-linux-servers-with-cockpit.html">[$] Managing Linux servers with Cockpit</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2838-spidermonkey-newsletter-firefox-124-125.html">SpiderMonkey Newsletter (Firefox 124-125)</a></h2>
+				<small>https://spidermonkey.dev/feed.xml</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2837-python-announces-first-security-releases-sinc.html">Python announces first security releases since becoming a CNA</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2836-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2841-a-tour-of-two-sagas.html">A tour of two sagas</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>8d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2835-using-opa-to-achieve-zero-trust-apis.html">Using OPA To Achieve Zero-Trust APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2834-real-anonymous-functions-for-python.html">[$] "Real" anonymous functions for Python</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2833-results-of-2024-elections-of-osi-board-of-dir.html">Results of 2024 elections of OSI board of directors</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2832-firefox-124-0-released.html">Firefox 124.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2831-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2830-introducing-natural-input-for-webxr-in-apple-.html">Introducing Natural Input for WebXR in Apple Vision Pro</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2829-man-yue-mo-gaining-kernel-code-execution-on-a.html">Man Yue Mo: Gaining kernel code execution on an MTE-enabled Pixel 8</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>9d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2828-how-to-call-a-soap-api-using-python.html">How To Call A SOAP API Using Python</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2825-open-source-ai-definition-weekly-update-mar-1.html">Open Source AI Definition – Weekly update Mar 18</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2824-toward-a-real-too-small-to-fail-rule.html">[$] Toward a real "too small to fail" rule</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2823-implementing-vertical-form-controls.html">Implementing Vertical Form Controls</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2822-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2826-google-summer-of-code-2024-contributor-applic.html">Google Summer of Code 2024 contributor applications are open!</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2827-exploreddd-2024-ddd-necessary-but-insufficien.html">ExploreDDD 2024 - DDD, necessary but insufficient: physical design principles for microservices</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>10d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2820-6-key-takeaways-from-austin-api-summit-2024.html">6 Key Takeaways From Austin API Summit 2024</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>11d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2821-10-tools-to-automatically-generate-sdks-for-y.html">10+ Tools To Automatically Generate SDKs for Your API</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>11d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2819-cranelift-code-generation-comes-to-rust.html">[$] Cranelift code generation comes to Rust</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>13d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2818-mitchell-today-we-launched-flox-1-0.html">Mitchell: Today we launched Flox 1.0</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>13d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2817-eight-stable-kernel-updates-for-the-weekend.html">Eight stable kernel updates for the weekend</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>13d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2816-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>13d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2815-how-to-create-an-api-from-scratch-using-pytho.html">How to Create an API From Scratch Using Python and Flask</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>14d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2814-new-working-group-aims-to-make-spotting-unwan.html">New working group aims to make spotting unwanted trackers easier</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>14d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2812-the-first-half-of-the-6-9-merge-window.html">[$] The first half of the 6.9 merge window</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>14d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2811-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>14d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2810-is-graphql-easier-to-govern-than-rest.html">Is GraphQL Easier to Govern Than REST?</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2809-lwn-net-weekly-edition-for-march-14-2024.html">[$] LWN.net Weekly Edition for March 14, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2808-questions-about-machine-learning-models-for-f.html">[$] Questions about machine-learning models for Fedora</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2806-clearlydefined-at-the-ort-community-days.html">ClearlyDefined at the ORT Community Days</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2805-three-perspectives-from-foss-backstage.html">Three perspectives from FOSS Backstage</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2804-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2807-pjrt-plugin-to-accelerate-machine-learning.html">PJRT Plugin to Accelerate Machine Learning</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2803-a-new-filesystem-for-pidfds.html">[$] A new filesystem for pidfds</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>15d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2802-why-identity-control-is-crucial-to-secure-api.html">Why Identity Control Is Crucial to Secure API Access</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2799-new-internet-architecture-board-ietf-trust-ie.html">New Internet Architecture Board, IETF Trust, IETF LLC and Internet Engineering Task Force Leadership Announced</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2801-today-s-hardware-vulnerability-register-file-.html">Today's hardware vulnerability: register file data sampling</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2800-herb-sutter-on-increasing-safety-in-c.html">Herb Sutter on increasing safety in C++</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2798-insecurity-and-python-pickles.html">[$] Insecurity and Python pickles</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2797-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2795-huston-keytrap.html">Huston: KeyTrap!</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>16d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2794-from-esb-to-cloud-native-building-modern-inte.html">From ESB to Cloud Native: Building Modern Integrations</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2796-interaction-to-next-paint-is-officially-a-cor.html">Interaction to Next Paint is officially a Core Web Vital 🚀</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2793-a-better-screenshots-tool-and-more-these-week.html">A Better Screenshots Tool and More – These Weeks in Firefox: Issue 156</a></h2>
+				<small>https://blog.nightly.mozilla.org/feed/</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2790-improving-performance-in-firefox-and-across-t.html">Improving Performance in Firefox and Across the Web with Speedometer 3</a></h2>
+				<small>https://hacks.mozilla.org/feed/</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2791-speedometer-3-0-the-best-way-yet-to-measure-b.html">Speedometer 3.0: The Best Way Yet to Measure Browser Performance</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2792-development-statistics-for-6-8.html">[$] Development statistics for 6.8</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2789-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>17d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2788-open-source-ai-definition-weekly-update-mar-1.html">Open Source AI Definition – weekly update Mar 11</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>18d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2787-the-6-8-kernel-has-been-released.html">The 6.8 kernel has been released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>18d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2786-huang-iris-infra-red-in-situ-project-updates.html">Huang: IRIS (Infra-Red, in situ) Project Updates</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>18d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2785-node-v21-7-1-current.html">Node v21.7.1 (Current)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>20d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2784-untangling-the-open-collectives.html">[$] Untangling the Open Collectives</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>20d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2783-better-linked-list-traversal-in-bpf.html">[$] Better linked-list traversal in BPF</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>20d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2782-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>20d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2781-vale-enforcing-style-guidelines-for-text.html">[$] Vale: enforcing style guidelines for text</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>21d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2780-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>21d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2779-why-you-might-need-a-chief-api-officer.html">Why You Might Need a Chief API Officer</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2778-lwn-net-weekly-edition-for-march-7-2024.html">[$] LWN.net Weekly Edition for March 7, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2777-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 190</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2776-mysql-and-mariadb-changes-coming-in-fedora-40.html">[$] MySQL and MariaDB changes coming in Fedora 40</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2775-adding-systemd-to-postmarketos.html">Adding systemd to postmarketOS</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2774-node-v21-7-0-current.html">Node v21.7.0 (Current)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2773-not-so-quickly-extending-quic.html">[$] Not so quickly extending QUIC</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2772-wednesday-s-stable-kernel-updates.html">Wednesday's stable kernel updates</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2771-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>22d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2770-the-keys-to-building-a-successful-api-product.html">The Keys to Building a Successful API Product</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>23d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2813-webassembly-jspi-is-going-to-origin-trial.html">WebAssembly JSPI is going to origin trial</a></h2>
+				<small>https://v8.dev/blog.atom</small>
+				<div><span>23d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2768-webkit-features-in-safari-17-4.html">WebKit Features in Safari 17.4</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>23d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2767-iab-workshop-on-barriers-to-internet-access-o.html">IAB Workshop on Barriers to Internet Access of Services (BIAS)</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>23d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2766-formalizing-policy-zones-for-memory.html">[$] Formalizing policy zones for memory</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>23d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2765-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>23d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2764-benefits-of-protobufs-for-internal-microservi.html">Benefits of Protobufs For Internal Microservices</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>24d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2763-a-candid-conversation-on-the-changelog-podcas.html">A candid conversation on The Changelog Podcast about defining Open Source AI, and what is really at stake</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>24d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2769-making-a-loading-spinner-with-tkinter.html">Making a Loading Spinner with tkinter</a></h2>
+				<small>https://www.endpointdev.com/blog/feed.xml</small>
+				<div><span>24d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2762-making-multiple-interpreters-available-to-pyt.html">[$] Making multiple interpreters available to Python code</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>24d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2760-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>24d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2761-open-source-ai-definition-weekly-update-mar-4.html">Open Source AI Definition – weekly update Mar 4</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>24d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2759-using-oasdiff-to-detect-breaking-changes-in-a.html">Using oasdiff to Detect Breaking Changes in APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>25d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2758-kernel-prepatch-6-8-rc7.html">Kernel prepatch 6.8-rc7</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>25d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2757-stable-kernels-6-7-8-and-6-6-20.html">Stable kernels 6.7.8 and 6.6.20</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>25d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2756-an-alternate-pattern-matching-conditional-for.html">[$] An alternate pattern-matching conditional for Elisp</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>27d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2755-musl-c-library-releases-support-for-new-archi.html">Musl C library releases support for new architectures</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>27d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2754-seven-new-stable-kernel-updates.html">Seven new stable kernel updates</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>27d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2753-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>27d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2752-how-to-link-api-requests-effectively.html">How to Link API Requests Effectively</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>28d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2751-nvk-is-now-ready-for-prime-time-collabora-blo.html">NVK is now ready for prime time (Collabora blog)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>28d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2750-a-sandbox-mode-for-the-kernel.html">[$] A sandbox mode for the kernel</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>28d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2749-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>28d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2747-llm-security-hinges-on-api-security.html">LLM Security Hinges on API Security</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2748-new-to-the-web-platform-in-february.html">New to the web platform in February</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2746-lwn-net-weekly-edition-for-february-29-2024.html">[$] LWN.net Weekly Edition for February 29, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2744-an-html-switch-control.html">An HTML Switch Control</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2745-tails-6-0-released.html">Tails 6.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2743-the-kde-desktop-gets-an-overhaul-with-plasma-.html">[$] The KDE desktop gets an overhaul with Plasma 6</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2742-the-open-collective-foundation-is-shutting-do.html">The Open Collective Foundation is shutting down</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2741-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2740-ntia-engages-civil-society-on-questions-of-op.html">NTIA engages civil society on questions of open foundation models for AI, hears benefits of openness in the public interest</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>29d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2739-how-to-build-a-serverless-web-app-with-azure-.html">How to Build a Serverless Web App with Azure Functions and RapidAPI</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>30d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2737-a-look-at-nix-and-guix.html">[$] A look at Nix and Guix</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>30d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2735-new-risk-assessment-framework-offers-clarity-.html">New risk assessment framework offers clarity for open AI models</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>30d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2734-the-bpftop-tool.html">The bpftop tool</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>30d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2733-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>30d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2738-new-premium-post-microservices-rules-2-fast-d.html">New premium post: Microservices rules #2: Fast deployment pipeline</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>30d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2731-4-ways-the-face-of-apis-is-changing-in-2024.html">4 Ways the Face of APIs Is Changing in 2024</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2732-modernized-streamlined-and-fediverse-friendly.html">Modernized, streamlined, and fediverse-friendly: OpenSource.org is fully migrated and ready to connect!</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2736-key-takeaways-from-practical-object-oriented-.html">Key Takeaways from Practical Object-Oriented Design by Sandi Metz</a></h2>
+				<small>https://www.endpointdev.com/blog/feed.xml</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2730-suggested-ietf-119-sessions-for-getting-famil.html">Suggested IETF 119 Sessions for Getting Familiar with New Topics</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2729-a-rdrand-followup.html">[$] A RDRAND followup</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2727-inspector-performance-and-other-improvements-.html">Inspector Performance and Other Improvements – These Weeks in Firefox: Issue 155</a></h2>
+				<small>https://blog.nightly.mozilla.org/feed/</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2728-incus-0-6-released.html">Incus 0.6 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2726-treating-documentation-as-code.html">[$] Treating documentation as code</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2725-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>31d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2724-kernel-prepatch-6-8-rc6.html">Kernel prepatch 6.8-rc6</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>32d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2721-git-2-44-0-released.html">Git 2.44.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2720-forgejo-makes-a-full-break-from-gitea.html">[$] Forgejo makes a full break from Gitea</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2719-google-and-consortium-of-local-organizations-.html">Google and consortium of local organizations to host first Australian IETF meeting in over 20 years</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2717-lots-of-new-stable-kernels.html">Lots of new stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2716-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2715-stenberg-disputed-not-rejected.html">Stenberg: DISPUTED, not REJECTED</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2714-open-source-ai-definition-weekly-update-feb-2.html">Open Source AI Definition – weekly update Feb 23</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>34d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2713-the-role-of-apis-in-the-music-industry.html">The Role of APIs in The Music Industry</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>35d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2711-when-elf-notes-reveal-too-much.html">[$] When ELF notes reveal too much</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>35d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2710-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>35d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2709-keep-api-keys-safe-because-the-repercussions-.html">Keep API Keys Safe, Because The Repercussions Are Huge</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2708-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 189</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2707-lwn-net-weekly-edition-for-february-22-2024.html">[$] LWN.net Weekly Edition for February 22, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2712-jsonpath-from-blog-post-to-rfc-in-17-years.html">JSONPath: from blog post to RFC in 17 years</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2718-jsonpath-from-blog-post-to-rfc-in-17-years.html">JSONPath: from blog post to RFC in 17 years</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2706-sudo-and-its-alternatives.html">[$] Sudo and its alternatives</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2705-a-proposal-for-shared-memory-in-bpf-programs.html">[$] A proposal for shared memory in BPF programs</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2704-rawtherapee-5-10-released.html">RawTherapee 5.10 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2703-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2723-mentor-organizations-announced-for-google-sum.html">Mentor organizations announced for Google Summer of Code 2024</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>36d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2702-how-decentralized-identity-will-affect-api-se.html">How Decentralized Identity Will Affect API Security</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2722-building-open-models-responsibly-in-the-gemin.html">Building Open Models Responsibly in the Gemini Era</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2701-the-keytrap-dns-vulnerability.html">The "KeyTrap" DNS vulnerability</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2700-a-modest-update-to-qubes-os.html">[$] A modest update to Qubes OS</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2699-righi-writing-a-scheduler-for-linux-in-rust-t.html">Righi: Writing a scheduler for Linux in Rust that runs in user-space</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2698-hare-programming-language-0-24-0-released.html">Hare programming language 0.24.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2697-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>37d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2696-creating-support-resources-to-improve-develop.html">Creating Support Resources to Improve Developer Experience</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>38d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2694-a-spritely-distributed-computing-library.html">[$] A Spritely distributed-computing library</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>38d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2693-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>38d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2695-announcing-web-dev-for-china.html">Announcing web.dev for China</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>39d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2692-kernel-prepatch-6-8-rc5.html">Kernel prepatch 6.8-rc5</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>39d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2690-release-es2024-candidate-february-2024-tc39-e.html">Release ES2024 Candidate February 2024 · tc39/ecma262</a></h2>
+				<small>https://ecmascript-daily.github.io/atom.xml</small>
+				<div><span>40d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2691-2-new-features.html">2 new features</a></h2>
+				<small>https://feeds.feedburner.com/WhenCanIUse</small>
+				<div><span>41d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2688-exploring-agama-s-2024-roadmap-opensuse-news.html">Exploring Agama's 2024 roadmap (openSUSE News)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>41d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2687-stable-kernels-6-7-5-6-6-17-and-6-1-78.html">Stable kernels 6.7.5, 6.6.17, and 6.1.78</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>41d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2686-how-to-use-media-source-extensions-with-airpl.html">How to use Media Source Extensions with AirPlay</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>41d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2685-windows-nt-synchronization-primitives-for-lin.html">[$] Windows NT synchronization primitives for Linux</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>41d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2684-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>41d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2683-why-documentation-is-important-for-api-securi.html">Why Documentation Is Important For API Security</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>42d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2681-monitor-plus-more-improvements-these-weeks-in.html">Monitor, Plus More Improvements – These Weeks in Firefox: Issue 154</a></h2>
+				<small>https://blog.nightly.mozilla.org/feed/</small>
+				<div><span>42d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2680-open-source-ai-at-fosdem.html">[$] Open-source AI at FOSDEM</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>42d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2682-magika-ai-powered-fast-and-efficient-file-typ.html">Magika: AI powered fast and efficient file type identification</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>42d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2679-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>42d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2678-why-technical-writers-are-important-for-apis.html">Why Technical Writers Are Important For APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2677-add-a-new-testing-stage-by-michaelficarra-pul.html">add a new testing stage by michaelficarra · Pull Request #37 · tc39/process-document</a></h2>
+				<small>https://ecmascript-daily.github.io/atom.xml</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2676-ecmascript-proposal-updates-2024-02.html">ECMAScript proposal updates @ 2024-02</a></h2>
+				<small>https://ecmascript-daily.github.io/atom.xml</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2675-lwn-net-weekly-edition-for-february-15-2024.html">[$] LWN.net Weekly Edition for February 15, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2674-lineageos-21-released.html">LineageOS 21 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2673-the-ubuntu-community-mourns-the-loss-of-gunna.html">The Ubuntu community mourns the loss of Gunnar Hjalmarsson</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2672-kde-plasma-x11-support-gets-a-reprieve-for-fe.html">[$] KDE Plasma X11 support gets a reprieve for Fedora 40</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2671-node-v21-6-2-current.html">Node v21.6.2 (Current)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2670-node-v20-11-1-lts.html">Node v20.11.1 (LTS)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2669-node-v18-19-1-lts.html">Node v18.19.1 (LTS)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2668-a-turning-point-for-cve-numbers.html">[$] A turning point for CVE numbers</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2667-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>43d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2666-the-role-of-apis-in-real-estate.html">The Role of APIs In Real Estate</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>44d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2665-the-kernel-becomes-its-own-cna.html">The kernel becomes its own CNA</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>44d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2664-a-look-at-dynamic-linking.html">[$] A look at dynamic linking</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>44d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2663-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>44d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2658-6-api-vulnerability-scanners.html">6 API Vulnerability Scanners</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>45d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2657-freebsd-phasing-out-32-bit-platforms.html">FreeBSD phasing out 32-bit platforms</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>45d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2655-another-runc-container-breakout.html">[$] Another runc container breakout</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>45d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2654-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>45d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2656-deploying-microservices-the-path-from-laptop-.html">Deploying microservices: the path from laptop to production</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>45d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2653-kernel-prepatch-6-8-rc4.html">Kernel prepatch 6.8-rc4</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>46d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2652-introducing-fedora-atomic-desktops-fedora-mag.html">Introducing Fedora Atomic Desktops (Fedora Magazine)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>48d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2651-drm-ci-a-gitlab-ci-pipeline-for-linux-kernel-.html">DRM-CI: A GitLab-CI pipeline for Linux kernel testing (Collabora Blog)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>48d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2650-gnuplot-6-comes-with-pie.html">[$] Gnuplot 6 comes with pie</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>48d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2649-rowley-what-s-new-in-the-postgres-16-query-pl.html">Rowley: What’s new in the Postgres 16 query planner / optimizer</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>48d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2648-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>48d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2647-a-comparative-view-of-ai-definitions-as-we-mo.html">A comparative view of AI definitions as we move toward standardization</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>48d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2646-google-announces-2024-season-of-docs.html">Google announces 2024 season of docs</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2645-brennan-what-s-inside-a-linux-kernel-core-dum.html">Brennan: What's Inside a Linux Kernel Core Dump</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2643-a-new-ceo-for-mozilla.html">A new CEO for Mozilla</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2642-pitchforks-for-rdseed.html">[$] Pitchforks for RDSEED</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2641-glibc-becomes-a-cve-numbering-authority.html">Glibc becomes a CVE Numbering Authority</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2640-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2644-youtube-releases-scripts-to-help-partners-and.html">YouTube releases scripts to help partners and creators to optimize their work</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>49d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2639-top-10-hotel-apis-a-comprehensive-overview-to.html">Top 10 Hotel APIs: A Comprehensive Overview To Find Your Best Fit</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2638-lwn-net-weekly-edition-for-february-8-2024.html">[$] LWN.net Weekly Edition for February 8, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2637-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 188</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2636-please-welcome-joe-brockmeier-to-lwn.html">Please welcome Joe Brockmeier to LWN</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2634-go-1-22-released.html">Go 1.22 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2633-so-you-think-you-understand-ip-fragmentation.html">[$] So you think you understand IP fragmentation?</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2631-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2632-stepping-towards-a-sustainable-internet.html">Stepping towards a Sustainable Internet</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2635-kubernetes-1-29-is-available-in-the-regular-c.html">Kubernetes 1.29 is available in the Regular channel of GKE</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>50d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2629-10-api-economy-predictions-for-2024.html">10 API Economy Predictions For 2024</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>51d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2630-open-source-ai-definition-where-it-stands-and.html">Open Source AI Definition: Where it stands and what’s ahead</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>51d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2628-gnu-c-library-version-2-39.html">[$] GNU C Library version 2.39</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>51d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2627-a-preview-of-tab-previews-these-weeks-in-fire.html">A Preview of Tab Previews – These Weeks in Firefox: Issue 153</a></h2>
+				<small>https://blog.nightly.mozilla.org/feed/</small>
+				<div><span>51d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2626-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>51d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2625-api-management-platforms-that-support-graphql.html">API Management Platforms That Support GraphQL</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>52d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2662-immutable-array-updates-with-array-prototype-.html">Immutable array updates with Array.prototype.with</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>52d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2624-three-new-stable-kernels.html">Three new stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>52d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2623-the-end-of-tasklets.html">[$] The end of tasklets</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>52d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2622-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>52d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2620-how-will-ai-enable-apis.html">How Will AI Enable APIs?</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>53d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2621-static-roots-objects-with-compile-time-consta.html">Static Roots: Objects with Compile-Time Constant Addresses</a></h2>
+				<small>https://v8.dev/blog.atom</small>
+				<div><span>53d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2619-kernel-prepatch-6-8-rc3.html">Kernel prepatch 6.8-rc3</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>53d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2689-setting-user-specific-resource-limits-with-sy.html">Setting User-Specific Resource Limits with systemd</a></h2>
+				<small>https://www.endpointdev.com/blog/feed.xml</small>
+				<div><span>55d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2617-zig-2024-roadmap.html">[$] Zig 2024 roadmap</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>55d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2616-phipps-the-european-regulators-listened-to-th.html">Phipps: The European regulators listened to the Open Source communities</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>55d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2615-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>55d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2618-announcing-google-season-of-docs-2024.html">Announcing Google Season of Docs 2024</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>55d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2614-the-european-regulators-listened-to-the-open-.html">The European regulators listened to the Open Source communities!</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>55d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2612-announcing-interop-2024.html">Announcing Interop 2024</a></h2>
+				<small>https://hacks.mozilla.org/feed/</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2613-the-web-just-gets-better-with-interop-2024.html">The web just gets better with Interop 2024</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2611-the-hard-life-of-a-virtual-filesystem-develop.html">[$] The hard life of a virtual-filesystem developer</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2610-damn-small-linux-2024-released.html">Damn Small Linux 2024 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2608-announcing-the-2024-state-of-open-source-repo.html">Announcing: The 2024 State of Open Source Report</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2609-stable-kernels-6-7-3-6-6-15-and-6-1-76.html">Stable kernels 6.7.3, 6.6.15, and 6.1.76</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2607-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2606-the-osi-board-expands-adding-two-new-seats-fo.html">The OSI board expands, adding two new seats; focus on AI and international policies</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>56d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2605-monetizing-apis-discerning-today-s-needs-from.html">Monetizing APIs: Discerning Today’s Needs from Tomorrow’s Opportunities</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2661-interop-2024.html">Interop 2024</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2604-lwn-net-weekly-edition-for-february-1-2024.html">[$] LWN.net Weekly Edition for February 1, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2603-gnu-c-library-2-39-released.html">GNU C Library 2.39 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2602-libreoffice-24-2-community-released.html">LibreOffice 24.2 Community released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2601-openbsd-system-call-pinning.html">[$] OpenBSD system-call pinning</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2600-a-locally-exploitable-glibc-vulnerability.html">A locally exploitable glibc vulnerability</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2599-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2598-fixing-a-gap-in-the-sep-regulation.html">Fixing a gap in the SEP regulation</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>57d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2597-what-s-new-in-asyncapi-v3-0.html">What’s New in AsyncAPI v3.0?</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2660-interaction-to-next-paint-becomes-a-core-web-.html">Interaction to Next Paint becomes a Core Web Vital on March 12</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2596-looking-ahead-to-emacs-30.html">[$] Looking ahead to Emacs 30</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2591-wednesday-february-14-2024-security-releases.html">Wednesday February 14 2024 Security Releases</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2595-spidermonkey-newsletter-firefox-122-123.html">SpiderMonkey Newsletter (Firefox 122-123)</a></h2>
+				<small>https://spidermonkey.dev/feed.xml</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2592-the-state-of-ebpf.html">The state of eBPF</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2590-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>58d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2589-design-first-api-development-myth-or-reality.html">Design-First API Development: Myth or Reality?</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2593-new-to-the-web-platform-in-january.html">New to the web platform in January</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2594-celebrate-a-more-interoperable-web-with-inter.html">Celebrate a more interoperable web with Interop 2023</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2659-introducing-learn-testing.html">Introducing Learn Testing</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2588-option-soup-the-subtle-pitfalls-of-combining-.html">Option Soup: the subtle pitfalls of combining compiler flags</a></h2>
+				<small>https://hacks.mozilla.org/feed/</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2587-defining-the-rust-2024-edition.html">[$] Defining the Rust 2024 edition</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2586-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>59d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2585-why-teamwork-is-crucial-to-keep-apis-secure.html">Why Teamwork Is Crucial to Keep APIs Secure</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>60d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2584-kernel-prepatch-6-8-rc2.html">Kernel prepatch 6.8-rc2</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>60d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2583-better-handling-of-integer-wraparound-in-the-.html">[$] Better handling of integer wraparound in the kernel</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>62d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2582-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>62d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2581-a-public-forum-to-discuss-the-open-source-ai-.html">A public forum to discuss the Open Source AI Definition</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>62d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2580-what-the-tesla-api-release-means-for-the-auto.html">What the Tesla API Release Means for the Automotive Industry</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>63d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2579-seven-new-stable-kernels.html">Seven new stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>63d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2577-bringing-back-horizontal-rules-in-select-elem.html">Bringing Back Horizontal Rules in Select Elements</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>63d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2576-the-things-nobody-wants-to-pay-for.html">[$] The things nobody wants to pay for</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>63d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2575-gcc-security-features-from-adacore.html">GCC security features from AdaCore</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>63d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2574-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>63d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2573-the-differences-between-synchronous-and-async.html">The Differences Between Synchronous and Asynchronous APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>64d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2572-lwn-net-weekly-edition-for-january-25-2024.html">[$] LWN.net Weekly Edition for January 25, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>64d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2570-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 187</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>64d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2571-python-packaging-and-pip-again.html">[$] Python, packaging, and pip—again</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>64d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2569-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>64d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2568-api-case-study-us-air-force-goes-api-first.html">API Case Study: US Air Force Goes API-First</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>65d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2578-what-s-the-deal-with-media-over-quic.html">What’s the deal with Media Over QUIC?</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>65d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2566-microdot-a-web-framework-for-microcontrollers.html">[$] Microdot: a web framework for microcontrollers</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>65d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2565-firefox-122-0-released.html">Firefox 122.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>65d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2564-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>65d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2567-microservices-rules-what-good-looks-like.html">Microservices rules: what good looks like</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>65d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2563-how-to-avoid-api-business-logic-abuse.html">How To Avoid API Business Logic Abuse</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2562-node-v21-6-1-current.html">Node v21.6.1 (Current)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2560-webkit-features-in-safari-17-3.html">WebKit Features in Safari 17.3</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2558-happy-new-year-these-weeks-in-firefox-issue-1.html">Happy New Year – These Weeks in Firefox: Issue 152</a></h2>
+				<small>https://blog.nightly.mozilla.org/feed/</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2559-the-rest-of-the-6-8-merge-window.html">[$] The rest of the 6.8 merge window</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2557-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2561-google-summer-of-code-2024-mentor-organizatio.html">Google Summer of Code 2024 Mentor Organization Applications Now Open</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>66d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2556-kernel-prepatch-6-8-rc1.html">Kernel prepatch 6.8-rc1</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>67d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2555-some-weekend-stable-kernel-updates.html">Some weekend stable kernel updates</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>68d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2554-sourcehut-outage-post-mortem.html">SourceHut outage post-mortem</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>69d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2553-jujutsu-a-new-git-compatible-version-control-.html">[$] Jujutsu: a new, Git-compatible version control system</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>69d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2552-dave-mills-rip.html">Dave Mills RIP</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>69d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2551-mseal-gets-closer.html">[$] mseal() gets closer</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>69d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2550-clarifying-misunderstandings-of-slowroll-open.html">Clarifying Misunderstandings of Slowroll (openSUSE News)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>69d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2549-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>69d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2548-openapi-sets-it-sights-on-v4-moonwalk-for-202.html">OpenAPI Sets It Sights On v4 Moonwalk For 2024</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>70d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2547-villa-will-the-new-judicial-ruling-in-the-viz.html">Villa: Will the new judicial ruling in the Vizio lawsuit strengthen the GPL?</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>70d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2546-improved-code-generation-in-the-cpython-jit.html">[$] Improved code generation in the CPython JIT</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>70d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2545-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>70d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2544-ietf-administration-llc-2024-budget.html">IETF Administration LLC 2024 Budget</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>70d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2543-creating-industry-standard-webhooks-with-stan.html">Creating Industry-Standard Webhooks with Standard Webhooks</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>71d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2542-lwn-net-weekly-edition-for-january-18-2024.html">[$] LWN.net Weekly Edition for January 18, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>71d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2541-growing-pains-for-typing-in-python.html">[$] Growing pains for typing in Python</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>71d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2540-please-welcome-daroc-alden.html">Please welcome Daroc Alden</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>71d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2539-kicinski-netdev-in-2023.html">Kicinski: netdev in 2023</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>71d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2538-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>71d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2537-is-leaf-computing-the-answer-to-cloud-woes.html">Is Leaf Computing the Answer to Cloud Woes?</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2536-julia-v1-10-performance-a-new-parser-and-more.html">[$] Julia v1.10: Performance, a new parser, and more</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2534-wine-9-0-released.html">Wine 9.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2532-a-glitch-in-the-merge-window.html">A glitch in the merge window</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2531-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2530-how-osi-is-renewing-its-board-of-directors-in.html">How OSI is renewing its board of directors in 2024</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2535-clarifying-architecture-with-service-blueprin.html">Clarifying architecture with Service Blueprints: system operations + entities</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>72d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2529-using-api-insights-to-test-openapi-specificat.html">Using API Insights to Test OpenAPI Specifications</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2527-a-new-crop-of-stable-kernels.html">A new crop of stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2526-opensuse-leap-16-is-coming.html">OpenSUSE Leap 16 is coming</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2525-stawinski-how-we-executed-a-critical-supply-c.html">Stawinski: How We Executed a Critical Supply Chain Attack on PyTorch</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2524-rust-and-c-filesystem-apis.html">[$] Rust and C filesystem APIs</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2523-node-v21-6-0-current.html">Node v21.6.0 (Current)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2522-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>73d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2528-building-a-real-time-application-with-signalr.html">Building a real-time application with SignalR, .NET, and three.js</a></h2>
+				<small>https://www.endpointdev.com/blog/feed.xml</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2521-stable-kernel-5-10-207.html">Stable kernel 5.10.207</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2520-linux-mint-21-3-virginia-released.html">Linux Mint 21.3 "Virginia" released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2533-update-on-the-it-infrastructure-transition-pr.html">Update on the IT Infrastructure Transition Project</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2519-the-first-half-of-the-6-8-merge-window.html">[$] The first half of the 6.8 merge window</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2518-information-on-the-sourcehut-outage.html">Information on the SourceHut outage</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2517-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>76d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2516-openssh-announces-dsa-removal-timeline.html">OpenSSH announces DSA-removal timeline</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>77d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2515-the-kernel-closure-api.html">[$] The kernel "closure" API</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>77d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2514-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>77d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2513-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 186</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2512-lwn-net-weekly-edition-for-january-11-2024.html">[$] LWN.net Weekly Edition for January 11, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2511-apifutures-api-sprawl-to-be-a-pressing-concer.html">APIFutures: API Sprawl to Be a Pressing Concern in 2024</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2510-notes-on-emacs-org-mode.html">[$] Notes on Emacs Org mode</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2507-internet-society-extends-financial-support-to.html">Internet Society Extends Financial Support to the IETF</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2508-announcing-motionmark-1-3.html">Announcing MotionMark 1.3</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2509-stable-kernel-4-14-336-and-others.html">Stable kernel 4.14.336 (and others)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2505-a-historic-view-of-the-practice-to-delay-rele.html">A historic view of the practice to delay releasing Open Source software: OSI’s report</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2506-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2504-node-v20-11-0-lts.html">Node v20.11.0 (LTS)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>78d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2503-6-fax-apis.html">6 Fax APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2502-the-odd-saga-of-cve-2012-5639.html">[$] The odd saga of CVE-2012-5639</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2501-vcc-a-clang-compiler-for-vulkan.html">Vcc: a Clang compiler for Vulkan</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2500-the-openwrt-one-project.html">The OpenWrt One project</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2498-leemhuis-regression-tracking-state-of-the-uni.html">Leemhuis: Regression tracking: state of the union early 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2499-ietf-administration-llc-2024-strategic-plan.html">IETF Administration LLC 2024 Strategic Plan</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2497-shaw-python-3-13-gets-a-jit.html">Shaw: Python 3.13 gets a JIT</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2496-solus-4-5-released.html">Solus 4.5 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2495-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>79d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2494-4-examples-of-json-schema-in-production.html">4 Examples of JSON Schema In Production</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>80d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2492-some-6-7-development-statistics.html">[$] Some 6.7 development statistics</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>80d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2491-clearlydefined-recapping-a-year-of-progress-a.html">ClearlyDefined: recapping a year of progress and sharing a vision for 2024</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>80d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2490-three-new-stable-kernels.html">Three new stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>80d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2489-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>80d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2493-new-premium-post-prevent-descent-into-unmaint.html">New premium post: Prevent descent into unmaintainable hell by tracking and improving the DevEx metrics</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>80d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2488-unraveling-the-mystery-understanding-hateoas.html">Unraveling the Mystery: Understanding HATEOAS</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>81d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2486-the-6-7-kernel-has-been-released.html">The 6.7 kernel has been released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>81d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2487-new-feature-selectlist-customizable-select-el.html">New feature: Selectlist - Customizable select element</a></h2>
+				<small>https://feeds.feedburner.com/WhenCanIUse</small>
+				<div><span>82d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2485-kernel-text-replication-on-numa-systems.html">[$] Kernel-text replication on NUMA systems</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>83d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2484-four-stable-kernels-released.html">Four stable kernels released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>83d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2483-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>83d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2482-the-return-of-none-aware-operators-for-python.html">[$] The return of None-aware operators for Python</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>84d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2481-computer-science-pioneer-niklaus-wirth-passes.html">Computer science pioneer Niklaus Wirth passes away (ITWire)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>84d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2480-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>84d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2479-how-to-break-apis-a-hacker-s-perspective.html">How to Break APIs: A Hacker’s Perspective</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>85d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2478-lwn-net-weekly-edition-for-january-4-2024.html">[$] LWN.net Weekly Edition for January 4, 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>85d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2477-smuggling-email-inside-of-email.html">[$] Smuggling email inside of email</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>85d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2476-lenotre-maestro-introduction.html">Lenôtre: Maestro - Introduction</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>85d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2475-vim-9-1-released.html">Vim 9.1 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>85d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2474-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>85d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2473-differences-between-api-management-and-servic.html">Differences Between API Management and Service Mesh</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>86d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2472-lwn-s-guide-to-2024.html">[$] LWN's guide to 2024</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>86d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2471-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>86d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2470-protecting-soap-against-owasp-s-top-ten-api-r.html">Protecting SOAP Against OWASP’s Top Ten API Risks</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>87d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2469-stable-kernels-6-6-9-and-6-1-70.html">Stable kernels 6.6.9 and 6.1.70</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>87d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2468-the-trouble-with-max-order.html">[$] The trouble with MAX_ORDER</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>87d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2467-scribus-1-6-0-released.html">Scribus 1.6.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>87d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2466-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>87d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2465-kernel-prepatch-6-7-rc8.html">Kernel prepatch 6.7-rc8</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>88d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2464-julia-1-10-released.html">Julia 1.10 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>88d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2463-gnuplot-6-0-released.html">Gnuplot 6.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>88d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2461-gentoo-in-binary-form.html">Gentoo in binary form</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>90d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2462-end-point-meetup-in-ljubljana-slovenia.html">End Point meetup in Ljubljana, Slovenia</a></h2>
+				<small>https://www.endpointdev.com/blog/feed.xml</small>
+				<div><span>91d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2459-rust-1-75-0-released.html">Rust 1.75.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>91d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2458-the-linux-graphics-stack-in-a-nutshell-part-2.html">[$] The Linux graphics stack in a nutshell, part 2</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>91d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2457-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>91d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2456-debian-statement-on-the-cyber-resilience-act.html">Debian statement on the Cyber Resilience Act</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>92d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2460-client-profile-j-g-title-company.html">Client Profile: J.G. Title Company</a></h2>
+				<small>https://www.endpointdev.com/blog/feed.xml</small>
+				<div><span>93d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2455-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>93d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2454-why-prusa-is-floundering-and-how-you-can-avoi.html">Why Prusa is floundering, and how you can avoid their fate</a></h2>
+				<small>https://drewdevault.com/feed.xml</small>
+				<div><span>94d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2453-ruby-3-3-0-released.html">Ruby 3.3.0 Released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>94d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2452-kernel-prepatch-6-7-rc7.html">Kernel prepatch 6.7-rc7</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>96d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2451-stable-kernel-5-15-145.html">Stable kernel 5.15.145</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>96d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2450-darktable-4-6-0-released.html">Darktable 4.6.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>97d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2449-launch-of-the-ietf-community-survey-2023.html">Launch of the IETF Community Survey 2023</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>97d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2448-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>97d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2446-the-6-7-kernel-will-be-released-on-january-7.html">The 6.7 kernel will be released on January 7</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>98d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2445-webgpu-now-available-for-testing-in-safari-te.html">WebGPU now available for testing in Safari Technology Preview</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>98d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2444-data-type-profiling-for-perf.html">[$] Data-type profiling for perf</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>98d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2443-announcing-async-fn-and-return-position-impl-.html">Announcing `async fn` and return-position `impl Trait` in traits (Rust Blog)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>98d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2442-osi-work-in-developing-an-open-source-ai-defi.html">OSI work in developing an Open Source AI definition featured in the State of the Digital Public Goods Ecosystem 2023 report</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>98d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2441-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>98d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2440-exploring-the-role-of-cloud-native-in-apis.html">Exploring The Role of Cloud-Native in APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2447-thoughts-about-team-size.html">Thoughts about team size</a></h2>
+				<small>https://microservices.io/feed.xml</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2439-lwn-net-weekly-edition-for-december-21-2023.html">[$] LWN.net Weekly Edition for December 21, 2023</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2438-release-notes-for-safari-technology-preview-1.html">Release Notes for Safari Technology Preview 185</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2437-qemu-8-2-0-released.html">QEMU 8.2.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2436-looking-back-at-2023.html">[$] Looking back at 2023</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2435-lsfmm-bpf-2024-call-for-proposals.html">LSFMM+BPF 2024 call for proposals</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2434-seven-stable-kernels.html">Seven stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2433-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>99d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2432-the-role-of-apis-in-platform-engineering.html">The Role of APIs in Platform Engineering</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2431-node-v21-5-0-current.html">Node v21.5.0 (Current)</a></h2>
+				<small>https://nodejs.org/en/feed/blog.xml</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2430-the-linux-graphics-stack-in-a-nutshell-part-1.html">[$] The Linux graphics stack in a nutshell, part 1</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2427-qubes-os-4-2-0-released.html">Qubes OS 4.2.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2428-final-response-to-meeting-venue-consultations.html">Final response to meeting venue consultations</a></h2>
+				<small>https://www.ietf.org/blog/feed/</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2426-openssh-9-6-released.html">OpenSSH 9.6 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2425-firefox-121-0-released.html">Firefox 121.0 released</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2424-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>100d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2423-how-decentralized-identity-will-transform-ban.html">How Decentralized Identity Will Transform Banking</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>101d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2429-new-to-the-web-platform-in-december.html">New to the web platform in December</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>101d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2422-the-intersection-of-mlx5-netdev-and-lockdown.html">[$] The intersection of mlx5, netdev, and lockdown</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>101d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2421-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>101d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2420-centralize-data-access-control-with-graphql.html">Centralize Data Access Control with GraphQL</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>102d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2419-kernel-prepatch-6-7-rc6.html">Kernel prepatch 6.7-rc6</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>102d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2418-min-sched-ext-a-bpf-extensible-scheduler-clas.html">Min: sched_ext: a BPF-extensible scheduler class (Part 1)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>102d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2417-tc39-faq.html">tc39/faq</a></h2>
+				<small>https://ecmascript-daily.github.io/atom.xml</small>
+				<div><span>103d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2415-demaio-insights-from-the-opensuse-logo-contes.html">DeMaio: Insights from the openSUSE Logo Contest</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>104d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2414-progress-toward-a-gcc-based-rust-compiler.html">[$] Progress toward a GCC-based Rust compiler</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>104d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2413-security-updates-for-friday.html">Security updates for Friday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>104d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2416-tools-for-google-cloud-performance-and-resour.html">Tools for Google Cloud performance and resource optimization</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>104d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2412-how-to-design-robust-generative-ai-apis.html">How to Design Robust Generative AI APIs</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>105d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2411-25-years-of-postfix.html">25 years of Postfix</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>105d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2410-better-searching-in-firefox-to-close-out-2023.html">Better Searching in Firefox to close out 2023 – These Weeks in Firefox: Issue 151</a></h2>
+				<small>https://blog.nightly.mozilla.org/feed/</small>
+				<div><span>105d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2408-ext4-data-corruption-hits-the-stable-kernels.html">[$] Ext4 data corruption hits the stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>105d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2407-security-updates-for-thursday.html">Security updates for Thursday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>105d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2409-google-open-source-peer-bonus-program-announc.html">Google Open Source Peer Bonus program announces second group of 2023 winners</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>105d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2405-using-dast-to-tackle-the-owasp-top-10.html">Using DAST to Tackle the OWASP Top 10</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2404-lwn-net-weekly-edition-for-december-14-2023.html">[$] LWN.net Weekly Edition for December 14, 2023</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2403-logo-and-trademark-issues-for-opensuse.html">[$] Logo and trademark issues for openSUSE</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2402-more-stable-kernel-updates.html">More stable kernel updates</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2401-rust-for-linux-in-space.html">Rust for Linux — in space</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2400-openpgp-for-application-developers.html">OpenPGP for application developers</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2399-2023-in-review-many-reasons-to-celebrate.html">2023 in review: many reasons to celebrate</a></h2>
+				<small>https://blog.opensource.org/feed/</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2398-security-updates-for-wednesday.html">Security updates for Wednesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>106d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2396-watch-out-for-more-regulatory-focus-on-api-se.html">Watch out for More Regulatory Focus on API Security in 2024</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2395-the-end-of-vger-kernel-org.html">The end of vger.kernel.org</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2394-graber-lxd-now-re-licensed-and-under-a-cla.html">Graber: LXD now re-licensed and under a CLA</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2393-project-bluefin-a-customized-fedora-silverblu.html">[$] Project Bluefin: A customized Fedora Silverblue desktop image</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2390-puppeteer-support-for-the-cross-browser-webdr.html">Puppeteer Support for the Cross-Browser WebDriver BiDi Standard</a></h2>
+				<small>https://hacks.mozilla.org/feed/</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2389-security-updates-for-tuesday.html">Security updates for Tuesday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2392-a-look-back-at-bazelcon-23-and-the-launch-of-.html">A look back at BazelCon '23 and the launch of Bazel 7</a></h2>
+				<small>http://feeds.feedburner.com/GoogleOpenSourceBlog</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2391-baseline-badges-now-on-can-i-use.html">Baseline badges now on Can I use</a></h2>
+				<small>https://feeds.feedburner.com/WhenCanIUse</small>
+				<div><span>107d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2378-7-practices-to-secure-third-party-api-usage.html">7 Practices to Secure Third-Party API Usage</a></h2>
+				<small>https://nordicapis.com/feed/</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2397-baseline-2023.html">Baseline 2023</a></h2>
+				<small>https://web.dev/feed.xml</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2406-v8-is-faster-and-safer-than-ever.html">V8 is Faster and Safer than Ever!</a></h2>
+				<small>https://v8.dev/blog.atom</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2377-bottomley-solving-the-looming-developer-liabi.html">Bottomley: Solving the Looming Developer Liability Problem</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2376-webkit-features-in-safari-17-2.html">WebKit Features in Safari 17.2</a></h2>
+				<small>https://webkit.org/feed/rss/</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2375-some-recent-and-notable-changes-to-rust.html">[$] Some recent and notable changes to Rust</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2374-kernel-prepatch-6-7-rc5.html">Kernel prepatch 6.7-rc5</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2373-two-stable-kernels.html">Two stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2372-security-updates-for-monday.html">Security updates for Monday</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>108d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2369-ecmascript-proposal-updates-2023-11.html">ECMAScript proposal updates @ 2023-11</a></h2>
+				<small>https://ecmascript-daily.github.io/atom.xml</small>
+				<div><span>109d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2368-ext4-data-corruption-in-stable-kernels.html">Ext4 data corruption in stable kernels</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>110d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+			<div class="feed-entry"><h2><a href="/2367-modern-c-for-fedora-and-the-world.html">[$] Modern C for Fedora (and the world)</a></h2>
+				<small>https://lwn.net/headlines/rss</small>
+				<div><span>111d ago</span></div>
+				<div> <a href="/tags/it.html">it</a></div>
+			</div>
+		</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

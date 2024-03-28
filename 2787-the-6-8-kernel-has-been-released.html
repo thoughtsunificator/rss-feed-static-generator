@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The 6.8 kernel has been released</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The 6.8 kernel has been released</h2>
+		<a target="_blank" href="https://lwn.net/Articles/964784/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">Linus has <a href="https://lwn.net/Articles/964977/">released</a> the 6.8 kernel.
+<p>
+<blockquote class="bq">
+	So it took a bit longer for the commit counts to come down this
+	release than I tend to prefer, but a lot of that seemed to be about
+	various selftest updates (networking in particular) rather than any
+	actual real sign of problems. And the last two weeks have been
+	pretty quiet, so I feel there's no real reason to delay 6.8.
+</blockquote>
+<p>
+Significant changes in this release include
+the <a href="https://lwn.net/Articles/934415/">deadline servers</a> scheduling feature,
+support for <a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9294a037c015">memory-management
+auto-tuning</a> in DAMON,
+the <a href="https://lwn.net/Articles/937239/">large anonymous folios</a> feature,
+the <a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4e5fa4f5eff6">kernel
+samepage merging advisor</a>,
+the <a href="https://lwn.net/Articles/941764/">ability to prevent writes</a> to block
+devices containing mounted filesystems,
+the <a href="https://lwn.net/Articles/950569/"><tt>listmount()</tt> and
+<tt>statmount()</tt> system calls</a>,
+the <a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cbe0e4150896">first
+device driver written in Rust</a>,
+the <a
+href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=98e20e5e13d2">removal</a>
+of the (never finished) <a href="https://lwn.net/Articles/822744/">bpfilter</a>
+packet-filtering system,
+<a href="https://lwn.net/Articles/919059/">three new system calls</a> for managing Linux
+security modules,
+support for <a href="https://lwn.net/Articles/955709/">data-type profiling</a> in the
+<tt>perf</tt> tool,
+<a href="https://lwn.net/Articles/949277/">guest-first memory</a> for KVM virtualization,
+the Intel Xe graphics driver,
+and a lot more.  See the LWN merge-window summaries
+(<a href="https://lwn.net/Articles/957188/">part&nbsp;1</a>,
+<a href="https://lwn.net/Articles/958178/">part&nbsp;2</a>) for more information.</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

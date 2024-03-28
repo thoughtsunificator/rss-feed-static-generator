@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>There Are Only 6 Constraints in REST, Let’s Use Them All</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">There Are Only 6 Constraints in REST, Let’s Use Them All</h2>
+		<a target="_blank" href="https://nordicapis.com/there-are-only-6-constraints-in-rest-lets-use-them-all/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>On my desk, I have a copy of the O&#8217;Reilly RESTful Web Services book by Leonard Richardson and Sam Ruby. Published in December 2007, it&#8217;s astonishing how much of the book is still best practice. However, sixteen years is a long time in technology, and we&#8217;re asking more and more of our APIs.</p>
+<p>Amid recent trends like asynchronous events, streaming data, client-side cryptography, and native language clients, REST is starting to show its weaknesses. Do we need to throw REST out and start again, or have we been missing something that can make our APIs more powerful?</p>
+<p>I believe the answer is &#8220;code on demand&#8221; — sending code from the server to the client to run there — and I&#8217;ve created a new open standard called <a href="https://docs.allpurposemachines.com">HyperMap</a> that lets you use it today.</p>
+<div class="well">
+<p><a href="https://nordicapis.com/speakers/daniel-feichtinger/">Daniel Feichtinger</a> introduced HyperMap at the <a href="https://nordicapis.com/events/platform-summit-2023/">2023 Platform Summit</a> in Stockholm.<div class="responsive-iframe-container"><iframe title="YouTube video player" src="https://www.youtube.com/embed/gZvaginNdRU?si=tfj-nNw70viMjQpV" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div></p>
+</div>
+<h2 id="code-on-demand">Code on Demand</h2>
+<p>Code on demand might be an unfamiliar term in today&#8217;s API landscape (I can&#8217;t find any videos from previous Platform Summits mentioning it!). However, it&#8217;s been one of the core principles of REST since the very beginning.</p>
+<p>By definition, <a href="https://nordicapis.com/whats-the-difference-between-rest-and-restful/">REST is the architecture of the web</a>. One interesting thing about REST is that it was codified nearly a decade after the web took off. It attempts to capture what made the web so successful, both from a technical point of view and also in its adoption. REST was described as a set of six constraints:</p>
+<ul>
+<li>Client-server architecture</li>
+<li>Statelessness</li>
+<li>Cacheability</li>
+<li>Layered system</li>
+<li>Uniform interface</li>
+<li>Code on demand (optional)</li>
+</ul>
+<p>The first four are largely what you get from using JSON or XML over HTTP. The uniform interface constraint is an interesting one: to truly meet it, you have to use hypermedia as your representation, something that&#8217;s still not common for APIs. But I want to focus on the last constraint, code on demand, which is rarely discussed in the context of <a href="https://nordicapis.com/8-tips-for-designing-quality-rest-apis/">REST APIs</a>.</p>
+<p>What is code on demand? Well, if we&#8217;re referring to the web, we can broadly say it&#8217;s running JavaScript in the browser. Web pages aren&#8217;t just declarative HTML and CSS — we ship executable JavaScript too. We do this so that we can temporarily enhance the browser with some behavior we&#8217;d like our pages to support. Web browsers are universal — I can pick one and visit any site on the web — and they have lots of built-in features like styling blocks of text, rendering forms with controls, and showing media.</p>
+<p>Consider when Google, in the mid-2000s, wanted to ship an awesome new maps experience, where a user could drag a map around and new tiles load asynchronously in the background. This UI control, now called &#8220;slippy maps,&#8221; wasn&#8217;t a built-in feature of browsers back then, so the developers had three options:</p>
+<ol>
+<li>Propose a new UI element to the W3C, wait for it to be standardized, and then ship it in all major browsers.</li>
+<li>Build a new native app to support this feature while also reimplementing most browser features like text and image rendering and convince users to download it.</li>
+<li>Ship a little bit of JavaScript to support the new control.</li>
+</ol>
+<p>The last option is orders of magnitude quicker and less development effort, and that&#8217;s how we got <a href="https://nordicapis.com/5-powerful-alternatives-to-google-maps-api/">Google Maps</a>.</p>
+<p>JavaScript on the web is quite popular! Nearly all websites use some amount of JavaScript, and if you try disabling it, you&#8217;ll see just how essential it is to the modern web. In fact, I&#8217;d argue that if the web didn&#8217;t support code on demand, it would have been replaced by a distributed information system that did.</p>
+<p>Given how critical code on demand is to the success of the web, thanks to the powers it unlocks, why aren&#8217;t we using this for our APIs?</p>
+<h2 id="introducing-hypermap">Introducing HyperMap</h2>
+<p>Well, with HyperMap, you can! This is a new RESTful format that I created recently. It supports running JavaScript and WebAssembly on the client with the full suite of web APIs that you&#8217;d expect from the browser. It&#8217;s designed to be incredibly easy to adopt for existing JSON-based REST APIs — you really only need to change the content type to <code>vnd.hypermap+json</code> and you&#8217;re away. On the client side, users can just import a simple library called Mech and use it to talk to any HyperMap service. Mech currently has JavaScript and TypeScript bindings, but more languages are coming soon.</p>
+<p>Let&#8217;s take a look at a few challenges with traditional REST APIs that you can solve with HyperMap:</p>
+<h2 id="1-eliminate-webhooks">1. Eliminate Webhooks</h2>
+<p><a href="https://nordicapis.com/6-strategies-for-documenting-webhooks/">Webhooks</a> are great for notifying a client that a long-running process has completed, but assumes you have a publicly reachable URL to POST back to. This isn&#8217;t the case if you&#8217;re developing native apps, developing locally, or running on CI.</p>
+<p>Instead, with HyperMap, you can use the <code>#</code> key to add attributes to your API response, pointing to a script to load.</p>
+<pre><code class="lang-json">    {
+      <span class="hljs-attr">"#"</span>: {
+        <span class="hljs-attr">"script"</span>: <span class="hljs-string">"/eventHandler.js"</span>
+      },
+      <span class="hljs-attr">"ticketId"</span>: <span class="hljs-string">"2277"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>
+    }
+</code></pre>
+<p>In the script, you can access the HyperMap data and a simple interface to manipulate it. You also have access to the full suite of web APIs, so you can just create an EventSource, listen to Server-Sent Events, and update the HyperMap dynamically:</p>
+<pre><code class="lang-js">    <span class="hljs-keyword">const</span> evtSource = <span class="hljs-keyword">new</span> EventSource(<span class="hljs-string">'/tickets/2277/events'</span>);
+
+    evtSource.onmessage = (<span class="hljs-keyword">event</span>) =&gt; {
+      hypermap.<span class="hljs-keyword">set</span>(<span class="hljs-string">'status'</span>, <span class="hljs-keyword">event</span>.data);
+    };
+</code></pre>
+<p>Apps looking to react to this change can just use an event handler through Mech:</p>
+<pre><code class="lang-js">    const ticketTab = Mech.open(<span class="hljs-string">"https://example.com/tickets/2277/"</span>);
+
+    ticketTab.<span class="hljs-literal">on</span>(<span class="hljs-string">"changed"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(`<span class="javascript">New status: ${ticketTab.at(<span class="hljs-string">"status"</span>)}</span>`);
+    });
+</code></pre>
+<p>With just a few lines of code, we&#8217;ve built something significantly simpler and more powerful than we could have achieved with <a href="https://nordicapis.com/apis-vs-webhooks-how-are-they-different/">webhooks</a>.</p>
+<h2 id="2-unify-rest-and-streaming-endpoints">2. Unify REST and Streaming Endpoints</h2>
+<p>Something that&#8217;s increasingly common — especially in FinTech — is to ship two APIs: a regular REST one for structured data and a WebSocket one for streaming data. With HyperMap, you can have the best of both worlds. Imagine a simple <a href="https://nordicapis.com/10-real-time-stock-data-apis/">stock service</a>, listing stock tickers with their current price:</p>
+<pre><code class="lang-json">    {
+      <span class="hljs-attr">"#"</span>: {
+        <span class="hljs-attr">"script"</span>: <span class="hljs-string">"/streamHandler.js"</span>
+      },
+      <span class="hljs-attr">"aapl"</span>: <span class="hljs-number">180.67</span>,
+      <span class="hljs-attr">"meta"</span>: <span class="hljs-number">321.91</span>,
+      <span class="hljs-attr">"googl"</span>: <span class="hljs-number">138.80</span>
+    }
+</code></pre>
+<p>Again, we can just annotate the response with the script we want to run:</p>
+<pre><code class="lang-js">    <span class="hljs-keyword">const</span> stockSocket = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">'wss://example.com/stocks/'</span>);
+
+    stockSocket.onmessage = (<span class="hljs-keyword">event</span>) =&gt; {
+      <span class="hljs-keyword">const</span> msg = JSON.parse(<span class="hljs-keyword">event</span>.data);
+      hypermap.<span class="hljs-keyword">set</span>(msg.ticker, msg.price);
+    };
+</code></pre>
+<p>Similarly, binding to the changing data in Mech is straightforward.</p>
+<h2 id="3-client-side-pre-processing">3. Client-Side Pre-Processing</h2>
+<p>If you need to process private or sensitive data, you might need to hard-code logic in your wrapper/SDK to scrub that information before it touches your service. With HyperMap, you can ship the logic to the client alongside the API response, ensuring it works in any supported language and is always up to date. See the privacy-preserving text sentiment analysis demo in the <code>example_server</code>.</p>
+<h2 id="the-future-of-rest-is-bright">The Future of REST Is Bright</h2>
+<p>The three examples above just scrape the surface of what code on demand can bring to REST APIs. I expect there will be many more exciting things to discover in this space! If you&#8217;re interested in learning more about HyperMap, <a href="https://docs.allpurposemachines.com">check out the docs</a> and come and chat with us <a href="https://discord.com/invite/csYd9ZU6Ng">on Discord</a>.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Building Open Models Responsibly in the Gemini Era</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Building Open Models Responsibly in the Gemini Era</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2024/02/building-open-models-responsibly-gemini-era.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgg06dhS6iRpIv8hvyonlwncW-RC5n59E8vhaWRgIVqTP-Z1AbTBDtdJsX8ClDILimlGWlRAIORuZn8349TfUFmgqYyCRcoctTvNC_Kv70z41hCKd-0Fy4Ic4EgKyY0LxQ5rDt1eXi3jvEcTxgTC62glTl4e5Cffge50iiF0fxCBqmq9v-u7KTfIL4Lxb0/s1600/Gemma_social.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgg06dhS6iRpIv8hvyonlwncW-RC5n59E8vhaWRgIVqTP-Z1AbTBDtdJsX8ClDILimlGWlRAIORuZn8349TfUFmgqYyCRcoctTvNC_Kv70z41hCKd-0Fy4Ic4EgKyY0LxQ5rDt1eXi3jvEcTxgTC62glTl4e5Cffge50iiF0fxCBqmq9v-u7KTfIL4Lxb0/s1600/Gemma_social.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLaqdsXw5Pyg1fc4MgtWaeQkFSx7BwVy3ncZYsa-QsIjvNW7BbFt8z1WP3s7DiJwDegf9TR7dgPt0c2tZINoqVLrs8yf86gyrm-Wi9I-y2wJJCwbGXGKa2B2neYfttluOkiu4Gl43YXW-fvHxw4wJPWpLU0Z9zPVA7zdN1qUCES_bcoHATVFJqbpTAAa0/s1600/Gemma_blog_2.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLaqdsXw5Pyg1fc4MgtWaeQkFSx7BwVy3ncZYsa-QsIjvNW7BbFt8z1WP3s7DiJwDegf9TR7dgPt0c2tZINoqVLrs8yf86gyrm-Wi9I-y2wJJCwbGXGKa2B2neYfttluOkiu4Gl43YXW-fvHxw4wJPWpLU0Z9zPVA7zdN1qUCES_bcoHATVFJqbpTAAa0/s1600/Gemma_blog_2.png" /></a>
+
+<p>Google has long believed that open technology is not only <a href="https://blog.google/technology/research/open-source-and-open-data/" target="_blank">good for our company, but good for the industry, consumers, and the world</a>. We’ve released open-source projects like Android and Chromium that transformed access to mobile and web technologies, and have done the same in AI with <a href="https://blog.research.google/2017/08/transformer-novel-neural-network.html" target="_blank">Transformers</a>, <a href="https://www.tensorflow.org/" target="_blank">TensorFlow</a>, and <a href="https://deepmind.google/technologies/alphafold/" target="_blank">AlphaFold</a>. The <a href="https://blog.google/technology/developers/gemma-open-models/" target="_blank">release of our Gemma family of open models</a> is a next step in how we’re deepening our commitment to open technology alongside an industry-leading safe, responsible approach. At the same time, the rapidly evolving nature of AI raises important considerations for how to enable safety-aligned open models: an approach that supports broad innovation while promoting safe uses.</p> 
+
+<p>A benefit of <a href="https://opensource.org/osd/" target="_blank">open source</a> is that once it is released, its license gives users full creative autonomy. This is a powerful guarantee of technology access for developers and end users. Another benefit is that open-source technology can be modified to fit the unique use case of the end user, without restriction.</p>
+
+<p>In the hands of a malicious actor, however, the lack of restrictions can raise risks. Computing has been through similar cycles before, addressing issues such as protecting users of the open internet, handling cryptography, and addressing open-source software security. We now face this challenge with AI. Below we share the approach we took to openly releasing Gemma models, and the advancements in open model safety we hope to accelerate.</p><br />
+
+<h2>Providing access to Gemma open models</h2>
+
+<p>Today, <a href="https://ai.google.dev/gemma" target="_blank">Gemma</a> models are being released as what the industry collectively has begun to refer to as “<b>open models</b>.” Open models feature free access to the model weights, but terms of use, redistribution, and variant ownership vary according to a model’s specific terms of use, which may not be based on an open-source license. The Gemma models’ <a href="http://ai.google.dev/gemma/terms" target="_blank">terms of use</a> make them freely available for individual developers, researchers, and commercial users for access and redistribution. Users are also free to create and publish model variants. In <a href="http://ai.google.dev/gemma/prohibited_use_policy" target="_blank">using</a> Gemma models, developers agree to avoid harmful uses, reflecting our commitment to developing AI responsibly while increasing access to this technology. </p>
+
+<p>We’re precise about the language we’re using to describe Gemma models because we’re proud to enable responsible AI access and innovation, and we’re equally <a href="http://opensource.google.com" target="_blank">proud supporters of open source</a>. The <a href="https://opensource.org/osd/" target="_blank">definition of "Open Source"</a> has been invaluable to computing and innovation because of requirements for redistribution and derived works, and against discrimination. These requirements enable cross-industry collaboration, individual innovation and entrepreneurship, and shared research to happen with exponential effects. </p>
+
+<p>However, existing open-source concepts can’t always be directly applied to AI systems, which raises questions on how to use open-source licenses with AI. It’s important that we carry forward open principles that have made the sea-change we’re experiencing with AI possible while <a href="https://blog.opensource.org/open-source-ai-definition-where-it-stands-and-whats-ahead/" target="_blank">clarifying the concept of open-source AI</a> and addressing concepts like derived work and author attribution.</p><br />
+
+<h2>Taking a comprehensive approach to releasing Gemma safely and responsibly</h2>
+
+<p>Licensing and terms of use are only one part of the evaluations, technical tools, and considered decision-making that went into aligning this release with our <a href="https://ai.google/responsibility/principles/" target="_blank">responsible AI Principles</a>. Our approach involved:</p>
+<ul>
+<li><b>Systematic internal review in accordance with our AI Principles:</b> Consistent with our AI Principles, we release models only when we have determined the benefits are significant, and the risks of misuse are low or can be mitigated. We take that same approach to open models, incorporating a balance of the benefits of wider access to a particular model as well as the risks of misuse and how we can mitigate them. With Gemma, we considered the increased AI research and innovation by us and many others in the community, the access to AI technology the models could bring, and what access was needed to support these use cases.</li></ul><ul>
+  
+<li><b>A high evaluation bar:</b> Gemma models underwent thorough evaluations, and were held to a higher bar for evaluating risk of abuse or harm than our proprietary models, given the more limited mitigations currently available for open models. These evaluations cover a broad range of responsible AI areas, including safety, fairness, privacy, societal risk, as well as capabilities such as chemical, biological, radiological, nuclear (CBRN) risks, cybersecurity, and autonomous replication. As described in <a href="https://goo.gle/GemmaReport" target="_blank">our technical report</a>, the Gemma models exhibit state-of-the-art safety performance in human side-by-side evaluations.</li></ul><ul>
+
+<li><b>Responsibility tools for developers:</b> As we release the Gemma models, we are also releasing a <a href="http://ai.google.dev/responsible" target="_blank">Responsible Generative AI Toolkit</a> for developers, providing guidance and tools to help them create safer AI applications. </li>
+</ul>
+
+<p>We continue to evolve our approach. As we build these frameworks further, we will proceed thoughtfully and incorporate what we learn into future model assessments. We will continue to explore the full range of access mechanisms, with benefits and risk mitigation in mind, including API-based access and staged releases.</p><br />
+
+<h2>Advancing open model safety together</h2>
+
+<p>Many of today’s AI safety tools are designed for systems where the design approach assumes restricted access and redistribution, as well as auxiliary controls like query filters. Similarly, much of the AI safety research for improving mitigations takes on the design assumptions of those systems. Just as we have created unique <a href="https://security.googleblog.com/2023/04/celebrating-slsa-v10-securing-software.html" target="_blank">threat models and solutions</a> for other open technology, we are developing safety and security tools appropriate for the differences of openly available AI. </p>
+
+<p>As models become more and more capable, we are conducting research and investing in rigorous safety evaluation, testing, and mitigations for open models. We are also actively participating in conversations with policymakers and <a href="https://opensource.org/deepdive/" target="_blank">open-source community leaders</a> on how the industry should approach this technology. This challenge is multifaceted, just like AI systems themselves. Model-sharing platforms like Hugging Face and Kaggle, where developers inspire each other with novel model iterations, play a critical role in efforts to develop open models safely; there is also a role for the <a href="https://safety.google/cybersecurity-advancements/saif/" target="_blank">cybersecurity community</a> to contribute learnings and best practices.</p> 
+
+<p>Building those solutions requires access to open models, sharing innovations and improvements. We believe sharing the Gemma models will not just help increase access to AI technology, but also help the industry develop new approaches to safety and responsibility.</p>
+
+<p>As developers adopt Gemma models and other safety-aligned open models, we look forward to working with the open-source community to develop more solutions for responsible approaches to AI in the open ecosystem. A global diversity of experiences, perspectives, and opportunities will help build safe and responsible AI that works for everyone.</p>
+
+
+<p><em>By Anne Bertucio – Sr Program Manager, Open Source Programs Office; Helen King – Sr Director of Responsibility, Google DeepMind</em></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

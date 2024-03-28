@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Role of APIs in Platform Engineering</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The Role of APIs in Platform Engineering</h2>
+		<a target="_blank" href="https://nordicapis.com/the-role-of-apis-in-platform-engineering/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Platform engineering represents a paradigm shift in how companies approach software delivery. By building internal developer platforms (IDPs), organizations are streamlining their DevOps processes, enhancing collaboration, and accelerating time to market.</p>
+<p>Central to the success of these IDPs is a myriad of API connections, webhooks, and asynchronous events that underpin the automated toolchains and services. Let&#8217;s dive into how platform engineering and IDPs came to be, how they impact the modern development ecosystem, and what this means for the industry.</p>
+<h2 id="the-evolution-of-platform-engineering">The Evolution of Platform Engineering</h2>
+<p>In the early days of software development, code creation was somewhat straightforward. The <a href="https://nordicapis.com/whats-the-difference-microservice-macroservice-monolith/">monolithic structure</a> that was commonplace meant that everyone was working on the same body of code, and iterations meant plugging your particular piece into the overall constraints and demands of the entire system. For a long time, this was the paradigm of software development, and though it was limited, it did provide a structure underneath development that constrained and guided team elements.</p>
+<p>As the need for more complex systems gave way to <a href="https://nordicapis.com/can-macroservices-solve-the-issues-of-microservices/">microservices architectures</a>, the experience of internal development changed drastically. With much less constraint and more variable pieces than ever before, developers were left to their own devices. This ultimately led to the development and implementation of disparate DevOps tools and SDLC toolchains, which increased complexity and reduced standardization. In essence, most common solutions were oriented for a specific use case, meaning those solutions weren&#8217;t applicable for much more than what they were designed for.</p>
+<p>While traditional approaches often result in siloed development and operations activities, leading to inefficiencies and a slower response to market demands, the new techniques needed a much more supportive infrastructure that was variable, designed for self-service, and robust in implementation and extensibility.</p>
+<p><a href="https://devops.com/internal-developer-platform-idp-reference-architectures/">IDPs</a> emerged as a solution to these challenges, offering standardized and streamlined workflows for development teams. The promise of the IDP was simple — self-service capabilities with automated systems to allow for extensibility and scalability.</p>
+<p>But what does this look like in practicality?</p>
+<h2 id="the-internal-structure-of-the-idp">The Internal Structure of the IDP</h2>
+<p>IDPs are best thought of as a system of tools rather than as a monolithic singular tool. While the system has general benefits, the collection of tools under the hood almost mirrors the nature of microservices, requiring interconnection and standardization. IDPs utilize APIs in a very similar method to the modern web, connecting disparate tools, infrastructural elements, and internal systems via a series of standardized protocols.</p>
+<h3 id="self-service-portals">Self-Service Portals</h3>
+<p>One of the hallmark features of a good IDP is a self-service portal. IDPs are meant to facilitate developer team independence while ensuring standardized access, and allowing the use of infrastructural deployment and tooling through a self-service portal does just that. APIs are the interface through which developers interact with these portals, often abstracting away the complex details of the underlying infrastructure.</p>
+<h3 id="integration-and-orchestration">Integration and Orchestration</h3>
+<p>IDPs surface different tools within the software development lifecycle —such as version control systems, build servers, and deployment tools —and facilitate integration through API services. This integration and automation allows developer teams to utilize the benefits of the platform without having to exhaustively understand or integrate the entire platform.</p>
+<h3 id="automation-of-devops-workflows">Automation of DevOps Workflows</h3>
+<p>Through APIs, routine and complex workflows can be automated across multiple projects and instances. For example, once code passes a series of automated tests, an API call can promote that code to a staging environment and notify developer teams about the state change. This reduces the need for manual oversight and accelerates the development process.</p>
+<h3 id="unified-security">Unified Security</h3>
+<p>An IDP can also offer a unified security posture by connecting systems in a common, single configuration. By unifying the security posture and connecting systems to it, issues of misconfiguration, cross-communication, and differentiation can be deftly handled and substantially reduced.</p>
+<div id="attachment_18433" style="width: 2100px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-18433" class="size-full wp-image-18433" src="https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure.png" alt="IDP Reference Architecture for Azure" width="2090" height="1362" srcset="https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure.png 2090w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-300x196.png 300w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-1024x667.png 1024w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-768x500.png 768w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-1536x1001.png 1536w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-2048x1335.png 2048w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-184x120.png 184w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-153x100.png 153w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-107x70.png 107w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-77x50.png 77w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-200x130.png 200w, https://nordicapis.com/wp-content/uploads/Internal-Platform-on-Azure-400x261.png 400w" sizes="(max-width: 2090px) 100vw, 2090px" /><p id="caption-attachment-18433" class="wp-caption-text">IDP Reference Architecture for Azure by Humanitec</p></div>
+<h2 id="idp-as-internal-platform-as-a-service">IDP as Internal Platform-as-a-Service</h2>
+<p>IDPs ultimately function as an internal Platform-as-a-Service (PaaS) solution. Think of all the benefits a PaaS delivers externally — the unified security, the cohesive base of code dependencies, the proven application of known entities within the ecosystem – and consider what it means to connect this internally, allowing disparate teams working on different solutions to all tie in.</p>
+<p>This is the huge benefit of an IDP — teams can iterate and develop within a trusted system with a lot of plugin potential. Teams can iterate in their own way for their own goals without drifting away from the core promise and premise of the underlying service. Testing only has to be done once, and then you have a trusted solution that can be commoditized and deployed elsewhere. And all of this typically comes with a robust self-serve platform that allows developers to tie into systems with low overhead and time requirements.</p>
+<h3 id="apis-and-idps">APIs and IDPs</h3>
+<p>APIs are a huge part of what makes an IDP especially powerful. APIs are the backbone of the IDP and, more often than not, play a huge role in defining how good a solution the IDP actually is. APIs have several major roles to play in the IDP ecosystem, including:</p>
+<ul>
+<li><strong>Extensibility</strong>: APIs provide the means to extend IDPs with new tools and services without overhauling existing services.</li>
+<li><strong>Standardization</strong>: Proper standard deployment itself enforces organizational standardization, ensuring that all teams and services follow consistent practices by establishing the typical pattern and implementation across the board.</li>
+<li><strong>Scalability</strong>: APIs facilitate scalability by allowing IDPs to handle increased loads by adding more services or tools into the ecosystem with minimal disruption.</li>
+<li><strong>Flexibility</strong>: Variable technology choices, such as <a href="https://nordicapis.com/whats-the-difference-between-rest-and-event-driven-architecture/">synchronous versus asynchronous APIs</a>, allow for a more decoupled and flexible system where services can communicate and react to events as is necessary. An IDP can integrate multiple technologies depending on the need and ecosystem, allowing greater flexibility than single-source purpose-built solutions.</li>
+</ul>
+<h2 id="what-makes-a-good-idp-">What Makes a Good IDP?</h2>
+<p>Because IDPs are essentially internal platforms, the general advice for an effective <a href="https://nordicapis.com/8-developer-portal-best-practices/">developer portal</a> applies here. In summary, a good IDP should:</p>
+<ul>
+<li><strong>Implement and communicate design standards</strong>: The underlying codebase should adopt <a href="https://nordicapis.com/the-benefits-of-design-first-api-development/">good design standards</a>, and this should be mirrored through the IDP. Employ <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/">good naming conventions</a>, <a href="https://nordicapis.com/4-areas-of-consistency-for-great-developer-experience/">ensure consistency</a>, and adopt radical transparency and clarity wherever possible.</li>
+<li><strong>Be designed for people</strong>: Create a developer platform built for developers. Utilize proper design methods, ensure clarity in your communication, and adopt aesthetics that ensure humans can use the platform well.</li>
+<li><strong>Provide intuitive documentation</strong>: Software lives and dies by its documentation, and developer portals are no exception. Ensure your documentation is comprehensive and useful, and make sure any idiosyncrasies are documented with enough detail to get developers primed for success.</li>
+<li><strong>Consider the onboarding experience</strong>: Develop a good onboarding experience to ensure new users enter the system with everything they need to get started. Develop a flow for users so that someone trying to find a solution to their problem can easily find and implement it.</li>
+<li><strong>Communicate versioning and change management</strong>: The portal should give context to the end user. Changes at the IDP level can have huge tack-on effects across multiple systems, and as such, <a href="https://nordicapis.com/5-ways-to-version-apis/">version control</a> should be handled with the utmost care and high communication standards.</li>
+<li><strong>Provide sample code and implementations</strong>: Good IDPs should not just tell someone how something works — they should also show it. &#8220;Show, not tell&#8221; is a standard that should apply throughout the documentation. Providing systems such as <a href="https://nordicapis.com/7-best-practices-for-api-sandboxes/">playgrounds or live code testing environments</a> can also go a huge way towards ensuring adequate support.</li>
+<li><strong>Provide tooling and variations</strong>: For IDPs, the name of the game is standardization. Developer portals are your best bet for guiding implementation and design approach, and as such, IDPs should exist as a &#8220;one-stop shop&#8221; for your developer&#8217;s needs.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>The rise of IDPs is promising, as it represents a unified approach towards cohesive development for a segment of the API space that benefits greatly from cohesion. The lessons learned from developing internal developer platforms can extend to platforms in general, exposing the massive value of adequate standardization, ample documentation, and a cohesive vision of what good development looks like.</p>
+<p>What do you think of the rise of IDPs? Have we missed anything crucial that you&#8217;d love us to cover? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

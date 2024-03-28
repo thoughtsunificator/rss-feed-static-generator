@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] A new filesystem for pidfds</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] A new filesystem for pidfds</h2>
+		<a target="_blank" href="https://lwn.net/Articles/963749/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">The <a href="https://lwn.net/Articles/794707/">pidfd</a> abstraction is a Linux-specific
+way of referring to processes that avoids the race conditions inherent in
+Unix process ID numbers.  Since a pidfd is a file descriptor, it needs a
+filesystem to implement the usual operations performed on files.  As the
+use of pidfds has grown, they have stressed the limits of the simple
+filesystem that was created for them.  Christian Brauner has <a
+href="https://lwn.net/ml/linux-fsdevel/20240213-vfs-pidfd_fs-v1-0-f863f58cfce1@kernel.org/">created
+a new filesystem for pidfds</a> that seems likely to debut in the 6.9
+kernel, but it ran into a little bump along the way, demonstrating that
+things you cannot see can still hurt you.
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

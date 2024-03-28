@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ExploreDDD 2024 - DDD, necessary but insufficient: physical design principles for microservices</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">ExploreDDD 2024 - DDD, necessary but insufficient: physical design principles for microservices</h2>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/03/18/exploreddd-physical-design-principles-for-microservices.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>I did three things at ExploreDDD 2024:</p>
+
+<ul>
+  <li>a condensed version of my <a href="https://chrisrichardson.net/training-microservice-architecture-definition-workshop.html">Designing microservices: responsibilities, APIs and collaborations workshop</a></li>
+  <li><a href="/post/architecture/2024/03/23/exploreddd-intersection-ddd-llms.html">a panel on LLMs and DDD</a></li>
+  <li>a presentation on physical design principles for microservices</li>
+</ul>
+
+<p>Here’s the abstract and the slides for the physical design principles talk.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>When we design software using DDD, we primarily focus on creating models scoped by bounded contexts that define ubiquitous languages. We also structure the models and the elements they contain to be loosely coupled and highly cohesive. However, while (logical) design techniques such as DDD domain modeling concepts, loose coupling and high cohesion are essential for creating good software, they are insufficient when designing a microservice architecture. In particular, we must also consider other more physical constraints including team size; team, process and transaction boundaries; and the cost of communication over a network.</p>
+
+<p>In this talk, I describe a set of physical design principles for organizing subdomains into microservices. You will learn about both principles that encourage finer-grained decomposition into services as well as those that discourage decomposition. I describe how to apply those principles to design a microservice architecture.</p>
+
+<h2 id="slides">Slides</h2>
+
+<iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/237799334b034e54a93e62b58eb3152d" title="DDD, necessary but insufficient: physical design principles for microservices" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 420;" data-ratio="1.3333333333333333"></iframe>
+
+<h2 id="video">Video</h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dHbSPKNAvw8?si=rtja8ZRgzwoM9ciy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net">Learn more about how I can help</a></p>
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why Teamwork Is Crucial to Keep APIs Secure</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Why Teamwork Is Crucial to Keep APIs Secure</h2>
+		<a target="_blank" href="https://nordicapis.com/why-teamwork-is-crucial-to-keep-apis-secure/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>APIs are everywhere in our day-to-day lives. We don&#8217;t realize that we use them, at least not all the time. For those of us who work with APIs, it might be a bit more obvious when apps are fetching information from a backend API, but a great app should make that process seamless.</p>
+<p>APIs are the backbone for your thermostat, <a href="https://nordicapis.com/what-the-tesla-api-release-means-for-the-automotive-industry/">your connected car</a>, and anything in between. If you&#8217;re tech-savvy, you&#8217;ve probably got some level of smart home setup backed by APIs. If you&#8217;re not tech-savvy, you probably still use some type of <a href="https://nordicapis.com/how-decentralized-identity-will-transform-banking/">online banking</a> backed by APIs.</p>
+<p>APIs are everywhere, and if they break, a piece of our day-to-day life might become problematic (my house could get really cold). This is a relatively minor inconvenience, but a broken API could have more serious consequences for APIs in financial and health services. A breach of an API providing critical personally identifiable information (PII) could have severe consequences for a person.</p>
+<h2 id="bigger-footprint-bigger-target">Bigger Footprint, Bigger Target</h2>
+<p>With the <a href="https://nordicapis.com/20-impressive-api-economy-statistics/">rapid growth of APIs</a> and their ubiquity, there are also more APIs for bad actors to target. The development of APIs is also often separated into its own segment. For instance, API developers and app developers are not necessarily on the same team.</p>
+<p>Furthermore, the API developers are not necessarily responsible for securing the API — that&#8217;s usually the responsibility of the security team. Even further, the security team might not be responsible for all aspects of API security. A separate identity and access management (IAM) team might handle authentication and authorization.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-examples-of-apis-we-use-in-our-everyday-lives/">7 Examples of APIs We Use in Our Everyday Lives</a></div>
+<h2 id="understanding-the-teams-involved">Understanding The Teams Involved</h2>
+<p>The API developers are focused on delivering the service, driving adoption and usage of the API itself, and creating the best experience possible for the API consumer. Sure, they might put some safeguards in place, but it would probably be some fairly rudimentary approaches that really don&#8217;t scale well or are robust enough.</p>
+<p>As part of driving adoption and usage of the API for consumers using the API, the API dev team will (should) provide an API developer portal. There are many ways to go about that, but most API gateways available in the market have this capability built-in to a great extent. This would typically also come with <a href="https://nordicapis.com/7-tips-on-how-to-navigate-api-documentation/">solid documentation</a> for the APIs exposed to the consumers.</p>
+<p>The security team is responsible for all aspects of security within the infrastructure, including APIs. Rate limiting and other mitigations against (distributed) denial of service attacks and other protections offered by API gateways are top of mind here. This team should also work with the <a href="https://curity.io/resources/learn/owasp-top-ten/">OWASP Top 10 API Security Vulnerabilities</a> in mind. A review of this list reveals several top common vulnerabilities related to identity.</p>
+<p>Organizations differ here, and the security team might be responsible for everything. But in many cases, a dedicated IAM team is responsible for this within the organization as a whole, not only for identity for APIs.</p>
+<p>We now have a definition of several possible distinct teams involved in APIs and the security around APIs. To add to this complexity, the movement towards <a href="https://curity.io/blog/decentralized-dentifiersand-verifiable-credentials-building-blocks-for-self-controlled-identities/">decentralized identities and verified credentials</a> will put more control in the hands of the end user, more directly than before. This should be considered in the overall approach to API security and be a part of the future roadmap.</p>
+<h2 id="standards-enables-better-teamwork">Standards Enables Better Teamwork</h2>
+<p>The teams involved in APIs must work closely together to achieve the best possible overall API security, especially regarding identity and APIs. Leveraging standards such as <a href="https://curity.io/resources/learn/oauth-overview/">OAuth</a> and <a href="https://curity.io/resources/learn/openid-connect-overview/">OpenID Connect (OIDC)</a> will go a long way. These standards are built for handling authentication and authorization, especially regarding APIs.</p>
+<p>Using these standards will put the IAM team more in charge of the identity aspects of API security. It will also make the work easier for the app developers who can use lots of out-of-the-box libraries and SDKs to handle authentication and authorization specifically in APIs.</p>
+<h2 id="bridge-the-gap-with-tech">Bridge the Gap With Tech</h2>
+<p>Several technical integrations, libraries, and tools can be leveraged to bring these teams closer together. One example that comes to mind is the tight integration between API developer portals and the authorization server that handles the OAuth and OIDC flows.</p>
+<p>When a developer needs to handle authentication and authorization for an API, the API developer portal can integrate tightly with the authorization server to define configurations automatically, creating a one-to-one mapping with the OAuth client used to issue tokens to a given API. This is important to be able to track API usage based on access tokens. It&#8217;s also important for issuing specific tokens for APIs to reduce the attack surface (this ensures one single token can&#8217;t be used to access all APIs).</p>
+<p>Another technical integration point may not be specific to the work of the API team but more between the application developers and the IAM team. In a traditional approach, an OAuth flow runs in a browser, even on mobile apps, and as such, the user authentication (whatever mechanism) is server-side rendered. The IAM team owns the authorization server and what the authentication screen looks like. The application team has little to no control over the UX for the app they are developing.</p>
+<p>Leveraging a <a href="https://curity.io/resources/learn/what-is-hypermedia-authentication-api/">hypermedia authentication API</a> (HAAPI) moves the ownership of the user experience around authentication to the application team. However, the IAM team still controls all other aspects of how user authentication is handled. This creates another technical integration point that allows for a better user experience for authentication.</p>
+<div class="well">Related: <a href="https://nordicapis.com/authentication-as-a-hypermedia-api/">Authentication as a Hypermedia API</a></div>
+<h2 id="conclusion">Conclusion</h2>
+<p>Teams need to be talking and collaborating. Securing APIs is more critical than ever, and bolting on security after the fact is very difficult. Therefore, developers focused on creating the best service possible need to involve security from the beginning. Similarly, security needs to involve the team responsible for identity (if that team is different) from the beginning as well. There needs to be ongoing collaboration in order to not only provide a great service but a <em>secure</em> service as well.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>2 new features</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">2 new features</h2>
+		<a target="_blank" href="https://caniuse.com/wasm-reference-types,css-anchor-positioning">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://feeds.feedburner.com/WhenCanIUse</div>
+		<div style="white-space: break-spaces;font-size: 20px;">- <a href="/wasm-reference-types">WebAssembly Reference Types</a>: <p>An extension to WebAssembly allowing opaque references as first-class types, and multiple tables</p>
+<br>- <a href="/css-anchor-positioning">CSS Anchor Positioning</a>: <p>Allows placing elements anywhere on the page relative to an "anchor element", without regard to the layout of other elements besides their containing block</p>
+<br></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

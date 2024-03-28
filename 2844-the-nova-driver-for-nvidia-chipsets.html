@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The "Nova" driver for NVIDIA chipsets</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">The "Nova" driver for NVIDIA chipsets</h2>
+		<a target="_blank" href="https://lwn.net/Articles/966129/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">Danilo Krummrich has <a
+href="https://lwn.net/ml/nouveau/Zfsj0_tb-0-tNrJy@cassiopeiae/">announced</a> the
+existence of the "Nova" project within Red Hat.
+<p>
+<blockquote class="bq">
+	We just started to work on Nova, a Rust-based GSP-only driver for
+	Nvidia GPUs. Nova, in the long term, is intended to serve as the
+	successor of Nouveau for GSP-firmware-based GPUs.
+<p>
+	With Nova we see the chance to significantly decrease the
+	complexity of the driver compared to Nouveau for mainly two
+	reasons. First, Nouveau's historic architecture, especially around
+	nvif/nvkm, is rather complicated and inflexible and requires major
+	rework to solve certain problems (such as locking hierarchy in VMM
+	/ MMU code for VM_BIND currently being solved with a workaround)
+	and second, with a GSP-only driver there is no need to maintain
+	compatibility with pre-GSP code.
+<p>
+	Besides that, we also want to take the chance to contribute to the
+	Rust efforts in the kernel and benefit from from more memory safety
+	offered by the Rust programming language.
+</blockquote>
+<p>
+Given that the effort has just begun, it will be a while before this driver
+shows up in a distribution release.</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

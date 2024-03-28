@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Modern C for Fedora (and the world)</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Modern C for Fedora (and the world)</h2>
+		<a target="_blank" href="https://lwn.net/Articles/954018/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      It can be instructive to pull down the dog-eared copy of the first edition
+of <i>The C Programming Language</i> that many of us still have on our
+bookshelves; the language has changed considerably since that book was
+published.  Many "features" of early C have been left behind, usually for
+good reasons, but there is still a lot of code in the wild that is still
+using those features.  A concerted effort is being made in both the Fedora
+and GCC communities to fix that old code and enable some new errors in the
+GCC&nbsp;14 release (which is <a
+href="https://lwn.net/ml/gcc/nycvar.YFH.7.77.849.2311200815190.8772@jbgna.fhfr.qr/">in
+stage 3</a> of its development cycle and likely to be released by
+mid-2024), but a fair amount of work remains to be done.
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A look back at BazelCon '23 and the launch of Bazel 7</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">A look back at BazelCon '23 and the launch of Bazel 7</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2023/12/recap-bazelcon-23-bazel-7-launch.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjlxTdeYvDhx6wpfmJMsUffM-IFwmoUwrH-aexYi_bsq4P0fE296FCvN69d-S7VCDMoYljMWgbA0KWN9a_VVoVnM0HBRa44HTNlfJg_aEKwp5gQN31N5CJMknk9fFeBePOW-KAUWF_vLSg8lV9oddvlZ63wre7xv4rEcjNChbeNbfeSAevICzEzXu7iB5o/s1600/Social-Bazel.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjlxTdeYvDhx6wpfmJMsUffM-IFwmoUwrH-aexYi_bsq4P0fE296FCvN69d-S7VCDMoYljMWgbA0KWN9a_VVoVnM0HBRa44HTNlfJg_aEKwp5gQN31N5CJMknk9fFeBePOW-KAUWF_vLSg8lV9oddvlZ63wre7xv4rEcjNChbeNbfeSAevICzEzXu7iB5o/s1600/Social-Bazel.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiihQQr2xUCZtgImhDDuR21PbB-u3E_bKQp0UjfBgsM6d8rxXsMGUViu7RnMaaUqnFyVa7V7uGyEN6FHWgatTDw4S9GaKLBM8OjYCQBRuqO2KTRKm54hTWEz3JPutBuwAWtg0oe1QFmm8mmoMS3MfXH1pybA1-e8OS2iIAb0V1d2DsdpjJP4EjaVSrmRU/s1600/Banner-Bazel.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiihQQr2xUCZtgImhDDuR21PbB-u3E_bKQp0UjfBgsM6d8rxXsMGUViu7RnMaaUqnFyVa7V7uGyEN6FHWgatTDw4S9GaKLBM8OjYCQBRuqO2KTRKm54hTWEz3JPutBuwAWtg0oe1QFmm8mmoMS3MfXH1pybA1-e8OS2iIAb0V1d2DsdpjJP4EjaVSrmRU/s1600/Banner-Bazel.png" /></a>
+
+<p>In October ‘23, the Google Bazel team hosted the 7th annual BazelCon, a gathering for the Bazel community and broader Build ecosystem. We welcomed enterprise users and program partners, companies building businesses on top of Bazel, as well as enthusiasts curious to learn more about this space. This year, BazelCon made its debut outside North America and was hosted in the Google Munich office.</p><div style="text-align: left;"><br /></div>
+
+<h2><b>BazelCon recap</b></h2>
+
+<p>The Bazel ecosystem is growing. This year, we had over 200 in-person external attendees, over 3K livestream views, and a record number of 120 proposals submitted by the community. </p>
+
+<p>We started the conference with a <a href="https://www.youtube.com/watch?v=bAz3d2qV9UI&amp;list=PLxNYxgaZ8Rsefrwb_ySGRi_bvQejpO_Tj&amp;index=1" target="_blank">keynote address</a> by Mícheál Ó Foghlú (Engineering Director at Google), followed by a <a href="https://www.youtube.com/watch?v=XqOpwlns-D8&amp;list=PLxNYxgaZ8Rsefrwb_ySGRi_bvQejpO_Tj&amp;index=2" target="_blank">state-of-the-union address</a> by John Field and Tobias Werth (Engineering Managers at Google). </p>
+
+<iframe allowfullscreen="" class="BLOG_video_class" height="400" src="https://www.youtube.com/embed/bAz3d2qV9UI" width="100%" youtube-src-id="bAz3d2qV9UI"></iframe>
+<p></p>
+<iframe allowfullscreen="" class="BLOG_video_class" height="400" src="https://www.youtube.com/embed/XqOpwlns-D8" width="100%" youtube-src-id="XqOpwlns-D8"></iframe>
+
+<p>The Bazel community showcased a series of technical and lightning main-stage talks. To highlight a few: </p>
+<ul style="text-align: left;"><ul>
+  <li>BMW shared insights into how they released several “Bazel cars”</li></ul></ul><ul style="text-align: left;"><ul>
+  <li>JetBrains<sup>*</sup> announced the <a href="https://lp.jetbrains.com/new-bazel-plugin/" target="_blank">preview release</a> of their new Bazel plugin for their IDEs</li></ul></ul><ul style="text-align: left;"><ul>
+  <li>Booking.com walked through their journey of adopting Bazel, thereby reducing CI time from 22 minutes to under 2 minutes and container image size by 80%</li>
+  </ul></ul>
+<p>Take a look at <a href="https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsefrwb_ySGRi_bvQejpO_Tj" target="_blank">published recordings</a> of all of these talks at your own leisure.</p>
+
+<p>In addition to hearing from presenters, conference attendees also had the opportunity to engage with each other in smaller, more interactive forums. Through live Q&amp;A with the Bazel team and several Birds of a Feather sessions on topics ranging from authoring rulesets, to collecting usage data responsibly, to IDE integrations, the Bazel community was able to provide direct feedback to the team and spark productive discussions. Make sure to check out <a href="https://drive.google.com/drive/folders/1dclafNGcv5enbpKyOjQV1peXl7WpaIh9" target="_blank">published notes</a> from these sessions.</p>
+
+<p>At BazelCon, we also proudly announced the initial release candidate for Bazel 7, which has since launched.</p><div style="text-align: left;"><br /></div>
+
+<h2><b>What’s new in Bazel 7?</b></h2>
+
+<p>Bazel 7 is the <a href="https://bazel.build/release#release-cadence" target="_blank">latest major release</a> on the long-term support (LTS) track. Many multi-year efforts have landed in this release. For example:</p>
+
+<p><b>Bzlmod:</b> Bzlmod, Bazel's new modular external dependency management system, is now enabled by default (i.e. <span style="color: #0d904f; font-family: Courier;">--enable_bzlmod</span> defaults to true). If your project doesn't have a MODULE.bazel file, Bazel will create an empty one for you. The old WORKSPACE mechanism will continue to work alongside the new Bzlmod-managed system. <a href="https://blog.bazel.build/2023/07/24/whats-new-with-bzlmod.html" target="_blank">Learn more</a> about what’s changed since Bazel 6 and what’s coming up in Bazel 8 and 9.</p>
+
+<p><b>Build without the Bytes (BwoB):</b> Build without the Bytes for builds using remote execution is now enabled by default (i.e. <span style="color: #0d904f; font-family: Courier;">--remote_download_outputs</span> defaults to toplevel). Bazel will no longer try to download any intermediate outputs from the remote server, but only the outputs of requested top-level targets instead. This significantly improves remote build performance. <a href="https://blog.bazel.build/2023/10/06/bwob-in-bazel-7.html" target="_blank">Learn more</a> about BwoB.</p>
+
+<p><b>Merged analysis and execution (Skymeld):</b> Project Skymeld aims to improve multi-target build performance by removing the boundary between the analysis and execution phases and allowing targets to be independently executed as soon as their analysis finishes.</p>
+
+<p><b>Platform-based toolchain resolution for Android and C++:</b> This change helps streamline the toolchain resolution API across all rulesets, obviating the need for language-specific flags. It also removes technical debt by having Android and C++ rules use the same toolchain resolution logic as other rulesets. Full details for Android developers are available in <a href="https://blog.bazel.build/2023/11/15/android-platforms.html" target="_blank">the Android Platforms announcement</a>.</p>
+
+Read the <a href="https://github.com/bazelbuild/bazel/releases/tag/7.0.0" target="_blank">full release notes for Bazel 7</a>.<div>&nbsp;
+
+<h2><b>Stay up-to-date with Bazel</b></h2>
+
+<p>We are thankful to everyone who played a role in making BazelCon ‘23 a big success - speakers, contributors, attendees, the planning committee, and more. We look forward to seeing you again next year!</p>
+
+<p>In the meantime, follow along as we work together towards Bazel 8:</p>
+<ul><ul>
+  <li><a href="https://blog.bazel.build/" target="_blank">Bazel blog</a></li>
+  <li><a href="https://github.com/bazelbuild/bazel/discussions" target="_blank">GitHub</a></li>
+  <li><a href="https://groups.google.com/g/bazel-discuss" target="_blank">Mailing list</a></li>
+  <li><a href="https://slack.bazel.build" target="_blank">Slack</a></li>
+  <li><a href="http://twitter.com/bazelbuild" target="_blank">X</a> (formerly known as Twitter)</li>
+</ul></ul>
+
+<p>If you have any questions or feedback, or would like to share something you’ve built, reach out to <a href="mailto:product@bazel.build" target="_blank">product@bazel.build</a>. We would love to hear from you!</p>
+  
+<p><em>By the Google Bazel team</em></p></div>
+
+<p><small><em><sup>*</sup>Copyright © 2023 JetBrains s.r.o. JetBrains and IntelliJ are registered trademarks of JetBrains s.r.o</em></small></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

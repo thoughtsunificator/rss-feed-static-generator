@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Python announces first security releases since becoming a CNA</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Python announces first security releases since becoming a CNA</h2>
+		<a target="_blank" href="https://lwn.net/Articles/966056/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The Python project has <a
+href="https://lwn.net/Articles/966069/">announced</a> three security releases, <a
+href="https://www.python.org/downloads/release/python-31014/">3.10.14</a>,
+<a href="https://www.python.org/downloads/release/python-3919/">3.9.19</a>,
+and <a href="https://www.python.org/downloads/release/python-3819/">3.8.19</a>.
+In addition to the security fixes, these releases are notable for two reasons;
+they are the first to make use of GitHub Actions to <a
+href="https://github.com/python/release-tools/actions/runs/8350750234">perform
+public builds</a> instead of building artifacts "<q>on a local computer of one
+of the release managers</q>", and the first since Python <a
+href="https://pyfound.blogspot.com/2023/08/psf-authorized-as-cna.html">became a
+CVE Numbering Authority</a> (CNA).</p>
+
+<p>Python release team member Łukasz Langa said
+that being a CNA means Python is able to "<q>ensure the quality of the vulnerability
+reports is high, and that the severity estimates are accurate.</q>" It also
+allows Python to coordinate CVE announcements with the patched versions of
+Python, as it has with two CVEs addressed in these releases. <s>CVE-2023-6597</s> <a
+href="https://www.cve.org/CVERecord?id=CVE-2024-0450">CVE-2024-0450</a>
+describes a flaw in CPython's <tt>zipfile</tt> module that made it vulnerable to a <a
+href="https://en.wikipedia.org/wiki/Zip_bomb">zip-bomb</a> exploit. <s>CVE-2024-0450</s> <a
+href="https://www.cve.org/CVERecord?id=CVE-2023-6597">CVE-2023-6597</a> is an
+issue with Python's <tt>tempfile.TemporaryDirectory</tt> class which could be
+exploited to modify permissions of files referenced by symbolic links. 
+Users of affected versions should upgrade soon.</p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

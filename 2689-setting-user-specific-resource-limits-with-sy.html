@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Setting User-Specific Resource Limits with systemd</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Setting User-Specific Resource Limits with systemd</h2>
+		<a target="_blank" href="https://www.endpointdev.com/blog/2024/02/setting-user-specific-resource-limits-in-linux/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://www.endpointdev.com/blog/feed.xml</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+        <p><img src="/blog/2024/02/setting-user-specific-resource-limits-in-linux/sun-through-trees.webp" alt="In the center of a dim street lined with houses and cars, the sun illuminates and sillhouettes green foliage. It projects a triangle of light on the ground, first the street and then the grass, centered in the frame. On either side of the light, centered verticaly, a white car catches the light."></p>
+<!-- Photo by Seth Jensen, 2023. -->
+<p>We recently encountered an issue on one of our servers where some processes were hogging CPU time and slowing down the entire machine to unusable speeds. It turned out that a couple of our developers were using the VS Code extension &ldquo;Remote - SSH,&rdquo; which gets SSH credentials to a server from you, logs in by SSH, figures out what kind of server it&rsquo;s running on, and runs some server-side components that it talks to.</p>
+<p>This is fine in principle, but with larger projects it frequently spins out of control and eats up all available CPU and RAM on the server. The developer using VS Code on their desktop likely won&rsquo;t even notice, leaving a system administrator to kill the VS Code processes after it causes issues for other users.</p>
+<p>Our answer to this problem was setting resource limits. In many cases, you could use <a href="https://linuxcommand.org/lc3_man_pages/ulimith.html">ulimit</a> to control a user&rsquo;s resource limits. But ulimit only controls resources for the shell it&rsquo;s running in, and since VS Code was connecting through SSH and spawning a bunch of processes, we didn&rsquo;t have a reasonable way to do this.</p>
+<p>Instead of using ulimit, you can use control groups (cgroups) to set overall user limits, not just limits on a specific process or in a specific shell. This is good practice for any multi-user server so that different parts of the server are protected from each other. We will do this by adding a systemd controller to control a specific user slice.</p>
+<blockquote>
+<p>On PAM systems, you can also use the <code>pam_limits</code> module to set user-wide resource limits. O&rsquo;Reilly has a <a href="https://www.oreilly.com/library/view/network-security-hacks/0596006438/ch01s20.html">guide on configuring limits</a> this module.</p>
+</blockquote>
+<h3 id="a-closer-look-at-setting-limits-with-cgroups">A closer look at setting limits with cgroups</h3>
+<p>You can add systemd controllers—including resource limits—via drop-in files in <code>/etc/systemd/system/</code>.</p>
+<p>To set limits for a specific user, we need the user&rsquo;s UID. You can find this in the third column of <code>/etc/passwd</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">seth:x:1000:1000:Seth Jensen:/home/seth:/bin/bash
+testy:x:1001:1001:Testy Tester:/home/testy:/bin/bash
+</code></pre></div><p>For the <code>seth</code> user, the UID is 1000, so we will create a file called <code>50-limits.conf</code> in the <code>/etc/systemd/system/user-1000.slice.d/</code> directory to limit that user&rsquo;s resources.</p>
+<p>The <code>50-</code> in the filename just determines the order in which the config files will be applied, so it shouldn&rsquo;t matter if this is the only file you&rsquo;re adding.</p>
+<p>Now, in our <code>50-limits.conf</code> file we can add limits:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">[Slice]
+CPUQuota=50%
+MemoryLimit=1G
+TasksMax=40
+</code></pre></div><p>Here we&rsquo;re just limiting CPU time, memory, and the number of tasks run by the <code>seth</code> user. You can see a full list of what&rsquo;s available with <a href="https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html">man systemd.resource-control</a>.</p>
+<p>It&rsquo;s worth noting that <code>CPUQuota=50%</code> will limit <code>seth</code> to 50% of a <em>single</em> CPU, which would be 25% of total CPU on a dual-core system, etc.</p>
+<p>Finding the right values for your limits is a bit of a balancing act: if you set the resource limits too tight, your programs may not be able to run. But, if you set them too loose, the misbehaving program may still end up hogging too many resources. Try different values while running the resource-heavy program, adjusting as needed to find the sweet spot for your case.</p>
+
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

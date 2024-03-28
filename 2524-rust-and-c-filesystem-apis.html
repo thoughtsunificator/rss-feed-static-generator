@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Rust and C filesystem APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Rust and C filesystem APIs</h2>
+		<a target="_blank" href="https://lwn.net/Articles/958072/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      As the <a href="https://rust-for-linux.com/">Rust-for-Linux project</a>
+advances, the kernel is gradually 
+accumulating abstraction layers that enable Rust code to interface with the
+existing C code.  As the discussion around the set of <a
+href="https://lwn.net/ml/linux-fsdevel/20231018122518.128049-1-wedsonaf@gmail.com/">filesystem
+abstractions</a> posted by Wedson Almeida Filho in December shows, though,
+there is some tension between two approaches to the design of those
+abstractions.  The approach favored by most of the kernel's C programmers
+looks set to win out, but this is a discussion that is likely to return as
+the use of Rust in the kernel grows.
+
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Declarative partitioning in PostgreSQL</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] Declarative partitioning in PostgreSQL</h2>
+		<a target="_blank" href="https://lwn.net/Articles/965508/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>
+Keith Fiske gave a talk
+(with <a href="https://www.socallinuxexpo.org/sites/default/files/presentations/state_of_partitioning_0.pdf">
+slides</a>) about the state of partitioning — splitting a large
+table into smaller tables for performance reasons — in
+<a href="https://www.postgresql.org/">PostgreSQL</a> at
+<a href="https://www.socallinuxexpo.org/scale/21x">SCALE</a>
+this year. He spoke about the existing support for partitioning, what work still
+needs to be done, and what place existing partitioning tools, like his own
+<a href="https://github.com/pgpartman/pg_partman">
+<tt>pg_partman</tt></a>, still have as PostgreSQL gains more built-in features.
+</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

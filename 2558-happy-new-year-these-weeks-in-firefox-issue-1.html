@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Happy New Year – These Weeks in Firefox: Issue 152</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Happy New Year – These Weeks in Firefox: Issue 152</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/01/22/happy-new-year-these-weeks-in-firefox-issue-152/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1">Sam is currently working to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1789727">enabling the new Screenshots component on Nightly</a>
+<ul>
+<li aria-level="2">This is a replacement for the extension implementation. The component should have full feature parity, and have improved performance and accessibility.</li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1801954">New keyboard accessibility</a> has been added to the screenshots component. The selected region can now be moved/adjusted with the keyboard.</li>
+<li aria-level="2">Until this is on by default, you can enable it manually by setting screenshots.browser.component.enabled to true in about:config.</li>
+<li aria-level="2">Please file any bugs <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;blocked=1696573&amp;bug_ignored=0&amp;bug_severity=--&amp;bug_status=NEW&amp;bug_type=defect&amp;cf_a11y_review_project_flag=---&amp;cf_accessibility_severity=---&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_has_str=---&amp;cf_install_update_workflow=---&amp;cf_performance_impact=---&amp;cf_status_firefox121=---&amp;cf_status_firefox122=---&amp;cf_status_firefox123=---&amp;cf_status_firefox_esr115=---&amp;cf_tracking_firefox121=---&amp;cf_tracking_firefox122=---&amp;cf_tracking_firefox123=---&amp;cf_tracking_firefox_esr115=---&amp;cf_tracking_firefox_relnote=---&amp;cf_webcompat_priority=---&amp;component=Screenshots&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;filed_via=standard_form&amp;flag_type-203=X&amp;flag_type-37=X&amp;flag_type-41=X&amp;flag_type-607=X&amp;flag_type-708=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-748=X&amp;flag_type-787=X&amp;flag_type-799=X&amp;flag_type-803=X&amp;flag_type-846=X&amp;flag_type-855=X&amp;flag_type-864=X&amp;flag_type-930=X&amp;flag_type-936=X&amp;flag_type-937=X&amp;flag_type-963=X&amp;needinfo_role=other&amp;needinfo_type=needinfo_from&amp;op_sys=Unspecified&amp;priority=--&amp;product=Firefox&amp;rep_platform=Unspecified&amp;target_milestone=---&amp;version=unspecified">here</a></li>
+</ul>
+</li>
+<li aria-level="1">Lee Salzman (:lsalzman) landed off-main-thread canvas for macOS, Linux and Android back in December for Firefox 123 &#8211; and that’s given us a 4-7% boost on Speedometer3! More details <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829026#c30">here</a>.</li>
+<li aria-level="1">Telemetry informs us that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818237">the Ubuntu Snap import wizard improvements we landed late last year</a> have more than <b>doubled</b> the number of users that have successfully imported from another browser when Firefox is installed as a Snap package!</li>
+<li aria-level="1">In the Network Monitor with Firefox DevTools, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1353798">Hubert has made it so that right-clicking a network request allows you to “Save Response As”</a> for any request, instead of just images
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/01/headlines152_0.png" /></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4>Introductions/Shout-Outs</h4>
+<ul>
+<li aria-level="1">[jepstein] <a href="mailto:ini@mozilla.com"><span data-rich-links="{&quot;per_n&quot;:&quot;Irene Ni&quot;,&quot;per_e&quot;:&quot;ini@mozilla.com&quot;,&quot;type&quot;:&quot;person&quot;}">Irene Ni</span></a> joins the Front-end team through April. Welcome! She is starting on the Reader View work with Cieara, Sam, and Fred.</li>
+</ul>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1867610%2C1872012%2C1872116%2C1461755%2C1870498%2C1852961%2C1861372%2C1872824%2C1843720%2C1764694%2C1221964&amp;list_id=16852419">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Gregory Pappas [:gregp]</li>
+<li aria-level="1">Javi Rueda :javirid</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 Aaron <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1221964">replaced netmonitor &#8216;Save Image As&#8217; with &#8216;Save Response As&#8217;</a> in context menu</li>
+<li aria-level="1">Eliot Jacobs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843720">fixed typo in comment: extension.webextensions.remote</a> to extensions.webextensions.remote in RemoteWorkerManager.cpp</li>
+<li aria-level="1">🌟 Kate Galich <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867610">updated browser/themes/shared/autocomplete.css</a> to use CSS nesting</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li aria-level="1">Landed a fix to prevent AddonRepository.sys.mjs from mistakenly clearing add-ons metadata (stored in ProfD/addons.json) when an addon metadata refresh request is triggered while Gecko is disconnected from the network &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870905">Bug 1870905</a></li>
+</ul>
+<ul>
+<li aria-level="1">Thanks to Hartmut Welpmann for fixing addon updates error handling of empty results and improving logging &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861372">Bug 1861372</a></li>
+</ul>
+<h5>WebExtensions Framework</h5>
+<ul>
+<li aria-level="1">Thanks to Gregory Pappas for contributing a fix to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870498">Bug 1870498</a> and fix a regression that was preventing extensions content scripts from accessing getCoalescedEvents() after it has been marked as only available to Secure Contexts</li>
+</ul>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">Thanks to Cimbali for contributing changes to ContextualIdentityService.sys.mjs internals and the WebExtensions contextualIdentities API to introduce a new method that allows extensions to reorder the defined containers &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1333395">Bug 1333395</a></li>
+</ul>
+<h4>Developer Tools</h4>
+<ul>
+<li aria-level="1">Aaron expanded the &#8220;Save as File&#8221; context menu to all types of Network responses in Netmonitor (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1221964">bug</a>). It was only enabled for images before.</li>
+<li aria-level="1">Emilio fixed a styling issues on tooltips (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1872983">bug</a>)</li>
+<li aria-level="1">Alex added the ability to show a link to the original source when selecting a location in a bundle in the Debugger(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1834729">bug</a>)</li>
+<li aria-level="1">Nicolas fixed a few issues on the Preview popup in the Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1872715">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873147">bug</a>)</li>
+</ul>
+<h4>Fluent</h4>
+<ul>
+<li aria-level="1"><a href="https://www.arewefluentyet.com/">Almost 66% of all strings in Firefox are now using Fluent!</a> .properties usage is seeing a  slow, steady decline.</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li aria-level="1">ESMified status:
+<ul>
+<li aria-level="2">browser: 89%</li>
+<li aria-level="2">toolkit: 99%</li>
+<li aria-level="2">Total:  96.48% (no change)</li>
+</ul>
+</li>
+<li aria-level="1">#esmification on Matrix</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">The whitespace and file permission linters <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1872857">now run on json files</a>.</li>
+<li aria-level="1">We have updated various <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873158">ESLint plugins (node modules) to their latest versions as</a> part of working towards <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1872685">upgrading ESLint to v9</a>.
+<ul>
+<li aria-level="2">v9 is changing to the <a href="https://eslint.org/blog/2023/12/eslint-v9.0.0-alpha.0-released/#flat-config-is-now-the-default-and-has-some-changes">new &#8220;flat&#8221; configuration</a>. This changes the formats of plugins as well as the main configuration, which will help to fix some long standing issues.</li>
+<li aria-level="2">Due to this change, we will be making some significant changes to how ESLint is configured across the tree over the coming months.</li>
+</ul>
+</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">Device migration
+<ul>
+<li aria-level="2">We sent out a spotlight message a few weeks ago encouraging users without a Mozilla account and lots of local data (like bookmarks, history, passwords, etc) that they can use a Mozilla account to have an end-to-end encrypted copy of that data in the cloud. This targeted clients in the English, Italian, French and German locales. We’re going to be doing the rest of the locales later this month, and include folks on the 115 ESR branch as well.</li>
+<li aria-level="2">mconley <a href="https://phabricator.services.mozilla.com/D195934">has a prototype component</a> that can create periodic snapshots of SQLite databases, which could end up being the basis of a local profile backup at runtime system.</li>
+</ul>
+</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">The ASRouterAdmin code has been moved out from about:newtab. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866802">It now lives at about:asrouter</a>. The DiscoveryStream tools still remain in about:newtab.</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1868194">Patches are up to convert TelemetryFeed.jsm to an ESM</a> (which involved rewriting TelemetryFeed.test.js as an xpcshell test)</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li aria-level="1">The off-main-thread Windows Jump List backend is currently enabled by default on Nightly, and the code to support it has ridden the trains to Beta 122. When that code reaches the Release channel after January 23rd, we plan to run an experiment to see if there’s a measurable improvement to input event response time with it enabled.</li>
+</ul>
+<h4>Screenshots</h4>
+<ul>
+<li aria-level="1">Niklas made the following fixes/enhancements
+<ul>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854953">improved performance when taking large screenshots</a>
+<ul>
+<li aria-level="3">We now take multiple smaller screenshots instead of one giant screenshot which was causing the browser to hang</li>
+</ul>
+</li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855313">selected region now shows size on screenshots overlay</a>
+<ul>
+<li aria-level="3">Can now see the size of the selected region
+<ul>
+<li aria-level="3"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/01/headlines152_1.png" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Mike Kaply <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870138">added support for overriding search engine URLs from remote settings</a></li>
+<li aria-level="1">Search engine result page telemetry
+<ul>
+<li aria-level="2">Stephanie <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854196">modified categorization logic based on input from Data Science</a></li>
+<li aria-level="2">James made us <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1871083">record additional properties of the categorization impression to a placeholder API</a></li>
+</ul>
+</li>
+<li aria-level="1">Lots of test fixes, see the <a href="https://bugzilla.mozilla.org/buglist.cgi?chfield=resolution&amp;chfieldfrom=-14D&amp;chfieldto=Now&amp;classification=Client%20Software&amp;classification=Developer%20Infrastructure&amp;classification=Components&amp;classification=Server%20Software&amp;classification=Other&amp;columnlist=short_desc%2Cpriority%2Cassigned_to%2Ccf_fx_points%2Cresolution%2Ccomponent%2Creporter%2Ccf_fx_iteration&amp;component=Address%20Bar&amp;component=Search&amp;known_name=Fixed%20last%2014D&amp;product=Firefox&amp;product=Toolkit&amp;resolution=FIXED&amp;order=bug_id&amp;list_id=16852447">full bug list</a> if you’re curious</li>
+</ul>
+<h3>Below the fold</h3>
+<ul>
+<li aria-level="1">[standard8] PromiseUtils.defer() <a href="https://groups.google.com/a/mozilla.org/g/firefox-dev/c/gwH_bpGsGdM/m/pR3A4d1GAAAJ">has been replaced</a> by <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers">Promise.withResolvers()</a></li>
+<li aria-level="1">General triage
+<ul>
+<li aria-level="2">This month’s <a href="https://docs.google.com/document/d/1_r8lKtJg1FXeY9R3mufsQKI3ylXiIrrLgsb3DqC0EoA/edit">Firefox / Toolkit :: General triagers</a> are:
+<ul>
+<li aria-level="3">Gijs, Dão, Niklas, Kelly</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

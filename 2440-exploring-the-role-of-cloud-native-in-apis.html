@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Exploring The Role of Cloud-Native in APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Exploring The Role of Cloud-Native in APIs</h2>
+		<a target="_blank" href="https://nordicapis.com/exploring-the-role-of-cloud-native-in-apis/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Lately, the software development world has seen a surge of interest around <a href="https://nordicapis.com/what-is-cloud-native-architecture/">cloud-native technologies</a>. Cloud-native architecture is purpose-built for the elasticity and scalability of the cloud and is becoming a standard layer within greenfield enterprise software development. A <a href="https://www.cncf.io/reports/cncf-annual-report-2022/">2022 study</a> from the Cloud-Native Computing Foundation (CNCF), for instance, found there were over seven million cloud-native developers — that&#8217;s more than the population of Denmark.</p>
+<p>At the same time, <a href="https://nordicapis.com/what-are-the-benefits-of-api-first-development/">API-first strategies</a> are already widespread throughout many organizations. These APIs not only serve external consumers but also help connect internal microservices and enable partner integrations. And API reliance is set to expand — a <a href="https://www.postman.com/state-of-api/">2023 report from Postman</a> found that 92% of respondents plan to keep or increase their investment into APIs within the next year.</p>
+<p>Since they are both so pervasive, we&#8217;re seeing convergence between <a href="https://cloudnativenow.com/features/2023-marks-the-rise-of-cloud-native-platforms/">cloud-native platforms</a> and APIs, especially as <a href="https://apievangelist.com/2022/05/05/the-unbundling-of-api-management/">API management requirements evolve</a> to work more closely with platforms like Kubernetes and new DevOps workflows.</p>
+<p>Below, we&#8217;ll explore the role of cloud-native technology in APIs. We&#8217;ll examine how the modern API management landscape is changing and consider the optimal architectures for supporting more <a href="https://nordicapis.com/9-kubernetes-native-api-management-tools/">Kubernetes-native</a> API management. To put this article together, I spoke with a handful of experts working for <a href="https://nordicapis.com/5-affordable-api-management-solutions-for-startups/">API management solutions</a>, primarily while attending KubeCon + CloudNativeCon 2023.</p>
+<h2 id="how-cloud-native-is-evolving-api-management">How Cloud-Native Is Evolving API Management</h2>
+<p>In recent years, we&#8217;ve seen API management converge more with the Kubernetes ecosystem. For example, a handful of API management platforms support custom resource definitions (CRDs) that hook directly into Kubernetes, enabling API management solutions to work more seamlessly with <a href="https://nordicapis.com/the-role-of-apis-in-devops/">modern DevOps practices</a>. For example, Kong provides an ingress controller that is programmable by native CRDs.</p>
+<p>APIs are becoming more numerous, and can experience sudden traffic peaks that push things to the test. Therefore, there are interesting parallels between the needs of APIs and the capabilities today&#8217;s cloud-native platforms. So, how can cloud-native technologies, such as containers, Kubernetes, OpenTelemetry, Envoy, or <a href="https://cloudnativenow.com/features/zero-trust-architecture-zta-to-secure-a-nation/">service mesh</a>, be used to support API initiatives?</p>
+<p>&#8220;Cloud-native drags APIs along with it,&#8221; said Erwan Paccard, Head of Product at Traefik Labs. For some time, the industry&#8217;s default choice has been using NGINX as a controller, but it&#8217;s older and not as dynamic, he said. Furthermore, much API management was inherited from the age of <a href="https://nordicapis.com/is-service-mesh-just-soa-all-over-again/">software-oriented architecture</a> (SOA), with systems not fine-tuned to modern ephemeral microservices. As such, he sees the market evolving away from traditional <a href="https://nordicapis.com/taking-a-product-perspective-to-api-lifecycle-management/">API lifecycle management</a> toward a more modular, best-of-breed Kubernetes-native approach.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/9-kubernetes-native-api-management-tools/">9 Kubernetes-Native API Management Tools</a></div>
+<h2 id="benefits-of-utilizing-cloud-native-for-api-management">Benefits of Utilizing Cloud-Native For API Management</h2>
+<p><a href="https://nordicapis.com/5-pillars-of-api-management/">API management</a> is becoming increasingly cloud-native, bringing various benefits. According to Idit Levine, Founder &amp; CEO of Solo.io, it&#8217;s all about ease of use and responding to the dynamic needs of new technologies. Cloud-native components enable better scalability and provide a more future-proofed stack, she said.</p>
+<p>Other benefits have to do with data operations, change management, and incident management, added Paccard. Essentially, the same benefits we get from cloud-native tools for applications and GitOps, we can receive for APIs, he said.</p>
+<p>Relying on cloud-native technology like Envoy helps implementations fit more into the CNCF landscape, added Levine. For example, Envoy Proxy is easier to combine with the ephemeral, containerized nature of today&#8217;s microservices architectures. And to save state, Levine recommends using a custom resource definition (CRD) to put the configuration in Kubernetes.</p>
+<p>According to Dave Sudia, Director of Developer Relations at Ambassador Labs, cloud-native technology was an obvious choice when, at his previous company, they were tasked with <a href="https://nordicapis.com/case-study-soundclouds-multi-year-journey-breaking-the-monolith/">breaking apart the monolith</a> into microservices and simultaneously migrating an API. &#8220;The key thing is enablement and speed,&#8221; he said, describing how cloud-native enables a GitOps way of operating. Similarly, a benefit of using Kubernetes ingress objects is that you can map roles to resources anywhere in the cluster, he said.</p>
+<p>There&#8217;s also potential in using <a href="https://cloudnativenow.com/features/the-ultimate-list-of-open-source-cloud-native-tools/">CNCF tools</a> to enable more productization capabilities, says Sudia. For instance, an abstracted service could query <a href="https://nordicapis.com/why-opentelemetry-is-the-next-big-thing-in-api-monitoring/">OpenTelemetry</a> data to inform API observability. Of course, while you could build your own API gateway and management features using open-source cloud-native components, it does take effort to support, he adds. &#8220;Cloud native is a force multiplier that requires someone to go up a very steep ramp,&#8221; he said.</p>
+<div class="well">Related: <a href="https://nordicapis.com/why-opentelemetry-is-the-next-big-thing-in-api-monitoring/">Why OpenTelemetry Is the Next Big Thing in API Monitoring</a></div>
+<h2 id="is-service-mesh-for-api-management-worth-it-">Is Service Mesh For API Management Worth It?</h2>
+<p>Service mesh is typically associated with securing internal traffic. Yet, there has been some chatter around extending service mesh with business logic to <a href="https://cloudnativenow.com/editorial-calendar/kubernetes-in-the-enterprise/when-is-service-mesh-worth-it/">to expose APIs externally</a>.</p>
+<p>However, not all commentators are confident in using service mesh and Envoy for API management. &#8220;When you only have a hammer, everything looks like a nail,&#8221; said Budhaditya Bhattacharya, Developer Advocate at <a href="https://tyk.io/">Tyk</a>. Services meshes like Istio, which uses Envoy Proxy, are more appropriate for east-west service-to-service connectivity, security, and reliability, he said.</p>
+<p>There are many cases where API management makes more sense than service mesh, added Ahmet Soormally, Head of R&amp;D at Tyk, especially for externalization. For instance, the enterprise world has <a href="https://nordicapis.com/how-to-test-apis-across-multiple-styles/">varying API styles</a>, from SOAP to REST services, SOAP, GraphQL, gRPC, and more. API management platforms can take these disparate styles and provide one nice clean API to give the outside world. &#8220;It&#8217;s a people and culture problem as well as a technical problem, and I don&#8217;t think that Istio can solve that,&#8221; he said.</p>
+<p>&#8220;Not everything is in a cloud-native environment at this point,&#8221; said Bhattacharya. &#8220;It&#8217;s really not the reality.&#8221; Therefore, API developers, especially those working in large companies, will need the flexibility to seamlessly work with cloud-native and non-cloud-native components. &#8220;Not every problem has a Kubernetes solution,&#8221; he said.</p>
+<p>Furthermore, although there have been efforts to extend Envoy Proxy with <a href="https://cloudnativenow.com/features/extending-the-envoy-proxy-with-webassembly/">WebAssembly plugins</a>, these ambitions have been stunted by the high-performance overhead of using <a href="https://cloudnativenow.com/topics/cloudnativedevelopment/becoming-componentized-excitement-brewing-around-the-future-of-webassembly/">Wasm</a> for this particular use case. Due to the performance degradation with Wasm, they&#8217;ve sort of stopped pushing for it, added Levine.</p>
+<p>Another potential hindrance concerning service mesh is the lack of support for <a href="https://cloudnativenow.com/topics/cloudnativenetworking/exploring-smi-the-service-mesh-industry-spec/">Service Mesh Interface</a> (SMI), a CNCF project that aimed to create a specification to cover the most common service mesh capabilities. According to John Harris, Principal Product Manager at Kong, SMI never really caught on, and it didn&#8217;t have the extension points the community needed.</p>
+<h2 id="intersections-between-api-management-cloud-native-and-backstage">Intersections Between API Management, Cloud-Native, And Backstage</h2>
+<p>In addition to supporting API strategies, API management tools could also help connect increasingly complicated and disparate multi-cloud architectures. &#8220;API management or gateways could be the glue that connects these different cloud-native tools,&#8221; said Bhattacharya. API managers should be agnostic and able to work across solutions, he added.</p>
+<p>In a cloud-native environment, you may have thousands of services communicating with one another through APIs, added Soormally. In this scenario, API management solutions could help cloud-native technologies scale and open up features like <a href="https://nordicapis.com/20-api-monitoring-tools/">observability</a> in a more seamless manner, he said. There is also the need to catalog a <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/">growing internal API portfolio</a>.</p>
+<p>&#8220;There will always be a place for GUI-based API management tools because there are people that think that way and have different working styles,&#8221; added Sudia. These management platforms may be using Kubernetes behind the scenes, but most people will be using <a href="https://cloudnativenow.com/topics/cloudnativeplatforms/ux-layers-for-kubernetes-the-next-cloud-native-abstraction/">abstractions built on top</a> in the form of usable interfaces with quality developer experiences that standardize common workflows.</p>
+<p>On that note, the platform engineering world has begun consolidating around graphical interfaces in the form of <a href="https://devops.com/internal-developer-platform-idp-reference-architectures/">internal developer platforms</a> (IDPs). For example, <a href="https://backstage.spotify.com/">Backstage</a>, the popular IDP open-sourced by Spotify, could potentially one day encompass API inventorizing. 3Scale, in fact, already has built <a href="https://backstage.spotify.com/marketplace/red-hat/plugin/3scale/">an integration</a> to synchronize high-level API details with the Backstage software catalog. Levine is also confident about Backstage, calling it &#8220;the UI interface for the platform team,&#8221; and Solo.io has already integrated it into their product.</p>
+<h2 id="responses-to-kubernetes-gateway-api-ga">Responses To Kubernetes Gateway API GA</h2>
+<p>In late 2023, the Kubernetes Gateway API <a href="https://kubernetes.io/blog/2023/10/31/gateway-api-ga/">reached its general availability</a> (GA). <a href="https://gateway-api.sigs.k8s.io/">Gateway API</a> (not to be confused with <a href="https://nordicapis.com/6-open-source-api-gateways/">API gateways</a>), specifies a way to describe service networking in Kubernetes, such as HTTP routing into clusters, bringing interesting standardization and portability potential across vendor gateways. Now, it&#8217;s on these gateways and API managers to add value on top of Gateway API, said Levine, whose company now supports it.</p>
+<p>With Gateway API, you can &#8220;get rid of sprawl and use a common API for gateways,&#8221; explained Sudia. Yet, while Gateway API provides a standard all gateway implementers can use, API management is more than just basic traffic ingress. It involves many cross-cutting concerns that can&#8217;t easily be described in a common way across vendors, added Soormally.</p>
+<p>The general availability of the Gateway API doesn&#8217;t affect too many things for API gateway providers, said Paccard. Most solution providers have created extensions for Kubernetes, and this is just a way to standardize an ingress configuration for these extensions, he explained.</p>
+<p>Bringing cloud-native GitOps to API management means that developers can configure things in a Kubernetes-native way using the tools they are familiar with, said Harris. They should be able to create ingress resources, and routes to their own cluster, he said, and Gateway API is a helpful initiative to standardize ongoing efforts.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>There are interesting parallels between APIs and cloud-native development, and the future will likely see them converge even further. <a href="https://www.techrepublic.com/article/85-of-organizations-will-be-cloud-first-by-2025-says-gartner/">Gartner</a> predicts that by 2025, 85% of organizations will be cloud-first. What do you think? Are you managing your APIs using cloud-native capabilities? Feel free to let us know in the comments below.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

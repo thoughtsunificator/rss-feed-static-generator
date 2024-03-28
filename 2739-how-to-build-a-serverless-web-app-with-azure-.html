@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Build a Serverless Web App with Azure Functions and RapidAPI</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How to Build a Serverless Web App with Azure Functions and RapidAPI</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-build-a-serverless-web-app-with-azure-functions-and-rapidapi/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Serverless computing is a popular trend in cloud development, allowing developers to create scalable, cost-effective, and event-driven applications without managing servers. This article will guide you through building a serverless web app using Azure Functions and RapidAPI.</p>
+<h2 id="what-is-serverless-computing-">What is Serverless Computing?</h2>
+<p>Serverless computing is a cloud computing model where the cloud provider dynamically manages the allocation and provisioning of servers. A serverless application runs in stateless compute containers that are event-triggered, ephemeral, and fully managed by the cloud provider.</p>
+<h2 id="rapidapi">RapidAPI</h2>
+<p>RapidAPI is a platform that connects developers to thousands of APIs from various categories. Here&#8217;s how to sign up and get an API key.</p>
+<ol>
+<li><strong>Visit the RapidAPI website</strong>: Go to <a href="https://rapidapi.com/">RapidAPI</a>.</li>
+<li><strong>Sign up</strong>: Click the &#8220;Sign Up&#8221; button on the top right corner of the homepage. You can sign up using your Google, GitHub, or Facebook account or create a new account using your email address.</li>
+<li><strong>Verify your account</strong>: After signing up, you&#8217;ll receive an email to verify your account. Click on the link in the email to verify your account.</li>
+<li><strong>Access your dashboard</strong>: Once you&#8217;ve verified your account and logged in, click on your profile picture in the top right corner of the dashboard, and then click on &#8220;My Apps.&#8221; This will take you to a page with a list of your applications.</li>
+<li><strong>Get your API key</strong>: By default, RapidAPI creates a default application for you named &#8220;Default Application.&#8221; Click on this application to view your API key. The API key is located under the &#8220;Security&#8221; section.</li>
+</ol>
+<div id="attachment_19054" style="width: 1034px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-19054" class="size-large wp-image-19054" src="https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-1024x223.png" alt="finding API key on RapidAPI" width="1024" height="223" srcset="https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-1024x223.png 1024w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-300x65.png 300w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-768x167.png 768w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-240x52.png 240w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-220x48.png 220w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-180x39.png 180w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-150x33.png 150w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-90x20.png 90w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-200x43.png 200w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI-400x87.png 400w, https://nordicapis.com/wp-content/uploads/finding-API-key-on-RapidAPI.png 1389w" sizes="(max-width: 1024px) 100vw, 1024px" /><p id="caption-attachment-19054" class="wp-caption-text">Find your API key to use RapidAPI.</p></div>
+<div class="well"><em>Please note that the API key is sensitive information and should be kept secure. Do not share your API key publicly. You&#8217;ll use this API key to authenticate your requests when you use APIs from RapidAPI</em>.</div>
+<h2 id="terraform">Terraform</h2>
+<p>Terraform is an open-source infrastructure as code (IaC) tool developed by HashiCorp. It allows you to define and provide data center infrastructure using a declarative configuration language. This means you describe your desired state of infrastructure, and Terraform will figure out how to achieve that state.</p>
+<h2 id="why-use-terraform-">Why Use Terraform?</h2>
+<p>Terraform&#8217;s key features include:</p>
+<ul>
+<li><strong>Platform agnostic</strong>: You can use Terraform to manage a diverse set of service providers as well as custom in-house solutions.</li>
+<li><strong>State management</strong>: Terraform creates a state file when you create your infrastructure. This file helps Terraform track your resources and is necessary for modifying and destroying your resources.</li>
+<li><strong>Immutable infrastructure</strong>: Terraform treats infrastructure as immutable, meaning it doesn&#8217;t modify the actual resources in your infrastructure. Instead, it replaces the old resources with new ones as per the changes in the configuration.</li>
+</ul>
+<div class="well"><em>Keep in mind that HaschiCorp has switched the Terraform license to a source-available Business Source License (BSL). The open-source fork, <a href="https://opentofu.org/">OpenTofu</a>, is a viable alternative with similar functionality.</em></div>
+<h2>Dataflow</h2>
+<p>The following diagram illustrates the dataflow of the serverless web app that uses Azure Functions and RapidAPI.</p>
+<img loading="lazy" decoding="async" class="aligncenter size-full wp-image-19124" src="https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough.png" alt="" width="364" height="1000" srcset="https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough.png 364w, https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough-109x300.png 109w, https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough-44x120.png 44w, https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough-36x100.png 36w, https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough-25x70.png 25w, https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough-18x50.png 18w, https://nordicapis.com/wp-content/uploads/diagram-for-azure-functions-rapid-api-walkthrough-73x200.png 73w" sizes="(max-width: 364px) 100vw, 364px" />
+<p dir="auto">The app consists of three main components:</p>
+<ul dir="auto">
+<li><strong>Frontend</strong>: A static web page hosted on Azure Storage that displays the weather information to the user. The web page uses C# to call the Azure Function endpoint with the user’s location as a parameter.</li>
+<li><strong>Azure Function</strong>: A serverless function that acts as a proxy between the frontend and the RapidAPI Weather API. The function validates the user’s location, constructs the RapidAPI request with the API key, and returns the weather data to the frontend.</li>
+<li><strong>RapidAPI Weather API</strong>: An API that provides weather information for any location in the world. The API requires an API key to authenticate the requests.</li>
+</ul>
+<p>The diagram shows how the data flows between these components when the user interacts with the web app. The app leverages the benefits of serverless computing, such as scalability, reliability, and cost-efficiency.</p>
+<h2 id="setting-up-a-development-environment-using-terraform">Setting Up a Development Environment Using Terraform</h2>
+<p>Here&#8217;s a basic outline of the process to set up a development environment using Terraform:</p>
+<ol>
+<li><strong>Install Terraform</strong>: Download and install Terraform on your local machine.</li>
+<li><strong>Configure your provider</strong>: In your Terraform configuration file, specify the provider (like AWS, GCP, Azure) that you want to interact with.</li>
+<li><strong>Write the configuration</strong>: Define your infrastructure in a configuration file using HCL.</li>
+<li><strong>Initialize Terraform</strong>: Run <code>terraform init</code> in your terminal. This will download the necessary provider plugins.</li>
+<li><strong>Plan and apply</strong>: Run <code>terraform plan</code> to check what changes will be made. Then, run <code>terraform apply</code> to create the defined infrastructure.</li>
+</ol>
+<p>Remember to replace placeholders with your actual values and adjust the code according to your requirements.</p>
+<h2 id="azure-functions">Azure Functions</h2>
+<p>Azure Functions is a serverless solution that allows you to write less code, maintain less infrastructure, and save on costs. Here&#8217;s how to set up our basic infrastructure by adding an account and a development environment using Terraform.</p>
+<pre><code><span class="hljs-comment"># Terraform code for setting up Azure Functions</span>
+<span class="hljs-comment"># Define the provider</span>
+provider <span class="hljs-string">"azurerm"</span> {
+  features {}
+}
+
+<span class="hljs-comment"># Create a resource group</span>
+resource <span class="hljs-string">"azurerm_resource_group"</span> <span class="hljs-string">"rg"</span> {
+  <span class="hljs-attr">name</span>     = <span class="hljs-string">"example-resources"</span>
+  <span class="hljs-attr">location</span> = <span class="hljs-string">"West Europe"</span>
+}
+
+<span class="hljs-comment"># Create a storage account</span>
+resource <span class="hljs-string">"azurerm_storage_account"</span> <span class="hljs-string">"sa"</span> {
+  <span class="hljs-attr">name</span>                     = <span class="hljs-string">"examplestorageacc"</span>
+  <span class="hljs-attr">resource_group_name</span>      = azurerm_resource_group.rg.name
+  <span class="hljs-attr">location</span>                 = azurerm_resource_group.rg.location
+  <span class="hljs-attr">account_tier</span>             = <span class="hljs-string">"Standard"</span>
+  <span class="hljs-attr">account_replication_type</span> = <span class="hljs-string">"LRS"</span>
+}
+
+<span class="hljs-comment"># Create an app service plan</span>
+resource <span class="hljs-string">"azurerm_app_service_plan"</span> <span class="hljs-string">"asp"</span> {
+  <span class="hljs-attr">name</span>                = <span class="hljs-string">"example-appserviceplan"</span>
+  <span class="hljs-attr">location</span>            = azurerm_resource_group.rg.location
+  <span class="hljs-attr">resource_group_name</span> = azurerm_resource_group.rg.name
+
+  sku {
+    <span class="hljs-attr">tier</span> = <span class="hljs-string">"Standard"</span>
+    <span class="hljs-attr">size</span> = <span class="hljs-string">"S1"</span>
+  }
+}
+
+<span class="hljs-comment"># Create a function app</span>
+resource <span class="hljs-string">"azurerm_function_app"</span> <span class="hljs-string">"fa"</span> {
+  <span class="hljs-attr">name</span>                      = <span class="hljs-string">"example-functionapp"</span>
+  <span class="hljs-attr">location</span>                  = azurerm_resource_group.rg.location
+  <span class="hljs-attr">resource_group_name</span>       = azurerm_resource_group.rg.name
+  <span class="hljs-attr">app_service_plan_id</span>       = azurerm_app_service_plan.asp.id
+  <span class="hljs-attr">storage_connection_string</span> = azurerm_storage_account.sa.primary_connection_string
+}
+</code></pre>
+<p>Let&#8217;s dig into the above terraform code and the resources it creates.</p>
+<ol>
+<li><strong>Resource group</strong>: In Azure, a resource group is a logical container for resources that are deployed within an Azure subscription. This means that all of your resources are organized and can be managed as a group rather than individually. In the code, <code>azurerm_resource_group</code> is used to define a resource group.</li>
+<li><strong>Storage account</strong>: Azure Storage is a service that provides scalable and secure storage for data in the cloud. A storage account provides a unique namespace in Azure for your data. In the code, <code>azurerm_storage_account</code> is used to define a storage account.</li>
+<li><strong>App service plan</strong>: In Azure, an App Service plan is a set of compute resources for a web app to run. These compute resources are analogous to the server farm in conventional web hosting. In the code, <code>azurerm_app_service_plan</code> is used to define an app service plan.</li>
+<li><strong>Function app</strong>: Azure Functions is a serverless compute service that lets you run event-triggered code without having to explicitly provision or manage infrastructure. A function app lets you group functions as a logical unit for easier management, deployment, and sharing of resources. In the code, <code>azurerm_function_app</code> is used to define a function app.</li>
+</ol>
+<p>In the provided code, you would replace the placeholders with your actual values to create these resources in your Azure environment. For example, you would replace &#8220;example-resources&#8221; with the name you want for your resource group, &#8220;West Europe&#8221; with the Azure region you want to use, &#8220;examplestorageacc&#8221; with the name you want for your storage account, and so on.</p>
+<p>To create the infrastructure, we can simply execute: <code>terraform apply</code>.</p>
+<div id="attachment_19050" style="width: 1034px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-19050" class="size-large wp-image-19050" src="https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-1024x384.png" alt="output-from-terraform-apply" width="1024" height="384" srcset="https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-1024x384.png 1024w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-300x112.png 300w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-768x288.png 768w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-1536x576.png 1536w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-240x90.png 240w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-220x82.png 220w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-180x67.png 180w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-150x56.png 150w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-90x34.png 90w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-200x75.png 200w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply-400x150.png 400w, https://nordicapis.com/wp-content/uploads/output-from-terraform-apply.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /><p id="caption-attachment-19050" class="wp-caption-text">The output should look like this.</p></div>
+<h2 id="building-the-serverless-web-app">Building the Serverless Web App</h2>
+<p>Now that we have our tools, let&#8217;s start building our serverless web app.</p>
+<h2 id="finding-and-testing-apis-with-rapidapi">Finding and Testing APIs with RapidAPI</h2>
+<p>Here is the manual process that you would go through if you are using RapidAPI. Once you have found an API you want to use on RapidAPI, you would typically use the <a>API key</a> you got when you signed up for RapidAPI to authenticate your requests to the API.</p>
+<ol>
+<li><strong>Visit the RapidAPI website</strong>: Go to RapidAPI. This is a platform where you can find thousands of APIs across various categories.</li>
+<li><strong>Search for an API</strong>: Use the search bar at the top of the page to find an API that suits your needs. You can search by the name of the API, the functionality you&#8217;re looking for, or the category of the API.</li>
+<li><strong>Select an API</strong>: Click on the API from the search results to view its details. This includes the API&#8217;s endpoints, the parameters it accepts, the response it returns, and code snippets in various languages showing how to use the API.</li>
+<li><strong>Test the API</strong>: On the API page, you can test the API directly. Select the endpoint you want to use, fill in any required parameters, and click the &#8220;Test Endpoint&#8221; button. RapidAPI will make a request to the API and show you the response.</li>
+<li><strong>Get your API key</strong>: If you decide to use the API, you&#8217;ll need to subscribe to it and get your API key. The API key is used to authenticate your requests to the API. To get your API key, click on your profile picture in the top right corner of the dashboard and then click on &#8220;My Apps&#8221;. Click on your application (default is &#8220;Default Application&#8221;) to view your API key.</li>
+</ol>
+<p>Here&#8217;s a sample Python code snippet showing how to use the API key to request an API on RapidAPI:</p>
+<pre><code><span class="hljs-built_in">import</span> requests
+
+<span class="hljs-attr">url</span> = <span class="hljs-string">"https://weatherapi-com.p.rapidapi.com/current.json"</span>
+<span class="hljs-attr">querystring</span> = {<span class="hljs-string">"q"</span>: <span class="hljs-string">"53.1,-0.13"</span>}
+<span class="hljs-attr">headers</span> = {
+    <span class="hljs-string">"X-RapidAPI-Key"</span>: <span class="hljs-string">"your-api-key"</span>,
+    <span class="hljs-string">"X-RapidAPI-Host"</span>: <span class="hljs-string">"weatherapi-com.p.rapidapi.com"</span>
+}
+
+<span class="hljs-attr">response</span> = requests.get(url, <span class="hljs-attr">headers=headers,</span> <span class="hljs-attr">params=querystring)</span>
+print(response.json())
+</code></pre>
+<p>In this code snippet, replace &#8220;api-name.p.rapidapi.com&#8221; with the host of the API you want to use, &#8220;api-endpoint&#8221; with the endpoint of the API, and &#8220;your-api-key&#8221; with your actual API key. This will send a GET request to the API and print the response.</p>
+<div id="attachment_19052" style="width: 891px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-19052" class="size-full wp-image-19052" src="https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet.png" alt="example output from code snippet" width="881" height="109" srcset="https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet.png 881w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-300x37.png 300w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-768x95.png 768w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-240x30.png 240w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-220x27.png 220w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-180x22.png 180w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-150x19.png 150w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-90x11.png 90w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-200x25.png 200w, https://nordicapis.com/wp-content/uploads/example-output-from-code-snippet-400x49.png 400w" sizes="(max-width: 881px) 100vw, 881px" /><p id="caption-attachment-19052" class="wp-caption-text">Example output from code snippet.</p></div>
+<div class="well"><em>Note: Make sure you subscribe to the APIs you are using on RapidAPI</em></div>
+<h2 id="creating-an-azure-function-app">Creating an Azure Function App</h2>
+<p>Here is Terraform code for creating an Azure Function app and an HTTP trigger function. This will be necessary to create an Azure Function app.</p>
+<pre><code><span class="hljs-comment"># Define the provider</span>
+provider <span class="hljs-string">"azurerm"</span> {
+  features {}
+}
+
+<span class="hljs-comment"># Create a resource group</span>
+resource <span class="hljs-string">"azurerm_resource_group"</span> <span class="hljs-string">"rg"</span> {
+  <span class="hljs-attr">name</span>     = <span class="hljs-string">"example-resources"</span>
+  <span class="hljs-attr">location</span> = <span class="hljs-string">"West Europe"</span>
+}
+
+<span class="hljs-comment"># Create a storage account</span>
+resource <span class="hljs-string">"azurerm_storage_account"</span> <span class="hljs-string">"sa"</span> {
+  <span class="hljs-attr">name</span>                     = <span class="hljs-string">"examplestorageacc"</span>
+  <span class="hljs-attr">resource_group_name</span>      = azurerm_resource_group.rg.name
+  <span class="hljs-attr">location</span>                 = azurerm_resource_group.rg.location
+  <span class="hljs-attr">account_tier</span>             = <span class="hljs-string">"Standard"</span>
+  <span class="hljs-attr">account_replication_type</span> = <span class="hljs-string">"LRS"</span>
+}
+
+<span class="hljs-comment"># Create an app service plan</span>
+resource <span class="hljs-string">"azurerm_app_service_plan"</span> <span class="hljs-string">"asp"</span> {
+  <span class="hljs-attr">name</span>                = <span class="hljs-string">"example-appserviceplan"</span>
+  <span class="hljs-attr">location</span>            = azurerm_resource_group.rg.location
+  <span class="hljs-attr">resource_group_name</span> = azurerm_resource_group.rg.name
+
+  sku {
+    <span class="hljs-attr">tier</span> = <span class="hljs-string">"Standard"</span>
+    <span class="hljs-attr">size</span> = <span class="hljs-string">"S1"</span>
+  }
+}
+
+<span class="hljs-comment"># Create a function app</span>
+resource <span class="hljs-string">"azurerm_function_app"</span> <span class="hljs-string">"fa"</span> {
+  <span class="hljs-attr">name</span>                       = <span class="hljs-string">"example-functionapp"</span>
+  <span class="hljs-attr">location</span>                   = azurerm_resource_group.rg.location
+  <span class="hljs-attr">resource_group_name</span>        = azurerm_resource_group.rg.name
+  <span class="hljs-attr">app_service_plan_id</span>        = azurerm_app_service_plan.asp.id
+  <span class="hljs-attr">storage_connection_string</span>  = azurerm_storage_account.sa.primary_connection_string
+}
+</code></pre>
+<p>Below are the components in the code:</p>
+<ul>
+<li><strong>Provider</strong>: Specifies that Azure is the cloud provider.</li>
+<li><strong>Resource group</strong>: A group to hold related resources.</li>
+<li><strong>Storage account</strong>: Required to store function code.</li>
+<li><strong>App service plan</strong>: Defines the set of compute resources for a web app to run.</li>
+<li><strong>Function app</strong>: Hosts the execution of your functions in Azure. It uses the resource group, storage account, and app service plan.</li>
+</ul>
+<h2 id="creating-a-simple-web-app">Creating a Simple Web App</h2>
+<p>Here&#8217;s a simple example of a C# Azure Function that calls the OpenWeatherMap API from RapidAPI. This function will be triggered by an HTTP request and will return the current weather for a specified city.</p>
+<pre><code><span class="hljs-keyword">using</span> System.Net;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;
+<span class="hljs-keyword">using</span> Microsoft.Extensions.Logging;
+<span class="hljs-keyword">using</span> Newtonsoft.Json;
+<span class="hljs-keyword">using</span> System.Net.Http;
+<span class="hljs-keyword">using</span> System.Threading.Tasks;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> Task&lt;IActionResult&gt; <span class="hljs-title">Run</span>(<span class="hljs-params">HttpRequest req, ILogger log</span>)
+</span>{
+    log.LogInformation(<span class="hljs-string">"C# HTTP trigger function processed a request."</span>);
+
+    <span class="hljs-keyword">string</span> city = req.Query[<span class="hljs-string">"city"</span>];
+
+    <span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> HttpClient())
+    {
+        <span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">$"https://api.openweathermap.org/data/2.5/weather?q=<span class="hljs-subst">{city}</span>&amp;appid=YOUR_API_KEY"</span>),
+            Headers =
+            {
+                { <span class="hljs-string">"x-rapidapi-key"</span>, <span class="hljs-string">"YOUR_RAPIDAPI_KEY"</span> },
+                { <span class="hljs-string">"x-rapidapi-host"</span>, <span class="hljs-string">"community-open-weather-map.p.rapidapi.com"</span> },
+            },
+        };
+
+        <span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> response = <span class="hljs-keyword">await</span> client.SendAsync(request))
+        {
+            response.EnsureSuccessStatusCode();
+            <span class="hljs-keyword">var</span> body = <span class="hljs-keyword">await</span> response.Content.ReadAsStringAsync();
+            <span class="hljs-keyword">dynamic</span> data = JsonConvert.DeserializeObject(body);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OkObjectResult(<span class="hljs-string">$"Temperature in <span class="hljs-subst">{city}</span>: <span class="hljs-subst">{data.main.temp}</span>°C"</span>);
+        }
+    }
+}
+</code></pre>
+<p>In this code:</p>
+<ul>
+<li>The function is triggered by an HTTP request.</li>
+<li>It reads the city parameter from the query string.</li>
+<li>It sends a GET request to the OpenWeatherMap API with the specified city.</li>
+<li>It reads the API response, deserializes the JSON, and returns the temperature.</li>
+</ul>
+<p>Remember to replace &#8220;YOUR_API_KEY&#8221; with your actual API key from OpenWeatherMap and &#8220;YOUR_RAPIDAPI_KEY&#8221; with your RapidAPI key. Also, note that you would typically not expose your API keys directly in your code for <a href="https://nordicapis.com/keep-api-keys-safe-because-the-repercussions-are-huge/">security reasons</a>. In a real-world scenario, you would store these keys securely in Azure Key Vault or use Managed Identities.</p>
+<h2 id="deploying-and-testing-the-azure-function-app">Deploying and Testing the Azure Function App</h2>
+<p>If you already have an Azure Function App, that&#8217;s great! You can skip the creation step and directly deploy your code to the existing Function App. Here&#8217;s how you can do it using Azure CLI:</p>
+<ul>
+<li><strong>Login to Azure</strong>: Use the command <code>az login</code> to login to your Azure account from the CLI.</li>
+<li><strong>Deploy the Function App</strong>: Navigate to your local project directory and use the <code>func azure functionapp publish &lt;FunctionAppName&gt;</code> command to deploy your local project to the existing Function App. Replace with the name of your existing Function App.</li>
+</ul>
+<p>Here&#8217;s a sample script:</p>
+<pre><code><span class="hljs-comment"># Login to Azure</span>
+az login
+<span class="hljs-comment"># Navigate to your local project directory</span>
+cd path-<span class="hljs-built_in">to</span>-your-<span class="hljs-built_in">local</span>-<span class="hljs-function"><span class="hljs-keyword">function</span>-app</span>
+<span class="hljs-comment"># Deploy the function app</span>
+func azure functionapp publish your-existing-<span class="hljs-function"><span class="hljs-keyword">function</span>-app-name</span>
+</code></pre>
+<p>Replace &#8220;path-to-your-local-function-app&#8221; and &#8220;your-existing-function-app-name&#8221; with your actual values.</p>
+<div id="attachment_19053" style="width: 456px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-19053" class="wp-image-19053 size-full" src="https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload.png" alt="example output of a successful upload" width="446" height="115" srcset="https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload.png 446w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-300x77.png 300w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-240x62.png 240w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-220x57.png 220w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-180x46.png 180w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-150x39.png 150w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-90x23.png 90w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-200x52.png 200w, https://nordicapis.com/wp-content/uploads/example-output-of-a-successful-upload-400x103.png 400w" sizes="(max-width: 446px) 100vw, 446px" /><p id="caption-attachment-19053" class="wp-caption-text">Example output of a successful upload.</p></div>
+<h2 id="testing-the-azure-function-app">Testing the Azure Function App</h2>
+<p>After deploying your function app, you can test it by making an HTTP request to the function&#8217;s URL. The URL is usually in the following format: <code>https://&lt;Your Function App&gt;.azurewebsites.net/api/&lt;Your Function Name&gt;?code=&lt;your access code&gt;&amp;name=&lt;Enter a name here&gt;</code>.</p>
+<h2 id="conclusion-tips-and-best-practices">Conclusion: Tips and Best Practices</h2>
+<p>Serverless computing is a different paradigm compared to traditional web development. Understanding its benefits and limitations will help you make the most of it. For example, serverless functions are stateless and have a maximum execution time, which can affect how you design your application. Here are some other tips to consider:</p>
+<ul>
+<li><strong>Use Terraform for infrastructure as code (IaC)</strong>: Terraform allows you to define and provide data center infrastructure using a declarative configuration language. This approach enables versioning, reuse, and sharing of configurations, making it easier to manage and scale your applications.</li>
+<li><strong>Secure your API keys</strong>: When using APIs from RapidAPI, always secure your API keys. Do not expose them in client-side code or check them into source control. Consider using Azure Key Vault to store and manage your secrets securely.</li>
+<li><strong>Handle errors gracefully</strong>: Your Azure Functions should handle errors gracefully and return <a href="https://nordicapis.com/best-practices-api-error-handling/">useful error messages</a> to the client. This is especially important when calling APIs, as network issues, <a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/">API rate limits</a>, and other problems can occur.</li>
+<li><strong>Optimize your function&#8217;s performance</strong>: Azure Functions are billed based on execution time, so optimizing your function&#8217;s performance can reduce costs. This could involve efficient API usage, optimizing your code, or using Azure&#8217;s scaling and deployment slots features.</li>
+<li><strong>Test your functions locally</strong>: Azure Functions Core Tools allow you to run and debug your functions locally before deploying them to Azure. This can speed up development and help catch issues early.</li>
+<li><strong>Monitor your application</strong>: Use Azure Monitor and Application Insights to track how your functions are performing in production. They can provide valuable insights into your application&#8217;s performance and usage patterns.</li>
+<li><strong>Keep learning and exploring</strong>: The landscape of serverless computing, APIs, and infrastructure as code is constantly evolving. Keep learning and exploring new features, services, and best practices.</li>
+</ul>
+<p>Building serverless web apps with Azure Functions, Terraform, and RapidAPI can be a powerful and efficient way to develop applications. By following these tips and best practices, you can ensure that your applications are secure, scalable, and maintainable. Happy coding! <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f60a.png" alt="😊" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

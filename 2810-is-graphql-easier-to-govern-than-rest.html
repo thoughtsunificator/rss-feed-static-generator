@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Is GraphQL Easier to Govern Than REST?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Is GraphQL Easier to Govern Than REST?</h2>
+		<a target="_blank" href="https://nordicapis.com/is-graphql-easier-to-govern-than-rest/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>GraphQL has become a ubiquitous technology in the modern landscape. Offering substantial power, flexibility, and extensibility, GraphQL is highly customizable. This customization may seem at first blush to fly in the face of API governance, but does it really? What&#8217;s it like to actually apply API governance to GraphQL, and is it easier to govern than REST? Let&#8217;s take a look!</p>
+<h2 id="a-brief-review">A Brief Review</h2>
+<p>Before we dive into GraphQL, let&#8217;s briefly look at governance as a concept to see where GraphQL stands in context. Simply put, <a href="https://nordicapis.com/how-to-build-and-enforce-great-api-governance/">API governance</a> is the set of policies, procedures, standards, and practices that an organization can set to help govern the consistency, stability, and usability of APIs within an organization. In other words, governance describes how your APIs should function and provides a way to ensure they follow these guidelines.</p>
+<h3 id="why-governance-">Why Governance?</h3>
+<p>API governance gives an organization greater control over the entire <a href="https://nordicapis.com/what-is-api-lifecycle-management/">API lifecycle</a>, ensuring that standards of usability, extensibility, stability, and security are adhered to. When properly deployed, governance policies can be a technical mirror of the business and purpose use case that drives the success of the organization. For example, if your service is designed to provide high-value functionality to diverse users in a secure environment, a proper governance policy can ensure that all the elements of that statement are supported with the correct underlying systems, processes, and resources.</p>
+<p>Notably, governance is a good way to set standards across the board within an organization. <a href="https://www.cio.com/article/1305658/why-cios-back-api-governance-to-avoid-tech-sprawl.html">API governance</a> sets an understanding of what is &#8220;ok&#8221; within the ecosystem and, by doing so, guides the creation of new projects without requiring consistent gates and pressure points.</p>
+<h3 id="what-makes-it-difficult-">What Makes it Difficult?</h3>
+<p>Governance can be challenging because it&#8217;s often viewed as diametrically opposed to rapid iteration. <a href="https://nordicapis.com/design-first-api-development-myth-or-reality/">API development</a> often occurs at 100% throttle, and API governance is like a firm hand just to the side, pulling back and saying, &#8220;Wait one second.&#8221; For this reason, governance is often challenging to implement for hypergrowth-focused businesses.</p>
+<p>Another reality is that API governance is often implemented with a &#8220;one-size-fits-all&#8221; approach. However, exceptions often necessitate changes for teams working on diverse products or even products targeting different use cases, undermining the very purpose of API governance.</p>
+<p>API governance also requires some process oversight. While API governance often starts quite strong, new iteration, development, and rapid prototyping can create an environment where these rules are bypassed &#8220;just this once,&#8221; tempting developers to simply ignore them. This then introduces new managerial gates and processes that undermine the main benefit of API governance, turning the invisible guiding hand into a type of Big Brother.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/6-enablers-for-advancing-api-governance-maturity/">6 Enablers For Advancing API Governance</a></div>
+<h2 id="graphql-vs-rest">GraphQL vs REST</h2>
+<p>Comparing <a href="https://nordicapis.com/rest-vs-graphql-a-side-by-side-comparison/">REST to GraphQL</a> is quite interesting. While REST is a standard paradigm, <a href="https://nordicapis.com/making-your-first-api-in-graphql/">GraphQL is a query language</a>. To make this comparison fair, we should consider what the typical REST implementation looks like compared to GraphQL.</p>
+<p>GraphQL and REST share quite a lot of similarities. They are stateless, designed around resource representations, and align with a <a href="https://nordicapis.com/the-difference-between-client-server-and-publisher-subscriber/">client-server model</a>. Their data structures are often similar at the basic level, sharing support for the same hypermedia-driven models of data connectedness. For this reason, REST and GraphQL are often bundled into the same solution class.</p>
+<p>When you look under the hood, however, GraphQL has some unique features that make it easier to govern than REST.</p>
+<h3 id="graphql-is-well-defined-and-structured">GraphQL is Well-Defined and Structured</h3>
+<p>GraphQL is strongly typed and has a <a href="https://nordicapis.com/how-to-design-a-scalable-graphql-schema/">declarative schema definition</a> system. To be strongly typed means the system has very specific types of data enforced, and each piece of data within the implementation must adhere to the type it aligns with. Alongside a declarative schema definition, this means that GraphQL APIs are well-defined at the schema level, allowing for substantial enforcement of policy through the schema itself.</p>
+<p>Additionally, GraphQL leverages a structure that can best be summarized as a graph. This graph represents the interconnected pieces of the singular microservice and contains the relationships of the other microservices it connects to. Because this relationship is so well-structured at the micro and macro level, API governance can be well-enforced at a granular and top-down level.</p>
+<p>In essence, GraphQL can become mostly well-governed simply by being well-designed from the get-go. In this case, the schema acts as a <a href="https://nordicapis.com/what-is-contract-testing/">contract</a> between the server and client, providing a clear, robust, and controlled interaction paradigm, and deviations from this schema definition don&#8217;t create aberrant API inclusions — they just get rejected and denied.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-perform-contract-testing-on-apis-and-microservices/">How to Perform Contract Testing on APIs and Microservices</a></div>
+<h3 id="graphql-presents-a-unified-point-of-governance">GraphQL Presents a Unified Point of Governance</h3>
+<p>Another unique feature of GraphQL is how endpoints behave. In <a href="https://nordicapis.com/restful-api-pagination-best-practices/">RESTful design</a>, collecting data across multiple queries and systems requires multiple queries and combinatory efforts. This multi-point querying introduces substantial complexity but also requires implementing more governance policies.</p>
+<p>GraphQL, on the other hand, typically operates via a single point of entry before routing to internal systems or serving data from combinatory sources. This ultimately means that GraphQL governance only has to care about a small subset of endpoints compared to the more numerous and complex endpoint collections required under REST.</p>
+<h3 id="graphql-is-strongly-introspective">GraphQL is Strongly Introspective</h3>
+<p>While REST has some systems that promote introspection, GraphQL is uniquely effective at surfacing the understanding of its schema, data, and functions to the client. This introspection makes it easier to deploy governance — in GraphQL, the system wants to be understood, so governance across the system is given a clear map from the get-go.</p>
+<h3 id="considerations">Considerations</h3>
+<p>With all of that in mind, it is important to remember that while GraphQL is generally easier to govern than REST due to its strong typing, declarative schemas, and robust internal design paradigm, some considerations make governance different than under REST.</p>
+<p>GraphQL is highly flexible, but this flexibility means that you need to put thought into exactly where this governance occurs. When anyone can request structured data in a preferred format, you either need to apply strict control to protect that data, which has some performance implications, or you need to proactively design the data to not introduce the risk.</p>
+<p>GraphQL also introduces complexity the larger it gets. While it grants great efficiency, more complex schemas mean governance grows in complexity as well, making for a very heavy system.</p>
+<h2 id="best-practices-for-governing-graphql">Best Practices For Governing GraphQL</h2>
+<p>With this in mind, what best practices can we apply when building API governance for GraphQL? Here are some tips for bringing a healthy governance model to GraphQL.</p>
+<h3 id="schema-is-king">Schema is King</h3>
+<p>When it comes to GraphQL, <a href="https://nordicapis.com/using-a-schema-first-design-as-your-single-source-of-truth/">building a good schema</a> is the name of the game. API governance can be easier to implement in GraphQL, but it&#8217;s also easier to mess it up if you create a poorly defined and poorly thought-out schema. Accordingly, defining clear <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/">naming conventions</a>, types, field controls, relationships, and more will go a long way towards ensuring your API governance is effective.</p>
+<p>To do this right, make sure <a href="https://nordicapis.com/design-first-api-development-myth-or-reality/">you are using the right tools</a>. Effective designs and effective schemas require standards and tools that have been proven, are fully understood, and are leveraged to their full potential.</p>
+<h3 id="plan-for-the-long-term">Plan for the Long-Term</h3>
+<p>Your <a href="https://nordicapis.com/using-a-schema-first-design-as-your-single-source-of-truth/">schema-based API governance</a> is only successful if it adheres to business use cases. Business use cases change, though, so how can one ensure you can change to new business requirements without losing the benefit of schema-driven governance?</p>
+<p>Plan for the long term! When building out your schema, make sure that each part is designed to accommodate changes and new modalities. Plan your communication modalities to ensure proper <a href="https://nordicapis.com/how-to-smartly-sunset-and-deprecate-apis/">deprecation and sunsetting</a>, and use hypermedia and meta context to provide alternatives and updates where appropriate. Ensure that your schema can shift to new needs, and you will ensure that your API governance policy stays relevant to the use case.</p>
+<h3 id="leverage-federation">Leverage Federation</h3>
+<p><a href="https://nordicapis.com/how-to-federate-graphql-across-an-enterprise/">GraphQL federation</a> is a great way to retain a consistent experience between multiple schemas. Federation creates a sort of &#8220;gateway of schemas,&#8221; connecting services together and pointing where each schema lives within the data flow. This leverages metadata to provide greater functionality and continuity between services.</p>
+<p>From a management point of view, it&#8217;s possible that having developers working on their own subgraphs could create a situation where their services are compliant with governance rules while generating name collisions and other similar issues. Accordingly, have a central source of truth and ensure that your teams cross-communicate. Leverage documentation and internal portals to ensure that teams create subgraphs that match the schema without conflicting with other development efforts. This will help save you a lot of headaches in the long term and will lead to a much healthier system.</p>
+<h3 id="create-a-culture-of-compliance-and-communication">Create a Culture of Compliance and Communication</h3>
+<p>Part of an API governance strategy is getting everyone on board. A <a href="https://nordicapis.com/why-teamwork-is-crucial-to-keep-apis-secure/">culture of teamwork</a> is vital for securing APIs and deploying governance effectively at scale. Accordingly, it&#8217;s not just enough to define the governance policies — you must also sell them to your team and clarify why they&#8217;re important. You must champion governance, and your policies must be sensible and well-designed.</p>
+<p>As part of this, your governance guidelines should be replicable without high friction. You should provide tooling and systems to verify compliance throughout the lifecycle to ensure your governance policies are adhered to. Still, you should also be creating a culture in which your internal developers understand the importance of compliance and the end goal you are trying to attain.</p>
+<p>GraphQL provides a substantial amount of customizability for the end user — accordingly, this culture of compliance is important for securing long-term success.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Governing GraphQL is easy to do right — but it&#8217;s also easy to do wrong! Simply following the best practices in this piece can help you establish a strong culture and schema to deploy API governance at scale effectively and efficiently while using GraphQL.</p>
+<p>How are you implementing API governance or management for GraphQL? Did we miss any best practices? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

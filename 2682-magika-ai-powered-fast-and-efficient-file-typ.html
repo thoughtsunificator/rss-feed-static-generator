@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Magika: AI powered fast and efficient file type identification</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Magika: AI powered fast and efficient file type identification</h2>
+		<a target="_blank" href="http://opensource.googleblog.com/2024/02/magika-ai-powered-fast-and-efficient-file-type-identification.html">Go to feed URL</a>
+		</div>
+		<div>Feed URL: http://feeds.feedburner.com/GoogleOpenSourceBlog</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgbkRgYqDxKQrhyphenhyphenl-sNYpZJ08Oo5TqD08Yk5tcbCYzFatO-cDjDRlDH96vDiO0ylvYN-TZoKSfR4LBln1wSFJLixBRiuVeuzaF0UQ3wGUMt14VKugPHuk7q0CwSgeg0V7OVS_yxaUXbFus2yVXrLmRdB88QQyXagMFE6Axs91iDgdq1hUkS4hsS4ECMuf4/s1600/OSS-Majika-Social-V5.png" name="twitter:image"></meta>
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgbkRgYqDxKQrhyphenhyphenl-sNYpZJ08Oo5TqD08Yk5tcbCYzFatO-cDjDRlDH96vDiO0ylvYN-TZoKSfR4LBln1wSFJLixBRiuVeuzaF0UQ3wGUMt14VKugPHuk7q0CwSgeg0V7OVS_yxaUXbFus2yVXrLmRdB88QQyXagMFE6Axs91iDgdq1hUkS4hsS4ECMuf4/s1600/OSS-Majika-Social-V5.png" style="display: none;" />
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxNXxbDvO9U0sI1_Vh0b_iePDZZDhr-XzvjOQTrAFBHEnaFSoohzbNR36Op83b8Hj7L1JOiex5JWEyQFVzC5jWBtLRULhMDmbu_Z4Cs3094FwQVmI8H2uOYKIu_ozG4luPhxeJIQiH_GjV7zAP4K-o-B6RnTZptdhH3nhUfatSurWEmn2x9vdp0vitAk4/s1600/OSS-Magika-Banner-V5%20%281%29.png"><img border="0" data-original-height="800" data-original-width="1058" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxNXxbDvO9U0sI1_Vh0b_iePDZZDhr-XzvjOQTrAFBHEnaFSoohzbNR36Op83b8Hj7L1JOiex5JWEyQFVzC5jWBtLRULhMDmbu_Z4Cs3094FwQVmI8H2uOYKIu_ozG4luPhxeJIQiH_GjV7zAP4K-o-B6RnTZptdhH3nhUfatSurWEmn2x9vdp0vitAk4/s1600/OSS-Magika-Banner-V5%20%281%29.png" /></a>
+
+<p>Today we are <a href="https://google.github.io/magika/" target="_blank">open-sourcing Magika</a>, Google’s AI-powered file-type identification system, to help others accurately detect binary and textual file types. Under the hood, Magika employs a custom, highly optimized deep-learning model, enabling precise file identification within milliseconds, even when running on a CPU. </p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="Magika command line tool used to recognize a identify the type of a diverse set of files" border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiPjf8Rag2sUXJw_aUJcqEBo_RPNRG0PyFSJI8FXuyeaCYT195znXw4DW235ZHVihlUfZ744MFeZBlfhG_xdq8jjnQN5ICFjMO-rphRjt9BfO1gfyupghgAPWxNsivP9l362AcNXWnFSj_CzaJ1Con6ZMfJ1RcFExjhCDRMUs59qcQAxulIlkhBn-uhNDU/s1600/image1.png" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i>Magika command line tool used to identify the type of a diverse set of files</i></td></tr></tbody></table></div>
+
+<p>You can <a href="https://google.github.io/magika/" target="_blank">try the Magika web demo today</a>, or install it as a Python library and standalone command line tool (output is showcased above) by  using the standard command line  <span style="color: #0d904f; font-family: courier;">pip install magika</span>.</p>
+
+<h2>Why identifying file type is difficult</h2>
+
+<p>Since the early days of computing, accurately detecting file types has been crucial in determining how to process files. Linux comes equipped with <a href="https://github.com/file/file" target="_blank"><span style="font-family: courier;">libmagic</span> and the <span style="font-family: courier;">file utility</span></a>, which have served as the de facto standard for file type identification for over 50 years. Today web browsers, code editors, and countless other software rely on file-type detection to decide how to properly render a file. For example, modern code editors use file-type detection to choose which syntax coloring scheme to use as the developer starts typing in a new file. </p>
+
+<p>Accurate file-type detection is a notoriously difficult problem because each file format has a different structure, or no structure at all. This is particularly challenging for textual formats and programming languages as they have very similar constructs. So far, <span style="color: #0d904f; font-family: courier;">libmagic</span> and most other file-type-identification software have been relying on a handcrafted collection of heuristics and custom rules to detect each file format.</p> 
+
+<p>This manual approach is both time consuming and error prone as it is hard for humans to create generalized rules by hand. In particular for security applications, creating dependable detection is especially challenging as attackers are constantly attempting to confuse detection with adversarially-crafted payloads.</p>
+
+<p>To address this issue and provide fast and accurate file-type detection we researched and developed Magika, a new AI powered file type detector. Under the hood, Magika uses a custom, highly optimized deep-learning model designed and trained using <a href="https://keras.io/" target="_blank">Keras</a> that only weighs about 1MB.  At inference time Magika uses  <a href="https://onnx.ai/" target="_blank">Onnx</a> as an inference engine to ensure files are identified in a matter of milliseconds, almost as fast as a non-AI tool even on CPU.</p>
+
+<h2>Magika Performance</h2>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="Magika detection quality compared to other tools on our 1M files benchmark" border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuz_BUIEGw6FQfhzA1lr4EQ1SLO_O0S8TIlGrnYY5Kh0BRngFTboPD4_DTCYsbKkO9c51xUKaulCu8ivEdyQlGIhEfvRzleArV9XpatHdvgSf62F1kt3DMwSOwOOan6gL2kaaangCIzQBv1ZVGIXInx-9jpO9N_OkYR8LeJvl6A-Ba3Qdfq441i9QBxvY/s1600/image2.png" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i>Magika detection quality compared to other tools on our 1M files benchmark</i></td></tr></tbody></table></div><br/>
+
+<p>Performance wise, Magika, thanks to its AI model and large training dataset, is able to  outperform other existing tools by about 20% when evaluated on a 1M files benchmark that encompasses over 100 file types.  Breaking down by file type, as reported in the table below, we see even greater performance gains on textual files, including code files  and configuration files that other tools can struggle with.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><center><img alt="Table showing various file type identification tools performance for a selection of the file types included in our benchmark" border="0" data-original-height="1504" data-original-width="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyOJGHZvg7YbtUGVD2k9n5PgiYnlnZUrkcCAu8TdFa4mBL8N8ejusAoV1xYURd-qTh-RqGOHnWJhFriGNrSADl2hpsEri7ae4ghPLQvV41aJh7fK3XAMGy4i07B4JY6xDvDCNuEHj2nxnN-vDS5e6ZpkQt2CbtbkP8bRP5RBilIF6tqWcQg6yAHG6Qa28/s1600/Screenshot%202024-02-16%20at%2012.10.01%E2%80%AFPM.png" style="width: 100%;" td="" /></center></td></tr><tr><td class="tr-caption" style="text-align: center;"><i>Various file type identification tools performance for a selection of the file types included in our benchmark - n/a indicates the tool doesn’t detect the given file type.</i></td></tr></tbody></table></div><br/>
+
+<h2>Magika at Google</h2>
+
+<p>Internally, Magika is used at scale to help improve Google users’ safety by routing Gmail, Drive, and Safe Browsing files to the proper security and content policy scanners.
+Looking at a weekly average of hundreds of billions of files reveals that Magika improves file type identification accuracy by 50% compared to our previous system that relied on handcrafted rules. In particular, this increase in accuracy allows us to scan 11% more files with our <a href="https://security.googleblog.com/2020/02/improving-malicious-document-detection.html" target="_blank">specialized malicious AI document scanners</a> and reduce the number of unidentified files to 3%.</p>
+
+<p>The upcoming integration of Magika with VirusTotal will complement the platform's existing Code Insight functionality, which employs Google's generative AI to analyze and detect malicious code. Magika will act as a pre-filter before files are analyzed by <a href="https://blog.virustotal.com/2023/04/introducing-virustotal-code-insight.html" target="_blank">Code Insight</a>, improving the platform’s efficiency and accuracy. This integration, due to VirusTotal’s collaborative nature, directly contributes to the global cybersecurity ecosystem, fostering a safer digital environment.</p>
+
+<h2>Open Sourcing Magika</h2>
+
+<p>By <a href="https://google.github.io/magika/" target="_blank">open-sourcing Magika</a>, we aim to help other software improve their file identification accuracy and offer researchers a reliable method for identifying file types at scale. </p>
+
+<p><a href="https://github.com/google/magika" target="_blank">Magika code and model</a> are freely available starting today in Github under the Apache2 License. Magika  can also quickly be installed as a standalone utility and python library via the <a href="https://pypi.org/project/magika/" target="_blank">pypi package manager</a> by simply typing <span style="color: #0d904f; font-family: courier;">pip install magika</span> with no GPU required. We also have an experimental <a href="https://www.npmjs.com/package/magika" target="_blank">npm package</a> if you would like to use the TFJS version.</p>
+
+<p>To learn more about how to use it, please refer to <a href="https://www.npmjs.com/package/magika" target="_blank">Magika documentation site</a>.</p><br/>
+
+<h4><span style="font-size: large;">Acknowledgements </span></h4>
+  
+<p>Magika would not have been possible without the help of many people including: Ange Albertini, Loua Farah, Francois Galilee, Giancarlo Metitieri, Luca Invernizzi, Young Maeng, Alex Petit-Bianco, David Tao, Kurt Thomas, Amanda Walker, and Zhixun Tan.</p>
+
+<p><em>By Elie Bursztein – Cybersecurity AI Technical and Research Lead and Yanick Fratantonio – Cybersecurity Research Scientist</em></p>
+
+
+
+
+
+
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

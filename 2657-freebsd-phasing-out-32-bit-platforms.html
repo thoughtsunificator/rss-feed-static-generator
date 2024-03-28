@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>FreeBSD phasing out 32-bit platforms</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">FreeBSD phasing out 32-bit platforms</h2>
+		<a target="_blank" href="https://lwn.net/Articles/961871/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The FreeBSD Project <a href="https://lists.freebsd.org/archives/freebsd-announce/2024-February/000117.html">has announced that it intends to deprecate 32-bit platforms</a> "<q>over the next couple of major releases</q>". 
+
+<blockquote class="bq">
+We anticipate FreeBSD 15.0 will not include the armv6, i386, and powerpc platforms, and FreeBSD 16.0 will not include armv7. Support for executing 32-bit binaries on 64-bit kernels will be retained through at least the lifetime of the stable/16 branch if not longer.
+</blockquote>
+
+<p>The announcement notes that support for some 32-bit platforms "<q>may be extended if there is both demand and commitment to increased developer resources</q>". More details about the current plans for 32-bit platforms are available <a href="https://www.freebsd.org/releases/14.0R/relnotes/">in the FreeBSD 14.0-RELEASE Release Notes</a>.</p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

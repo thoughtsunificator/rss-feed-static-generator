@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebAssembly JSPI is going to origin trial</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">WebAssembly JSPI is going to origin trial</h2>
+		<a target="_blank" href="https://v8.dev/blog/jspi-ot">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://v8.dev/blog.atom</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>WebAssembly’s JavaScript Promise Integration (JSPI) API is entering an origin trial, with Chrome release M123. What that means is that you can test whether you and your users can benefit from this new API.</p>
+<p>JSPI is an API that allows so-called sequential code – that has been compiled to WebAssembly – to access Web APIs that are <em>asynchronous</em>. Many Web APIs are crafted in terms of JavaScript <code>Promise</code>s: instead of immediately performing the requested operation they return a <code>Promise</code> to do so. When the action is finally performed, the browser’s task runner invokes any callbacks with the Promise. JSPI hooks into this architecture to allow a WebAssembly application to be suspended when the <code>Promise</code> is returned and resumed when the <code>Promise</code> is resolved.</p>
+<p>You can find out more about JSPI and how to use it <a href="https://v8.dev/blog/jspi">here</a> and the specification itself is <a href="https://github.com/WebAssembly/js-promise-integration">here</a>.</p>
+<h2 id="requirements" tabindex="-1">Requirements <a class="bookmark" href="https://v8.dev/blog/jspi-ot#requirements">#</a></h2>
+<p>Apart from registering for an origin trial, you will also need to generate the appropriate WebAssembly and JavaScript. If you are using Emscripten, then this is straightforward. You should ensure that you are using at least version 3.1.47.</p>
+<h2 id="registering-for-the-origin-trial" tabindex="-1">Registering for the origin trial <a class="bookmark" href="https://v8.dev/blog/jspi-ot#registering-for-the-origin-trial">#</a></h2>
+<p>JSPI is still pre-release; it is going through a standardization process and will not be fully released until we get to phase 4 of that process. To use it today, you can set a flag in the Chrome browser; or, you can apply for an origin trial token that will allow your users to access it without having to set the flag themselves.</p>
+<p>To register you can go <a href="https://developer.chrome.com/origintrials/#/register_trial/1603844417297317889">here</a>, make sure to follow the registration signup process. To find out more about origin trials in general, <a href="https://developer.chrome.com/docs/web-platform/origin-trials">this</a> is a good starting place.</p>
+<h2 id="some-potential-caveats" tabindex="-1">Some potential caveats <a class="bookmark" href="https://v8.dev/blog/jspi-ot#some-potential-caveats">#</a></h2>
+<p>There have been some <a href="https://github.com/WebAssembly/js-promise-integration/issues">discussions</a> in the WebAssembly community about some aspects of the JSPI API. As a result, there are some changes indicated, which will take time to fully work their way through the system. We anticipate that these changes will be <em>soft launched</em>: we will share the changes as they become available, however, the existing API will be maintained until at least the end of the origin trial.</p>
+<p>In addition, there are some known issues that are unlikely to be fully addressed during the origin trial period:</p>
+<p>For applications that intensively create spawned-off computations, the performance of a wrapped sequence (i.e., using JSPI to access an asynchronous API) may suffer. This is because the resources used when creating the wrapped call are not cached between calls; we rely on garbage collection to clear up the stacks that are created.<br />
+We currently allocate a fixed size stack for each wrapped call. This stack is necessarily large in order to accommodate complex applications. However, it also means that an application that has a large number of simple wrapped calls <em>in flight</em> may experience memory pressure.</p>
+<p>Neither of these issues are likely to impede experimentation with JSPI; we expect them to be addressed before JSPI is officially released.</p>
+<h2 id="feedback" tabindex="-1">Feedback <a class="bookmark" href="https://v8.dev/blog/jspi-ot#feedback">#</a></h2>
+<p>Since JSPI is a standards-track effort, we prefer that any issues and feedback be shared <a href="https://github.com/WebAssembly/js-promise-integration/issues">here</a>. However, bug reports can be raised at the standard Chrome bug reporting <a href="https://issues.chromium.org/new">site</a>. If you suspect a problem with code generation, use <a href="https://github.com/emscripten-core/emscripten/issues">this</a> to report an issue.</p>
+<p>Finally, we would like to hear about any benefits that you uncovered. Use the <a href="https://github.com/WebAssembly/js-promise-integration/issues">issue tracker</a> to share your experience.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

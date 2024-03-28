@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Rust for Linux — in space</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Rust for Linux — in space</h2>
+		<a target="_blank" href="https://lwn.net/Articles/954974/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The Rust for Linux (RFL) project may not have (yet) resulted in user-visible
+changes to the Linux kernel, but it seems the wider world has taken notice.
+Hongyu Li has <a
+href="https://rust-for-linux.zulipchat.com/#narrow/stream/288089-General/topic/We.20build.20a.20Rust.20Realtime.20Operating.20System.28.60RROS.60.29.20using.20RFL!/near/407428553">announced</a>
+that the Rust for Linux code is now part of a satellite just <a
+href="https://bupt-os.github.io/website/news/2023_12_9/satellite_launch/">launched</a>
+out of China.  The satellite is running a system called <a
+href="https://github.com/BUPT-OS/RROS">RROS</a>, which follows the old
+RTLinux pattern of running a realtime kernel alongside Linux.  The realtime
+core is written in Rust, using the RFL groundwork.
+<p>
+<blockquote class="bq">
+	Despite its imperfections, we still want to share RROS with the
+	community, showcasing our serious commitment to using RFL for
+	substantial projects and contributing to the community's
+	growth. Our development journey with RROS has been greatly enriched
+	by the support and knowledge from the RFL community. We also have
+	received invaluable assistance from enthusiastic forks here,
+	especially when addressing issues related to safety abstraction
+</blockquote>
+<p>
+(Thanks to Dirk Behme).
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

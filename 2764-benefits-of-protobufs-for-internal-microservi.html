@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Benefits of Protobufs For Internal Microservices</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Benefits of Protobufs For Internal Microservices</h2>
+		<a target="_blank" href="https://nordicapis.com/benefits-of-protobufs-for-internal-microservices/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>APIs are loud — they generate an incredible amount of data. What&#8217;s more important than how this data is generated, however, is how the data is stored and shared. APIs live and die by data exchange, and for this reason, the structure and format of the data is often the most important part of any API system.</p>
+<p>Below, we&#8217;ll look at a format called <a href="https://protobuf.dev/">Protocol Buffers</a> (Protobufs), an open-source data serialization format initially developed by Google. We&#8217;ll consider why a developer might use them and explore a specific use case where Protobufs make a lot of sense — <a href="https://nordicapis.com/using-grpc-to-connect-a-microservices-ecosystem/">internal microservices</a>.</p>
+<h2 id="what-are-protobufs-">What Are Protobufs?</h2>
+<p>Protobufs are a solution to serializing structured data. They&#8217;re language and platform-agnostic with wide support for an array of environments. Users can define how they want their data to be structured and then generate structured data based on this definition.</p>
+<p>To do this, Protobufs utilize two elements. The first is the definition language, which is the code used by the proto generator to connect to the data, libraries, and systems generating the code. The second is the format itself, which utilizes the definition language to create the data output.</p>
+<h3 id="the-pros-of-protobufs">The Pros of Protobufs</h3>
+<p>Protobufs offer quite a few benefits for adoptees. First and foremost, the format is quite compact, and the process of creating it is swift. This leads to rapid parsing with minimal filesize, a &#8220;best of both worlds&#8221; that is often in conflict with other formats. This, in conjunction with the broad language support, means that you can rapidly write a small file to share with many languages and environments.</p>
+<p>A big Protobuf benefit is that the output can be read across multiple languages regardless of where it was generated. Since the data format is structured and stored within a <code>.proto</code> definition, you could, in theory, extract the data from Java and port it to Ruby or pull from C# and push it to Dart. This wide support and extensibility allows for a wide range of support that removes language as an iteration blocker.</p>
+<p>These definitions are living definitions as well — because the format is structured, as long as you structure the definition according to <a href="https://protobuf.dev/programming-guides/proto3/#updating">best practices</a>, you can simply update the definition and retain backward and forward compatibility. This is a huge benefit, as it allows for rapid iteration that does not introduce <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/">breaking changes</a>. This is a huge gain because Protobufs may be used where changes requiring version updates could be a showstopper (for instance, in enclosed IoT devices).</p>
+<div class="well">Also read: <a href="https://nordicapis.com/exploring-the-grpc-framework-for-building-microservices/">Exploring The gRPC Framework for Building Microservices</a></div>
+<h3 id="the-cons-of-protobufs">The Cons of Protobufs</h3>
+<p>Protobufs are great for various use cases but are not perfect for everything. There are a few specific scenarios in which Protobufs are a bad solution.</p>
+<p>Firstly, Protobufs are not compressed. While the output file is very small for what you get, there are many situations where they might not be small enough, and additional compression may be necessary. In such a situation, the solution for additional compression might remove many of the benefits of adopting Protobufs.</p>
+<p>Protobufs are also not self-describing. Some data formats self-describe the data so that you can understand exactly what each data element means in the context of itself. Protobufs does not provide this, meaning both ends of the equation must rely on the <code>.proto</code> file for interpretation. For large-scale contextual processing, this might introduce more complexity and processing weight.</p>
+<p>The documentation for Protobufs notes a particular use case for scientific and engineering use cases that is shown below:</p>
+<blockquote>
+<ul>
+<li>Protocol buffer messages are less than maximally efficient in both size and speed for many scientific and engineering uses that involve large, multi-dimensional arrays of floating point numbers. For these applications, FITS and similar formats have less overhead.</li>
+<li>Protocol buffers are not well supported in non-object-oriented languages popular in scientific computing, such as Fortran and IDL.</li>
+</ul>
+</blockquote>
+<p>Finally, there is the fact that Protobufs comes from Google. For some, the use of a Google format, whether open-source or not, licensed or not, might carry with it some issues. Therefore, it&#8217;s something to consider when looking at long-term product support for a free and open-source product by a for-profit corporation.</p>
+<h2 id="the-benefit-of-protobufs-for-internal-microservices">The Benefit of Protobufs for Internal Microservices</h2>
+<p>Protobufs make a lot of sense with internal microservices. There&#8217;s a very strange situation that arises when internal microservices are considered with any technical solution. Suddenly, the desire for external compatibility and other considerations weakens considerably, and the core argument becomes one of interchangeability.</p>
+<h3 id="built-for-internal">Built for Internal</h3>
+<p>When building for <a href="https://nordicapis.com/can-macroservices-solve-the-issues-of-microservices/">external microservices</a>, you assume that someone <a href="https://nordicapis.com/the-bezos-api-mandate-amazons-manifesto-for-externalization/">external to the organization</a> will be using your code, systems, and integration methods. Therefore, you start to make decisions based on that eventuality. With internal microservices, however, you are developing for an audience of one — the internal developer.</p>
+<p>In such a use case, standard exchange and data format becomes the most important factor, and this is something that Protobufs delivers in spades. Protobufs are designed for efficient and rapid data serialization in a readily understood and exchangeable format across a set of languages. Assuming that you support those languages internally, Protobufs becomes a solution for merging these disparate systems into a cohesive collective.</p>
+<h3 id="performance-and-standardization">Performance and Standardization</h3>
+<p>One significant benefit that should be considered is the balance of standardization against performance. Standardized systems are more uniform and portable, but they demand the same standard performance across the board. If this performance is middling at best or only suitable in a single scenario, other services suffer in their own environments. By targeting only performance, you can use the specific language you want, but you lose out on the benefits of standardization.</p>
+<p>Prefer to use the relatively quick processing power of Python to serve an internal function? Prefer to use the higher capabilities of C# for a more complex work function? You can use both with Protobufs, and as long as you have an agreed-upon definition, you&#8217;d never even know they were using different solutions.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/when-is-microservices-architecture-worth-it/">When Is Microservices Architecture Worth It?</a></div>
+<h3 id="improved-discovery">Improved Discovery</h3>
+<p>This also introduces the benefit of <a href="https://nordicapis.com/everything-you-need-to-know-about-api-discovery/">improved discovery</a>. Half of discovery is ensuring that you have an actual view of what services do and how they go about doing it. Since Protobufs require a definition and an agreed-upon format, you can utilize this system to define the core functions of each component and catalog it according to what it does rather than where it lives.</p>
+<p>This benefit is significant: this is akin to adopting a standard house addressing format. When you know how to format an address, you can pinpoint exactly where something is, and per that information, you can get more information on whether the location is a house, an apartment, or a mailbox. Protobufs give you an idea of what each service is outputting, and from this, you can generate an understanding of how the entire ecosystem uses that data.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The simple fact is that it&#8217;s never been easier to use Protobufs. It&#8217;s the interface definition language of choice for many solutions, and with all the benefits noted herein, that&#8217;s not a huge surprise. Protobufs is highly efficient and unlocks significant benefits in most environments. Assuming you are not working in one of the few environments that can&#8217;t benefit from its adoption, Protobufs might be your solution for internal microservice data portability.</p>
+<p>What do you think of this piece? Let us know in the comments below!</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

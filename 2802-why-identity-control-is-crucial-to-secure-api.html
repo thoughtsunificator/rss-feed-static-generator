@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why Identity Control Is Crucial to Secure API Access</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Why Identity Control Is Crucial to Secure API Access</h2>
+		<a target="_blank" href="https://nordicapis.com/why-identity-control-is-crucial-to-secure-api-access/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Have you ever used an authorization flow? Have you ever input a PIN to access an account? If you have, you&#8217;re already familiar with identity control.</p>
+<p>Identity control is vital for properly monitoring and securing every aspect of a network, including APIs. It&#8217;s also essential to maintaining <a href="https://nordicapis.com/how-apis-improve-end-user-experiences/">an efficient workflow</a> that is still secure. In today&#8217;s hyper-competitive, decentralized workplace, having a good identity control system in place is essential for success.</p>
+<h2 id="what-is-identity-control-">What Is Identity Control?</h2>
+<p>Identity control, also known as identity and access management (IAM), is an umbrella term for everything pertaining to a user&#8217;s identity and the resources they can access. Identity control is also sometimes referred to as machine identity management (MIM).</p>
+<p>Authentication is a major aspect of IAM. This means we use IAM every day, whether it&#8217;s entering a password or biometric information like a fingerprint. These everyday applications help visualize how identity control works. To visualize IAM, let&#8217;s use the example of an ATM. In this example, the user&#8217;s bank account number would be their user ID. Their PIN would be an example of an authorization flow, giving them access to their own account to perform various functions. It wouldn&#8217;t give them access to someone else&#8217;s account, though, which is a simple illustration of why identity control is so important.</p>
+<p>Those are just the simplest examples, and things can quickly become more advanced. For example, perhaps the ATM has a daily limit for how much cash can be withdrawn. A bank might make it mandatory for someone to close a bank account in person, as another example of how IAM might dictate access or limit specific actions.</p>
+<p>Identity control is especially interested in two main areas — users and roles. Each user gets a unique ID, which makes IAM possible. Roles determine which users can access what information. These rules are generally referred to as policies.</p>
+<p>The <a href="https://identitymanagementinstitute.org/">Identity Management Institute</a> breaks IAM down into six categories, which it refers to as the Authentication, Authorization, and Accounting (AAA) model.</p>
+<h3 id="the-6-stages-of-iam">The 6 Stages of IAM</h3>
+<ol>
+<li>User identification, verification, and authentication</li>
+<li>User and access lifecycle management</li>
+<li>Security practices to protect company data and assets</li>
+<li>Activity tracking and monitoring</li>
+<li>Compliance auditing</li>
+<li>Workflow management</li>
+</ol>
+<div class="well">Also read: <a href="https://nordicapis.com/securing-graphql-apis-with-identity-control/">Securing GraphQL APIs With Identity Control</a></div>
+<h2 id="how-identity-control-improves-api-security">How Identity Control Improves API Security</h2>
+<p>According to a recent study, <a href="https://techreport.com/statistics/password-reuse-statistics/">65% of users</a> use the same password for multiple accounts. More than 50% of employees use one password for all work-related accounts. Alarmingly, that same report finds that poor password management accounts for <strong>81% of data breaches</strong>.</p>
+<p>Considering that one user <a href="https://www.ciodive.com/news/gartner-digital-worker-tools-IT/649844/">uses an average of 11 apps</a> to complete <strong>one task</strong>, this can create a nightmare scenario for IT teams responsible for cybersecurity. The most secure solution might require users to have a unique password for each utility. That would be a headache for users, though, having to input passwords repetitively throughout the day. IAM is the solution when it&#8217;s implemented correctly.</p>
+<p>IAM is meant for identifying and monitoring user identities and controlling what data they can access. Even something as simple as adding additional layers of protection via solutions like single sign-on (SSO) can make a network much more secure. When paired with adaptive <a href="https://nordicapis.com/4-multi-factor-authentication-mfa-apis/">multi-factor authorization</a> (adaptive MFA), SSO lets admins allow provisional access based on criteria like location or user device.</p>
+<p>Adaptive MFA also serves as an effective real-time risk assessment, preventing sensitive data from being leaked before the unauthorized access is detected. The same methods can even be used to provide a <a href="https://nordicapis.com/using-hypermedia-to-enable-passwordless-auth/">passwordless experience</a> for the user, making it more efficient and convenient to use as well.</p>
+<h2 id="5-ways-identity-control-improves-api-security">5 Ways Identity Control Improves API Security</h2>
+<h3 id="1-prevents-api-impersonation-and-man-in-the-middle-attacks">1. Prevents API Impersonation and Man-in-the-Middle Attacks</h3>
+<p>Impersonating a legitimate client or server to gain access to an API is a common method for unauthorized access. Intercepting or modifying legitimate traffic from clients and servers is also far too common. IAM can help prevent these attacks using techniques like mutual transport layer security (mTLS), requiring authentication from both the user and the server.</p>
+<h3 id="2-prevents-data-breaches-and-unauthorized-access">2. Prevents Data Breaches and Unauthorized Access</h3>
+<p>Identity control is an easy way to ensure data security. It&#8217;s relatively simple to set up different levels of access for different classes of users. It&#8217;s easy to regularly change API keys and passwords to prevent data breaches and keep the risk of unauthorized access to a minimum.</p>
+<p>IAM is an essential component of role-based access control (RBAC). Having a unique identifier for each user is mandatory if you want to keep track of admins, power users, and regular traffic, which is only possible once you have an IAM structure in place.</p>
+<h3 id="3-secures-certificates">3. Secures Certificates</h3>
+<p>Identity control is an ideal way to implement time-based tokens and certificates. When each user has a unique ID, their login time can be noted in their account. Time-based authorization is another easy way to help prevent unauthorized access. In the unfortunate circumstance there <em>is</em> a data breach, the access will be limited to a small window of time, by definition. A system like this is also an efficient way to monitor <strong>all</strong> certificates.</p>
+<h3 id="4-improves-accountability">4. Improves Accountability</h3>
+<p>IAM is a crucial component of implementing a <a href="https://nordicapis.com/10-nodejs-packages-that-you-can-use-for-api-logging/">logging strategy</a>. When every user has a unique ID, you can easily monitor when they&#8217;ve logged on or signed off. You can maintain a record of every transaction, as well. With a logging and monitoring solution, you&#8217;re more equipped to keep track of your data and who&#8217;s accessing it.</p>
+<p>This improved transparency can even help strengthen your cybersecurity. Having a log of user behavior lets you create a model of their usual interactions. For example, you might notice a particular user predominantly accessing an API between 3 PM and 4 PM. That same user logging on at 2 AM could cause an alarm and warrant a closer look.</p>
+<h3 id="5-facilitates-zero-trust-policies">5. Facilitates Zero-Trust Policies</h3>
+<p>According to a <a href="https://www.fortinet.com/blog/industry-trends/zero-trust-report-key-takeaways">recent report from Fortinet</a>, zero-trust architecture is on the rise. For example, 75% of respondents reported using a single web gateway (SWG) in 2023, up from 45% in 2021. Cloud access security brokers have similarly skyrocketed, nearly doubling in just two years. Network access control went from 17% to <strong>a staggering 70%</strong>.</p>
+<p>IAM is essential if you&#8217;re going to adopt a <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/">zero-trust strategy</a>. Having to input a password for every single interaction simply isn&#8217;t realistic for users.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-build-zero-trust-event-based-architectures/">How to Build Zero-Trust Event-Based Architectures</a></div>
+<h2 id="final-thoughts-on-identity-control">Final Thoughts on Identity Control</h2>
+<p>Identity control and IAM are so important if your APIs are public-facing in any way. Even if APIs are entirely internal, it&#8217;s still important to monitor who&#8217;s accessing your network and what they&#8217;re accessing. It only takes one lapse in API security to cause a data breach.</p>
+<p>This is one reason why it&#8217;s so important to embrace <a href="https://nordicapis.com/the-benefits-of-using-api-specifications/">API specifications</a> and standards, as they make it easier to secure and monitor your API. Luckily, there are numerous helpful API security standards at this point, between <a href="https://nordicapis.com/oauth-a-breakdown-for-beginners/">OAuth</a>, <a href="https://nordicapis.com/what-is-openid-connect/">OpenID Connect</a>, <a href="https://nordicapis.com/using-opa-for-api-authorization/">OPA</a>, and so on.</p>
+<p>IAM makes your network more efficient as well as easier to use, anyway. It&#8217;s only going to become more important from here on out.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

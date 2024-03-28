@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How To Call A SOAP API Using Python</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">How To Call A SOAP API Using Python</h2>
+		<a target="_blank" href="https://nordicapis.com/how-to-call-a-soap-api-using-python/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>Before there was REST, there was SOAP. Based on XML, SOAP is widely responsible for the rise of web services, setting a precedent for APIs. While SOAP APIs may not be as prevalent as other architectures like REST, plenty of developers still prefer SOAP for its structure, datatype control, and defined standards. Strong typing also makes SOAP useful for situations requiring robust API security.</p>
+<p>As an additional benefit, SOAP can be invoked from virtually every programming language. To give you an idea of how you might integrate <a href="https://nordicapis.com/common-cases-when-using-soap-makes-sense/">SOAP APIs</a> into your workflow, we&#8217;re going to show you how to make a SOAP API call within Python. First, we&#8217;ll start with some background to help you decide between <a href="https://nordicapis.com/rest-vs-soap-the-key-features-and-differences/">SOAP and REST</a>.</p>
+<h2 id="what-is-soap-">What Is SOAP?</h2>
+<p>SOAP stands for Simple Object Access Protocol. It started out as a messaging standard created by the World Wide Web Consortium (WWWC). It uses an XML format to annotate its request and response messages using the XML schema. As of 2020, <a href="https://theapicompany.com/blog/rest-and-soap-api-usage-2020/">23% of APIs</a> were using SOAP. Not only is it a powerful architecture in its own right, but it&#8217;s also an important antecedent to APIs in general.</p>
+<p>SOAP often follows the Remote Procedure Call (RPC) protocol, where a function or a method is passed a parameter and then returns a result. Before SOAP, many RPC requests needed to be implemented in specific programming languages or environments. Many of the earliest RPC requests were written in C, for example. This could cause problems for communication and collaboration, as an RPC request written in C might not be able to communicate with one written in Java.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/protecting-soap-against-owasps-top-ten-api-risks/">Protecting SOAP Against OWASP’s Top Ten API Risks</a></div>
+<h2 id="how-to-call-soap-apis">How To Call SOAP APIs</h2>
+<p>Nearly every programming language has a library for working with SOAP. While making SOAP calls without using a library is possible, it&#8217;s often not practical. SOAP messages are large and bulky due to their reliance on XML SOAP libraries to handle that abstraction for you.</p>
+<p>Here&#8217;s an example of requesting user info from an imaginary API using the Zeep library in Python.</p>
+<pre><code>from zeep <span class="hljs-keyword">import</span> <span class="hljs-built_in">Client</span>
+
+client = <span class="hljs-built_in">Client</span>(<span class="hljs-string">'https://www.example.com/exampleapi'</span>)
+result = client.service.GetUser(<span class="hljs-number">123</span>) <span class="hljs-meta"># request user with ID 123</span>
+
+name = result[<span class="hljs-string">'Username'</span>]
+</code></pre>
+<p>A diagram of the SOAP call would look like this:</p>
+<pre><code><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span><span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">soap:Envelope</span> <span class="hljs-attr">xmlns:soap</span>=<span class="hljs-string">"https://www.w3.org/2003/05/soap-envelope"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">soap:Header</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">soap:Header</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">soap:Body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">m:GetUser</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">m:UserId</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">m:UserId</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">m:GetUser</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">soap:Body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">soap:Envelope</span>&gt;</span>
+</code></pre>
+<p>The returned SOAP message looks something like this.</p>
+<pre><code><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span><span class="hljs-meta">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">soap:Envelope</span>
+<span class="hljs-attr">xmlns:soap</span>=<span class="hljs-string">"https://www.w3.org/2003/05/soap-envelope/"</span>
+<span class="hljs-attr">soap:encodingStyle</span>=<span class="hljs-string">"https://www.w3.org/2003/05/soap-encoding"</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">soap:Body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">m:GetUserResponse</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">m:Username</span>&gt;</span>Tony Stark<span class="hljs-tag">&lt;/<span class="hljs-name">m:Username</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">m:GetUserResponse</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">soap:Body</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">soap:Envelope</span>&gt;</span>
+</code></pre>
+<p>If you were to make all of the SOAP API calls using HTTP requests rather than a library, it could look something like this:</p>
+<pre><code><span class="hljs-built_in">import</span> requests
+<span class="hljs-attr">req_headers</span> = {<span class="hljs-string">"content-type"</span>: <span class="hljs-string">"text/xml"</span>}
+<span class="hljs-attr">req_body</span> =  <span class="hljs-string">"&lt;?xml version=\"</span><span class="hljs-number">1.0</span>\<span class="hljs-string">"?&gt;"</span>
+req_body += <span class="hljs-string">"&lt;soap:Envelope xmlns:soap=\"</span>https://www.w3.org/<span class="hljs-number">2003</span>/<span class="hljs-number">05</span>/soap-envelope\<span class="hljs-string">"&gt;"</span>
+req_body += <span class="hljs-string">"&lt;soap:Header&gt;&lt;/soap:Header&gt;"</span>
+req_body += <span class="hljs-string">"&lt;soap:Body&gt;"</span>
+req_body += <span class="hljs-string">"&lt;m:GetUser&gt;"</span>
+req_body += <span class="hljs-string">"&lt;m:UserId&gt;123&lt;/m:UserId&gt;"</span>
+req_body += <span class="hljs-string">"&lt;/m:GetUser&gt;"</span>
+req_body += <span class="hljs-string">"v/soap:Body&gt;"</span>
+req_body += <span class="hljs-string">"&lt;/soap:Envelope&gt;"</span>
+<span class="hljs-attr">response</span> = requests.post(
+  <span class="hljs-string">"https://www.example.com/exampleapi"</span>,
+  <span class="hljs-attr">data=req_body,</span>
+  <span class="hljs-attr">headers=req_headers</span>
+)
+</code></pre>
+<h2 id="contents-of-a-soap-message">Contents Of A SOAP Message</h2>
+<p>These SOAP API requests give you an example of the expected format. Let&#8217;s take a moment and look at each component.</p>
+<h3 id="-soap-envelope-"><code>soap:Envelope</code></h3>
+<p>SOAP uses XML, but it needs a way to differentiate between assets and other XML documents. The <code>soap:Envelope</code> signifies that the XML is SOAP. The <code>soap:Envelope</code> tag also requires a Namespace attribute. It can also include an <code>encodingStyle</code> attribute. All of the other SOAP components are returned inside the envelope.</p>
+<h3 id="-soap-header-"><code>soap:Header</code></h3>
+<p>Headers in SOAP are optional, but you can extend SOAP&#8217;s extensibility via SOAP Modules using <code>soap:Header</code>. These modules can be either optional or required. If they&#8217;re mandatory, the <code>mustUnderstand</code> attribute must be set to true.</p>
+<h3 id="-soap-body-"><code>soap:Body</code></h3>
+<p>The bulk of the SOAP response will be wrapped inside of the <code>soap:Body</code> tag. This response can be customized using Namespaces, but it doesn&#8217;t have to be. By default, <code>soap:Body</code> will return the procedure&#8217;s name, parameters, and any returned data.</p>
+<h3 id="-soap-fault-"><code>soap:Fault</code></h3>
+<p>The <code>soap:Fault</code> tag returns any errors. Some examples of error codes in SOAP include:</p>
+<ul>
+<li><strong>Code</strong>: a machine-readable error code</li>
+<li><strong>Reason</strong>: a human-readable error reason</li>
+<li><strong>Node</strong>: the node where the SOAP error occurred</li>
+<li><strong>Role</strong>: What role the node performs where the SOAP error occurred</li>
+<li><strong>Detail</strong>: application-specific error details, including both human and machine-readable data</li>
+</ul>
+<h2 id="soap-vs-rest">SOAP vs. REST</h2>
+<p>REST and SOAP have a lot in common. There are fundamental differences, however. Understanding the similarities and differences between <a href="https://www.soapui.org/learn/api/soap-vs-rest-api/">SOAP and REST</a> will give you a greater understanding of each architecture. It should also help you know when to use <a href="https://nordicapis.com/rest-vs-soap-the-key-features-and-differences/">REST vs. SOAP</a> and vice versa.</p>
+<p>The biggest difference between SOAP and REST is that SOAP is highly structured, whereas <a href="https://nordicapis.com/whats-the-difference-between-rest-and-restful/">REST and RESTful APIs</a> are more flexible.</p>
+<h3 id="soap-vs-rest">Soap Vs. Rest</h3>
+<table>
+<thead>
+<tr>
+<th>SOAP</th>
+<th>REST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>An XML-based message protocol</td>
+<td>An architectural-style protocol</td>
+</tr>
+<tr>
+<td>Uses WSDL for communication</td>
+<td>Uses XML and JSON for communication</td>
+</tr>
+<tr>
+<td>Results are not human readable</td>
+<td>Results <strong>are</strong> human readable</td>
+</tr>
+<tr>
+<td>Uses HTTP for transfers, but can</td>
+<td>Transfers are HTTP only</td>
+</tr>
+<tr>
+<td>also use FTP or SMTP</td>
+<td></td>
+</tr>
+<tr>
+<td>Difficult to implement in JavaScript</td>
+<td>Easy to use in JavaScript</td>
+</tr>
+<tr>
+<td>Performance is less efficient than REST</td>
+<td>Is much more efficient than SOAP</td>
+</tr>
+</tbody>
+</table>
+<p>Generally speaking, <a href="https://nordicapis.com/rest-better-than-soap-yes-use-cases/">using a REST API</a> will be a better pick when you need an API that&#8217;s going to be scalable or use standard CRUD commands. SOAP APIs might be a better fit when you need your transactions to be utterly secure.</p>
+<h2 id="soap-api-use-case">SOAP API Use Case</h2>
+<p>Let&#8217;s finish with an example SOAP API call to give you an idea of what that might look like, to give you a better idea of <a href="https://nordicapis.com/common-cases-when-using-soap-makes-sense/">when to use SOAP</a>.</p>
+<pre><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/Quotation</span> HTTP/1.0
+<span class="hljs-attribute">Host</span>: www.xyz.org
+<span class="hljs-attribute">Content-Type</span>: text/xml; charset = utf-8
+<span class="hljs-attribute">Content-Length</span>: nnn
+
+<span class="xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version = <span class="hljs-string">"1.0"</span><span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SOAP-ENV:Envelope</span>
+   <span class="hljs-attr">xmlns:SOAP-ENV</span> = <span class="hljs-string">"http://www.w3.org/2001/12/soap-envelope"</span>
+   <span class="hljs-attr">SOAP-ENV:encodingStyle</span> = <span class="hljs-string">"http://www.w3.org/2001/12/soap-encoding"</span>&gt;</span>
+
+   <span class="hljs-tag">&lt;<span class="hljs-name">SOAP-ENV:Body</span> <span class="hljs-attr">xmlns:m</span> = <span class="hljs-string">"http://www.xyz.org/quotations"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">m:GetQuotation</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">m:QuotationsName</span>&gt;</span>MiscroSoft<span class="hljs-tag">&lt;/<span class="hljs-name">m:QuotationsName</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">m:GetQuotation</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">SOAP-ENV:Body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SOAP-ENV:Envelope</span>&gt;</span></span>
+</code></pre>
+<p>As you can see, this SOAP API call makes a POST request to the <code>/Quotation</code> endpoint of the website <code>xyz.org</code>. It also specifies which version of HTTP it&#8217;s using and what format of response it is expecting.</p>
+<p>This should also give you some ideas of possible applications for SOAP APIs. Since you&#8217;re only accepting results in XML using the character set UTF-8, for example, you could automatically block <strong>and</strong> and all results with the slightest variation. A SOAP API&#8217;s usefulness may be limited and highly specific, but it&#8217;s still worth familiarizing yourself to have in your toolkit.</p>
+<h2 id="how-to-call-a-soap-api-using-python">How To Call A SOAP API Using Python</h2>
+<p>Now, let&#8217;s see SOAP APIs in action. We&#8217;re going to write a Python script that will call a SOAP API using the <code>requests</code> library. To start, open your text editor of choice and input the following code:</p>
+<pre><code><span class="hljs-built_in">import</span> requests
+<span class="hljs-comment"># SOAP request URL</span>
+<span class="hljs-attr">url</span> = <span class="hljs-string">"http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso"</span>
+
+<span class="hljs-comment"># structured XML</span>
+<span class="hljs-attr">payload</span> = <span class="hljs-string">""</span><span class="hljs-string">"&lt;?xml version=\"</span><span class="hljs-number">1.0</span>\<span class="hljs-string">" encoding=\"</span>utf-<span class="hljs-number">8</span>\<span class="hljs-string">"?&gt;
+            &lt;soap:Envelope xmlns:soap=\"</span>http://schemas.xmlsoap.org/soap/envelope/\<span class="hljs-string">"&gt;
+                &lt;soap:Body&gt;
+                    &lt;CountryIntPhoneCode xmlns=\"</span>http://www.oorsprong.org/websamples.countryinfo\<span class="hljs-string">"&gt;
+                        &lt;sCountryISOCode&gt;IN&lt;/sCountryISOCode&gt;
+                    &lt;/CountryIntPhoneCode&gt;
+                &lt;/soap:Body&gt;
+            &lt;/soap:Envelope&gt;"</span><span class="hljs-string">""</span>
+<span class="hljs-comment"># headers</span>
+<span class="hljs-attr">headers</span> = {
+    'Content-Type': 'text/xml; <span class="hljs-attr">charset=utf-8'</span>
+}
+<span class="hljs-comment"># POST request</span>
+<span class="hljs-attr">response</span> = requests.request(<span class="hljs-string">"POST"</span>, url, <span class="hljs-attr">headers=headers,</span> <span class="hljs-attr">data=payload)</span>
+
+<span class="hljs-comment"># prints the response</span>
+print(response.text)
+print(response)
+</code></pre>
+<p>This code starts by importing the <code>requests</code> library. It then defines the SOAP URL. The following section is the most important, though, as it specifies the SOAP API formatting using the <code>soap:Body</code> tag.</p>
+<p>Last but not least, the Python script defines the headers in JSON.</p>
+<p>Save that file and run it. You should see a result like the following:</p>
+<pre><code><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"utf-8"</span><span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">soap:Envelope</span> <span class="hljs-attr">xmlns:soap</span>=<span class="hljs-string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">soap:Body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">m:CountryIntPhoneCodeResponse</span> <span class="hljs-attr">xmlns:m</span>=<span class="hljs-string">"http://www.oorsprong.org/websamples.countryinfo"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">m:CountryIntPhoneCodeResult</span>&gt;</span>91<span class="hljs-tag">&lt;/<span class="hljs-name">m:CountryIntPhoneCodeResult</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">m:CountryIntPhoneCodeResponse</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">soap:Body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">soap:Envelope</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Response</span> [<span class="hljs-attr">200</span>]&gt;</span>
+</code></pre>
+<h2 id="method-2-calling-soap-apis-in-python-using-zeep">Method 2: Calling SOAP APIs In Python Using Zeep</h2>
+<p>We&#8217;ll finish up with an example of one more method for calling a SOAP API in Python. This time we&#8217;re going to use the Zeep library.</p>
+<p>Start by making sure you have Zeep installed.</p>
+<pre><code>Pip3 <span class="hljs-keyword">install</span> Zeep
+</code></pre>
+<p>Once Zeep is installed, create a new file in your text editor and input the following code.</p>
+<pre><code><span class="hljs-built_in">import</span> zeep
+
+<span class="hljs-comment"># set the WSDL URL</span>
+<span class="hljs-attr">wsdl_url</span> = <span class="hljs-string">"http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL"</span>
+
+<span class="hljs-comment"># set method URL</span>
+<span class="hljs-attr">method_url</span> = <span class="hljs-string">"http://webservices.oorsprong.org/websamples.countryinfo/CountryIntPhoneCode"</span>
+
+<span class="hljs-comment"># set service URL</span>
+<span class="hljs-attr">service_url</span> = <span class="hljs-string">"http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso"</span>
+
+<span class="hljs-comment"># create the header element</span>
+<span class="hljs-attr">header</span> = zeep.xsd.Element(
+    <span class="hljs-string">"Header"</span>,
+    zeep.xsd.ComplexType(
+        [
+            zeep.xsd.Element(
+                <span class="hljs-string">"{http://www.w3.org/2005/08/addressing}Action"</span>, zeep.xsd.String()
+            ),
+            zeep.xsd.Element(
+                <span class="hljs-string">"{http://www.w3.org/2005/08/addressing}To"</span>, zeep.xsd.String()
+            ),
+        ]
+    ),
+)
+<span class="hljs-comment"># set the header value from header element</span>
+<span class="hljs-attr">header_value</span> = header(<span class="hljs-attr">Action=method_url,</span> <span class="hljs-attr">To=service_url)</span>
+
+<span class="hljs-comment"># initialize zeep client</span>
+<span class="hljs-attr">client</span> = zeep.Client(<span class="hljs-attr">wsdl=wsdl_url)</span>
+
+<span class="hljs-comment"># set country code for India</span>
+<span class="hljs-attr">country_code</span> = <span class="hljs-string">"IN"</span>
+
+<span class="hljs-comment"># make the service call</span>
+<span class="hljs-attr">result</span> = client.service.CountryIntPhoneCode(
+    <span class="hljs-attr">sCountryISOCode=country_code,</span>
+    <span class="hljs-attr">_soapheaders=[header_value]</span>
+)
+<span class="hljs-comment"># print the result</span>
+print(f<span class="hljs-string">"Phone Code for {country_code} is {result}"</span>)
+
+<span class="hljs-comment"># set country code for United States</span>
+<span class="hljs-attr">country_code</span> = <span class="hljs-string">"US"</span>
+
+<span class="hljs-comment"># make the service call</span>
+<span class="hljs-attr">result</span> = client.service.CountryIntPhoneCode(
+    <span class="hljs-attr">sCountryISOCode=country_code,</span>
+    <span class="hljs-attr">_soapheaders=[header_value]</span>
+)
+
+<span class="hljs-comment"># POST request</span>
+<span class="hljs-attr">response</span> = client.service.CountryIntPhoneCode(
+    <span class="hljs-attr">sCountryISOCode=country_code,</span>
+    <span class="hljs-attr">_soapheaders=[header_value]</span>
+)
+
+<span class="hljs-comment"># print the result</span>
+print(f<span class="hljs-string">"Phone Code for {country_code} is {result}"</span>)
+print(response)
+</code></pre>
+<p>Using the Zeep library, you can easily get the country phone codes of as many countries as you like. It then inserts the country code and phone code into the sentence &#8220;Phone Code for {country_code} is {result}&#8221;).&#8221;</p>
+<p>Once you run your new Python script, you should get a result like the following.</p>
+<pre><code>Phone Code <span class="hljs-keyword">for</span> <span class="hljs-keyword">IN</span> <span class="hljs-keyword">is</span> <span class="hljs-number">91</span>
+Phone Code <span class="hljs-keyword">for</span> US <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
+</code></pre>
+<h2 id="final-thoughts-calling-a-soap-api-using-python">Final Thoughts: Calling a SOAP API Using Python</h2>
+<p>As we have seen, SOAP APIs are alive and well. Developers still have the need for strongly typed, secure transactions. They might not be that common, but many legacy products and services are still built around SOAP APIs. Even if it weren&#8217;t, it&#8217;d still be worthwhile to understand SOAP APIs for the role they played in the widespread adoption of APIs.</p>
+<p>In this piece, we&#8217;ve introduced you to the SOAP API format and shown some comparisons with other protocols like REST. Then, we finished up by showing you how you can work with SOAP APIs in Python so you can try it out for yourself.</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

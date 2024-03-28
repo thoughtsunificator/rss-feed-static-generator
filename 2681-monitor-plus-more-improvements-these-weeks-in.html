@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Monitor, Plus More Improvements – These Weeks in Firefox: Issue 154</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Monitor, Plus More Improvements – These Weeks in Firefox: Issue 154</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/02/15/monitor-plus-more-improvements-these-weeks-in-firefox-issue-154/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1"><a href="https://blog.mozilla.org/en/mozilla/introducing-mozilla-monitor-plus-a-new-tool-to-automatically-remove-your-personal-information-from-data-broker-sites/">Mozilla Monitor Plus has been launched</a>! This is a new subscription product (available only in the US for now) that will search for and scrub your personal information from data brokers.
+<ul>
+<li aria-level="2">
+<p><div id="attachment_1556" style="width: 1549px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/02/image4.png"><img aria-describedby="caption-attachment-1556" decoding="async" loading="lazy" class="size-full wp-image-1556" src="https://blog.nightly.mozilla.org/files/2024/02/image4.png" alt="A screenshot of the Mozilla Monitor Plus dashboard for US customers. The dashboard shows that 16 exposures of user data have been manually fixed, and that 240 are in progress. At the bottom, a list of data brokers are listed for which data scrubbing is in progress. Those data brokers are &quot;arivify.com&quot; and &quot;beenverified.com&quot;, and the user data is listed as being for sale." width="1539" height="786" srcset="https://blog.nightly.mozilla.org/files/2024/02/image4.png 1539w, https://blog.nightly.mozilla.org/files/2024/02/image4-300x153.png 300w, https://blog.nightly.mozilla.org/files/2024/02/image4-600x306.png 600w, https://blog.nightly.mozilla.org/files/2024/02/image4-768x392.png 768w, https://blog.nightly.mozilla.org/files/2024/02/image4-1536x784.png 1536w, https://blog.nightly.mozilla.org/files/2024/02/image4-1000x511.png 1000w" sizes="(max-width: 1539px) 100vw, 1539px" /></a><p id="caption-attachment-1556" class="wp-caption-text">Mozilla Monitor Plus lets you take back control over your personal information.</p></div></li>
+</ul>
+</li>
+<li aria-level="1">The new clear history dialog has been enabled by default at Nightly! The dialog now has a more modern look, consolidated clearing options, and shows the amount of data you clear based on time range. Additionally, all the entry points for clearing data have been unified to point to the same dialog. Congratulations to :harshitsohaney for getting the new dialog to this point!
+<ul>
+<li aria-level="2">
+<p><div id="attachment_1557" style="width: 1314px" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/02/image5.png"><img aria-describedby="caption-attachment-1557" decoding="async" loading="lazy" class="size-full wp-image-1557" src="https://blog.nightly.mozilla.org/files/2024/02/image5.png" alt="The new &quot;Clear browsing data and cookies&quot; dialog is shown. A dropdown for when to remove data for has &quot;Last hour&quot; selected. There are 4 checkboxes shown with the following labels: &quot;History&quot;, &quot;Cookies and site data (23.5 MB)&quot;, &quot;Temporary cached files and pages (464 MB)&quot;, &quot;Site settings&quot;. The first three are checked." width="1304" height="908" srcset="https://blog.nightly.mozilla.org/files/2024/02/image5.png 1304w, https://blog.nightly.mozilla.org/files/2024/02/image5-300x209.png 300w, https://blog.nightly.mozilla.org/files/2024/02/image5-600x418.png 600w, https://blog.nightly.mozilla.org/files/2024/02/image5-768x535.png 768w, https://blog.nightly.mozilla.org/files/2024/02/image5-1000x696.png 1000w" sizes="(max-width: 1304px) 100vw, 1304px" /></a><p id="caption-attachment-1557" class="wp-caption-text">Much cleaner than before!</p></div></li>
+</ul>
+</li>
+<li aria-level="1">Nicolas added support for <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Properties_and_Values_API/guide">registered properties</a> (@property/CSS.registerProperty) in the DevTools Rules view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841023">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876455">bug</a>). The registered properties are displayed in var() autocomplete (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867589">bug</a>), as well as in property name autocomplete too (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867595">bug</a>)
+<ul>
+<li aria-level="2">Check it out by setting the pref layout.css.properties-and-values.enabled to true</li>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/02/image2.png"><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1554" src="https://blog.nightly.mozilla.org/files/2024/02/image2.png" alt="4 different sections of the Firefox DevTools are shown. All are demonstrating that custom CSS properties are more easily inspected. The top-left quadrant shows the property being inspected in the Style pane of the Inspector. The bottom-left quadrant shows an animated custom property listed in the CSS animation inspector. The top-right quadrant shows the CSS property in the Style pane of the Inspector being offered in an autofill tooltip, and showing what the CSS value resolves to (the colour &quot;gold&quot;). The bottom most pane shows the rule being included in the autofill tooltip when setting a style property in a selector." width="1806" height="1384" srcset="https://blog.nightly.mozilla.org/files/2024/02/image2.png 1806w, https://blog.nightly.mozilla.org/files/2024/02/image2-300x230.png 300w, https://blog.nightly.mozilla.org/files/2024/02/image2-600x460.png 600w, https://blog.nightly.mozilla.org/files/2024/02/image2-768x589.png 768w, https://blog.nightly.mozilla.org/files/2024/02/image2-1536x1177.png 1536w, https://blog.nightly.mozilla.org/files/2024/02/image2-1000x766.png 1000w" sizes="(max-width: 1806px) 100vw, 1806px" /></a></li>
+</ul>
+</li>
+<li aria-level="1">In Firefox 124 a new runtime.onPerformanceWarning API event has been introduced (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861445">Bug 1861445</a>) for WebExtensions. This event will be emitted when Firefox detects that a content script is impacting a web page responsiveness. It is meant to allow WebExtension developers to detect when their content scripts are slowing down pages.
+<ul>
+<li aria-level="2">This new API has been previously proposed through the W3C WebExtensions Community Group and tracked by <a href="https://github.com/w3c/webextensions/issues/456">this ticket</a>.</li>
+<li aria-level="2">Thanks to Dave Vandyke for contributing this new WebExtensions API!</li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4>Introductions/Shout-Outs</h4>
+<ul>
+<li aria-level="1">Welcome to Nathan Barrett (:nbarrett), who is joining the New Tab team!</li>
+</ul>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1869574%2C1806255%2C1864447%2C1837747%2C1842804%2C1872922%2C1724089%2C328707%2C1863223%2C1869830%2C1633456%2C1876496%2C1861445%2C1845797%2C1876934%2C1708289%2C1877890%2C1874952&amp;list_id=16889010">Resolved bugs (excluding employees)</a></h4>
+<p><a href="https://github.com/niklasbaumgardner/NewContributorScraper">Script to find new contributors from bug list</a></p>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Gregory Pappas [:gregp]</li>
+<li aria-level="1">Itiel</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 Oliver Schramm <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877890">updated geometry editor</a> to consider zoom</li>
+<li aria-level="1">Jing Zhu <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1633456">removed the `TelemetryStorage.addPendingPing`</a> method</li>
+<li aria-level="1">Richard Cole <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845797">removed reload-default-prefs observer notification</a></li>
+<li aria-level="1">🌟 Jaydeep Das fixed Proxy Config to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=328707">only allow valid IP/Hostname</a></li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Accessibility</h4>
+<ul>
+<li aria-level="1">Ongoing High Contrast Mode Project &#8211; We’re reevaluating all occurrences of @media (prefers-contrast) to make sure they’re targeting BOTH Windows HCM and macOS Increase Contrast. If the code within the query is only for Windows (as often is the case 😁) the query should be switched to @media (forced-colors).</li>
+<li aria-level="1">New revisions that use these queries will be blocked for review by the HCM-reviewers review group in phabricator.</li>
+<li aria-level="1">You can read more about using these queries in our <a href="https://firefox-source-docs.mozilla.org/accessible/HCMMediaQueries.html">new documentation</a>, and play around with this <a href="https://mreschenberg.com/MediaQueryChecker.html">live site</a> Morgan made. If you have any questions, please reach out to Morgan or Anna 🙂 Thanks!</li>
+</ul>
+<h4>Add-ons / Web Extensions</h4>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li aria-level="1">Thanks to :arai for having converted the last 3 jsm files from the XPIProvider internals to ES modules &#8211; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1836480">Bug 1836480</a>.
+<ul>
+<li aria-level="2">WebExtensions and AOM/XPIProvider internals are now 100% migrated away from legacy jsm files! 🎉</li>
+</ul>
+</li>
+<li aria-level="1">Thanks to :masayuki for fixing a bug related to keyboard shortcuts using non-english keyboard layouts (fixed as part of <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874727">Bug 1874727</a> and tracked for WebExtensions keyboard shortcuts in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1782660">Bug 1782660</a>).</li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1">Oliver Schramm reported <i>and</i> fixed the geometry editor when the page is zoomed in (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877890">bug</a>)</li>
+<li aria-level="1">Nicolas added a preference to control the behavior of the Enter key when editing properties in the  Rules view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876694">bug</a>), and reverted the behavior to what we had in Firefox 121 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877457">bug</a>, <a href="https://fxdx.dev/rules-view-enter-key/#2024-02-03-update">blog post update</a>)</li>
+<li aria-level="1">Alex made the console up to 70% faster (<a href="https://treeherder.mozilla.org/perfherder/alerts?id=41236">perf alert</a>) when it reaches the limit of messages we show (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875045">bug</a>)</li>
+<li aria-level="1">Alex improved the tracer, by allowing it to trace on next reload or navigation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848159">bug</a>)
+<ul>
+<li aria-level="2">This relies on a new option in the context menu:
+<ul>
+<li aria-level="3"><a href="https://blog.nightly.mozilla.org/files/2024/02/image1.png"><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-1553" src="https://blog.nightly.mozilla.org/files/2024/02/image1.png" alt="A menu popup for the Tracer tool in the Firefox DevTools. A new item has been added with a checkbox next to it: &quot;Trace only on next page load (reload or navigation)&quot;." width="599" height="270" srcset="https://blog.nightly.mozilla.org/files/2024/02/image1.png 599w, https://blog.nightly.mozilla.org/files/2024/02/image1-300x135.png 300w" sizes="(max-width: 599px) 100vw, 599px" /></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Nicolas fixed an issue where ServiceWorker file where not displayed in the debugger when using an URL with a port (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876533">bug</a>)
+<ul>
+<li aria-level="2">If you&#8217;re working with Service Worker, please flip devtools.debugger.features.windowless-service-workers so you can debug them directly in the page tab toolbox (not via about:debugging). We&#8217;re looking for feedback on this before we enable it by default</li>
+</ul>
+</li>
+<li aria-level="1">Bomsy made the debugger no longer use Babel to detect if watch expressions have syntax errors (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878061">bug</a>). This is part of a bigger project where we&#8217;re trying to completely remove Babel, which can be pretty slow on very large files</li>
+<li aria-level="1">Alex fixed a bug in the Debugger where watch expressions and variable tooltip could show wrong values (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876297">bug</a>)</li>
+</ul>
+<h5>WebDrive BiDi</h5>
+<ul>
+<li aria-level="1">Contributors
+<ul>
+<li aria-level="2">James Hendry updated the &#8220;WebDriver:SwitchToFrame&#8221; command to make the &#8220;id&#8221; parameter mandatory and raise an exception if it is missing (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847875">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Sasha added support for the contexts attribute to the script.addPreloadScript command (BiDi), which allows to assign a preload script to specific browsing contexts (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858458">bug</a>)</li>
+<li aria-level="1">Henrik fixed the &#8220;WebDriver:NewWindow&#8221; command to always fallback to opening new tabs on Android, even if a new &#8220;window&#8221; was requested (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875085">bug</a>)</li>
+<li aria-level="1">Henrik updated our vendored Puppeteer version to v21.10.0, which comes with updated tests and support for BiDi features. The ./mach puppeteer-test command was also updated to run in headful mode by default (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877214">bug</a>)</li>
+<li aria-level="1">Henrik improved browsingContext.close to allow closing the last tab of a window (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873948">bug</a>)</li>
+<li aria-level="1">Julian implemented several commands to handle user contexts (containers) in WebDriver BiDi;
+<ul>
+<li aria-level="2">browser.createUserContext allows to create a new user context (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870848">bug</a>)</li>
+<li aria-level="2">browser.getUserContexts allows to list all the available user contexts (including the default one and contexts created outside of WebDriver BiDi) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870847">bug</a>)</li>
+<li aria-level="2">browser.removeUserContexts allows to remove a user context and close all the related tabs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870849">bug</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Julian added partial support for two network interception commands, network.continueRequest and network.continueResponse. At the moment they only allow to resume an intercepted request, but additional parameters will later allow to modify the request/response (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874206">bug</a>)</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li aria-level="1">Aria transitioned <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1836480">extensions related modules</a> and found some more modules under <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878457">devtools&#8217; performance-new</a> to transition.</li>
+<li aria-level="1">See also the New Tab Page update below.</li>
+<li aria-level="1">ESMified status:
+<ul>
+<li aria-level="2">browser: 96.43%</li>
+<li aria-level="2">toolkit: 99.83%</li>
+<li aria-level="2">Total:  98.48% (+2% from last week)</li>
+</ul>
+</li>
+<li aria-level="1">#esmification on Matrix</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">Removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877676">.ini file support from ESLint</a>, now that the transition to .toml is largely complete.</li>
+<li aria-level="1">Removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878009">Babel integration from ESLint</a>.
+<ul>
+<li aria-level="2">This helps to speed up ESLint.</li>
+<li aria-level="2">Originally integrated due to wanting to use JavaScript features that were at stage 3, whereas ESLint only supports them at stage 4.</li>
+<li aria-level="2">We can/will reintroduce the integration later if need be, but for now let&#8217;s enjoy the slightly faster linting.</li>
+</ul>
+</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">Welcome to fchasen and kpatenio, who are going to be joining us on making device migration smoother for our users!</li>
+<li aria-level="1">The team has been mostly prototyping, consulting and building up their expertise on the various data stored in user profile directories, and how it can be safely copied during runtime.</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877196">The rest of the ASRouter code</a> has been moved out from New Tab, and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876104">the remaining JSMs were all converted to ESMs</a>.</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li aria-level="1">The <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877174">new off-main-thread Windows Jump List backend is being tested by QA on Nightly right now</a>. So far, no major issues have been found. If all goes well, we’re aiming to let this ride the trains. This should help reduce jank &#8211; especially when the user is running with an HDD or the disk is under load.</li>
+</ul>
+<h4>Screenshots</h4>
+<ul>
+<li aria-level="1">HCM mode improvements <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874380">bug 1874380</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874671">bug 1874671</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874663">bug 1874663</a></li>
+<li aria-level="1">Niklas fixed a rounding issue that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875034">caused screenshots to be blurry</a> when an image location was at a half pixel</li>
+<li aria-level="1">Niklas update the screenshots flow so cancel/escape from the overlay will now go <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873882">back to the initial state</a> instead of exiting</li>
+<li aria-level="1">Niklas added a feature where the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876779">last screenshot method is focused</a>
+<ul>
+<li aria-level="2">If a full page screenshot was copied, then the full page button and the copy button will be focused on the next screenshot.</li>
+<li aria-level="2">This will help improve taking multiple screenshots in a row from the keyboard</li>
+</ul>
+</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Marc has implemented the UX spec for switch to tab across containers @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1871980">1871980</a> and added voice support @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876759">1876759</a> (will be <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876743">enabled in Nightly soon</a>)</li>
+<li aria-level="1">Anna has fixed various accessibility issues around the urlbar, including providing interactive roles to search bar button (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1871980">1871980</a>), fixing TAB behaviour @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874277">1874277</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875654">1875654</a> and various test fixes</li>
+<li aria-level="1">Trending suggestions are now enabled on Bing (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1872409">1872409</a>) for Nightly users.</li>
+<li aria-level="1">Drew fixed the Weather suggestions UI @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878190">1878190</a></li>
+<li aria-level="1">Dao fixed top pick alignment @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876020">1876020</a></li>
+<li aria-level="1">Mandy and Mark have done a lot of work towards search-config-v2 that allows us to share search configuration across desktop and mobile, tracking bug @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833829">1833829</a></li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">Hanna <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874505">fixed a text centering issue in our new infobars in certain case</a></li>
+<li aria-level="1">Hanna <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877416">fixed an issue where the &#8220;installing components&#8221; infobar would appear multiple times</a></li>
+<li aria-level="1">Team is making progress with creating<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850611"> a design tokens JSON source of truth</a>
+<ul>
+<li aria-level="2"><a href="https://github.com/FirefoxUX/gecko-dev/tree/json-design-tokens">Most of this work is happening over on GitHub </a></li>
+</ul>
+</li>
+</ul>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

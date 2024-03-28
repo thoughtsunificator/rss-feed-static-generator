@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Inspector Performance and Other Improvements – These Weeks in Firefox: Issue 155</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Inspector Performance and Other Improvements – These Weeks in Firefox: Issue 155</h2>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/02/26/inspector-performance-and-other-improvements-these-weeks-in-firefox-issue-155/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><h3>Highlights</h3>
+<ul>
+<li aria-level="1">Alex added added a new option to log frame return to the nascent JS Tracer feature (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1852028">bug</a>)
+<ul>
+<li aria-level="2">This can be really useful paired with the &#8220;Log function arguments and returned values&#8221;. See the example below, tracing a Redux reducer on about:home</li>
+<li aria-level="2"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/02/headlines155_0.png" /></li>
+<li aria-level="2">The JS Tracer is a tool that the DevTools team is developing to log JavaScript execution at runtime. This can be very helpful when debugging or exploring a new JavaScript codebase!
+<ul>
+<li aria-level="3">Set devtools.debugger.features.javascript-tracing to true to enable the JS Tracer feature and try it out!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Nicolas fixed a performance issue in the Inspector when showing a lot of rules (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1247751">bug</a>)
+<ul>
+<li aria-level="2">for 5000 rules, on Nicolas’s engineering machine, this went from <b>7 seconds</b> to <b>50 milliseconds!</b></li>
+</ul>
+</li>
+<li aria-level="1">Marco enabled cross-container tab searching in Nightly (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876743">1876743</a>). Users can now search in the URL bar for tabs open in different containers. This behaviour can be controlled through the browser.urlbar.switchTabs.searchAllContainers boolean pref.</li>
+<li aria-level="1">The Firefox View team has added new <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857005">tab indicators</a> to the Open Tabs section (sound playing, notifications, etc) and the option of sorting Open Tabs by recency. Both are slated to ship in Firefox 124!
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/02/headlines155_1.png" /></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1832792%2C1877883%2C1875460%2C1872860%2C1871365%2C1879991%2C1853038&amp;list_id=16907686">Resolved bugs (excluding employees)</a></h4>
+<p><a href="https://github.com/niklasbaumgardner/NewContributorScraper">Script to find new contributors from bug list</a></p>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">Jing Zhu <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1832792">updated RemoteValue deserialization methods</a> to have `serializedValue` as first argument</li>
+<li aria-level="1">Redfire <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879991">updated example in comment</a> on Console.cpp</li>
+<li aria-level="1">🌟 Sho Sugihara <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853038">removed &#8216;get&#8217; from Lit template function names</a> in Shopping</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=681623">Redfire</a> fixed an erroneous comment in Console.cpp (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879991">bug</a>)</li>
+<li aria-level="1">Arai migrated ESMified <a href="https://searchfox.org/mozilla-central/source/devtools/client/performance-new">devtools/client/performance-new</a> JSMs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878457">bug</a>)</li>
+<li aria-level="1">Dylan made the Netmonitor to show resources loaded from a file url (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870580">bug</a>)
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/02/headlines155_2.png" /></li>
+<li aria-level="2"><a href="https://snipboard.io/JZ0lfn.jpg">screenshot</a></li>
+</ul>
+</li>
+<li aria-level="1">Nicolas added an option in the settings panel to control the behavior of the Enter key in the Rules view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878490">bug</a>)
+<ul>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/02/headlines155_3.png" /></li>
+<li aria-level="2"><a href="https://snipboard.io/sRYByf.jpg">screenshot</a></li>
+</ul>
+</li>
+<li aria-level="1">Nicolas started the migration of DevTools to CodeMirror6. The first consumer is the EventTooltip, in the markup view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878605">bug</a>)</li>
+<li aria-level="1">Hubert will manage the migration of the Debugger to the new CodeMirror version, which will happen incrementally behind a pref, until everything is ready (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878644">bug</a>)</li>
+</ul>
+<h5>WebDrive BiDi</h5>
+<ul>
+<li aria-level="1">Thanks to Jing Zhu for updating various deserialization methods in RemoteAgent to match the specifications more closely (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1832792">bug</a>).</li>
+<li aria-level="1">Kagami updated Marionette permissions to handle storage-related permissions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875257">bug</a>).</li>
+<li aria-level="1">Sasha implemented the storage.getCookie command, which allows to retrieve cookies (with support for partitions and filtering) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854580">bug</a>).</li>
+<li aria-level="1">Sasha also implemented the storage.setCookie command to create new cookies (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854582">bug</a>).</li>
+<li aria-level="1">Julian added basic support for two network interception commands network.continueRequest and network.continueResponse (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874206">bug</a>). We also removed the experimental flag gating the various network interception commands (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845345">bug</a>).</li>
+<li aria-level="1">Julian implemented the userContext parameter for browsingContext.create, which allows to set user context (Firefox container) owning a new tab or window (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874918">bug</a>). We added the userContext field to events and payloads describing a browsing context, so that you can check which container owns a given browsing context (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874920">bug</a>).</li>
+<li aria-level="1">Julian fixed a bug for the network.fetchError event which was missing in case a network request failed really early on (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877438">bug</a>).</li>
+<li aria-level="1">Henrik fixed a bug with Get Element Text (WebDriver classic) which could fail when used with web components (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865381">bug</a>).</li>
+</ul>
+<h4>ESMification status</h4>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li aria-level="1">ESMified status:
+<ul>
+<li aria-level="2">browser: <b>100%!</b></li>
+<li aria-level="2">toolkit: 99.83%</li>
+<li aria-level="2">devtools: 89.09%</li>
+<li aria-level="2">dom: 96%</li>
+<li aria-level="2">services: 98.94%</li>
+<li aria-level="2"><b>Only 10 JSMs left in the tree!</b></li>
+<li aria-level="2">Total:  99.34% (+.86% from last week)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li style="list-style-type: none;"></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li style="list-style-type: none;"></li>
+<li aria-level="1">#esmification on Matrix</li>
+<li aria-level="1"><img decoding="async" src="https://blog.nightly.mozilla.org/files/2024/02/headlines155_4.png" /></li>
+</ul>
+<h4>Information Management</h4>
+<ul>
+<li aria-level="1">Firefox View
+<ul>
+<li aria-level="2">More Open Tabs features we’re planning to ship in 125: Pinned Tabs, Bookmark and New Tab pinned Indicators</li>
+</ul>
+</li>
+<li aria-level="1">Session Restore
+<ul>
+<li aria-level="2">Change to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861555">browser.sessionstore.max_windows_undo</a> to change from 3 to 5 as part of incremental improvements this module</li>
+</ul>
+</li>
+</ul>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li aria-level="1">bradwerth has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880558">posted a patch</a> that makes the Picture-in-Picture player window use the native macOS fullscreen mode</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li aria-level="1">Shout out to aosmond who <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877429#c30">landed a patch that resulted in some nice gains in offscreen canvas and webcodecs rendering benchmarks</a>!</li>
+<li aria-level="1">The off-main-thread Windows Jump List implementation got a green sign-off from QA and is <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880082">riding the trains to Firefox 124 beta</a>!</li>
+<li aria-level="1">We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1749345">improved the performance</a> of launching Firefox after installing on a system with a pre-existing user profile with the stub installer</li>
+</ul>
+<h4>Reader Mode</h4>
+<ul>
+<li aria-level="1">Irene landed a patch that fixes Reader Mode losing its scroll position when navigating a link and returning back (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1780350">1780350</a>)</li>
+<li aria-level="1">Irene also implemented an enhancement allowing for Reader Mode paragraph spacing to adjust alongside line-height (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874983">1874983</a>)</li>
+</ul>
+<h4>Screenshots (set screenshots.browser.component.enabled to true)</h4>
+<ul>
+<li aria-level="1">sfoster fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874154">a bug to consistently</a> position the screenshot copied indicator</li>
+<li aria-level="1">niklas updated screenshots so <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1791086">hovering elements within an iframe</a> is now possible</li>
+<li aria-level="1">niklas fixed a bug where the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874026">overlay could draw outside the document</a></li>
+</ul>
+<h4>Search and Navigation</h4>
+<h5>Enhanced Cross-Platform Suggest</h5>
+<ul>
+<li aria-level="1">Drew updated the MDN suggestion code, weather suggestion code and quick suggest config to account for all three of those suggestion types being implemented in Rust (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877595">1877595</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878441">1878441</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878444">1878444</a>)</li>
+<li aria-level="1">Drew finalized the UX for Yelp suggestions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878727">1878727</a>)</li>
+<li aria-level="1">Drew added a “Local recommendations” group label for Yelp suggestions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879397">1879397</a>)</li>
+<li aria-level="1">Drew updated the Yelp desktop suggestions to accommodate certain prefix-matching rules that are applied to what the user types into the urlbar (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879642">1879642</a>)</li>
+<li aria-level="1">Daisuke implemented the result menu for Yelp suggestions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878728">1878728</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879637">1879637</a>)</li>
+<li aria-level="1">Daisuke ensured Yelp suggestions are labeled as “sponsored” (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878814">1878814</a>)</li>
+<li aria-level="1">Daisuke added a Nimbus variable for testing Yelp suggestions as a top pick (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877920">1877920</a>)</li>
+<li aria-level="1">Daisuke allowed Yelp suggestions to pull location information from the Merino service if that Yelp suggestion didn’t already have a location (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878206">1878206</a>)</li>
+</ul>
+<p>&nbsp;</p>
+<h5>Search and SERP (Search Engine Result Page) telemetry</h5>
+<ul>
+<li aria-level="1">James and Stephanie have continued their work on the SERP categorization project (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848197">1848197</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879737">1879737</a>)</li>
+<li aria-level="1">James fixed two issues with how we record SERP telemetry when the SERP is a single page app (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878062">1878062</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879404">1879404</a>)</li>
+</ul>
+<p>&nbsp;</p>
+<h5>Consolidated Search Configuration</h5>
+<ul>
+<li aria-level="1">Mandy fixed an issue where prior search settings were lost when using Amazon as the default search engine in Spain (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878277">1878277</a>)</li>
+</ul>
+<p>&nbsp;</p>
+<h5>General Search Service</h5>
+<ul>
+<li aria-level="1">Standard8 simplified the way the search service loads engines (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879126">1879126</a>)</li>
+</ul>
+<p>&nbsp;</p>
+<h5>General Improvements</h5>
+<p>Karandeep landed the first in a series of patches to remove an ultimately unused API for urlbar experiments (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855958">1855958</a>)</p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

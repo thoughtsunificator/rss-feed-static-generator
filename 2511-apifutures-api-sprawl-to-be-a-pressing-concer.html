@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>APIFutures: API Sprawl to Be a Pressing Concern in 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">APIFutures: API Sprawl to Be a Pressing Concern in 2024</h2>
+		<a target="_blank" href="https://nordicapis.com/api-futures-api-sprawl-to-be-a-pressing-concern-in-2024/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>API reliance is continuing to escalate across the board. And, in some situations, it&#8217;s getting out of hand. A 2021 <a href="https://www.f5.com/pdf/reports/f5-office-of-the-cto-report-continuous-api-sprawl.pdf">F5 report</a> estimated the total number of APIs worldwide (public and private) is approaching 200 million. We&#8217;ve also seen an increased emphasis on <a href="https://nordicapis.com/how-to-build-and-enforce-great-api-governance/">API governance</a> lately, likely due to the need for more standards and oversight in the wake of such sudden API growth.</p>
+<p>86% of developers <a href="https://www.nylas.com/state-of-api-developer-experience/">surveyed by Nylas</a> reported they anticipated their use of APIs to increase. And, in 2023, new threats like Improper Inventory Management and Unsafe Consumption of APIs made the <a href="https://owasp.org/www-project-api-security/">OWASP API Security Top 10</a>. To me, this demonstrates the growth in overall API usage and the fact that organizations aren&#8217;t always keeping an accurate inventory of the APIs they produce and integrate into their applications.</p>
+<p>In the immediate future, I anticipate large organizations running into more API sprawl issues. And in the coming year, addressing API sprawl will become more of a pressing priority for IT leadership. This will likely materialize in the form of more API governance and guardrails around internal API-related operations. Below, I&#8217;ll overview what sprawl is, what software architects should watch out for, and how they can respond.</p>
+<div class="well"><em>This post is part of APIFutures, a community-led, collaborative effort to identify the top challenges and opportunities facing the API economy in 2024. For other perspectives, be sure to read the articles by other authors <a href="https://matthewreinbold.github.io/APIFutures/index.html">listed here</a>.</em></div>
+<a href="https://matthewreinbold.github.io/APIFutures/index.html"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-18622" src="https://nordicapis.com/wp-content/uploads/Partners-banner-dark-1024x140.png" alt="APIFutures" width="1024" height="140" srcset="https://nordicapis.com/wp-content/uploads/Partners-banner-dark-1024x140.png 1024w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-300x41.png 300w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-768x105.png 768w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-240x33.png 240w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-220x30.png 220w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-180x25.png 180w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-150x20.png 150w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-90x12.png 90w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-200x27.png 200w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark-400x55.png 400w, https://nordicapis.com/wp-content/uploads/Partners-banner-dark.png 1100w" sizes="(max-width: 1024px) 100vw, 1024px" /></a>
+<h2 id="api-sprawl-the-what-where-how-and-why">API Sprawl: The What, Where, How, and Why</h2>
+<p>Companies are using more and more APIs. Developers are wrapping APIs over databases, and teams are deploying applications built upon internal microservices. IT is also consuming various public API-based SaaS to avoid reinventing the wheel. They&#8217;re even <a href="https://blog.treblle.com/strategies-for-monetizing-public-apis/">externalizing their own APIs</a> as <a href="https://blog.treblle.com/strategies-for-monetizing-public-apis/">fully-fledged products</a>. In short, the number of APIs a single company manages continues to increase.</p>
+<p>For example, <a href="https://stateofapis.com/">Rapid&#8217;s 2022 State of APIs report</a> found that large companies with 10,000 or more employees tend to have over 250 internal APIs. But, likely due to pressure to deliver code faster, many of these APIs are going undocumented. Alarmingly, only 10% of organizations fully document their APIs, according to a 2023 report from <a href="https://www.scmagazine.com/news/it-organizations-document-apis">Enterprise Management Associates (EMA)</a>. This is a scenario poised for sprawl issues.</p>
+<p>In the context of APIs, I see sprawl as a quick, half-hazard adoption of APIs without following best practices. Overwhelmed with an escalating number of endpoints and juggling all the different versions and support timelines, managing a widening API portfolio becomes increasingly hectic. This can be especially challenging for those who initially thought the API movement was just a passing fad early on and didn&#8217;t bake the right practices into their software development culture for the long run.</p>
+<p>To put it simply:</p>
+<ul>
+<li>If you don&#8217;t know <em>what</em> APIs you have in your portfolio, you may have sprawl.</li>
+<li>If you don&#8217;t know <em>where</em> your APIs exist, you have sprawl.</li>
+<li>If you don&#8217;t know <em>how</em> your APIs are doing, you might have sprawl.</li>
+<li>If you don&#8217;t know <em>why</em> your integrations are breaking, you might have sprawl.</li>
+</ul>
+<h2 id="the-challenges-of-api-sprawl">The Challenges of API Sprawl</h2>
+<p>API sprawl presents several potential challenges for software development groups. For instance, developers may waste time navigating the spaghetti code of intertwined, undocumented services. Or, it may be the harbinger of <a href="https://devops.com/how-to-prevent-zombie-apis/">forgotten zombie APIs</a> that pose security threats. Here are some challenges API sprawl can bring a software organization.</p>
+<h3 id="poor-service-discoverability">Poor Service Discoverability</h3>
+<p>Amid tooling sprawl, the likelihood of having a comprehensive catalog of all your internal services begins to wane. APIs become much less discoverable, hurting internal reusability. A lack of <a href="https://nordicapis.com/api-inventory-navigating-through-invisible-threats/">API inventory management</a> can have dire security repercussions, too, since you can&#8217;t secure what you don&#8217;t know, as they say. Fixing vulnerabilities hinges on knowing what APIs exist and where, and an unmanaged widening surface area becomes stomping grounds for hackers.</p>
+<h3 id="inconsistencies-between-apis">Inconsistencies Between APIs</h3>
+<p>Another outcome of a ballooning API portfolio is contending with <a href="https://nordicapis.com/how-to-test-apis-across-multiple-styles/">disparate protocols and styles</a>. Web APIs, as we know them, have been in development for roughly two decades. Many API design formats have emerged in this timespan, from SOAP to <a href="https://nordicapis.com/the-ten-rest-commandments/">REST</a>, <a href="https://nordicapis.com/6-strategies-for-documenting-webhooks/">webhooks</a>, WebSockets, <a href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/">GraphQL</a>, and <a href="https://nordicapis.com/how-to-write-your-first-asyncapi-specification/">asynchronous protocols</a>.</p>
+<p>These paradigms were leveraged to suit different needs and technology stacks at various times. And, in a large company, developers are likely juggling a combination of both newer and more legacy formats. A lack of guidance around <a href="https://nordicapis.com/11-tips-for-creating-an-api-style-guide/">API style</a> across an API inventory can prevent learnability and inhibit developer experience.</p>
+<h3 id="lack-of-lifecycle-management">Lack of Lifecycle Management</h3>
+<p>APIs evolve, and major versions may alter their structures or request mechanics, causing <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/">breaking changes</a>. Ungoverned API sprawl can produce a situation in which the state of APIs and their versions is not tracked well. Without well-documented <a>versioning and deprecation information</a>, you can have a fractured ecosystem with unclear support timelines.</p>
+<p>At the micro level, the issues caused by API sprawl can lead to a more chaotic software design culture and worsened <a href="https://www.cio.com/article/1255774/is-it-worth-measuring-software-developer-productivity-cios-weigh-in.html">developer productivity</a>. At a macro level, unmitigated sprawl could affect the business by causing broken clients and outages for the end user, equating to a loss of revenue. Security threats stemming from sprawl issues could also lead to costly breaches, harming a business&#8217; reputation and balance sheet.</p>
+<h2 id="opportunities-and-solutions-to-mitigate-api-sprawl">Opportunities And Solutions To Mitigate API Sprawl</h2>
+<p>Okay, that&#8217;s a lot of doom and gloom. So, what are some potential solutions to avoid API sprawl? Well, the vendors will say you need some sort of <a href="https://devops.com/supergraph-one-graphql-schema-to-rule-them-all/">unification layer</a> or <a href="https://nordicapis.com/9-kubernetes-native-api-management-tools/">management platform</a> to contend with API sprawl. While that may be helpful in certain situations, I&#8217;ll focus my advice below on some more general practices to help encourage better API standards across an organization to reduce the adverse effects of sprawl.</p>
+<ul>
+<li><strong>Document your APIs</strong>: Document the APIs you develop and follow <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/">standard documentation guidelines</a>. Include human-readable method descriptions, error messages, and sample code. (Here are <a href="https://nordicapis.com/5-examples-of-excellent-api-documentation/">good examples of API documentation</a>). Assign people to support these APIs. (Documentation generation is one area where <a href="https://devops.com/how-generative-ai-can-streamline-code-documentation/">AI might assist in the near future</a>).</li>
+<li><strong>Keep an active API inventory</strong>: Keep an up-to-date internal developer portal that lists all the APIs your organization maintains and integrates. This may involve continual runtime analysis to generate an active inventory. A spreadsheet is better than no action at all, but ideally, this system is more dynamic. A functional API inventory will help with risk management and compliance, too.</li>
+<li><strong>Have an API style guide</strong>: Centralize API design practices with an <a href="https://nordicapis.com/11-tips-for-creating-an-api-style-guide/">API style guide</a> that outlines common conventions for your organization. You could also lint new APIs against this style guide as they are created.</li>
+<li><strong>Use specification-driven development</strong>: This may still be a dream, even for API-first companies, but <a href="https://nordicapis.com/what-is-specification-driven-api-development/">spec-driven development</a> brings many benefits worth considering. Synchronizing documentation, SDKs, and production implementations with a core OpenAPI specification grants tangible outcomes for API management at scale.</li>
+<li><strong>Automate API governance</strong>: Dedicate personnel to advance API excellence and knowledge-sharing. However, another option is to make API governance self-service when possible. This could be a tool that scans API specs to reveal flaws or automatically catalogs services, for example.</li>
+<li><strong>Check out APIs.json</strong>: <a href="https://apisjson.org/">APIs.json</a> is an interesting machine-readable specification that can help improve the discoverability of API operations and metadata.</li>
+<li><strong>Plan for the long-term</strong>: On the provider side, many APIs are built without a plan for long-term maintenance and eventual retirement. <a href="https://nordicapis.com/how-do-you-treat-an-api-as-a-product/">Treat the service as a product</a>, and set these policies upfront.</li>
+<li><strong>Formalize feedback mechanisms</strong>: To encourage more collaboration, it&#8217;s good to incorporate other developers&#8217; feedback as you iterate new interfaces. Taking this a step further, Google&#8217;s <a href="https://nordicapis.com/api-improvement-proposals-googles-take-on-the-api-style-guide/">API Improvement Proposals</a> is an example of an interesting API design guidance system.</li>
+</ul>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>One on hand, I&#8217;m very excited about the growing momentum around API adoption. And arguably, the <a href="https://www.apifirst.tech/p/ai-and-apis-what-experts-think-the-future-holds">current AI wave</a> will only bring new APIs to the market. However, in 2024, I anticipate more emphasis on responding to the operational logistics of ungoverned API development and integration. Architects will have to deal with sprawl in some form or another.</p>
+<p>2023 was a record year for API breaches. According to a <a href="https://www.businesswire.com/news/home/20230510005193/en/FireTail-API-Security-Report-2023-On-Track-for-Record-Year-Of-API-Breaches">FireTail report</a>, API disclosures within the first two months of 2023 accounted for a potential impact of 49 million records. Inventorizing these APIs will be essential to increase visibility into the widening portfolio and potential threats therein.</p>
+<p>Sprawl rears its ugly head within a large organization with various siloed software development departments and a lack of communication. But, many of these issues <em>can</em> be overcome as API usage scales, with a collaborative culture that follows best practices concerning design, documentation, lifecycle management, and overall knowledge sharing.</p>
+<div class="well"><em>APIFutures is a creator-led initiative that brings together a diverse array of voices from the API community to identify the most significant opportunities and challenges facing the API community in 2024. <a href="https://matthewreinbold.github.io/APIFutures/index.html">Be sure to read the other APIFutures articles here</a>.</em></div>
+<p><em><a href="https://matthewreinbold.github.io/APIFutures/index.html" target="_blank" rel="noopener"><img loading="lazy" decoding="async" class="aligncenter wp-image-18623 size-large" src="https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-1024x256.png" alt="" width="1024" height="256" srcset="https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-1024x256.png 1024w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-300x75.png 300w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-768x192.png 768w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-1536x384.png 1536w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-600x150.png 600w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-240x60.png 240w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-220x55.png 220w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-180x45.png 180w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-150x38.png 150w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-90x23.png 90w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-200x50.png 200w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures-400x100.png 400w, https://nordicapis.com/wp-content/uploads/LinkedIn-personal-profile-APIfutures.png 1584w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></em></p>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

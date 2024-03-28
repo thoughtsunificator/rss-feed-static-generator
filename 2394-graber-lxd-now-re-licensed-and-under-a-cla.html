@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Graber: LXD now re-licensed and under a CLA</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Graber: LXD now re-licensed and under a CLA</h2>
+		<a target="_blank" href="https://lwn.net/Articles/954777/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">
+      The story of Canonical's takeover of the <a
+href="https://github.com/canonical/lxd">LXD container manager</a>, and the
+subsequent creation of the <a
+href="https://linuxcontainers.org/incus/">Incus fork</a>, has been
+simmering for a while.  Now Incus developer Stéphane Graber <a
+href="https://stgraber.org/2023/12/12/lxd-now-re-licensed-and-under-a-cla/">reports</a>
+that Canonical has changed the license and contribution terms for LXD:
+<p>
+<blockquote class="bq">
+	Per the commit message performing the re-licensing, all further
+	contributions will be under the AGPLv3 license and all
+	contributions from Canonical employees have been re-licensed to
+	AGPLv3.
+<p>
+	However, Canonical does not own the copyright on any contribution
+	from non-employees, such as the many changes they have imported
+	from Incus over the past few months. Those therefore remain under
+	the Apache2 license that they were contributed under.
+<p>
+	As a result, Canonical cannot release LXD under the AGPLv3 license
+	and likely never will be able to.  LXD is now under a weird mix of
+	Apache2 and AGPLv3 with no clear metadata indicating what file or
+	what part of each file is under one license or the other.
+</blockquote>
+<p>
+He also notes that this change will put an end to the flow of patches — in
+either direction — between the two projects.
+      
+      </div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

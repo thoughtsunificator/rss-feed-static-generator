@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What’s New in AsyncAPI v3.0?</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">What’s New in AsyncAPI v3.0?</h2>
+		<a target="_blank" href="https://nordicapis.com/whats-new-in-asyncapi-v3-0/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>The idea that all interfaces are APIs, whether RESTful, RPC, message-based, or something else, has been an accepted part of the API economy for many years. Nowhere is this more true than in the messaging world. In that context, AsyncAPI has become a significant feature of the landscape since its creation in 2016.</p>
+<p>For the uninitiated, <a href="https://asyncapi.com">AsyncAPI</a> is an API specification language for message-oriented communication. It has a very similar construct and syntax to <a href="https://openapis.org">OpenAPI</a>, but it implements its own object definitions relevant to describing a message-based API. AsyncAPI has been of interest to us at Nordic APIs since the early days of the specification, featured both on <a href="https://nordicapis.com/?s=AsyncAPI">our blog</a> and at the <a href="https://www.youtube.com/watch?v=jKSZfD66zKM">Nordic APIs Summit</a>.</p>
+<p>In this post, we evaluate <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0">AsyncAPI v3.0</a>, a new major version of the specification. This version promises to deliver valuable enhancements in how API providers describe their message-based APIs. There are several changes, so we are focusing on two &#8220;big ticket&#8221; items: Refactoring Channels and Operations and support for the Request-Reply pattern.</p>
+<h2 id="refactoring-channels-and-operations">Refactoring Channels and Operations</h2>
+<p>The most notable change in AsyncAPI is the refactoring of Channels and Operations with the removal of the <code>publish</code> and <code>subscribe</code> properties from the <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject">Channel Object</a> (previously called Channel Item). These properties are defined as an <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject">Operation Object</a>. In version 2.x, they provided the means to differentiate between messages an API provider &#8220;subscribed to: (i.e., read from a queue) and those they &#8220;published&#8221; (i.e., wrote to a queue). The terms were used as a catchall without reflecting whether a publish-subscribe messaging approach was genuinely being used. They are declared inline and cannot be reused.</p>
+<p>The <code>publish</code> and <code>subscribe</code> properties made sense from a reflection of some messaging topologies but not from the realities of how an API provider described their events and for whom. The terminology describes the actions of the API provider in the messaging infrastructure rather than what the API consumer can do. This arguably made the specification less usable as it appeared not to describe what operations are available to the API consumer. The lack of reuse for Channel Item objects and Operation objects also made <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/">API description documents written in OpenAPI</a> more verbose than necessary.</p>
+<p>For AsyncAPI to succeed, it must accurately reflect what is provided to the API consumer, hence the removal of these properties. Their replacement is a topology-agnostic mechanism that provides the means to describe and reuse operations independent of a channel. It is based on the decoupling of Channel and Operation objects.</p>
+<h2 id="describing-and-reusing-operations">Describing and Reusing Operations</h2>
+<p>The revised approach to specifying Channels and Operations provides five key changes:</p>
+<ol>
+<li>A Channel is defined separately from an Operation.</li>
+<li>A Channel defines <strong>all</strong> the messages that are sent or received at that Channel.</li>
+<li>A Channel is referenced by an Operation.</li>
+<li>An Operation specifies a <strong>subset</strong> of the messages a Channel defines.</li>
+<li>An Operation includes an <code>action</code> property, which can be either <code>send</code> or <code>receive</code>.</li>
+</ol>
+<p>With these changes, the Channel has become the entity that captures information about features of the messaging layer, whereas the Operation captures what a given API consumer &#8220;can do&#8221; with the API. From the perspective of API consumers, this is an important shift as it helps emphasize <strong>use cases</strong> over features of the technical infrastructure.</p>
+<p>Using the examples from the specification, the following is a Channel object, which specifies properties geared towards the technical implementation. For example, it includes parameters, servers, and protocol-specific bindings together with <strong><em>all</em></strong> the message definitions supported by the channel:</p>
+<pre><code class="lang-yaml">addres<span class="hljs-variable">s:</span> <span class="hljs-string">'users.{userId}'</span>
+title: Users channel
+description: This channel <span class="hljs-keyword">is</span> used <span class="hljs-keyword">to</span> exchange <span class="hljs-keyword">messages</span> about user events.
+message<span class="hljs-variable">s:</span>
+  userSignedUp:
+    $ref: <span class="hljs-string">'#/components/messages/userSignedUp'</span>
+  userCompletedOrder:
+    $ref: <span class="hljs-string">'#/components/messages/userCompletedOrder'</span>
+parameter<span class="hljs-variable">s:</span>
+  userId:
+    $ref: <span class="hljs-string">'#/components/parameters/userId'</span>
+server<span class="hljs-variable">s:</span>
+  - $ref: <span class="hljs-string">'#/servers/rabbitmqInProd'</span>
+  - $ref: <span class="hljs-string">'#/servers/rabbitmqInStaging'</span>
+binding<span class="hljs-variable">s:</span>
+  amqp:
+    i<span class="hljs-variable">s:</span> queue
+    queue:
+      exclusive: true
+<span class="hljs-keyword">tag</span><span class="hljs-variable">s:</span>
+  - name: user
+    description: User-related <span class="hljs-keyword">messages</span>
+externalDoc<span class="hljs-variable">s:</span>
+  description: <span class="hljs-string">'Find more info here'</span>
+  ur<span class="hljs-variable">l:</span> <span class="hljs-string">'https://example.com'</span>
+</code></pre>
+<p>In comparison, the Operation object, defined with a suitable object name, identifies something that can be invoked on this channel, and only the <strong><em>specific</em></strong> channel messages that are used, identified using a <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject">Reference Object</a>:</p>
+<pre><code class="lang-yaml"><span class="hljs-string">title:</span> User sign up
+<span class="hljs-string">summary:</span> Action to sign a user up.
+<span class="hljs-string">description:</span> A longer description
+<span class="hljs-string">channel:</span>
+<span class="hljs-symbol">  $ref:</span> <span class="hljs-string">'#/channels/userSignup'</span>
+<span class="hljs-string">action:</span> send
+<span class="hljs-string">security:</span>
+  - <span class="hljs-string">petstore_auth:</span>
+    - <span class="hljs-string">write:</span>pets
+    - <span class="hljs-string">read:</span>pets
+<span class="hljs-string">tags:</span>
+  - <span class="hljs-string">name:</span> user
+  - <span class="hljs-string">name:</span> signup
+  - <span class="hljs-string">name:</span> register
+<span class="hljs-string">bindings:</span>
+<span class="hljs-symbol">  amqp:</span>
+<span class="hljs-symbol">    ack:</span> <span class="hljs-literal">false</span>
+<span class="hljs-string">traits:</span>
+  - <span class="hljs-string">$ref:</span> <span class="hljs-string">"#/components/operationTraits/kafka"</span>
+<span class="hljs-string">messages:</span>
+  - <span class="hljs-string">$ref:</span> <span class="hljs-string">'#/components/messages/userSignedUp'</span>
+<span class="hljs-string">reply:</span>
+<span class="hljs-symbol">  address:</span>
+<span class="hljs-symbol">    location:</span> <span class="hljs-string">'$message.header#/replyTo'</span>
+<span class="hljs-symbol">  channel:</span>
+<span class="hljs-symbol">    $ref:</span> <span class="hljs-string">'#/channels/userSignupReply'</span>
+<span class="hljs-symbol">  messages:</span>
+    - <span class="hljs-string">$ref:</span> <span class="hljs-string">'#/components/messages/userSignedUpReply'</span>
+</code></pre>
+<p>You&#8217;ll note there are properties in the Operation object example above that reflect the technical implementation. However, it is primarily focused on making operations easier for API providers to define and simpler for API consumers. This reuse of objects will also make API description documents written in AsyncAPI much less verbose.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-write-your-first-asyncapi-specification/">How to Write Your First AsyncAPI Specification</a></div>
+<h2 id="supporting-the-request-reply-pattern">Supporting the Request-Reply Pattern</h2>
+<p>The other notable enhancement to AsyncAPI v3.0 is formal support for the Request-Reply pattern, an extremely common messaging pattern. Many will be familiar with the Request-Reply pattern from <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Enterprise Integration Patterns</a> by Hophe and Wolf. Being an architectural pattern, this obviously provides a generalized view of how a client might submit a request and expect a response to that request, using either <a href="https://nordicapis.com/the-differences-between-synchronous-and-asynchronous-apis/">synchronous or asynchronous</a> behaviors to await a complete response or an acknowledgment that work is ongoing.</p>
+<p>The Request part of this pattern is obviously represented by a <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject">Message Object</a> as referenced by an Operation Object. AsyncAPI v3.0 introduces the <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject">Operation Reply Object</a> to the Operation Object, allowing API providers to specify how the Reply queue can be resolved by an API consumer.</p>
+<p>Again, taking an example from the v3.0 specification:</p>
+<pre><code class="lang-yaml"><span class="hljs-symbol">description:</span> Consumer Inbox
+<span class="hljs-symbol">location:</span> $message.header<span class="hljs-meta">#/replyTo</span>
+</code></pre>
+<p>The API provider indicates to the API consumer that the reply queue value can be retrieved from the message header <code>replyTo</code>. The object implements a <a href="https://www.asyncapi.com/docs/reference/specification/v3.0.0#runtimeExpression">Runtime Expression</a>, meaning the value can be set in the environment rather than being statically provided in an API description document. This obviously makes the document, and therefore the interface, much less brittle and allows deployments to different environments to be implemented without affecting the shape of the API.</p>
+<p>The use of runtime expressions is common across <a href="https://spec.openapis.org/oas/latest.html#runtimeExpression">OpenAPI</a> and AsyncAPI, and it&#8217;s worth making the point that this approach is a boost for the flexibility of API description documents generally. Providing indicators that can be resolved at runtime — supported by appropriate tooling — means API providers can specify required behaviors rather than static values. This reduces brittleness and increases the chance that a given version of an API is supported for longer.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/6-asyncapi-validation-tools/">6 AsyncAPI Validation Tools</a></div>
+<h2 id="final-thoughts-trade-offs-in-using-asyncapi-v3-0">Final Thoughts: Trade-Offs In Using AsyncAPI v3.0</h2>
+<p>For the vast majority of users, the developments in AsyncAPI v3.0 will be welcome ones. The simplification of specifying operations without the baggage of using <code>publish</code> and <code>subscribe</code> properties makes the specification easier to comprehend. Decoupling Channels and Operations makes Channels reusable across Operations and simplifies the declaration of an Operation. Establishing the Request-Reply semantics also significantly benefits implementers of this pervasive asynchronous pattern.</p>
+<p>These changes also have the potential for AsyncAPI to become widely used as a feature of enterprise integration. The ability to reuse objects more readily is enhanced by the fact that they can be sourced from both internal type definitions and externally from remote definitions. Allowing API producers to reuse definitions sourced from, for example, an enterprise-wide API repository provides critical information for purposes of API governance. Moreover, API providers can readily understand the impacts of change when they amend their API description documents written in AsyncAPI.</p>
+<p>AsyncAPI, therefore, has the potential to be of significant benefit in the messaging landscape. With buy-in from tooling makers and vendors, it could become the spine of API governance in the enterprise messaging ecosystem.</p>
+<div class="well">As stated, we&#8217;ve focused on two key areas in our post. For a complete overview of updates in AsyncAPI 3.0.0, read <a href="https://www.asyncapi.com/blog/release-notes-3.0.0">the official release notes</a>. For a comprehensive overview of migrating from AsyncAPI 2.x to AsyncAPI 3.0, read the <a href="https://www.asyncapi.com/docs/migration/migrating-to-v3">official migration guide</a> from AsyncAPI.</div>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

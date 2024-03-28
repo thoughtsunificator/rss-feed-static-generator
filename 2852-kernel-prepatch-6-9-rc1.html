@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Kernel prepatch 6.9-rc1</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">Kernel prepatch 6.9-rc1</h2>
+		<a target="_blank" href="https://lwn.net/Articles/966525/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">The <a href="https://lwn.net/Articles/966524/">6.9-rc1</a> kernel prepatch is out for
+testing.  Linus Torvalds described some rather large updates to the core
+kernel code that are coming for 6.9:
+
+<blockquote class="bq">
+The timer subsystem had a fairly big rewrite, to have per-cpu timer
+wheels to improve performance of timers, which can be a big deal
+particularly for networking. The other fairly notable core update is
+to the workqueue subsystem, where one notable addition is for BH
+workqueue support. That's notable mainly because it means we finally
+have a way away from tasklets. The tasklet interface has basically
+been deprecated for a long while, but we've never really had any good
+alternatives (with threaded interrupt handlers being one suggested
+use-case, but not realistic in many cases).
+</blockquote></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] An alternate pattern-matching conditional for Elisp</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">[$] An alternate pattern-matching conditional for Elisp</h2>
+		<a target="_blank" href="https://lwn.net/Articles/961682/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+		<div style="white-space: break-spaces;font-size: 20px;">One of the outcomes of the (extremely) lengthy discussion about using
+Common Lisp features in Emacs Lisp (Elisp), which we <a
+href="https://lwn.net/Articles/951090/">looked at</a> back in November, was an effort to
+start removing some of those uses from Emacs.  The rewrite of some of the
+Elisp in Emacs that uses the Common Lisp library (cl-lib) was <a
+href="https://lwn.net/ml/emacs-devel/E1qvq5s-0003LC-O6@fencepost.gnu.org/">started by
+Richard Stallman</a> as a way to reduce the cognitive load needed for
+maintaining Emacs itself.  Since then, he has broadened his efforts to
+simplify Elisp by adding a new <a
+href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Pattern_002dMatching-Conditional.html">pattern-matching
+conditional</a> that would be a competitor to <a
+href="https://www.gnu.org/software/emacs/manual/html_node/elisp/pcase-Macro.html"><tt>pcase</tt></a>,
+which is a longstanding macro that he finds overly complex.
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>

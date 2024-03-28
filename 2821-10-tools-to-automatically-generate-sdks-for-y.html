@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10+ Tools To Automatically Generate SDKs for Your API</title>
+		<link rel="icon" href="favicon.png" />
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			padding: 0  20px;
+		}
+		main img, main video {
+			max-width: 100%;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h2 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<div style="display: flex;place-items: center;flex-wrap: wrap;">
+		<h2 style="flex-grow: 1">10+ Tools To Automatically Generate SDKs for Your API</h2>
+		<a target="_blank" href="https://nordicapis.com/10-tools-to-automatically-generate-sdks-for-your-api/">Go to feed URL</a>
+		</div>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+		<div style="white-space: break-spaces;font-size: 20px;"><p>APIs are meant to be consumed, and this consumption often needs some sort of framework to be truly successful. Accordingly, creating strong software development kits (SDKs) is a great way to guide the implementation of your API. Below, we&#8217;ll look at a handful of tools to automatically <a href="https://nordicapis.com/how-sdks-benefit-api-developer-experience/">generate SDKs</a> for your API. These tools can automatically create SDKs from a specification, like <a href="https://nordicapis.com/your-guide-to-openapi/">OpenAPI Specification</a> (formerly Swagger).</p>
+<h2 id="apimatic">APIMatic</h2>
+<p><a href="https://www.apimatic.io/">APIMatic</a> brands itself as a &#8220;developer experience platform,&#8221; which is a great summary of exactly what it is — a collection of tools and systems designed to provide support throughout the developer experience cycle. It offers an end-to-end support structure for automatically building and maintaining SDKs.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>APIMatic is an entire platform focused on developer experience. This means you can get the benefit of a platform without the added weight of API management tools you may not need.</li>
+<li>Pretty big names have used APIMatic to create public SDKs, providing good examples of what the product is capable of.</li>
+<li>The tool offers a powerful integration set for various management and documentation systems. It plays nice with other options, languages, and specification formats, which mitigates vendor lock-in.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>All of this said, APIMatic&#8217;s niche focus means that providers looking for something more complete might be better served with an all-in-one platform.</li>
+</ul>
+<h2 id="appwrite-s-sdk-generator">Appwrite&#8217;s SDK Generator</h2>
+<p><a href="https://github.com/appwrite/sdk-generator">Appwrite</a> is a backend-as-a-service platform focused on providing high-quality developer experience. Appwrite&#8217;s SDK generator is an in-development PHP library for generating SDK libraries utilizing <a href="https://twig.symfony.com/">Twig</a> templates across multiple languages, platforms, and specifications.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>This SDK generator is part of a collection of other tools and systems offered by Appwrite, representing a &#8220;one-stop shop&#8221; for its users.</li>
+<li>Twig templates allow for substantial compression during compilation, meaning the entire process is highly optimized.</li>
+<li>Appwrite is focused on mobile and web development, and this library supports Flutter, Kotlin, Swift, and more.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>While Appwrite is relatively mature, this SDK generator is currently in-development, meaning it is not quite ready for general use.</li>
+<li>The focus on mobile and web development could be limiting for long-term use by desktop developers.</li>
+</ul>
+<h2 id="fern">Fern</h2>
+<p><a href="https://buildwithfern.com/">Fern</a> is an open-source solution for generating SDKs from REST APIs. Notably, Fern utilizes a compiler to bundle functions, allowing for the creation of SDKs, documentation, and backend code from a single API definition. It also automatically creates a documentation website from these definitions, which is a pretty sleek and polished way to present this content to your developer users.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Fern bundles multiple functions into a single process, making for quite rapid and effective development and deployment.</li>
+<li>It&#8217;s a gorgeous tool — everything is a bit glossy and well-put-together, which gives a nice air of professionalism to documentation.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Fern focuses on a <a href="https://nordicapis.com/using-a-schema-first-design-as-your-single-source-of-truth/">schema-first approach</a>. This might be a struggle for API teams using a different paradigm.</li>
+<li>The tool does generation well, but it&#8217;s not a full-service toolset like some other options on this list. For that reason, developers looking for a more <a href="https://nordicapis.com/9-api-lifecycle-management-platforms/">full-lifecycle centered featureset</a> may want to look elsewhere.</li>
+</ul>
+<h2 id="konfig">Kiota</h2>
+<p><a href="https://github.com/microsoft/kiota">Kiota</a> is a strongly typed command-line solution based on the Microsoft.OpenAPI.NET library. It&#8217;s different from others on this list due to its unique design—whereas many SDK creation tools use templates, Kiota generates a language-agnostic code model from the OpenAPI specification. This allows for rapid and low-friction SDK generation, but it also introduces some limitations to how you use the tool.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Because of its use of a code model, Kiota can avoid many of the drawbacks of a template-driven generation system, reducing complexity in the generation process.</li>
+<li>Kiota introduces some limitations to its libraries and code model that ensure substantial consistency across different codebases. This is a huge positive when it comes to SDK generation, as consistent SDKs mean consistent iteration and developer experience.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Kiota&#8217;s approach is extremely fast, but it&#8217;s really only designed for OpenAPI scenarios. The documentation notes this limitation, acknowledging it&#8217;s not intended to provide a comprehensive code model for any arbitrary code.</li>
+</ul>
+<h2 id="konfig">Konfig</h2>
+<p><a href="https://konfigthis.com/">Konfig</a> is an SDK generation service that leverages OpenAPI Specifications and Postman Collections to generate and publish. Long-term management of these SDKs is automated through Konfig&#8217;s GitHub App, allowing for continual revisions as the internal code updates.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Konfig offers a feature set that makes for easy demo and tutorial creation. Code can be run in-browser in-documentation, meaning these resources can be actively interacted and engaged with.</li>
+<li><a href="https://konfigthis.com/docs/portal/tutorials/configuring-your-github-repository/">Automatic updates</a> are baked into the product, meaning you can keep a tightly coupled source of truth in the mix.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Konfig does not have as much history or as broad a user base, so it still needs some time to prove itself before becoming a ubiquitous provider.</li>
+<li>Konfig is not a larger platform, and it really only focuses on this use case. Developers needing a more complete offering might need to look elsewhere.</li>
+</ul>
+<h2 id="-liblab-https-liblab-com-">Liblab</h2>
+<p><a href="https://liblab.com/">Liblab</a> is an SDK automator with a pretty solid sales pitch — full automation through generation, release, and management. While this would be a solid selling point alone, the addition of <a href="https://developers.liblab.com/reference/language-support/">broad language support</a> means that Liblab can be a support superstructure for a wide variety of use cases.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Full-lifecycle management for generation and management is a strong selling point, offering a &#8220;white glove service&#8221; to developers.</li>
+<li>Liblab offers SOC 2 compliance as a core offering in its generator, making it easy to get started and get compliant.</li>
+<li>Liblab has a solid free developer and open-source offering that most developers would find fits their use case. There is also a &#8220;Professional&#8221; end-to-end service model on offer.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Not all APIs need a complete service from generation to maintenance, and as such, Liblab might be too much of a good thing for some use cases.</li>
+</ul>
+<h2 id="openapi-generator">OpenAPI Generator</h2>
+<p><a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a> is an open-source project that uses OpenAPI definitions to generate SDKs as well as accompanying documentation and configuration data. OpenAPI Generator is a fork of the Swagger Codegen project but has grown to support a wide variety of API clients, languages, and frameworks, and is <a href="https://opencollective.com/openapi_generator">backed by</a> some pretty heavy hitters in the industry.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>OpenAPI has become very common in the industry, and the generator is a first-party iteration for SDK development. This makes it relatively low-stress to implement.</li>
+<li>OpenAPI Generator is backed by many people, with a large mindshare of developers contributing to its success.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>There is a little friction between OpenAPI Generator and Swagger Codegen development, and it&#8217;s yet to be seen which solution will ultimately win out in terms of ubiquity and utility.</li>
+</ul>
+<h2 id="readme-io-api">README.io/API</h2>
+<p><a href="https://github.com/readmeio/api">README</a>, a solution for creating and deploying interactive hubs for developers, has iterated upon this product with its API library. This library creates SDKs from an OpenAPI definition, fetching definitions and caching them for processing.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>This is a relatively lightweight and efficient implementation, so developers can get started with very low friction.</li>
+<li>Because of how README is built, deploying the tool is super quick and easy, amounting to a simple <a href="https://api.readme.dev/docs/getting-started">import</a>.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>This tool <a href="https://api.readme.dev/docs/faq">does not support Swagger 2.0 definitions</a>, so for developers using Swagger, another tool should be chosen. The library also does not support multi-authentication flows on single requests. For more complex authentication framework designs, this is a poor choice.</li>
+<li>This solution creates &#8220;opinionated SDKs&#8221; wherein the optimal design paradigm and pathway have been predetermined. However, not all APIs need to be that opinionated, and this can lead to some SDKs making stronger statements about use than the initial developer intended.</li>
+</ul>
+<div class="well">Also read: <a href="https://nordicapis.com/10-best-practices-for-sdk-generation/">10 Best Practices For SDK Generation</a></div>
+<h2 id="-restunited-https-restunited-com-">RESTUnited</h2>
+<p><a href="https://restunited.com/" target="_blank" rel="noopener">RESTUnited</a> is a powerful tool for creating SDKs in a variety of languages. It currently supports PHP, Python, Ruby, ActionScript, C#, Android, Objective-C, Scala, and Java. RESTUnited offers automated building through a five-step process in which developers provide some basic information (endpoint methods, request formats, and others), which is then automatically tested, verified, and released.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>RESTUnited supports many languages, broadening the utility to a wider range of end users.</li>
+<li>The documentation is highly customizable, giving developers greater control over the end product.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>RESTUnited is obviously focused on RESTful APIs, making it a poor choice for non-REST implementations that may need SDKs.</li>
+<li>The subscription model for RESTUnited is a set amount per endpoint per month. While this model might work for some projects, it might be expensive for particularly complex projects that leverage microservices and have many endpoints.</li>
+</ul>
+<h2 id="speakeasy">Speakeasy</h2>
+<p><a href="https://www.speakeasyapi.dev/">Speakeasy</a> is more of a platform than a mere SDK tool. While SDK creation is certainly part of its offerings, it also offers a variety of tools geared towards long-term maintenance, auditing, review, and iteration. Its SDK tool supports more than eight languages and integrates well with GitHub for automatic release and maintenance.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Speakeasy offers many tools with very little friction to adopt, making it a solid choice for API developers looking for a toolkit.</li>
+<li>The tool leverages AI pretty effectively, offering quick and efficient iteration and deployment.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Speakeasy is a platform first and an SDK tool second. Accordingly, buying into its SDK offering also requires buying into a bit of kit. This might feel a bit bloated if you don&#8217;t need the rest of the features on offer.</li>
+</ul>
+<h2 id="stainless">Stainless</h2>
+<p><a href="https://www.stainlessapi.com/">Stainless</a> is an SDK generator leveraging OpenAPI to create complete and useful documentation. It leverages internal libraries to standardize and define core functions and operations within API specifications to iterate during generation, resulting in a more complete, robust, and higher-quality output. Stainless also automated these updates through GitHub actions and equivalent version management operations.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Stainless does a lot of the heavy lifting for corrections and iterations. Its documentation notes that your definitions don&#8217;t have to be perfect — Stainless can course correct and polish it all!</li>
+<li>Stainless does offer some customization through fine-tuning options and features.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>The idea that Stainless can perfectly fix issues with the codebase makes some pretty strong assumptions. While it does offer some customization for what it refers to as &#8220;bespoke&#8221; SDKs, some developers may find their custom code quickly adds more manual effort to what should be an automated process.</li>
+</ul>
+<h2 id="swagger-codegen">Swagger Codegen</h2>
+<p><a href="https://swagger.io/tools/swagger-codegen/">Swagger Codegen</a> is a template-driven SDK and documentation system offered by SmartBear. It generates SDKs, documentation, and code stubs (both client and server) from OpenAPI definitions, making it an excellent tool for multi-definition format systems. Notably, it was forked in recent years into the OpenAPI Generator.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Swagger Codegen supports both OpenAPI and Swagger, making it a solid choice for a wide swath of the developer base by virtue of how popular those tools are.</li>
+<li>The generation of code stubs for both clients and servers allows for very rapid iteration and deployment.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Much of the velocity behind development for Swagger Codegen has moved to the OpenAPI Generator project. While Swagger Codegen still has a dedicated community, OpenAPI Generator, its fork, has seen more rapid development in recent years.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>This list is not exhaustive. There are almost as many SDK automation tools as APIs to use them! Nonetheless, any of these tools are strong options for API developers looking to generate their SDKs automatically.</p>
+<p>Did we miss any strong contenders? Let us know in the comments below!</p>
+<div class="well"><em>A message to vendors: we do not add products to our lists upon request. However, we do update our articles occasionally. Please leave a comment at the end of the article, and we will consider the tools mentioned there when we update this list.</em></div>
+</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+	</body>
+</html>
