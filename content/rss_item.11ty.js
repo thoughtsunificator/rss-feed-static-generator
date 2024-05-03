@@ -10,11 +10,9 @@ exports.data = {
 
 exports.render = function(data) {
 	return `
-		<div style="display: flex;place-items: center;flex-wrap: wrap;">
 		<h2 style="flex-grow: 1">${data.rssItem.title}</h2>
-		<a target="_blank" href="${data.rssItem.url}">Go to feed URL</a>
-		</div>
+		<div style="width: 50vw;background-color: #131313;padding: 20px;margin: 20px;">${data.rssItem.content}</div>
+		<a target="_blank" href="${data.rssItem.url}">Go to article URL</a>
 		<div>Feed URL: ${new URL(data.rssItem.feedurl)}</div>
-		<div style="white-space: break-spaces;font-size: 20px;">${data.rssItem.content}</div>
 	`
 }
