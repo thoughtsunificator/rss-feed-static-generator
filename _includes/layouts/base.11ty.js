@@ -20,9 +20,10 @@ exports.render = function(data) {
 			height: 100vh;
 			grid-template-rows: auto 1fr auto;
 			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+			justify-content: center;
 		}
 		main {
-			padding: 0  20px;
+			width: 50vw;
 		}
 		main img, main video {
 			max-width: 100%;
@@ -39,7 +40,7 @@ exports.render = function(data) {
 		@media (prefers-color-scheme: dark) {
 			body { background-color: #2d2d2d; color: white; }
 			a { color: #6eaec8; }
-			.feed-entry h2 a:visited { color: gray; }
+			.feed-entry h3 a:visited { color: gray; }
 		}
 		</style>
 	</head>

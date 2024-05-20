@@ -14,9 +14,9 @@ exports.render = function(data) {
 	const virtualDOM = new JSDOM()
 	const { document } = virtualDOM.window
 	return `
-		<h2>${data.tag.title}</h2>
+		<h3>${data.tag.title}</h3>
 		${data.tag.items.map((rssItem, index) => {
-			const h2 = document.createElement("h2")
+			const h3 = document.createElement("h3")
 			const anchor = document.createElement("a")
 			anchor.textContent = rssItem.title
 			if(rssItem.tags.includes("external")) {
@@ -25,8 +25,8 @@ exports.render = function(data) {
 			} else {
 				anchor.href = `/${rssItem.getSlug.call(this)}.html`
 			}
-			h2.appendChild(anchor)
-			return `${h2.outerHTML}`
+			h3.appendChild(anchor)
+			return `${h3.outerHTML}`
 		}).join("")}
 
 	`

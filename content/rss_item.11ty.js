@@ -10,8 +10,8 @@ exports.data = {
 
 exports.render = function(data) {
 	return `
-		<h2 style="flex-grow: 1">${data.rssItem.title}</h2>
-		<div style="width: 50vw;background-color: #131313;padding: 20px;margin: 20px;">${data.rssItem.content}</div>
+		<h3 style="flex-grow: 1">${data.rssItem.title}</h3>
+		<div style="background-color: #131313;padding: 20px;margin: 20px;">${data.rssItem.content}</div>
 		<a target="_blank" href="${data.rssItem.url}">Go to article URL</a>
 		<div>Feed URL: ${new URL(data.rssItem.feedurl)}</div>
 	`

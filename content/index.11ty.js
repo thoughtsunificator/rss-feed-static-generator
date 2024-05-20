@@ -22,18 +22,22 @@ exports.render = function(data) {
 	return `
 		<style>
 			.feed-entry {
-				display: flex;
+				display: grid;
 				align-items: center;
-				column-gap: 20px;
-				flex-wrap: wrap;
+				padding: 15px;
 			}
 
-			.feed-entry h2 {
+
+		.feed-entry:nth-child(odd) {
+			background-color: #343434;
+		}
+
+			.feed-entry h3 {
 				flex-grow: 1;
 			}
 		</style>
 		${data.feed.items.filter(rssItem => !rssItem.tags.find(tag => data.tagIndexBlacklist.includes(tag))).map(rssItem => {
-			const h2 = document.createElement("h2")
+			const h3 = document.createElement("h3")
 			const anchor = document.createElement("a")
 			anchor.textContent = rssItem.title
 			if(rssItem.tags.includes("external")) {
@@ -42,12 +46,13 @@ exports.render = function(data) {
 			} else {
 				anchor.href = `/${rssItem.getSlug.call(this)}.html`
 			}
-			h2.appendChild(anchor)
+			h3.appendChild(anchor)
 			return `
-			<div class="feed-entry">${h2.outerHTML}
+			<div class="feed-entry">
+			<div><span>${getRelativeTime(new Date(rssItem.pubDate * 1000).getTime())}</span></div>
 				<small>${new URL(rssItem.feedurl)}</small>
-				<div><span>${getRelativeTime(new Date(rssItem.pubDate * 1000).getTime())}</span></div>
-				<div>${rssItem.tags.map(tag => ` <a href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
+				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="color: #f7ff00"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
+				${h3.outerHTML}
 			</div>`
 		}).join("")}
 		`;
