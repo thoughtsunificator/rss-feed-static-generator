@@ -27,6 +27,10 @@ exports.render = function(data) {
 		}
 		main img, main video {
 			max-width: 100%;
+			height: auto;
+		}
+		pre {
+			white-space: normal;
 		}
 		footer {
 			padding-top: 20px;
