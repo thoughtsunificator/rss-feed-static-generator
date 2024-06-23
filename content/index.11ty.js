@@ -70,7 +70,7 @@ exports.render = function(data) {
 
 		}).join("")}
 		<nav style="display: flex; gap: 10px; flex-flow: wrap">
-			${[...Array(data.pagination.items.length).keys()].map(function(item) {
+			${[...Array(data.pagination.pages.length).keys()].map(function(item) {
 				if(data.pagination.pageNumber === item) {
 					return `<b>Page ${item + 1}</b>`;
 				} else  if(item > 0) {
