@@ -10,7 +10,7 @@ exports.data = {
 	},
 	permalink: function(data) {
 		if(data.pagination.pageNumber > 0) {
-			return `index-${data.pagination.pageNumber}.html`
+			return `index-${data.pagination.pageNumber + 1}.html`
 		}
 		else {
 			return "index.html"
@@ -74,7 +74,7 @@ exports.render = function(data) {
 				if(data.pagination.pageNumber === item) {
 					return `<b>Page ${item + 1}</b>`;
 				} else  if(item > 0) {
-					return `<a href="/index-${item}.html">Page ${item + 1}</a>`;
+					return `<a href="/index-${item + 1}.html">Page ${item + 1}</a>`;
 				} else {
 					return `<a href="/index.html">Page ${item + 1}</a>`;
 				}
