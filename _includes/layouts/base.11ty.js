@@ -12,6 +12,7 @@ exports.render = function(data) {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>${ pageTitle || data.metadata.title }</title>
 		<link rel="icon" href="favicon.png" />
+		<link href="https://unpkg.com/prismjs@v1.x/themes/prism-okaidia.css" rel="stylesheet" />
 		<style>
 		body {
 			margin: 5px;
@@ -23,14 +24,15 @@ exports.render = function(data) {
 			justify-content: center;
 		}
 		main {
+			word-break: break-word;
 			width: 50vw;
 		}
 		main img, main video {
 			max-width: 100%;
 			height: auto;
 		}
-		pre {
-			white-space: normal;
+		code, pre {
+			white-space: break-spaces !important;
 		}
 		footer {
 			padding-top: 20px;
@@ -55,6 +57,8 @@ exports.render = function(data) {
 		</nav>
 		<main>${data.content}</main>
 		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="https://unpkg.com/prismjs@v1.x/components/prism-core.min.js"></script>
+		<script src="https://unpkg.com/prismjs@v1.x/plugins/autoloader/prism-autoloader.min.js"></script>
 	</body>
 </html>`
 }

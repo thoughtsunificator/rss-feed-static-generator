@@ -1,3 +1,6 @@
+const { JSDOM } = require("jsdom")
+const Prism = require('prismjs');
+
 exports.data = {
 	layout: "layouts/base.11ty.js",
 	pagination: {
@@ -9,9 +12,30 @@ exports.data = {
 }
 
 exports.render = function(data) {
+	const virtualDOM = new JSDOM()
+	const { document } = virtualDOM.window
+	document.body.innerHTML = data.rssItem.content
+	const treeWalker = document.createTreeWalker(
+		document.body,
+		0x1,
+	)
+	const nodesToRemoves = []
+	while (treeWalker.nextNode()) {
+		const node = treeWalker.currentNode;
+		node.removeAttribute("style")
+		if(["script","style", "iframe", "embed", "object", "img"].includes(node.tagName.toLowerCase())) {
+			nodesToRemoves.push(node)
+		} else if(node.tagName === "A") {
+			node.setAttribute("rel", "noreferrer")
+			node.setAttribute("target", "_blank")
+		}
+	}
+	for(const nodesToRemove of nodesToRemoves.slice()) {
+		nodesToRemove.remove()
+	}
 	return `
 		<h3 style="flex-grow: 1">${data.rssItem.title}</h3>
-		<div style="background-color: #131313;padding: 20px;margin: 20px;">${data.rssItem.content}</div>
+		<div style="background-color: #131313;padding: 20px;margin: 20px;">${document.body.innerHTML}</div>
 		<a target="_blank" href="${data.rssItem.url}">Go to article URL</a>
 		<div>Feed URL: ${new URL(data.rssItem.feedurl)}</div>
 	`
