@@ -2,7 +2,20 @@ const { JSDOM } = require("jsdom")
 
 exports.data = {
 	layout: "layouts/base.11ty.js",
-	permalink: "index.html"
+	// permalink: "index.html",
+	pagination: {
+		data: "feed.items",
+		size: 15,
+		alias: "feedItems"
+	},
+	permalink: function(data) {
+		if(data.pagination.pageNumber > 0) {
+			return `index-${data.pagination.pageNumber}.html`
+		}
+		else {
+			return "index.html"
+		}
+	}
 }
 
 
@@ -36,7 +49,7 @@ exports.render = function(data) {
 				flex-grow: 1;
 			}
 		</style>
-		${data.feed.items.filter(rssItem => !rssItem.tags.find(tag => data.tagIndexBlacklist.includes(tag))).map(rssItem => {
+		${data.feedItems.filter(rssItem => !rssItem.tags.find(tag => data.tagIndexBlacklist.includes(tag))).map(rssItem => {
 			const h3 = document.createElement("h3")
 			const anchor = document.createElement("a")
 			anchor.textContent = rssItem.title
@@ -54,6 +67,19 @@ exports.render = function(data) {
 				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="color: #f7ff00"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 				${h3.outerHTML}
 			</div>`
+
 		}).join("")}
+		<nav style="display: flex; gap: 10px; flex-flow: wrap">
+			${[...Array(data.pagination.items.length).keys()].map(function(item) {
+				if(data.pagination.pageNumber === item) {
+					return `<b>Page ${item + 1}</b>`;
+				} else  if(item > 0) {
+					return `<a href="/index-${item}.html">Page ${item + 1}</a>`;
+				} else {
+					return `<a href="/index.html">Page ${item + 1}</a>`;
+				}
+				}).join("")
+			}
+		</nav>
 		`;
 };

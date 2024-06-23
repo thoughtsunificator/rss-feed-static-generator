@@ -3,7 +3,7 @@ require('dotenv').config()
 module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({
 		"./public/": "/",
-	});
+	})
 	return {
 		templateFormats: [
 			"11ty.js",
