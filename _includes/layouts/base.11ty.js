@@ -25,7 +25,6 @@ exports.render = function(data) {
 		}
 		main {
 			word-break: break-word;
-			width: 50vw;
 		}
 		main img, main video {
 			max-width: 100%;
