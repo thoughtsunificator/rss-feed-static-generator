@@ -34,16 +34,6 @@ exports.render = function(data) {
 	const { document } = virtualDOM.window
 	return `
 		<style>
-			.feed-entry {
-				display: grid;
-				align-items: center;
-				padding: 15px;
-			}
-
-
-		.feed-entry:nth-child(odd) {
-			background-color: #343434;
-		}
 
 			.feed-entry h3 {
 				flex-grow: 1;
@@ -64,7 +54,7 @@ exports.render = function(data) {
 			<div class="feed-entry">
 			<div><span>${getRelativeTime(new Date(rssItem.pubDate * 1000).getTime())}</span></div>
 				<small>${new URL(rssItem.feedurl)}</small>
-				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="color: #f7ff00"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
+				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 				${h3.outerHTML}
 			</div>`
 
