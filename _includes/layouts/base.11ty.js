@@ -21,7 +21,6 @@ exports.render = function(data) {
 			height: 100vh;
 			grid-template-rows: auto 1fr auto;
 			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
-			justify-content: center;
 		}
 		main {
 			word-break: break-word;
