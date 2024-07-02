@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Wall to Wall Improvements – These Weeks in Firefox: Issue 159</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Wall to Wall Improvements – These Weeks in Firefox: Issue 159</h3>
+		<div><h3>Highlights</h3>
+<ul>
+<li>The team is in the early stages of adding wallpaper support! This is still very preliminary, but you can test what they’ve currently landed on Nightly:
+<ul>
+<li>Set <code>browser.newtabpage.activity-stream.newtabWallpapers.enabled</code> to true in about:config</li>
+<li>Click on the “gear” icon in the top-right of the new tab page</li>
+<li>Choose a wallpaper! Note that you get different options depending on whether or not you’re using a light or dark theme.</li>
+</ul>
+</li>
+</ul>
+<div id="attachment_1616" class="wp-caption aligncenter"><p id="caption-attachment-1616" class="wp-caption-text">Set a new look for new tabs!</p></div>
+<ul>
+<li>Among other things, Firefox 125 is going to ship with support for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" rel="noreferrer" target="_blank">Popover Web API</a>
+<ul>
+<li>This should make it easier to create dropdown / popup menus without doing so much management with JavaScript. <a href="https://mdn.github.io/dom-examples/popover-api/" rel="noreferrer" target="_blank">Here are some demos</a>.</li>
+</ul>
+</li>
+<li>Niklas <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864038" rel="noreferrer" target="_blank">added keyboard shortcuts</a> for copying and downloading a screenshot in the Screenshots tool
+<ul>
+<li>The keyboard shortcuts work in the overlay and in the preview window
+<ul>
+<li><code>ctrl/cmd + c</code> to copy the screenshot</li>
+<li><code>ctrl/cmd + s</code> to download/save the screenshot</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Nicolas fixed some <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886818" rel="noreferrer" target="_blank">performance</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886947" rel="noreferrer" target="_blank">issues</a> in the Rules view in the Firefox DevTools Inspector tab when there are <b>a lot</b> of rules with pseudo elements. For example, with 1500 pseudo elements, what was taking <b>3 seconds</b> on a developer machine now only takes <b>~30ms! </b>These fixes are slated to go out in Firefox 126.</li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1356686" rel="noreferrer" target="_blank">jesup moved brotli decompression fully off of the main thread.</a> This has shown major wins in the wild – <a href="https://glam.telemetry.mozilla.org/firefox/probe/perf_first_contentful_paint_from_responsestart_ms/explore?currentPage=1&amp;os=Windows&amp;ref=20240318110542&amp;visiblePercentiles=%5B99.9%2C99%2C95%2C75%2C50%2C25%2C5%5D" rel="noreferrer" target="_blank">we’re seeing a 10% improvement for FirstContentfulPaint</a> pretty much across the board, and a <a href="https://glam.telemetry.mozilla.org/firefox/probe/perf_largest_contentful_paint_from_response_start_ms/explore?currentPage=1&amp;os=Windows&amp;ref=20240319215652" rel="noreferrer" target="_blank">10% improvement on LargestContentfulPaint</a> at the 50% percentile, 20% at the 75% percentile and 95%(!) at the 95% percentile. Nice! This improvement is rolling out in Firefox 126.</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<div>
+<div>
+<h4 id="m_2704358428833711463gmail-docs-internal-guid-ef3a8f36-7fff-eb59-ec7a-5ab8df1d7e62" dir="ltr">Introductions/Shout-Outs</h4>
+<ul>
+<li>Shoutout to Yi Xiong Wong for submitting <strong>16 patches</strong> to refactor a bunch of <code>browser.js</code> code into a separate file (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880914" target="_blank" rel="noreferrer">bug</a>)</li>
+</ul>
+</div>
+</div>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1856717%2C1888221%2C1887529%2C1887821%2C1889710%2C1887543%2C1886858%2C1838152%2C1883058%2C1876286%2C1880914" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li>Camille</li>
+<li>Magnus Melin [:mkmelin]</li>
+<li>Meera Murthy</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li>🌟 Camille added <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856717" rel="noreferrer" target="_blank">`text-align: start` to moz-message-bar</a> so it doesn’t inherit alignment from parent and updated <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883058" rel="noreferrer" target="_blank">moz-toggle to only show active state</a> when hovering</li>
+<li>gravyant <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838152" rel="noreferrer" target="_blank">improved error message</a> when sending session.new without capabilities</li>
+<li>🌟 Harshit <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888221" rel="noreferrer" target="_blank">replaced `validateURL`</a> with `URL.parse()`</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtension APIs</h5>
+<ul>
+<li>As part of the ongoing work related to improving cross-browser compatibility for Manifest Version 3 extensions:
+<ul>
+<li>The <code>options_page</code> manifest property is supported as an alias of <code>options_page.ui</code> – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1816960" rel="noreferrer" target="_blank">Bug 1816960</a></li>
+<li>A new <code>webRequestAuthProvider</code> permission allows extensions to register&nbsp; webRequest.onAuthRequired blocking listeners (in addition to the <code>webRequestBlocking</code> permission, which is deprecated on Chrome but still supported by Firefox) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1820569" rel="noreferrer" target="_blank">Bug 1820569</a></li>
+<li><code>commands.onCommand</code> listeners now receive details of the currently active tab – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843866" rel="noreferrer" target="_blank">Bug 1843866</a></li>
+<li>WebExtensions with a granted active tab permission can now call <code>tabs.captureVisibleTab</code> API method without any additional host permissions – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1784920" rel="noreferrer" target="_blank">Bug 1784920</a></li>
+<li>MessageSender details received by <code>runtime.onMessage/runtime.onConnect</code> listeners include a new <code>origin</code> property – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1787379" rel="noreferrer" target="_blank">Bug 1787379</a></li>
+</ul>
+</li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li>Artem Manushenkov added a setting to disable the split console (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1731635" rel="noreferrer" target="_blank">#1731635</a>)</li>
+<li>Yury added support for <a href="https://github.com/WebAssembly/exception-handling/" rel="noreferrer" target="_blank">Wasm exception handling proposal</a> in the Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885589" rel="noreferrer" target="_blank">#1885589</a>)</li>
+<li>Emilio fixed a rendering issue that could happen after exiting Responsive Design Mode (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888242" rel="noreferrer" target="_blank">#1888242</a>)</li>
+<li>Alex migrated the last DevTools JSMs to ESMs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1789981" rel="noreferrer" target="_blank">#1789981</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1827382" rel="noreferrer" target="_blank">#1827382</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888171" rel="noreferrer" target="_blank">#1888171</a>)</li>
+<li>Nicolas improved performance of the Inspector when modifying a single rule, in a stylesheet with a lot of rules (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888079" rel="noreferrer" target="_blank">#1888079</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888081" rel="noreferrer" target="_blank">#1888081</a>)</li>
+<li>Nicolas improved the Rules view by showing the color picker button on color functions using CSS variables in their definition (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1718894" rel="noreferrer" target="_blank">#1718894</a>)</li>
+<li>Bomsy fixed a crash in the netmonitor (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884571" rel="noreferrer" target="_blank">#1884571</a>)</li>
+<li>Julian reverted the location of DevTools screenshots on OSX to match where Firefox screenshots are saved (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845037" rel="noreferrer" target="_blank">#1845037</a>)</li>
+<li>Nicolas added <code>@property</code> rules (enabled on Nightly by default) in the Style Editor sidebar (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886392" rel="noreferrer" target="_blank">#1886392</a>)</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li>New contributor: <a href="https://bugzilla.mozilla.org/user_profile?user_id=752453" rel="noreferrer" target="_blank">:gravyant</a> improved the error message when the session.new command is used without a proper capabilities parameter (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838152" rel="noreferrer" target="_blank">#1838152</a>)</li>
+<li><a href="https://bugzilla.mozilla.org/user_profile?user_id=559949" rel="noreferrer" target="_blank">Julian Descottes</a> added support for the <code>contexts</code> argument of the network.addIntercept command which allows to restrict a network intercept to a set of top-level browsing contexts (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1882260" rel="noreferrer" target="_blank">#1882260</a>)</li>
+<li><a href="https://bugzilla.mozilla.org/user_profile?user_id=704132" rel="noreferrer" target="_blank">Sasha Borovova</a> updated the <code>storage.getCookies</code> command to return third party cookies selectively, based on the value of the network.cookie.cookieBehavior and <code>network.cookie.cookieBehavior.optInPartitioning</code> preferences (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879503" rel="noreferrer" target="_blank">#1879503</a>)</li>
+<li><a href="https://bugzilla.mozilla.org/user_profile?user_id=704132" rel="noreferrer" target="_blank">Sasha Borovova</a> removed the <code>ownership</code> and <code>sandbox</code> parameters for the <code>browsingContext.locateNodes</code> command to align with a recent specification update (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884935" rel="noreferrer" target="_blank">#1884935</a>)</li>
+<li><a href="https://bugzilla.mozilla.org/user_profile?user_id=704132" rel="noreferrer" target="_blank">Sasha Borovova</a> updated the <code>session.subscribe</code> and <code>session.unsubscribe</code> commands to throw an error when the events or contexts parameters are empty arrays (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1887871" rel="noreferrer" target="_blank">#1887871</a>)</li>
+<li>The team completed the Milestone 10 of the project (<a href="https://bugzilla.mozilla.org/buglist.cgi?f5=status_whiteboard&amp;f4=short_desc&amp;f1=classification&amp;query_format=advanced&amp;list_id=16990273&amp;v1=Graveyard&amp;f6=CP&amp;o5=substring&amp;bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=RESOLVED&amp;bug_status=VERIFIED&amp;bug_status=CLOSED&amp;j3=OR&amp;f7=CP&amp;o4=substring&amp;v5=webdriver%3Am10%5D&amp;f3=OP&amp;v4=webdriver%3Am10%5D&amp;o1=notequals&amp;f2=OP" rel="noreferrer" target="_blank">bug list</a>), where we implemented 50% of the commands needed to completely support Puppeteer, with 75% of the Puppeteer unit-tests passing with WebDriver BiDi. For Milestone 11 (<a href="https://bugzilla.mozilla.org/buglist.cgi?quicksearch=%5Bwebdriver%3Am11&amp;list_id=16990274" rel="noreferrer" target="_blank">bug list</a>), our focus remains to implement the remaining commands and features required to fully support Puppeteer (<a href="https://docs.google.com/document/d/1dDl1038bCehxUEot-21_bn_zn8uRCidjpXZ0SxwU-Ng/edit" rel="noreferrer" target="_blank">doc</a>).</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li>Enabling ESLint rules for requiring JSDocs just got easier.
+<ul>
+<li>The rules are <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1799465" rel="noreferrer" target="_blank">now enabled by default</a>.</li>
+<li>Places where there are currently failures are <a href="https://searchfox.org/mozilla-central/rev/77f8c66362e5f18f8e7cbaf1ba3ed6286f203d33/.eslintrc.js#631-797" rel="noreferrer" target="_blank">explicitly disabled</a> in the top-level .eslintrc.js file.</li>
+<li>Please consider enabling these (and the valid-jsdoc ones) on your area, especially if you are using (or will be using) <a href="https://firefox-source-docs.mozilla.org/tools/moztreedocs/jsdoc-support.html" rel="noreferrer" target="_blank">JSDoc document generation</a> for source docs.</li>
+</ul>
+</li>
+<li>eslint-plugin-mozilla <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890330" rel="noreferrer" target="_blank">now supports ESLint v9 APIs</a>.
+<ul>
+<li>We still have some work to complete to fully support the new flat configuration.</li>
+</ul>
+</li>
+<li>We’re now rejecting the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889087" rel="noreferrer" target="_blank">JSM based ChromeUtils.import across the tree</a> via ESLint.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li>Negin <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889703" rel="noreferrer" target="_blank">fixed an issue</a> where the migration wizard title wasn’t appearing when embedded in about:welcome</li>
+<li>Negin is working on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886362" rel="noreferrer" target="_blank">fixing an issue on about:welcome</a> where clicking on the browser/profile selector when the panel is already open doesn’t close the panel.</li>
+<li>For the backup project, we’ve made some pretty big strides!
+<ul>
+<li>We closed out <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883503" rel="noreferrer" target="_blank">the measurement metabug</a>, and have the measurements <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886174" rel="noreferrer" target="_blank">being collected by default</a> starting in Firefox 126.</li>
+<li>We’re now staging backups for various resources
+<ul>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885939" rel="noreferrer" target="_blank">User preferences</a></li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885609" rel="noreferrer" target="_blank">The Places databases (history, bookmarks, favicons)</a></li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885929" rel="noreferrer" target="_blank">Credentials (passwords, certificates, payment methods, addresses)</a></li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885944" rel="noreferrer" target="_blank">A bunch of miscellaneous data stores</a></li>
+</ul>
+</li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888491" rel="noreferrer" target="_blank">We added a very simple debug tool</a> in Nightly at <code>chrome://browser/content/backup/debug.html</code>. You can test staging a backup at runtime with what we have so far using this tool. It may take several minutes depending on how big your databases are, and how intensely you’re using the browser while the backup is underway.</li>
+</ul>
+</li>
+</ul>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li>Thanks to :joe.scott.webster for submitting a patch that fixes PiP captions issues with several Yahoo sites (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1825105" rel="noreferrer" target="_blank">bug</a>) and filing a follow-up ticket for AOL (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1891599" rel="noreferrer" target="_blank">bug</a>).
+<ul>
+<li>Also thanks to Niklas Baumgardner (:niklas) for lending a hand!</li>
+</ul>
+</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li>mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879136" rel="noreferrer" target="_blank">got rid of some nsTerminator telemetry that was causing us to block shutting down the browser if a quit was requested very soon after a startup.</a></li>
+</ul>
+<h4>Screenshots (enabled by default in Nightly)</h4>
+<ul>
+<li>Niklas made the save full page the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886843" rel="noreferrer" target="_blank">primary action button</a>
+<ul>
+<li>Thanks reusable components for moz-button-group!</li>
+</ul>
+</li>
+<li>Niklas fixed an issue where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889438" rel="noreferrer" target="_blank">dragging the scrollbar could drag a region</a></li>
+<li>Niklas fixed an issue where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889473" rel="noreferrer" target="_blank">the window would sometimes scroll</a> when focusing the download or copy button</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li>Firefox Suggest experience
+<ul>
+<li>Daisuke renamed the “Learn More about Firefox Suggest” menuitem to a more direct “Manage Firefox Suggest”. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889820" rel="noreferrer" target="_blank">Bug 1889820</a></li>
+<li>Drew added new telemetry to measure in experiments the potential exposure of simulated results, depending on the typed search string. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881875" rel="noreferrer" target="_blank">Bug 1881875</a></li>
+</ul>
+</li>
+<li>SERP categorization telemetry
+<ul>
+<li>James, Stephanie and Karandeep have landed many fixes to the storage, logging and measurements.</li>
+</ul>
+</li>
+<li>Search Config v2
+<ul>
+<li>Enabling new config in Nightly lowered the number of initialization errors for the Search Service</li>
+<li>Mark fixed character-set handling. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890698" rel="noreferrer" target="_blank">Bug 1890698</a></li>
+<li>Mark added a new property covering the device type. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889910" rel="noreferrer" target="_blank">Bug 1889910</a></li>
+<li>Mandy sorted collections by engine identifier and property names, to make the config more easily navigable and diffs nicer and easier to maintain. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889247" rel="noreferrer" target="_blank">Bug 1889247</a></li>
+<li>Mandy updated the <a href="https://firefox-source-docs.mozilla.org/toolkit/search/index.html" rel="noreferrer" target="_blank">documentation</a>. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889037" rel="noreferrer" target="_blank">Bug 1889037</a></li>
+</ul>
+</li>
+<li>Other fixes
+<ul>
+<li>Marco fixed a bug causing engagement on certain results to be registered both as engagement and abandonment. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888627" rel="noreferrer" target="_blank">Bug 1888627</a></li>
+<li>Dao has fixed alignment of “switch to tab” and “visit” chiclets. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886761" rel="noreferrer" target="_blank">Bug 1886761</a></li>
+</ul>
+</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li>Thanks to Camille Davis for fixing these two bugs!
+<ul>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856717" rel="noreferrer" target="_blank">Bug 1856717 – Set ‘text-align: start’ on ‘:host’ in moz-message-bar.css</a></li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883058" rel="noreferrer" target="_blank">Bug 1883058 – moz-toggle should only show active state on hover</a></li>
+</ul>
+</li>
+<li>Thanks to :nordzilla for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886276" rel="noreferrer" target="_blank">fixing a race condition in menulist</a></li>
+<li>Thanks to :kcochrane for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883091" rel="noreferrer" target="_blank">adding documentation to moz-page-nav</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877826" rel="noreferrer" target="_blank">adding support for external and support links in moz-page-nav</a></li>
+<li>:hjones <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890433" rel="noreferrer" target="_blank">fixed the interactive storybook component examples on Windows</a></li>
+<li>:tgiles <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889469" rel="noreferrer" target="_blank">fixed the ./mach addstory command</a></li>
+<li>Work is underway to remove the <code>window.ensureCustomElements</code> function now that we can lazy load ES modules. See <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1803678" rel="noreferrer" target="_blank">Bug 1803678 – Enable on-demand/lazy loading for ESModule based reusable components</a> for more details
+<ul>
+<li>Big thanks to :arai for the work to make this possible! <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1803810" rel="noreferrer" target="_blank">Bug 1803810 – Support synchronously loading ESMs into given global, in the same way as Services.scriptloader.loadSubScript</a></li>
+</ul>
+</li>
+</ul>
+</div>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/04/23/wall-to-wall-improvements-these-weeks-in-firefox-issue-159/">Go to article URL</a>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

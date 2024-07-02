@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open Source AI Definition – Weekly update June 10</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Open Source AI Definition – Weekly update June 10</h3>
+		<div>
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351" rel="noreferrer" target="_blank">Open Source AI needs to require data to be viable</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>With many different discussions happening at once, here are the main points:
+<ul class="wp-block-list">
+<li><strong>On the issue of training data </strong>
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">@mark</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/21?u=mia" rel="noreferrer" target="_blank">is concerned</a> with openness of AI not being meaningful if there is not a focus on the training data.” Model weights are the most inscrutable component of current generative AI, and providers that release only [the weights] should not get a free ‘openness’ pass.”</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">stefano</a> agrees with all of that but questions the criteria used to assign green marks in <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/13?u=mia" rel="noreferrer" target="_blank">Mark’s paper</a>, pointing out inconsistencies. They use the example of Pythia-Chat-Base-7, which relies on a dataset from OpenDataHub with potential issues like non-versioned data and stale links, failing to meet stringent requirements required by @<a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">juliaferraioli</a>. Similar concerns are raised for other models like OLMo 7B Instruct, which lack specific data versioning details. Maffulli also highlights the case of Pythia-7B, which once may have been compliant but it’s now problematic due to the unavailability of its foundational dataset, the Pile, illustrating the complexities in maintaining an “open source” status over time, if the stringent proposal suggested by @<a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">juliaferraioli</a> and the AWS team is adopted.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/shujisado" rel="noreferrer" target="_blank">shujisado</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/30?u=mia" rel="noreferrer" target="_blank">adds </a>that while he sympathizes with @<a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">juliaferraioli</a>‘s request for datasets, @<a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">stefano</a>‘s arguments in support of the concept of “Data information” are aligned with the OSI principles and are reasonable.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/spotaws" rel="noreferrer" target="_blank">spotaws</a> stresses that “data information” alone is insufficient if the data itself is too vague. </li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">juliaferraioli</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/33?u=mia" rel="noreferrer" target="_blank">adds that</a> while replicating AI systems like OLMo or Pythia may seem impractical due to costs and statistical nature, the capability is crucial for broader adoption and consistency.&nbsp; She finds the current definition to be unclear and subjective.</li>
+
+
+
+<li>@<a class="" href="https://discuss.opensource.org/u/zack" rel="noreferrer" target="_blank">zack</a> recommends to review StarCoder2, recognizing that it would be in the same category of BLOOM: a system with lots of transparency and a dataset made available but released with a restrictive license.</li>
+
+
+
+<li>@<a class="" href="https://discuss.opensource.org/u/Ezequiel_Lanza" rel="noreferrer" target="_blank">Ezequiel_Lanza</a> joined the conversation in support of the concept of Data information, <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/40?u=stefano" rel="noreferrer" target="_blank">claiming</a>, with technical arguments that “sharing the dataset is not necessarily required and may not justify the potential risks associated with making it mandatory.”</li>
+
+
+
+<li><strong>Partially open / restrictive licenses</strong>
+<ul class="wp-block-list">
+<li>Continuing @<a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">marks</a> points regarding restrictive licenses (like the ethical licenses), <a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">@stefano</a> has <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/18?u=mia" rel="noreferrer" target="_blank">added a link</a> to an article highlighting some reasons why OSI is staying away from these licenses.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/pchestek" rel="noreferrer" target="_blank">pchestek</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/23?u=mia" rel="noreferrer" target="_blank">further adds</a> that a partially open license would create even more opportunities for open washing, as “open source AI” could have many meanings.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">mark</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/24?u=mia" rel="noreferrer" target="_blank">clarified</a> that rather than proposing a variety of meanings, they are seeking to highlight the dimensions of openness in their paper, exploring the broader landscape.&nbsp;</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">stefano</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/26?u=mia" rel="noreferrer" target="_blank">adds</a> that in the 26 years of OSI, it has contended with numerous organizations claiming varying degrees of openness as “open source. This issue is now mirrored in AI, as companies seek the market value of being labeled Open Source. Open Source is binary: either users have full rights or they don’t, and any system that falls short is not Open Source AI, regardless of how “almost” open it is.</li>
+</ul>
+</li>
+
+
+
+<li><strong>Field of use/restriction&nbsp;</strong>
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">@juliaferraioli</a> believes that OSAID should include prohibitions against field-of-use restrictions.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/shujisado" rel="noreferrer" target="_blank">shujisado</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/19?u=mia" rel="noreferrer" target="_blank">adds</a> that OSAID specifies four freedoms as requirements for being considered open source and that this should be understood as the same since “freedom” is the same as “non-restricted”. The 10 clauses of the OSD have been replaced by the checklist in draft v0.0.8.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">juliaferraioli</a> adds that individual components may be covered by their individual licenses, but the overall system may be subject to additional terms, which is why we need this to be explicit.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368" rel="noreferrer" target="_blank">Initial Report on Definition Validation</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>@<a href="https://discuss.opensource.org/u/Mer" rel="noreferrer" target="_blank">Mer</a> <a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368/6?u=mia" rel="noreferrer" target="_blank">has added</a> how far we are regarding our system analysis compared to our current draft definition. Some points that remain incomplete have been highlighted.</li>
+
+
+
+<li>Mistral (Mixtral 8x7B) <a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368/9?u=mia" rel="noreferrer" target="_blank">is considered not in alignment</a> with the OSAID because its data pre-processing code is not released under an OSI-approved license.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/can-a-derivative-of-non-open-source-ai-be-considered-open-source-ai/345" rel="noreferrer" target="_blank">Can a derivative of non-open-source AI be considered Open Source AI?</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>@<a href="https://discuss.opensource.org/u/tarek_ziade" rel="noreferrer" target="_blank">tarek_ziade</a> <a href="https://discuss.opensource.org/t/can-a-derivative-of-non-open-source-ai-be-considered-open-source-ai/345/12?u=mia" rel="noreferrer" target="_blank">shares </a>his experience fine-tuning a “small” model (200M parameters) for a Firefox feature to describe images, using a base model for image encoding and text decoding. Despite not having 100% traceability of upstream data, Tarek argues that intentional fine-tuning and transparency make the new fine-tuned model open source. Any issues arising from downstream data can be addressed by the project maintainers, maintaining the model’s open source status.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/open-source-ai-definition-town-hall-may-31-2024/369" rel="noreferrer" target="_blank">Town hall recording out</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>We held our 10th town hall meeting a week and a half ago. You can access the recording <a href="https://discuss.opensource.org/t/open-source-ai-definition-town-hall-may-31-2024/369/3?u=mia" rel="noreferrer" target="_blank">here</a> if you missed it.</li>
+
+
+
+<li>A new town hall meeting is scheduled for this <a href="https://opensource.org/events/open-source-ai-definition-town-hall-2024-06-14" rel="noreferrer" target="_blank">Friday, June 14</a>.</li>
+</ul>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/open-source-ai-definition-weekly-update-june-10">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

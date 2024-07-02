@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Better support for locally-attached-memory tiering</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Better support for locally-attached-memory tiering</h3>
+		<div>The term "memory tiering" refers to the management of memory placement on
+systems with multiple types of memory, each of which has its own
+performance characteristics.  On such systems, poor placement can lead to
+significantly worse performance.  A memory-management-track discussion at
+the <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">2024 Linux Storage,
+Filesystem, Memory Management, and BPF Summit</a> took yet another look at
+tiering challenges with a focus on upcoming technologies that may simplify
+(or complicate) the picture.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/974126/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Improving Documentation With An AI Chatbot</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Improving Documentation With An AI Chatbot</h3>
+		<div><p>In the past, we’ve written plenty about creating good documentation. From creating support resources to <a href="https://nordicapis.com/creating-support-resources-to-improve-developer-experience/" rel="noreferrer" target="_blank">improve developer experience</a> through to <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/" rel="noreferrer" target="_blank">tips for writing API documentation</a>, it’s a practice we’re always looking for ways to improve upon.</p>
+<p>So, apparently, is Plaid’s <a href="https://nordicapis.com/speakers/todd-kerpelman/" rel="noreferrer" target="_blank">Todd Kerpelman</a> and his platypus friend, Bill.</p>
+<p>We know how that last sentence looks, but we haven’t gone full surrealist on you. Bill is an AI chatbot that Kerpelman and his team built to consume and improve the Plaid developer documentation. Now, you might be thinking, “Do we really need AI for this? Does it have to be <em>everywhere</em>?”</p>
+<p>At our <a href="https://nordicapis.com/events/austin-api-summit-2024/" rel="noreferrer" target="_blank">2024 Austin API Summit</a>, Kerpelman joined us to answer these very questions. And, in fact, the advantages Bill offers create a compelling argument for thinking outside of the box with AI for areas like <a href="https://nordicapis.com/why-documentation-is-important-for-api-security/" rel="noreferrer" target="_blank">API documentation and security</a>.</p>
+<p>Below, we’ll look at how to deploy an AI chatbot in conjunction with your documentation and the tangible benefits that doing so can offer. We’ll also point out some of the security considerations and the decisions around the underlying tech you’ll need to face.</p>
+<div class="well">This article was inspired by Todd Kerpelman’s talk ‘How I Built Bill, the AI-Powered Chatbot That Reads Our Docs for Fun’ given at the 2024 Austin API Summit.<div class="responsive-iframe-container"></div></div>
+<h2>The Birth of Bill</h2>
+<p>First things first, why was a chatbot needed here? The answer is pretty simple: Plaid is a Fintech platform that provides a range of solutions, from account verification and payments through to open finance and credit underwriting, in one place. In other words? It does a lot.</p>
+<p>And when platforms or APIs do a lot, the extensive documentation associated with them is often extremely dense and difficult to navigate. With Bill, Kerpelman and his team aimed to draw on the demonstrable advantages of GenAI chatbots to create a conversational agent.</p>
+
+<p>Like so many other great projects do, Bill started life as a hackathon project. To teach Bill about Plaid, the team took their public documentation, YouTube tutorial transcripts, help center articles, implementation PDF guides, and more, broke it down, and fed it to Bill v1.0.</p>
+<p>In other words, this was a much bigger undertaking than just cloning, say, a ChatGPT chatbot…</p>
+<h2>Using APIs to Train AI Chatbots?</h2>
+<p>Kerpelman describes how his team used an embeddings model to, in a nutshell, condense and break down monolithic information to be stored in a vector database. OpenAI has their own Embeddings API, but there are various open source embeddings models out there to consider.</p>
+<p>He describes how questions posed to Bill are then run through the same embeddings API used on their documentation and help center articles. Bill then returns text, i.e., pieces of documentation associated with that question.</p>
+
+<p>But Kerpelman also acknowledges that you could skip… well, almost all of the above by purchasing an <a href="https://zapier.com/blog/best-ai-chatbot/" rel="noreferrer" target="_blank">off-the-shelf AI chatbot solution</a>. Going that route means a faster time to market and less manual maintenance required, but it’s more expensive and you don’t have as much control. So why build an AI chatbot using APIs?</p>
+<p>“We have a solution that right now is probably a little better because it’s very customized,” says Kerpelman. “We’re able to do some custom work that we maybe couldn’t have done with a third party.” Customization isn’t the only advantage of <a href="https://nordicapis.com/15-intelligent-chatbot-apis/" rel="noreferrer" target="_blank">using APIs to train your own chatbots</a>…</p>
+<p>“You get to learn about LLMs,” Kerpelman says. “I don’t think AI is going away, and being able to build something in-house is nice. You have more of that knowledge internalized, so when other problems involving AI come up, you have an idea of how you’d approach them.”</p>
+<p>He does, however, acknowledge that third-party solutions with dedicated engineering teams will catch up with (and potentially overtake) Bill in a year or two, which may facilitate a switch. In the meantime, it’s important to remember that evaluating the quality of a bot like Bill, and improving its output, is an iterative process that you’ll need to keep an eye on.</p>
+<h2>Benefits, Security, and Other Considerations</h2>
+<p>A significant advantage of this approach is that it will help you identify errors or missing information in your documentation. GenAI chatbots have a reputation for favoring suggestions that don’t work over giving no reply at all, and identifying incorrect or nonsensical output (yourself or via user feedback) can help you figure out changes you need to make to your docs.</p>
+<p>Regarding that documentation and sample code, you may need to make tweaks to help things along. Kerpelman describes, for example, how the Plaid team has experimented with adding “verbose descriptions” of what functions do and extra documentation information to documentation that would be redundant to humans but could be beneficial for the model.</p>
+<p>Thus far, he reports more sample code being returned by Bill but mixed results regarding parsing documentation… another reminder that this process is very much an iterative one.</p>
+
+<p>There are some pretty serious security concerns to consider when building a chatbot, too. Kerpelman recommends: “Assume that any information you’ve fed to your chatbot could be seen verbatim by your customer.” That could be particularly relevant for information about pricing, vulnerabilities, or shortcomings of your platform.</p>
+<p>Developers should try to mitigate jailbreaking and other forms of exploitation. Kerpelman highlights this through the example of consumers using a Chevrolet of Watsonville chatbot to access ChatGPT’s services for free. (Who needs to pay for OpenAI when Chevy has you covered?)</p>
+<p>Kerpelman suggests two precautions: <a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/" rel="noreferrer" target="_blank">rate limiting</a> — just in case a vulnerability in your bot ends up on the front page of Reddit — and making it very clear that your users are talking to a bot. The idea here is that they’ll take a more forgiving view on incorrect responses and, ideally, share them with you so you can figure out ways to improve.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/comparing-top-ai-code-assistants-a-comprehensive-review/" rel="noreferrer" target="_blank">Comparing Top AI Code Assistants: A Comprehensive Review</a></div>
+<h2 id="is-ai-the-future-of-developer-documentation-">Is AI the Future of Developer Documentation?</h2>
+<p>So, does all this mean you never need to write documentation again? Or that you can safely fire your entire support team and outsource to an army of Bills? In a word, no.</p>
+<p>In this case, the term “<a href="https://nordicapis.com/how-to-design-robust-generative-ai-apis/" rel="noreferrer" target="_blank">generative AI</a>” could feel a bit misleading. Although Bill is certainly generating responses, he’s not generating “answers” — he’s only able to respond effectively because he’s been trained on a ton of documentation and other supporting information.</p>
+<p>Then again, from pet projects like <a href="https://github.com/ingig/code-narrator" rel="noreferrer" target="_blank">Code-Narrator</a> to larger endeavors like <a href="https://www.theneo.io/" rel="noreferrer" target="_blank">Theneo</a>, people are making legitimate attempts to automate the production of documentation using AI. Is the future a world where AI chatbots are trained on AI-generated documentation while you sit back and relax?</p>
+<p>Maybe, but we’re not there yet.</p>
+<p>Larger organizations, especially those operating in sensitive spaces like banking or healthcare, will likely be unable to surrender all of the necessary information to generate AI tools or trust those tools to create coherent documentation and help articles.</p>
+<p>Even companies that are more eager to automate may find that the need to review content for errors, edit, and so on undermines the advantages of using AI in the first place. To put it another way, support agents and <a href="https://nordicapis.com/why-technical-writers-are-important-for-apis/" rel="noreferrer" target="_blank">documentation writers</a> will live to see another day… for now, at least.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/improving-documentation-with-an-ai-chatbot/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

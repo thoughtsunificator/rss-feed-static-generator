@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Try out your website in the spatial web</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Try out your website in the spatial web</h3>
+		<div><p>Now that visionOS 2 is announced, it’s a great time to ensure your website works in Safari in visionOS. For the most part, there’s nothing special you need to do for the spatial web. It’s truly Safari, with the same WebKit engine and its extensive support for web standards.</p>
+<p>You can see how Safari in visionOS works by watching the Apple Vision Pro introduction at the <a href="https://developer.apple.com/videos/play/wwdc2023/101/?time=4851" rel="noreferrer" target="_blank">WWDC23 Keynote</a> or the session <a href="https://developer.apple.com/videos/play/wwdc2023/10279/" rel="noreferrer" target="_blank">Meet Safari for spatial computing</a>. If you don’t have your own Apple Vision Pro, and you want to experience what it’s like in person, you can book a free demo of Apple Vision Pro at your <a href="https://www.apple.com/retail/" rel="noreferrer" target="_blank">local Apple Store</a> (in available regions).</p>
+<p>Let’s take a look at how to use Safari’s suite of developer tools to test, inspect, and debug your site. First, you’ll learn how to use Safari developer tools with the visionOS simulator. Then, you’ll get a walkthrough of pairing Safari and Web Inspector on your Mac with Apple Vision Pro. These instructions work with for visionOS 1.2 and visionOS 2 so you can debug even if you do not have an Apple developer account.</p>
+<hr>
+<h2><a name="develop-with-the-visionos-simulator" rel="noreferrer" target="_blank"></a>Develop with the visionOS simulator</h2>
+<p>The Mac is a powerful machine — powerful enough to run macOS, iOS, watchOS, tvOS, visionOS, and iPadOS at the same time. It’s here where app developers work on their apps, write code, and test their code in the appropriate Simulator.</p>
+<figure></figure>
+<p>You can test the website you are building in Safari inside Simulator on macOS. This lets you develop the site on your Mac, using your full development environment, with your favorite IDE, Terminal, and more. When you’re ready to test, use Web Inspector on Mac to inspect web pages running in its simulator.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/inspecting-visionos-simulator-dark.webp" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>At WWDC24, Apple announced visionOS 2 beta <a href="https://beta.apple.com" rel="noreferrer" target="_blank">available now</a> to developers with an <a href="https://developer.apple.com/programs/" rel="noreferrer" target="_blank">Apple Developer Program membership</a>. Xcode 16 beta includes the visionOS 2 beta simulator with <a href="https://webkit.org/blog/15443/news-from-wwdc24-webkit-in-safari-18-beta/" rel="noreferrer" target="_blank">Safari 18 beta</a>. Or test in visionOS 1.2 with <a href="https://webkit.org/blog/15383/webkit-features-in-safari-17-5/" rel="noreferrer" target="_blank">Safari 17.5</a> by downloading Xcode 15 and installing its simulator.</p>
+<h3><a name="get-setup" rel="noreferrer" target="_blank"></a>Get setup</h3>
+<p>Here’s how to get started using the visionOS simulator:</p>
+<ol>
+<li>Download <a href="https://apps.apple.com/us/app/xcode/id497799835" rel="noreferrer" target="_blank">Xcode 15</a> from the Mac App Store. (It’s free.) Or download Xcode 15 or Xcode 16 beta from the <a href="https://developer.apple.com/xcode/" rel="noreferrer" target="_blank">Xcode website</a>.</li>
+<li>Open Xcode. When asked which platforms you would like to develop for, enable visionOS. If you’d like to also install Simulator for iPhone and iPad, enable iOS.<br>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/xcode-install-components-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+</li>
+<li>The visionOS simulator will start downloading. </li>
+<li>Open the Simulator app on macOS. Xcode doesn’t need to be running to use Simulator.</li>
+<li>You will see a visionOS simulator named “Apple Vision Pro”. </li>
+<li>You can use the File menu anytime to create a new simulator or open existing simulators.</li>
+<li>Click on the Safari icon in the visionOS Home View to open Safari. Enter a URL in the navigation bar to go to a website.</li>
+</ol>
+<p>Here’s how to get started using Safari’s developer tools on macOS:</p>
+<ol>
+<li>Open Safari on macOS.</li>
+<li>If you don’t see a Develop menu in the Menu Bar, you’ll need to enable Safari’s developer tools.</li>
+<li>Go to Safari &gt; Settings &gt; Advanced, and enable “Show features for web developers”.</li>
+<li>Now you can see “Apple Vision Pro (Simulator)” listed in the Develop menu.</li>
+</ol>
+<p>Once you’ve completed this setup, you won’t need to repeat these steps again.</p>
+<h3><a name="open-a-web-page-in-safari-in-a-visionos-simulator" rel="noreferrer" target="_blank"></a>Open a web page in Safari in a visionOS simulator</h3>
+<p>You can use Safari in visionOS to navigate to a web page, but it’s likely you already have the page open in Safari on macOS. So instead, use this tip to quickly send web pages from macOS to the visionOS simulator:</p>
+<ol>
+<li>In Safari on macOS, go to the web page you’d like to test in the visionOS simulator.</li>
+<li>In the Safari menu bar, go to Develop &gt; Open Page With &gt; Apple Vision Pro.</li>
+</ol>
+<p>The visionOS simulator comes to the front, and the web page opens in Safari. This also works for any number of other simulators for iPhone and iPad, which you can always <a href="https://developer.apple.com/documentation/safari-developer-tools/adding-additional-simulators" rel="noreferrer" target="_blank">install later</a>.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/open-page-with-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>Learn <a href="https://developer.apple.com/documentation/visionOS/interacting-with-your-app-in-the-visionos-simulator" rel="noreferrer" target="_blank">more about using the visionOS simulator</a>.</p>
+<h3><a name="inspect-a-visionos-simulator-with-web-inspector" rel="noreferrer" target="_blank"></a>Inspect a visionOS simulator with Web Inspector</h3>
+<p>Web Inspector is instrumental when developing or troubleshooting web content in a simulator. To use it for a web page open in Safari in Apple Vision Pro Simulator. Click the Develop menu, select Apple Vision Pro (Simulator), and select the web page you want to inspect.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/develop-menu-simulator-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>Web Inspector opens connected to the page loaded in Safari in the visionOS simulator. This brings all of the powerful inspection and debugging tools of Web Inspector to your web content loaded in Safari in any simulator. It also works for connecting to web pages loaded in Safari on iPhone, or iPad simulators.</p>
+<h3><a name="preview-webxr-and-with-feature-flags" rel="noreferrer" target="_blank"></a>Preview WebXR and  with Feature Flags</h3>
+<p>Apple announced WebXR support with visionOS 2. If you’re using visionOS 1.2 in Apple Vision Pro or in the visionOS simulator on your Mac, you can still experience WebXR by turning on support for the testable version. You can also preview other new features like the <code>&lt;model&gt;</code> element.</p>
+<p>To enable support for WebXR or the <code>&lt;model&gt;</code> element, from the the <a href="https://support.apple.com/guide/apple-vision-pro/open-home-view-devf42afa74a/visionos" rel="noreferrer" target="_blank">Home View</a>, go to Settings &gt; Apps &gt; Safari &gt; Advanced &gt; Feature Flags and enable the feature flags for “HTML <model> element” or “WebXR”.</model></p>
+<hr>
+<h2><a name="develop-with-apple-vision-pro" rel="noreferrer" target="_blank"></a>Develop with Apple Vision Pro</h2>
+<p>Apple Vision Pro is a great place to work on a website. Use Mac Virtual Display to bring your Mac web development workflows into Apple Vision Pro. Test your site in Safari in visionOS, while debugging in Safari’s Web Inspector on macOS.</p>
+<p></p>
+<h3><a name="start-a-mac-virtual-display-session" rel="noreferrer" target="_blank"></a>Start a Mac Virtual Display session</h3>
+<p>Use Apple Vision Pro as a private, portable 4K display for your Mac with Mac Virtual Display. Learn how in <a href="https://support.apple.com/en-us/118521" rel="noreferrer" target="_blank">Use your Mac with Apple Vision Pro</a>.</p>
+<h3><a name="enable-web-inspector-for-apple-vision-pro" rel="noreferrer" target="_blank"></a>Enable Web Inspector for Apple Vision Pro</h3>
+<p>To get started connecting Safari in Apple Vision Pro with Web Inspector on macOS, you’ll need to go through a one-time set-up process that ensures only your Mac and your Apple Vision Pro have this kind of access to each other.</p>
+<ol>
+<li>In Safari on macOS, if the Develop menu is missing, <a href="https://developer.apple.com/documentation/safari-developer-tools/enabling-developer-features" rel="noreferrer" target="_blank">enable features for web developers</a>.</li>
+<li>Make sure both Apple Vision Pro and your Mac are connected to the same network.</li>
+<li>On Apple Vision Pro, open Settings &gt; Apps &gt; Safari &gt; Advanced, and enable Web Inspector. Then open Settings &gt; General &gt; Remote Devices, and choose your Mac to prepare visionOS for pairing. </li>
+<li>On Mac, open the Develop menu. You should see your Apple Vision Pro listed. Choose “Use for Development…”</li>
+<li>A six-digit PIN code will appear in visionOS. Type it into the form on macOS.</li>
+</ol>
+<p>Now your devices are paired. You can reconnect anytime. In Safari on macOS, Apple Vision Pro will now appear in the <a href="https://developer.apple.com/documentation/safari-developer-tools/develop-menu" rel="noreferrer" target="_blank">Develop menu</a> anytime your Apple Vision Pro is on and unlocked.</p>
+<p>Alternatively, you can <a href="https://help.apple.com/xcode/mac/current/#/devbc48d1bad" rel="noreferrer" target="_blank">pair with Xcode</a>.</p>
+<h3><a name="inspect-content-from-macos-safari" rel="noreferrer" target="_blank"></a>Inspect content from macOS Safari</h3>
+<p>Now you can inspect a web page that’s running in Safari in Apple Vision Pro using <a href="https://webkit.org/web-inspector/" rel="noreferrer" target="_blank">Web Inspector</a> in Safari on macOS:</p>
+<ol>
+<li>In Safari in visionOS, go to the web page you want to inspect. </li>
+<li>On macOS, go to the <a href="https://developer.apple.com/documentation/safari-developer-tools/develop-menu" rel="noreferrer" target="_blank">Develop menu</a>. You’ll see your Apple Vision Pro listed. </li>
+<li>Select the page you want to inspect from the submenu.</li>
+</ol>
+<p>A Web Inspector window will open on macOS. Any changes you make will appear in Safari in visionOS.</p>
+<p>For more information, read <a href="https://developer.apple.com/documentation/safari-developer-tools/inspecting-visionos" rel="noreferrer" target="_blank">Inspecting visionOS</a>.</p>
+<h2><a name="learn-more" rel="noreferrer" target="_blank"></a>Learn more</h2>
+<p>Learn more about how to download Simulator, pair Apple Vision Pro with Mac, or use Web Inspector while creating content for visionOS by watching <a href="https://developer.apple.com/videos/play/wwdc2023/10262/" rel="noreferrer" target="_blank">Rediscover Safari developer features</a> or by reading <a href="https://developer.apple.com/documentation/safari-developer-tools/inspecting-visionos" rel="noreferrer" target="_blank">Inspecting visionOS</a>.</p>
+<div class="note">Note: Learn more about Web Inspector from the <a href="/web-inspector/" rel="noreferrer" target="_blank">Web Inspector Reference</a> documentation.</div>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15421/try-out-your-website-in-the-spatial-web/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

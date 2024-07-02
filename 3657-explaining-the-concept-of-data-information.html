@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Explaining the concept of Data information</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Explaining the concept of Data information</h3>
+		<div>
+<p>There seems to be some confusion caused by the concept of Data information included in the draft v0.0.8 of the Open Source AI Definition. Some readers may have seen the original dataset included in the list of optional components and quickly jumped to the wrong conclusions. This post clarifies how the draft arrived at its current state, the design principles behind the <em>Data information</em> concept and the constraints (legal and technical) it operates under.</p>
+
+
+
+<h2 class="wp-block-heading">The objective of the Open Source AI Definition</h2>
+
+
+
+<p>The objective of the Open Source AI Definition is to replicate in the context of artificial intelligence (AI) the principles of autonomy, transparency, frictionless reuse, and collaborative improvement for end users and developers of AI systems. These are described in the <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8#Why-we-need-Open-Source-Artificial-Intelligence-AI" rel="noreferrer" target="_blank">preamble</a>.</p>
+
+
+
+<p>Following the preamble is the definition of Open Source AI, an adaptation of the definition of <a href="https://www.gnu.org/philosophy/free-sw.html" rel="noreferrer" target="_blank">Free Software</a> (also known as “the four freedoms”) to AI nomenclature. The preamble and the four freedoms have been co-designed over several meetings and public discussions, online and in-person, and have not recently received significant comments.&nbsp;</p>
+
+
+
+<p>The Free Software definition specifies that a precondition to the freedom to study and modify a program is to have access to the source code. Source code is defined as “the preferred form of the program for making changes in.” Draft v0.0.8 contains a description of what’s necessary to enjoy the freedoms to study and modify an AI system. This new section titled <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8#Preferred-form-to-make-modifications-to-machine-learning-systems" rel="noreferrer" target="_blank">Preferred form to make modifications to machine-learning systems</a> has generated a heated debate.&nbsp;</p>
+
+
+
+<h1 class="wp-block-heading">What is the preferred form to make modifications</h1>
+
+
+
+<p>The concept of “preferred form to make modifications” focuses on machine learning systems because these systems require data and training to produce a working system. Other AI systems are more easily classifiable as software and don’t require a special definition.&nbsp;</p>
+
+
+
+<p>The <a href="https://discuss.opensource.org/t/report-on-working-group-recommendations/247" rel="noreferrer" target="_blank">system analysis phase of the co-design process revealed</a> that studying and modifying machine learning systems requires data, code for training and inference and model parameters. For the parameters, there’s no ambiguity: an Open Source AI must make them available under terms that respect the Open Source principles (no field-of-use restrictions, no discrimination against people, etc). For the data and code requirements, the text in the “preferred form to make modifications” section is longer and harder to parse, generating some confusion.&nbsp;</p>
+
+
+
+<p>The intent of the code and data requirements is to&nbsp; ensure that end users, deployers and developers of an Open Source AI system have all the tools and instructions to recreate that AI system from scratch, to satisfy the freedoms to study and modify the system. At a high-level view, it makes sense to suggest that training datasets should be mandatorily released with permissive licenses in order to be Open Source AI. </p>
+
+
+
+<p>However on close examination, it became clear that sharing the original datasets is full of traps. It actually puts Open Source at a disadvantage compared to opaque and proprietary AI systems.</p>
+
+
+
+<h2 class="wp-block-heading">The issue with data</h2>
+
+
+
+<p>Data is not software: The legal landscape for data is much wider than copyright. Aggregating large datasets and distributing them internationally is an endless nightmare that includes privacy laws, copyright, sui-generis rights, patents, secrets and more. Without diving deeper into legal issues, let’s focus on practical examples to clarify why the distribution of the training dataset is not spelled out as a requirement in the concept of <em>Data information</em>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://pile.eleuther.ai/" rel="noreferrer" target="_blank">The Pile</a>, the open dataset used to train the very open Pythia models, was taken down after an alleged copyright infringement, currently being litigated in the United States. However, the Pile appears to be legal to share in Japan. It’s also unclear whether it can be legally shared in the European Union.&nbsp;</li>
+
+
+
+<li><a href="https://huggingface.co/datasets/allenai/dolma" rel="noreferrer" target="_blank">DOLMA</a>, the open dataset used to train the very open OLMo models, was initially released with a restrictive license. It later <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/32?u=stefano" rel="noreferrer" target="_blank">switched</a> to a permissive one. On further inspection, DOLMA appears to suffer from the <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/34?u=stefano" rel="noreferrer" target="_blank">same legal uncertainties</a> of the Pile, however the Allen Institute has not been sued yet.</li>
+
+
+
+<li>Training techniques that preserve privacy like federated learning don’t create datasets.&nbsp;</li>
+</ul>
+
+
+
+<p>All these cases show that requiring the original datasets creates vagueness and uncertainty in applying the Open Source AI Definition:</p>
+
+
+
+<ul class="wp-block-list">
+<li>If a dataset is only legal in Japan, is that AI Open Source only in Japan?</li>
+
+
+
+<li>If a dataset is initially legally available but later retracted, does the AI go from being Open Source to not?
+<ul class="wp-block-list">
+<li>If so, what happens to the applications that use such AI?</li>
+</ul>
+</li>
+
+
+
+<li>If no dataset is created, then will any AI trained with such techniques ever be Open Source?</li>
+</ul>
+
+
+
+<p>Additionally, there are reasons to believe that OpenAI, Anthropic and other proprietary systems have been trained on the same questionable data inside The Pile and DOLMA: Proving that’s the case is a lot harder and expensive though. This is clearly a disincentive to be open and transparent on the data sources, adding a burden to the organizations that try to do the right thing.</p>
+
+
+
+<p>The solution to these questions, draft v0.0.8 contains the concept of <em>Data information</em>, coupled with code requirements to obtain the expected result: for end users, developers and deployers of AI systems to be able to reproduce an Open Source AI.</p>
+
+
+
+<h1 class="wp-block-heading">Understanding the concept of Data Information</h1>
+
+
+
+<p><em>Data information</em>, in the draft Open Source AI Definition, is defined as:&nbsp;</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p>Sufficiently detailed information about the data used to train the system, <strong>so that</strong> a skilled person can recreate a substantially equivalent system using the same or similar data.</p>
+</blockquote>
+
+
+
+<p>Read that from the end: The intention of <em>Data information</em> is to allow developers to <strong>recreate</strong> a substantially <strong>equivalent system</strong> using <strong>the same or similar data</strong>. That means that an Open Source AI must disclose all the ingredients, where they’ve been bought and all the instructions to prepare the dish.&nbsp;&nbsp;</p>
+
+
+
+<p>This is a solution that <a href="https://discuss.opensource.org/t/report-on-working-group-recommendations/247" rel="noreferrer" target="_blank">came out of the co-design process</a>, where reviewers didn’t rank the training datasets as high as they ranked the training code and data transparency requirements.&nbsp;</p>
+
+
+
+<p><em>Data information</em> and the code requirements also address all of the questions around the legality of distributing data and datasets, or their absence.</p>
+
+
+
+<p>If a dataset is only legal in Japan or becomes illegal later, one should still be able to <strong>recreate</strong> a dataset suitable to train an <strong>equivalent system</strong> replacing the illegal or unavailable pieces with similar ones.</p>
+
+
+
+<p>AI systems trained with federated learning (where a dataset isn’t created) can still be Open Source AI if all instructions and code are released so that a new training with different data can generate an <strong>equivalent system</strong>.</p>
+
+
+
+<p>The <em>Data information</em> concept also solves an example (raised on the forum) of an AI system trained on data licensed directly from Reddit. In this case, if the original developers released enough information to allow another AI developer to <strong>recreate</strong> a substantially <strong>equivalent system</strong> with Reddit data taken from an existing dataset, like CommonCrawl, it would be considered Open Source AI.</p>
+
+
+
+<h2 class="wp-block-heading">The proposed alternatives</h2>
+
+
+
+<p>While generally well received, draft v0.0.8 has been criticized by a few people on the forum for putting the training dataset in the “optional requirements”. Some suggestions and pushback we’ve received:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Require the use of <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351" rel="noreferrer" target="_blank">synthetic data</a> when the training dataset cannot be legally shared: This technique may work in some corner cases, if the technology evolves to be reliable enough. It’s expensive and untested at scale.</li>
+
+
+
+<li>Classify as Open Source AI systems where <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/17#levels-of-openness-2" rel="noreferrer" target="_blank">all their components are</a> “open source”: This approach is <strong>not</strong> rooted in the longstanding practice of the GNU project to accept system library exceptions and other compromises in exchange for more Open Source tools.</li>
+
+
+
+<li>Datasets built by crawling the internet are the equivalent of theft, they shouldn’t be allowed&nbsp; at all, let alone allowed in Open Source AI: This pushback ignores the reality that large data aggregators already have acquired legally the rights to accumulate that same data (through scraping and terms of use) and are trading it, exclusively capturing the economic value of what should be in the commons. Read <a href="https://openfuture.eu/wp-content/uploads/2024/04/240404Towards_a_Books_Data_Commons_for_AI_Training.pdf" rel="noreferrer" target="_blank">Towards a Books Data Commons for AI Training</a> for more details. There is no general agreement that text and data mining is equivalent to theft.</li>
+</ul>
+
+
+
+<p>These demands and suggestions are hard to accept. We need an Open Source AI Definition that can effectively guide users and developers to make the right choice. We need one that doesn’t put developers of Open Source AI at a disadvantage compared to proprietary ones. We need a Definition that contains positive examples from the start so we can practically demonstrate positive qualities to policymakers.&nbsp;</p>
+
+
+
+<p>The discussion about data, how to generate incentives to create datasets that can be distributed internationally, safely, preserving privacy, is extremely complex. It can be addressed separately from the Open Source AI Definition. In collaboration with Open Future Foundation and others, OSI is designing a series of conferences to tackle the data governance issue. We’ll make an announcement soon.</p>
+
+
+
+<h2 class="wp-block-heading">Have your say now</h2>
+
+
+
+<p>The concept of Data information and code requirements is hard to grasp at first. But the<a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368/9" rel="noreferrer" target="_blank"> preliminary results of the validation phase</a> confirm that the draft v0.0.8 works as expected: Pythia and OLMo both would be Open Source AI, while Falcon, Grok, Llama, Mistral would not (even if they used OSD-compatible licenses) because they don’t share <em>Data information</em>. BLOOM and StarCoder would fail because of field-of-use restrictions in their models. </p>
+
+
+
+<p><em>Data information</em> can be improved but it’s better than other solutions proposed so far. As we get closer to the release of the stable version of the Open Source AI Definition, we need to hear from you: If you support this concept please comment on the forum today. If you don’t support it, please try to propose an alternative that at least covers the practical examples of Pile, DOLMA and federated learning above. Help the community move the conversation forward.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/explaining-the-concept-of-data-information">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

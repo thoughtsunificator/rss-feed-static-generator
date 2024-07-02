@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open Source AI Definition – Weekly update May 27</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Open Source AI Definition – Weekly update May 27</h3>
+		<div>
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351" rel="noreferrer" target="_blank">Open Source AI needs to require data to be viable</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/juliaferraioli" rel="noreferrer" target="_blank">@juliaferraioli</a> and the AWS team have reopened the debate regarding access to training data. This comes in a new forum which mirrors concerns raised in a <a href="https://discuss.opensource.org/t/overarching-concerns-with-draft-v-0-0-8-and-suggested-modifications/347" rel="noreferrer" target="_blank">previous one</a>. They argue that to achieve modifiability, an AI system must ship the original training dataset used to train it. Full transparency and reproducibility require the release of all datasets used to train, validate, test, and benchmark. For Ferraioli, data is considered equivalent to source code for AI systems, therefore its inclusion should not be optional. In a message signed by the AWS Open Source team, she proposed that original training datasets or synthetic data with justification for non-release be required to meet the Open Source AI standard.</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">@stefano</a> added some reminders as we reopen this debate. These are the points to keep in mind:
+<ul class="wp-block-list">
+<li>Abandon the mental map that makes you look for the source of AI (or ML) as that map has been driving us in circles. Instead, we’re looking for the “preferred form to make modifications to the system”</li>
+
+
+
+<li>The law in most legislation around the world makes it illegal to distribute data, because of copyright, privacy and other laws. It’s also not as clear how the law treats datasets and it’s constantly changing&nbsp;</li>
+
+
+
+<li>Text of draft 0.0.8 is drafted to be vague on purpose regarding “Data information”. This is to resist the test of time and technology changes.&nbsp;</li>
+
+
+
+<li>When criticizing the draft, please provide specific examples in your question, and avoid arguing in the abstract.&nbsp;</li>
+</ul>
+</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/Danish_Contractor" rel="noreferrer" target="_blank">@danish_contractor</a> argues that the current draft is likely to disincentivize openness due to the community viewing models (BLOOM or StarCoder), which include usage restrictions to prevent harms, less favorably despite being more transparent, reproducible, and thus more “open” than models like Mistral.</li>
+
+
+
+<li><a class="" href="https://discuss.opensource.org/u/pchestek" rel="noreferrer" target="_blank">@Pam Chestek</a> clarified that Open Source has two angles: the rights to use, study, modify and share, coupled with those rights being unrestricted. Both are equally important.</li>
+
+
+
+<li>This debate echoes earlier ones on<a href="https://discuss.opensource.org/t/recognising-open-source-components-of-an-ai-system/207" rel="noreferrer" target="_blank"> recognizing open components of an AI system</a>.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://hackmd.io/@opensourceinitiative/osaid-faq" rel="noreferrer" target="_blank">The FAQ page has been updated</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>The FAQ page is starting to take shape and we would appreciate more feedback. So far, we have preliminary answers to these questions:
+<ul class="wp-block-list">
+<li>Why is the original training dataset not required?</li>
+
+
+
+<li>Why the grant of freedoms is to its users?</li>
+
+
+
+<li>What are the model parameters?</li>
+
+
+
+<li>Are model parameters copyrightable?</li>
+
+
+
+<li>What does “Available under OSD-compliant license” mean?</li>
+
+
+
+<li>What does “Available under OSD-conformant terms” mean?</li>
+
+
+
+<li>Why is the Open Source AI Definition includes a list of components while the Open Source Definition for software doesn’t say anything about documentation, roadmap and other useful things?</li>
+
+
+
+<li>Why is there no mention of safety and risk limitations in the Open Source AI Definition?</li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/draft-v0-0-8-review-from-llm360/362" rel="noreferrer" target="_blank">Draft v0.0.8 Review from LLM360</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/vamiller" rel="noreferrer" target="_blank">@vamiller</a> has submitted on behalf of the <a href="https://www.llm360.ai/" rel="noreferrer" target="_blank">LLM360</a> team a review of their models. In his view the v0.0.8 reflect the principles of Open Source applied to AI. He asks about the <a href="https://opendatacommons.org/licenses/by/1-0/" rel="noreferrer" target="_blank">ODC-By</a> licence, arguing that it is compatible with OSI’s principles but it’s a data-only license.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://opensource.org/events/open-source-ai-definition-town-hall-may-31" rel="noreferrer" target="_blank">Join the next town hall meeting</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>The next town hall meeting will take place on May 31st at 3:00 pm – 4:00 pm UTC. We encourage all who can participate to attend. This week, we will delve deeper into the issues regarding access (or not) to training data.</li>
+</ul>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/open-source-ai-definition-weekly-update-may-27">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Identifying dependencies used via dlopen()</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Identifying dependencies used via dlopen()</h3>
+		<div><p>
+<a href="https://lwn.net/Articles/967180" rel="noreferrer" target="_blank">
+The recent XZ backdoor</a> has sparked a lot of discussion about how the open-source
+community links and packages software. One possible
+security improvement being discussed
+is changing how
+projects like systemd link to dynamic libraries that are only used for
+optional functionality: using
+<a href="https://man7.org/linux/man-pages/man3/dlopen.3.html" rel="noreferrer" target="_blank">
+<tt>dlopen()</tt></a> to load those libraries only
+when required. This could
+shrink the attack surface exposed by dependencies, but the approach is not
+without downsides — most prominently, it makes discovering which dynamic
+libraries a program depends on harder.
+On April 11, Lennart Poettering proposed one way to eliminate that problem
+<a href="https://github.com/systemd/systemd/pull/32234" rel="noreferrer" target="_blank">
+in a systemd RFC on GitHub</a>.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/969908/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

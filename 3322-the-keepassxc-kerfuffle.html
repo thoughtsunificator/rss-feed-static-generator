@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] The KeePassXC kerfuffle</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] The KeePassXC kerfuffle</h3>
+		<div><p><a href="https://keepassxc.org/" rel="noreferrer" target="_blank">KeePassXC</a> is an open-source (GPLv3),
+cross-platform password manager with local-only data storage. The
+project comes with a number of <a href="https://github.com/keepassxreboot/keepassxc/wiki/Building-KeePassXC#build-options" rel="noreferrer" target="_blank">build
+options</a> that can be used to toggle optional features, such as <a href="https://keepassxc.org/docs/KeePassXC_GettingStarted#_setup_browser_integration" rel="noreferrer" target="_blank">browser
+integration</a> and <a href="https://keepassxc.org/docs/KeePassXC_UserGuide#_database_sharing_with_keeshare" rel="noreferrer" target="_blank">password
+database sharing</a>. However, controversy ensued when Debian Developer Julian Klode decided to
+make use of these compile flags to disable these features to improve security in the
+<tt>keepassxc</tt> package uploaded to Debian unstable for the
+upcoming Debian 13 ("Trixie") release.</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/973782/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

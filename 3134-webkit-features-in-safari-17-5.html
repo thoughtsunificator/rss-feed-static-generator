@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebKit Features in Safari 17.5</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">WebKit Features in Safari 17.5</h3>
+		<div><p>Happy May! It’s time for another release of Safari — our third significant update of 2024. With just a month until <a href="https://developer.apple.com/wwdc24/" rel="noreferrer" target="_blank">WWDC24</a> and the unveiling of what’s coming later this year, we are happy to get these 7 features and 22 bug fixes into the hands of your users today.</p>
+<h2>CSS</h2>
+<p>There are several exciting new CSS features in Safari 17.5, including <code>text-wrap: balance</code>, the <code>light-dark()</code> color function, and <code>@starting-style</code>, plus the ability to use feature queries with <code>@import</code> rules. Let’s look at how you can put each one to use.</p>
+<h3>Text wrap balance</h3>
+<p>On the web, with its flexible container widths, inconsistent lengths of content, and variation between browsers, it can feel impossible to avoid having text wrap in such a way that too few words end up all by themselves on a very short last line.</p>
+<figure class="mattewhite"><picture><source srcset="https://webkit.org/wp-content/uploads/regular-wrapping-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>When type was set by hand, typographers would painstakingly avoid this undesirable result by manually moving content around. Over the decades, web developers have tried a series of different tricks to avoid orphans in CSS, in HTML, in JavaScript, and in content management systems. None work very well. The attempts usually feel hacky, laborious, and fragile.</p>
+<p>To solve this and other frustrations, the CSS Working Group has <a href="https://www.w3.org/TR/css-text-4/#text-wrap-style" rel="noreferrer" target="_blank">defined</a> three new options that you can use to change how text will wrap. You can switch from default wrapping to another style with <code>text-wrap</code>. WebKit for Safari 17.5 adds support for the first of these new options — balancing.</p>
+<p>The <code>text-wrap: balance</code> rule asks the browser to “balance” the lines of text and make them all about the same length.</p>
+<figure class="mattewhite"><picture><source srcset="https://webkit.org/wp-content/uploads/balanced-wrapping-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>You can see how now the text no longer fills the containing block — there’s a large amount of space on the right of the words. This is expected, and something you’ll want to think about as you decide when to use <code>text-wrap: balance</code>.</p>
+<p>Where <em>exactly</em> each line of text will break when using <code>text-wrap: balance</code> may be slightly different in each browser. The <a href="https://drafts.csswg.org/css-text-4/" rel="noreferrer" target="_blank">CSS Text level 4</a> web standard leaves it up to each browser engine team to decide which algorithm they want to use in determining how exactly to wrap balanced text.</p>
+<p>It can be computationally expensive for the browser to count characters and balance multiple lines of text, so the standard allows browsers to limit the number of lines that are balanced. Chromium browsers balance 6 or fewer lines, Firefox balances 10 or fewer, while Safari/WebKit balances an unlimited numbers of lines.</p>
+<p>For now, Safari does not balance text if it’s surrounding a float or initial letter. And Safari disables the balancer if the content contains preserved tabs or soft hyphens.</p>
+<h3>Text wrap shorthands and longhands</h3>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap" rel="noreferrer" target="_blank"><code>text-wrap</code></a> property is actually a shorthand for two longhand properties: <code>text-wrap-style</code> and <code>text-wrap-mode</code>.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-mode" rel="noreferrer" target="_blank"><code>text-wrap-mode</code></a> property provides a mechanism for expressing whether or not text should wrap.</p>
+<pre><code class="css"><span class="keyword">text-wrap-mode</span>: <span class="keyword">wrap</span>; <span class="comment">/* initial value */</span>
+<span class="keyword">text-wrap-mode</span>: <span class="keyword">nowrap</span>;
+</code></pre>
+<p>The  <code>wrap</code> value turns it on, and the <code>nowrap</code> value turns it off, just like the values for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space" rel="noreferrer" target="_blank"><code>white-space</code></a>. (In fact, <code>text-wrap-mode</code> is the newly introduced longhand of <code>white-space</code>.) WebKit added support for <code>text-wrap-mode: wrap</code> and <code>nowrap</code> in <a href="https://webkit.org/blog/15063/webkit-features-in-safari-17-4/" rel="noreferrer" target="_blank">Safari 17.4</a>.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-style" rel="noreferrer" target="_blank"><code>text-wrap-style</code></a> property selects <em>how</em> to wrap. The initial value is <code>auto</code> — asking text to wrap in the way it has for decades. Or, you can choose a value to switch to another “style” of wrapping.</p>
+<p>WebKit for Safari 17.5 adds support for  <code>text-wrap-style: balance</code>, <code>stable</code>, and <code>auto</code>.</p>
+<pre><code class="css"><span class="keyword">text-wrap-style</span>: <span class="keyword">auto</span>; <span class="comment">/* initial value */</span>
+<span class="keyword">text-wrap-style</span>: <span class="keyword">balance</span>;
+<span class="keyword">text-wrap-style</span>: <span class="keyword">stable</span>;
+</code></pre>
+<p>Of course, the <code>text-wrap</code> shorthand is a way to combine <code>text-wrap-mode</code> and <code>text-wrap-style</code> and declare them together. If you write <code>text-wrap: balance</code> it’s the same as <code>text-wrap: wrap balance</code>, meaning: “yes, please wrap, and when you do, please balance the text”.</p>
+<p>Full support will eventually include three properties and six values. No browser supports everything yet, so be sure to look up support for the <a href="https://caniuse.com/mdn-css_properties_text-wrap" rel="noreferrer" target="_blank"><code>text-wrap</code></a>, <a href="https://caniuse.com/mdn-css_properties_text-wrap-mode" rel="noreferrer" target="_blank"><code>text-wrap-mode</code></a>, and <a href="https://caniuse.com/mdn-css_properties_text-wrap-style" rel="noreferrer" target="_blank"><code>text-wrap-style</code></a> properties, as well as the <a href="https://caniuse.com/mdn-css_properties_text-wrap_balance" rel="noreferrer" target="_blank"><code>balance</code></a>, <a href="https://caniuse.com/mdn-css_properties_text-wrap_pretty" rel="noreferrer" target="_blank"><code>pretty</code></a>, <a href="https://caniuse.com/mdn-css_properties_text-wrap_stable" rel="noreferrer" target="_blank"><code>stable</code></a>, <code>auto</code>, <a href="https://caniuse.com/mdn-css_properties_text-wrap_wrap" rel="noreferrer" target="_blank">wrap</a>, and <a href="https://caniuse.com/mdn-css_properties_text-wrap_nowrap" rel="noreferrer" target="_blank"><code>nowrap</code></a> values.</p>
+<p>The <code>balance</code>, <code>pretty</code>, and <code>stable</code> values will simply fall back to <code>auto</code> in browsers without support, so progressive enhancement is easy. You can use these values today, no matter how many of your users don’t yet have a browser with support. They will simply get <code>auto</code>-wrapped text, just like they would if you didn’t use <code>text-wrap</code>. Meanwhile, those users with support will get an extra boost of polish.</p>
+<h3>Dark mode and the <code>light-dark()</code> color function</h3>
+<p>More and more, users expect websites and web apps to <a href="https://webkit.org/blog/8840/dark-mode-support-in-webkit/" rel="noreferrer" target="_blank">support dark mode</a>. Since <a href="https://caniuse.com/prefers-color-scheme" rel="noreferrer" target="_blank">Safari 12.1</a>, the <code>prefers-color-scheme</code> media query has given you the ability to write code like this:</p>
+<pre><code class="css"><span class="keyword">body</span> {
+  <span class="attribute">background</span>: <span class="identifier">white</span>;
+  <span class="attribute">color</span>: <span class="identifier">black</span>;
+}
+<span class="keyword">@media</span> (<span class="keyword">prefers-color-scheme</span>: <span class="keyword">dark</span>) {
+  <span class="attribute">body</span> {
+    <span class="attribute">background</span>: <span class="identifier">darkslategray</span>;
+    <span class="attribute">color</span>: <span class="identifier">white</span>;
+  }
+}
+</code></pre>
+<p>Or perhaps you’ve used variables to define colors for both light and dark mode at once, making it easier to use them everywhere.</p>
+<pre><code class="css"><span class="preprocessor">:root</span> {
+  <span class="attribute">--background</span>: <span class="identifier">white</span>;
+  <span class="attribute">--text</span>: <span class="identifier">black</span>;
+}
+<span class="keyword">@media</span> (<span class="keyword">prefers-color-scheme</span>: <span class="keyword">dark</span>) {
+  :<span class="identifier">root</span> {
+    <span class="identifier">--background</span>: <span class="identifier">darkslategray</span>;
+    <span class="attribute">--text</span>: <span class="identifier">white</span>;
+  }
+}
+<span class="keyword">body</span> {
+  <span class="attribute">background</span>: <span class="identifier">var</span>(<span class="identifier">--background</span>);
+  <span class="attribute">color</span>: <span class="identifier">var</span>(<span class="identifier">--text</span>);
+}
+</code></pre>
+<p>Well, now there’s a new option — the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark" rel="noreferrer" target="_blank"><code>light-dark()</code></a> function. It makes defining colors for dark mode even easier.</p>
+<p>First, inform the browser you are providing a design for both light and dark modes with the <code>color-scheme</code> property. This prompts the browser to switch the default user agent styles when in dark mode, ensuring the form controls appear in dark mode, for example. It’s also required for <code>light-dark()</code> to work correctly.</p>
+<pre><code class="css"><span class="preprocessor">:root</span> {
+  <span class="attribute">color-scheme</span>: <span class="identifier">light</span> <span class="identifier">dark</span>;
+}
+</code></pre>
+<p>Then, any time you define a color, you can use the <code>light-dark()</code> function to define the first color for light mode, and the second color for dark mode.</p>
+<pre><code class="css"><span class="keyword">color</span>: <span class="keyword">light-dark</span>(<span class="keyword">black</span>, <span class="keyword">white</span>);
+<span class="keyword">background-color</span>: <span class="keyword">light-dark</span>(<span class="keyword">white</span>, <span class="keyword">darkslategray</span>);
+</code></pre>
+<p>You can still use variables, if you’d like. Perhaps you want to structure your code like this.</p>
+<pre><code class="css"><span class="preprocessor">:root</span> {
+  <span class="attribute">color-scheme</span>: <span class="identifier">light</span> <span class="identifier">dark</span>;
+  <span class="attribute">--background</span>: <span class="identifier">light-dark</span>(<span class="identifier">black</span>, <span class="identifier">white</span>);
+  <span class="attribute">--text</span>: <span class="identifier">light-dark</span>(<span class="identifier">white</span>, <span class="identifier">darkslategray</span>);
+}
+<span class="keyword">body</span> {
+  <span class="attribute">background</span>: <span class="identifier">var</span>(<span class="identifier">--background</span>);
+  <span class="attribute">color</span>: <span class="identifier">var</span>(<span class="identifier">--text</span>);
+}
+</code></pre>
+<p>An often-asked question when learning about <code>light-dark()</code> is “does this only work for colors?” Yes, this function only works for colors. Use the <code>prefers-color-scheme</code> media query to define the rest of your color-scheme dependent styles.</p>
+<h3>Starting style</h3>
+<p>WebKit for Safari 17.5 adds support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" rel="noreferrer" target="_blank"><code>@starting-style</code></a>. It lets you define starting values for a particular element. This is needed to enable a transition when the element’s box is created (or re-created).</p>
+<pre><code class="css"><span class="keyword builtin">.alert</span> {
+  <span class="attribute">transition</span>: <span class="identifier">background-color</span> <span class="number">2s</span>;
+  <span class="attribute">background-color</span>: <span class="identifier">green</span>;
+  @<span class="attribute">starting-style</span> {
+    <span class="attribute">background-color</span>: <span class="identifier">transparent</span>;
+  }
+}
+</code></pre>
+<p>In the above example, the <code>background-color</code> will transition from transparent to green when the element is added to the document.</p>
+<p>Many developers are excited to use <code>@starting-style</code> along with <code>display: none</code> interpolation. To do so, WebKit also needs to <a href="https://bugs.webkit.org/show_bug.cgi?id=267762" rel="noreferrer" target="_blank">support</a> animation of the <code>display</code> property, which has not yet shipped in Safari. You can test this use case today in <a href="https://developer.apple.com/safari/technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a>.</p>
+<h3>Features queries for importing CSS</h3>
+<p>WebKit for Safari 17.5 adds the <code>supports()</code> syntax to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@import" rel="noreferrer" target="_blank"><code>@import</code></a> rules. Now you can conditionally import CSS files based on whether or not there’s support for a certain feature.</p>
+<pre><code class="css"><span class="keyword">@import</span> &lt;<span class="keyword">url</span>&gt; <span class="keyword">supports</span>(&lt;<span class="keyword">feature</span>&gt;);
+</code></pre>
+<p>For example, you could load different stylesheets based on whether or not <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting/Using_CSS_nesting" rel="noreferrer" target="_blank">CSS Nesting</a> is <a href="https://caniuse.com/css-nesting" rel="noreferrer" target="_blank">supported</a>.</p>
+<pre><code class="css"><span class="keyword">@import</span> <span class="string">"nested-styles.css"</span> <span class="keyword">supports</span>(<span class="keyword">selector</span>(&amp;));
+<span class="keyword">@import</span> <span class="string">"unnested-styles.css"</span> <span class="keyword">supports</span>(<span class="keyword">not</span> <span class="keyword">selector</span>(&amp;));
+</code></pre>
+<p>Or you could load certain CSS files when a browser does not have <a href="https://caniuse.com/css-cascade-layers" rel="noreferrer" target="_blank">support</a> for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer" rel="noreferrer" target="_blank">Cascade Layers</a>. (Note that any <code>@import</code> rules with <code>layer()</code> will automatically be ignored in a browser without layer support.)</p>
+<pre><code class="css"><span class="keyword">@import</span> <span class="char">url("reset.css")</span> <span class="keyword">layer</span>(<span class="keyword">reset</span>);
+<span class="keyword">@import</span> <span class="char">url("framework.css")</span> <span class="keyword">layer</span>(<span class="keyword">framework</span>);
+<span class="keyword">@import</span> <span class="char">url("custom.css")</span> <span class="keyword">layer</span>(<span class="keyword">custom</span>);
+
+<span class="keyword">@import</span> <span class="char">url("unlayered-fallback-styles.css")</span> <span class="keyword">supports</span>(<span class="keyword">not</span> <span class="keyword">at-rule</span>(<span class="keyword">@layer</span>));
+</code></pre>
+<p>Or simply test for a feature. Here, these layout styles will only be loaded if <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid" rel="noreferrer" target="_blank">Subgrid</a> is <a href="https://caniuse.com/css-subgrid" rel="noreferrer" target="_blank">supported</a>.</p>
+<pre><code class="css"><span class="keyword">@import</span> <span class="char">url("layout.css")</span> <span class="keyword">supports</span>(<span class="keyword">grid-template-columns</span>: <span class="keyword">subgrid</span>);
+</code></pre>
+<h2>WebCodecs</h2>
+<p>WebKit for Safari 17.5 adds support for AV1 to WebCodecs when an AV1 hardware decoder is available.</p>
+<h2>WebGL</h2>
+<p>WebKit for Safari 17.5 adds WebGL support for <code>EXT_conservative_depth</code> and <code>NV_shader_noperspective_interpolation</code>.</p>
+<h2>WKWebView</h2>
+<p>WKWebView adds support for logging MarketplaceKit errors to the JavaScript console. This will make errors easier to debug.</p>
+<h2>Bug Fixes and more</h2>
+<p>In addition to these new features, WebKit for Safari 17.5 includes work polishing existing features.</p>
+<h3>Accessibility</h3>
+<ul>
+<li>Fixed a bug preventing VoiceOver word echoing in some text fields.  (122451549) (FB13592798)  </li>
+</ul>
+<h3>Animations</h3>
+<ul>
+<li>Fixed flickering with multiple accelerated animations and direction changes.  (117815004)  </li>
+</ul>
+<h3>Authentication</h3>
+<ul>
+<li>Fixed <code>excludeCredentials</code> property being ignored during a passkey registration request.  (124405037)  </li>
+</ul>
+<h3>CSS</h3>
+<ul>
+<li>Fixed the proximity calculation for implicit <code>@scope</code>.  (124640124)  </li>
+<li>Fixed the Grid track sizing algorithm logical height computation avoid unnecessary grid item updates.  (124713418)  </li>
+<li>Fixed any <code>@scope</code> limit making the element out of scope.  (124956673)  </li>
+</ul>
+<h3>Forms</h3>
+<ul>
+<li>Fixed native text fields becoming invisible in dark mode.  (123658326)  </li>
+<li>Fixed fallback native <code>&lt;select&gt;</code> rendering in dark mode.  (123845293)  </li>
+</ul>
+<h3>Media</h3>
+<ul>
+<li>Fixed scrolling for an element when a video element with <code>pointer-events: none</code> is placed over it.  (118936715)  </li>
+<li>Fixed HTML5 <code>&lt;audio&gt;</code> playback to continue to the next media activity when in the background.  (121268089) (FB13551577)  </li>
+<li>Fixed AV1 to decode in hardware on iPhone 15 Pro.  (121924090)  </li>
+<li>Fixed audio distortion over internal speakers when streaming content in web browsers.  (122590884)  </li>
+<li>Fixed firing <code>loadeddata</code> events for <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> on page load.  (124079735) (FB13675360)  </li>
+</ul>
+<h3>Rendering</h3>
+<ul>
+<li>Fixed adjusting the size of the scrollable area when changing betwen non-overlay and overlay scrollbars.  (117507268)  </li>
+<li>Fixed flickering when showing a layer on a painted background for the first time by avoiding async image decoding.  (117533495)  </li>
+<li>Fixed line breaking before or between ruby sequences.  (122663646)  </li>
+</ul>
+<h3>Web API</h3>
+<ul>
+<li>Fixed <code>mousemove</code> events in an <code>iframe</code> when the mouse is clicked from outside the <code>iframe</code> and then moves into it while the button is held down.  (120540148) (FB13517196)  </li>
+</ul>
+<h3>Web Apps</h3>
+<ul>
+<li>Fixed several issues that caused Web Push to not show notifications when the web app or Safari was not already running.  (124075358)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<ul>
+<li>Fixed info and debug buttons not appearing in the Console Tab until new console messages are displayed.  (122923625)  </li>
+</ul>
+<h3>WebRTC</h3>
+<ul>
+<li>Fixed WebCodecs to correctly use the VP9 hardware decoder. (123475343)  </li>
+<li>Fixed no incoming video in Teams VA. (124406255)  </li>
+<li>Fixed the camera pausing occasionally when torch is enabled. (124434403)  </li>
+</ul>
+<h2>Updating to Safari 17.5</h2>
+<p>Safari 17.5 is available on <a href="https://www.apple.com/ios/ios-17/" rel="noreferrer" target="_blank">iOS 17.5</a>, <a href="https://www.apple.com/ipados/ipados-17/" rel="noreferrer" target="_blank">iPadOS 17.5</a>, <a href="https://www.apple.com/macos/sonoma/" rel="noreferrer" target="_blank">macOS Sonoma 14.5</a>, macOS Ventura, macOS Monterey and in visionOS 1.2.</p>
+<p>If you are running macOS Ventura or macOS Monterey, you can update Safari by itself, without updating macOS. On macOS Ventura, go to  &gt; System Settings &gt; General &gt; Software Update and click “More info…” under Updates Available.</p>
+<p>To get the latest version of Safari on iPhone, iPad, or Apple Vision Pro, go to Settings &gt; General &gt; Software Update, and tap to update.</p>
+<h2>Feedback</h2>
+<p>We love hearing from you. To share your thoughts on Safari 17.5, find us on Mastodon at <a href="https://front-end.social/@jensimmons" rel="noreferrer" target="_blank">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis" rel="noreferrer" target="_blank">@jondavis@mastodon.social</a>. Or send a reply on X to <a href="https://twitter.com/webkit" rel="noreferrer" target="_blank">@webkit</a>. You can also <a href="https://www.linkedin.com/in/apple-webkit/" rel="noreferrer" target="_blank">follow WebKit on LinkedIn</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/" rel="noreferrer" target="_blank">feedback</a> on Safari UI, or your <a href="https://bugs.webkit.org/" rel="noreferrer" target="_blank">WebKit bug report</a> about web technologies or Web Inspector. Filing issues really does make a difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> on macOS to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<p>You can also find this information in the <a href="https://developer.apple.com/documentation/safari-release-notes/" rel="noreferrer" target="_blank">Safari 17.5 release notes</a>.</p>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15383/webkit-features-in-safari-17-5/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

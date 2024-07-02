@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Overview of Smithy, an API Description Language From Amazon</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Overview of Smithy, an API Description Language From Amazon</h3>
+		<div><p>Description languages are a highly effective and efficient way to define your development cycle. They can help unlock new iteration, granular control, and a deep understanding of the logic and underlying systems. One new definition language, Smithy, has seen a steadily increasing user base. Backed by Amazon, this interface description language (IDL) offers an efficient and portable model-based solution.</p>
+<p>Below, we’ll examine <a href="https://smithy.io/2.0/index.html" rel="noreferrer" target="_blank">Smithy</a> to see what makes it unique. We’ll also consider some specific benefits and drawbacks of using Smithy and get an idea of how it works in practice.</p>
+<h2 id="what-is-smithy-">What is Smithy?</h2>
+<p>So, what exactly is Smithy? <a href="https://github.com/smithy-lang/smithy" rel="noreferrer" target="_blank">Smithy</a> is a protocol-agnostic IDL. At its most basic, IDLs are designed to connect systems by defining the interface itself, removing the need for language similarity or cohesion. Smithy is both an IDL and a set of related tools that promise to unlock client, server, and documentation through models that can leverage <a href="https://nordicapis.com/10-tools-to-automatically-generate-sdks-for-your-api/" rel="noreferrer" target="_blank">code generation</a> to create new artifacts.</p>
+<p>Smithy was developed by a team at Amazon to create a code-generating modeling system that solved many of the current issues of similar systems. Code generation has often been protocol or framework-dependent, and the specificity of what environment or protocol could work in these systems was hugely limiting. With Smithy, the intent was to create something protocol-agnostic that could work in various environments.</p>
+<h2 id="how-does-smithy-work-">How Does Smithy Work?</h2>
+<p>Smithy works by creating models. These models are the fundamental blocks upon which everything else is built. They are structured around the idea of resources and operations, which is a common paradigm that most developers should be familiar with.</p>
+<div id="attachment_19862" class="wp-caption aligncenter"><p id="caption-attachment-19862" class="wp-caption-text">The Smithy model as defined in its <a href="https://smithy.io/2.0/spec/model.html" rel="noreferrer" target="_blank">documentation</a>.</p></div>
+<p>Additional extension and customizability are granted through the use of shapes and traits within the Semantic Model. These traits can help constrain or define specific elements of shapes, allowing for more granular model creation and development.</p>
+<div id="attachment_19861" class="wp-caption aligncenter"><p id="caption-attachment-19861" class="wp-caption-text">The Smithy model as defined in its <a href="https://smithy.io/2.0/spec/model.html" rel="noreferrer" target="_blank">documentation</a>.</p></div>
+<p>This use of traits allows for higher customization and constraint, and with Smithy, meta-model trait evolution is a key function. This combination between resource-based model specification and evolution through traits allows Smithy to morph and be incredibly extensible. Smithy also offers a pretty substantial validation system to ensure that these morphing changes are still valid within the greater model rules and policies.</p>
+<p>Going a step further, Smithy even allows the model itself to be segmented and morphed according to interest. Different parts of the model can be owned by different teams, allowing for higher collaboration and segmentation of impact to pieces of the whole. This is a huge step towards building collaboration into the underlying system. The projection system offered by Smithy also allows for views of the model to be created for different audiences without segmenting or altering the core model itself. This allows for the creation of different branches and purpose-built models, for instance, as a B2B play.</p>
+<p>Ultimately, Smithy is focused on creating a single model that can then be used to create, morph, and extend regardless of environment — a lofty goal that mirrors the movement to <a href="https://nordicapis.com/when-is-microservices-architecture-worth-it/" rel="noreferrer" target="_blank">microservices and agnostic deployment</a>. The IDL is split into three sections that help constrain and define the output:</p>
+<ul>
+<li><strong>Control</strong>: Defines the version of the IDL as well as other controls on the generative process.</li>
+<li><strong>Metadata</strong>: Defines and applies metadata under which the model will be described.</li>
+<li><strong>Shape</strong>: Defines the shapes and traits of the data structure.</li>
+</ul>
+<h2 id="smithy-in-practice">Smithy in Practice</h2>
+<p>The following is a basic example provided in the documentation — this code forms a weather service in Smithy:</p>
+<pre><code><span class="hljs-string">$version:</span> <span class="hljs-string">"2"</span>
+
+namespace example.weather
+
+<span class="hljs-comment">/// Provides weather forecasts.</span>
+<span class="hljs-meta">@paginated</span>(<span class="hljs-string">inputToken:</span> <span class="hljs-string">"nextToken"</span>, <span class="hljs-string">outputToken:</span> <span class="hljs-string">"nextToken"</span>, <span class="hljs-string">pageSize:</span> <span class="hljs-string">"pageSize"</span>)
+service Weather {
+<span class="hljs-symbol">    version:</span> <span class="hljs-string">"2006-03-01"</span>
+<span class="hljs-symbol">    resources:</span> [
+        City
+    ]
+<span class="hljs-symbol">    operations:</span> [
+        GetCurrentTime
+    ]
+}
+
+resource City {
+<span class="hljs-symbol">    identifiers:</span> { <span class="hljs-string">cityId:</span> CityId }
+<span class="hljs-symbol">    properties:</span> { <span class="hljs-string">coordinates:</span> CityCoordinates }
+<span class="hljs-symbol">    read:</span> GetCity
+<span class="hljs-symbol">    list:</span> ListCities
+<span class="hljs-symbol">    resources:</span> [
+        Forecast
+    ]
+}
+
+resource Forecast {
+<span class="hljs-symbol">    identifiers:</span> { <span class="hljs-string">cityId:</span> CityId }
+<span class="hljs-symbol">    properties:</span> { <span class="hljs-string">chanceOfRain:</span> Float }
+<span class="hljs-symbol">    read:</span> GetForecast
+}
+
+<span class="hljs-comment">//"pattern" is a trait.</span>
+<span class="hljs-meta">@pattern</span>(<span class="hljs-string">"^[A-Za-z0-9 ]+$"</span>)
+string CityId
+
+<span class="hljs-meta">@readonly</span>
+operation GetCity {
+    <span class="hljs-string">input :</span>= <span class="hljs-keyword">for</span> City {
+        <span class="hljs-comment">//"cityId" provides the identifier for the resource and</span>
+        <span class="hljs-comment">// has to be marked as required.</span>
+        <span class="hljs-meta">@required</span>
+        $cityId
+    }
+
+    <span class="hljs-string">output :</span>= <span class="hljs-keyword">for</span> City {
+        <span class="hljs-comment">//"required" is used on output to indicate if the service</span>
+        <span class="hljs-comment">// will always provide a value for the member.</span>
+        <span class="hljs-comment">//"notProperty" indicates that top-level input member "name"</span>
+        <span class="hljs-comment">// is not bound to any resource property.</span>
+        <span class="hljs-meta">@required</span>
+        <span class="hljs-meta">@notProperty</span>
+<span class="hljs-symbol">        name:</span> String
+
+        <span class="hljs-meta">@required</span>
+        $coordinates
+    }
+<span class="hljs-symbol">
+    errors:</span> [
+        NoSuchResource
+    ]
+}
+
+<span class="hljs-comment">// This structure is nested within GetCityOutput.</span>
+structure CityCoordinates {
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    latitude:</span> Float
+
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    longitude:</span> Float
+}
+
+<span class="hljs-comment">//"error" is a trait that is used to specialize</span>
+<span class="hljs-comment">// a structure as an error.</span>
+<span class="hljs-meta">@error</span>(<span class="hljs-string">"client"</span>)
+structure NoSuchResource {
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    resourceType:</span> String
+}
+
+<span class="hljs-comment">// The paginated trait indicates that the operation may</span>
+<span class="hljs-comment">// return truncated results.</span>
+<span class="hljs-meta">@readonly</span>
+<span class="hljs-meta">@paginated</span>(<span class="hljs-string">items:</span> <span class="hljs-string">"items"</span>)
+operation ListCities {
+    <span class="hljs-string">input :</span>= {
+<span class="hljs-symbol">        nextToken:</span> String
+<span class="hljs-symbol">        pageSize:</span> Integer
+    }
+
+    <span class="hljs-string">output :</span>= {
+<span class="hljs-symbol">        nextToken:</span> String
+
+        <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">        items:</span> CitySummaries
+    }
+}
+
+<span class="hljs-comment">// CitySummaries is a list of CitySummary structures.</span>
+list CitySummaries {
+<span class="hljs-symbol">    member:</span> CitySummary
+}
+
+<span class="hljs-comment">// CitySummary contains a reference to a City.</span>
+<span class="hljs-meta">@references</span>([
+    {
+<span class="hljs-symbol">        resource:</span> City
+    }
+])
+structure CitySummary {
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    cityId:</span> CityId
+
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    name:</span> String
+}
+
+<span class="hljs-meta">@readonly</span>
+operation GetCurrentTime {
+    <span class="hljs-string">output :</span>= {
+        <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">        time:</span> Timestamp
+    }
+}
+
+<span class="hljs-meta">@readonly</span>
+operation GetForecast {
+    <span class="hljs-string">input :</span>= <span class="hljs-keyword">for</span> Forecast {
+        <span class="hljs-comment">//"cityId" provides the only identifier for the resource since</span>
+        <span class="hljs-comment">// a Forecast doesn't have its own.</span>
+        <span class="hljs-meta">@required</span>
+        $cityId
+    }
+
+    <span class="hljs-string">output :</span>= <span class="hljs-keyword">for</span> Forecast {
+        $chanceOfRain
+    }
+}
+</code></pre>
+<p>Breaking this into individual pieces, we can see the control part of the code at the top:</p>
+<pre><code>$<span class="hljs-built_in">version</span>: <span class="hljs-string">"2"</span>
+</code></pre>
+<p>Following this is the substantive code:</p>
+<pre><code><span class="hljs-selector-tag">namespace</span> <span class="hljs-selector-tag">example</span><span class="hljs-selector-class">.weather</span>
+
+<span class="hljs-comment">/// Provides weather forecasts.</span>
+@<span class="hljs-selector-tag">paginated</span>(<span class="hljs-attribute">inputToken</span>: <span class="hljs-string">"nextToken"</span>, <span class="hljs-attribute">outputToken</span>: <span class="hljs-string">"nextToken"</span>, <span class="hljs-attribute">pageSize</span>: <span class="hljs-string">"pageSize"</span>)
+<span class="hljs-selector-tag">service</span> <span class="hljs-selector-tag">Weather</span> {
+    <span class="hljs-attribute">version</span>: <span class="hljs-string">"2006-03-01"</span>
+    <span class="hljs-attribute">resources</span>: [
+        City
+    ]
+    <span class="hljs-attribute">operations</span>: [
+        GetCurrentTime
+    ]
+}
+
+<span class="hljs-selector-tag">resource</span> <span class="hljs-selector-tag">City</span> {
+    <span class="hljs-attribute">identifiers</span>: { <span class="hljs-attribute">cityId</span>: CityId }
+    <span class="hljs-attribute">properties</span>: { <span class="hljs-attribute">coordinates</span>: CityCoordinates }
+    <span class="hljs-attribute">read</span>: GetCity
+    <span class="hljs-attribute">list</span>: ListCities
+    <span class="hljs-attribute">resources</span>: [
+        Forecast
+    ]
+}
+
+<span class="hljs-selector-tag">resource</span> <span class="hljs-selector-tag">Forecast</span> {
+    <span class="hljs-attribute">identifiers</span>: { <span class="hljs-attribute">cityId</span>: CityId }
+    <span class="hljs-attribute">properties</span>: { <span class="hljs-attribute">chanceOfRain</span>: Float }
+    <span class="hljs-attribute">read</span>: GetForecast
+}
+</code></pre>
+<p>Here we have the definition of the service (along with its pagination) as well as the resources that are leveraged and the actions taken upon those resources.</p>
+<pre><code><span class="hljs-comment">//"pattern" is a trait.</span>
+<span class="hljs-meta">@pattern</span>(<span class="hljs-string">"^[A-Za-z0-9 ]+$"</span>)
+string CityId
+
+<span class="hljs-meta">@readonly</span>
+operation GetCity {
+    <span class="hljs-string">input :</span>= <span class="hljs-keyword">for</span> City {
+        <span class="hljs-comment">//"cityId" provides the identifier for the resource and</span>
+        <span class="hljs-comment">// has to be marked as required.</span>
+        <span class="hljs-meta">@required</span>
+        $cityId
+    }
+
+    <span class="hljs-string">output :</span>= <span class="hljs-keyword">for</span> City {
+        <span class="hljs-comment">//"required" is used on output to indicate if the service</span>
+        <span class="hljs-comment">// will always provide a value for the member.</span>
+        <span class="hljs-comment">//"notProperty" indicates that top-level input member "name"</span>
+        <span class="hljs-comment">// is not bound to any resource property.</span>
+        <span class="hljs-meta">@required</span>
+        <span class="hljs-meta">@notProperty</span>
+<span class="hljs-symbol">        name:</span> String
+
+        <span class="hljs-meta">@required</span>
+        $coordinates
+    }
+<span class="hljs-symbol">
+    errors:</span> [
+        NoSuchResource
+    ]
+}
+
+<span class="hljs-comment">// This structure is nested within GetCityOutput.</span>
+structure CityCoordinates {
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    latitude:</span> Float
+
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    longitude:</span> Float
+}
+
+<span class="hljs-comment">//"error" is a trait that is used to specialize</span>
+<span class="hljs-comment">// a structure as an error.</span>
+<span class="hljs-meta">@error</span>(<span class="hljs-string">"client"</span>)
+structure NoSuchResource {
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    resourceType:</span> String
+}
+
+<span class="hljs-comment">// The paginated trait indicates that the operation may</span>
+<span class="hljs-comment">// return truncated results.</span>
+<span class="hljs-meta">@readonly</span>
+<span class="hljs-meta">@paginated</span>(<span class="hljs-string">items:</span> <span class="hljs-string">"items"</span>)
+operation ListCities {
+    <span class="hljs-string">input :</span>= {
+<span class="hljs-symbol">        nextToken:</span> String
+<span class="hljs-symbol">        pageSize:</span> Integer
+    }
+
+    <span class="hljs-string">output :</span>= {
+<span class="hljs-symbol">        nextToken:</span> String
+
+        <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">        items:</span> CitySummaries
+    }
+}
+
+<span class="hljs-comment">// CitySummaries is a list of CitySummary structures.</span>
+list CitySummaries {
+<span class="hljs-symbol">    member:</span> CitySummary
+}
+
+<span class="hljs-comment">// CitySummary contains a reference to a City.</span>
+<span class="hljs-meta">@references</span>([
+    {
+<span class="hljs-symbol">        resource:</span> City
+    }
+])
+structure CitySummary {
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    cityId:</span> CityId
+
+    <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">    name:</span> String
+}
+
+<span class="hljs-meta">@readonly</span>
+operation GetCurrentTime {
+    <span class="hljs-string">output :</span>= {
+        <span class="hljs-meta">@required</span>
+<span class="hljs-symbol">        time:</span> Timestamp
+    }
+}
+
+<span class="hljs-meta">@readonly</span>
+operation GetForecast {
+    <span class="hljs-string">input :</span>= <span class="hljs-keyword">for</span> Forecast {
+        <span class="hljs-comment">//"cityId" provides the only identifier for the resource since</span>
+        <span class="hljs-comment">// a Forecast doesn't have its own.</span>
+        <span class="hljs-meta">@required</span>
+        $cityId
+    }
+
+    <span class="hljs-string">output :</span>= <span class="hljs-keyword">for</span> Forecast {
+        $chanceOfRain
+    }
+}
+</code></pre>
+<p>From here, we have a series of trait definitions and nested structures that allow for the permutation of output and function within the model, allowing for greater control of the fundamental output and functionality. Looking at this code, you can see how definition by trait unlocks functional control. In essence, traits allow for constraining and formatting data and services without fundamentally altering the underlying entity.</p>
+<h2 id="pros-and-cons-of-smithy">Pros and Cons of Smithy</h2>
+<p>With this in mind, what are the pros and cons of using something like Smithy?</p>
+<h3 id="pros">Pros</h3>
+<p>The biggest gain from adopting Smithy for most users is going to be the fact that it is protocol agnostic. Not all development is thought out so far in advance that the protocol you utilize today is the right one for all of time. Adopting a solution like Smithy allows you to create models for your work today that can morph, change, and alter with new development. This gives you a large amount of flexibility, ultimately breaking your development from heavy constraints.</p>
+<p>Focusing on a model-driven system allows for both machine and human readability that is highly efficient. Models can be ported from system to system and converted into other formats and types, freeing up the underlying system from the weight of external control. Models are also easy to compare, allowing for better automation, thereby increasing efficiency.</p>
+<p>Smithy is also <a href="https://nordicapis.com/open-source-vs-open-core-vs-open-standard-whats-the-difference/" rel="noreferrer" target="_blank">open source</a>, which is a huge benefit! A protocol-agnostic solution is great, but when the development of such a solution is also decoupled from source control that might make it closed off and centrally controlled, that gives it a greater velocity for development and iteration. Smithy is a tool that can do a lot on its own, but opening it to <a href="https://nordicapis.com/tips-building-developer-community/" rel="noreferrer" target="_blank">community development</a> and iteration could make it a platform for some pretty amazing things in the long-term!</p>
+<h3 id="cons">Cons</h3>
+<p>While Smithy does a lot of excellent work with its model-based system, it offers code generation as a big feature. The fact of the matter is that code generation still has significant problems, and even with the sheer number of fixes and systems on offer here, those issues don’t disappear. Code gen with Smithy works more often than not, but as with any code-gen tool, 99% of the time, the output is OK, but that 1% means you need to pay attention very closely and put resources into the review, which mitigates some of the benefit gained from code gen.</p>
+<p>Smithy is fully featured. In some cases, this could be a negative. If you’re looking to build something very simple that only has a handful of people interacting with it, the idea of projecting for other viewers or creating model access rules for multiple teams might not be in your wheelhouse. In such a case, the cost of bringing Smithy on board may not be justified. As with anything, you should consider whether Smithy is something you <em>need</em> to use or something you only <em>want</em> to use.</p>
+<p>Finally, it should be briefly noted that this is a product developed by Amazon. While this certainly should not be the sole reason to adopt or not adopt a tool, the long-term maintenance and health of this project are tied to the long-term maintenance and health of Amazon itself. While Amazon doesn’t look to be going anywhere soon, stories of corporate development languishing and breaking ten or twenty years after its first release are a dime a dozen for those who have been in the web development space for any amount of time, and this should certainly be a consideration. Even if the offering is open source, open source does not mean developed in perpetuity, and at any given moment it could be decided that Smithy is just not worth the time or resources.</p>
+<p>There is also a trend of open-source software converting into more commercial licenses. As of version 2.15, Buoyant Enterprise for Linkerd has announced that Linkerd will no longer produce an open-source stable release. As of 2024, Redis controversially has <a href="https://redis.io/blog/redis-adopts-dual-source-available-licensing/" rel="noreferrer" target="_blank">moved away from its BSD license</a>, causing many in the community to <a href="https://github.com/redis/redis/pull/13157" rel="noreferrer" target="_blank">raise serious concerns</a>. These stories are unfortunately common and illuminate a huge issue with a solution like Smithy — it fits into the open source framework until it doesn’t, and that shift can be hugely impactful down the line.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ultimately, Smithy is a great option for systems adopting a powerful model-based solution. While it might be too heavy for all implementations, its flexibility and extensibility make it a solid value proposition for many situations.</p>
+<p>For a view of what these models look like, check out the <a href="https://smithy.io/2.0/quickstart.html" rel="noreferrer" target="_blank">Smithy Quick Start Guide</a>. Let us know if you’ve used Smithy and what your thoughts were on it in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/overview-of-smithy-an-api-description-language-from-amazon/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

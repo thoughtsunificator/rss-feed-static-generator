@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Extensible scheduler class to be merged for 6.11</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Extensible scheduler class to be merged for 6.11</h3>
+		<div>The <a href="https://lwn.net/Articles/922405/" rel="noreferrer" target="_blank">extensible scheduler class</a>
+("sched_ext") framework allows the writing of CPU schedulers as a set of
+BPF programs.  It has been <a href="https://lwn.net/Articles/972710/" rel="noreferrer" target="_blank">somewhat
+controversial</a>, and its merging into the kernel has been blocked despite
+a clear level of interest from users.
+
+Linus Torvalds has now <a href="https://lwn.net/ml/all/CAHk-=wg8APE61e5Ddq5mwH55Eh0ZLDV4Tr+c6_gFS7g2AxnuHQ@mail.gmail.com" rel="noreferrer" target="_blank">let
+it be known</a> that he has made a decision and, overriding the scheduler
+maintainer, will merge sched_ext for the 6.11 release.
+<p>
+</p><blockquote class="bq">
+	I honestly see no reason to delay this any more. This whole
+	patchset was the major (private) discussion at last year's kernel
+	maintainer summit, and I don't find any value in having the same
+	discussion (whether off-list or as an actual event) at the upcoming
+	maintainer summit one year later, so to make any kind of sane
+	progress, my current plan is to merge this for 6.11.
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/978007/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

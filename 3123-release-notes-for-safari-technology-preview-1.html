@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 194</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Release Notes for Safari Technology Preview 194</h3>
+		<div><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 194 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/f5c2130755ab39b4b005c196eabaa05406f586ea...aaecbac76dbf8704715a9859be1852db13c34817" rel="noreferrer" target="_blank">277150@main…278096@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed range input not firing an input event when incremented or decremented via accessibility APIs. (<a href="https://commits.webkit.org/277182@main" rel="noreferrer" target="_blank">277182@main</a>)  (85707481)  </li>
+<li>Fixed setting <code>aria-hidden</code> on a slot not hiding the slot’s assigned nodes. (<a href="https://commits.webkit.org/277359@main" rel="noreferrer" target="_blank">277359@main</a>)  (108762653)  </li>
+<li>Fixed <code>aria-hidden=true</code> to be ignored on the <code>&lt;body&gt;</code> and <code>&lt;html&gt;</code> elements. (<a href="https://commits.webkit.org/277677@main" rel="noreferrer" target="_blank">277677@main</a>)  (123049663)  </li>
+</ul>
+<h3>Canvas</h3>
+<h4>New Feature</h4>
+<ul>
+<li>Added support for <code>CanvasRenderingContext2D.filter</code>. (<a href="https://commits.webkit.org/278000@main" rel="noreferrer" target="_blank">278000@main</a>) (51303686)</li>
+<li>Added support for <code>willReadFrequently</code>. (<a href="https://commits.webkit.org/277792@main" rel="noreferrer" target="_blank">277792@main</a>) (126739379)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed OffscreenCanvas failing to render to the placeholder with nested workers. (<a href="https://commits.webkit.org/277328@main" rel="noreferrer" target="_blank">277328@main</a>)  (126069375)  </li>
+<li>Fixed losing the contents layer of the placeholder canvas of OffscreenCanvas when switching off the tab. (<a href="https://commits.webkit.org/277654@main" rel="noreferrer" target="_blank">277654@main</a>)  (126070648)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed support for OffscreenCanvasRenderingContext2D’s <code>commit()</code> method. (<a href="https://commits.webkit.org/278047@main" rel="noreferrer" target="_blank">278047@main</a>) (126758254)</li>
+</ul>
+<h3>CSS</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an incorrect difference between implicit and explicit initial values for custom properties. (<a href="https://commits.webkit.org/277670@main" rel="noreferrer" target="_blank">277670@main</a>)  (124573975)  </li>
+<li>Fixed excluding <code>-apple-pay-button</code> from applying to any element that supports <code>appearance: auto</code> and is not a button. (<a href="https://commits.webkit.org/277268@main" rel="noreferrer" target="_blank">277268@main</a>)  (126107516)  </li>
+<li>Fixed missing color interpretation methods added to CSS color specifications. (<a href="https://commits.webkit.org/277481@main" rel="noreferrer" target="_blank">277481@main</a>)  (126444371)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <code>v</code> flag with <code>RegExp.prototype[Symbol.matchAll]</code>. (<a href="https://commits.webkit.org/277160@main" rel="noreferrer" target="_blank">277160@main</a>)  (126017731)  </li>
+<li>Added support for Unicode 15.1.0 characters in RegExp. (<a href="https://commits.webkit.org/277786@main" rel="noreferrer" target="_blank">277786@main</a>)  (126863692)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>RegExp.prototype.@@split</code> to update the following legacy RegExp static properties: <code>RegExp.input</code>, <code>RegExp.lastMatch</code>, <code>RegExp.lastParen</code>, <code>RegExp.leftContext</code>, <code>RegExp.rightContext</code>, and <code>RegExp.$1, ... RegExp.$9</code>. (<a href="https://commits.webkit.org/277559@main" rel="noreferrer" target="_blank">277559@main</a>)  (99865597)  </li>
+<li>Fixed logical assignment expressions to throw a syntax error when the left side of the assignment is a function call. (<a href="https://commits.webkit.org/277536@main" rel="noreferrer" target="_blank">277536@main</a>)  (126540636)  </li>
+<li>Fixed throwing a syntax error for nested duplicate-named capturing groups in RegEx. (<a href="https://commits.webkit.org/277928@main" rel="noreferrer" target="_blank">277928@main</a>) (126863735)</li>
+<li>Fixed Intl implementation to ensure canonicalizing “GMT” to “UTC” based on a spec update. (<a href="https://commits.webkit.org/277997@main" rel="noreferrer" target="_blank">277997@main</a>) (127061600)</li>
+</ul>
+<h3>Networking</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed incorrect <code>Sec-Fetch-Site</code> value for navigation of a nested document. (<a href="https://commits.webkit.org/277662@main" rel="noreferrer" target="_blank">277662@main</a>)  (109358563)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed incorrect View Transition snapshot position when page is scrolled. (<a href="https://commits.webkit.org/277371@main" rel="noreferrer" target="_blank">277371@main</a>)  (123668892)  </li>
+<li>Fixed Masonry to correctly perform intrinsic sizing. (<a href="https://commits.webkit.org/277403@main" rel="noreferrer" target="_blank">277403@main</a>)  (124240255)  </li>
+<li>Fixed visual overflow causing shifts in View Transitions. (<a href="https://commits.webkit.org/277183@main" rel="noreferrer" target="_blank">277183@main</a>)  (125882228)  </li>
+<li>Fixed snapshot scaling when animating View Transitions. (<a href="https://commits.webkit.org/277636@main" rel="noreferrer" target="_blank">277636@main</a>)  (125931538)  </li>
+<li>Fixed capturing the root background showing a white area at bottom in View Transitions. (<a href="https://commits.webkit.org/272224@main" rel="noreferrer" target="_blank">272224@main</a>)  (125931851)  </li>
+<li>Fixed incorrect grid item positioning with out-of-flow sibling. (<a href="https://commits.webkit.org/277300@main" rel="noreferrer" target="_blank">277300@main</a>)  (126207467)  </li>
+<li>Fixed visual overflow rect to be recomputed at every frame of View Transitions. (<a href="https://commits.webkit.org/277482@main" rel="noreferrer" target="_blank">277482@main</a>)  (126240398)  </li>
+<li>Fixed <code>break-word</code> with a float discarding text. (<a href="https://commits.webkit.org/277461@main" rel="noreferrer" target="_blank">277461@main</a>)  (126309547)  </li>
+<li>Fixed rendering 3D transforms in View Transitions. (<a href="https://commits.webkit.org/277639@main" rel="noreferrer" target="_blank">277639@main</a>)  (126513916)  </li>
+<li>Fixed image capture rectangle not including positioned descendants. (<a href="https://commits.webkit.org/277714@main" rel="noreferrer" target="_blank">277714@main</a>)  (126660740)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added animation support for the <code>d</code> property in SVG. (<a href="https://commits.webkit.org/277299@main" rel="noreferrer" target="_blank">277299@main</a>)  (126206354)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed clipping an SVG when an SVGFilter is applied to its root. (<a href="https://commits.webkit.org/265135@main" rel="noreferrer" target="_blank">265135@main</a>)  (118938065)  </li>
+</ul>
+<h3>Web Animations</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed updating an animation when changing the value of a <code>transform</code> property while that property is animated with an implicit keyframe. (<a href="https://commits.webkit.org/277257@main" rel="noreferrer" target="_blank">277257@main</a>)  (126126617)  </li>
+<li>Fixed animating with <code>color-mix</code>. (<a href="https://commits.webkit.org/277256@main" rel="noreferrer" target="_blank">277256@main</a>)  (126148201)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for serializing shadow roots through <code>getHTML()</code> as well as the corresponding shadow root <code>serializable</code> feature. (<a href="https://commits.webkit.org/277374@main" rel="noreferrer" target="_blank">277374@main</a>)  (125513986)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed throwing exceptions in navigation methods if in a detached state. (<a href="https://commits.webkit.org/277487@main" rel="noreferrer" target="_blank">277487@main</a>)  (123898636)  </li>
+<li>Fixed a minor issue in URL’s host setter. (<a href="https://commits.webkit.org/277531@main" rel="noreferrer" target="_blank">277531@main</a>)  (124363495)  </li>
+<li>Fixed GeolocationCoordinates to expose a <code>toJSON()</code> method. (<a href="https://commits.webkit.org/277347@main" rel="noreferrer" target="_blank">277347@main</a>)  (126183686)  </li>
+<li>Fixed GeolocationPosition to expose a <code>toJSON()</code> method. (<a href="https://commits.webkit.org/277413@main" rel="noreferrer" target="_blank">277413@main</a>)  (126247408)  </li>
+<li>Fixed setting <code>CustomEvent.target</code> when dispatching an event. (<a href="https://commits.webkit.org/277435@main" rel="noreferrer" target="_blank">277435@main</a>)  (126311287)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>permissionState</code> to be requested if an extension has the <code>webNavigation</code> permission. (<a href="https://commits.webkit.org/277308@main" rel="noreferrer" target="_blank">277308@main</a>)  (126212951)  </li>
+</ul>
+<h3>WebGL</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled support for the following approved extensions: <code>EXT_render_snorm</code>, <code>OES_sample_variables</code>, and <code>OES_shader_multisample_interpolation</code>. (<a href="https://commits.webkit.org/277775@main" rel="noreferrer" target="_blank">277775@main</a>)  (126863775)  </li>
+</ul>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15406/release-notes-for-safari-technology-preview-194/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

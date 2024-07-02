@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Secure Randomness in Go 1.22 (Go Blog)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Secure Randomness in Go 1.22 (Go Blog)</h3>
+		<div>The Go Blog has <a href="https://go.dev/blog/chacha8rand" rel="noreferrer" target="_blank">a detailed
+article</a> on the new, more secure random-number generator implemented for
+the 1.22 release.
+<p>
+</p><blockquote class="bq">
+	For example, when Go 1.20 deprecated <a href="https://go.dev/pkg/math/rand/#Read" rel="noreferrer" target="_blank"><tt>math/rand</tt>'s <tt>Read</tt></a>, we heard
+	from developers who discovered (thanks to tooling pointing out use
+	of deprecated functionality) they had been using it in places where
+	<a href="https://go.dev/pkg/crypto/rand/#Read" rel="noreferrer" target="_blank"><tt>crypto/rand</tt>'s <tt>Read</tt></a> was definitely needed, like generating key
+	material. Using Go 1.20, that mistake is a serious security problem
+	that merits a detailed investigation to understand the
+	damage. Where were the keys used? How were the keys exposed? Were
+	other random outputs exposed that might allow an attacker to derive
+	the keys? And so on. Using Go 1.22, that mistake is just a mistake.
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/972680/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

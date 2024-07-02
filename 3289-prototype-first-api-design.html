@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Prototype-First API Design</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Prototype-First API Design</h3>
+		<div><p>Discussions of API design approaches generally fall into two camps: code-first and design-first. Each has different tradeoffs, with design-first typically perceived as ideal but not always practical.</p>
+<p>In this article, I’ll present a third option, prototype-first, and argue that this combines several benefits from the other two approaches.</p>
+<h2 id="design-first">Design-First</h2>
+<p>Design as a distinct activity isn’t a popular concept in software development today. Most of the time, the thinking goes that software is easy to change and pressure is always high to ship new things. As such, design is often viewed as something that should emerge incrementally rather than being “done.”</p>
+<p>However, this isn’t always the case with APIs. If you’re in the business of building APIs for consumption outside of your team, group, or company, the impact of poor design decisions can be severe and long-lived. Once an API has customers, you’re bound by the need to maintain <a href="https://nordicapis.com/crafting-an-excellent-developer-experience-for-api-versioning/" rel="noreferrer" target="_blank">backward compatibility and consistency</a>.</p>
+<p>With this in mind, some <a href="https://www.thoughtworks.com/en-us/insights/blog/apis/design-thinking-apis" rel="noreferrer" target="_blank">up-front design</a> is often a good idea versus just shipping the first thing that seems to work and assuming you’ll find a way to fix it later.</p>
+<h2 id="why-design-first-falters">Why Design-First Falters</h2>
+<p>Even if you accept the premise above, the pressure to deliver ASAP doesn’t disappear. When you’ve got teams of mobile, web, or data developers sitting on their hands waiting for a new API capability to build against, it’s very tempting to just release <em>something</em> as soon as possible and worry about design afterward. This is a common reason <a href="https://nordicapis.com/the-benefits-of-design-first-api-development/" rel="noreferrer" target="_blank">API design-first approaches</a> are either not adopted or abandoned by organizations that would benefit from them.</p>
+<p>Then, there’s a second issue: designs (of any kind) only improve when meaningful feedback is possible. API designs can be <em>inspected</em>, and some useful feedback results from this, but they can’t be <em>used</em>. Effective feedback in software often arrives as a series of “doh!” moments when actually trying something, so the earlier we instigate this process by getting an API into the hands of its consumers, the better.</p>
+<p>This is why I believe that API design shouldn’t start on the whiteboard, but instead from a prototype.</p>
+<h2 id="so-how-does-prototyping-help-">So How Does Prototyping Help?</h2>
+<p>An <a href="https://www.wiremock.io/post/an-api-first-development-approach-needs-prototype-first-thinking" rel="noreferrer" target="_blank">API prototype</a>, unlike a design document or specification, can be used immediately by its consumers. The client code is written, and app features are built early on.</p>
+<p>With the right tooling, a prototype should be far quicker and easier to create, publish, and modify than the real thing. This means that feedback can be gained early, and the learning can be incorporated into the design immediately for testing.</p>
+<p>Even when the API design is essentially correct the first time (which is usually what happens, right?), having a prototype enables consuming teams to make progress on their features in parallel with the API-producing team.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/introduction-to-typespec/" rel="noreferrer" target="_blank">Introduction to TypeSpec</a></div>
+<h2 id="approaches-to-prototyping">Approaches to Prototyping</h2>
+<p>Some teams do a form of API prototyping directly in their production code by creating minimal, non-functioning, or stubbed scaffolding code for route handlers and data models, then shipping the code to a test environment. They might also generate OpenAPI from the code in order to document this design and facilitate a review process. If you’re doing this, you might not necessarily call it prototyping, but this is essentially what it is.</p>
+<p>However, this approach is less than ideal for several reasons.</p>
+<p>Firstly, each change to the API design involves a code-&gt;push-&gt;build-&gt;deploy cycle before the change is visible to other stakeholders. In all but the most well-tuned <a href="https://nordicapis.com/the-differences-between-continuous-integration-continuous-delivery-and-continuous-deployment/" rel="noreferrer" target="_blank">CD pipelines</a>, this adds a lot of friction when making a series of design iterations.</p>
+<p>Secondly, providing stubbed responses in code is limiting. The API producers are the only group that can add to the range of responses available, and this is time-consuming, both in terms of making the changes and deploying them. Non-happy paths, error, and fault responses can be hard to create on-demand, and getting decent diagnostic info may also require further effort.</p>
+<h2 id="mocks-as-prototypes">Mocks as Prototypes</h2>
+<p>API mocking is often a better solution here. Mocks are inherently far cheaper to build, publish, run, and modify than services running production code (even on modern serverless tech stacks).</p>
+<p>A mock API can be produced live during design collaboration sessions between producing and consuming teams. Then, they can be made available immediately for consuming teams to start building against. This allows for rapid feedback on the API design specs before costly implementation decisions have been committed to by the producer.</p>
+<p>Some tools support OpenAPI generation from a mock, so in these cases, you can save considerable effort in creating a full design spec. You can focus on adding descriptive elements and schema details rather than creating the whole spec from scratch.</p>
+<p>Mocks also retain their value after the real API feature has been shipped as they enable fast, deterministic continuous testing — their primary use case in most teams today.</p>
+<h2 id="brownfield-prototyping">Brownfield Prototyping</h2>
+<p>One objection sometimes heard about API mocking versus prototyping directly in the production code is that, more often than not, we’re adding features to an existing API rather than creating a new one. We have an existing set of API features we’re happy testing against and don’t want to have to build mocks for all of these just so that we can mock the new one.</p>
+<p>However, many <a href="https://nordicapis.com/10-tools-to-mock-http-requests/" rel="noreferrer" target="_blank">mocking tools</a> support some kind of proxy-based “partial mocking” pattern whereby calls to API endpoints that are already implemented get passed to a test environment, while endpoints still under development are mocked. To the caller these are indistinguishable — it all looks like a single API.</p>
+<h2 id="long-term-value">Long-Term Value</h2>
+<p>API mocks that are actively maintained continue to provide value to API consumers beyond the prototyping phase. Even when a production implementation of an API is available there are many benefits to testing consuming code against mocks. Benefits include faster and more reliable CI builds, easy fault and chaos testing, and reduced data setup effort, to name a few.</p>
+<p>Quite often, consuming teams create mocks of APIs they don’t own to get these benefits. In larger organizations, this creates duplication of effort as multiple consumers mock the same API. In this case, a well-maintained mock provided by the team that owns the API is a big aid to productivity.</p>
+<p>Additionally, for organizations that publish APIs to their customers, mocks can significantly enhance the <a href="https://nordicapis.com/5-rest-apis-with-great-developer-experience/" rel="noreferrer" target="_blank">developer experience</a> for consumers by providing low-friction access to an environment they can start to integrate with and showcasing specific interactions, especially the secondary and sad paths that can be difficult to reproduce reliably in production-like sandboxes.</p>
+<h2 id="in-summary">In Summary</h2>
+<p>Producing well-designed, easy-to-use APIs is becoming increasingly critical to business success. API prototyping with mocks offers a way to balance time-to-market, productivity, and quality in API-centric companies.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/prototype-first-api-design/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 195</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Release Notes for Safari Technology Preview 195</h3>
+		<div><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 195 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sonoma and macOS Ventura. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/d48c7f63fa225df9211aa2b96e3d73839250b278...e88b96ed42e1b7f930fb47fd288878fcb74a560e" rel="noreferrer" target="_blank">278097@main…278429@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>
+<p>Fixed updating table accessibility text when its caption dynamically changes. (<a href="https://commits.webkit.org/278164@main" rel="noreferrer" target="_blank">278164@main</a>)  (127263464)</p>
+</li>
+<li>
+<p>Fixed updating <code>aria-describedby</code> text after the targeted element changes its subtree. (<a href="https://commits.webkit.org/278318@main" rel="noreferrer" target="_blank">278318@main</a>)  (127390465)</p>
+</li>
+</ul>
+<h3>CSS</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed carrying analogous components forward when interpolating colors. (<a href="https://commits.webkit.org/278379@main" rel="noreferrer" target="_blank">278379@main</a>)  (127170141)  </li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed broken audio playback for a WebM file with a Vorbis track. (<a href="https://commits.webkit.org/278665@main" rel="noreferrer" target="_blank">278665@main</a>)  (124880261)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>
+<p>Fixed pseudo-elements not getting captured for View Transitions. (<a href="https://commits.webkit.org/278123@main" rel="noreferrer" target="_blank">278123@main</a>)  (126964779)</p>
+</li>
+<li>
+<p>Fixed View Transition rendering when the root element is not captured in the new snapshot. (<a href="https://commits.webkit.org/278120@main" rel="noreferrer" target="_blank">278120@main</a>)  (127217265)</p>
+</li>
+</ul>
+<h3>Scrolling</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed the cursor not updating as content scrolls under it on some pages. (<a href="https://commits.webkit.org/278297@main" rel="noreferrer" target="_blank">278297@main</a>)  (122347347)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Content Script CSS inconsistently overriding style attributes. (<a href="https://commits.webkit.org/278387@main" rel="noreferrer" target="_blank">278387@main</a>)  (126916972)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>
+<p>Fixed an issue where the Web Inspector viewport might appear cut off. (<a href="https://commits.webkit.org/278208@main" rel="noreferrer" target="_blank">278208@main</a>)  (117272735)</p>
+</li>
+<li>
+<p>Fixed <code>overflow: scroll</code> elements to scroll as expected when highlighting an element from the DOM tree. (<a href="https://commits.webkit.org/278614@main" rel="noreferrer" target="_blank">278614@main</a>)  (124554999)</p>
+</li>
+</ul>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15417/release-notes-for-safari-technology-preview-195/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

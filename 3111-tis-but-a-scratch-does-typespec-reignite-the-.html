@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>‘Tis but a Scratch: Does TypeSpec Reignite the Specification Wars?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">‘Tis but a Scratch: Does TypeSpec Reignite the Specification Wars?</h3>
+		<div><p>Everyone — especially people obsessed with SEO — loves a clickbait title (and, if you’re British, some Monty Python quotes). In this post, we are meeting that need by asking whether the emergence of <a href="https://typespec.io/" rel="noreferrer" target="_blank">TypeSpec</a> will reignite the Specification Wars, a question posed at the 2024 Austin API Summit.</p>
+<p>For the uninitiated, the Specification Wars were a “Rock-Em, Sock-Em” style contest in the 2010s — played out in <a href="https://nordicapis.com/top-specification-formats-for-rest-apis/" rel="noreferrer" target="_blank">the API media</a> — on which <a href="https://blog.postman.com/raml-and-api-blueprint-where-are-they-now/" rel="noreferrer" target="_blank">API description language</a> would become the most prevalent. While some of the details are hyperbole, which is what passionate technologists and journalists tend to do, there was a healthy debate on which API description language best represented the needs of the API economy, and rightly so. Having a language that correctly represents API signatures (the aggregate of the attributes of a given operation at an API with specific parameters) is critical to successfully describing an API so it can be understood by humans and parsed by machines. The Specification Wars had <a href="https://nordicapis.com/standard-api-definitions-demystified/" rel="noreferrer" target="_blank">several protagonists</a>, including RAML, API Blueprint, and Swagger, with Swagger coming out on top before becoming OpenAPI.</p>
+<p><a href="https://www.openapis.org/" rel="noreferrer" target="_blank">OpenAPI</a> has been the most prevalent description language for several years, and its reach in the API economy is self-evident. However, where there’s smoke, there’s fire. Why did Microsoft create a new description language when it is a member of the OpenAPI Initiative and therefore <em>literally</em> bought into the development of the OpenAPI Specification?</p>
+<h2 id="where-does-typespec-fit-">Where Does TypeSpec Fit?</h2>
+<p>In our <a href="https://nordicapis.com/introduction-to-typespec/" rel="noreferrer" target="_blank">post introducing TypeSpec</a>, we discussed the nuts and bolts of TypeSpec and how Microsoft created the language to foster <em>design-first</em> API development. We touched on the fact that <a href="https://spec.openapis.org/oas/latest.html" rel="noreferrer" target="_blank">OpenAPI</a> was perceived by the TypeSpec protagonists at Microsoft as being overly complex, with a high barrier to entry in terms of required knowledge and not serving alternative protocols like gRPC. In his 2024 Austin Summit <a href="https://www.youtube.com/watch?v=EINevYeNosc&amp;t=733s" rel="noreferrer" target="_blank">talk</a>, Gareth Jones took this argument further and, without decrying the benefits of OpenAPI, showed an example of the inherent complexity of OpenAPI when publishing a more intricate API.</p>
+<p></p><div class="responsive-iframe-container"></div><p></p>
+<div id="attachment_19577" class="wp-caption aligncenter"><p id="caption-attachment-19577" class="wp-caption-text">Graphic showing the complexity of OpenAPI description documents based on API complexity.</p></div>
+<p>One key point is the complexity and size of OpenAPI description documents when they are dereferenced and consolidated. In Gareth’s words:</p>
+<blockquote><p>“If we’re talking about working with these files, particularly for design and governance activities, well, if my files are in the hundreds of thousands to, at the far end, millions of lines of consolidated OAS [OpenAPI Specification], I just can’t work with that sort of information. It’s not just in the bank of me being able to process it as a human.”</p></blockquote>
+<p>You could argue that such <a href="https://nordicapis.com/working-with-tool-makers-the-way-forward-for-the-openapi-initiative/" rel="noreferrer" target="_blank">experiences with OpenAPI</a> can be dealt with through refinement, and developing and tuning the tooling in a way that helps humans cope with volume. However, the <a href="https://tools.openapis.org/" rel="noreferrer" target="_blank">OpenAPI tooling ecosystem</a> is diverse and one would expect that an organization with the resources of Microsoft would have been down this rabbit hole. In Gareth’s words, this is why Microsoft reached for the <em>tool of abstraction</em> to reduce <em>cognitive baggage</em>. TypeSpec is the result of that exercise, along with capturing common design patterns. It’s a simpler design methodology that attempts to ease complexity using a (more-or-less) unified toolset.</p>
+<h2 id="why-typespec-works-for-users">Why TypeSpec Works For Users</h2>
+<p>From the get-go, TypeSpec has attempted to provide almost everything you need to design your APIs. You start with the specification itself, an NPM-based CLI, plugins for both Visual Studio and Visual Studio Code, and detailed instructions on creating your design and extending it using built-in libraries. There are some parallels to this approach in <a href="https://nordicapis.com/whats-new-in-asyncapi-v3-0/" rel="noreferrer" target="_blank">the AsyncAPI world</a>: While AsyncAPI has always been open source and has a large tooling community, the AsyncAPI Initiative has done a great deal to provide <em>centralized</em> tooling that supports developers and designers using the specification.</p>
+<p>While this does not solve every problem out there, what it does shoot for is a (relatively) simple means to get multiple teams started on design. Despite looking like code, TypeSpec is a design language. One of its primary goals is to help users create their APIs using something feature-rich and extensible in the same way code is. It also provides a one-size-fits-all methodology across protocols. You can create (within the bounds of the protocols, obviously) OpenAPI descriptions, Protobuf, gRPC, or, with the right plugins, anything else relevant to your community.</p>
+<h2 id="how-openapi-can-do-what-typespec-does">How OpenAPI Can Do What TypeSpec Does</h2>
+<p>Where does the emergence of TypeSpec leave OpenAPI? Well, for the moment, OpenAPI is still the most popular API description language in the API economy. Its richness and extensibility make its application wide for API consumers, and with the right tooling, it allows them to service their needs across the API lifecycle. However, this richness and extensibility comes at a cost, namely that for many developers and designers, working with OpenAPI can be <em>hard</em>. Implementation in tools is also almost always opinionated as there is so much room for interpretation, especially when you consider the reliance on two versions of JSON Schema across the last two minor versions.</p>
+<p>We’ve discussed support from the specification maintainers in the tooling world, and in this case, the OpenAPI Initiative could replicate the early success of TypeSpec and AsyncAPI by offering more tools that are centrally maintained and provided and reflect the “state of the art” for the description language. A good example of such a project is <a href="https://github.com/OAI/oascomply" rel="noreferrer" target="_blank">OASComply</a>, which will provide a compliance parser for OpenAPI descriptions created by an API provider. Such work can only serve to strengthen the community and provide additional affordances in the existing, rich ecosystem.</p>
+<p>The next major version of OpenAPI, codenamed “<a href="https://nordicapis.com/openapi-sets-it-sights-on-v4-moonwalk-for-2024/" rel="noreferrer" target="_blank">Moonwalk</a>“, is also in progress. One complaint leveled at OpenAPI is that JSON Schema <em>increases</em> complexity for many users. It remains to be seen whether Moonwalk will keep its reliance on JSON Schema or opt for something else. If it does, we could see a shift to new toolsets with different syntaxes and affordances for the community.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-api-standards-bodies-to-get-involved-with/" rel="noreferrer" target="_blank">7 API Standards Bodies To Get Involved With</a></div>
+<h2 id="let-s-call-it-a-draw-the-future-of-api-description-languages">Let’s Call It a Draw: The Future of API Description Languages</h2>
+<p>The evidence suggests that the Specification Wars are, for now at least, consigned to history. <a href="https://nordicapis.com/whats-new-in-openapi-3-1-0/" rel="noreferrer" target="_blank">OpenAPI</a> is still the dominant API description language, and the community behind it serves to support the continued growth of the API economy.</p>
+<p>TypeSpec is an attempt to combine the <a href="https://nordicapis.com/when-to-sidestep-design-first-with-api-generation/" rel="noreferrer" target="_blank">design-first and code-first worlds</a> into something that works across both methodologies and reduces cognitive load for designers. You get the convenience and flexibility of an API design approach that “looks like code” and is eminently reusable and extensible, with a means to support API governance embedded in the tools themselves. You also get support for tools and description languages already in the existing API landscape, especially for the OpenAPI Specification. The TypeSpec approach also means a general decrease in complexity, which, for Microsoft, eases its use across the organization.</p>
+<p>However, TypeSpec <em>does not</em> specifically seek to replace OpenAPI. It provides a bridge between design-first tools intended to simplify the design process and the OpenAPI toolchain. API consumers still need the means to consume an API description using a rich, expressive language, and OpenAPI delivers just that. We can all rest assured that the war is over. (For now…)</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/tis-but-a-scratch-does-typespec-reignite-the-specification-wars/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

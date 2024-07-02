@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>JetStream 2.2</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">JetStream 2.2</h3>
+		<div><p><a href="https://www.browserbench.org/JetStream/in-depth.html" rel="noreferrer" target="_blank">JetStream 2</a> is a suite of JavaScript and WebAssembly performance benchmarks that runs 64 subtests. We recently fixed several minor issues we discovered that impact running the benchmark.</p>
+<p>One issue happened when running JetStream on fast hardware where the resolution of time to run a subtest, as measured by the timing code, occasionally returned 0. This caused problems when calculating subtest scores. Two other issues were found in the sub-test segmentation, where the code didn’t create the initial Float32Array for the test and another race condition issue was fixed in the task queue code for that test.</p>
+<p>Two other issues running JetStream via the command-line were found and fixed. The first was specific to the Spider Monkey command-line shell and the second was to fix the Wasm command-line script when running with both the D8 and Spider Monkey shells.</p>
+<p>We are introducing <a href="https://browserbench.org/JetStream2.2" rel="noreferrer" target="_blank">JetStream 2.2</a>, which fixes the issues mentioned above and includes the same subtests as <a href="https://browserbench.org/JetStream2.1" rel="noreferrer" target="_blank">JetStream 2.1</a> as well as the original <a href="https://browserbench.org/JetStream2.0" rel="noreferrer" target="_blank">JetStream 2</a>. The fixes improve the stability of the benchmark. We measured JetStream 2.2’s benchmark scores from Chrome, Safari, and Firefox and found them to be as stable as JetStream 2.1. Measurements were performed using a 16“ MacBook Pro with an M3 processor. The system was not running other applications and the browser app being tested, configured without extensions enabled, was restarted before each JetStream run. A total of 10 runs were performed for each browser app JetStream version combination.  Scores produced from JetStream 2.2 are not comparable to other versions of any JetStream benchmark.</p>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15378/jetstream-2-2/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

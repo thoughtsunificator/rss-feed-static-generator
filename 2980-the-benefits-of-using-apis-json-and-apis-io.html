@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Benefits of Using APIs.json and APIs.io</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Benefits of Using APIs.json and APIs.io</h3>
+		<div><p>It’s easy to forget that using APIs depends so heavily on discovery. The average API use case is obfuscated and happens invisibly behind the scenes, so it’s easy to imagine that this process just happens magically.</p>
+<p>The reality is that discovery is a huge part of this process. For APIs to function smoothly, they must be discoverable and understandable. A big part of this is ensuring standards for documenting where the most important elements of an API live and how they can be utilized within a broader system.</p>
+<p>Below, we’ll examine a tool called APIs.json that enables this functionality. We’ll also consider how the inclusion of its sister project, APIs.io, changes the game. We’ll also consider some general applications, challenges, and considerations around how this tool can be effectively implemented at scale.</p>
+<h2 id="what-is-apis-json-">What is APIs.json?</h2>
+<p><a href="https://apisjson.org/" rel="noreferrer" target="_blank">APIs.json</a> is a machine-readable specification designed to provide <a href="https://nordicapis.com/everything-you-need-to-know-about-api-discovery/" rel="noreferrer" target="_blank">discoverability</a> and operational clarity across a service. APIs.json functions similarly to a sitemap for a website, explaining the operational systems, how they tie together, and where the important machine and human-readable documents exist within the ecosystem of services and systems.</p>
+<p>One aspect that makes APIs.json uniquely powerful is that this “sitemap” index is not just concerned with internal services. <a href="https://nordicapis.com/6-types-of-apis-open-public-partner-private-composite-unified/" rel="noreferrer" target="_blank">Internal, partner, and public APIs</a> are collated and documented within the service, allowing for a comprehensive view of the API and its relevant components.</p>
+<p>Notably, APIs.json also documents human-readable elements. While documenting the machine-readable pieces is a powerful solution for providing understanding to systems, providing the human-readable element makes it uniquely useful for human end users. This allows for better and more complete integration through understanding.</p>
+<p>As an example of this, we can look at Fitbit’s specification:</p>
+<pre><code>{
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Fitbit"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Fitbit designs products that track everyday health and fitness, empowering and inspiring people to lead healthier, more active lives."</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://www.fitbit.com/images/common/logo_with_trademark.png"</span>,
+    <span class="hljs-attr">"tags"</span>: [
+        <span class="hljs-string">"fitness"</span>
+    ],
+    <span class="hljs-attr">"created"</span>: <span class="hljs-string">"2015-01-01"</span>,
+    <span class="hljs-attr">"modified"</span>: <span class="hljs-string">"2015-01-01"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://www.fitbit.com/apis.json"</span>,
+    <span class="hljs-attr">"specificationVersion"</span>: <span class="hljs-string">"0.14"</span>,
+    <span class="hljs-attr">"apis"</span>: [
+        {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Fitbit Web API"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Fitbit designs products that track everyday health and fitness, empowering and inspiring people to lead healthier, more active lives."</span>,
+            <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://www.fitbit.com/images/common/logo_with_trademark.png"</span>,
+            <span class="hljs-attr">"humanURL"</span>: <span class="hljs-string">"https://dev.fitbit.com/"</span>,
+            <span class="hljs-attr">"baseURL"</span>: <span class="hljs-string">"https://api.fitbit.com/"</span>,
+            <span class="hljs-attr">"tags"</span>: [],
+            <span class="hljs-attr">"properties"</span>: [
+                {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"X-blog"</span>,
+                    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://blog.fitbit.com/"</span>
+                },
+                {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"X-blog-rss-feed"</span>,
+                    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://blog.fitbit.com/feed/"</span>
+                },
+                {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"X-github"</span>,
+                    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/fitbit"</span>
+                },
+                {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"X-twitter"</span>,
+                    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://twitter.com/fitbit"</span>
+                }
+            ],
+            <span class="hljs-attr">"contact"</span>: [
+                {
+                    <span class="hljs-attr">"FN"</span>: <span class="hljs-string">"Fitbit API Team"</span>,
+                    <span class="hljs-attr">"Url"</span>: <span class="hljs-string">"https://dev.fitbit.com/forum"</span>
+                }
+            ]
+        }
+    ],
+    <span class="hljs-attr">"maintainers"</span>: [
+        {
+            <span class="hljs-attr">"FN"</span>: <span class="hljs-string">"Fitbit, Inc."</span>,
+            <span class="hljs-attr">"X-twitter"</span>: <span class="hljs-string">"fitbit"</span>
+        }
+    ]
+}
+</code></pre>
+<p>This is a great example of the additional human-readable context that can be provided. For example, simply mentioning the specific maintainers and the contact information for the API as follows provides a human-readable answer to “who do I contact for an issue to be resolved?” and does so in a way that does not require complexity or expensive landing pages.</p>
+<pre><code><span class="hljs-string">"contact"</span>: [
+                {
+                    <span class="hljs-string">"FN"</span>: <span class="hljs-string">"Fitbit API Team"</span>,
+                    <span class="hljs-string">"Url"</span>: <span class="hljs-string">"https://dev.fitbit.com/forum"</span>
+                }
+            ]
+        }
+    ],
+    <span class="hljs-string">"maintainers"</span>: [
+        {
+            <span class="hljs-string">"FN"</span>: <span class="hljs-string">"Fitbit, Inc."</span>,
+            <span class="hljs-string">"X-twitter"</span>: <span class="hljs-string">"fitbit"</span>
+        }
+</code></pre>
+<h2 id="what-is-apis-io-">What is APIs.io?</h2>
+<p>Taking this logic one step further, <a href="https://apis.io/" rel="noreferrer" target="_blank">APIs.io</a>, a tool built upon APIs.json, offers even more streamlined discovery. The service is essentially a search engine for APIs. In the same way that Google and other index engines started as glorified sitemap discovery systems, APIs.io has taken this design paradigm to its ultimate result.</p>
+<p>APIs.io is not a replacement tool, but it could be an effective way to discover new systems. Notably, it also provides a Browse area to discover already indexed APIs, allowing more seamless discovery and utilization.</p>
+<h2 id="the-benefits-of-using-apis-json-and-apis-io">The Benefits of Using APIs.json and APIs.io</h2>
+<p>APIs.json and APIs.io could offer various benefits, such as enabling better communication and making APIs more discoverable. Having additional data could also aid machine readability. Here are a handful of specific benefits APIs.json might enable.</p>
+<h3 id="effective-communication">Effective Communication</h3>
+<p>These tools provide a substantial modality for developers to communicate with their end users. Developers can implement these tools to represent the API design as they envision it, allowing for more clarity in communication. By providing a solid understanding of the inner workings and modalities of the API, connecting users to specific document locations and presumptions, APIs.json and APIs.io unlock a substantial communication modality that otherwise would be obfuscated by the very nature of API user paradigms.</p>
+<h3 id="ease-of-api-discovery">Ease of API Discovery</h3>
+<p>It’s not just enough to make your <a href="https://nordicapis.com/7-tips-on-how-to-navigate-api-documentation/" rel="noreferrer" target="_blank">API documentation</a> easy to find — even with the best communication, you still need a user to actually be able to find your services. Enabling discovery is a difficult question, but APIs.json, and to a further extent, APIs.io, makes this a relatively easy process.</p>
+<p>That ease of implementation is also a huge benefit. What stops most discovery efforts is the friction they create in the development process. <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">Making things discoverable</a> isn’t always easy, and if developers need to go above and beyond for users who may never use their tool, the argument could be made that it’s a waste of time or resources. Instead, tools like APIs.json could provide such a solution with relatively low friction.</p>
+<h3 id="improved-api-management">Improved API Management</h3>
+<p>The easiest way to perfect a skill is to teach it to someone else. In the same vein, the best way to ensure that your API is designed effectively is to explain that design to another person. Creating a “sitemap for APIs” forces developers to consider how their systems are designed.</p>
+<p>By taking a deep look at their APIs, developers could spot issues around organization, and maintenance can be surfaced. This allows developers to grasp how the system is designed, how it can be made better, and how the end user understands the API from the external point of view.</p>
+<h3 id="facilitation-of-machine-readability">Facilitation of Machine Readability</h3>
+<p>Machine-readable systems are easy to integrate and extend, and efforts to that end can pay huge dividends over time. Machine-readable integrations mean a low barrier to further interoperability and unlock major benefits to automation and development.</p>
+<p>In essence, machine readability is akin to using a cheat code, helping to de-silo your systems. A huge piece here is that there has been a massive investment in machine-readable API specifications with low friction for implementation. With options such as <a href="https://www.openapis.org/" rel="noreferrer" target="_blank">OpenAPI</a>, <a href="https://www.asyncapi.com/" rel="noreferrer" target="_blank">AsyncAPI</a>, and <a href="https://json-schema.org/" rel="noreferrer" target="_blank">JSON Schema</a>, machine-readable systems have never been easier to implement with more potential upside. In other words, the cost of not implementing machine-readable solutions is far greater than the cost of implementing them.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-design-robust-generative-ai-apis/" rel="noreferrer" target="_blank">How to Design Robust Generative AI APIs</a></div>
+<h3 id="community-and-ecosystem-building">Community and Ecosystem Building</h3>
+<p>API users are easy to view as a monolith, but the reality is that every user has their own considerations, concerns, and use cases. These users need a network of support to effectively use your systems, and providing something like APIs.json and APIs.io as a discovery engine can enable community development around your APIs.</p>
+<p>This has huge impacts on long-term API utilization and retention but also has tack-on benefits for open-source collaboration. When systems connect with one another and allow users to coalesce around use cases, these systems unlock huge benefits at scale.</p>
+<h3 id="challenges-and-considerations">Challenges and Considerations</h3>
+<p>Some concerns could be raised around APIs.json and APIs.io. Firstly, there are obvious concerns about security and privacy. When sharing intricate API details, developers should consider what elements of their API need to be surfaced, and which do not. That said, adopting the proper <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/" rel="noreferrer" target="_blank">zero-trust API security</a> should make the surfacing of machine-readable API descriptions trivial.</p>
+<p>Developers may also be concerned about additional processes. Using these tools does require time and resource investment, and some developers — especially those who only provide single APIs — may view using these tools as just another cost with low benefit.</p>
+<p>While single-API developers who don’t lean on other systems may be accurate in this assessment, the level at which developers begin to benefit from APIs.json and APIs.io is actually pretty low. If you, for any reason, need to surface your systems and make them discoverable, these tools are great ways to do that. For this reason, this problem is relatively self-selecting — if you view this use case as too costly, it likely will be.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>APIs.json and APIs.io are wonderful tools that can help deliver substantial benefits to most organizations. Through some basic design considerations and proactive development, they can offer huge benefits in community development, automation enablement, and new discoverability.</p>
+<p>What do you think of this tool? Are there other discoverability tools you’d like us to look at? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-benefits-of-using-apis-json-and-apis-io/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

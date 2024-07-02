@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>GNU nano 8.0 released</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">GNU nano 8.0 released</h3>
+		<div><p>Version 8.0 of the terminal text editor <a href="https://www.nano-editor.org/" rel="noreferrer" target="_blank">GNU nano</a> has been
+released. This update includes several changes to keybindings to be
+more newcomer-friendly, such as remapping Ctrl-F to forward-search and
+adding an option for modern bindings:</p>
+
+<blockquote class="bq">
+Command-line option --modernbindings (-/) makes ^Q quit, ^X cut,
+   ^C copy, ^V paste, ^Z undo, ^Y redo, ^O open a file, ^W write a
+   file, ^R replace, ^G find again, ^D find again backwards, ^A set
+   the mark, ^T jump to a line, ^P show the position, and ^E execute.
+</blockquote>
+
+<p>The release also provides access to 14 levels of gray scale in xterm (up
+from four), as well as many bug fixes.</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/971980/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

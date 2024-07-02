@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using GenAI (Github Copilot) to build a GenAI service</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Using GenAI (Github Copilot) to build a GenAI service</h3>
+		<div><p>Back on April 1st, <a href="/post/architecture/2024/04/01/announcing-faramir-llm-powered-microservice.html" rel="noreferrer" target="_blank">I published my Faramir project</a>, which is a (micro)service that provides a REST API that uses OpenAI to valid and format phone numbers.
+Faramir is written in Python and uses the Langchain library.
+I hadn’t actually written a Python-based REST API before, so naturally I turned to Github Copilot for help.
+This article documents some of my Github Copilot Chat interactions that helped me write the application.</p>
+
+<h2 id="generate-a-python-application-that-uses-fastapi">Generate a python application that uses FastAPI</h2>
+
+<p>A quick Google search suggested that I use a framework called <a href="https://fastapi.tiangolo.com/" rel="noreferrer" target="_blank">FastAPI</a>.
+In Github Copilot chat, I used the following prompt ‘Generate a python application that uses FastAPI’.
+This is the response:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">read_root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"Hello"</span><span class="p">:</span> <span class="s">"World"</span><span class="p">}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/{item_id}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s">"q"</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>It included some helpful instructions:</p>
+
+<blockquote>
+  <p>… 
+To run this application, save it as main.py and use the command uvicorn main:app –reload in your terminal. This will start a local server at http://127.0.0.1:8000.</p>
+</blockquote>
+
+<h2 id="generate-a-pip3-requirements-file">Generate a pip3 requirements file</h2>
+
+<p>I then asked Copilot to generate a <code class="language-plaintext highlighter-rouge">requirements.txt</code> file for me.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fastapi==0.68.1
+uvicorn==0.15.0
+</code></pre></div></div>
+
+<h2 id="which-port-is-the-application-listening-on">Which port is the application listening on?</h2>
+
+<p>I obviously wasn’t paying attention because I then asked Copilot which port the application was listening on.</p>
+
+<blockquote>
+  <p>The code snippet you provided does not specify the port the FastAPI application is listening on. However, by default, when you run a FastAPI application using Uvicorn, it listens on port 8000. You can specify a different port by using the –port option when starting Uvicorn, like so: uvicorn main:app –port 8080.</p>
+</blockquote>
+
+<h2 id="handling-a-post-request">Handling a post request</h2>
+
+<p>The FastAPI example only handles GET requests.
+I asked Copilot to generate a handler for a POST request.</p>
+
+<p>Here’s the code:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/items/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"phoneNumber"</span><span class="p">:</span> <span class="n">item</span><span class="p">.</span><span class="n">phoneNumber</span><span class="p">}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/{item_id}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s">"q"</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>One day I will read about pydantic and understand what it does. :-)</p>
+
+<h2 id="theres-more">There’s more</h2>
+
+<p>Github Copilot also helped with other aspects of development by suggesting completions while I was writing the code.
+For example, it helped generate some Pytest tests for the service.</p>
+
+<h2 id="summary-a-useful-yet-computationally-expensive-to-avoid-rtfm">Summary: a useful yet computationally expensive to avoid RTFM</h2>
+
+<p>As you can see, Github Copilot was extremely helpful while I was writing my first Python-based service.
+But there are some drawbacks.
+I don’t have the knowledge to evaluate the suitability and safety of the libraries it recommends.
+Here’s an <a href="https://www.theregister.com/2024/03/28/ai_bots_hallucinate_software_packages/" rel="noreferrer" target="_blank">example of how that can go terrible wrong</a>.
+Moreover, Github Copilot is a computationally very expensive alternative to RTFM.
+We really need a way to make libraries more usable that doesn’t involve ‘scanning all of humanity’s knowledge’ to generate each word.</p>
+
+<h2 id="to-learn-more">To learn more</h2>
+
+<p>Please take a look at the <a href="https://github.com/cer/faramir-microservice" rel="noreferrer" target="_blank">Github repository</a>.</p>
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/05/06/using-genai-to-build-a-genai-service.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

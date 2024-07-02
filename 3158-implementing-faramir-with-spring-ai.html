@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Implementing Faramir with Spring AI</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Implementing Faramir with Spring AI</h3>
+		<div><p>I originally implemented <a href="/post/architecture/2024/04/01/announcing-faramir-llm-powered-microservice.html" rel="noreferrer" target="_blank">Faramir</a>, which is a service that uses OpenAI to valid and format phone numbers, in Python with the Langchain library.
+On the one hand, a key benefit of the microservice architecture is that you can <a href="/articles/dark-energy-dark-matter/dark-energy/multiple-technology-stacks.html" rel="noreferrer" target="_blank">implement services in different languages</a>.
+That’s especially useful when working with LLMs since there’s a rich Python ecosystem.</p>
+
+<p>But on the other hand, it’s convenient to have a consistent technology stack - e.g. Java/Spring Boot - across services.
+That’s valuable if the code that integrates with the LLM needs to invoke functionality that’s written in Java.
+So I decided to reimplement Faramir in Java with Spring Boot.</p>
+
+<h2 id="using-spring-ai">Using Spring AI</h2>
+
+<p>There’s a few Java libraries for interacting with LLMs, including <a href="https://github.com/langchain4j/langchain4j" rel="noreferrer" target="_blank">langchain4j</a>, which is the Java version of the Python-based Langchain library.
+But there’s also a new library called <a href="https://spring.io/projects/spring-ai" rel="noreferrer" target="_blank">Spring AI</a> that’s designed to make it easy to integrate LLMs with Spring Boot applications.</p>
+
+<p>Using Spring AI to interact with an LLM is remarkably straightforward.
+Here’s the class that validates phone numbers:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PhoneNumberParser</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ChatClient</span> <span class="n">chatClient</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PhoneNumberParser</span><span class="o">(</span><span class="nc">ChatClient</span> <span class="n">chatClient</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">chatClient</span> <span class="o">=</span> <span class="n">chatClient</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">parse</span><span class="o">(</span><span class="nc">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ChatResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">chatClient</span><span class="o">.</span><span class="na">call</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">Prompt</span><span class="o">(</span><span class="s">"""..."""</span><span class="o">.</span><span class="na">formatted</span><span class="o">(</span><span class="n">phoneNumber</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="na">getResult</span><span class="o">().</span><span class="na">getOutput</span><span class="o">().</span><span class="na">getContent</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There’s also a couple of properties that need to be set in <code class="language-plaintext highlighter-rouge">application.properties</code>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.ai.openai.api-key</span><span class="p">=</span><span class="s">${OPENAI_API_KEY}</span>
+<span class="py">spring.ai.openai.chat.options.model</span><span class="p">=</span><span class="s">gpt-4</span>
+</code></pre></div></div>
+
+<p>In typical Spring Boot-style, auto-configuration takes care of the details.</p>
+
+<h2 id="to-learn-more">To learn more</h2>
+
+<p>To learn more, please take a look at the <a href="https://github.com/cer/faramir-microservice" rel="noreferrer" target="_blank">Github repository</a>.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/05/15/implementing-faramir-with-spring-ai.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

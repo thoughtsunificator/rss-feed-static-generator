@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Unbundling of API Management</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Unbundling of API Management</h3>
+		<div><p>It’s common to fulfill all of a company’s <a href="https://curity.io/resources/learn/api-management-system/" rel="noreferrer" target="_blank">API management</a> needs with one product that supplies all the required functionality. I mean things like endpoint routing, rate limiting, developer portals for client registration and configuration, documentation, observability, and so on. When talking to clients and prospects at Curity, however, we noticed that companies have started replacing the popular large products with smaller ones that provide only part of the functionality. Some big names in the API industry, like <a href="https://apievangelist.com/2022/05/05/the-unbundling-of-api-management/" rel="noreferrer" target="_blank">Kin Lane</a> and <a href="https://www.linkedin.com/posts/erikwilde_api-management-is-a-commodity-whats-next-activity-7077907219614191616-9_2G" rel="noreferrer" target="_blank">Erik Wilde</a>, are already talking about “the unbundling” of API management.</p>
+<h2 id="evolving-api-ecosystems">Evolving API Ecosystems</h2>
+<p>Back in the early days of REST APIs and microservices, bundled API management products were definitely helpful. We were all trying to figure out so many things in the new architecture that having one product that solves many problems simultaneously was more than welcome. However, things change, and so has the architecture of our systems. With the advent of cloud and cloud-native computing, we look at things differently. Nowadays, it’s much simpler to deploy small components in your Kubernetes cluster — for instance, sidecar proxies that live very close to your code and perform important tasks, lightweight API gateways deployed directly in the cluster, and so on.</p>
+<p>We also want our tools to integrate easily with the cloud in a cloud-native way. For example, we want to be able to containerize the products we use and use configuration-as-code (CaC) and infrastructure-as-code (IaC) support to integrate with GitOps or continuous delivery workflows. Yet, large products (often developed by large companies) have the same issue that most large objects or entities have — they suffer from inertia. It’s much harder to tailor an existing, very large code base to the requirements of a new, <a href="https://nordicapis.com/what-is-cloud-native-architecture/" rel="noreferrer" target="_blank">cloud-native architecture</a> than it is with a smaller, more focused one.</p>
+<h2 id="the-advantages-of-unbundling-api-management">The Advantages of Unbundling API Management</h2>
+<p>In this sense, it’s unsurprising to see the trend of unbundling API management. For companies, it’s faster and simpler to find new products and replace parts of the functionality of a full-lifecycle API management solution than to wait for their current vendor to finally catch up with the requirements. When deciding to unbundle their API management solutions, companies can expect several advantages:</p>
+<h3 id="1-more-control-and-increased-security">1. More Control and Increased Security</h3>
+<p>When you operate smaller components, you have more control over where each component is deployed. It is then simpler to run components closer (physically and architecturally) to your APIs and backend services. For example, you can <a href="https://curity.io/product/community/" rel="noreferrer" target="_blank">deploy an authorization server</a> in a cluster so that it’s faster for services in the same cluster to contact it. It also enables you to expose only some routes of the authorization server to the internet. It makes the solution more secure, as you limit the attack vector on your components.</p>
+<h3 id="2-easier-integration">2. Easier Integration</h3>
+<p><a href="https://nordicapis.com/exploring-the-role-of-cloud-native-in-apis/" rel="noreferrer" target="_blank">Cloud-native</a> requires that components integrate more easily and automatically. It’s more about integration over APIs and automatic deployment and configuration with IaC and CaC than it is about point-and-click user interfaces. Vendors of the smaller, newer products from the API management environment usually create them with cloud-native support.</p>
+<h3 id="3-replacement-flexibility">3. Replacement Flexibility</h3>
+<p>When separate products cover different parts of API management, it is much simpler to replace them when a need arises. You don’t have to replace every solution responsible for every feature of API management at once, just the one element that no longer meets your needs. This also makes your life easier when a vendor drastically changes the licensing or, even worse, goes out of business.</p>
+<h3 id="4-developer-autonomy">4. Developer Autonomy</h3>
+<p>The unbundling movement allows for better bottom-up decision-making when choosing vendors. It’s easier for developers to try out products based on key requirements and then make recommendations to senior stakeholders. It’s also a better experience for the developers to eventually work with a tool they have chosen rather than having a product imposed on them from the C level.</p>
+<p>Working with unbundled API management is not just about cloud-native and containers. When you have different parts of API management covered by different, smaller products, it is generally easier to mix and mingle the technologies involved. For example, you could more easily deliver some functionality <a href="https://nordicapis.com/server-vs-serverless-benefits-and-downsides/" rel="noreferrer" target="_blank">with solutions based on serverless</a> or edge computing, should that make more sense for your case.</p>
+<h2 id="the-negatives-of-unbundling-api-management">The Negatives of Unbundling API Management</h2>
+<p>There are no solutions, architectural patterns, or trends that come only with advantages. Using fit-for-purpose tools is no different, even if the trend offers more flexibility and benefits than full-lifecycle management products. Consider the following issues before choosing your approach.</p>
+<h3 id="1-the-need-for-orchestration">1. The Need for Orchestration</h3>
+<p>Once you start using several tools instead of one, your operation teams will probably have more work. You will have to make sure that instances of every tool are available. Unbundling gives you more flexibility, as you can apply different scaling rules and SLAs for more critical products, but it makes the whole process more complicated.</p>
+<h3 id="2-product-maintenance">2. Product Maintenance</h3>
+<p>Working with several products also means that you will have to spend more time on maintenance. Every product will have its own version lifecycle, and you must keep all your products up-to-date. This will be especially crucial when security fixes and patches are applied to products. In case of a global security issue (remember the log4j CVE?), you might end up in a situation where you have to quickly update many tools instead of just one. If you decide to switch to <a href="https://nordicapis.com/5-great-open-source-database-solutions/" rel="noreferrer" target="_blank">open-source products</a>, you might have to reserve some time to help maintain the project.</p>
+<h3 id="3-mind-the-costs">3. Mind the Costs</h3>
+<p>When you unbundle because you only need one or two features provided by some smaller products, you will probably lower your solution’s costs. However, when you replace one product with more than a couple, your costs might get higher. You will have to track costs with several vendors and monitor infrastructure costs that will now be dispersed in the case of products you run on your infrastructure.</p>
+<h3 id="4-potential-networking-issues">4. Potential Networking Issues</h3>
+<p>If you end up using many new products, latency and other networking problems might become an issue. You will now have many more applications and containers that talk to each other, and this always causes potential for networking issues.</p>
+<h2 id="the-unbundled-landscape">The Unbundled Landscape</h2>
+<p>The unbundling of API management has another big impact on the consumers of these products. It can become quite overwhelming to find your way around the landscape of all the tools and products. You will understand what I mean when glancing at the comprehensive <a href="https://apilandscape.apiscene.io/" rel="noreferrer" target="_blank">API landscape map</a>:</p>
+<div id="attachment_19435" class="wp-caption aligncenter"><p id="caption-attachment-19435" class="wp-caption-text">The <a href="https://apilandscape.apiscene.io/" rel="noreferrer" target="_blank">API Landscape</a>, maintained by apidays, is a comprehensive view of all stakeholders creating the programmable economy.</p></div>
+<p>As you can see, there are now numerous specialized tools for many actions that are often included in more holistic <a href="https://nordicapis.com/a-guide-to-api-lifecycle-management/" rel="noreferrer" target="_blank">API lifecycle management platforms</a>. For example, fit-for-purpose tools are solely dedicated to generating developer portals and documentation. Some are pluggable tools for enabling monetization. There are also niche services for monitoring, database wrapping, rate limiting, and more areas.</p>
+<p>It might take more time and effort to find the right products and tools for the concrete purpose. On the other hand, you can focus on the products tailored to the specific problem you’re currently trying to solve. Ultimately, you might have to change solutions more often than planned, as such a fragmented market tends to be more volatile. Of course, the <a href="https://nordicapis.com/9-api-lifecycle-management-platforms/" rel="noreferrer" target="_blank">full-lifecycle API management platforms</a> are still out there, so you can always go with one of these if you think that you’re not yet ready for the unbundling movement.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Even if it seems a bit overwhelming, I think unbundling is a natural evolution of things for API management. Many of us have noticed that rich, bundled solutions miss a feature or two or do not fully support our current architecture, and it is better to have several solutions dedicated to different API management functionalities. Maybe we started to feel that the Linux philosophy of having small, focused applications should also apply to the API landscape. Of course, we can’t compare the <code>ls</code> command to an API gateway, but still, a dedicated gateway product is smaller and more focused than a full-lifecycle API management platform. As always, we can’t say what the future brings, but for now, we have to be ready for the process of API management unbundling.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-unbundling-of-api-management/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

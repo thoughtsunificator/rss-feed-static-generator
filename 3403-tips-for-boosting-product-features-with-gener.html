@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Tips For Boosting Product Features With Generative AI</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Tips For Boosting Product Features With Generative AI</h3>
+		<div><p>AI is playing a bigger role in software development, from AI-generated code through to AI tools that consume and execute APIs independently. And lately, generative AI has become increasingly embedded into consumer products as well. As former Gartner analyst Paul Dumas <a href="https://nordicapis.com/gen-ai-apis-and-the-future-of-development/" rel="noreferrer" target="_blank">told us</a>, “Probably next year, or certainly the year after, at least 70% of any software product you touch is going to have an AI component to itself.”</p>
+<p>If that’s the case, and it’s looking more and more like it will, API developers will soon have to prepare for additional waves of security measures, compliance, and governance. The sooner we can start doing that, the better… even if best practices are still evolving rapidly.</p>
+<p>At our 2024 <a href="https://nordicapis.com/sessions/securely-boosting-any-product-with-generative-ai-apis/" rel="noreferrer" target="_blank">Austin API Summit</a>, <a href="https://nordicapis.com/speakers/ruben-sitbon/" rel="noreferrer" target="_blank">Ruben Sitbon</a>, Lead Solutions Architect at Sipios, a FinTech agency, joined us to talk about boosting product features using generative AI. He also covered the API developer’s role in AI projects and how to bundle security and compliance into the equation.</p>
+<p>Below, we’ll look more closely at a framework suggested by Sitbon. We’ll highlight some actionable tips and consider what the future of this space might look like.</p>
+<div class="well">Watch Ruben Sitbon present at the Austin API Summit:<div class="responsive-iframe-container"></div></div>
+<h2>Don’t Reinvent The Wheel: Reuse, Integrate, Incorporate</h2>
+<p>In 2023, the discussion of gen AI centered around chatbots like Jasper, Prompt Genie, and Mobile-GPT, says Sitbon. “We’ve seen only a few game-changing products: ChatGPT, Perplexity.ai for developers, Claude, and so on,” he says.</p>
+<p>We’ve also witnessed some of the first failures of gen AI in production. For example, Air Canada was forced to <a href="https://www.cbsnews.com/news/aircanada-chatbot-discount-customer/" rel="noreferrer" target="_blank">match a discount promised</a> by a chatbot, despite the company arguing (unsuccessfully) that their chatbot was a separate legal entity. This example speaks to the fact that many AI tools operate in silos, independent of connections to optimal information. As such, companies need to be <strong>extremely</strong> careful when boosting product features with AI.</p>
+<p>Where possible, Sitbon suggests, we should leverage existing products or tried and tested services instead of spending time and money building new ones. When it comes to leveraging existing products, the potential for <a href="https://nordicapis.com/14-text-to-image-ai-apis/" rel="noreferrer" target="_blank">using APIs</a> is obvious.</p>
+<h2>Undertaking The Proper AI Strategy</h2>
+<p>In his talk, Sitbon describes clients coming to him and saying things like, “We want to put GenAI <strong>everywhere</strong> in our product!” Lots of startups are already building products with Gen AI at their core, and established players are also rushing to expand what their products can do using AI.</p>
+<p>But as we’ve seen above, and elsewhere, this isn’t something that should be undertaken lightly. Sitbon suggests the following four-step process for assessing suitability and implementing AI:</p>
+<p>1. Define the dimensions needed to solve the problem(s)<br>
+2. Segment with your team’s skill set<br>
+3. Position where tools fit on that chart<br>
+4. Chart the relevant area for each tool</p>
+<p>The greater the output customization required, the more technical expertise in <a href="https://nordicapis.com/gen-ai-apis-and-the-future-of-development/" rel="noreferrer" target="_blank">AI, LLMs, and prompt engineering</a> is required. Similarly, a greater range of required knowledge of certain fields, as well as access to private documents, will also impact the skill sets and privileges needed.</p>
+
+<p>So, Sitbon asks, who can bring together the skill sets of Product teams, AI engineers, and Ops?</p>
+<p>He suggests that, in many cases, it’s the API software engineer. API developers can facilitate product design by supplying the right tools, helping technical teams assess the security of product ideas, and developing scalable gen AI implementation with frameworks like LangChain. More on the latter below…</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-gen-ai-is-evolving-api-management/" rel="noreferrer" target="_blank">How Gen AI Is Evolving API Management</a></div>
+<h2 id="monitor-observe-and-test-to-reduce-threats">Monitor, Observe, And Test To Reduce Threats</h2>
+<p>Although boosting products using AI might seem intimidating, much of it comes down to leveraging existing best practices. “We already know how to manage SQL injection and DDoS attacks,” Sitbon says. “And it’s pretty much the same for large language models — there’s prompt injection, as well as EDoS (economic denial of sustainability) attacks.”</p>
+<p>To mitigate security concerns, we can increase system observability using tools like <a href="https://www.fiddler.ai/" rel="noreferrer" target="_blank">Fiddler</a>, a specialist tool designed specifically for enterprise AI observability, he says. We can also build custom middleware, monitor both the input and output, and so on.</p>
+<p>Also, Sitbon asserts that we should be testing a <strong>lot</strong> and limiting our attack surface by using <a href="https://nordicapis.com/what-are-the-benefits-of-api-first-development/" rel="noreferrer" target="_blank">API-first architecture</a>. For instance, run manual tests. Sitbon suggests enlisting your ten smartest friends to try to break your system! Regular integration testing can look out for prompts that don’t work correctly or could be exploited.</p>
+<p>Of course, additional AI-specific threats are bound to emerge in the future. Unfortunately, as Sitbon remarks, there’s no “secret sauce” when it comes to preventing attacks on APIs or AI beyond taking all of the necessary precautions and remaining as vigilant as possible.</p>
+<h2 id="make-sure-you-can-scale-">Make Sure You Can Scale…</h2>
+<p>What implementing gen AI actually looks like will vary considerably based on things like the complexity of the product, input formats, and desired outputs. Consider, for example, <a href="https://www.promptingguide.ai/techniques" rel="noreferrer" target="_blank">the difference between</a> a zero-shot prompt, a prompt with no additional context, and few-shot prompts that provide additional contextual examples.</p>
+<p>Sitbon goes on to discuss some of the different architectural levels of deploying gen AI that you might encounter, depending on the complexity of the implementation, and illustrates how a framework can help address each of these different levels.</p>
+<p>He uses the example of <a href="https://www.langchain.com/" rel="noreferrer" target="_blank">LangChain</a>, which is an open-source orchestration framework that offers a generic interface for almost any LLM and is available in both Python and JavaScript-based libraries. As you can see below, it has tools for projects of all complexities:</p>
+
+<p>For improving observability, for example, Sitbon highlights that there are open source products like LangSmith available. This SaaS from LangChain allows you to replay prompts, debug new chains or agents, run regression tests, and so on.</p>
+<h2 id="don-t-get-left-behind-or-rush-in">Don’t Get Left Behind…Or Rush In</h2>
+<p>It’s worth remembering that, relatively speaking, we’re still in the early days of using AI to boost product features. With that said, startups and innovative SaaS players are already launching products with AI at their core, or integrating its functionality using extensions or plugins.</p>
+<p>As time passes, bigger (and more slow-moving) players will be looking to catch up. As we know, however, large corporate entities are typically risk-averse and prioritize security and compliance above all else. Moving too fast, as we’ve seen above, can cause major headaches for companies.</p>
+<p>But the adoption of AI is unlikely to be slowing down any time soon and, while we’ll undoubtedly see more open-source projects and de facto standardization, there’s still a ton of untapped potential for companies looking to capitalize on the AI boom.</p>
+<p>In other words, as time goes by, we expect to see more frameworks and tools like LangChain emerge. And potentially, just like in any boom period, there could be a lot of them…</p>
+<p>If you’re looking to embrace gen AI, no matter how tempting it might be to jump in headfirst, a measured approach is always the right one. Be sure to watch this space for more emerging best practices and case studies on how AI is changing the consumption and development of APIs.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/tips-for-boosting-product-features-with-generative-ai/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

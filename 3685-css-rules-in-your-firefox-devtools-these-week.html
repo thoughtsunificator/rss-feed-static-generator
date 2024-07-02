@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>CSS Rules in your Firefox DevTools – These Weeks in Firefox: Issue 163</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">CSS Rules in your Firefox DevTools – These Weeks in Firefox: Issue 163</h3>
+		<div><h3>Highlights</h3>
+<ul>
+<li aria-level="1">Lots of great Firefox DevTools updates!
+<ul>
+<li aria-level="2">Alex <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1824726" rel="noreferrer" target="_blank">tweaked our server to client communication</a> which should bring <a href="https://treeherder.mozilla.org/perfherder/comparesubtest?originalProject=try&amp;newProject=try&amp;newRevision=7e492d1bdcae79670ebdb62d7ecc764ffb9089d7&amp;originalSignature=4763542&amp;newSignature=4763542&amp;framework=12&amp;application=firefox&amp;originalRevision=2dcc39350cb72780052e60b9c55ede4c0da3cb12&amp;page=1&amp;showOnlyConfident=1" rel="noreferrer" target="_blank">significant performance improvement</a> across the whole toolbox</li>
+<li aria-level="2">Nicolas <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844446" rel="noreferrer" target="_blank">improved performance of the Inspector Rules</a> view by <b>50%</b> when displaying deeply nested rules</li>
+<li aria-level="2">Nicolas <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=977098" rel="noreferrer" target="_blank">fixed a 10 year old bug</a> by displaying the CSS Specificity of selectors when hovering them in the Rules view
+<ul>
+<li aria-level="3">
+<p></p><div id="attachment_1655" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/06/image1.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1655" class="wp-caption-text">Check out the MDN page on CSS specificity if you want to learn more!</p></div></li>
+</ul>
+</li>
+<li aria-level="2">Bomsy made great progress on migrating the Debugger to CodeMirror 6 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878647" rel="noreferrer" target="_blank">#1878647</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884651" rel="noreferrer" target="_blank">#1884651</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886419" rel="noreferrer" target="_blank">#1886419</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889281" rel="noreferrer" target="_blank">#1889281</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889284" rel="noreferrer" target="_blank">#1889284</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890269" rel="noreferrer" target="_blank">#1890269</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1891336" rel="noreferrer" target="_blank">#1891336</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894725" rel="noreferrer" target="_blank">#1894725</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897922" rel="noreferrer" target="_blank">#1897922</a>)
+<ul>
+<li aria-level="3">we should be at parity with the previous version, so if you could enable devtools.debugger.features.codemirror-next and report any issue you see, that would be great!</li>
+</ul>
+</li>
+<li aria-level="2">By the way, we want to enable devtools.debugger.features.windowless-service-workers by default, so you can debug Service Workers directly in the debugger (without going to about:debugging). We’re still looking for feedback, so if you’re working with Service Workers, please foxfood this pref and report any issue you encountered 🙂</li>
+</ul>
+</li>
+<li aria-level="1">Henrik published a blog post about the upcoming CDP (Chrome DevTools Protocol) deprecation in Firefox, which you can read <a href="https://fxdx.dev/deprecating-cdp-support-in-firefox-embracing-the-future-with-webdriver-bidi/" rel="noreferrer" target="_blank">here</a>. The plan is to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886759" rel="noreferrer" target="_blank">start disabling CDP by default in Firefox 129 and fully remove CDP support by the end of the year</a></li>
+<li aria-level="1">Dale <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900900" rel="noreferrer" target="_blank">landed a patch</a> to enable Google trending suggestions and recent searches on the release channel for Firefox 128!</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1851618%2C1892046%2C1896527%2C1898802%2C1643628%2C1896878%2C1899951%2C1899939%2C1893013%2C1880108%2C1583903%2C1848705%2C1900986&amp;list_id=17073041" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Pier Angelo Vendrame</li>
+<li aria-level="1">Sebastian Zartner [:sebo]</li>
+<li aria-level="1">Sukhmeet[:sukh]</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">Sukhmeet[:sukh] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893013" rel="noreferrer" target="_blank">removed browser.firefox-view.search.enabled</a> preference and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896878" rel="noreferrer" target="_blank">removed unused code</a> snippets in FormAutoFill</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">As part of the cross-browser compatibility improvements for Manifest Version 3 extensions landed in Firefox 128:
+<ul>
+<li aria-level="2">Content scripts can now be executed in the webpage global using the execution world MAIN (which is now supported by the scripting API and content scripts declared in the manifest.json file) and not be blocked by a strict webpage CSP (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1736575" rel="noreferrer" target="_blank">Bug 1736575</a>)
+<ul>
+<li aria-level="3">NOTE: content scripts executed in the MAIN world do not have access to any WebExtensions API.</li>
+</ul>
+</li>
+<li aria-level="2">Added support for domainType (“firstParty”, “thirdParty”) DNR rule conditions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1797408" rel="noreferrer" target="_blank">Bug 1797408</a>)</li>
+<li aria-level="2">Performance related improvement on evaluating DNR rules using requestDomains and initiatorDomains conditions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853569" rel="noreferrer" target="_blank">Bug 1853569</a>)</li>
+<li aria-level="2">Event pages will not be suspended if API calls that require user actions (e.g. permissions.request API calls) are still pending (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844044" rel="noreferrer" target="_blank">Bug 1844044</a> / <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874406" rel="noreferrer" target="_blank">Bug 1874406</a>)</li>
+<li aria-level="2">Event pages persisted listeners removed through the removeListener method will stay persisted and can respawn the event page after it has been suspended (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1869125" rel="noreferrer" target="_blank">Bug 1869125</a>)
+<ul>
+<li aria-level="3">NOTE: API events persisted listeners will instead be completely removed (not persisted anymore and not respawning the event page anymore) if the extension event page scripts do not add the listeners again (by not calling addListener) when the event page is started again.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=446518" rel="noreferrer" target="_blank">Sebastian Zartner [:sebo]</a> added warning when properties only applying to replaced elements are used on non-replaced elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1583903" rel="noreferrer" target="_blank">#1583903</a>), and when column-span is used on elements outside of multi-column containers (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848705" rel="noreferrer" target="_blank">#1848705</a>)</li>
+<li aria-level="1">Thanks to <a href="https://bugzilla.mozilla.org/user_profile?user_id=415378" rel="noreferrer" target="_blank">Valentin Gosu [:valentin]</a> for fixing an issue that failing service worker requests when Responsive Design Mode was enabled (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885308" rel="noreferrer" target="_blank">#1885308</a>)</li>
+<li aria-level="1">Thanks <a href="https://bugzilla.mozilla.org/user_profile?user_id=219126" rel="noreferrer" target="_blank">James Teh [:Jamie]</a> for fixing an accessibility issue in the DevTools accessibility tree (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898661" rel="noreferrer" target="_blank">#1898661</a>)</li>
+<li aria-level="1">Alex fixed an issue that could prevent DevTools to open (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898490" rel="noreferrer" target="_blank">#1898490</a>)</li>
+<li aria-level="1">Julian fixed an issue that was preventing DevTools to consume sourcemaps files when they required credentials (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899389" rel="noreferrer" target="_blank">#1899389</a>)</li>
+<li aria-level="1">Nicolas tweaked the filters button colors in Console and Netmonitor so their states should be more explicit (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1590432" rel="noreferrer" target="_blank">#1590432</a>)
+<ul>
+<li aria-level="2">
+<p></p><div id="attachment_1661" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/06/image7.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1661" class="wp-caption-text">Filter to your hearts content!</p></div></li>
+<li aria-level="2">
+<p></p><div id="attachment_1660" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/06/image6.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1660" class="wp-caption-text">Filter to your hearts content! In dark mode!</p></div></li>
+</ul>
+</li>
+<li aria-level="1">Nicolas added @property rules (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@property" rel="noreferrer" target="_blank">MDN</a>) information in the var() tooltip (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899489" rel="noreferrer" target="_blank">#1899489</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/06/image5.png" rel="noreferrer" target="_blank"></a></li>
+<li aria-level="2">And we now indicate when custom property declaration are invalid when their value does not match registered custom property definition (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866712" rel="noreferrer" target="_blank">#1866712</a>)
+<ul>
+<li aria-level="3"><a href="https://blog.nightly.mozilla.org/files/2024/06/image3.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Nicolas added support for @starting-style rules (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" rel="noreferrer" target="_blank">MDN</a>) in the Rules view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1892192" rel="noreferrer" target="_blank">#1892192</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/06/image4.png" rel="noreferrer" target="_blank"></a></li>
+<li aria-level="2">Thanks a lot to <a href="https://bugzilla.mozilla.org/user_profile?user_id=500786" rel="noreferrer" target="_blank">Boris Chiou [:boris]</a> for working on the platform patch that made this possible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893409" rel="noreferrer" target="_blank">#1893409</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Nicolas added support for @scope rules (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@scope" rel="noreferrer" target="_blank">MDN</a>) in the Rules view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893593" rel="noreferrer" target="_blank">#1893593</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/06/image2.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">External:
+<ul>
+<li aria-level="2">Thanks to James Hendry who removed the deprecated desiredCapabilities and requiredCapabilities from geckodriver (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1823907" rel="noreferrer" target="_blank">#1823907</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Related to that, Henrik updated the default value of the remote.active-protocols preference to “1”, which means that CDP is now disabled by default (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1882089" rel="noreferrer" target="_blank">#1882089</a>)</li>
+<li aria-level="1">Henrik implemented support for the http and bidi flags on the WebDriver Session, which allows to know if a specific session is using classic, bidi or both. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884090" rel="noreferrer" target="_blank">#1884090</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898719" rel="noreferrer" target="_blank">#1898719</a>)</li>
+<li aria-level="1">Julian added support for several arguments of the network.continueRequest command. Clients can now update headers, cookies, method and post body of an intercepted request. This also fixes a bug where intercepted requests in the beforeRequestSent phase could still be sent to the server (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850680" rel="noreferrer" target="_blank">#1850680</a>)</li>
+<li aria-level="1">Sasha fixed the order in which we emit network events in case of redirects. Our behavior now correctly matches the specifications (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879580" rel="noreferrer" target="_blank">#1879580</a>)</li>
+<li aria-level="1">Sasha implemented the userContext argument for the permissions.setPermission command which allows to update a permission only for a specific user context (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894217" rel="noreferrer" target="_blank">#1894217</a>)</li>
+<li aria-level="1">Henrik improved the way we handle error pages in the navigation helpers used by WebDriver BiDi (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878690" rel="noreferrer" target="_blank">#1878690</a>)</li>
+<li aria-level="1">Sasha updated the exception thrown when the input.setFiles command is used with a file which doesn’t exist. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1887644" rel="noreferrer" target="_blank">#1887644</a>)</li>
+<li aria-level="1">Sasha updated our vendored version of puppeteer to v22.9.0. As usual we try to keep up to date with Puppeteer releases to benefit from their latest test changes and improvements in BiDi support. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897183" rel="noreferrer" target="_blank">#1897183</a>)</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">Some <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899331" rel="noreferrer" target="_blank">more files (in toolkit/)</a> have been transitioned to use the .worker.(m)js file name system to automatically pick up the worker environment for ESLint.</li>
+<li aria-level="1">Nick fixed an issue where mach lint <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896514" rel="noreferrer" target="_blank">might not run lints on Windows</a> due to case differences in the drive name.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">There are patches up for review that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897498" rel="noreferrer" target="_blank">allow for exporting backups to a single-file archive</a>, add the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900892" rel="noreferrer" target="_blank">mechanism</a> for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901132" rel="noreferrer" target="_blank">encrypting backups</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901528" rel="noreferrer" target="_blank">adds support for recovering from a single-file archive</a></li>
+<li aria-level="1">fchasen <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894020" rel="noreferrer" target="_blank">has a patch up for review</a> for the dialog for restoring from a backup</li>
+<li aria-level="1">kpatenio has patches up for the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893299" rel="noreferrer" target="_blank">dialog for disabling backups</a> and for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893301" rel="noreferrer" target="_blank">disabling backup encryption</a></li>
+<li aria-level="1">You can follow along with <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883052" rel="noreferrer" target="_blank">the root metabug</a> here</li>
+<li aria-level="1">We’re almost at the point where we have end-to-end backup and recovery in a testable spot! As a reminder, this is not yet production ready, and might change dramatically before it’s ready to be used.</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li aria-level="1">mconley has patches up to make the Windows Jump List do <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1503809" rel="noreferrer" target="_blank">off-main-thread favicon caching</a>, and to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880109" rel="noreferrer" target="_blank">remove the legacy main-thread backend altogether</a>.</li>
+</ul>
+<h4>Profile Management</h4>
+<ul>
+<li aria-level="1">Initial work on the toolkit profile service and profile database is in review. Engineering work is pausing for two weeks to free up engineers for some Review Checker work.</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">HTTPS trimming in the address bar
+<ul>
+<li aria-level="2">Marco fixed a bug related to displaying the scheme for RTL (right-to-left) domains (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862404" rel="noreferrer" target="_blank">1862404</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Google account signed-in status
+<ul>
+<li aria-level="2">Stephanie landed patches enabling telemetry indicating whether the client was signed in to a Google account at the time of a SERP load (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877494" rel="noreferrer" target="_blank">1877494</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1892332" rel="noreferrer" target="_blank">1892332</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Search Config v2
+<ul>
+<li aria-level="2">Mark &amp; Mandy have been hard at work on the new search config over the past several months, and it is now permanently enabled (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900638" rel="noreferrer" target="_blank">1900638</a>)</li>
+<li aria-level="2">Standard8 resolved an incident where one of our Glean pings wasn’t being sent due to the new search config (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901057" rel="noreferrer" target="_blank">1901057</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901208" rel="noreferrer" target="_blank">1901208</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Bug fixes, clean up and intermittents
+<ul>
+<li aria-level="2">We completed a significant number of one-off bug fixes, intermittent test failure fixes and code clean up. Special shout out to patches from Yazan, our team’s new co-op student and to Moritz, our team’s new student worker.</li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1610530" rel="noreferrer" target="_blank">1610530</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1626741" rel="noreferrer" target="_blank">1626741</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841769" rel="noreferrer" target="_blank">1841769</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860753" rel="noreferrer" target="_blank">1860753</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890761" rel="noreferrer" target="_blank">1890761</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893228" rel="noreferrer" target="_blank">1893228</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894910" rel="noreferrer" target="_blank">1894910</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898437" rel="noreferrer" target="_blank">1898437</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898711" rel="noreferrer" target="_blank">1898711</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900321" rel="noreferrer" target="_blank">1900321</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900575" rel="noreferrer" target="_blank">1900575</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900601" rel="noreferrer" target="_blank">1900601</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901069" rel="noreferrer" target="_blank">1901069</a></li>
+</ul>
+</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">Thanks to pierov for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880108" rel="noreferrer" target="_blank">fixing an issue where placeholders on the datetime widget ignore spoof English</a></li>
+<li aria-level="1">Thanks to Irene Ni for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884153" rel="noreferrer" target="_blank">cleaning up some CSS tokens in moz-card</a></li>
+<li aria-level="1">We have two new components in development: <a href="https://firefoxux.github.io/firefox-desktop-components/?path=/story/ui-widgets-radio-group--default" rel="noreferrer" target="_blank">moz-radio/moz-radio-group</a> and <a href="https://firefoxux.github.io/firefox-desktop-components/?path=/story/ui-widgets-checkbox--default" rel="noreferrer" target="_blank">moz-checkbox</a>.</li>
+<li aria-level="1">We now only do <a href="https://phabricator.services.mozilla.com/D212191" rel="noreferrer" target="_blank">synchronous imports after the DOMContentLoaded event</a> in order to fix a regression in about:preferences (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896837" rel="noreferrer" target="_blank">Bug 1896837</a>)</li>
+<li aria-level="1">Planning on fixing an issue in MozLitElement where Fluent wasn’t getting the data-l10n-attrs set quickly enough. See the following for more details: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901336" rel="noreferrer" target="_blank">Bug 1901336 – Support setting fluent attrs in MozLitElement property definitions</a></li>
+</ul>
+</div>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/06/18/css-rules-in-your-firefox-devtools-these-weeks-in-firefox-issue-163/">Go to article URL</a>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

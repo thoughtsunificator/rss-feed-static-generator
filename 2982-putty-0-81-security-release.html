@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>PuTTY 0.81 security release</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">PuTTY 0.81 security release</h3>
+		<div><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" rel="noreferrer" target="_blank">Version
+0.81</a> of the PuTTY SSH client is out with a fix for <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-31497" rel="noreferrer" target="_blank">CVE-2024-31497</a>;
+some users will want to update and generate new keys:
+<p>
+</p><blockquote class="bq">
+	 PuTTY 0.81, released today, fixes a critical vulnerability
+	 CVE-2024-31497 in the use of 521-bit ECDSA keys
+	 (ecdsa-sha2-nistp521). If you have used a 521-bit ECDSA private
+	 key with any previous version of PuTTY, consider the private key
+	 compromised: remove the public key from authorized_keys files, and
+	 generate a new key pair.
+<p>
+	 However, this only affects that one algorithm and key size. No
+	 other size of ECDSA key is affected, and no other key type is
+	 affected.
+</p></blockquote>
+<p>
+(Thanks to  Joe Nahmias).</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/970045/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

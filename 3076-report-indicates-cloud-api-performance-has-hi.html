@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Report Indicates Cloud API Performance Has Hit A Ceiling</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Report Indicates Cloud API Performance Has Hit A Ceiling</h3>
+		<div><p>No developer likes an API that takes too long to respond. Worse, poor service uptime makes it challenging to rely on APIs for stable integrations. Low quality can stunt the developer experience and lead to unhappy end consumers. As such, retaining high performance is key to creating successful API products.</p>
+<p>Yet, after years of steady improvements, overall <a href="https://nordicapis.com/10-tips-for-improving-api-performance/" rel="noreferrer" target="_blank">cloud API performance</a> seems to have reached a ceiling. This partly stems from variances across cloud hosting service providers and their regions. However, it could also be due to higher processing demands due to new working conditions and new technology trends, like <a href="https://nordicapis.com/how-gen-ai-is-evolving-api-management/" rel="noreferrer" target="_blank">generative AI</a>.</p>
+<p>To explore the state of cloud API performances, APIContext recently released its <a href="https://apicontext.com/download-2024-annual-cloud-service-provider-api-quality-industry-report/" rel="noreferrer" target="_blank">2024 Cloud Service Provider API Report</a>. Now in its sixth year, the research analyzed 650 million API calls to 1,000 APIs across 100 geographically diverse data centers. With such a wealth of data, the report is a window into global API usage and performance trends throughout the last year. Let’s dive into some of the key findings.</p>
+<h2 id="service-availability-degradation">Service Availability Degradation</h2>
+<p>There has been a noticeable statistical degradation in cloud latency. In 2023, only 7% of API services globally achieved a 99.99% service availability score, a significant drop from 18% in 2022. Yet again, PagerDuty was the API service with the highest <a href="https://nordicapis.com/understanding-the-benefits-of-api-observability/" rel="noreferrer" target="_blank">observable availability</a>, with just 30 minutes of measurable downtime across its APIs.</p>
+<p>Part of the increase in latency is perhaps due to the at-home remote working conditions brought on by the pandemic, suggests the report, which, for many organizations, are still in full force. API reliance has also shot through the roof, as organizations are utilizing <a href="https://www.doerrfeld.io/apis-are-more-relevant-than-ever" rel="noreferrer" target="_blank">more APIs than ever</a>.</p>
+<p>“While we see an overall high-quality standard as the baseline, the increased traffic and continual rollout of new physical infrastructure has put high demands on both cloud hardware and teams,” says Jamie Beckland, Chief Product Officer, APIContext. “We also see that cloud customers — from individual developers to large enterprises — do not often pursue credits and refunds for SLA violations.”</p>
+<h2 id="new-technology-brings-new-cloud-demands">New Technology Brings New Cloud Demands</h2>
+<p>In 2023, global new data center capacity increased by 19%, but demand for cloud services increased by 20%. This condition is putting pressure on clouds to meet SLAs, typically set at 99.5%, says Beckland. And, in 2023, we witnessed the outcomes of global computing demands — all clouds were slower in terms of total time to complete requests.</p>
+<p>Another factor to consider is the heavy reliance upon cloud computing for new artificial intelligence and <a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">machine learning development</a>. “Cloud AI models grew much faster than overall cloud services,” says Beckland. “AI is taking more of the overall cloud capacity, and it’s also taking the fastest and most advanced hardware.”</p>
+<p>With the increasing <a href="https://blog.treblle.com/how-gen-ai-transforms-api-developer-experience/" rel="noreferrer" target="_blank">interest in AI</a>, consuming cloud resources for AI is anticipated to outpace the rest of the cloud entirely. This will likely worsen over time, predicts Beckland, but it won’t necessarily affect DNS or transit times of APIs. “The biggest impact is felt by application processing time, which is the place where API product owners have the most ability to impact their customers’ experience.”</p>
+<h2 id="geographic-differences-in-data-centers">Geographic Differences in Data Centers</h2>
+<p>Performances continue to vary across <a href="https://nordicapis.com/5-cloud-computing-service-providers-for-saas-in-2021/" rel="noreferrer" target="_blank">cloud service providers</a>. But if you’re considering a cloud hosting provider solely based on high performance, Amazon Web Services (AWS) is still a very safe bet. In 2023, AWS led the pack in terms of connection time, with four out of the top five performant locations being AWS data centers. Azure, on the other hand, was consistently 75 milliseconds slower globally than AWS.</p>
+<p>But the report didn’t just expose differences across cloud providers — it also measured changes across geographies. Interestingly, the AWS East Virginia location was narrowly usurped by Asia-Pacific Northeast in 2023, which had an average time to connect of 2.50 ms and 2.28 ms, respectively. This indicates technology expectations in the region are catching up and surpassing those of North America.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/exploring-the-role-of-cloud-native-in-apis/" rel="noreferrer" target="_blank">Exploring The Role of Cloud-Native in APIs</a></div>
+<h2 id="overall-api-quality-plateaus">Overall API Quality Plateaus</h2>
+<p>Overall, API services had good observable performance in 2023, as measured by APIContext’s homebrewed <a href="https://docs.apimetrics.io/docs/what-is-the-casc-score" rel="noreferrer" target="_blank">Cloud API Service Consistency</a> (CASC) score. The report found that 68% of providers had a CASC score between 8.00 and 8.99, and 32% had a CASC score between 9.00 and 9.99.</p>
+<p>That said, every extra millisecond of latency counts. The impact of slow DNS times, for instance, can quickly accumulate, especially within <a href="https://nordicapis.com/how-to-link-api-requests-effectively/" rel="noreferrer" target="_blank">interconnected API flows</a> that leverage dozens of API calls, says Beckland. “DNS lookup time is fundamental to every API call on the internet because it routes every request to the appropriate resource.”</p>
+<p>Naturally, API performance is partially at the hands of the cloud provider’s performance. In 2023, we saw DNS resolution slow for Google and IBM. As a result, APIs like those from Box, DocuSign, and Capitol One were found to have significantly higher DNS lookup times. In comparison, quick DNS seems to be a competitive advantage for AWS. “It’s clear that AWS has focused on DNS connect performance as a “pure play” differentiator from other cloud providers,” says Beckland.</p>
+<h2 id="takeaways-for-api-providers">Takeaways For API Providers</h2>
+<p>While cloud-based API performance quality is generally high, there are some indicators that overall performance has reached a ceiling. To move the dial forward on performance, there are steps API providers can take to <a href="https://nordicapis.com/10-tips-for-improving-api-performance/" rel="noreferrer" target="_blank">optimize their designs</a>, such as caching, optimizing queries and payloads, pagination, and other techniques. However, taking performance to the next level will also depend on assessing individual cloud providers and their commitments to areas like high availability and optimized DNS.</p>
+<p>For Beckland, this strategy will necessitate a <a href="https://nordicapis.com/making-sense-of-a-multi-cloud-api-approach/" rel="noreferrer" target="_blank">hybrid, multi-cloud approach</a>. “API providers should update their infrastructure to operate more smoothly in hybrid cloud environments,” he says. “Hybrid environments allow APIs to be optimally routed based on the location and character of specific requests and responses, which allows API owners to use the best components of each cloud provider. As a bonus, this approach often saves operational costs.”</p>
+<div class="well">For more information and further recommendations, you can check out the entire 2024 Cloud Service Provider API Report from APIContext, <a href="https://apicontext.com/download-2024-annual-cloud-service-provider-api-quality-industry-report/" rel="noreferrer" target="_blank">available to download here</a>.</div>
+</div>
+		<a target="_blank" href="https://nordicapis.com/report-indicates-cloud-api-performance-has-hit-a-ceiling/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

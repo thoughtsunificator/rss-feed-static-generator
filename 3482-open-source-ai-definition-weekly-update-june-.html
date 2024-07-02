@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open Source AI Definition – Weekly update June 3</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Open Source AI Definition – Weekly update June 3</h3>
+		<div>
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368" rel="noreferrer" target="_blank">Initial report on definition validation</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>A first draft of the report of the validation phase has been published.  The validation phase is designed to review the compatibility of existing systems with the <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8" rel="noreferrer" target="_blank">current draft definition</a>. These are the systems in question: Arctic, BLOOM, Falcon, Grok, Llama 2, Mistral, OLMo, OpenCV, Phy-2, Pythia, and T5.</li>
+
+
+
+<li><strong>Problems and initial findings:</strong>
+<ul class="wp-block-list">
+<li><strong>Elusive documents:</strong> Not having system creators involved meant reviewers had to independently search for legal documents, resulting in many blanks in the document list and subsequent analysis.</li>
+
+
+
+<li><strong>One component, many artifacts, and documents:</strong> Some components were linked to multiple artifacts and documents, complicating the review process as source code and documentation could be spread across several repositories and reports.</li>
+
+
+
+<li><strong>Compounded components:</strong> Components in the checklist often combined multiple artifacts, such as training and validation code, making it difficult to track down specific legal documents.</li>
+
+
+
+<li><strong>Compliant? Conformant?</strong> Six out of eleven required components need a legal framework that is “compliant” or “conformant” with the Open Source Definition, prompting a need for clearer guidance on reviewing non-software components.</li>
+
+
+
+<li><strong>Reverting to the license: </strong>Reviewers suggested simplifying the process by relying on whether a legal document is OSI-approved, conformant, or compliant to guarantee the right to use, study, modify, and share the component, eliminating the need for independent assessment.</li>
+</ul>
+</li>
+
+
+
+<li><strong>Next steps:</strong>
+<ul class="wp-block-list">
+<li>As we are looking to fill in the gaps from above we call on both system creators and independent volunteers to complete various system reviews.&nbsp;</li>
+
+
+
+<li>If your familiar system is not on the list, contact Mer on the forum</li>
+</ul>
+</li>
+
+
+
+<li><strong>Initial questions and queries:</strong>
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/jasonbrooks" rel="noreferrer" target="_blank">@jasonbrooks</a> asks if the validation process should check if there’s “sufficiently detailed information about the data used to train the system so a skilled person can recreate a substantially equivalent system.” It’s unclear if this has been confirmed, and examples of skilled individuals achieving this would be helpful.
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">@stefano</a> <a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368/3?u=mia" rel="noreferrer" target="_blank">replies</a> that the <em>Preferred form</em> lists enduring principles, while the <em>Checklist</em> details required components. Validation ensures components like training methodologies and data provenance are available, enabling system recreation. Mer’s report highlights the difficulty in finding these components, suggesting a need for a better method. One idea is a detailed survey for AI developers, though companies like Meta might misuse the “Open Source” label. Public pressure may eventually deter such abuses.</li>
+</ul>
+</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/amcasari" rel="noreferrer" target="_blank">@amcasari</a> adds insights into the process of reviewing licenses.</li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351" rel="noreferrer" target="_blank">Open Source AI needs to require data to be viable&nbsp;</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>This week, the conversation shifted heavily toward the possibilities of creating a gradient approach to open licensing.</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">@Mark</a><a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/13?u=mia" rel="noreferrer" target="_blank">has</a> shared that he is publishing a paper regarding open washing, the AI ACT, and a case for a gradient notion of openness.
+<ul class="wp-block-list">
+<li>In line with previous points mostly raised by <a href="https://discuss.opensource.org/u/danish_contractor" rel="noreferrer" target="_blank">@danish_contactor</a>, Mark highlights the <a href="https://discuss.opensource.org/t/recognising-open-source-components-of-an-ai-system/207" rel="noreferrer" target="_blank">RAIL licenses</a> and argues that it should count towards openness too, stating that “I think providers and users of LLMs should not be free to create oil spills in our information landscape and I think RAIL provides useful guardrails for that.”</li>
+
+
+
+<li>They also present their visualization<a href="https://opening-up-chatgpt.github.io/" rel="noreferrer" target="_blank"> of the degrees of openness</a> of different systems&nbsp;</li>
+</ul>
+</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">@stefano</a> <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/11?u=mia" rel="noreferrer" target="_blank">has reiterated</a> that the open-source AI definition will remain binary, just like the Open Source Definition is binary. And responding to <a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">@Mark</a><a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351/13?u=mia" rel="noreferrer" target="_blank">has</a> and  <a href="https://discuss.opensource.org/u/danish_contractor" rel="noreferrer" target="_blank">@danish_contactor</a>, he linked to Kate Downing legal analysis of RAIL licensing framework.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/can-a-derivative-of-non-open-source-ai-be-considered-open-source-ai/345" rel="noreferrer" target="_blank">Can a derivative of non-open-source AI be considered Open Source AI?&nbsp;</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>Answering <a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">@stefano’s</a> <a href="https://discuss.opensource.org/t/can-a-derivative-of-non-open-source-ai-be-considered-open-source-ai/345?u=mia" rel="noreferrer" target="_blank">earlier questions</a>, <a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">@mark </a>adds that it’s challenging to fine-tune a model without knowing the initial training data and techniques. Examples like Meta and Mistral fine-tunes show success despite the lack of transparency in the original training data. Intel’s Neural 7B and AllenAI’s Tulu 70B demonstrate effective fine-tuning with detailed disclosure of fine-tuning steps and data. However, these efforts can’t qualify as truly open AI systems due to the closed nature of the base models and potential legal liabilities.</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/stefano" rel="noreferrer" target="_blank">@stefano</a> closed the topic stating that, based on feedback, <a href="https://discuss.opensource.org/t/can-a-derivative-of-non-open-source-ai-be-considered-open-source-ai/345/11?u=mia" rel="noreferrer" target="_blank">“Derivatives of non-Open Source AI cannot be Open Source AI”</a></li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/why-and-how-to-certify-open-source-ai/349" rel="noreferrer" target="_blank">Why and how to certify Open Source AI</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://discuss.opensource.org/u/amscott" rel="noreferrer" target="_blank">@amscott</a> <a href="https://discuss.opensource.org/t/why-and-how-to-certify-open-source-ai/349/3?u=mia" rel="noreferrer" target="_blank">added </a>that AI developers will likely self-certify compliance with the OSAID, with objective certification needed for arbitration in nuanced cases. Like the OSD, the OSAID will mature through community practice. A simple self-certification tool could promote transparency and document good practices.</li>
+
+
+
+<li><a href="https://discuss.opensource.org/u/Mark" rel="noreferrer" target="_blank">@mark</a> <a href="https://discuss.opensource.org/t/why-and-how-to-certify-open-source-ai/349/5?u=mia" rel="noreferrer" target="_blank">added </a>that The EU AI Act emphasizes “Open Source” systems, offering exemptions attractive to companies like Meta and Mistral. The AI Act requires disclosure templates overseen by an AI Office, potentially leading to intense lobbying efforts. If Open Source organizations influence regulation and certification, transparency may strengthen the Open Source ecosystem.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8" rel="noreferrer" target="_blank">Question regarding the 0.0.8 definition&nbsp;</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>Question from @<a href="https://hackmd.io/@jending12" rel="noreferrer" target="_blank">Jennifer Ding</a> regarding why “information” is a focus for the data category and not the code and model categories.</li>
+
+
+
+<li>@<a href="https://hackmd.io/@matthew-d-white" rel="noreferrer" target="_blank">Matt White</a> adds that OSD-Conformant (in the checklist) should be defined somewhere.
+<ul class="wp-block-list">
+<li>He further adds (to Data Information, under checklist) that many “open” models withhold various forms of data, making it unreasonable to expect model producers to release all the information necessary for full replication of the data pipeline if data is not a required component of the definition</li>
+</ul>
+</li>
+
+
+
+<li>@<a href="https://hackmd.io/@ITtCnIlXS2iAkrjVkpB73w" rel="noreferrer" target="_blank">Micheal Dolan</a> adds that ”the use of OSD-compliant and OSD-conformant without any definitions of either term is difficult to parse the meaning of.” and suggests some solutions.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/osaid-at-pycon-us/341" rel="noreferrer" target="_blank">OSAID at PyCon US</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>Missing a recap of how we got to where we are now? OSI was present at PyCon in Pittsburgh where we held a workshop regarding our current definition and spoke with many knowledgeable shareholders. You can read about it <a href="https://opensource.org/blog/osi-at-pycon-us-engaging-with-ai-practitioners-and-developers-as-we-reach-osaids-first-release-candidate" rel="noreferrer" target="_blank">here</a>.</li>
+</ul>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/open-source-ai-definition-weekly-update-june-3">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

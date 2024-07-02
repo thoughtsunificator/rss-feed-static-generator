@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using Razor templates to render HTML emails in .NET</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Using Razor templates to render HTML emails in .NET</h3>
+		<div>
+        <p></p>
+<!-- Photo by Seth Jensen, 2024. -->
+<p>When it comes to sending emails, Ruby on Rails has an excellent solution in the form of <a href="https://guides.rubyonrails.org/action_mailer_basics.html" rel="noreferrer" target="_blank">Action Mailer</a>.</p>
+<p>The basic idea is that you can define email templates using <a href="https://github.com/ruby/erb" rel="noreferrer" target="_blank">ERB</a> files. This is the same templating engine/​language used for normal web application views. Then, <a href="https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration" rel="noreferrer" target="_blank">application-level SMTP settings are configured</a> for email delivery. Finally, a “<a href="https://guides.rubyonrails.org/action_mailer_basics.html#sending-emails" rel="noreferrer" target="_blank">Mailer</a>” class can be developed that leverages the templates and the underlying email sending mechanism to send emails.</p>
+<p>In Rails, all this comes right out the box. Setup is minimal, so this approach is a huge time saver for a task that’s very common in web applications.</p>
+<p>In <a href="https://dotnet.microsoft.com/en-us/apps/aspnet" rel="noreferrer" target="_blank">ASP.NET Core</a> (or .NET in general), we don’t have such a convenient, built-in solution. However, it is possible to implement our own using the framework’s features.</p>
+<p>In this article, I’m going to explain step by step what I did in a recent .NET project to develop functionality similar to what Action Mailer provides.</p>
+<blockquote>
+<p>Throughout this article, I will be using a demo Web API application for code examples. If you’d like to see what the final implementation looks like, <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo" rel="noreferrer" target="_blank">you can find all the code on GitHub</a>. The API is about calculating quotes for used vehicles. Using the process described here, I added the feature to send emails when new quotes are generated.</p>
+<p>In fact, I have all of these changes in a single commit. <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/06abed402302316fad980cfbdd0aa9bfdc14aafe" rel="noreferrer" target="_blank">Here’s the diff</a>.</p>
+</blockquote>
+<h3 id="the-plan">The plan</h3>
+<p>So here’s the problem statement: I want to be able to send emails from my .NET app. The body of those emails need to be HTML, and they need to be built based on Razor templates — that is, I want to be able to define <code>*.cshtml</code> files for them. I also want to be able to define a “Mailer” class for each specific transaction or event that I want to send emails for. These “Mailer” classes are what the domain logic components will use directly to send the emails. They are the system’s gateway to email sending functionality.</p>
+<p>To fulfill those requirements, we will need four elements:</p>
+<ol>
+<li>A base component for sending emails.</li>
+<li>A component for turning Razor templates (i.e. <code>*.cshtml</code> files) into email bodies.</li>
+<li>The actual Razor templates.</li>
+<li>A concrete component that domain logic can invoke to send transactional emails.</li>
+</ol>
+<h3 id="step-1-sending-emails-in-net-with-the-mailkit-nuget-package">Step 1: Sending emails in .NET with the MailKit NuGet package</h3>
+<p>Creating a class that sends emails is easy using the <a href="https://github.com/jstedfast/MailKit" rel="noreferrer" target="_blank">MailKit</a> NuGet <a href="https://www.nuget.org/packages/MailKit/" rel="noreferrer" target="_blank">package</a>. I ended up using the approach discussed in <a href="https://mailtrap.io/blog/asp-net-core-send-email/" rel="noreferrer" target="_blank">this article</a> by Dzenana Kajtaz for <a href="https://mailtrap.io/" rel="noreferrer" target="_blank">Mailtrap</a>’s blog.</p>
+<p>The first thing to do is to install the MailKit NuGet package. This command will do it:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain">dotnet add package MailKit --version 4.5.0
+</code></pre></div><p>The next thing to do is add the necessary SMTP configuration settings into the project’s <code>appsettings.json</code> file. Here’s what one might look like when configured to use Mailtrap.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span>//</span> <span>VehicleQuotes.WebApi/appsettings.json</span>
+{
+    <span>//</span> <span>...</span>
+    <span>"MailSettings"</span>: {
+        <span>"Server"</span>: <span>"sandbox.smtp.mailtrap.io"</span>,
+        <span>"Port"</span>: <span>587</span>, <span>//</span> <span>25</span> <span>or</span> <span>465</span> <span>or</span> <span>587</span> <span>or</span> <span>2525</span>
+        <span>"SenderName"</span>: <span>"VehicleQuotes"</span>,
+        <span>"SenderEmail"</span>: <span>"system@vehiclequotes.com"</span>,
+        <span>"UserName"</span>: <span>"YOUR_SMTP_SERVER_USER_NAME"</span>,
+        <span>"Password"</span>: <span>"YOUR_SMTP_SERVER_USER_PASSWORD"</span>
+    },
+    <span>//</span> <span>...</span>
+}
+</code></pre></div><p>Next, we define a class that matches the data structure of these settings. Here’s the one I ended up with:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span>// VehicleQuotes.WebApi/Configuration/MailSettings.cs
+</span><span></span><span>namespace</span> <span>VehicleQuotes.WebApi.Configuration</span>;
+
+<span>public</span> <span>class</span> <span>MailSettings</span>
+{
+    <span>public</span> required <span>string</span> Server { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>int</span> Port { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> SenderName { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> SenderEmail { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> UserName { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Password { <span>get</span>; <span>set</span>; }
+}
+</code></pre></div><p>Now, to make the settings actually accessible to the system, we need to add them to the <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-8.0" rel="noreferrer" target="_blank">Dependency Injection container</a>. I added this to the application’s bootstrapping logic in my <code>Program.cs</code> file, before the call to <code>builder.Build()</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp">builder.Services.Configure&lt;Configuration.MailSettings&gt;(config.GetSection(<span>"MailSettings"</span>));
+</code></pre></div><p>This essentially tells .NET to read the <code>"MailSettings"</code> section from <code>appsettings.json</code> and load the data in an object of type <code>MailSettings</code>. This object will be available to any class in the system thanks to Dependency Injection. We will use it later.</p>
+<p>Now we need to define a class for sending emails. This one is low level. All it does is send emails, it doesn’t render Razor templates. Other components will take care of that. So for now, here’s the class responsible for sending emails:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span>// VehicleQuotes.WebApi/Services/Mailer.cs
+</span><span></span><span>using</span> <span>Microsoft.Extensions.Options</span>;
+<span>using</span> <span>MailKit.Net.Smtp</span>;
+<span>using</span> <span>MimeKit</span>;
+<span>using</span> <span>VehicleQuotes.WebApi.Configuration</span>;
+
+<span>namespace</span> <span>VehicleQuotes.WebApi.Services</span>;
+
+<span>public</span> <span>class</span> <span>MailData</span>
+{
+    <span>public</span> required <span>string</span> To { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> ToName { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Subject { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Body { <span>get</span>; <span>set</span>; }
+}
+
+<span>public</span> <span>interface</span> IMailer
+{
+    Task&lt;<span>bool</span>&gt; SendMailAsync(MailData mailData);
+}
+
+<span>public</span> <span>class</span> <span>Mailer</span> : IMailer
+{
+    <span>private</span> <span>readonly</span> MailSettings <span>_</span>mailSettings;
+
+    <span>public</span> Mailer(IOptions&lt;MailSettings&gt; mailSettingsOptions)
+    {
+        <span>_</span>mailSettings = mailSettingsOptions.Value;
+    }
+
+    <span>public</span> <span>async</span> Task&lt;<span>bool</span>&gt; SendMailAsync(MailData mailData)
+    {
+        <span>try</span>
+        {
+            <span>using</span> <span>var</span> emailMessage = <span>new</span> MimeMessage();
+
+            emailMessage.From.Add(<span>new</span> MailboxAddress(<span>_</span>mailSettings.SenderName, <span>_</span>mailSettings.SenderEmail));
+            emailMessage.To.Add(<span>new</span> MailboxAddress(mailData.ToName, mailData.To));
+
+            emailMessage.Subject = mailData.Subject;
+
+            <span>var</span> emailBodyBuilder = <span>new</span> BodyBuilder
+            {
+                TextBody = mailData.Body,
+                HtmlBody = mailData.Body
+            };
+
+            emailMessage.Body = emailBodyBuilder.ToMessageBody();
+
+            <span>using</span> <span>var</span> mailClient = <span>new</span> SmtpClient();
+
+            <span>await</span> mailClient.ConnectAsync(<span>_</span>mailSettings.Server, <span>_</span>mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+            <span>await</span> mailClient.AuthenticateAsync(<span>_</span>mailSettings.UserName, <span>_</span>mailSettings.Password);
+            <span>await</span> mailClient.SendAsync(emailMessage);
+            <span>await</span> mailClient.DisconnectAsync(<span>true</span>);
+
+            <span>return</span> <span>true</span>;
+        }
+        <span>catch</span>
+        {
+            <span>// TODO: log the email delivery failure
+</span><span></span>            <span>return</span> <span>false</span>;
+        }
+    }
+}
+</code></pre></div><p>This class is straightforward. It has a single method, <code>SendMailAsync</code>. The method receives the email subject, body and recipient within a <code>MailData</code> object. Then, it uses the conventional MailKit process to send the email: builds the message, sets sender and recipient, sets the body, connects to the server, authenticates, and sends the email.</p>
+<p>For this class to be available at runtime, we need to add it to the Dependency Injection container. So, similar to how we did when loading the SMTP server configuration options, we add this line to the <code>Program.cs</code> file before the call to <code>builder.Build()</code>.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp">builder.Services.AddTransient&lt;Services.IMailer, Services.Mailer&gt;();
+</code></pre></div><p>Ok, with that, our system knows how to send emails. Let’s see about the next step now.</p>
+<h3 id="step-2-rendering-razor-templates-into-strings">Step 2: Rendering Razor templates into strings</h3>
+<p>Now that we have our core mailer class, we see that it expects a string to use as a body for the emails it sends. So like I mentioned before, we need a component that can take Razor templates (i.e. <code>*.cshtml</code> files) and turn them into strings. Here’s how that’s done.</p>
+<p>This component will live in a new <a href="https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-8.0&amp;tabs=netcore-cli" rel="noreferrer" target="_blank">Razor Class Library project</a>. The <code>*.cshtml</code> templates will also live here. We can create the project and add it to the solution with commands like these:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain">dotnet new razorclasslib -o VehicleQuotes.RazorTemplates -s
+dotnet sln add ./VehicleQuotes.RazorTemplates/VehicleQuotes.RazorTemplates.csproj
+</code></pre></div><p>Now comes the star of the show, the class that renders Razor templates into strings:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span>using</span> <span>Microsoft.AspNetCore.Http</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc.Abstractions</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc.ModelBinding</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc.Razor</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc.Rendering</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc.ViewEngines</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Mvc.ViewFeatures</span>;
+<span>using</span> <span>Microsoft.AspNetCore.Routing</span>;
+<span>using</span> <span>Microsoft.Extensions.DependencyInjection</span>;
+
+<span>namespace</span> <span>VehicleQuotes.RazorTemplates.Services</span>;
+
+<span>public</span> <span>interface</span> IRazorViewRenderer
+{
+    Task&lt;<span>string</span>&gt; Render&lt;TModel&gt;(<span>string</span> viewName, TModel model);
+}
+
+<span>public</span> <span>class</span> <span>RazorViewRenderer</span> : IRazorViewRenderer
+{
+    <span>private</span> <span>readonly</span> IRazorViewEngine <span>_</span>viewEngine;
+    <span>private</span> <span>readonly</span> ITempDataProvider <span>_</span>tempDataProvider;
+    <span>private</span> <span>readonly</span> IServiceScopeFactory <span>_</span>serviceScopeFactory;
+
+    <span>public</span> RazorViewRenderer(
+        IRazorViewEngine viewEngine,
+        ITempDataProvider tempDataProvider,
+        IServiceScopeFactory serviceScopeFactory
+    ) {
+        <span>_</span>viewEngine = viewEngine;
+        <span>_</span>tempDataProvider = tempDataProvider;
+        <span>_</span>serviceScopeFactory = serviceScopeFactory;
+    }
+
+    <span>public</span> <span>async</span> Task&lt;<span>string</span>&gt; Render&lt;TModel&gt;(<span>string</span> viewName, TModel model)
+    {
+        <span>using</span> <span>var</span> scope = <span>_</span>serviceScopeFactory.CreateScope();
+
+        <span>var</span> httpContext = <span>new</span> DefaultHttpContext() { RequestServices = scope.ServiceProvider };
+        <span>var</span> actionContext = <span>new</span> ActionContext(httpContext, <span>new</span> RouteData(), <span>new</span> ActionDescriptor());
+
+        <span>var</span> view = FindView(actionContext, viewName);
+
+        <span>var</span> viewData = <span>new</span> ViewDataDictionary&lt;TModel&gt;(<span>new</span> EmptyModelMetadataProvider(), <span>new</span> ModelStateDictionary())
+        {
+            Model = model
+        };
+
+        <span>var</span> tempData = <span>new</span> TempDataDictionary(httpContext, <span>_</span>tempDataProvider);
+
+        <span>using</span> <span>var</span> output = <span>new</span> StringWriter();
+
+        <span>var</span> viewContext = <span>new</span> ViewContext(
+            actionContext,
+            view,
+            viewData,
+            tempData,
+            output,
+            <span>new</span> HtmlHelperOptions()
+        );
+
+        <span>await</span> view.RenderAsync(viewContext);
+
+        <span>return</span> output.ToString();
+    }
+
+    <span>private</span> IView FindView(ActionContext actionContext, <span>string</span> viewName)
+    {
+        <span>var</span> getViewResult = <span>_</span>viewEngine.GetView(executingFilePath: <span>null</span>, viewPath: viewName, isMainPage: <span>true</span>);
+        <span>if</span> (getViewResult.Success)
+        {
+            <span>return</span> getViewResult.View;
+        }
+
+        <span>var</span> findViewResult = <span>_</span>viewEngine.FindView(actionContext, viewName, isMainPage: <span>true</span>);
+        <span>if</span> (findViewResult.Success)
+        {
+            <span>return</span> findViewResult.View;
+        }
+
+        <span>var</span> searchedLocations = getViewResult.SearchedLocations.Concat(findViewResult.SearchedLocations);
+        <span>var</span> errorMessage = <span>string</span>.Join(
+            Environment.NewLine,
+            <span>new</span>[] { <span>$"Unable to find view '{viewName}'. The following locations were searched:"</span> }.Concat(searchedLocations)
+        );
+
+        <span>throw</span> <span>new</span> InvalidOperationException(errorMessage);
+    }
+}
+</code></pre></div><p>This class is complicated. It leverages several obscure framework components that are not very commonly used. I was able to piece it together with help from <a href="https://scottsauber.com/2018/07/07/walkthrough-creating-an-html-email-template-with-razor-and-razor-class-libraries-and-rendering-it-from-a-net-standard-class-library/" rel="noreferrer" target="_blank">here</a>, <a href="https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/RazorViewToStringRenderer.cs" rel="noreferrer" target="_blank">here</a>, and <a href="https://stackoverflow.com/questions/63802400/return-view-as-string-in-net-core-3-0/64337478#64337478" rel="noreferrer" target="_blank">here</a>.</p>
+<p>That’s quite a bit of code, but most of it is ceremony in the service of executing two main steps:</p>
+<ol>
+<li>Finding the <code>*.cshtml</code> file that corresponds to the given <code>viewName</code>.</li>
+<li>Preparing an <code>IView</code> object that can be used to render the template. It does so using the given <code>model</code> object which contains the actual data to fill out the template placeholders.</li>
+</ol>
+<p>Finally, in order to make this class available to the system, we add it to Dependency Injection. Here’s what that looks like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp">builder.Services.AddMvcCore().AddRazorViewEngine(); <span>// Necessary for non-GUI projects.
+</span><span></span>builder.Services.AddTransient&lt;RazorTemplates.Services.IRazorViewRenderer, RazorTemplates.Services.RazorViewRenderer&gt;();
+</code></pre></div><p>The only interesting thing here is the <code>services.AddMvcCore().AddRazorViewEngine();</code> line. I had to add that to my project because it is a Web API. That means that it doesn’t include all the services related to rendering views. Other project types that already include all the view-related services, like MVC or Razor Pages, may not need this line. Remember that our <code>RazorViewRenderer</code> class depends on all sorts of framework objects. This line makes sure that they are available.</p>
+<h3 id="step-3-defining-the-email-templates">Step 3: Defining the email templates</h3>
+<p>Now that our system knows how to render Razor templates into strings, let’s go ahead and actually implement some. The nice thing about this approach is that these templates are full Razor views. That means that features like layouts and partials are supported.</p>
+<p>For the purposes of this demo, a simple layout with a header and a footer will suffice. Along with the body of the particular transactional email that we want to send.</p>
+<p>Our layout could look like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span>&lt;!-- VehicleQuotes.RazorTemplates/Views/Shared/EmailLayout.cshtml --&gt;</span>
+<span>&lt;!DOCTYPE html&gt;</span>
+&lt;<span>html</span> <span>lang</span>=<span>"en"</span>&gt;
+&lt;<span>head</span>&gt;
+    &lt;<span>meta</span> <span>charset</span>=<span>"UTF-8"</span>&gt;
+    &lt;<span>meta</span> <span>name</span>=<span>"viewport"</span> <span>content</span>=<span>"width=device-width, initial-scale=1.0"</span>&gt;
+    &lt;<span>title</span>&gt;Email With Razor Templates&lt;/<span>title</span>&gt;
+&lt;/<span>head</span>&gt;
+&lt;<span>body</span>&gt;
+    &lt;<span>p</span>&gt;Imagine this is a header&lt;/<span>p</span>&gt;
+    @RenderBody()
+    &lt;<span>p</span>&gt;Imagine this is a footer&lt;/<span>p</span>&gt;
+&lt;/<span>body</span>&gt;
+&lt;/<span>html</span>&gt;
+</code></pre></div><p>Very simple as layouts go. It does little more than define the basic HTML document structure and call <code>@RenderBody()</code>.</p>
+<p>We can also add a <code>_ViewStart.cshtml</code> file that specifies this layout as the layout to use for all other templates under the <code>Emails</code> directory:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span>&lt;!-- VehicleQuotes.RazorTemplates/Views/Emails/_ViewStart.cshtml --&gt;</span>
+@{
+    Layout = "EmailLayout";
+}
+</code></pre></div><p>Now, for the core contents of the email, we define a new template, along with a class that will serve as its view model.</p>
+<p>My template ended up looking like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span>&lt;!-- VehicleQuotes.RazorTemplates/Views/Emails/QuoteGenerated.cshtml --&gt;</span>
+@using VehicleQuotes.RazorTemplates.ViewModels
+
+@model QuoteGeneratedViewModel
+
+&lt;<span>p</span>&gt;
+    A quote has been generated for a @Model.Year @Model.Make @Model.Model.
+&lt;/<span>p</span>&gt;
+
+&lt;<span>p</span>&gt;Quote ID: @Model.ID&lt;/<span>p</span>&gt;
+&lt;<span>p</span>&gt;Created At: @Model.CreatedAt.ToLongDateString()&lt;/<span>p</span>&gt;
+&lt;<span>p</span>&gt;Offered Amount: @Model.OfferedQuote&lt;/<span>p</span>&gt;
+&lt;<span>p</span>&gt;Message: @Model.Message&lt;/<span>p</span>&gt;
+</code></pre></div><p>And the view model:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span>// VehicleQuotes.RazorTemplates/ViewModels/QuoteGeneratedViewModel.cs
+</span><span></span><span>namespace</span> <span>VehicleQuotes.RazorTemplates.ViewModels</span>;
+
+<span>public</span> <span>class</span> <span>QuoteGeneratedViewModel</span>
+{
+    <span>public</span> required <span>int</span> ID { <span>get</span>; <span>set</span>; }
+    <span>public</span> required DateTime CreatedAt { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>int</span> OfferedQuote { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Message { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Year { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Make { <span>get</span>; <span>set</span>; }
+    <span>public</span> required <span>string</span> Model { <span>get</span>; <span>set</span>; }
+}
+</code></pre></div><p>Very simple. The template specifies the type that it accepts as a view model using the <code>@model</code> directive. It then proceeds to render the email contents using regular old Razor syntax. The view model is just a simple <a href="https://en.wikipedia.org/wiki/Plain_old_CLR_object" rel="noreferrer" target="_blank">POCO</a> that defines the data that the template can work with.</p>
+<h3 id="step-4-putting-it-all-together-the-class-that-sends-the-quote-generated-email">Step 4: Putting it all together: the class that sends the “quote generated” email</h3>
+<p>Finally, we can define our specific Mailer class that, leveraging all the infrastructure we’ve put together, can send one specific type of transactional email. These classes are meant to be simple and boring. Here’s mine:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span>// VehicleQuotes.WebApi/Services/QuoteGeneratedMailer.cs
+</span><span></span><span>using</span> <span>VehicleQuotes.RazorTemplates.Services</span>;
+<span>using</span> <span>VehicleQuotes.WebApi.ResourceModels</span>;
+<span>using</span> <span>VehicleQuotes.RazorTemplates.ViewModels</span>;
+
+<span>namespace</span> <span>VehicleQuotes.WebApi.Services</span>;
+
+<span>public</span> <span>class</span> <span>QuoteGeneratedMailer</span>
+{
+    <span>private</span> <span>readonly</span> IMailer <span>_</span>mailer;
+    <span>private</span> <span>readonly</span> IRazorViewRenderer <span>_</span>razorViewRenderer;
+
+    <span>public</span> QuoteGeneratedMailer(IMailer mailer, IRazorViewRenderer razorViewRenderer)
+    {
+        <span>_</span>mailer = mailer;
+        <span>_</span>razorViewRenderer = razorViewRenderer;
+    }
+
+    <span>public</span> <span>async</span> Task SendAsync(QuoteGeneratedViewModel payload)
+    {
+        <span>string</span> body = <span>await</span> <span>_</span>razorViewRenderer.Render(
+            <span>"/Views/Emails/QuoteGenerated.cshtml"</span>, payload
+        );
+
+        <span>await</span> <span>_</span>mailer.SendMailAsync(<span>new</span>() {
+            To = <span>"test@email.com"</span>,
+            ToName = <span>"Mr. Recipient"</span>,
+            Subject = <span>$"VehicleQuotes - New Quote Generated - Quote #{payload.ID}"</span>,
+            Body = body
+        });
+    }
+}
+</code></pre></div><p>Pretty neat, huh? This class receives instances of the base <code>Mailer</code> and the <code>RazorViewRenderer</code> via Dependency Injection and uses them to: 1. render the template and 2. send the email.</p>
+<p>Like everything else, it also needs to be made available via Dependency Injection. All in all, I ended up with this nice bundle in my <code>Program.cs</code> file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp">builder.Services.Configure&lt;Configuration.MailSettings&gt;(config.GetSection(<span>"MailSettings"</span>));
+builder.Services.AddScoped&lt;Services.QuoteGeneratedMailer&gt;();
+builder.Services.AddMvcCore().AddRazorViewEngine();
+builder.Services.AddTransient&lt;RazorTemplates.Services.IRazorViewRenderer, RazorTemplates.Services.RazorViewRenderer&gt;();
+builder.Services.AddTransient&lt;Services.IMailer, Services.Mailer&gt;();
+</code></pre></div><p>A good idea is to put these into an <code>IServiceCollection</code> extension method. That’s what I ended up doing, in fact.</p>
+<p>Instances of a class like this can be used anywhere in the code. For example like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span>// VehicleQuotes.WebApi/Services/QuoteService.cs
+</span><span>// _mailer is a QuoteGeneratedMailer
+</span><span>// Imagine response is an object that contains all these fields.
+</span><span></span><span>await</span> <span>_</span>mailer.SendAsync(
+    <span>new</span> QuoteGeneratedViewModel
+    {
+        ID = response.ID,
+        CreatedAt = response.CreatedAt,
+        OfferedQuote = response.OfferedQuote,
+        Message = response.Message,
+        Year = response.Year,
+        Make = response.Make,
+        Model = response.Model
+    }
+);
+</code></pre></div><p>Just build the view model object that it expects and off it goes.</p>
+<p>And that’s it! That definitely took some elbow grease to get working as well as delving into pretty arcane framework features. In the end, however, we did manage to build something that offers a developer experience that’s very similar to Action Mailer. Once the core <code>Mailer</code> and the <code>RazorViewRenderer</code> are in place, all it takes to send a new transactional email is:</p>
+<ol>
+<li>Defining a new template, with its view model.</li>
+<li>Defining a new Mailer class that renders the template, uses it as the email’s body, and sends it.</li>
+</ol>
+
+      </div>
+		<a target="_blank" href="https://www.endpointdev.com/blog/2024/04/using-razor-templates-to-render-emails-dotnet/">Go to article URL</a>
+		<div>Feed URL: https://www.endpointdev.com/blog/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

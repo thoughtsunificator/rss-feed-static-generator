@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Arithmetic overflow mitigation in the kernel</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Arithmetic overflow mitigation in the kernel</h3>
+		<div><p>
+On May 7, Kees Cook sent
+<a href="https://lwn.net/ml/linux-kernel/202404291502.612E0A10@keescook/" rel="noreferrer" target="_blank">
+a proposal</a> to the linux-kernel mailing list, asking for the kernel
+developers to start
+working on a way to mitigate unintentional arithmetic overflow, which has been a
+source of many bugs. This is not the first time Cook has made a request along
+these lines; he <a href="https://lwn.net/Articles/959189/" rel="noreferrer" target="_blank">sent a related patch set</a> in
+January 2024.
+Several core developers objected to the plan for different
+reasons. After receiving their feedback,
+Cook modified his approach to tackle the problem
+in a series of smaller steps.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/979747/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

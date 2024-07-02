@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Memory-allocation profiling for the kernel</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Memory-allocation profiling for the kernel</h3>
+		<div>Optimizing the kernel's memory use is made much easier if developers have
+an accurate idea of how memory is being used, but the kernel's
+instrumentation is not as good as it could be.  When Suren Baghdasaryan and
+Kent Overstreet <a href="https://lwn.net/Articles/932402/" rel="noreferrer" target="_blank">presented</a> their
+memory-allocation profiling work, which is meant to address this
+shortcoming, at the 2023 Linux Storage, Filesystem, Memory Management, and
+BPF Summit, their objective was uncontroversial but the proposed solution
+ran into opposition that played out at length on the mailing lists (<a href="https://lwn.net/ml/linux-kernel/20240212213922.783301-1-surenb@google.com/" rel="noreferrer" target="_blank">example</a>)
+over the last year.  So it may be a bit surprising that, when the two
+returned to the memory-management track in the <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">2024 gathering</a>, the
+controversy was gone and the discussion focused on improving details of the
+implementation.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/974380/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

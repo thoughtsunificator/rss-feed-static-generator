@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] GitLab CI for the kernel</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] GitLab CI for the kernel</h3>
+		<div><p>
+Working on the Linux kernel has always been unlike working on
+many other software projects.
+One particularly noticeable difference is the decentralized nature of the
+kernel's testing infrastructure. Projects such as
+<a href="https://github.com/google/syzkaller" rel="noreferrer" target="_blank">
+syzkaller</a>, <a href="https://foundation.kernelci.org/" rel="noreferrer" target="_blank">KernelCI</a>,
+or <a href="https://lwn.net/Articles/608959/" rel="noreferrer" target="_blank">the kernel self tests</a>
+test the kernel in different ways. On February 28, Helen
+Koike
+<a href="https://lwn.net/ml/linux-kernel/20240228225527.1052240-1-helen.koike@collabora.com/" rel="noreferrer" target="_blank">
+posted</a> a patch set that would add continuous integration (CI) scripts for
+the whole kernel. The response was generally positive, but several people
+suggested changes.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/972713/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

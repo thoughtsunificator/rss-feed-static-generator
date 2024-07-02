@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open Source AI Definition – Weekly update May 6</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Open Source AI Definition – Weekly update May 6</h3>
+		<div>
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/definition-validation-seeking-volunteers/320" rel="noreferrer" target="_blank">Definition validation: Seeking volunteers</a></h2>
+
+
+
+<p>The process has entered a new phase: We are now seeking volunteers to validate the Open Source AI Definition, using it to review existing AI systems. The objective of the phase is to confirm that the Definition works as intended and understand where it fails.  &nbsp;</p>
+
+
+
+<ul class="wp-block-list">
+<li>A <a href="https://docs.google.com/spreadsheets/d/1SCT2K-8xvTIbozpoXGuvf1NVcB54vY8p2fKkJlyk4KM/edit#gid=1544910696" rel="noreferrer" target="_blank">spreadsheet </a>is given where you locate and link to the license, research paper, or other document that grants rights or provides information for each required component.&nbsp;</li>
+
+
+
+<li>Systems include, but are not limited to:
+<ul class="wp-block-list">
+<li>Arctic</li>
+
+
+
+<li>BLOOM</li>
+
+
+
+<li>Falcon</li>
+
+
+
+<li>Grok</li>
+
+
+
+<li>Llama 2</li>
+
+
+
+<li>Mistral</li>
+
+
+
+<li>OLMo</li>
+
+
+
+<li>OpenCV</li>
+
+
+
+<li>Phi-2</li>
+
+
+
+<li>Pythia</li>
+
+
+
+<li>T5</li>
+</ul>
+</li>
+
+
+
+<li>To volunteer by May 20th, please contact Mer on the forum</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8" rel="noreferrer" target="_blank">Summary of comments received on the Definition draft</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Grammatical and wording corrections&nbsp;</strong>
+<ul class="wp-block-list">
+<li>Some minor grammatical suggestions were made. These change and order the layout slightly differently, though the overall message remains.&nbsp;</li>
+
+
+
+<li>One user suggested to explain what Open Source  is under the “preamble” and “Why we need open source AI”. Instead of speaking about why Open Source is important, the section should rather be an introduction to what it is and why it matters for AI.</li>
+
+
+
+<li>Under “Preferred form to make modifications to machine-learning systems” and “data information”, clarification is needed regarding “the training data set used”. It is not clear whether this means that all training data must be open source for the whole model to be.
+<ul class="wp-block-list">
+<li>Stefano Maffulli added here that the intention is to <em>know</em> what dataset was used, not to necessarily have it made available, and that it indeed seems to need clarification</li>
+</ul>
+</li>
+</ul>
+</li>
+
+
+
+<li><strong>Technical points</strong>
+<ul class="wp-block-list">
+<li>Under “Preferred form to make modifications to machine-learning systems” the release of checkpoints is mentioned as an example of required components, under “model parameters”. An objection was raised, arguing that this poses an unnecessary burden: It’d be like requiring that for software to be Open Source, it should include past versions of the program.
+<ul class="wp-block-list">
+<li>Maffulli reiterated that this was merely an example but that this might need to be a submission to the <a href="https://hackmd.io/@opensourceinitiative/osaid-faq" rel="noreferrer" target="_blank">FAQ page</a></li>
+</ul>
+</li>
+
+
+
+<li>“Preferred form to make modifications to machine-learning systems” and “data information”, a “skilled person” is mentioned in the context of requiring sufficient information about the training data used to create a model. Question regarding why skill has to do with acquiring data
+<ul class="wp-block-list">
+<li>Clarification was given by Maffulli, pointing out that this is in the context of getting information about the data so that a “skilled person” can use, study, share and modify the AI system.</li>
+
+
+
+<li>A user suggested that this confusion can be solved by changing the context of the wording “a skilled person can recreate”. From “using the same or similar data” to “if able to gain access to the same or similar data”.</li>
+
+
+
+<li>A user points out that “skilled person” as a legal term used in patent law might not be appropriate as it has different legal connotations and precedence in different countries.</li>
+</ul>
+</li>
+</ul>
+</li>
+
+
+
+<li><strong>Discussion on why specifically we focus on machine learning (ML) as an AI system</strong>
+<ul class="wp-block-list">
+<li>A question was raised regarding why we explicitly mention ML systems under “preferred form to make modification to an ML system” and subsequently the “checklist”, pointing out that not all AI systems are ML.
+<ul class="wp-block-list">
+<li>Maffulli replied that we address ML as they need special and urgent attention as rule-based AI systems can fit under the <a href="https://opensource.org/osd" rel="noreferrer" target="_blank">open source definition</a>. This needs to be addressed in the <a href="https://hackmd.io/@opensourceinitiative/osaid-faq" rel="noreferrer" target="_blank">FAQ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/open-source-ai-definition-town-hall-may-3-2024/324" rel="noreferrer" target="_blank">Town hall announcement&nbsp;</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>The 9th town hall meeting was held on the 3d of May.&nbsp;Access the recording <a href="https://discuss.opensource.org/t/open-source-ai-definition-town-hall-may-3-2024/324/2?u=mia" rel="noreferrer" target="_blank">here </a>if you missed it!</li>
+</ul>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/open-source-ai-definition-weekly-update-may-6">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

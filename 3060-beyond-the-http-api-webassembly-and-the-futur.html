@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Beyond the HTTP API: WebAssembly and the Future of Systems Integration</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Beyond the HTTP API: WebAssembly and the Future of Systems Integration</h3>
+		<div><p>We’ve been building HTTP APIs for system integration for 25+ years. Roy Fielding proposed REST in 2000, and although our architectures are more varied, one common element remains: the network.</p>
+<p>These networks that connect people, software, and devices through the Internet are true marvels of technology. We have devised <a href="https://nordicapis.com/5-examples-of-apis-we-use-in-our-everyday-lives/" rel="noreferrer" target="_blank">incredible ways to use them</a>. We stream our content, purchase our groceries, hail our cabs, and prompt increasingly capable AI systems to answer our questions — which then make <a href="https://nordicapis.com/how-to-link-api-requests-effectively/" rel="noreferrer" target="_blank">even more network requests</a> themselves to meet our demands.</p>
+<p>When it comes to integrating or extending software systems, the network allows fully decoupled peers to exchange data and work together, busily passing messages back and forth. System A notifies System B, which in turn needs to update data in System A and call some additional APIs after it analyzes new data and decides what to do next. All that’s necessary is for the maintainers of both systems to pick a transport encoding (REST, GraphQL, gRPC, or others) and agree on an interface defined in terms of that encoding.</p>
+<p>If you’re reading this, you’ve probably built something that works just like that — or certainly have used something that does! It’s a time-tested pattern for API architecture and has served us well.</p>
+<h2 id="but-what-about-when-it-doesn-t-">But, What About When It Doesn’t?</h2>
+<p>What about when network latencies between Systems A and B start to add up? Making a dozen or so requests across the Internet from A to B isn’t free, and even the speed of light can’t beat ~40ms to cross the United States. Toss in time for authorization, data transfer, re-negotiating TLS if a connection is reset, head-of-line blocking, and reconnects: none of which count the actual time <em>computing</em> the work by System A or B!</p>
+<div id="attachment_19520" class="wp-caption aligncenter"><p id="caption-attachment-19520" class="wp-caption-text"><strong>Figure 1</strong>. A complex HTTP API-based integration, where multiple cross-system requests are needed.</p></div>
+<p>What about when <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">regulations</a> impact where data can go? If System A is in the EU and System B is in the US, can data be moved from A to B? How can my system integrate across these lines? Even within the same legal jurisdiction, consider <a href="https://nordicapis.com/how-to-bring-financial-grade-security-to-apis/" rel="noreferrer" target="_blank">financial institutions</a> with sensitive data management and exfiltration concerns. It’s unlikely the data an integrator is really interested in is making its way out via HTTP APIs.</p>
+<p>But why are we okay with paying this cost? Right now, the separation helps us scale the construction of large systems across multiple small teams of engineers. It reduces the scope of agreements they have to make by reducing the amount of trust they have to extend to other teams. Security, isolation, and redundancy can be taken care of at the network level.</p>
+<p>We pay the cost because we don’t have better tools to build with.</p>
+<h2 id="enter-webassembly">Enter WebAssembly</h2>
+<p>Born of the browser, and a W3C standard, <a href="https://webassembly.org" rel="noreferrer" target="_blank">WebAssembly</a> (Wasm) made it possible to run code written in other languages alongside JavaScript on the web. Web applications could now execute compact, efficient, binary modules at near-native speed, enabling complex desktop software like <a href="https://medium.com/@addyosmani/photoshop-is-now-on-the-web-38d70954365a" rel="noreferrer" target="_blank">Photoshop</a> and <a href="https://www.autodesk.com/blogs/autocad/introducing-autocad-web/" rel="noreferrer" target="_blank">AutoCAD</a> to run in a browser. A key to Wasm’s success is its security model, which by default disallows any code to make network requests, read or write files, or have any information about its surrounding host environment. Wasm runs in a fully isolated, sandboxed virtual machine, only capable of what the host running it allows.</p>
+<h2 id="what-does-this-mean-for-apis-and-systems-integration-">What Does This Mean for APIs and Systems Integration?</h2>
+<p>A few years ago, Wasm broke free from the browser and has been implemented several times as a standalone virtual machine. This means Wasm modules can be run anywhere a capable virtual machine can run: on a desktop, game console, server, IoT device, edge platform, and even TVs and smartwatches. Running Wasm embedded within a server application means that arbitrary, untrusted code can safely execute inside our software, running dynamic code in-process.</p>
+<p>It turns out that Wasm isn’t about bringing the capabilities of other languages to the browser — its true strength is about bringing the capabilities of the browser to your languages.</p>
+<p>Let’s revisit our scenario above, where Systems A and B are integrated over an HTTP API. Rather than requiring a dozen hops across the Internet, what if System A could actually run System B’s code, but only the parts it needs to handle the integration? Here’s a simple theoretical idea to illustrate this:</p>
+<ol>
+<li>Stripe gets a credit card charge request for an Acme Corp. customer.</li>
+<li>Stripe loads Acme Corp.’s Wasm plugin to call the <code>before_charge_action</code> function, which returns some data about the purchase.</li>
+<li>Acme Corp.’s plugin must first look up the customer’s past purchases on Stripe’s API. Since the plugin is still in Stripe, this is a local function call — no Internet needed! This happens in as little as <strong>5-7 nanoseconds</strong>! (For context, that <em>40 millisecond intracontinental hop is 40,000,000 nanoseconds</em>.)</li>
+<li>With the purchase data, the plugin continues and detects that ten similar purchases have been made in the past 30 days.</li>
+<li>Because of this, the plugin is coded to send an email with a loyalty discount for the customer’s next purchase, so it makes another function call to Stripe to get the email address and customer name (managed in Stripe’s database) to fill out the email template.</li>
+<li>Stripe has provided a <code>send_email</code> function to the plugin, so it can pass email content and send directly from Stripe’s highly reliable email service.</li>
+<li>The plugin returns data to Stripe, and the charge is executed successfully. Immediately afterward, the customer sees a friendly discount email in their inbox.</li>
+</ol>
+<div id="attachment_19521" class="wp-caption aligncenter"><p id="caption-attachment-19521" class="wp-caption-text"><strong>Figure 2</strong>. A complex Wasm plugin integration, similar to the process of Figure 1 (above) between System A and System B, but where all logic is local to the event originator, e.g., Stripe.</p></div>
+<p>We accomplished all of this without making a single API call over the Internet between two systems. What would have likely taken too long to execute in the middle of a payment transaction took just nanoseconds being local function calls. Additionally, all the transaction information and customer data remained on Stripe’s servers without the risk of exfiltration or PII being accidentally leaked.</p>
+<h2 id="real-world-webassembly-integrations">Real-World WebAssembly Integrations</h2>
+<p>In fact, many such systems work like this today, using WebAssembly to power the secure customer code execution. Take <a href="https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/" rel="noreferrer" target="_blank">Figma</a>, widely loved as a design tool for creating high-fidelity web and mobile application mockups. Figma runs 3rd party plugin code inside a Wasm runtime to enable its customers to extend the software with new features and capabilities — freely, without Figma needing to step in and handle feature requests. Figma has both web and desktop applications, so are plugin developers forced to implement a plugin for each platform? No! Wasm runs identically across these platforms, so the same plugins work no matter where Figma is running.</p>
+<p>Another brilliant implementation of this integration pattern is from <a href="https://shopify.engineering/shopify-webassembly" rel="noreferrer" target="_blank">Shopify</a>. The e-commerce market leader has been running Wasm in production for years now, powering its next-generation app marketplace: <a href="https://shopify.dev/docs/apps/functions/language-support/webassembly" rel="noreferrer" target="_blank">Shopify Functions</a>. Developers can build plugins, which merchants install into their stores, to run directly within Shopify’s infrastructure. This provides far deeper integration access into the platform, and with no network latency, integrations run fast — making it possible to inject custom behavior even in the checkout path, where every minor delay could mean lost sales.</p>
+<p>The benefits don’t stop at integration speed and depth. Shopify is also protecting its customers by exposing more customization directly on the platform versus via HTTP API. Recently, a Shopify app developer admitted to <a href="https://cybernews.com/security/shopify-plugins-data-leak-saara/" rel="noreferrer" target="_blank">a sizable data leak</a>, exposing Shopify customer data it had gathered from merchants using its apps. Since these apps were calling HTTP APIs and storing customer data on third-party servers, Shopify had no control over the security posture of this developer. Keeping all third-party code on Shopify using WebAssembly plugins instead means they have infinitely more control over scenarios like this and would have prevented this unfortunate leak.</p>
+<p>Where HTTP APIs <em>move data</em> to be used in computing environments, Wasm <a href="https://bhelx.simst.im/articles/wasm-use-case-patterns.html" rel="noreferrer" target="_blank">presents a revolutionary shift</a> to <em>move logic</em> to data environments. Flipping the relationship, keeping data stationary and moving logic, enables new integrations that we’re only beginning to leverage.</p>
+<h2 id="looking-forward">Looking Forward</h2>
+<p>The HTTP API isn’t going away, not anytime soon. But, empowered with new technology and ways to integrate systems means it’s time to consider some alternatives or look at ways to incrementally enhance the status quo. Bringing the security and speed of Wasm into your integration architecture has many benefits, and we’re seeing adoption rise rapidly.</p>
+<p>Consider WebAssembly when you’re thinking about making more secure integration APIs. Your customers will appreciate the flexibility and ease of integration it brings to your platform. Suffice it to say that Wasm is early in its journey in the API and systems integration space, but is already proving its value at companies large and small.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/beyond-the-http-api-webassembly-and-the-future-of-systems-integration/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

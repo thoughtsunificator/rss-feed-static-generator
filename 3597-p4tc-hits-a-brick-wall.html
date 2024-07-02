@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] P4TC hits a brick wall</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] P4TC hits a brick wall</h3>
+		<div><a href="https://opennetworking.org/p4/" rel="noreferrer" target="_blank">P4</a>, short for "Programming
+Protocol-independent Packet Processors", is a programming language aimed at
+networking devices; it is useful for the configuration of firewalls and
+complicated routing architectures.  Since a lot of advanced networking is
+done with Linux systems, it stands to reason that there would be value in
+supporting P4 and, indeed, <a href="https://lwn.net/ml/netdev/20230124170346.316866-1-jhs@mojatatu.com/" rel="noreferrer" target="_blank">an
+implementation of P4</a> in the kernel's traffic-control subsystem was
+first posted by Jamal Hadi Salim at the beginning of 2023.  After nearly
+18&nbsp;months, though, this feature has not been merged, and the chances
+of that happening would appear to be getting worse.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/977310/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

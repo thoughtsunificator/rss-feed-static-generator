@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Introduction to TypeSpec</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Introduction to TypeSpec</h3>
+		<div><p>Our 2024 Austin API Summit was notable for many things, but one thing that stuck in my mind (along with many great stories about AI) was a comprehensive introduction to TypeSpec. TypeSpec is an API description language that describes itself as “API-first for developers” and aims to differentiate itself from similar description languages.</p>
+<p>The appearance of <a href="https://github.com/Microsoft/typespec" rel="noreferrer" target="_blank">TypeSpec</a> in an API landscape largely allied to <a href="https://nordicapis.com/your-guide-to-openapi/" rel="noreferrer" target="_blank">OpenAPI</a> may surprise many people. Using OpenAPI to create rich API descriptions has become the <em>de facto</em> choice for REST APIs in the API economy, so a new API description language may seem unnecessary to some.</p>
+<p>However, TypeSpec was created to meet the needs of a large and varied developer community and includes a range of features to help them embrace API-first. It is an <a href="https://typespec.io/" rel="noreferrer" target="_blank">open-source</a> project available to anyone in the API economy. Therefore, it’s important to explore the principles and constructs of TypeSpec to understand its value in API design and development.</p>
+<h2 id="origins-of-typespec">Origins of TypeSpec</h2>
+<p>TypeSpec was originally conceived at Microsoft as a means to provide a universal, homogeneous API description language that could help underpin products like the <a href="https://learn.microsoft.com/en-us/graph/overview" rel="noreferrer" target="_blank">Microsoft Graph</a>, a single API that acts as a “gateway to data and intelligence” in Microsoft 365. TypeSpec was not built solely for Microsoft Graph, but the Graph team understood that TypeSpec provides a friendly means to do <a href="https://nordicapis.com/design-first-api-development-myth-or-reality/" rel="noreferrer" target="_blank">design-first API development</a>, allowing developers to shape their APIs using a language that looks like code.</p>
+<p>You may be asking why Microsoft did not use OpenAPI as the API description language of choice, especially given Microsoft is an OpenAPI Initiative member. At our <a href="https://www.youtube.com/watch?v=yfCYrKaojDo" rel="noreferrer" target="_blank">2024 Austin Summit</a>, Mandy Whaley from the Microsoft Azure SDK team provided several reasons in her <a href="https://www.youtube.com/watch?v=yfCYrKaojDo" rel="noreferrer" target="_blank">Summit talk</a> on TypeSpec:</p>
+<ul>
+<li>OpenAPI was perceived by Microsoft teams as being hard to write, review, and maintain.</li>
+<li>It was difficult to follow API guidelines in this context, especially when working with many new teams that did “know” OpenAPI.</li>
+<li>OpenAPI does not rule the Microsoft world in terms of API description languages and protocols, with others such as <a href="https://grpc.io/" rel="noreferrer" target="_blank">gRPC</a> being supported.</li>
+</ul>
+<p>An alternative mechanism was therefore required that allowed the consistency and ease-of-use Microsoft was looking for, hence the development of TypeSpec. Mandy highlighted three key features of using TypeSpec in her talk that benefit the developer community at Microsoft:</p>
+<ul>
+<li>It provides a lightweight language for describing and designing APIs.</li>
+<li>TypeSpec is easy to integrate into your OpenAPI toolchain.</li>
+<li>Your API guidelines can be expressed in reusable code.</li>
+</ul>
+<p>Each of these features brings something different to the use case for TypeSpec.</p>
+<div class="well">Watch <a href="https://nordicapis.com/speakers/mandy-whaley/" rel="noreferrer" target="_blank">Mandy Whaley</a> speak at the 2024 <a href="https://nordicapis.com/events/austin-api-summit-2024/" rel="noreferrer" target="_blank">Austin API Summit</a>:<div class="responsive-iframe-container"></div></div>
+<h2 id="lightweight-language-for-apis">Lightweight Language for APIs</h2>
+<p>TypeSpec — as the name suggests — is closely allied to TypeScript in terms of the “look-and-feel” of the language. It is a TypeScript <a href="https://github.com/microsoft/typespec" rel="noreferrer" target="_blank">project</a> and uses Node.js as its runtime. It follows the <a href="https://nordicapis.com/the-benefits-of-design-first-api-development/" rel="noreferrer" target="_blank">design-first concept</a> so that an API designer will “start” with a TypeSpec project to describe their APIs and then use that to project to generate code, OpenAPI specifications, or do whatever they do next in their API lifecycle.</p>
+<p>Once the project has been created by following the getting started <a href="https://typespec.io/docs" rel="noreferrer" target="_blank">guide</a>, you can start modeling your API. If you want to start with your data, you can create models to represent your requests and responses first. For example, a model that represents the <code>Pet</code> in the famous <a href="https://petstore3.swagger.io/api/v3/openapi.json" rel="noreferrer" target="_blank">Petstore OpenAPI description</a> (borrowing heavily from the TypeSpec documentation) would look something like this:</p>
+<pre><code class="lang-typescript"><span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">Pet</span> {
+
+  <span class="hljs-attribute">id</span>: int64;
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">status</span>: <span class="hljs-string">"available"</span> | <span class="hljs-string">"pending"</span> | <span class="hljs-string">"sold"</span>;
+}
+</code></pre>
+<p>You may decide that your API should follow HTTP and REST semantics. You can import support for these from TypeSpec packages:</p>
+<pre><code class="lang-typescript">using TypeSpec.Http<span class="hljs-comment">;</span>
+using TypeSpec.Rest<span class="hljs-comment">;</span>
+</code></pre>
+<p>You can then design your API using TypeSpec decorators that indicate object types or provide metadata about them. For example, you can define a URI using the <code>@route</code> decorator:</p>
+<pre><code class="lang-typescript">@route(<span class="hljs-string">"/pets"</span>)
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Pets</span> {
+
+}
+</code></pre>
+<p>Or you might pick up <a href="https://typespec.io/docs/libraries/http/reference#models" rel="noreferrer" target="_blank">existing models</a> from the imported packages, such as a <a href="https://typespec.io/docs/libraries/http/reference/data-types#TypeSpec.Http.BadRequestResponse" rel="noreferrer" target="_blank"><code>BadRequestResponse</code></a> to describe your message body when returning an HTTP 400 status code. You can combine this with other models and decorators to describe your APIs, with the focus being on providing terse definitions:</p>
+<pre><code class="lang-typescript"><span class="hljs-variable">@route</span>(<span class="hljs-string">"/pets"</span>)
+namespace Pets {
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">list</span>(<span class="hljs-variable">@query</span> <span class="hljs-attribute">skip</span>: int32, <span class="hljs-variable">@query</span> <span class="hljs-attribute">top</span>: int32): {
+    <span class="hljs-variable">@statusCode</span> <span class="hljs-attribute">statusCode</span>: <span class="hljs-number">200</span>;
+    <span class="hljs-variable">@body</span> <span class="hljs-attribute">pets</span>: Pet[];
+  };
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">read</span>(<span class="hljs-variable">@path</span> <span class="hljs-attribute">petId</span>: int32, <span class="hljs-variable">@header</span> ifMatch?: string): {
+    <span class="hljs-variable">@statusCode</span> <span class="hljs-attribute">statusCode</span>: <span class="hljs-number">200</span>;
+    <span class="hljs-variable">@header</span> <span class="hljs-attribute">eTag</span>: string;
+    <span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet;
+  } | {
+    <span class="hljs-variable">@statusCode</span> <span class="hljs-attribute">statusCode</span>: <span class="hljs-number">404</span>;
+  };
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">create</span>(<span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet): {
+    <span class="hljs-variable">@statusCode</span> <span class="hljs-attribute">statusCode</span>: <span class="hljs-number">204</span>;
+  };
+}
+</code></pre>
+<p>The goal is one of productivity. TypeSpec is a developer-orientated <a href="https://nordicapis.com/how-to-test-apis-across-multiple-styles/" rel="noreferrer" target="_blank">API description language</a> with a low knowledge overhead that focuses on getting the design right with as little fuss as possible. This, when coupled with built-in packages and supported by tools like the <a href="https://marketplace.visualstudio.com/items?itemName=typespec.typespec-vscode" rel="noreferrer" target="_blank">Visual Studio Code plugin</a>, has helped Microsoft to bring developers into the design-first fold.</p>
+<p>Creating a new API description language is not, however, a silver bullet for Microsoft. There is still a need to engage with existing API description languages, especially with OpenAPI.</p>
+<h2 id="integrates-with-openapi-toolchain">Integrates with OpenAPI Toolchain</h2>
+<p>A key feature of TypeSpec is that it seeks to act as a layer below API description languages like OpenAPI, effectively acting as a definition language that can be serialized into other formats. Mandy confirmed that Microsoft is “Committed to interoperability with OpenAPI,” which is critical to many API providers and consumers.</p>
+<p>TypeSpec does this in two ways. Firstly, it provides features that support the functionality in OpenAPI, with <a href="https://typespec.io/docs/libraries/openapi3/reference" rel="noreferrer" target="_blank">libraries</a> to support keywords like <a href="https://typespec.io/docs/libraries/openapi3/reference/decorators#@TypeSpec.OpenAPI.oneOf" rel="noreferrer" target="_blank"><code>oneOf</code></a> (which is inherited from JSON Schema). This support allows API designers to use TypeSpec and still support the needs of API consumers and the tools they use that rely on such features.</p>
+<p>This support is reinforced by the TypeSpec compiler, which allows API designers to emit OpenAPI through a configuration setting. This can be done by installing the <code>@typespec/openapi3</code> package in their TypeSpec project and adding the following to their project settings:</p>
+<pre><code class="lang-yaml"><span class="hljs-symbol">emit:</span>
+  - <span class="hljs-string">"@typespec/openapi3"</span>
+</code></pre>
+<p>An API designer can run the <code>tsp compile</code> command and generate an OpenAPI description that reflects their TypeSpec description. The approach — called Emitters — can be repeated for other supported description languages. For example, <a href="https://protobuf.dev/" rel="noreferrer" target="_blank">Protobuf</a> is also <a href="https://typespec.io/docs/libraries/protobuf/reference/emitter" rel="noreferrer" target="_blank">supported</a> out-of-the-box and TypeSpec can be extended to support other description languages.</p>
+<p>The TypeSpec tools, therefore, support the goal of reducing complexity for API designers while still supporting the developer community with the API description languages they use. However, this is not the only means of reducing complexity for API designers, as existing API guidelines and patterns can be created as code.</p>
+<h2 id="api-guidelines-as-reusable-code">API Guidelines as Reusable Code</h2>
+<p>Codifying <a href="https://nordicapis.com/7-examples-of-quality-api-design-style-guides/" rel="noreferrer" target="_blank">API guidelines</a> has been a theme in the API economy for several years, particularly with the increasing number of <a href="https://nordicapis.com/8-openapi-linters/" rel="noreferrer" target="_blank">OpenAPI linters</a> like <a href="https://stoplight.io/open-source/spectral" rel="noreferrer" target="_blank">Spectral</a> and <a href="https://www.useoptic.com/" rel="noreferrer" target="_blank">Optic</a> that support checking for adherence to a style guide.</p>
+<p>The TypeSpec approach is, however, somewhat different in that API guidelines start life as reusable objects in the form of <a href="https://typespec.io/docs/extending-typespec/basics" rel="noreferrer" target="_blank">TypeSpec libraries</a>. For example, the snippet below, shown at the Summit talk, shows a model for supporting pagination:</p>
+<pre><code class="lang-typescript"><span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">Page</span>&lt;<span class="hljs-selector-tag">T</span>&gt; {
+  <span class="hljs-attribute">items</span>: T[];
+
+  <span class="hljs-attribute">pagination</span>: {
+    pageSize: int32;
+    <span class="hljs-attribute">totalSize</span>: int32;
+  }
+}
+</code></pre>
+<p>Once this model is shared using a library (by following the <a href="https://typespec.io/docs/extending-typespec/basics" rel="noreferrer" target="_blank">instructions</a> provided in the TypeSpec documentation), it can easily be imported and reused:</p>
+<pre><code class="lang-typescript">import <span class="hljs-string">"OrgGuidelinesPagination"</span><span class="hljs-comment">;</span>
+using <span class="hljs-keyword">OrgGuidelinesPagination;
+</span>
+model DefaultPages <span class="hljs-keyword">extends </span>Page {
+<span class="hljs-symbol">  maxPagesPerQuery:</span> int32<span class="hljs-comment">;</span>
+}
+</code></pre>
+<p>Clearly, linters are still required in this context, as there is still a need to check that the pagination library has been implemented according to the style guide. However, it is also possible to implement this approach using any other programming language and API description language when it is done with the right levels of governance to ensure consistency.</p>
+<p>In this case, TypeSpec provides consistency in applying a pagination pattern and supports the design-first approach, as API designers can just pull in the library of choice. However, it does not absolve the organization from implementing <a href="https://nordicapis.com/6-enablers-for-advancing-api-governance-maturity/" rel="noreferrer" target="_blank">API governance</a>.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/when-to-sidestep-design-first-with-api-generation/" rel="noreferrer" target="_blank">When to Sidestep Design-First With API Generation</a></div>
+<h2 id="is-typespec-for-you-">Is TypeSpec for You?</h2>
+<p>TypeSpec was created by Microsoft to provide a consistent and productive means to follow a design-first API development methodology. As described in the Summit talk, the development teams believe these objectives and other benefits, like capturing additional metadata for client libraries, have been met, indicating very positive results. <a href="https://nordicapis.com/how-to-measure-and-improve-internal-developer-experience/" rel="noreferrer" target="_blank">Developer experience</a> is very important at organizations that care about productivity and the general well-being of their teams, and TypeSpec certainly seems to help in providing a very positive experience for those who use it.</p>
+<p>Is TypeSpec right for you, though? We’ve shown in this post that the language is lightweight, flexible, and rich enough to support designing an API from scratch using a code-like language. This naturally lends itself to developers who are API designers and will find this a familiar environment. However, API designers come in all shapes and sizes, and some will prefer the familiarity of OpenAPI and its extensibility due to the way it leans into JSON Schema.</p>
+<p>At the same time, another breed of API designer will care for neither because they use graphical tools to design their APIs. An API description language in this context is simply an affordance to their tooling and a way of distributing their API description in a known format. However you like to design your APIs, there’ll be a section of the API community that sees the “Specification Wars” being reignited with the advent of TypeSpec.</p>
+<div class="well">We’ll cover that and Gareth Jones’ <a href="https://youtu.be/EINevYeNosc?si=_auStOzl5x0sdoJH" rel="noreferrer" target="_blank">talk</a> on the merits of TypeSpec versus OpenAPI in an upcoming post.</div>
+<p>The final point is that you have to be <em>comfortable</em> with the idea of designing first. Many developers in countless organizations prefer the <a href="https://nordicapis.com/when-to-sidestep-design-first-with-api-generation/" rel="noreferrer" target="_blank">code-first approach</a>. They can create their APIs in a language they are comfortable with — the programming language they know and love — and use annotations and introspection to drive the creation of an API description in OpenAPI or another description language. In this context, TypeSpec won’t necessarily give them or their organization what they want or need.</p>
+<p>This leads us to one significant conclusion. The preferences and proclivities of human beings generally drive the way API designers work. TypeSpec can help you be consistent and productive in designing your APIs, but only if you want it to.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/introduction-to-typespec/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

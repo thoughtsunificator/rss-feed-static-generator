@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Comparison of 8 Cross-Platform Database APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Comparison of 8 Cross-Platform Database APIs</h3>
+		<div><p>In the modern, technology-driven world, software applications are expected to run seamlessly across various platforms and environments. A critical component of this interoperability is the database API, which enables applications to interact with databases, irrespective of the underlying platform. Cross-platform database APIs are indispensable for developers aiming to build robust, versatile, and scalable applications.</p>
+<p>This article delves into eight popular cross-platform database APIs, providing an overview of their advantages and disadvantages and offering practical JavaScript code samples for each. We’ll look at each database’s features to ensure you choose the right foundation for your applications.</p>
+<h2 id="trends-in-cross-platform-development">Trends in Cross-Platform Development</h2>
+<p>The widespread use of smartphones, tablets, and <a href="https://nordicapis.com/api-management-for-iot-whats-new/" rel="noreferrer" target="_blank">emerging technologies like IoT</a> has spurred the demand for applications that operate smoothly across various platforms and devices. Cross-platform development frameworks such as <a href="https://nordicapis.com/a-short-guide-what-types-of-apps-can-be-built-with-react/" rel="noreferrer" target="_blank">React Native</a>, Xamarin, and <a href="https://nordicapis.com/react-native-vs-flutter-what-to-choose-in-2020/" rel="noreferrer" target="_blank">Flutter</a> have gained traction, allowing developers to write code once and deploy it across multiple platforms. As a result, the choice of a cross-platform database API has become a crucial factor in the development process, influencing the efficiency and effectiveness of applications.</p>
+<h2 id="importance-of-choosing-the-right-database-api">Importance of Choosing the Right Database API</h2>
+<p>Choosing the right <a href="https://nordicapis.com/5-great-open-source-database-solutions/" rel="noreferrer" target="_blank">database API</a> for cross-platform applications is crucial, as it directly affects key aspects such as performance, scalability, data consistency, and security. The inherent characteristics of each database API play a significant role in determining its suitability for specific use cases, making informed decision-making essential for developers.</p>
+<h2 id="eight-popular-types-of-cross-platform-database-apis">Eight Popular Types of Cross-Platform Database APIs</h2>
+<p>Let’s analyze eight popular cross-platform database APIs. Each has unique features and capabilities, catering to various use cases and requirements.</p>
+<h3 id="1-sqlite">1. SQLite</h3>
+<p><a href="https://www.sqlite.org/" rel="noreferrer" target="_blank">SQLite</a> is a self-contained, serverless, zero-configuration, transactional SQL database engine. It’s one of the most widely deployed databases in the world, primarily due to its simplicity, reliability, and performance in various applications.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Lightweight: Ideal for mobile and embedded applications.</li>
+<li>Serverless: No setup required, making it easy to use.</li>
+<li>Transactional: ACID-compliant, ensuring reliable transactions.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Limited Scalability: Not suitable for large-scale applications.</li>
+<li>Concurrent Access: Can handle limited concurrent write operations.</li>
+</ul>
+<p>Sample code snippet of SQLite API with JavaScript using the <a href="https://www.npmjs.com/package/sqlite3" rel="noreferrer" target="_blank">sqlite3</a> package:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sqlite3 = require('sqlite3').verbose();
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">db</span> = new sqlite3.Database(':<span class="hljs-keyword">memory</span>:');
+
+<span class="hljs-keyword">db</span>.serialize(() =&gt; {
+    <span class="hljs-keyword">db</span>.<span class="hljs-keyword">run</span>(<span class="hljs-string">"CREATE TABLE lorem (info TEXT)"</span>);
+
+    <span class="hljs-keyword">const</span> stmt = <span class="hljs-keyword">db</span>.prepare(<span class="hljs-string">"INSERT INTO lorem VALUES (?)"</span>);
+    <span class="hljs-keyword">for</span> (let i = 0; i &lt; 10; i++) {
+        stmt.<span class="hljs-keyword">run</span>(<span class="hljs-string">"Ipsum "</span> + i);
+    }
+    stmt.finalize();
+
+    <span class="hljs-keyword">db</span>.each(<span class="hljs-string">"SELECT rowid AS id, info FROM lorem"</span>, (<span class="hljs-keyword">err</span>, row) =&gt; {
+        console.<span class="hljs-built_in">log</span>(row.id + <span class="hljs-string">": "</span> + row.info);
+    });
+});
+
+<span class="hljs-keyword">db</span>.<span class="hljs-keyword">close</span>();
+</code></pre>
+<h3 id="2-mongodb">2. MongoDB</h3>
+<p><a href="https://www.mongodb.com/" rel="noreferrer" target="_blank">MongoDB</a> is a NoSQL database that uses a flexible, JSON-like format to store data. Unlike traditional relational databases, MongoDB is designed to handle unstructured data and offers a more flexible, scalable solution for modern applications.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>NoSQL Flexibility: Schema-less design allows for easy scaling and flexibility.</li>
+<li>Rich Query Language: Supports complex queries and indexing.</li>
+<li>High Performance: Optimized for read-heavy operations.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Memory Usage: Can be resource-intensive.</li>
+<li>Consistency Issues: Trade-offs between consistency and availability.</li>
+</ul>
+<p>Sample code snippet for <a href="https://mongoosejs.com/" rel="noreferrer" target="_blank">MongoDB API</a> usage in NodeJS:</p>
+<pre><code class="lang-javascript"><span class="hljs-title">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-built_in">url</span> = <span class="hljs-string">'mongodb://localhost:27017'</span>;
+<span class="hljs-keyword">const</span> dbName = <span class="hljs-string">'mydatabase'</span>;
+
+(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>() </span>{
+  <span class="hljs-keyword">let</span> client = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-built_in">url</span>, { <span class="hljs-attribute">useNewUrlParser</span>: <span class="hljs-literal">true</span>, <span class="hljs-attribute">useUnifiedTopology</span>: <span class="hljs-literal">true</span> });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Connected to MongoDB"</span>);
+
+  <span class="hljs-keyword">const</span> db = client.db(dbName);
+  <span class="hljs-keyword">const</span> collection = db.collection(<span class="hljs-string">'users'</span>);
+
+  <span class="hljs-keyword">await</span> collection.insertOne({ <span class="hljs-attribute">id:</span><span class="hljs-string"> 1, name</span>: <span class="hljs-string">'John Doe'</span> });
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> collection.findOne({ <span class="hljs-attribute">id:</span><span class="hljs-string"> 1 });
+
+  console.log</span>(user);
+
+  client.close();
+})();
+</code></pre>
+<p>A popular choice for creating a RESTful API for MongoDB is <a href="https://restheart.org/" rel="noreferrer" target="_blank">RESTHeart</a>. RESTHeart is an open-source middleware that turns MongoDB into a RESTful API server, providing a straightforward way to expose MongoDB collections as RESTful web services.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-top-web-development-frameworks-for-2022/" rel="noreferrer" target="_blank">10 Top Web Development Frameworks for 2022</a></div>
+<h3 id="3-firebase">3. Firebase</h3>
+<p><a href="https://firebase.google.com/" rel="noreferrer" target="_blank">Firebase</a> is a powerful platform by Google designed to help developers build, manage, and grow apps efficiently. It offers a comprehensive suite of tools, including a real-time NoSQL database, Firebase Realtime Database, which syncs data across clients in real-time, and Firestore for advanced querying and scalability. Firebase simplifies <a href="https://nordicapis.com/4-multi-factor-authentication-mfa-apis/" rel="noreferrer" target="_blank">user authentication</a> with support for email, password, and social logins and provides robust analytics through Firebase Analytics to track user engagement.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Real-time Database: Syncs data across all clients in real-time.</li>
+<li>Backend as a Service (BaaS): Simplifies backend development.</li>
+<li>Cross-platform Support: Works well with web and mobile applications.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Vendor Lock-in: Tightly coupled with Google services.</li>
+<li>Pricing: Can become expensive with increased usage.</li>
+</ul>
+<p>Sample code snippet for <a href="https://firebase.google.com/docs/reference/rest/database" rel="noreferrer" target="_blank">FireBase REST API</a> usage in NodeJS:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> firebase <span class="hljs-keyword">from</span> <span class="hljs-string">'firebase/app'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'firebase/database'</span>;
+
+<span class="hljs-keyword">const</span> firebaseConfig = {
+  <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"your-api-key"</span>,
+  <span class="hljs-attr">authDomain</span>: <span class="hljs-string">"your-auth-domain"</span>,
+  <span class="hljs-attr">databaseURL</span>: <span class="hljs-string">"https://your-database-name.firebaseio.com"</span>,
+  <span class="hljs-attr">projectId</span>: <span class="hljs-string">"your-project-id"</span>,
+  <span class="hljs-attr">storageBucket</span>: <span class="hljs-string">"your-storage-bucket"</span>,
+  <span class="hljs-attr">messagingSenderId</span>: <span class="hljs-string">"your-messaging-sender-id"</span>,
+  <span class="hljs-attr">appId</span>: <span class="hljs-string">"your-app-id"</span>
+};
+
+firebase.initializeApp(firebaseConfig);
+<span class="hljs-keyword">const</span> database = firebase.database();
+
+database.ref(<span class="hljs-string">'users/1'</span>).set({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'John Doe'</span>
+});
+
+database.ref(<span class="hljs-string">'users/1'</span>).once(<span class="hljs-string">'value'</span>).then(<span class="hljs-function">(<span class="hljs-params">snapshot</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> user = snapshot.val();
+  <span class="hljs-built_in">console</span>.log(user);
+});
+</code></pre>
+<h3 id="4-couchbase">4. Couchbase</h3>
+<p><a href="https://www.couchbase.com/" rel="noreferrer" target="_blank">Couchbase</a> is a NoSQL database designed for interactive web and mobile applications. It provides high performance, scalability, and flexibility, with support for JSON documents, a powerful query language (N1QL), and a built-in full-text search.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Hybrid Database: Combines NoSQL with SQL-like queries.</li>
+<li>Scalability: Easily scalable horizontally.</li>
+<li>Mobile Sync: Supports offline-first applications with sync capabilities.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Complex Setup: Initial setup and configuration can be challenging.</li>
+<li>Resource Intensive: Requires significant system resources.</li>
+</ul>
+<p>Sample code snippet <a href="https://docs.couchbase.com/server/current/rest-api/rest-intro.html" rel="noreferrer" target="_blank">Couchbase REST API</a> usage in NodeJS:</p>
+<pre><code class="lang-javascript">const couchbase = <span class="hljs-built_in">require</span>(<span class="hljs-string">'couchbase'</span>);
+const cluster = <span class="hljs-keyword">new</span> couchbase.Cluster(<span class="hljs-string">'couchbase://127.0.0.1'</span>);
+cluster.authenticate(<span class="hljs-string">'username'</span>, <span class="hljs-string">'password'</span>);
+
+const bucket = cluster.openBucket(<span class="hljs-string">'default'</span>);
+
+bucket.upsert(<span class="hljs-string">'user::1'</span>, { name: <span class="hljs-string">'John Doe'</span> }, <span class="hljs-function"><span class="hljs-params">(err, result)</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+
+  bucket.get(<span class="hljs-string">'user::1'</span>, <span class="hljs-function"><span class="hljs-params">(err, result)</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+
+    <span class="hljs-built_in">console</span>.log(result.value);
+  });
+});
+</code></pre>
+<h3 id="5-postgresql">5. PostgreSQL</h3>
+<p><a href="https://www.postgresql.org/" rel="noreferrer" target="_blank">PostgreSQL</a>, also known as Postgres, is a powerful, open-source relational database management system known for its robustness, scalability, and standards compliance. It supports advanced data types and performance optimization features, making it suitable for various applications.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Robust Features: Supports advanced data types and operations.</li>
+<li>ACID Compliance: Ensures reliable transactions.</li>
+<li>Extensible: Supports custom functions and extensions.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Complexity: More complex compared to other databases.</li>
+<li>Performance: Can be slower with very large datasets compared to NoSQL databases.</li>
+</ul>
+<p>Sample code snippet for <a href="https://postgrest.org/en/v12/" rel="noreferrer" target="_blank">PostgREST </a> usage in NodeJS:</p>
+<pre><code class="lang-javascript">const { Client } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg'</span>);
+const client = <span class="hljs-keyword">new</span> Client({
+  connectionString: <span class="hljs-string">'postgresql://username:password@localhost:5432/mydatabase'</span>
+});
+
+client.connect();
+
+client.query(<span class="hljs-string">'CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(50))'</span>, <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+
+  client.query(<span class="hljs-string">'INSERT INTO users (name) VALUES ($1) RETURNING *'</span>, [<span class="hljs-string">'John Doe'</span>], <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+
+    <span class="hljs-built_in">console</span>.log(res.rows[<span class="hljs-number">0</span>]);
+
+    client.end();
+  });
+});
+</code></pre>
+<p>Creating a RESTful API for PostgreSQL using PostgREST is an efficient and streamlined process that allows you to expose your database operations over the web with minimal effort. It simplifies the process of creating an API by eliminating the need for extensive backend coding, enabling direct interaction with the database via HTTP requests.</p>
+<h3 id="6-cassandra">6. Cassandra</h3>
+<p><a href="https://cassandra.apache.org/" rel="noreferrer" target="_blank">Apache Cassandra</a> is a highly scalable, distributed NoSQL database designed to handle large amounts of data across many commodity servers without a single point of failure. Developed by Facebook, it is known for its ability to deliver continuous availability, linear scalability, and operational simplicity across hybrid cloud environments. Cassandra’s decentralized architecture and masterless design make it a popular choice for organizations requiring high availability and fault tolerance in their applications.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Scalability: Designed for horizontal scaling, allowing you to add more nodes to handle increased loads.</li>
+<li>High Availability: No single point of failure and supports replication across multiple data centers.</li>
+<li>Performance: Optimized for high write throughput and can handle large volumes of data.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Complexity: Setup and maintenance can be complex due to its distributed nature.</li>
+<li>Consistency Trade-offs: Eventual consistency model might not be suitable for all use cases.</li>
+<li>Resource Intensive: Requires significant hardware resources for optimal performance.</li>
+</ul>
+<p>Sample code snippet usage in NodeJS:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cassandra = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cassandra-driver'</span>);
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> cassandra.Client({ 
+  <span class="hljs-attr">contactPoints</span>: [<span class="hljs-string">'127.0.0.1'</span>], 
+  <span class="hljs-attr">localDataCenter</span>: <span class="hljs-string">'datacenter1'</span>, 
+  <span class="hljs-attr">keyspace</span>: <span class="hljs-string">'mykeyspace'</span> 
+});
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>() </span>{
+  <span class="hljs-keyword">await</span> client.execute(<span class="hljs-string">"CREATE TABLE IF NOT EXISTS users (id UUID PRIMARY KEY, name TEXT)"</span>);
+  <span class="hljs-keyword">await</span> client.execute(<span class="hljs-string">"INSERT INTO users (id, name) VALUES (uuid(), 'John Doe')"</span>);
+
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> client.execute(<span class="hljs-string">"SELECT id, name FROM users WHERE name = 'John Doe'"</span>);
+  <span class="hljs-built_in">console</span>.log(result.rows);
+}
+
+run().catch(<span class="hljs-built_in">console</span>.error);
+</code></pre>
+<p>The API for Cassandra is <a href="https://cassandra.apache.org/doc/stable/cassandra/getting_started/querying.html" rel="noreferrer" target="_blank">CQL</a>, the Cassandra Query Language. To use CQL, you can connect to the cluster using <code>cqlsh</code>, a shell for CQL. This is a command-line shell for interacting with Cassandra using CQL. It is shipped with every Cassandra package and can be found in the bin directory alongside the Cassandra executable. It connects to the single node specified on the command line.</p>
+<h3 id="7-redis">7. Redis</h3>
+<p><a href="https://redis.io/" rel="noreferrer" target="_blank">Redis</a> is an open-source, in-memory data structure store known for its exceptional performance, versatility, and simplicity. Initially developed as a caching solution, Redis has evolved into a full-fledged database, supporting a wide range of data structures such as strings, hashes, lists, sets, and more. Its blazing-fast read-and-write operations and persistent storage capabilities make it ideal for use cases requiring real-time analytics, session management, caching, and <a href="https://nordicapis.com/9-tools-that-enable-event-driven-api-management/" rel="noreferrer" target="_blank">pub/sub messaging</a>.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Performance: Extremely fast due to its in-memory nature.</li>
+<li>Versatility: Supports various data structures and operations.</li>
+<li>Simple Setup: Easy to set up and use, with a rich set of commands.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Memory Usage: Being an in-memory database, it requires significant memory, which can be costly.</li>
+<li>Persistence: Although it supports persistence, it’s primarily designed as an in-memory store.</li>
+<li>Complex Operations: Complex transactions and operations might require careful handling to avoid blocking.</li>
+</ul>
+<p>Sample code snippet for <a href="https://redis.io/docs/latest/operate/rs/references/rest-api/" rel="noreferrer" target="_blank">Redis REST API</a> usage in NodeJS:</p>
+<pre><code class="lang-javascript">const redis = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redis'</span>);
+const client = redis.createClient();
+
+client.<span class="hljs-literal">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error '</span> + err);
+});
+
+client.set(<span class="hljs-string">'user:1'</span>, JSON.stringify({ id: <span class="hljs-number">1</span>, name: <span class="hljs-string">'John Doe'</span> }), redis.<span class="hljs-built_in">print</span>);
+client.get(<span class="hljs-string">'user:1'</span>, <span class="hljs-function"><span class="hljs-params">(err, reply)</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+  <span class="hljs-built_in">console</span>.log(JSON.parse(reply));
+});
+
+client.quit();
+</code></pre>
+<h3 id="8-dynamodb">8. DynamoDB</h3>
+<p><a href="https://aws.amazon.com/dynamodb/" rel="noreferrer" target="_blank">Amazon DynamoDB</a> is a fully managed NoSQL database service provided by AWS, offering seamless scalability, low latency, and high availability. Designed to handle any workload scale, from a few requests per month to millions of requests per second, DynamoDB is a popular choice for applications requiring fast and predictable performance with seamless scalability. With features such as automatic data replication, continuous backups, and built-in security controls, DynamoDB simplifies database management, allowing developers to focus on building scalable and resilient applications.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Fully Managed: AWS handles the administrative tasks, such as setup, maintenance, and scaling.</li>
+<li>Scalability: Automatically scales up or down to handle traffic based on your application’s needs.</li>
+<li>Integration: Easily integrates with other AWS services, providing a cohesive ecosystem.</li>
+</ul>
+<h4>Cons</h4>
+<ul>
+<li>Cost: Can become expensive, especially with high read/write throughput or large data volumes.</li>
+<li>Vendor Lock-in: Tightly coupled with the AWS ecosystem.</li>
+<li>Complexity in Querying: Lacks some of the more advanced querying capabilities of SQL databases.</li>
+</ul>
+<div class="well">Also read: <a href="https://nordicapis.com/how-to-connect-a-web-app-to-a-database-using-aws/" rel="noreferrer" target="_blank">How to Connect a Web App to a Database Using AWS</a></div>
+<p>Sample code snippet for <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html" rel="noreferrer" target="_blank">DynamoDB API</a> usage in NodeJS:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> AWS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'aws-sdk'</span>);
+AWS.config.update({ <span class="hljs-attr">region</span>: <span class="hljs-string">'us-west-2'</span> });
+<span class="hljs-keyword">const</span> dynamodb = <span class="hljs-keyword">new</span> AWS.DynamoDB.DocumentClient();
+
+<span class="hljs-keyword">const</span> params = {
+  <span class="hljs-attr">TableName</span>: <span class="hljs-string">'Users'</span>,
+  <span class="hljs-attr">Item</span>: {
+    <span class="hljs-attr">id</span>: <span class="hljs-string">'1'</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'John Doe'</span>
+  }
+};
+
+dynamodb.put(params).promise()
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Added item:"</span>, <span class="hljs-built_in">JSON</span>.stringify(data, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)))
+  .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Unable to add item. Error JSON:"</span>, <span class="hljs-built_in">JSON</span>.stringify(err, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)));
+
+<span class="hljs-keyword">const</span> getParams = {
+  <span class="hljs-attr">TableName</span>: <span class="hljs-string">'Users'</span>,
+  <span class="hljs-attr">Key</span>: {
+    <span class="hljs-attr">id</span>: <span class="hljs-string">'1'</span>
+  }
+};
+
+dynamodb.get(getParams).promise()
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Get item succeeded:"</span>, <span class="hljs-built_in">JSON</span>.stringify(data, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)))
+  .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Unable to get item. Error JSON:"</span>, <span class="hljs-built_in">JSON</span>.stringify(err, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)));
+</code></pre>
+<h2 id="choosing-the-right-cross-platform-database">Choosing The Right Cross-Platform Database</h2>
+<p>Choosing the right cross-platform database and API depends on your project’s specific needs. Here is a rundown of when to use each of the databases presented above:</p>
+<ol>
+<li><strong>SQLite</strong> is ideal for lightweight, local storage with minimal setup.</li>
+<li><strong>MongoDB</strong> offers flexibility with schema-less design, great for handling unstructured data.</li>
+<li><strong>Firebase</strong> excels in real-time updates for mobile and web apps but can be costly as data scales.</li>
+<li><strong>Couchbase</strong> provides robust performance and scalability, suitable for high-demand applications.</li>
+<li><strong>PostgreSQL</strong> combines reliability and powerful SQL features for complex queries and transactions.</li>
+<li><strong>Cassandra</strong> ensures high availability and scalability, perfect for large-scale applications.</li>
+<li><strong>Redis</strong> is best for fast, in-memory data storage with complex data structures.</li>
+<li><strong>DynamoDB</strong> offers seamless scalability within the AWS ecosystem, though it might be expensive.</li>
+</ol>
+<p>Each database has unique strengths and trade-offs, so carefully consider your project’s requirements to choose the best fit.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/comparison-of-8-cross-platform-database-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

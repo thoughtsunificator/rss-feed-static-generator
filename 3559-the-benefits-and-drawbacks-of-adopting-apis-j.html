@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Benefits and Drawbacks of Adopting APIs.json</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Benefits and Drawbacks of Adopting APIs.json</h3>
+		<div><p>The UK has an arcane phrase about how today’s newspapers are tomorrow’s fish and chip wrappers. That phrase no longer rings true in our world of digital media and online news outlets (and if you live in countries that don’t wrap your meal in newspapers), but the idea of yesterday’s headlines sinking into obscurity is still relevant. However, sometimes those headlines reappear prefixed with “Whatever happened to…”</p>
+<p>One example we looked at on the blog is the Specification Wars and whether <a href="https://nordicapis.com/tis-but-a-scratch-does-typespec-reignite-the-specification-wars/" rel="noreferrer" target="_blank">TypeSpec will reignite them</a>. The conclusion (for now) is “no,” but it raises questions about the dominance of OpenAPI and room for other complementary formats. In the spirit of uncovering old headlines comes <a href="https://apisjson.org/" rel="noreferrer" target="_blank">APIs.json</a>, a format for describing API metadata devised in the early part of the 2010s by API economy leaders Kin Lane and Steven Willmott. The development of the specification has taken a four-year hiatus but is now back with a new version in early 2024.</p>
+<p>We’ve <a href="https://nordicapis.com/the-benefits-of-using-apis-json-and-apis-io/" rel="noreferrer" target="_blank">discussed</a> APIs.json and the closely related <a href="https://apis.io/" rel="noreferrer" target="_blank">APIs.io</a> on the blog and looked at the features and capabilities that make them useful. However, if APIs.json claims to be a standard that aims to publish machine-readable API metadata, then we should look more deeply at the standard itself and its place in the API economy. We can then ask the question: why should you (or should you not) adopt APIS.json?</p>
+<h2 id="making-practical-use-of-api-metadata">Making Practical Use of API Metadata</h2>
+<p>Many standards in the API economy are described as machine-readable because that feature gives them a <em>raison d’etre</em>. If a given standard cannot be ingested by software tools to create code or annotations, then it relies on the frailties of humans in transposing published data to code, making their adoption less successful.</p>
+<p>In this context, the maintainers describe APIs.json, first and foremost, as a standard aimed at machines:</p>
+<blockquote><p>“APIs.json is a machine readable specification that API providers can use to describe their API operations, similar to how web sites are described using sitemap.xml.”</p></blockquote>
+<p>The comparison with a website and sitemap.xml is fair, but the capabilities and possibilities of APIs.json are significantly greater when one considers how API metadata can be put to work. API consumers can potentially leverage APIs.json data in many different ways to <em>dynamically</em> configure an API client:</p>
+<ul>
+<li>Deployment properties such as the URL an API is available at are included in an APIs.json file. This could allow configuration to easily be changed (with, of course, the proper controls and security).</li>
+<li>The behaviors of an API client, such as <a href="https://nordicapis.com/api-rate-limiting-vs-api-throttling-how-are-they-different/" rel="noreferrer" target="_blank">throttling</a> or smoothing API calls, could be closely modeled on the published capabilities of the API, providing a mature approach to traffic management at the client.</li>
+<li>Standardized references to API documentation can be collected to provide links in platforms like API marketplaces.</li>
+</ul>
+<p>APIs.json, therefore, has many use cases and is a very practical way of publishing and consuming data related to APIs. Its capabilities are significant and should benefit API providers and consumers alike. However, its penetration in the API economy is relatively limited, considering these capabilities and how long the standard has existed.</p>
+<h2 id="consensus-for-the-apis-json-standard">Consensus for the APIs.json Standard</h2>
+<p>One reason why adoption is limited might be consensus. The value of making practical use of APIs.json is clear. The properties provided in the description are valuable to API consumers. However, the format was not created from a position of consensus. Standards tend to come from large communities with many stakeholders and contributors alike. It is this community that helps drive both development and adoption.</p>
+<p>APIs.json is specifically attributed to the two aforementioned leaders in the API Economy (although the commit history shows Nicolas Grenié has also contributed significantly) and, without doubting their brilliance, casting the net wider in terms of contributors would almost certainly foster buy-in to both adopting and evolving the standard.</p>
+<p>When you compare APIs.json to other <a href="https://nordicapis.com/7-api-standards-bodies-to-get-involved-with/" rel="noreferrer" target="_blank">API-related standards</a>, the teams that create them are broad and represent various interests. Standards generally are a broad church. For APIs.json to be as successful as possible, it will mean extending the community to incorporate more interests and views.</p>
+<h2 id="extensibility-of-the-apis-json-standards">Extensibility of the APIs.json Standards</h2>
+<p>A big part of how standards work is also their extensibility, with a means to address use cases and properties that fall outside the specification. In OpenAPI, for example, <a href="https://spec.openapis.org/oas/latest.html#specification-extensions" rel="noreferrer" target="_blank">Specification Extensions</a> provides a mechanism that implementers and API providers can leverage to add extra information or address unique requirements. This is vital for many vendors as it allows them to both adopt OpenAPI as a description format and extend it to help users configure the tools provided by the vendor. An example of such an implementation is an API gateway: most API gateway vendors who support configuration using an OpenAPI description also implement Specification Extensions.</p>
+<p>Providing standardized extensions is generally considered a mixed bag. Of course, it provides the means to tailor your implementation to your needs. However, it can also counter standardization, as it relies on implementers contributing back to the standards when they implement an extension that may be useful to the community. It does, however, set “guardrails” and encourage a common feedback loop from extensions back to the core standard.</p>
+<p>At version 0.17 of the APIs.json standard, there is no guidance available in the <a href="https://github.com/apis-json/api-json/blob/develop/spec/apisjson_0.17.txt#L28" rel="noreferrer" target="_blank">Extensions section</a>. Implementing guidance on extensions will be critical to implementers picking up APIs.json as it allows them to experiment and grow the standard in a controlled fashion.</p>
+<h2 id="tooling-support-for-apis-json">Tooling Support for APIs.json</h2>
+<p>There is then the question of tools that support APIs.json. You could argue, being a JSON format, that having widespread tooling support is unnecessary as JSON is well-supported in almost any programming language. However, manually writing JSON files when they can be <em>generated</em> from tooling is not desirable.</p>
+<p>Take the example of API gateways again, and more widely of API management tools. Most API management solutions already hold some of the information that could be provided and exposed as API-related metadata using an APIs.json document. Either hosting the metadata directly using a gateway endpoint or publishing a JSON file, in both cases formatting the metadata using the APIs.json standard, could be done in a trice.</p>
+<p>It is also hard to ascertain how many vendors have bought into APIs.json as a format for publishing API metadata. <a href="https://apis.io/" rel="noreferrer" target="_blank">APIs.io</a> uses the format to allow API providers to publish data on the platform and lists a good number of APIs. However, examples of tooling support elsewhere are hard to find. Ideally, an API provider could use APIs.json in the same manner as an OpenID provider publishing <a href="https://openid.net/specs/openid-connect-discovery-1_0.html" rel="noreferrer" target="_blank">discovery metadata</a>, which informs clients of key parameters associated with the OpenID Connect implementation. This would help unlock all the use cases we’ve already described.</p>
+<h2 id="what-can-apis-json-do-for-you-">What Can APIs.json Do for You?</h2>
+<p>In our introduction, we asked why you should adopt APIs.json. APIs.json can help you consume API-related metadata and automate many aspects of configuring your API clients. This can be incredibly valuable to how you and your organization operate in the API economy.</p>
+<p>However, the community around the APIs.json standard must grow to encourage adoption and help make APIs.json descriptions readily available. The key to the standard’s success is operating at scale and having the means to create documents using tooling. Buy-in is crucial to making this happen. As a minimum, the standard needs the following to be successful in their community:</p>
+<ul>
+<li>Buy-in to the standard and consensus it is right and appropriate.</li>
+<li>Availability of an APIs.json endpoint at API providers.</li>
+<li>Tooling support in the software community.</li>
+</ul>
+<p>APIs.json has great promise as a description format for API metadata and meets real needs in the API economy. To fulfill those needs, it needs to grow beyond its current footprint and be embraced more widely in the API community.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-benefits-and-drawbacks-of-adopting-apis-json/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

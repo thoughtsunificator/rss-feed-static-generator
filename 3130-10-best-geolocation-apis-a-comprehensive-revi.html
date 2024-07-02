@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10 Best Geolocation APIs: A Comprehensive Review</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">10 Best Geolocation APIs: A Comprehensive Review</h3>
+		<div><p>In the digital age, pinpointing a user’s location has become critical to delivering personalized, location-centric services. From tailoring content to a user’s locale to providing location-based recommendations, geolocation data is transforming the way businesses interact with their users.</p>
+<p>This article delves into the top ten geolocation APIs leading this transformation. These APIs offer a range of features that allow developers to retrieve location data, track IP addresses, and even provide location-based analytics. Each API has unique strengths, catering to different use cases and developer needs.</p>
+<p>The <a href="https://nordicapis.com/5-rest-apis-with-great-developer-experience/" rel="noreferrer" target="_blank">developer experience</a> is also a key consideration. The ease of integration, the clarity of documentation, and the responsiveness of support can greatly influence the adoption and success of an API. Let’s dive into geocoding APIs and discover how they enable us to map addresses to geographic coordinates.</p>
+<h2 id="1-telize-api">1. Telize API</h2>
+<p><a href="https://www.telize.com/" rel="noreferrer" target="_blank">Telize API</a> is a geolocation service offering IP and GeoIP REST APIs. It provides JSON-encoded IP geolocation data and supports both JSON and JSONP formats.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-bash">curl <span class="hljs-string">http:</span><span class="hljs-comment">//api.ipstack.com/134.201.250.155 \</span>
+  -H<span class="hljs-string">' Access-Key: YOUR_ACCESS_KEY'</span>
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Versatility</strong>: Supports both JSON and JSONP formats.</li>
+<li><strong>Comprehensive geolocation data</strong>: Provides a range of geolocation data.</li>
+<li><strong>Ease of integration</strong>: Supports widely used data formats and has straightforward documentation.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: Imposes rate limits on requests.</li>
+<li><strong>Lack of free tier</strong>: Does not offer a free tier.</li>
+</ul>
+<h2 id="2-ip-geo-location-api">2. IP Geo Location API</h2>
+<p>The <a href="https://ip-api.com/" rel="noreferrer" target="_blank">IP Geo Location API</a> is a tool that provides the physical location of an IP address. It’s useful for personalizing content, analyzing traffic, targeting ads, and enhancing security.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-bash">curl -X POST <span class="hljs-symbol">'https</span>://api.ipgeolocation.io/ipgeo-bulk?apiKey=API_KEY'
+  -H <span class="hljs-symbol">'Content</span>-<span class="hljs-keyword">Type</span>: application/json'
+  -d '{ <span class="hljs-string">"ips"</span>: [<span class="hljs-string">"1.1.1.1"</span>, <span class="hljs-string">"1.2.3.4"</span>] }'
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Detailed geolocation data</strong>: This API provides detailed geolocation data, including city, region, country, and even ISP details. This allows for more precise location tracking and analysis.</li>
+<li><strong>Ease of use</strong>: The API is straightforward to use, with comprehensive documentation that makes integration into applications seamless.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: Imposes rate limits on requests.</li>
+<li><strong>Paid service</strong>: No free tier available.</li>
+</ul>
+<h2 id="3-referential-api">3. Referential API</h2>
+<p>The <a href="https://referential.readme.io" rel="noreferrer" target="_blank">Referential API</a> is a robust and comprehensive solution for IP geolocation. It provides an array of detailed information, including geographical location, ISP, and more. This makes it a valuable tool for various applications, from content personalization to cybersecurity.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-bash"><span class="hljs-string">curl </span><span class="hljs-built_in">--request</span> <span class="hljs-string">GET </span>\
+     <span class="hljs-built_in">--url</span> <span class="hljs-string">'https://api.referential.io/v1/city?lang=en&amp;order=asc&amp;fields=id%2Cname'</span> \
+     <span class="hljs-built_in">--header</span> <span class="hljs-string">'accept: application/json'</span>
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Detailed information</strong>: Provides comprehensive IP data.</li>
+<li><strong>Versatility</strong>: Versatile for various applications.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Complexity</strong>: May be complex for new developers.</li>
+<li><strong>Cost</strong>: Cost may be high for small projects.</li>
+</ul>
+<div class="well">Also read: <a href="https://nordicapis.com/12-api-features-for-successful-ecommerce-sites/" rel="noreferrer" target="_blank">12 API Features for Successful eCommerce Sites</a></div>
+<h2 id="4-zipcode-api">4. Zipcode API</h2>
+<p><a href="https://www.zipcodeapi.com" rel="noreferrer" target="_blank">Zipcode API</a> is a powerful tool for accessing geolocation data based on US zip codes and Canadian postal codes. It provides features such as calculating distances, finding all zip codes within a given radius, and converting a zip code to its primary location.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-bash">https:<span class="hljs-regexp">//</span>www.zipcodeapi.com<span class="hljs-regexp">/rest/</span>DemoOnly00tmYUovPEGx04s74sekjHkioV3EXAfB6Bo281haK8ltKzLnd6bl2cqK<span class="hljs-regexp">/distance.json/</span><span class="hljs-number">10001</span><span class="hljs-regexp">/10002/</span>km
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Comprehensive data</strong>: Provides a wide range of geolocation data based on zip codes.</li>
+<li><strong>Versatility</strong>: Useful for various applications, from auto-filling to user experience improvement.</li>
+<li><strong>Free tier available</strong>: Offers a free tier for up to ten requests per hour.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: The free tier has a limit of ten requests per hour, which might not be sufficient for certain applications.</li>
+<li><strong>Geographical limitations</strong>: The usefulness of this API is limited to regions where zip codes are in use, in the US and Canada.</li>
+</ul>
+<h2 id="5-geocoder-us-census-bureau-api">5. Geocoder – US Census Bureau API</h2>
+<p>The <a href="https://geocoding.geo.census.gov/geocoder" rel="noreferrer" target="_blank">Geocoder – US Census Bureau API</a> provides geolocation data for locations within the United States. It’s a valuable tool for businesses operating within the US.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl that should work in Windows:</p>
+<pre><code class="lang-bash">curl "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=<span class="hljs-number">4600</span>+silver+hill+<span class="hljs-built_in">rd</span>%<span class="hljs-number">2</span>C+<span class="hljs-number">20233</span>&amp;benchmark=Public_AR_Current&amp;<span class="hljs-built_in">format</span>=json"
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Detailed information</strong>: Provides comprehensive geolocation data.</li>
+<li><strong>Specific to the US</strong>: Tailored for locations within the United States.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Complexity</strong>: The API may be complex for new developers.</li>
+<li><strong>Limited documentation</strong>: The API documentation might not be sufficient.</li>
+</ul>
+<h2 id="6-geolocation-api-google">6. Geolocation API – Google</h2>
+<p>Google’s <a href="https://developers.google.com/maps/documentation/geolocation/overview" rel="noreferrer" target="_blank">Geolocation API</a> is a powerful tool that provides comprehensive geolocation data. It’s designed to offer detailed information about a specific location based on various parameters and accepts an HTTPS request with cell tower and WiFi access points that a mobile client can detect.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<pre><code class="lang-bash">curl -X POST "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY" -H "Content-Type: application/json" -d "{ <span class="hljs-symbol">\ </span>"homeMobileCountryCode<span class="hljs-symbol">\"</span>:310, <span class="hljs-symbol">\ </span>"homeMobileNetworkCode<span class="hljs-symbol">\"</span>:410, <span class="hljs-symbol">\ </span>"radioType<span class="hljs-symbol">\ </span>":<span class="hljs-symbol">\"</span> gsm<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\ </span>"carrier<span class="hljs-symbol">\ </span>":<span class="hljs-symbol">\"</span> Vodafone<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\ </span>"considerIp<span class="hljs-symbol">\"</span>:true }"
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Comprehensive data</strong>: Google’s Geolocation API is known for providing a wealth of information. It offers detailed geolocation data, making it a valuable resource for many applications.</li>
+<li><strong>Versatility</strong>: Versatile for various applications.</li>
+<li><strong>Freemium</strong>: Free tier available.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Complexity</strong>: May be complex for new developers.</li>
+<li><strong>Documentation experience</strong> Limited documentation.</li>
+</ul>
+<h2 id="7-geoplugin">7. geoPlugin</h2>
+<p><a href="https://www.geoplugin.com/" rel="noreferrer" target="_blank">geoPlugin</a> is a service that offers webmaster tools and geolocation services, including an IP geolocation API.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-powershell"><span class="hljs-attribute">curl</span> <span class="hljs-string">"http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx"</span>
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Comprehensive data</strong>: geoPlugin provides a wealth of geolocation data.</li>
+<li><strong>Versatility</strong>: It can be used in a wide range of applications, like populating forms to enhance user experiences.</li>
+<li><strong>Free tier available</strong>: geoPlugin offers a free tier, making it accessible for projects of all sizes.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: The free tier limits the number of requests per hour.</li>
+<li><strong>Geographical limitations</strong>: The usefulness of this API is limited to regions where IP addresses are in use.</li>
+</ul>
+<h2 id="8-ipwhois-io">8. IPWHOIS.io</h2>
+<p><a href="https://ipwhois.io/" rel="noreferrer" target="_blank">IPWHOIS.io</a> offers businesses and developers a free IP geolocation API. It provides detailed geolocation data, including city, region, country, postal code, latitude and longitude, and more.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-powershell"><span class="hljs-attribute">curl</span> <span class="hljs-string">"http://ipwho.is/8.8.4.4"</span>
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Comprehensive data</strong>: IPWHOIS.io provides a wealth of geolocation data.</li>
+<li><strong>Free tier available</strong>: IPWHOIS.io offers a free tier, making it accessible for projects of all sizes.</li>
+<li><strong>Versatility</strong>: It can be used in a wide range of applications, from form auto-filling to user experience improvement.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: The free tier limits the number of requests per hour.</li>
+<li><strong>Geographical limitations</strong>: The usefulness of this API is limited to regions where IP addresses are in use.</li>
+</ul>
+<h2 id="9-ipregistry">9. Ipregistry</h2>
+<p><a href="https://ipregistry.co/" rel="noreferrer" target="_blank">Ipregistry</a> is a trusted source of IP geolocation data and threat data. It offers a simple and easy-to-use API.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-powershell"><span class="hljs-attribute">curl</span> <span class="hljs-string">"https://api.ipregistry.co/8.8.8.8?key=YOUR_API_KEY"</span>
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Comprehensive data</strong>: Ipregistry provides a wealth of geolocation data.</li>
+<li><strong>Threat data</strong>: Besides geolocation data, Ipregistry also provides threat data.</li>
+<li><strong>Easy-to-use</strong>: Ipregistry offers a simple and easy-to-use API.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: The free tier limits the number of requests per hour.</li>
+<li><strong>Geographical limitations</strong>: The usefulness of this API is limited to regions where IP addresses are in use.</li>
+</ul>
+<h2 id="10-weatherbit">10. Weatherbit</h2>
+<p><a href="https://www.weatherbit.io" rel="noreferrer" target="_blank">Weatherbit</a> offers a range of APIs, including a geolocation API. This API is handy for applications that require <a href="https://nordicapis.com/6-best-free-and-paid-weather-apis/" rel="noreferrer" target="_blank">weather data</a> in addition to geolocation data.</p>
+<h3 id="sample-api-request">Sample API Request</h3>
+<p>Here’s a sample API request using curl:</p>
+<pre><code class="lang-powershell"><span class="hljs-string">curl </span><span class="hljs-built_in">--request</span> <span class="hljs-string">GET </span> <span class="hljs-built_in">--url</span> <span class="hljs-string">"https://api.weatherbit.io/v2.0/current?lat=35.7721&amp;lon=-78.63861&amp;key=YOUR_API_KEY"</span>
+</code></pre>
+<h3 id="pros">Pros</h3>
+<ul>
+<li><strong>Comprehensive data</strong>: Weatherbit provides a wealth of geolocation and weather data.</li>
+<li><strong>Versatility</strong>: It can be used in a wide range of applications, from weather forecasting to user experience improvement.</li>
+<li><strong>Free tier available</strong>: It offers a free tier, making it accessible for projects of all sizes.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>Rate limiting</strong>: The free tier has a limit on the number of requests per hour.</li>
+<li><strong>Geographical limitations</strong>: The usefulness of this API is limited to regions where IP addresses are in use.</li>
+</ul>
+<h2 id="geolocation-apis-when-to-use-what">Geolocation APIs: When to Use What</h2>
+<p>Choosing the proper <a href="https://nordicapis.com/5-powerful-alternatives-to-google-maps-api/" rel="noreferrer" target="_blank">geolocation API</a> depends on your specific needs. Since each of these APIs has its own strengths and use cases, you should choose the one that best fits your situation. To help you decide on which geolocation API to use, here are some recommendations based on common requirements:</p>
+<ul>
+<li>If you’re looking for a <em>cheap option</em>, try <strong>geoPlugin</strong>. It offers a free tier, making it accessible for projects of all sizes.</li>
+<li>If you’re looking for the <em>most robust datasets</em>, try <strong>Google’s Geolocation API</strong> or <strong>IPWHOIS.io</strong>. Both provide comprehensive geolocation data.</li>
+<li>If <em>performance</em> is a high concern, consider <strong>Telize API</strong>. It supports both JSON and JSONP formats, providing versatility and ease of integration.</li>
+<li>If you’re hoping for the <em>most secure option</em>, try <strong>Referential API</strong>. It provides an array of detailed information, including geographical location, ISP, and more, making it a valuable tool for cybersecurity.</li>
+</ul>
+<p>Choosing the right geolocation API involves understanding your needs, researching the capabilities of different APIs, and reviewing their documentation. By taking the time to go through this process, you can ensure that you select the most appropriate API for your project. Remember, the right tools can make all the difference in the success of your project.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/10-best-geolocation-apis-a-comprehensive-review/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

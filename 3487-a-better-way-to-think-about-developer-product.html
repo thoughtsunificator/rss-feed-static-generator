@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A better way to think about developer productivity metrics</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">A better way to think about developer productivity metrics</h3>
+		<div><p>These days, there’s a lot of talk about ‘developer productivity metrics’.
+The term suggests that each developer has a <em>productivity</em> metric (or metrics), which can be measured, just like their height or weight.
+This is an appealing idea since these metrics would be a handy way to compare developers and teams, identify areas for improvement, and identify candidates for promotion or firing.
+But in reality, these metrics mostly measure something other than the developers.
+Keep reading to find out more.</p>
+
+<p></p>
+
+<h2 id="examples-of-developer-productivity-metrics">Examples of developer productivity metrics</h2>
+
+<p>The most well known developer productivity metrics are the <a href="/articles/glossary.html#dora-metrics" rel="noreferrer" target="_blank">DORA metrics</a>:</p>
+
+<ul>
+  <li>Deployment frequency - the frequency with which software changes are deployed to production.</li>
+  <li>Lead time for changes - the time it takes to go from commit to deploy.</li>
+  <li>Time to restore service - the time it takes to restore service after a production incident or outage.</li>
+  <li>Change failure rate - the percentage of production deployments that result in a failure or require remediation.</li>
+</ul>
+
+<p>But there are also <a href="https://queue.acm.org/detail.cfm?id=3595878" rel="noreferrer" target="_blank">DevEx metrics</a>, which measure the developer experience, which concerned with “how developers feel about, think about, and value their work”.
+The DevEx metrics measure three core dimensions: feedback loop, cognitive load, and flow state.
+They are both quantitative metrics, such as the time it takes to get feedback from a code review, and qualitative metrics, such as how developers feel about their work.</p>
+
+<h2 id="what-these-metrics-actually-measure">What these metrics actually measure</h2>
+
+<p>While these metrics can be part be traced back to the actions or perceptions of individual developers, they are mostly not a measure of the developers themselves.
+They are a measure of the productivity of the <a href="/post/architecture/2024/04/10/success-triangle-is-about-fast-flow.html" rel="noreferrer" target="_blank">socio-technical system</a>, of, which, the developers are just one element.
+The other elements of the system include</p>
+
+<ul>
+  <li>Engineering principles and practices</li>
+  <li>Company culture, e.g. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1765804/" rel="noreferrer" target="_blank">Westrum typology</a>: pathological, bureaucratic, or generative</li>
+  <li>Engineering organization’s structure</li>
+  <li>The application: architecture and codebase</li>
+  <li>Tooling including the developer laptops and their software, and infrastructure services like CI/CD, issue trackers, monitoring, ….</li>
+  <li>Other members of the company that have influence over the above</li>
+</ul>
+
+<p>Developers control over some of these elements, but not all of them.
+For example, developers can’t control the company culture, or the engineering organization’s structure.
+Moreover, the application’s architecture and codebase are the result of past design decisions, perhaps by developers who are no longer with the organization.</p>
+
+<h2 id="socio-technical-system-productivity-metrics">Socio-technical system productivity metrics?</h2>
+
+<p>Ultimately, an organization’s leaders have the greatest influence on the system’s productivity.
+In many ways, therefore, the developer metrics actually measure the effectiveness of the leaders, not the developers themselves.
+It’s tempting to use the term ‘engineering leadership effectiveness metrics’ (ELE metrics).
+But in reality, productivity is the responsibility of the entire organization so ‘socio-technical system productivity metrics’ (STSP metrics) is a better term.</p>
+
+<p>What do you think?</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/2024/06/03/developer-productivity-metrics-dont-measure-developers.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

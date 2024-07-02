@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How modular can your monolith go? Part 7 - no such thing as a modular monolith?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How modular can your monolith go? Part 7 - no such thing as a modular monolith?</h3>
+		<div><p>This article is the seventh in a series of articles about modular monoliths.
+The other articles are:</p>
+
+<ul>
+  <li><a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html" rel="noreferrer" target="_blank">Part 1 - the basics</a></li>
+  <li><a href="/post/architecture/2023/08/20/how-modular-can-your-monolith-go-part-2.html" rel="noreferrer" target="_blank">Part 2 - a first look at how subdomains collaborate</a></li>
+  <li><a href="/post/architecture/2023/08/28/how-modular-can-your-monolith-go-part-3.html" rel="noreferrer" target="_blank">Part 3 - encapsulating a subdomain behind a facade</a></li>
+  <li><a href="/post/architecture/2023/09/12/how-modular-can-your-monolith-go-part-4-physical-design.html" rel="noreferrer" target="_blank">Part 4 - physical design principles for faster builds</a></li>
+  <li><a href="/post/architecture/2023/10/30/how-modular-can-your-monolith-go-part-5-domain-observers.html" rel="noreferrer" target="_blank">Part 5 - decoupling domains with the Observer pattern</a></li>
+  <li><a href="/post/architecture/2023/11/13/how-modular-can-your-monolith-go-part-6-transactional-commands.html" rel="noreferrer" target="_blank">Part 6 - transaction management for commands</a></li>
+</ul>
+
+<p>Quite some time ago, I wrote about how <a href="/microservices/news/2018/02/20/no-such-thing-as-a-microservice.html" rel="noreferrer" target="_blank">there’s no such thing as a microservice</a>.
+I explained how the term ‘microservices’ is a shorthand for <a href="/patterns/microservices.html" rel="noreferrer" target="_blank">‘microservice architecture’</a>, which is an architectural style that structures the application as a loosely coupled set consisting of two or more <a href="/articles/glossary.html#component" rel="noreferrer" target="_blank">components</a> (a.k.a. services).
+As a result, a service cannot exist in isolation; it must be part of a larger whole.
+In this article, I explain why there’s no such thing as a <a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html" rel="noreferrer" target="_blank">modular monolith</a> and why the term ‘domain-oriented component architecture’ might be a better choice.</p>
+
+<h2 id="whats-the-monolithic-architecture">What’s the monolithic architecture?</h2>
+
+<p>The monolithic architecture is an architectural style that structures the application as a single <a href="/articles/glossary.html#component" rel="noreferrer" target="_blank">component</a>, such as a single WAR file or executable JAR.</p>
+
+<p></p>
+
+<p>The component implements all of the application’s subdomains/bounded contexts.</p>
+
+<h2 id="the-components-internal-architecture-is-a-black-box">The component’s internal architecture is a black box</h2>
+
+<p>From the perspective of the application (or system) architecture, each of its constituent components is a black box.
+A component’s details are hidden behind its API.
+Given, therefore, that the term ‘monolith’ is shorthand for ‘monolithic architecture’, it follows that there’s no such thing as a modular monolith(ic architecture).</p>
+
+<h2 id="modular-monolith--modular-components">Modular monolith =&gt; modular components</h2>
+
+<p>When we use the term ‘modular monolith’, what we are really describing is the internal architecture of a component.
+The sole component of a monolithic architecture is likely to be large so modularity is especially important.
+However, there’s no reason why the services within a microservice architecture should not also be modular.
+In particular, some services might consist of multiple subdomains/bounded contexts owned by different teams.
+The problems that the ‘modular monolith’ pattern solves are not necessarily unique to the monolithic architecture.
+Consequently, perhaps a better term is ‘modular component’.</p>
+
+<h2 id="modular-components--domain-oriented-components">Modular components =&gt; domain-oriented components</h2>
+
+<p>Now that we have looked at why, perhaps, ‘modular component’ is a more accurate that ‘module monolith’, let’s now look at why the adjective ‘modular’ is not the best choice for the architectural style that we are trying to describe.</p>
+
+<h3 id="a-traditional-monolith-can-have-a-well-defined-structure">A traditional monolith can have a well-defined structure</h3>
+
+<p>Monolithic applications are often described as <a href="http://www.laputan.org/mud/" rel="noreferrer" target="_blank">big balls of mud</a>.
+To quote Foote and Yoder, the authors of that pattern, such a monolith is a “haphazardly structured, sprawling, sloppy, duct-tape and bailing wire, spaghetti code jungle.”
+However, there’s no reason for a monolithic application to be a big ball of mud.
+It could have a well-defined structure consisting of layers, which themselves are comprised of modules.</p>
+
+<p>For example, here’s the FTGO monolith:</p>
+
+<p></p>
+
+<p>This monolith is comprised of four layers: <code class="language-plaintext highlighter-rouge">main</code>, <code class="language-plaintext highlighter-rouge">web</code>, <code class="language-plaintext highlighter-rouge">domain</code> and <code class="language-plaintext highlighter-rouge">persistence</code>.
+The <code class="language-plaintext highlighter-rouge">web</code>, <code class="language-plaintext highlighter-rouge">domain</code> and <code class="language-plaintext highlighter-rouge">persistence</code> layers consist of domain-specific modules.
+The lack of modularity is not the problem.</p>
+
+<h4 id="real-problem-the-layers-and-modules-are-not-aligned-with-the-subdomainsbounded-contexts">Real problem: The layers and modules are not aligned with the subdomains/bounded contexts</h4>
+
+<p>One actual problem is that the layers and modules are not aligned with application’s subdomains/bounded contexts.
+For example, it’s common for the layers to be technical: <code class="language-plaintext highlighter-rouge">web</code>, <code class="language-plaintext highlighter-rouge">domain</code> and <code class="language-plaintext highlighter-rouge">persistence</code>.
+As a result, a subdomain/bounded context will typically span multiple layers and modules.</p>
+
+<h4 id="real-problem-the-layers-and-modules-are-not-aligned-with-the-teams">Real problem: The layers and modules are not aligned with the teams</h4>
+
+<p>Another actual problem is that the layers and modules are not aligned with the teams that own the subdomains/bounded contexts.
+As a result, teams need to make changes across multiple layers and modules to implement a feature.
+It’s an architecture that reflects a traditional siloed organization rather than a modern organization one that’s structured using <a href="/post/microservices/2020/01/07/books-about-high-performance-software-delivery.html" rel="noreferrer" target="_blank">Team Topologies</a>.</p>
+
+<h3 id="big-idea-organize-a-component-around-the-domains">Big idea: organize a component around the domains</h3>
+
+<p>The big idea with the modular monolith (component) pattern is that its top-level organizing principle are the domains/bounded contexts.
+For example:</p>
+
+<p></p>
+
+<p>In this architecture, the monolith consists of modules, such as <code class="language-plaintext highlighter-rouge">customers</code> and <code class="language-plaintext highlighter-rouge">orders</code>.
+Each module, in turn, consists of layers, such as <code class="language-plaintext highlighter-rouge">web</code>, <code class="language-plaintext highlighter-rouge">domain</code> and <code class="language-plaintext highlighter-rouge">persistence</code>.
+As a result, the application architecture and the teams are aligned.</p>
+
+<h2 id="better-name-domain-oriented-component-architecture">Better name: domain-oriented component architecture?</h2>
+
+<p>Arguably, the term <code class="language-plaintext highlighter-rouge">domain-oriented component</code> or even <code class="language-plaintext highlighter-rouge">domain-oriented component architecture</code> is more accurate than <code class="language-plaintext highlighter-rouge">modular monolith (component)</code>.</p>
+
+<p>What do you think?</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/05/13/how-modular-can-your-monolith-go-part-7-no-such-thing-as-a-modular-monolith.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

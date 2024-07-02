@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] The path to deprecating SPARSEMEM</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] The path to deprecating SPARSEMEM</h3>
+		<div>The term "memory model" is used in a couple of ways within the kernel.
+Perhaps the more obscure meaning is the memory-management subsystem's view
+of how physical memory is organized on a given system.  A proper
+representation of physical memory will be more efficient in terms of memory
+and CPU use.  Since hardware comes in numerous variations, the kernel
+supports a number of memory models to match; see <a href="https://lwn.net/Articles/789304/" rel="noreferrer" target="_blank">this article</a> for details.  At the <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">2024 Linux Storage,
+Filesystem, Memory-Management and BPF Summit</a>, Oscar Salvador,
+presenting remotely, made the case for removing one of those models.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/974517/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

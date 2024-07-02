@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10 Optical Character Recognition (OCR) APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">10 Optical Character Recognition (OCR) APIs</h3>
+		<div><p>APIs are driving business workflows across the globe, enabling more efficient processes and reducing friction in the market. One place where APIs and machine learning have seen long-term interest is optical character recognition (OCR). OCR is a type of artificial intelligence that analyzes media to digitize text and create structured data.</p>
+<p>Many programmers have long aspired to perfect OCR, which has captured the imaginations of generations of developers. While error-free OCR isn’t here, it’s awfully close. We’ve reviewed ten amazing OCR APIs to showcase the technology’s current state.</p>
+<h2 id="1-taggun">1. Taggun</h2>
+<p><a href="https://www.taggun.io/" rel="noreferrer" target="_blank">Taggun</a>‘s solution is pretty industry-specific, offering an OCR API backed by machine learning for receipt scanning. That said, Taggun is an excellent example of the use of APIs in this industry segment. By hyper-specializing, Taggun makes for a highly efficient and quick solution for specific use cases. In this case, Taggun bills itself as a solid anti-fraud system due to its insight-generating structured data approach.</p>
+<p><strong>Best For</strong>: Receipt and Transaction OCR</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl <span class="hljs-comment">--request POST \</span>
+     <span class="hljs-comment">--url https://api.taggun.io/api/receipt/v1/verbose/url \</span>
+     <span class="hljs-comment">--header 'accept: application/json' \</span>
+     <span class="hljs-comment">--header 'content-type: application/json' \</span>
+     <span class="hljs-comment">--data'</span>
+{
+  <span class="hljs-string">"headers"</span>: {
+    <span class="hljs-string">"x-custom-key"</span>: <span class="hljs-string">"string"</span>
+  },
+  <span class="hljs-string">"refresh"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-string">"incognito"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-string">"extractTime"</span>: <span class="hljs-literal">false</span>
+}'
+</code></pre>
+<h2 id="2-abbyy-finereader-engine">2. ABBYY FineReader Engine</h2>
+<p><a href="https://www.abbyy.com/ocr-sdk/" rel="noreferrer" target="_blank">ABBYY FineReader Engine</a> is an OCR platform with an SDK and API that offers scalable AI-driven OCR offerings. Notably, the platform converts documents into a searchable and editable format. It provides substantial document conversion options to allow consumers to extract, document, structure, and convert in a single workflow. ABBYY is a strong offering for enterprise solutions, but those looking for a singular solution and not a platform might find the offering a bit heavy.</p>
+<p><strong>Best For</strong>: High Conversion Portability</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl --request POST http<span class="hljs-variable">s:</span>//<span class="hljs-symbol">&lt;PROCESSING_LOCATION_ID&gt;</span>.ocrsdk.<span class="hljs-keyword">com</span>/v2/processImage
+</code></pre>
+<h2 id="3-sentisight">3. SentiSight</h2>
+<p><a href="https://www.sentisight.ai/" rel="noreferrer" target="_blank">SentiSight</a> is a relatively powerful <a href="https://www.sentisight.ai/user-guide/" rel="noreferrer" target="_blank">OCR API</a> offering with quick response times. It really shines in its support for Asian characters. Many OCR software solutions struggle once you start processing non-Latin character languages, so SentiSight’s AI and ML-driven support stands out in the market. Notably, SentiSight also allows integrators to train their own models in addition to using pre-trained models, granting a higher flexibility that could make it a standout offering in some specific use cases — especially if those use cases are with Asian content in non-standard formatting.</p>
+<p><strong>Best For</strong>: Non-Western Language Standards Support</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>TOKEN=<span class="hljs-string">"your_token"</span>
+PROJECT_ID=<span class="hljs-string">"your_project_id"</span>
+MODEL=<span class="hljs-string">"your_model_name"</span>
+IMAGE_FILENAME=<span class="hljs-string">"your_image_path"</span>
+curl -H <span class="hljs-string">"X-Auth-token: <span class="hljs-subst">$TOKEN</span>"</span> --<span class="hljs-keyword">data</span>-binary @<span class="hljs-string">"<span class="hljs-subst">$IMAGE_FILENAME</span>"</span> \
+  -H <span class="hljs-string">"Content-Type: application/octet-stream"</span> \
+  -X POST <span class="hljs-string">"https://platform.sentisight.ai/api/predict/<span class="hljs-subst">$PROJECT_ID</span>/<span class="hljs-subst">$MODEL</span>"</span>
+</code></pre>
+<h2 id="4-amazon-textract">4. Amazon Textract</h2>
+<p><a href="https://docs.aws.amazon.com/managedservices/latest/userguide/textract.html" rel="noreferrer" target="_blank">Amazon Textract</a> is a tool from Amazon focused on extracting text and converting this content into structured data. It’s billed as a “fully managed” service due to its bundling with AWS. Its leveraging of <a href="https://nordicapis.com/how-to-design-apis-for-llms/" rel="noreferrer" target="_blank">AI and LLMs</a> gives it quite a bit of power, with AWS serving as a strong backbone, delivering efficiency and accuracy. Additional security and compliance across the AWS environment make this a strong contender for data sources that must adhere to legal frameworks such as HIPAA and GDPR.</p>
+<p><strong>Best For</strong>: SaaS Preference and Legal Compliance in OCR Processes</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>{
+   <span class="hljs-attr">"AdaptersConfig"</span>:{
+      <span class="hljs-attr">"Adapters"</span>:[
+         {
+            <span class="hljs-attr">"AdapterId"</span>:<span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"Pages"</span>:[
+               <span class="hljs-string">"string"</span>
+            ],
+            <span class="hljs-attr">"Version"</span>:<span class="hljs-string">"string"</span>
+         }
+      ]
+   },
+   <span class="hljs-attr">"Document"</span>:{
+      <span class="hljs-attr">"Bytes"</span>:<span class="hljs-string">"blob"</span>,
+      <span class="hljs-attr">"S3Object"</span>:{
+         <span class="hljs-attr">"Bucket"</span>:<span class="hljs-string">"string"</span>,
+         <span class="hljs-attr">"Name"</span>:<span class="hljs-string">"string"</span>,
+         <span class="hljs-attr">"Version"</span>:<span class="hljs-string">"string"</span>
+      }
+   },
+   <span class="hljs-attr">"FeatureTypes"</span>:[
+      <span class="hljs-string">"string"</span>
+   ],
+   <span class="hljs-attr">"HumanLoopConfig"</span>:{
+      <span class="hljs-attr">"DataAttributes"</span>:{
+         <span class="hljs-attr">"ContentClassifiers"</span>:[
+            <span class="hljs-string">"string"</span>
+         ]
+      },
+      <span class="hljs-attr">"FlowDefinitionArn"</span>:<span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"HumanLoopName"</span>:<span class="hljs-string">"string"</span>
+   },
+   <span class="hljs-attr">"QueriesConfig"</span>:{
+      <span class="hljs-attr">"Queries"</span>:[
+         {
+            <span class="hljs-attr">"Alias"</span>:<span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"Pages"</span>:[
+               <span class="hljs-string">"string"</span>
+            ],
+            <span class="hljs-attr">"Text"</span>:<span class="hljs-string">"string"</span>
+         }
+      ]
+   }
+}
+</code></pre>
+<h2 id="5-hive-s-optical-character-recognition-api">5. Hive’s Optical Character Recognition API</h2>
+<p><a href="https://thehive.ai/apis/ocr" rel="noreferrer" target="_blank">Hive’s OCR API</a> offers much of the same functionality as other solutions on this list but with a few key differences. First and foremost, Hive’s solution provides support in more than 15 languages, allowing for an international data processing solution. One of the big issues with traditional OCR solutions has been the focus on English and Latin languages, so this is important. Secondarily, Hive offers extraction from images and video, including complex structures such as emojis, handwritten text, and multi-directional text rotations on the same document. It’s a well-trained API with a strong machine learning backend that enables pretty complex data flows.</p>
+<p><strong>Best For</strong>: Multi-Language Support</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code># submit a task with media with url curl --request POST \ 
+-<span class="ruby">-url <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/api.thehive.ai/api</span><span class="hljs-regexp">/v2/task</span><span class="hljs-regexp">/sync \ # this is a sync example, see API reference for async 
+</span></span>-<span class="ruby"><span class="hljs-regexp">-header 'accept: application/json</span><span class="hljs-string">' \ 
+</span></span>-<span class="ruby"><span class="hljs-string">-header '</span><span class="hljs-symbol">authorization:</span> token &lt;API_KEY&gt;<span class="hljs-string">' \ 
+</span></span>-<span class="ruby"><span class="hljs-string">-form '</span>url=<span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/hive-public.s3.amazonaws.com/demo</span>_request/gun1.jpg<span class="hljs-string">' 
+</span></span>
+# submit a task with media with local media file 
+curl --request POST \ 
+-<span class="ruby"><span class="hljs-string">-url https://api.thehive.ai/api/v2/task/sync \ # this is a sync example, see API reference for async 
+</span></span>-<span class="ruby"><span class="hljs-string">-header '</span><span class="hljs-symbol">Authorization:</span> Token &lt;token&gt;<span class="hljs-string">' \ 
+</span></span>-<span class="ruby"><span class="hljs-string">-form '</span>media=@<span class="hljs-string">"&lt;absolute/path/to/file&gt;"</span><span class="hljs-string">'</span></span>
+</code></pre>
+<h2 id="6-klippa-ocr-api">6. Klippa OCR API</h2>
+<p><a href="https://www.klippa.com/en/ocr/ocr-api/" rel="noreferrer" target="_blank">Klippa OCR API</a> is a solution focused on business OCR and document extraction. Paired with Klippa’s other business offerings, including conversion, it stands as a solid business offering for complex data sets requiring high accuracy. Klippa boasts a 99% extraction accuracy, leveraging a machine learning backend for quick response time and iterative detection.</p>
+<p><strong>Best For</strong>: High Accuracy</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl -X POST \\
+  -<span class="ruby">H <span class="hljs-string">"x-api-key: {your-api-key}"</span> \\
+</span>  -<span class="ruby">H <span class="hljs-string">"Content-Type: application/json"</span> \\
+</span>  -<span class="ruby">d <span class="hljs-string">'{"documents": [{"data": "document data encoded as base64"}]}'</span> \\
+</span>  https://dochorizon.klippa.com/api/services/document_capturing/v1/generic
+</code></pre>
+<div class="well">Also read: <a href="https://nordicapis.com/14-text-to-image-ai-apis/" rel="noreferrer" target="_blank">14 Text-to-Image AI APIs</a></div>
+<h2 id="7-base64-ai">7. Base64.ai</h2>
+<p><a href="https://base64.ai/" rel="noreferrer" target="_blank">Base64.ai</a> is a highly capable OCR AI-driven API. Base64’s main value proposition is speed and ease of implementation. It boasts hundreds of integration systems that connect in less than one hour and an average service time post-integration of around three seconds. Base64 is also pretty wide in its target form. Support across both typed and handwritten documents provides a strong value proposition that is only made stronger with the additional human verification services on offer. Notably, Base64 also offers redaction, which makes it a strong offering for organizations looking to take OCR to the next step with security and privacy validation and servicing.</p>
+<p><strong>Best For</strong>: Quick Iteration and Deployment</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl <span class="hljs-comment">--location 'https://base64.ai/api/scan' \</span>
+<span class="hljs-comment">--header 'Content-Type: application/json' \</span>
+<span class="hljs-comment">--header 'Authorization: ApiKey email:secret' \</span>
+<span class="hljs-comment">--data '{</span>
+    <span class="hljs-string">"document"</span>: <span class="hljs-string">"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."</span>,
+    <span class="hljs-string">"settings"</span>: {
+        <span class="hljs-string">"redactions"</span>: {
+            <span class="hljs-string">"fields"</span>: [<span class="hljs-string">"name"</span>, <span class="hljs-string">"issueDate"</span>],
+            <span class="hljs-string">"faces"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">"signatures"</span>: <span class="hljs-literal">true</span>
+        }
+    }
+}'
+</code></pre>
+<h3 id="8-clarifai-s-computer-vision-vtr">8. Clarifai’s Computer Vision VTR</h3>
+<p><a href="https://docs.clarifai.com/api-guide/workflows/common-workflows/visual-text-recognition-walkthrough/" rel="noreferrer" target="_blank">Clarifai’s Visual Text Recognition</a> solution extracts information from different types of unstructured data. What sets it apart from others on this list is that it can do this across multiple languages and can process video in addition to images. This makes it suitable for a wide variety of circumstances and applications. Clarifai also offers other LLM and AI-driven systems as part of a collective offering. Notably, it allows you to import your own models, offering users the best of both worlds.</p>
+<p><strong>Best For</strong>: Desire for a Platform Solution</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl -X POST <span class="hljs-string">"https://api.clarifai.com/v2/users/clarifai/apps/main/models/general-image-recognition/versions/aa7f35c01e0642fda5cf400f543e7c40/outputs"</span> \
+    -H <span class="hljs-string">"Authorization: Key YOUR_PAT_HERE"</span> \
+    -H <span class="hljs-string">"Content-Type: application/json"</span> \
+    -d <span class="hljs-string">'{
+      "</span>inputs<span class="hljs-string">": [
+        {
+          "</span>data<span class="hljs-string">": {
+            "</span>image<span class="hljs-string">": {
+              "</span>url<span class="hljs-string">": "</span>https:<span class="hljs-comment">//samples.clarifai.com/metro-north.jpg"</span>
+            }
+          }
+        }
+      ]
+    }<span class="hljs-string">'</span>
+</code></pre>
+<h2 id="9-formx-ai">9. FormX.ai</h2>
+<p><a href="https://help.formx.ai/reference/document-extraction" rel="noreferrer" target="_blank">FormX.ai</a> is primarily concerned with structured data. In essence, FormX’s approach is to utilize data models (extractors) to generate JSON outputs for various document types, including invoices, bills, receipts, and more. FormX is an excellent option for those without their own models, as the preconfigured models allow for rapid deployment without the need to bring your own model or training set. The good news in adopting a JSON standardized system is that it will look very familiar to many users, and the web portal on offer helps to reduce friction for those who prefer <a href="https://nordicapis.com/25-low-code-platforms/" rel="noreferrer" target="_blank">low-or-no-code solutions</a> or those who lack such familiarity.</p>
+<p><strong>Best For</strong>: Low-Code or No-Code Solutions</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl --request POST \
+     -<span class="ruby">-url <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/worker.formextractorai.com/detect</span>-documents \
+</span>     -<span class="ruby">-header <span class="hljs-string">'X-WORKER-ENCODING: raw'</span> \
+</span>     -<span class="ruby">-header <span class="hljs-string">'X-WORKER-PDF-DPI: 150'</span> \
+</span>     -<span class="ruby">-header <span class="hljs-string">'accept: application/json:'</span> \
+</span>     -<span class="ruby">-header <span class="hljs-string">'content-type: image/*'</span></span>
+</code></pre>
+<div class="well">Also read: <a href="https://nordicapis.com/best-8-pdf-editing-and-generation-apis/" rel="noreferrer" target="_blank">Best 8 PDF Editing and Generation APIs</a></div>
+<h3 id="10-mindee">10. Mindee</h3>
+<p><a href="https://www.mindee.com/" rel="noreferrer" target="_blank">Mindee</a> is a quite interesting solution. While it provides much of the same functionality as other “document to machine-readable” solutions, its main selling point is the variety of integrative options provided to end users. Mindee provides relatively robust SDKs for both <a href="https://github.com/mindee/vue-mindee-js" rel="noreferrer" target="_blank">Vue.js</a> and <a href="https://github.com/mindee/react-mindee-js" rel="noreferrer" target="_blank">React</a> for UI integration into native apps, and the base level API provides framework and language agnostic support for broad adoption. Notably, Mindee provides an “API store” for plug-and-play APIs that can be deployed for specific functions, including receipt scanning, passport OCR, and more.</p>
+<p><strong>Best For</strong>: Solutions Requiring High Integration and Control</p>
+<h3 id="example-request">Example Request</h3>
+<pre><code>curl -X POST \\ https:<span class="hljs-regexp">//</span>api.mindee.net<span class="hljs-regexp">/v1/</span>products<span class="hljs-regexp">/Mindee/</span>bank_account_details<span class="hljs-regexp">/v2/</span>predict \\ -H <span class="hljs-string">'Authorization: Token my-api-key-here'</span> \\ -H <span class="hljs-string">'content-type: multipart/form-data'</span> \\ -F document=@<span class="hljs-regexp">/path/</span>to<span class="hljs-regexp">/your/</span>file.png
+</code></pre>
+<h2 id="other-options-for-ocr-apis">Other Options For OCR APIs</h2>
+<p>There are many unique options that you may find useful. These include the following, but the world of OCR is diverse and extensive, so feel free to dig in deeper!</p>
+<ul>
+<li><a href="https://github.com/tesseract-ocr/tesseract?referral=best-ocr-apis" rel="noreferrer" target="_blank">Tesseract</a>: This is an OCR engine with both a neural net (Tesseract 4) and model-based system (Tesseract 3). This solution was initially developed at Hewlett-Packard Laboratories Bristol, UK, and the Hewlett-Packard Co offices in Colorado and is now entirely open source. This is a strong solution for organizations desiring full control over the entire OCR process.</li>
+<li><a href="https://cloud.google.com/vision/docs/ocr" rel="noreferrer" target="_blank">Google Cloud OCR API</a>: Offered by Google as part of their Google Cloud offering, this OCR API leverages Google Vision to deliver accurate and fast OCR extraction. This is a strong offering for organizations already using Google Vision or Google Cloud in their business processes.</li>
+<li><a href="https://ocr.space/OCRAPI" rel="noreferrer" target="_blank">OCR API by OCRSpace</a>: This OCR API provides accurate and quick OCR extraction via a freemium model, promising quicker return guaranteed uptimes via “pro” plans. This can provide business flexibility to organizations looking to integrate OCR without significant upfront cost.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>While this list is not exhaustive — many more offerings are constantly coming onto the market — these services represent a good snapshot of the current OCR API offerings with AI and machine learning backends. Any of these solutions would be a great addition to your workflow. Have we missed any excellent examples in the market? Let us know, and we’ll take a look.</p>
+<div class="well"><em>If you would like to recommend another API for this list, please comment below, and we’ll consider reviewing it when we update this list in the future</em>.</div>
+</div>
+		<a target="_blank" href="https://nordicapis.com/10-optical-character-recognition-ocr-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

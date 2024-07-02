@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Today’s Forecast: Browser Improvements – These Weeks in Firefox: Issue 161</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Today’s Forecast: Browser Improvements – These Weeks in Firefox: Issue 161</h3>
+		<div><h3>Highlights</h3>
+<ul>
+<li aria-level="1">Volunteer contributor tamas.beno12 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=28354" rel="noreferrer" target="_blank">has fixed a 5 digit (25 year old) bug</a>! The patch for the bug makes it easier to create transparent windows</li>
+<li aria-level="1">The newtab team is experimenting with a weather widget! It’s still early days, but you can turn it on in Nightly with a set of 2 prefs found in about:config:
+<ul>
+<li aria-level="2">Set the following to true:
+<ul>
+<li aria-level="3">browser.newtabpage.activity-stream.showWeather</li>
+<li aria-level="3">browser.newtabpage.activity-stream.system.showWeather</li>
+</ul>
+</li>
+<li aria-level="3"></li>
+<li aria-level="2">If you notice any bugs with it, you can <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;bug_ignored=0&amp;bug_severity=--&amp;bug_status=NEW&amp;cf_a11y_review_project_flag=---&amp;cf_accessibility_severity=---&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_has_str=---&amp;cf_install_update_workflow=---&amp;cf_performance_impact=---&amp;cf_status_firefox126=---&amp;cf_status_firefox127=---&amp;cf_status_firefox128=---&amp;cf_status_firefox_esr115=---&amp;cf_tracking_firefox126=---&amp;cf_tracking_firefox127=---&amp;cf_tracking_firefox128=---&amp;cf_tracking_firefox_esr115=---&amp;cf_tracking_firefox_relnote=---&amp;cf_webcompat_priority=---&amp;component=New%20Tab%20Page&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;filed_via=standard_form&amp;flag_type-203=X&amp;flag_type-37=X&amp;flag_type-41=X&amp;flag_type-607=X&amp;flag_type-708=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-748=X&amp;flag_type-787=X&amp;flag_type-799=X&amp;flag_type-803=X&amp;flag_type-846=X&amp;flag_type-855=X&amp;flag_type-864=X&amp;flag_type-930=X&amp;flag_type-936=X&amp;flag_type-937=X&amp;flag_type-963=X&amp;needinfo_role=other&amp;needinfo_type=needinfo_from&amp;op_sys=Unspecified&amp;priority=--&amp;product=Firefox&amp;rep_platform=Unspecified&amp;target_milestone=---&amp;version=unspecified" rel="noreferrer" target="_blank">file them under Firefox :: New Tab Page</a></li>
+</ul>
+</li>
+<li aria-level="1">Some nice updates to Picture-in-Picture:
+<ul>
+<li aria-level="2">Volunteer contributor Joseph Webster <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818054" rel="noreferrer" target="_blank">added captions support</a> for Vimeo players!</li>
+<li aria-level="2">kpatenio <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888691" rel="noreferrer" target="_blank">added captions support and fixed some live video playback issues for Canal+ and Timvision</a> when opened in the Picture-in-Picture player window
+<ul>
+<li aria-level="3">Thanks to leojellimann for helping identify how video captions are loaded. Without his help, this patch would not have been possible!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Bounce Tracking Protection has been enabled in Nightly (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846492" rel="noreferrer" target="_blank">Bug 1846492</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.mozilla.org/security/2020/08/04/firefox-79-includes-protections-against-redirect-tracking/" rel="noreferrer" target="_blank">What is bounce tracking / redirect tracking?</a></li>
+<li aria-level="2">The feature detects bounce trackers based on redirect behaviour and periodically purges their cookies &amp; site data to prevent tracking.</li>
+<li aria-level="2">If you notice that you lose site data or get logged out of sites more than usual please file a bug under <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;bug_ignored=0&amp;bug_severity=--&amp;bug_status=NEW&amp;cf_a11y_review_project_flag=---&amp;cf_accessibility_severity=---&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_has_str=---&amp;cf_performance_impact=---&amp;cf_status_firefox126=---&amp;cf_status_firefox127=---&amp;cf_status_firefox128=---&amp;cf_status_firefox_esr115=---&amp;cf_status_thunderbird_esr115=---&amp;cf_tracking_firefox126=---&amp;cf_tracking_firefox127=---&amp;cf_tracking_firefox128=---&amp;cf_tracking_firefox_esr115=---&amp;cf_tracking_firefox_relnote=---&amp;cf_tracking_thunderbird_esr115=---&amp;cf_webcompat_priority=---&amp;component=Privacy%3A%20Anti-Tracking&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;filed_via=standard_form&amp;flag_type-203=X&amp;flag_type-37=X&amp;flag_type-41=X&amp;flag_type-607=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-787=X&amp;flag_type-799=X&amp;flag_type-803=X&amp;flag_type-846=X&amp;flag_type-855=X&amp;flag_type-863=X&amp;flag_type-864=X&amp;flag_type-930=X&amp;flag_type-936=X&amp;flag_type-937=X&amp;flag_type-963=X&amp;needinfo_role=other&amp;needinfo_type=needinfo_from&amp;op_sys=Unspecified&amp;priority=--&amp;product=Core&amp;rep_platform=Unspecified&amp;target_milestone=---&amp;version=unspecified" rel="noreferrer" target="_blank">Core :: Privacy: Anti-Tracking</a> so we can investigate</li>
+<li aria-level="2">The feature is still in development so detected trackers are not yet counted as part of our regular ETP stats or on about:protections.</li>
+<li aria-level="2">Advanced: If you want to see which bounce trackers get detected and purged you can enable the logging by going to about:logging and adding the following logger: BounceTrackingProtection:3</li>
+</ul>
+</li>
+<li aria-level="1">Niklas <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1801957" rel="noreferrer" target="_blank">made the screenshots initial state (crosshairs) keyboard accessible</a>
+<ul>
+<li aria-level="2">The arrow keys can be used to move the cursor around the content area. Enter will select the current hovered region and space will start the dragging state to draw a region.</li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h3><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=1893985%2C1893607%2C1893935%2C1894063%2C1798464%2C1880909%2C1845151%2C1895154%2C1868943%2C1895564%2C1742889%2C1895398%2C1896034%2C1892052%2C1896360&amp;list_id=17031415" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h3>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Itiel</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">endington543 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893985" rel="noreferrer" target="_blank">removed incorrect and unnecessary strict statement</a> from FxAccountsProfileClient.sys.mjs</li>
+<li aria-level="1">Joseph Webster <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894063" rel="noreferrer" target="_blank">added PiP captions support</a> for additional sites that use JWPlayer</li>
+<li aria-level="1">Leeya <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1742889" rel="noreferrer" target="_blank">rewrote consumers of whereToOpenLink</a> to use BrowserUtils.whereToOpenLink</li>
+<li aria-level="1">Steve P <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880909" rel="noreferrer" target="_blank">moved gBrowserInit to its own file</a></li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li aria-level="1">As already anticipated in this meeting, starting from Firefox 127, installing new single-signed add-ons is disallowed. The QA verification has been completed and this restriction is now enabled on all channels and riding the Firefox 127 release train (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886160" rel="noreferrer" target="_blank">Bug 1886160</a>).</li>
+</ul>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">Starting from Firefox 127, the installType property returned by the management API (e.g. management.getSelf) will be set to ”admin” for extensions that are installed through Enterprise Policy Settings (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895341" rel="noreferrer" target="_blank">Bug 1895341</a>)
+<ul>
+<li aria-level="2">Thanks to mkaply for working on this API improvement for Enterprise Firefox add-ons!</li>
+</ul>
+</li>
+<li aria-level="1">As part of the ongoing work related to improving cross-browser compatibility for Manifest Version 3 extensions, starting from Firefox 127:
+<ul>
+<li aria-level="2">Host permissions requested by Manifest V3 extensions will be listed in the install dialog and granted as part of the add-on installation flow (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889402" rel="noreferrer" target="_blank">Bug 1889402</a>).</li>
+<li aria-level="2">Extensions using the ”incognito”: “split” mode will be allowed to install successfully in Firefox (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876924" rel="noreferrer" target="_blank">Bug 1876924</a>)
+<ul>
+<li aria-level="3">Incognito split mode is still not supported in Firefox, and so the extensions using this mode will not be allowed access to private browsing tabs.</li>
+</ul>
+</li>
+<li aria-level="2">The new runtime.getContexts API method is now supported (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875480" rel="noreferrer" target="_blank">Bug 1875480</a>).
+<ul>
+<li aria-level="3">This new API method allows extensions to discover their existing Extensions contexts (but unlike runtime.getViews it returns a json representation of the metadata for the related extension contexts).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Developer Tools</h4>
+<h5>DevTools</h5>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=697330" rel="noreferrer" target="_blank">Pier Angelo Vendrame</a> prevented new request data to be persisted in Private Browsing (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1892052" rel="noreferrer" target="_blank">#1892052</a>)</li>
+<li aria-level="1">Arai fixed exceptions that could happen when evaluating Services.prompt and Services.droppedLinkHandler in the Browser Console (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893611" rel="noreferrer" target="_blank">#1893611</a>)</li>
+<li aria-level="1">Nicolas fixed an issue that was preventing users to see stacktrace from WASM-issued error messages (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888645" rel="noreferrer" target="_blank">#1888645</a>)</li>
+<li aria-level="1">Alexandre managed to tackle an issue that would prevent DevTools to be initialized when a page was using Atomics.wait , e.g. <a href="http://stackblitz.com" rel="noreferrer" target="_blank">stackblitz.com</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1821250" rel="noreferrer" target="_blank">#1821250</a>)</li>
+<li aria-level="1">Nicolas added the new textInput event to the Event Listener Breakpoints in the Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1892459" rel="noreferrer" target="_blank">#1892459</a>)</li>
+<li aria-level="1">Hubert is making good progress migrating the Debugger to CodeMirror 6 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1887649" rel="noreferrer" target="_blank">#1887649</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889277" rel="noreferrer" target="_blank">#1889277</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889283" rel="noreferrer" target="_blank">#1889283</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894379" rel="noreferrer" target="_blank">#1894379</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894659" rel="noreferrer" target="_blank">#1894659</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889276" rel="noreferrer" target="_blank">#1889276</a>)</li>
+<li aria-level="1">Nicolas made sure that ::backdrop pseudo-element rules are visible in the Rules view for popover elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893644" rel="noreferrer" target="_blank">#1893644</a>), as well as @keyframes rules nested in other at-rules (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894603" rel="noreferrer" target="_blank">#1894603</a>)</li>
+<li aria-level="1">Nicolas fixed performance issue in the Inspector when displaying deeply nested rule (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1844446" rel="noreferrer" target="_blank">#1844446</a>)
+<ul>
+<li aria-level="2">for example, a 15-level deep rule was taking almost <b>9 seconds</b> to be displayed, now it’s only <b>a few milliseconds&nbsp;</b></li>
+</ul>
+</li>
+<li aria-level="1">Julian removed code that was forcing the Performance tab to be always enabled in the Browser Toolbox, even if the user disabled it in a previous session (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895434" rel="noreferrer" target="_blank">#1895434</a>)</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">Thanks to Victoria Ajala for replacing the usage of the “isElementEnabled” selenium atom with a custom implementation which is more lightweight and maintainable (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1798464" rel="noreferrer" target="_blank">#1798464</a>)</li>
+<li aria-level="1">Sasha implemented the permissions.setPermission command which allows clients to set permissions such as geolocation, notifications, … (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875065" rel="noreferrer" target="_blank">#1875065</a>)</li>
+<li aria-level="1">Sasha fixed a bug where wheel scroll actions would not use the provided modifiers (eg shift, ctrl, …) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885542" rel="noreferrer" target="_blank">#1885542</a>)</li>
+<li aria-level="1">Sasha improved the implementation of the browsingContext.locateNodes command to also accept Document objects as the root to locate nodes. Previously this was restricted to Elements only, but Puppeteer relies heavily on using Document for this command. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893922" rel="noreferrer" target="_blank">#1893922</a>)</li>
+<li aria-level="1">Henrik fixed a bug where the WebDriver classic GetElementText command would fail to capitalise text containing a underscore (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1888004" rel="noreferrer" target="_blank">#1888004</a>)</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">Device Migration
+<ul>
+<li aria-level="2">We’ve completed the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885369" rel="noreferrer" target="_blank">staging</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885955" rel="noreferrer" target="_blank">recovery</a> metabugs, and have started into the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890579" rel="noreferrer" target="_blank">management UI metabug</a>. We’re also branching a bit, and some of us are working on the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890322" rel="noreferrer" target="_blank">single-file archive metabug</a>.</li>
+</ul>
+</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">Newtab wallpaper experiment going out either this release (next week) or next release, depending on some telemetry bug fix uplifts.
+<ul>
+<li aria-level="2">To enable wallpapers on HNT, set the following to TRUE:
+<ul>
+<li aria-level="3">browser.newtabpage.activity-stream.newtabWallpapers.enabled</li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Newtab wallpapers are getting some updates soon. A bunch more wallpapers as options, and some tweaks to the customize menu, a nested menu, to better organize the wallpapers so it’s easier to explore as we add more options.</li>
+</ul>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li aria-level="1">Thanks to Joseph Webster for adding PiP captions support for more sites with our JWPlayer wrapper (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894063" rel="noreferrer" target="_blank">bug</a>)</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li aria-level="1">mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1503809" rel="noreferrer" target="_blank">has patches up that move the favicon-fetching part of the Windows Jump List off of the main thread</a>.</li>
+</ul>
+<h4>Screenshots</h4>
+<ul>
+<li aria-level="1">Thanks to Kelly for joining the screenshots team!</li>
+<li aria-level="1">Kelly <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1730169" rel="noreferrer" target="_blank">added the “take screenshot”</a> item to image and video elements</li>
+<li aria-level="1">Niklas fixed a bug where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894740" rel="noreferrer" target="_blank">clicking the preview copy or download buttons</a> before the image loaded would not actually save the image</li>
+<li aria-level="1">Niklas <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1892125" rel="noreferrer" target="_blank">refactored the screenshots preview</a> to use LitElement and moz-button</li>
+<li aria-level="1">Niklas fixed an issue with <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893680" rel="noreferrer" target="_blank">RTL pages with negative scrollMinX</a></li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Clipboard suggestions have been temporarily disabled in nightly as it was possible to freeze Firefox on Windows – we’re moving the feature to asynchronous clipboard API – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894614" rel="noreferrer" target="_blank">1894614</a></li>
+<li aria-level="1">Features for an update to the urlbar UX codenamed scotchBonnet have started landing, secondary Actions have landed and dedicated search button + others are in progress. These will be enabled in nightly at some point so keep an eye out. Meta bug tracking @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1891857" rel="noreferrer" target="_blank">1891857</a></li>
+<li aria-level="1">Mandy fixed an issue with stripping a leading question mark when the urlbar is already in search mode @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1837624" rel="noreferrer" target="_blank">1837624</a></li>
+<li aria-level="1">Marco fixed protocols being trimmed when copying urls @ ​​<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893871" rel="noreferrer" target="_blank">1893871</a>
+<ul>
+<li aria-level="2">In Nightly, when https stripping is enabled, the loaded URL will gain back the trimmed protocol when the user interacts with the urlbar input field text</li>
+</ul>
+</li>
+<li aria-level="1">Marco changed domain inline completion, so that when permanent private browsing is active domain will be picked based on the number of bookmarks to that domain. <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893840" rel="noreferrer" target="_blank">Bug 1893840</a></li>
+<li aria-level="1">The new search configuration (aka search consolidation) is now rolling out in FF 126 release.
+<ul>
+<li aria-level="2">Ebay support in Poland has been added to application provided engines in the new search configuration and so will become available during FF 126 @ <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885391" rel="noreferrer" target="_blank">1885391</a></li>
+</ul>
+</li>
+<li aria-level="1">For Places, Daisuke removed the ReplaceFaviconData() and ReplaceFaviconDataFromDataURL() APIs, replacing their use with a new SetFaviconForPage() API accepting a data URL for the favicon. Long term this is the API we want to use, Places should never fetch from the Network, only store data.</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">Work has started on form components with an eye for the Sidebar Settings feature (and potentially the Experiments section of preferences). Initial components: moz-checkbox, moz-radio-group and moz-fieldset</li>
+</ul>
+<p>The message-bar component has been fully removed from the codebase (replaced by moz-message-bar) <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845151" rel="noreferrer" target="_blank">Bug 1845151 – Remove all code associated with the message-bar component</a> – Thanks Anna!</p>
+</div>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/05/17/todays-forecast-browser-improvements-these-weeks-in-firefox-issue-161/">Go to article URL</a>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

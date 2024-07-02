@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Dissecting 'architecting for fast, sustainable flow'</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Dissecting 'architecting for fast, sustainable flow'</h3>
+		<div><p>In a previous article, I described how the <a href="/post/architecture/2024/04/10/success-triangle-is-about-fast-flow.html" rel="noreferrer" target="_blank">success triangle is all about the fast flow of changes</a>.
+I also announced a new workshop on <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">architecting for fast, sustainable flow</a>, which teaches how to develop application architectures that enable fast flow.</p>
+
+<p>In this article, I dissect the phrase ‘architecting for fast, sustainable flow’ and briefly describe the architectural characteristics that DevOps and Team Topologies need.</p>
+
+<p></p>
+
+<p>Let’s begin by defining the term ‘fast flow’.</p>
+
+<h2 id="what-is-fast-flow">What is fast flow?</h2>
+
+<p>As I described in the <a href="/post/architecture/2024/04/10/success-triangle-is-about-fast-flow.html" rel="noreferrer" target="_blank">previous article</a>, the key idea of fast flow is that an organization’s structure, culture and work practices along with its application architecture should be such that it delivers a continuous stream of valuable changes to its customers.
+The underlying metaphor is of a river flowing fast and smoothly, with no blockages or bottlenecks.</p>
+
+<p>Fast flow is a key goal of both DevOps and the Team Topologies.
+Team Topologies is set of principles and patterns for organizing business and technology teams for fast flow.
+DevOps is a set of principles and practices that those teams should follow in order to deliver software rapidly, frequently, and reliably.</p>
+
+<h2 id="what-is-sustainable-flow">What is sustainable flow?</h2>
+
+<p>The <a href="/post/architecture/2023/08/06/lehmans-laws-of-software-evolution.html" rel="noreferrer" target="_blank">Law of Continuing Change </a> describes how software must constantly change in response to changing requirements.
+However, even if the requirements miraculously never changed, you would still need to develop your application.
+That’s because technologies (and technology versions) constantly evolve.
+It’s essential that you <a href="https://premium.microservices.io/evolving-your-applications-technology-stack/" rel="noreferrer" target="_blank">continually upgrade your application’s technology stack</a> - libraries, language, infrastructure, … - in order to keep it current.</p>
+
+<p></p>
+
+<p>Specifically, the importance of a technology (version) to your organization should match its importance in the market.
+Otherwise, you will encounter various issues caused by the lack of support, bug patches, learning resources, and developers who know the technology and want to use it</p>
+
+<h2 id="what-is-architecting">What is architecting?</h2>
+
+<p>Architecting is the act of designing an application’s architecture.
+The classic definition of software architecture by Len Bass and colleagues at the <a href="https://www.sei.cmu.edu" rel="noreferrer" target="_blank">Software Engineering Institute</a> is:</p>
+
+<blockquote>
+  <p>The software architecture of a computing system is the set of structures needed to reason about the system, which comprise software elements, relations among them, and properties of both.</p>
+</blockquote>
+
+<h3 id="architecture-is-multi-dimensional">Architecture is multi-dimensional</h3>
+
+<p><a href="/post/architecture/2024/04/14/architecture-is-multi-dimensional.html" rel="noreferrer" target="_blank">Architecture is multi-dimensional</a>.
+The dimension determines the nature of the elements and their relationships.
+One important dimension is the domain view, which is comprised of subdomains/bounded contexts.
+A subdomain/bounded context is a slice of business functionality.
+It can collaborate with one or more other subdomains/bounded contexts to fulfill its responsibilities.
+A subdomain/bounded context is owned by a stream-aligned team.</p>
+
+<h3 id="the-goal-of-architecture-is-to-satisfy-the-non-functional-requirements">The goal of architecture is to satisfy the non-functional requirements</h3>
+
+<p>The purpose of architecture is to satisfy the application’s non-functional requirements.
+There’s two broad categories of non-functional requirements.
+There are the runtime requirements, such as performance, scalability, availability, and security.
+Quite often, it’s the runtime requirements that the architects focus on.
+However, there are also development time requirements.
+In particular, the architecture must have development time characteristics that support fast, sustainable flow.</p>
+
+<h2 id="architectural-requirements-for-fast-flow">Architectural requirements for fast flow</h2>
+
+<p>In order for fast flow to occur, an architecture must support DevOps and Team Topologies.
+There are five key architectural requirements for fast flow:</p>
+
+<ul>
+  <li><strong>Team-sized elements</strong> - in order to avoid cognitive overload the architecture must consist of team-sized elements</li>
+  <li><strong>Loose (design-time) coupling</strong> - loose coupling identified by the authors of the book Accelerate as a key predictor of high performance. 
+It’s also a consequence of <a href="https://en.wikipedia.org/wiki/Conway%27s_law" rel="noreferrer" target="_blank">Conway’s law</a>: loosely coupled teams (defined by Team Topologies) need a loosely coupled architecture.</li>
+  <li><strong>Testability</strong> - the path from development to production must be a fast, automated deployment pipeline.
+An application must, therefore, be capable of being tested using automated tests.
+Those tests must be fast.
+Moreover, a developer must be able to run the tests on their local machine.</li>
+  <li><strong>Deployability</strong> - the application must support fast, reliable, automated deployments.</li>
+  <li><strong>Observability</strong> - the deployed application must emit a stream of telemetry - logs, metrics, and distributed traces - which is feedback to the developers about the behavior of application and its users.
+The telemetry is used to monitor the application’s health and diagnose problems.
+It’s also used to understand user behavior.</li>
+</ul>
+
+<h2 id="architecting-for-sustainable-flow">Architecting for sustainable flow</h2>
+
+<p>In order to sustain fast flow, an architecture must support the continual upgrading of the application’s technology stack.
+One clear advantage of the microservice architecture over the monolith architecture is that it enables you to incremental upgrade an application’s technology stack one service at a time.
+The upgrade can be done as a series of comparatively small tasks.
+In contrast, you must upgrade the entire monolith at once.
+While this is clearly doable, it’s a much bigger task that typically spans multiple teams and hence less likely to be done.</p>
+
+<h2 id="intentional-architecting-is-required">Intentional architecting is required</h2>
+
+<p>An architecture that supports fast, sustainable flow doesn’t happen by accident.
+For example, applying <a href="https://en.wikipedia.org/wiki/Conway%27s_law" rel="noreferrer" target="_blank">Conway’s law</a> to define the architecture that mirrors the organization is a good start.
+But it doesn’t guarantee that the architecture will have the characteristics described above.
+Team Topologies even emphasizes the importance of first knowing the architecture:</p>
+
+<blockquote>
+  <p>Conway’s law tells us that we need to understand what software architecture is needed before we organize our teams, otherwise the communication paths and incentives in the organization will end up dictating the software architecture. As Michael Nygard says: “Team assignments are the first draft of the architecture.”</p>
+</blockquote>
+
+<p>You need to intentionally design your architecture using a <a href="/post/architecture/2023/03/13/better-decision-making-with-patterns.html" rel="noreferrer" target="_blank">rational decision making process</a>, such as <a href="/post/architecture/2023/02/09/assemblage-architecture-definition-process.html" rel="noreferrer" target="_blank">Assemblage</a>, to ensure that it has the characteristics described above.
+You can then use the <a href="https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams" rel="noreferrer" target="_blank">Inverse/Reverse Conway Maneuver</a> and apply the Team Topologies patterns to design an organization that mirrors the architecture.</p>
+
+<h2 id="want-to-learn-more">Want to learn more?</h2>
+
+<p>If you want to learn more, enroll in my <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">upcoming public online workshop on architecting for fast, sustainable flow</a>.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/04/29/dissecting-architecting-for-fast-flow.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

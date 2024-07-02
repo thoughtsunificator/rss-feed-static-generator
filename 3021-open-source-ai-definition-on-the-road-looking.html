@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open Source AI Definition on the road: Looking back and forward</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Open Source AI Definition on the road: Looking back and forward</h3>
+		<div>
+<p>With version <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8" rel="noreferrer" target="_blank">0.0.8 of the Open Source AI Definition</a> just published, we are getting very close to a release candidate version in June, as planned. We’ve covered a lot of ground since <a href="https://fosdem.org/2024/" rel="noreferrer" target="_blank">FOSDEM</a> 2024, where we presented draft 0.0.5. This month we presented at Open Source Summit North America (<a href="https://events.linuxfoundation.org/open-source-summit-north-america/program/schedule/" rel="noreferrer" target="_blank">OSS NA 24</a>) and ran a co-design workshop at the Legal and Licensing Workshop (<a href="https://fsfe.org/activities/ln/llw-conf.en.html" rel="noreferrer" target="_blank">LLW</a>) in Gothenburg. We’re very close to a “feature complete”: below are the next steps and ideas on how you might get involved.</p>
+
+
+
+<h2 class="wp-block-heading">Opportunities to meet in person</h2>
+
+
+
+<p>We are taking the draft definition on the road and coming to a town near you! Or, kind of, that is if you live in any of the following cities or happen to be there on the given dates:</p>
+
+
+
+<ul start="1">
+<li><strong>North America&nbsp;</strong>
+<ul>
+<li>USA, Pittsburgh, <a href="https://us.pycon.org/2024/" target="_blank" rel="noreferrer">PyCon US</a> (May 17)</li>
+
+
+
+<li>USA, NYC <a href="https://www.un.org/techenvoy/content/ospos-good-2024" target="_blank" rel="noreferrer">OSPOs for Good</a> (July 9 – 11)</li>
+
+
+
+<li>USA, Raleigh, <a href="https://allthingsopen.org/ato-2024-save-the-date/" target="_blank" rel="noreferrer">All Things Open</a> (October 27 – 29)</li>
+</ul>
+</li>
+
+
+
+<li><strong>Europe</strong>
+<ul>
+<li>France, Paris, <a href="https://www.ow2con.org/view/2024/" target="_blank" rel="noreferrer">OW2</a> (June 11 – 12)</li>
+
+
+
+<li>Spain, Madrid, <a href="https://openexpoeurope.com/en" data-type="link" data-id="https://openexpoeurope.com/en" rel="noreferrer" target="_blank">Open Expo Europe</a> (June 13)</li>
+
+
+
+<li>France, Paris, Data Governance event (September)</li>
+</ul>
+</li>
+
+
+
+<li><strong>Africa</strong>
+<ul>
+<li>Nigeria, Lagos, <a href="https://festival.oscafrica.org/sustain-africa/" target="_blank" rel="noreferrer">Sustain Africa</a> (June 7)</li>
+</ul>
+</li>
+
+
+
+<li><strong><strong>Asia Pacific</strong></strong>
+<ul>
+<li>Hong Kong, <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-open-source-summit-ai-dev-china/" target="_blank" rel="noreferrer">AI_Dev</a> (August 23)</li>
+</ul>
+</li>
+
+
+
+<li><strong>Latin America</strong>
+<ul>
+<li>Argentina, Buenos Aires, <a href="https://nerdear.la/en/" target="_blank" rel="noreferrer">Nerdearla</a> (September 24 – 28)</li>
+</ul>
+</li>
+</ul>
+
+
+
+<p>It’s important for you to catch up.</p>
+
+
+
+<h2 class="wp-block-heading">Draft v.0.0.5 at FOSDEM 2024</h2>
+
+
+
+<p>The talk “Moving a Step Closer to Defining Open Source AI” (click <a href="https://fosdem.org/2024/schedule/event/fosdem-2024-2805-moving-a-step-closer-to-defining-open-source-ai/" rel="noreferrer" target="_blank">here</a> to watch the recorded live stream) by Stefano Maffulli presented <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-5" rel="noreferrer" target="_blank">draft v.0.0.5</a>, released a few days before. The process at the time was focusing on finding the required components to “use, study, share and modify” an AI system.&nbsp;</p>
+
+
+
+<p>Maffulli quickly summarized why OSI started the <a href="https://opensource.org/deepdive" rel="noreferrer" target="_blank">Deep Dive: AI</a> process, after Copilot not only demonstrated machines’ ability to write functioning code but also highlighted the new role of data as input to the machine learning system. Recognizing there is no simple answer to the question “what is the source code of Copilot?” Maffulli focused OSI’s attention to finding the Open Source principles applied to AI together with stakeholders from academia, legal communities, tech companies, and civil rights groups.</p>
+
+
+
+<p><strong>Building the framework</strong></p>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<p>OSI defined a process to co-design the Open Source AI Definition in public. This framework encompasses a clear definition of AI systems, a preamble outlining the rationale behind open source AI, a concise articulation of the freedoms users should enjoy, and a checklist for evaluating AI components and associated legal documents.</p>
+
+
+
+<p>He highlighted the rapid progress and policy decisions that shaped the trajectory of software development, emphasizing the need to compress decades of evolution into a few months in the realm of AI. Stefano emphasized the importance of community feedback and collaboration in refining the definition of Open Source AI. With monthly <a href="https://opensource.org/deepdive" rel="noreferrer" target="_blank">draft releases, bi-weekly town halls</a>, and an active forum, we gather diverse perspectives and insights to craft a robust definition.</p>
+
+
+
+<h3 class="wp-block-heading">OSS North America 2024 and next steps</h3>
+
+
+
+<p>Since FOSDEM, the Definition has reached <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8" rel="noreferrer" target="_blank">version 0.0.8</a>. First, working groups analyzed <a href="https://discuss.opensource.org/t/report-from-pythia-working-group/226" rel="noreferrer" target="_blank">Pythia</a>, <a href="https://discuss.opensource.org/t/report-from-opencv-working-group/244" rel="noreferrer" target="_blank">OpenCV</a>, <a href="https://discuss.opensource.org/t/report-from-llama2-working-group/213" rel="noreferrer" target="_blank">Llama2 </a>and <a href="https://discuss.opensource.org/t/report-from-bloom-working-group/243" rel="noreferrer" target="_blank">Bloom</a>&nbsp; to find <em>the preferred form of making modifications to the AI system</em>, the fundamental unit for users to exercise their freedoms. Later, the groups shifted focus to reviewing the legal frameworks used by the components used by <a href="https://discuss.opensource.org/t/report-of-working-group-document-review/292" rel="noreferrer" target="_blank">Pythia, OpenCV, Llama2 and Bloom</a>. Together with the definition of AI system provided by the OECD, the preamble, out-of-scope issues and four freedoms, this draft looks very close to a full document. A new version is expected to be released very soon now. On the 16th of April, Ofer Hermoni of the Linux Foundation and Mer Joyce (OSI/DoBigGood) presented the <a href="https://sched.co/1aBN9" rel="noreferrer" target="_blank">work at the OSS NA 24 meeting in Seattle</a>. A huge part of our job currently is getting this definition reviewed by as many stakeholders as possible. A far-reaching and diverse perspective is necessary as we aim for a global impact.&nbsp;<br>To participate in shaping the definition of Open Source AI and stay updated on the latest developments, visit <a href="http://opensource.org/deepdive" rel="noreferrer" target="_blank">opensource.org/deepdive</a> and engage with the ongoing discussions, participate and watch previous town hall meetings and draft releases. Go to <a href="http://discuss.opensource.org" rel="noreferrer" target="_blank">discuss.opensource.org</a> to participate in our forum.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/open-source-ai-definition-on-the-road-looking-back-and-forward">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

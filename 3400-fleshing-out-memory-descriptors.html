@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Fleshing out memory descriptors</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Fleshing out memory descriptors</h3>
+		<div>One of the long-term goals of the folio conversion in the kernel's
+memory-management subsystem is the replacement of the <tt>page</tt>
+structure, which describes a page of physical memory, with an eight-byte
+"memory descriptor".  This change would reduce the overhead of tracking
+physical memory, increase type safety, and make memory management more
+flexible.  Thus far, though, details on what the memory-descriptor future
+will look like have been relatively scarce.  At the <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">2024 Linux Storage,
+Filesystem, Memory-Management and BPF Summit</a>, Matthew Wilcox led a
+discussion to try to fill in the picture somewhat.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/974937/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

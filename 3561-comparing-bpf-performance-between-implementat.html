@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Comparing BPF performance between implementations</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Comparing BPF performance between implementations</h3>
+		<div><p>
+Alan Jowett returned for a second remote presentation at the 2024
+<a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux Storage,
+Filesystem, Memory Management, and BPF Summit</a> to compare the performance of
+different BPF runtimes. He showed the results of the MIT-licensed BPF
+<a href="https://github.com/microsoft/bpf_performance" rel="noreferrer" target="_blank">
+microbenchmark suite</a> he has been working on.
+The benchmark suite does not yet provide a good direct comparison between all
+platforms, so the results should be
+taken with a grain of salt. They do
+seem to indicate that there is some significant variation between
+implementations, especially for different types of BPF maps.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/976317/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

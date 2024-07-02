@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hidden vs. Disabled In UX</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Hidden vs. Disabled In UX</h3>
+		<div><p>Both <strong>hiding and disabling features can be utterly confusing</strong> to users. And for both, we need very, very good reasons. Let’s take a closer look at what we need to consider when it comes to hiding and disabling — and possible alternatives that help enhance the UX.</p>
+
+
+<p>This article is <strong>part of our ongoing series</strong> on <a href="/category/design-patterns" rel="noreferrer" target="_blank">design patterns</a>. It’s also an upcoming part of the 10h-video library on <a href="https://smart-interface-design-patterns.com/" rel="noreferrer" target="_blank">Smart Interface Design Patterns</a>&nbsp;🍣 and the <a href="https://smashingconf.com/online-workshops/workshops/interface-design-course-vitaly-friedman/" rel="noreferrer" target="_blank">upcoming live UX training</a> as well. Use code <a href="https://smart-interface-design-patterns.com/" rel="noreferrer" target="_blank">BIRDIE</a> to save 15% off.</p>
+
+Show What’s Needed, Declutter The Rest
+<p>You’ve probably been there before: Should you hide or disable a feature? When we hide a feature, we risk <strong>hurting discoverability</strong>. When we disable it without any explanation, we risk that users get frustrated. So, what’s the best way to design for those instances when some options might be irrelevant or unavailable to users?</p>
+<p></p>
+<p>As a rule of thumb, disable if you want the user to know a feature exists but is unavailable. Hide if the value shown is currently irrelevant and can’t be used. But <strong>never hide buttons or key filters by default</strong> as users expect them to persist.</p>
+<p>Unlike hidden features, disabled features can help users learn the UI, e.g., to <strong>understand the benefits of an upgrade</strong>. So, instead of removing unavailable options or buttons, consider disabling them and allowing the user to “Hide all unavailable options.” Be sure to explain why a feature is disabled and also how to re-enable it.</p>
+<p>Another thing to watch out for: When we allow users to switch between showing and hiding a feature, we also need to ensure the switch doesn’t cause any <strong>layout shifts</strong>.</p>
+<p></p>
+<p>For both hiding and disabling, we need very thorough considerations of available alternatives, e.g., enabled buttons, read-only state, better empty states, hide/reveal accordions, error messages, and customization. We need to <strong>show what’s needed and de-clutter the rest</strong>.</p>
+<p>Whenever possible, I try to keep buttons and features in their default state — <strong>enabled</strong>, accessible, and legible. When a user interacts with that feature, we can explain why they can’t use it, how to enable it, and how to keep it enabled. Possible exceptions are confirmation codes and loading/processing states.</p>
+Hiding vs. Disabling Roadmap
+<p>As Sam Salomon <a href="https://solomon.io/hide-or-disable/" rel="noreferrer" target="_blank">suggests</a>, if you’re unsure whether hiding or disabling is the best option for your use case, ask yourself the following question: “<strong>Will a given user ever be able to interact with this element?</strong>” Depending on your answer, follow the steps below.</p>
+<p><strong>✅ Yes</strong></p>
+<p>→ <strong>Disable it</strong> (as disabled buttons or read-only state).<br>
+↳ For temporary restrictions or filter incompatibility.<br>
+↳ When a value or status is relevant but not editable.<br>
+↳ When an action isn’t available yet (e.g., “Export in progress...”).</p>
+<p><strong>🚫 No</strong></p>
+<p>→ <strong>Hide it</strong> (remove from a toolbar, collapse in accordion).<br>
+↳ E.g., due to permissions, access controls, safety, and security.<br>
+↳ For inaccessible features: e.g., admin buttons, overrides.<br>
+↳ Hide such controls by default and reveal them once a condition is met.</p>
+Key Takeaways
+<ul>
+<li><strong>Hiding important features</strong> hurts their discoverability.</li>
+<li><strong>Disabling features</strong> is frustrating without an explanation.</li>
+<li>But some options might be <strong>irrelevant/unavailable to users</strong>.</li>
+<li>Users might expect a feature to exist but won’t find it.</li>
+<li>We need to show what’s needed and de-clutter the rest.</li>
+<li>Avoid <strong>disruptive layout shifts</strong> as you show and hide features.</li>
+<li><strong>Don’t remove unavailable options</strong> or buttons automatically.</li>
+<li>Instead, disable them and allow it to “Hide all unavailable options.”</li>
+<li>Allow users to hide sections with a lot of disabled functionality.</li>
+<li><strong>Explain why a feature is disabled</strong> and how to re-enable it.</li>
+</ul>
+Hidden vs. Disabled In Design Systems
+<p>The design systems below provide useful <strong>real-world examples</strong> of how products design their hidden and disabled states.</p>
+<ul>
+<li><a href="https://carbondesignsystem.com/patterns/disabled-states/" rel="noreferrer" target="_blank">Carbon</a> (disabled state)</li>
+<li><a href="https://carbondesignsystem.com/patterns/read-only-states-pattern/" rel="noreferrer" target="_blank">Carbon</a> (read-only state)</li>
+<li><a href="https://www.foundations.unity.com/fundamentals/ux-essentials" rel="noreferrer" target="_blank">Unity</a></li>
+<li><a href="https://vaadin.com/docs/latest/components/button" rel="noreferrer" target="_blank">Vaadin</a></li>
+<li><a href="https://experience.sap.com/fiori-design-web/ui-element-states/#hidden" rel="noreferrer" target="_blank">SAP</a></li>
+<li><a href="https://ux.folio.org/docs/guidelines/ux-patterns/hiding-vs-disabling-elements-ux-pattern/" rel="noreferrer" target="_blank">Motif</a></li>
+<li><a href="https://soul.emplifi.io/latest/patterns/patterns/disabled-states-NpPW6TcE" rel="noreferrer" target="_blank">Emplifi</a></li>
+</ul>
+Useful Resources
+<ul>
+<li><a href="https://adamsilver.io/blog/the-problem-with-disabled-buttons-and-what-to-do-instead/" rel="noreferrer" target="_blank">Disabled Buttons And What To Do Instead</a>, by Adam Silver</li>
+<li><a href="https://uxpsychology.substack.com/p/hidden-vs-disabled-states" rel="noreferrer" target="_blank">Hidden vs. Disabled States</a>, by Maria Panagiotidi</li>
+<li><a href="https://css-tricks.com/making-disabled-buttons-more-inclusive/" rel="noreferrer" target="_blank">Making Disabled Buttons Inclusive</a>, by Sandrina Pereira</li>
+<li><a href="https://solomon.io/hide-or-disable/" rel="noreferrer" target="_blank">Hide or Disable</a>, by Sam Solomon</li>
+<li><a href="https://uxknowledgebase.com/the-disabled-state-in-ui-design-8c091d72868" rel="noreferrer" target="_blank">The Disabled State In UI Design (Sketchnotes)</a>, by Krisztina Szerovay</li>
+<li><a href="https://www.smashingmagazine.com/2021/08/frustrating-design-patterns-disabled-buttons/" rel="noreferrer" target="_blank">Usability Pitfalls of Disabled Buttons</a>, by yours truly Vitaly Friedman</li>
+<li><a href="https://uxdesign.cc/why-your-design-team-hates-disabled-features-1c7ef6bfdc03" rel="noreferrer" target="_blank">Alternative Design Patterns For Disabled Features</a>, by Katie Jacquez</li>
+<li><a href="https://www.smashingmagazine.com/2021/07/frustrating-design-patterns-broken-frozen-filters/" rel="noreferrer" target="_blank">Designing Filters UX That Works</a>, by yours truly Vitaly Friedman</li>
+<li><a href="https://www.carletondesign.com/2023/06/15/disabled-buttons/" rel="noreferrer" target="_blank">UI Traps: Disabled Buttons and Inputs</a>, by James Carleton</li>
+</ul>
+Meet Smart Interface Design Patterns
+<p>If you are interested in similar insights around UX, take a look at <strong><a href="https://smart-interface-design-patterns.com/" rel="noreferrer" target="_blank">Smart Interface Design Patterns</a></strong>, our <strong>10h-video course</strong> with 100s of practical examples from real-life projects — with a live UX training later this year. Everything from mega-dropdowns to complex enterprise tables — with 5 new segments added every year. <a href="https://www.youtube.com/watch?v=aSP5oR9g-ss" rel="noreferrer" target="_blank">Jump to a free preview</a>.</p>
+<a href="https://smart-interface-design-patterns.com/" rel="noreferrer" target="_blank"></a>Meet <a href="https://smart-interface-design-patterns.com/" rel="noreferrer" target="_blank">Smart Interface Design Patterns</a>, our video course on interface design &amp; UX.
+
+<div><a href="https://smart-interface-design-patterns.com/" rel="noreferrer" target="_blank">Jump to the video course&nbsp;→</a></div>
+
+<p></p><p>100 design patterns &amp; real-life 
+examples.<br>10h-video course + live UX training. <a href="https://www.youtube.com/watch?v=aSP5oR9g-ss" rel="noreferrer" target="_blank">Free preview</a>.</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/05/hidden-vs-disabled-ux/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

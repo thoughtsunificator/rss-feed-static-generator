@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Should You Use An API Gateway or Service Mesh?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Should You Use An API Gateway or Service Mesh?</h3>
+		<div><p>APIs are one thing more than anything else — they are complex. In practice, even managing simple APIs at scale becomes challenging, requiring intelligent tooling to handle. To help manage this complexity, two categories of tools are often adopted: API gateways and service meshes.</p>
+<p>Below, we’ll explore the ins and outs of API gateways and service meshes and consider when these tools are necessary. We’ll examine some specific use cases in which each is useful and endeavor to answer one simple question: should you use an API gateway or a service mesh?</p>
+<h2 id="the-beauty-of-orchestration">The Beauty of Orchestration</h2>
+<p>When we talk about APIs, we rarely talk about oboes, trumpets, timpanis, or flutes. Yet, an orchestra is a great metaphor for API management. An orchestra is a bunch of highly talented musicians with specific skill sets interpreting the same instructions to perform a wonderful piece of art. These instructions come in a single format, sheet music, and the sum of the parts makes the performance special.</p>
+<p>The unsung hero of all of this is the conductor. The conductor is an orchestration expert who can read the sheet music and guide each section in its execution. The conductor knows when an instruction such as pianissimo needs to be sent to a specific section and can detect when the execution of a swell fails and must be bolstered. All of this functionality happens almost invisibly to the audience, save for some fancy baton-waving.</p>
+<p>In the API space, having a solid “conductor” is vital. Since APIs may leverage hundreds of microservices and systems, having an intermediary who can use its specialized knowledge to guide the interactions at scale can lead to incredible gains in efficiency, accuracy, and stability. While there are many options for API orchestration, let’s discuss two very specific solutions: the API gateway and the service mesh.</p>
+<h2 id="what-is-an-api-gateway-">What Is an API Gateway?</h2>
+<p>An <a href="https://nordicapis.com/6-open-source-api-gateways/" rel="noreferrer" target="_blank">API gateway</a> is an abstraction layer that enables features like routing, <a href="https://nordicapis.com/api-gateway-best-practices-to-improve-security/" rel="noreferrer" target="_blank">authentication</a>, rate limiting, and more, allowing for complex and powerful operations at scale. API gateways simplify interactions between complex microservice elements, efficiently standardizing communication and routing request traffic. They are principally an edge solution, like the front door of an entire mansion, connecting the outside to the inside.</p>
+<h3 id="pros-of-api-gateways">Pros of API Gateways</h3>
+<p>API gateways have some major benefits that make them strong solutions for a variety of environments:</p>
+<ul>
+<li>Gateways unlock significant <a href="https://nordicapis.com/api-rate-limiting-vs-api-throttling-how-are-they-different/" rel="noreferrer" target="_blank">rate-limiting capabilities</a> due to their position in the data flow. This can deliver substantial efficiency and security at scale, especially for services particularly vulnerable to denial of service and other traffic-based attacks.</li>
+<li>API gateways unlock more complicated functions, such as federation, delegation, caching, and more, by allowing complex interactions between microservice elements with low overhead. This makes for more extensible and scalable systems with simpler internal deployment.</li>
+<li>An API gateway is a sort of “API for APIs,” offering a simpler methodology for interaction and execution than <a href="https://nordicapis.com/20-api-management-solutions/" rel="noreferrer" target="_blank">heavier API management solutions</a>. This tends to lower latency and increase efficiency for function-specific solutions like delegation, caching, or routing.</li>
+</ul>
+<h3 id="cons-of-api-gateways">Cons of API Gateways</h3>
+<p>As with any technology, however, there are also drawbacks to API gateways.</p>
+<ul>
+<li>While an API gateway simplifies the interactions between microservice elements, it does introduce a single point of failure. If the API gateway fails, the entire system can fail.</li>
+<li>This centralization of control also requires a centralization of logic and <a href="https://nordicapis.com/using-opa-to-achieve-zero-trust-apis/" rel="noreferrer" target="_blank">rules governing API functions</a>. This is generally acceptable, but there are some cases in which different rules may apply to different implementations. In such cases, the API gateway can rapidly grow in complexity.</li>
+<li>Client-interpreted performance could, in theory, be impacted by implementing an API gateway. While it boasts efficiency on the backend, this can often feel like a brief, unexpected pause to the end user. Imagine asking your friend what the time is, and instead of your friend looking at their watch, they instead proceeded to call a bunch of their friends to find out what day it is, what hour it is, and what minute it is. API gateways in very complex environments can feel somewhat like that, and to the end user, this can be interpreted as slowness.</li>
+</ul>
+<h2 id="what-is-a-service-mesh-">What is a Service Mesh?</h2>
+<p>Compared to API gateways, <a href="https://nordicapis.com/introduction-to-service-mesh/" rel="noreferrer" target="_blank">service meshes</a> operate very differently. A service mesh might sound familiar at first. These meshes function as an infrastructure layer that helps connect microservices and services through a dedicated pathway. What is notable here is that this does not happen at the edge. Instead, this routing is coordinated by a dedicated and discrete infrastructure layer within the service, known as a sidecar.</p>
+<p>Notably, a service mesh typically operates internally to manage traffic between services in a network. While this traffic may indeed be related to client requests, it is still working at the behest of the internal services, providing speed, stability, and reliability.</p>
+<p>Another huge difference is the sidecar paradigm. The sidecar is like a microservice for microservices. These sidecars act as a connection node, establishing and standardizing connections to other sidecars on other services, forming a mesh of sidecars to form <a href="https://nordicapis.com/kubernetes-service-meshes-compared/" rel="noreferrer" target="_blank">the service mesh</a>. In essence, you can think of a sidecar as the microservice’s cell phone — not necessarily part of your body, but certainly helpful in communicating with others!</p>
+<h3 id="pros-of-service-meshes">Pros of Service Meshes</h3>
+<p>Service meshes are incredibly powerful solutions for microservice management and orchestration, providing a range of benefits:</p>
+<ul>
+<li>Service meshes offer sophisticated traffic management, allowing for <a href="https://nordicapis.com/istio-api-programming-your-service-mesh/" rel="noreferrer" target="_blank">highly granular control</a> over interservice data communication. This granular control also necessarily delivers heightened visibility and observability, helping to provide deep insight into network and service behavior.</li>
+<li>Meshes can also result in dramatic leaps in discovery and communication reliability. Since sidecars depend on healthy interconnection, they make the <a href="https://nordicapis.com/everything-you-need-to-know-about-api-discovery/" rel="noreferrer" target="_blank">discovery of APIs</a> much easier and have built-in systems for error correction due to timeouts or network faults.</li>
+<li>Policy enforcement and governance are made easier by having an entire army of enforcers. Since these sidecars can be pointed towards a single source for governance, you can centralize the rules while distributing the enforcement.</li>
+</ul>
+<div class="well">Also read: <a href="https://nordicapis.com/differences-between-api-management-and-service-mesh/" rel="noreferrer" target="_blank">Differences Between API Management and Service Mesh</a></div>
+<h3 id="cons-of-service-meshes">Cons of Service Meshes</h3>
+<p>Service meshes also carry some specific cons that adoptees should be aware of.</p>
+<ul>
+<li>Whenever you add code to a service, you reduce efficiency. Service meshes can introduce substantial inefficiency, especially in a highly complex environment, due to the increased processing and memory demands required by the sidecar design.</li>
+<li>The speed gained by breaking out the communications into its own layer can actually result in increased latency in certain environments. Sidecar-heavy implementations require substantially powerful internal network resource allocations to effectively deliver the increased speed and efficiency to the end user. In essence, the worse the internal network, the more a service mesh will expose that to the end user.</li>
+<li>The service mesh is a relatively <a href="https://nordicapis.com/is-service-mesh-just-soa-all-over-again/" rel="noreferrer" target="_blank">complex concept</a>. To most effectively utilize it, adoptees must understand the technology, its drawbacks, and its limitations. This requires some specialization that may not be common in every software development team.</li>
+</ul>
+<h2 id="head-to-head-api-gateways-vs-service-meshes">Head to Head: API Gateways vs. Service Meshes</h2>
+<p>Choosing between an API gateway and a service mesh has a lot to do with the specific problem you are trying to solve and the current API environment.</p>
+<p>API gateways are excellent at surfacing functionality to the edge, and for APIs seeking to take internal systems and services to the external world, you can’t go wrong with properly implemented API gateways. An API gateway is a solution primarily concerned with the network edge and external users. Therefore, consider API gateways first if your software architecture involves surfacing at the edge.</p>
+<p>On the other hand, service meshes are entirely concerned with <a href="https://nordicapis.com/how-service-mesh-prevents-a-microservices-mess/" rel="noreferrer" target="_blank">internal communication infrastructure</a>. If your problem has to do with efficiency in communication between internal services, the service mesh is your only solution between the two. A service mesh can deliver exceptional benefits and help connect discrete and disparate services across your network.</p>
+<p>Interestingly, this is not an “or” question — it’s possible that both an API gateway and a service mesh can work in tandem and solve your problem! A service mesh is a great way to manage the internal systems of your microservices, and once that communication is established, an API gateway can help expose them to clients in a streamlined and efficient way.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>APIs, even simple ones that are easy for humans to understand, are translation layers that carry a lot of promise, power, and complexity under the hood.</p>
+<p>Are there any other head-to-head comparisons you’d like to see on this blog? Are there other paradigms and solutions we should look at in the space of API orchestration? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/should-you-use-an-api-gateway-or-service-mesh/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why API Gateways Should Be Programmable</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Why API Gateways Should Be Programmable</h3>
+		<div><p>If you’re an API developer, there’s a high chance you like your tools to be programmable. Programmability is not just standard in HTTP API requests to popular SaaS tools — it’s also a core element of today’s DevOps practices, like git and infrastructure as code. So, shouldn’t the technology we use to <em>manage</em> our APIs also be just as configurable?</p>
+<p>According to Josh Twist, CEO of <a href="https://zuplo.com/features/programmable" rel="noreferrer" target="_blank">Zuplo</a>, a programmable API gateway, typical API management solutions usually get you about 80% of the way there, but stop short of becoming genuinely customizable frameworks. “It’s a shame so many don’t offer a simple, intuitive programming environment,” he says. Each API is unique, catering to various consumer roles and business models. As such, API owners often want more granular control over areas like <a href="https://nordicapis.com/why-traditional-api-monetization-needs-to-evolve/" rel="noreferrer" target="_blank">monetization</a>, rate limiting, security policies, and other areas.</p>
+<p>I recently synced with Twist to understand the benefits of inserting this sort of programmable logic in the API gateway layer. Below, we’ll consider the current state of API management, the benefits of making API gateways more programmable, and what sort of workflows a higher degree of programmability could enable for savvy API developers.</p>
+<h2 id="state-of-api-management-and-gateways">State of API Management and Gateways</h2>
+<div id="attachment_18477" class="wp-caption alignright"><p id="caption-attachment-18477" class="wp-caption-text"><a href="https://nordicapis.com/speakers/josh-twist/" rel="noreferrer" target="_blank">Josh Twist</a>, co-founder and CEO of Zuplo.</p></div>
+<p>Before starting Zuplo, Twist shared that his development team at a previous company would purchase an API management solution, deploy it, and then code a homegrown middleware to enable the sort of customization they required. “Why don’t we empower developers with that superpower to write native code?” he asks.</p>
+<p>Flash forward to today, and most <a href="https://nordicapis.com/the-unbundling-of-api-management/" rel="noreferrer" target="_blank">API management platforms</a> have added some sort of programmability to a varying degree. Yet, not all of them rely on open standards or are extensible, not to mention usable, explains Twist. In the market today, what sets them apart is the degree of programmability.</p>
+<p>The concepts of ‘API management’ and ‘API gateways’ are often used interchangeably. However, as Twist notes, the most essential element of an API management platform is the gateway at its core. Whether you’re using Istio or NGINX, it takes a unique set of skills to operate things like policy creation or fine-grained rate limiting. That said, customization at the gateway layer can bring countless benefits to API providers, says Twist.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-gen-ai-is-evolving-api-management/" rel="noreferrer" target="_blank">How Gen AI Is Evolving API Management</a></div>
+<h2 id="benefits-of-programmable-api-gateways">Benefits of Programmable API Gateways</h2>
+<p>If things aren’t customizable, “you’re forced to think of the world as one model,” says Twist. Where API management is concerned, this could stunt abilities like introducing variable business logic for various consumer types or configuring smarter routing based on network conditions.</p>
+<p>Also, a big benefit of programmability is speed: a headless style means developers can stand up a gateway and configure it in a matter of seconds. Or, they can integrate it within their existing <a href="https://devops.com/internal-developer-platform-idp-reference-architectures/" rel="noreferrer" target="_blank">internal development workflows</a>. Twist shared some other areas where greater programmability at the API gateway layer could specifically benefit API development and operations.</p>
+<h3 id="variable-rate-limiting">Variable Rate Limiting</h3>
+<p>As Twist says, API rate limiting is <a href="https://zuplo.com/blog/2023/05/02/subtle-art-of-rate-limiting-an-api" rel="noreferrer" target="_blank">a subtle art</a>. You can rate limit API requests in many ways — either globally, by IP address, by user, or through custom functions. Being able to dynamically adjust rate limits for APIs means you can set thresholds for a wide array of roles and conditions.</p>
+<h3 id="intricate-monetization">Intricate Monetization</h3>
+<p>A driver behind many public API initiatives is to <a href="https://zuplo.com/blog/2024/01/10/how-to-create-business-model-around-api" rel="noreferrer" target="_blank">create a profitable business model</a>. But, API monetization is more complex than you might think. Programmability at the gateway layer can help set intricate monetization models, ranging from standard per request or monthly quotas to variability upon the complexity or bandwidth of individual calls.</p>
+<h3 id="smarter-routing">Smarter Routing</h3>
+<p>Programmable gateways can also enable smarter routing for API requests. Essentially, when a request comes in, it could be programmed to call a service to determine which cluster of services to route it to. Twist sees this capability as especially advantageous for early-stage AI companies.</p>
+<h3 id="shortening-the-feedback-loop">Shortening The Feedback Loop</h3>
+<p>You shouldn’t have to submit a Google form to make changes to the gateway. Instead, Twist advocates treating API management the same way developers operate with other tools — using an infrastructure-as-code approach with configuration scripts. This can increase developer autonomy and productivity, he says.</p>
+<h3 id="governance-and-compliance">Governance and Compliance</h3>
+<p>Programmable API operations could also benefit <a href="https://zuplo.com/blog/2024/01/30/how-to-make-api-governance-easier" rel="noreferrer" target="_blank">governance and compliance</a>, says Twist, enabling a script-like experience for unique policy creation. A process that supports git and popular DevOps tools can also integrate better into linting and security testing workflows. For example, this could mean triggering <a href="https://nordicapis.com/using-spectral-to-lint-your-openapi-definition/" rel="noreferrer" target="_blank">Spectral rules</a> to be tested as part of each pull request, which could flag warnings and errors about non-compliance.</p>
+<h3 id="customizable-developer-portals">Customizable Developer Portals</h3>
+<p>Something cutting-edge is the idea of programmable developer portals, which Zuplo is currently spearheading, says Twist. This can enable developers to add routes and deploy new environments with dedicated documentation. Generating documentation on the fly is also a great way to obtain quick feedback and collaborate with real-time API testing, he says. Custom developer portals could also help segment access to specific areas of a larger <a href="https://godigitalml.medium.com/the-case-for-a-separate-api-catalog-and-multiple-api-consumer-portals-26c184408ef1" rel="noreferrer" target="_blank">API portfolio</a>, helping avoid oversharing information.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/should-you-use-an-api-gateway-or-service-mesh/" rel="noreferrer" target="_blank">Should You Use An API Gateway or Service Mesh?</a></div>
+<h2 id="composable-with-sensible-defaults">Composable With Sensible Defaults</h2>
+<p>Many API management platforms and their gateways aren’t that advanced, leaving developers wanting a more customizable framework, says Twist. That said, you want to ensure presets are in place. Programmability is great, but having default options for areas like role-based access control, rate limiting, or monetization is an important foundation.</p>
+<p>In general, a more customizable API gateway could replace some GUI-based full lifecycle API management solutions, which some commentators see as becoming <a href="https://nordicapis.com/the-unbundling-of-api-management/" rel="noreferrer" target="_blank">more unbundled</a> in recent years. Yet, it seems like the key here will be balancing the desire to program custom logic with the ability to generate default rules on the fly. Developer tools like API gateways should be “highly composable with sensible defaults,” says Twist, who has been sure to embed this product philosophy into his work.</p>
+<p>As with many things in programming, finding the right level of abstraction for your needs is a moving target, but one that is getting easier as the technology around API management advances.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/why-api-gateways-should-be-programmable/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

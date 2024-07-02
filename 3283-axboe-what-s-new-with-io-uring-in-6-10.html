@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Axboe: What's new with io_uring in 6.10</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Axboe: What's new with io_uring in 6.10</h3>
+		<div>Jens Axboe <a href="https://github.com/axboe/liburing/wiki/What's-new-with-io_uring-in-6.10" rel="noreferrer" target="_blank">describes
+the new io_uring features</a> that will be a part of the 6.10 kernel
+release.
+<p>
+</p><blockquote class="bq">
+	Bundles are multiple buffers used in a single operation. On the
+	receive side, this means a single receive may utilize multiple
+	buffers, reducing the roundtrip through the networking stack from N
+	per N buffers to just a single one. On the send side, this also
+	enables better handling of how an application deals with sends from
+	a socket, eliminating the need to serialize sends on a single
+	socket. Bundles work with provided buffers, hence this feature also
+	adds support for provided buffers for send operations.
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/974341/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

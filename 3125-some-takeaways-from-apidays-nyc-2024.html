@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Some Takeaways From Apidays NYC 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Some Takeaways From Apidays NYC 2024</h3>
+		<div><p>The API economy is evolving. We continue to see API use cases emerge across industries, from telecommunciations, to finance, retail, and elsewhere. In addition, new tools and tactics are being adopted to help software providers manage their growing API portfolios. Cutting-edge technologies like generative AI are posing both benefits and new concerns. And amid all this change, the API space is alive and well.</p>
+<p>From April 30th to May 1st, 2024, the API community reconvened in New York City for the annual <a href="https://www.apidays.global/new-york/" rel="noreferrer" target="_blank">Apidays New York conference</a>, an event that brought out hundreds of API experts and implementors to discuss the critical trends propelling the industry forward. A big focus for the event was the role AI is having across the API economy.</p>
+<p>Below, I’ll explore some of the key takeaways from the sessions I was able to attend. From governance and security strategies to new management architectures, these themes represent just a cross-section of what today’s API thought leaders are tinkering with and exploring.</p>
+<h2 id="ai-brings-good-and-bad">AI Brings Good And Bad</h2>
+<p><a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">Large language models</a> (LLMs) are offering <a href="https://accelerationeconomy.com/ai/how-chatgpt-raises-software-developers-agility-and-their-value/" rel="noreferrer" target="_blank">numerous advantages to software engineering</a> at large. Yet, AI isn’t without risk. In fact, a <a href="https://arxiv.org/abs/2211.03622" rel="noreferrer" target="_blank">Stanford survey</a> found that developers with access to an AI assistant “wrote significantly less secure code than those without access.”</p>
+<p>Part of the concern is regarding hallucinations, which still present a major drawback for generative AI. In his opening keynote, Jeff Crume, a Distinguished Engineer at IBM, showcased how OpenAI’s GPT-3 is susceptible to contradiction and fabricating information. For Crume, <a href="https://www.youtube.com/watch?v=nB_EjxoP-6w&amp;ab_channel=IBMTechnology" rel="noreferrer" target="_blank">trust and security</a> in the era of generative AI will be challenging. “The world of AI and deep fakes is going to be really difficult for us going forward,” he said.</p>
+<p>But just as AI can enable adversaries, it can also help <a href="https://nordicapis.com/how-ai-can-be-used-in-api-security/" rel="noreferrer" target="_blank">inform API security postures</a>. According to Corey Ball, Chief Hacking Officer at <a href="https://www.apisecuniversity.com/" rel="noreferrer" target="_blank">APIsec University</a>, penetration testers can use generative AI to <em>their</em> advantage, especially with resources like <a href="https://chatgpt.com/g/g-UZxOCmqLH-hacking-apis-gpt?oai-dm=1" rel="noreferrer" target="_blank">Hacking APIs GPT</a>, a ChatGPT plugin with robust prompts to perform API endpoint analysis and security reviews. In this manner, generative AI could help tighten up insecure endpoints that might expose sensitive information.</p>
+<p>One way developers could <a href="https://nordicapis.com/how-will-ai-enable-apis/" rel="noreferrer" target="_blank">use AI effectively</a> is by employing it to learn about API concepts and write use case code — actions that S. Adeel Ali, Founder and CEO at APIMatic.io, describes as <em>dynamic</em>. This is opposed to API access code, which he sees as <em>static</em> and should rely upon a specification as a source of truth. Essentially, according to Ali, training AI on deterministically generated code could prevent hallucinations and streamline how developers consume APIs.</p>
+<h2 id="api-governance-helps-avoid-chaos">API Governance Helps Avoid Chaos</h2>
+<p>No discussion about API strategy feels complete these days without a take on <a href="https://www.cio.com/article/1305658/why-cios-back-api-governance-to-avoid-tech-sprawl.html" rel="noreferrer" target="_blank">API governance</a>. And at Apidays, governance was a recurring discussion topic. In previous years, constructing APIs in various styles across an organization was less of an issue. But now that API portfolios have <a href="https://thenewstack.io/what-is-api-sprawl-and-why-is-it-important/" rel="noreferrer" target="_blank">ballooned into the hundreds</a> — if not thousands — many leaders realize they need more consistency across their inventory to avoid shadow IT and redundancy.</p>
+<p>One interesting case study was shared by Dugald Morrow, Developer Advocate at Atlassian. Before Atlassian began its governance journey, API standards in Atlassian were “organized chaos,” said Morrow. Teams were generally autonomous and made their own processes with little consensus on standards. However, Atlassian realized standards were needed to reduce incidents and improve API changelogs.</p>
+<p>To enforce standards, Atlassian built an internal automated governance framework baked into their git workflows. Although there isn’t 100% adherence yet, Morrow says their “extensibility standards” have already demonstrated positive results, reducing incidents and increasing customer satisfaction.</p>
+<p>But what exact patterns <em>should</em> be enforced? API standards hinge on the right patterns for design. Author and advisor Mike Amundsen shared helpful tips from his book, <a href="https://www.oreilly.com/library/view/restful-web-api/9781098106737/" rel="noreferrer" target="_blank">RESTful Web API Patterns and Practices Cookbook</a>, which compiles 75 API patterns and design practices. According to Amundsen, pattern thinking can help design more intelligent systems. His recommendations can be distilled into making services modifiable, making data portable, and making workflows flexible.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/api-futures-api-sprawl-to-be-a-pressing-concern-in-2024/" rel="noreferrer" target="_blank">API Sprawl to Be a Pressing Concern in 2024</a></div>
+<h2 id="new-api-management-architectures-are-emerging">New API Management Architectures Are Emerging</h2>
+<p>Alongside the interest in governance, new modes of API management have begun to emerge. At Apidays, we learned about ways to orchestrate microservices for enterprise-grade workflows, such as <a href="https://github.com/Netflix/conductor" rel="noreferrer" target="_blank">Conductor</a>, as well as new middleware, like <a href="https://www.lunar.dev/" rel="noreferrer" target="_blank">Lunar.dev</a>, which is focused on optimizing third-party API usage post-integration. In short, the API world is diversifying, said Mark O’Neill, VP Analyst at Gartner, who indicated how gateways have become <a href="https://nordicapis.com/benefits-of-lightweight-proxies-for-api-management/" rel="noreferrer" target="_blank">more lightweight</a> in recent years.</p>
+
+<p>We have moved from full lifecycle management solutions into more “composable API management,” said O’Neill. In this new era, API management weaves together multiple best-of-breed tools for things like linting, testing, monitoring, security, monetization, and other areas. While not everyone is sold on the <a href="https://nordicapis.com/the-unbundling-of-api-management/" rel="noreferrer" target="_blank">API bundling concept</a>, it sure has sparked interest from <a href="https://apievangelist.com/2023/10/14/the-great-api-unbundling/" rel="noreferrer" target="_blank">commentators</a> and analysts alike.</p>
+<p>Regardless, the importance of <a href="https://nordicapis.com/impact-of-apis-on-businesses/" rel="noreferrer" target="_blank">APIs for the business</a> cannot be understated, and easing the maintenance burden will go a long way to keeping pace. “APIs are the digital front door to your organization,” said James Higginbotham, consultant at LaunchAny and co-maintainer of the <a href="https://apideveloperweekly.com/" rel="noreferrer" target="_blank">API Developer Weekly newsletter</a>. “When teams are forced to figure out the API lifecycle every time a new API is required, expect slower delivery and misalignment with enterprise goals,” he said.</p>
+<h2 id="banks-are-midway-through-their-api-journeys">Banks Are Midway Through Their API Journeys</h2>
+<p>Although APIs are <a href="https://nordicapis.com/10-examples-of-open-banking-apis/" rel="noreferrer" target="_blank">nothing new in finance</a>, many banks are still midway through their modernization processes. For instance, one impressive refactoring initiative was detailed by Sheldon Schwartzenberger, Manager of Enterprise Applications at Prospera Credit Union. In 2023, Prospera began transforming its monolithic codebase into a more agile, decoupled API-driven system. They have been replacing their legacy API middleware using <a href="https://nordicapis.com/sponsors/gravitee/" rel="noreferrer" target="_blank">Gravitee</a> and have reported an average request time decrease from 1000ms to 96ms.</p>
+<p>Unsurprisingly for a tech event in New York City, many other financial institutions were represented at Apidays, including Capital One, Mastercard, Fidelity Investments, BNY Mellon, American Express, and others. However, what was interesting was that both <a href="https://nordicapis.com/the-state-of-api-standardization-in-finance/" rel="noreferrer" target="_blank">regulation and the need for open integrations</a> with third parties are spurring change across financial companies. “Customers want to share data with third parties, and they want to use third parties to manage their money,” said Kathy Wong, Head of Product for Export Aggregation, Chase. Enabling this will require establishing a high degree of trust to ensure secure data sharing and user privacy.</p>
+<h2 id="-many-api-security-approaches-need-to-evolve">(Many) API Security Approaches Need to Evolve</h2>
+<p>Some development teams working in specific conditions will require a higher degree of security for their APIs. These include <a href="https://nordicapis.com/how-to-bring-financial-grade-security-to-apis/" rel="noreferrer" target="_blank">financial</a> or <a href="https://nordicapis.com/how-to-protect-healthcare-applications-with-zero-trust/" rel="noreferrer" target="_blank">healthcare environments</a> dealing with sensitive data. At Apidays, Jonas Iggbom, Director of Sales Engineering at <a href="https://nordicapis.com/organizers/curity/" rel="noreferrer" target="_blank">Curity</a>, explained why hardening the access token is key to securing user identity. Your typical OAuth flows can only take you so far, which is why he advocates for the <a href="https://curity.io/resources/learn/phantom-token-pattern/" rel="noreferrer" target="_blank">phantom token approach</a>, which combines the secrecy of opaque tokens with the <a href="https://nordicapis.com/why-cant-i-just-send-jwts-without-oauth/" rel="noreferrer" target="_blank">convenience of JWTs</a>.</p>
+
+<p>APIs are great enablers of digital innovation but are prone to <a href="https://nordicapis.com/protecting-soap-against-owasps-top-ten-api-risks/" rel="noreferrer" target="_blank">many insecurities</a>. In his Apidays presentation, Travis Spencer, CEO of Curity, outlined what he sees as the major risks: unsecured APIs, unauthorized access, and unsafe user experiences. For instance, <a href="https://nordicapis.com/what-is-broken-object-level-authorization-and-how-to-fix-it/" rel="noreferrer" target="_blank">broken object-level authorization</a>, an all-too-common common API risk, can easily lead to information disclosures and data loss. For Spencer, securing APIs will hinge on a scalable, token-based <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/" rel="noreferrer" target="_blank">zero trust architecture</a>.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/exploring-oauth-tools-the-worlds-first-oauth-playground/" rel="noreferrer" target="_blank">Exploring OAuth.tools, The World’s First OAuth Playground</a></div>
+<h2 id="thinking-bigger-than-apis">Thinking Bigger Than APIs</h2>
+<p>One insight I found particularly interesting (which is probably obvious to folks outside of the API space) was that software providers should <em>think bigger than APIs</em>. Sending developer portal visitors straight to the integration code may make sense for seasoned programmers. Yet, many other potential consumers, from project managers to <a href="https://devops.com/how-to-foster-a-culture-of-citizen-developers/" rel="noreferrer" target="_blank">low-code/no-code users</a>, are interested in your API’s underlying capability, not so much how to construct a <code>POST</code> request or parse a JSON response.</p>
+<p>In his talk at Apidays, Kristof van Tomme, CEO and co-founder of Pronovix, made the case why we shouldn’t be API purists. When it comes down to it, APIs are just a means to a functionality that could be abstracted and served to a consumer in various ways. As such, your <a href="https://nordicapis.com/three-key-steps-for-scaling-a-developer-portal/" rel="noreferrer" target="_blank">developer portal</a> should consider the entire interface portfolio, from plugins to web apps, no-code tooling, or other solutions. It’s worth noting that many top API providers are already doing this. “Once you’ve looked around, you’ll see solutions everywhere,” said van Tomme.</p>
+<h2 id="thank-you-apidays-">Thank You Apidays!</h2>
+<p>I’m really thankful to Apidays NYC for inviting me to join them on Day 2 to talk about the emerging trends we’re observing and covering on Nordic APIs. During the session with Mehdi Medjaoui, we delved into many of the topics above while keeping it cozy with a virtual crackling fire for our ‘fireside chat.’ It was a fantastic experience connecting with everyone at the event!</p>
+
+<p>For those who want to dive deeper into what Nordic APIs is all about, here are some handy links to the resources I mentioned during our discussion. Consider it your introduction to Nordic APIs if you’re not already familiar with our community.</p>
+<ul>
+<li><strong>Newsletter</strong>: If you want to keep up-to-date with API news and tips, <a href="https://nordicapis.com/newsletter/" rel="noreferrer" target="_blank">follow the newsletter here</a>.</li>
+<li><strong>Writing</strong>: If you have an API story to share and would like to write for the blog, we welcome submissions from the API community! <a href="https://nordicapis.com/create-with-us/" rel="noreferrer" target="_blank">Information on contributing is here</a>. I’m also happy to help review ideas.</li>
+<li><strong>Events</strong>: Nordic APIs is hosting a couple of yearly summits: the Platform Summit in Stockholm and the Austin API Summit in Austin, Texas. Registration for the next event, The Platform Summit, October 7-9, is <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">now open</a>.</li>
+<li><strong>Call For Speakers</strong>: Nordic APIs has a rolling call for speakers for our events. The <a href="https://nordicapis.com/call-speakers/" rel="noreferrer" target="_blank">submission form is here</a>.</li>
+</ul>
+</div>
+		<a target="_blank" href="https://nordicapis.com/some-takeaways-from-apidays-nyc-2024/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

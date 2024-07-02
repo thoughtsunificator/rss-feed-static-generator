@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why datasets built on public domain might not be enough for AI</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Why datasets built on public domain might not be enough for AI</h3>
+		<div>
+<p>There is tension between copyright laws and large datasets suitable to train large language models. Common Corpus is a dataset that only uses text from copyright-expired sources to bypass the legal issues. It’s a useful achievement, paving the path to research without immediate risk of lawsuits. I also fear that this approach may lead to bad policies, reinforcing the power of copyright holders; not the small creators but large corporations.&nbsp;</p>
+
+
+
+<h2 class="wp-block-heading">A dataset built on public domain sources</h2>
+
+
+
+<p>In March 2024 <a href="https://huggingface.co/blog/Pclanglais/common-corpus" rel="noreferrer" target="_blank">Common Corpus</a> was released as an open access dataset for training large language models (LLMs). Announcing the release, the lead developer Pierre-Carl Langlais says “Common Corpus shows it is possible to train fully open LLMs on sources without copyright concerns.” The dataset contains 500 billion words in multiple European languages and different cultural heritages. It is a project coordinated by the French startup <a href="https://pleias.fr" rel="noreferrer" target="_blank">Pleias</a> and supported by organizations committed to open science such as <a href="https://occiglot.eu/" rel="noreferrer" target="_blank">Occiglot</a>, <a href="https://www.eleuther.ai/" rel="noreferrer" target="_blank">Eleuther AI</a> and <a href="https://www.nomic.ai/" rel="noreferrer" target="_blank">Nomic AI</a> as well as being partly funded by the French government. The stated intention of Common Corpus is to democratize access to large quality datasets. It has many other positive characteristics, highlighted also by Open Future’s <a href="https://openfuture.eu/blog/common-corpus-building-ai-as-commons/" rel="noreferrer" target="_blank">summary of a talk given by Langlais</a>.&nbsp;</p>
+
+
+
+<h2 class="wp-block-heading">The commons needs more data</h2>
+
+
+
+<p>The debates sparked by the <a href="http://opensource.org/deepdive" rel="noreferrer" target="_blank">Deep Dive: AI</a> process on the <a href="https://discuss.opensource.org/t/training-data-access/152" rel="noreferrer" target="_blank">role of training data</a> highlighted that AI practitioners encounter many obstacles assembling datasets. At the same time, we discovered that tech giants have an incredible advantage over researchers and startups. They’ve been <a href="https://en.wikipedia.org/wiki/Authors_Guild,_Inc._v._Google,_Inc." rel="noreferrer" target="_blank">slurping data for decades</a>, have the financial means to <a href="https://bots.law/little-cases/ai-cases-bot/" rel="noreferrer" target="_blank">go to court</a> and can enter into <a href="https://techcrunch.com/2024/02/22/reddit-says-its-made-203m-so-far-licensing-its-data/?guccounter=1" rel="noreferrer" target="_blank">bilateral agreements</a> to license data. These strategies are inaccessible to small competitors and academics. Accepting that the only path to creating open large datasets suitable to train <a href="https://opensource.org/deepdive" rel="noreferrer" target="_blank">Open Source AI</a> systems is to use sources in the public domain, risks cementing the dominant positions of existing large corporations.</p>
+
+
+
+<p>The open landscape already faces issues with big tech and their ability to influence legislation. The big corporations have lobbied to <a href="https://en.wikipedia.org/wiki/Copyright_Term_Extension_Act" rel="noreferrer" target="_blank">extend the duration of copyright</a>, introduced the <a href="https://www.eff.org/issues/dmca" rel="noreferrer" target="_blank">DMCA</a>, are opposing the <a href="https://www.eff.org/issues/right-to-repair" rel="noreferrer" target="_blank">right to repair</a>, and have the resources to continue lobbying and sue any new entrant who they deem to get too close. There are <a href="https://www.eff.org/work" rel="noreferrer" target="_blank">plenty of examples</a> showing an unequal advantage in protecting what they think is theirs. The non-profit Fairly Trained certifies companies “<a href="https://www.wired.com/story/proof-you-can-train-ai-without-slurping-copyrighted-content/" rel="noreferrer" target="_blank">willing to prove that they’ve trained their AI models on data that they own, have licensed, or that is in the public domain</a>,” respecting copyright law: who’s going to benefit from this approach?</p>
+
+
+
+<h2 class="wp-block-heading">Unsuitable for public policies</h2>
+
+
+
+<p>Initiatives like Common Corpus and <a href="https://www.bigcode-project.org/docs/about/the-stack/" rel="noreferrer" target="_blank">The Stack</a> (used to train <a href="https://www.softwareheritage.org/2024/02/28/responsible-ai-with-starcoder2/" rel="noreferrer" target="_blank">Starcoder2</a>) are important achievements as they allow researchers to develop new AI systems while mitigating the risk of being sued. They also push the technical boundaries of what can be achieved with smaller datasets that don’t require a nuclear power plant to train new models. But I think they mask the underlying issue: AI needs data and limiting open datasets to only public domain sources will never give them a chance to match the size of the proprietary ones. The lobby for copyright maximalists is always looking for ways to expand scope and extend terms for copyright laws, and when they succeed it is a one-way ratchet. It would be a tragedy for society if legislators listened to their sophistry and made new laws doing this based on the apparent consensus that creators need protection from AI.<br>The role of data for training machine learning systems is a divisive topic and a complex one. Having datasets like Common Corpus is a very useful way for the science of AI to progress with better sources. For policies, we’d be better off pushing for something like the proposal advanced by Open Future and Creative Commons in their paper <a href="https://openfuture.eu/publication/towards-a-books-data-commons-for-ai-training/" rel="noreferrer" target="_blank">Towards a Books Data Commons for AI Training</a>.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/why-datasets-built-on-public-domain-might-not-be-enough-for-ai">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

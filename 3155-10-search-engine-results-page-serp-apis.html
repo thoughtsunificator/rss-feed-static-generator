@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10 Search Engine Results Page (SERP) APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">10 Search Engine Results Page (SERP) APIs</h3>
+		<div><p>There’s a saying in the world of data: “Garbage in, garbage out.” Your projects and tools are only as good as the data that drives them. For programmatically finding quality information online, search engine results page (SERP) APIs are one of the most essential tools in your digital toolkit.</p>
+<p>SERP APIs can help differentiate your projects and tools from the most popular large language models (LLMs) like ChatGPT, which are trained on historical data rather than real-time results. Real-time data like you get from SERP APIs can make your applications competitive in an AI-driven marketplace.</p>
+<p>With that in mind, we’ve put together ten of the best SERP APIs so you can see how real-time data and advanced search functionality can elevate your development.</p>
+<h2 id="1-serpdog-api">1. SERPDog API</h2>
+<p><a href="https://serpdog.io/" rel="noreferrer" target="_blank">SERPDog API</a> is an all-inclusive SERP API that handles your search engine tasks with one tool. Most importantly, SERPDog returns real-time search engine data from various search engines, so you’re not dealing with old or outdated results like you’ll sometimes see from LLMs. These results are delivered as a JSON payload, so you can configure them however you like.</p>
+<p>SERPDog API also automates other tasks for extracting the information you need from search engines, like Captcha, making it a useful tool for truly automated workflows. Its advanced SERP functions are some of its most impressive features, including knowledge graphs, ‘people also asked for,’ and ‘answer boxes.’ It has dedicated endpoints and workflows for nearly all the biggest search engines, including YouTube Search API and LinkedIn Search API.</p>
+<p>Sample Request:</p>
+<pre><code><span class="hljs-attribute">cURL</span> <span class="hljs-string">"https://api.serpdog.io/amazon_search?api_key=API_KEY&amp;url=https://www.amazon.in/s?k=nike+shoes"</span>
+</code></pre>
+<p><strong>SERPDog API Features</strong></p>
+<ul>
+<li>Real-time data</li>
+<li>Captcha</li>
+<li>Knowledge Graphs</li>
+<li>People Also Asked For</li>
+<li>Answer Boxes</li>
+<li>Dedicated APIs For Many Search Engines</li>
+</ul>
+<h2 id="2-serpapi">2. SerpAPI</h2>
+<p><a href="https://serpapi.com" rel="noreferrer" target="_blank">SerpAPI</a> is one of the easiest SERP APIs to use and integrate with virtually any programming language. Real-time results can be accessed through a simple query to the Search endpoint, which can then be configured however you like. It also offers libraries for most popular programming languages. There’s even an add-on for Google Sheets integration, allowing you to easily create spreadsheets and databases of your queries.</p>
+<p>Another standout feature is the ability to customize queries by location. Customizing search results by location makes this SERP API highly useful for everything from job boards to travel recommendations. It’s a great choice for anyone managing multiple digital properties, even if they’re in different niches.</p>
+<p>Sample Request:</p>
+<pre><code>http<span class="hljs-variable">s:</span>//serpapi.<span class="hljs-keyword">com</span>/<span class="hljs-built_in">search</span>.json?q=Plumbing&amp;location=Dracut,+Massachusetts,+United+States&amp;hl=<span class="hljs-keyword">en</span>&amp;gl=us
+</code></pre>
+<p><strong>SerpAPI Features</strong></p>
+<ul>
+<li>Easy to use and implement</li>
+<li>Libraries for most programming languages</li>
+<li>Widely customizable</li>
+<li>Widespread Integration</li>
+</ul>
+<h2 id="3-semrush-api">3. SEMRush API</h2>
+<p>SERP APIs aren’t just about returning search engine results. They can also be rich sources of SEO insights like keyword analysis or domain authority. <a href="https://developer.semrush.com/api/" rel="noreferrer" target="_blank">SEMRush API</a> is one of the best, which comes as little surprise considering it comes from one of the top SEO tools on the market.</p>
+<p>SEMRush API is rich with powerful features for SEO analysis, even by SERP API standards. It provides all of SEMRush’s powerful tools for SEO analysis and offers numerous features specific to the API. This makes SEMRush API a top choice if you’re creating your own SEO analysis tools.</p>
+<p>Existing SEMRush users and anyone familiar with <a href="https://nordicapis.com/the-strategic-advantages-of-apis-for-seo/" rel="noreferrer" target="_blank">traditional SEO analysis</a> tools will be well-acquainted with the bulk of SEMRush’s features. SEMRush API offers numerous tools for backlink analysis, for instance. A simple, customizable query returns information on referral sites, IP information, industry insights, and historical data in JSON format. You can even perform numerous in-depth competition analysis reports, such as calculating the number of inbound links to your respective sites from a particular address.</p>
+<p>Deep tools for domain reports, keyword reports, and URL reports, among others, are every bit as useful. And, with the ability to create position tracking reports, you will have everything you need to create powerful SEO strategies from the command line.</p>
+<p>Sample Request:</p>
+<pre><code><span class="hljs-attribute">https</span>://api.semrush.com/?type=domain_organic&amp;key=YOUR_API_KEY&amp;display_filter=<span class="hljs-number">%2</span>B<span class="hljs-number">%7</span>CPh<span class="hljs-number">%7</span>CCo<span class="hljs-number">%7</span>Cseo&amp;display_limit=10&amp;export_columns=Ph,Po,Pp,Pd,Nq,Cp,Ur,Tr,Tc,Co,Nr,Td&amp;domain=seobook.com&amp;display_sort=tr_desc&amp;database=us
+</code></pre>
+<p><strong>SEMRush API Features</strong></p>
+<ul>
+<li>Powerful backlink tools</li>
+<li>Deep domain reports</li>
+<li>Competitor research</li>
+<li>Tracks historical data</li>
+<li>Position tracking</li>
+</ul>
+<h2 id="4-ahrefs-api">4. Ahrefs API</h2>
+<p>As one of the other major players in SEO analysis, it’s little surprise that <a href="https://docs.ahrefs.com/docs/api/" rel="noreferrer" target="_blank">Ahrefs API</a> is as powerful and feature-packed as SEMRush. It offers many of the same tools for creating detailed, insightful SEO reports, such as backlink reports and domain analysis.</p>
+<p>Some of the similar tools offer unique features, however, like the ability to analyze both paid and organic search. The ability to see historical data from refdomains is highly useful for insights into how your SEO campaigns are working. You can also see the volume of keywords from different countries.</p>
+<p>Ahrefs API also offers some unique features. Analysis of anchor text lets you know the exact words and phrases used for both inbound and outgoing links, which can provide insights into the language websites use to cite your content. The ability to see the best pages for internal and external links is also handy for creating detailed SEO campaigns.</p>
+<p>Sample Request:</p>
+<pre><code>curl --request GET \
+  -<span class="ruby">-url <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/api.ahrefs.com/v</span>3/site-explorer/best-by-external-links \
+</span>  -<span class="ruby">-header <span class="hljs-string">'Accept: application/json, application/xml'</span> \
+</span>  -<span class="ruby">-header <span class="hljs-string">'Authorization: Bearer 123'</span></span>
+</code></pre>
+<p><strong>Ahrefs API Features</strong></p>
+<ul>
+<li>Analyze both paid and organic search</li>
+<li>Detailed domain reports</li>
+<li>Historical refdomains data</li>
+<li>Keyword analysis by country</li>
+<li>Anchor text analysis</li>
+</ul>
+<h2 id="5-moz-api">5. Moz API</h2>
+<p>Moz is another big player in the SEO industry. As a result, the <a href="https://moz.com/products/api" rel="noreferrer" target="_blank">Moz API</a> is as robust and powerful as you would expect. It’s also straightforward and easy to use, making it a good choice for someone looking for a SERP API without a lot of programming experience.</p>
+<p>Like SEMRush and Ahrefs, Moz has all the standard features you’d expect from a SERP API. Its API also has all the functions you need for detailed domain reports, like keyword research, domain authority, and competitor analysis. Moz API can also return information on anchor text and inbound and outbound links.</p>
+<p>However, the advanced features are what make Moz API stand out from the other SEO-focused APIs on the list. The ability to set up Moz Pro campaigns is highly useful. This lets you customize the metrics that <em>you</em> want to track, letting you dig deeper into things that might be impacting your SEO for your particular users. Moz Local is also a useful tool, as it lets you assess your website for local search.</p>
+<p>However, a brand authority tracker may be the most useful and distinctive feature. Brand Authority is a unique metric developed by Moz that assesses a wide range of variables and consolidates them into one easily understandable score.</p>
+<p>Sample Request:</p>
+<pre><code>&lt;p&gt;&amp;<span class="hljs-keyword">lt</span>;code&amp;<span class="hljs-keyword">gt</span>;http:<span class="hljs-regexp">//lsapi</span>.seomoz.com/linkscape/anchor-text/moz.com%2fblog?Cols=<span class="hljs-number">34</span>&amp;amp;Scope=term_to_page&amp;amp;Limit=<span class="hljs-number">4</span>&amp;amp;AccessID=member-cf180f7081&amp;amp;Expires=<span class="hljs-number">1225138899</span>&amp;amp;Signature=LmXYcPqc%2BkapNKzHzYz2BI4SXfC%3D&amp;<span class="hljs-keyword">lt</span>;<span class="hljs-regexp">/code&amp;gt;&lt;/p</span>&gt;
+</code></pre>
+<p><strong>Moz API Features</strong></p>
+<ul>
+<li>Moz Pro Campaigns</li>
+<li>Local SEO Ranking</li>
+<li>Index Metadata API</li>
+<li>Brand Authority Tracking</li>
+</ul>
+<h2 id="6-serpstack-api">6. SERPStack API</h2>
+<p>SERP APIs can be very expensive. So, it’s useful to have a free alternative in our list of SERP APIs. <a href="https://serpstack.com/documentation" rel="noreferrer" target="_blank">SERPStack API</a> has a robust free tier that’s still totally usable.</p>
+<p>Think of a hypothetical Google search in 2024. Think of the sponsored results, the questions also asked, and the videos and images. This is SERPStack API in a nutshell. Each of these components has its own endpoint, so you can customize how those results show up however you want. SERPStack API also supports local and organic search results, making it a viable alternative for Moz at a substantially lower price point.</p>
+<p>Sample Request:</p>
+<pre><code>http<span class="hljs-variable">s:</span>//api.serpstack.<span class="hljs-keyword">com</span>/locations
+    ? access_key = YOUR_ACCESS_KEY
+    &amp; query = <span class="hljs-keyword">new</span> york
+</code></pre>
+<p><strong>SERPStack API Features</strong></p>
+<ul>
+<li>Free tier</li>
+<li>Sponsored ads</li>
+<li>Additional questions</li>
+<li>Suggested tweets</li>
+</ul>
+<h2 id="7-serpwow-api">7. SerpWow API</h2>
+<p>Google is far from the only search engine in town. As such, it’s helpful to have a SERP API that can query some of those other search engines. <a href="https://www.serpwow.com/" rel="noreferrer" target="_blank">SerpWow API</a> is that SERP API.</p>
+<p>SerpWow API is a SERP API that can query Bing, Yahoo, Baidu, and Yandex. It can even retrieve real-time data from Amazon and eBay. The results can be returned in JSON or CSV. For example, if you are looking to quickly populate a list of products for a retail site, SerpWow API is well worth a look.</p>
+<p>SerpWow API also lets you customize calls by location. If you’re creating products or services for audiences outside of North America, SerpWow API is well worth a look.</p>
+<p>Sample Request:</p>
+<pre><code>https://api.serpwow.com/live/search?api_key=<span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span>&amp;q=horror+novel
+</code></pre>
+<p><strong>SerpWow API Features</strong></p>
+<ul>
+<li>Queries many different search engines</li>
+<li>Supports proxy locations</li>
+<li>Returns payloads in JSON or CSV</li>
+</ul>
+<h2 id="8-scrapingdog-api">8. Scrapingdog API</h2>
+<p>Sometimes, you need data from somewhere other than Google. SERP APIs are essentially performing <a href="https://nordicapis.com/fintechs-want-save-screen-scraping/" rel="noreferrer" target="_blank">web scraping</a>. As such, you might consider having a general, all-purpose web scraping API <a href="https://docs.scrapingdog.com/" rel="noreferrer" target="_blank">like Scrapingdog API</a> in your arsenal.</p>
+<p>Like SerpWow API, Scrapingdog API can make queries to numerous alternative search engines. It’s got dedicated endpoints for Amazon, LinkedIn, and Twitter, among others. Even better yet, Scrapingdog API lets you populate a database using a Webhook URL. If you want to populate a page with products or build a list of potential leads, consider Scrapingdog API for your stack.</p>
+<p>Sample Request:</p>
+<pre><code>"https://api.scrapingdog.com/scrape?api_key=<span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-strong">*****</span><span class="hljs-emphasis">***</span>&amp;url=http://httpbin.org/ip&amp;dynamic=false"
+</code></pre>
+<p><strong>Scrapingdog API Features</strong></p>
+<ul>
+<li>Alternate search engine support</li>
+<li>Webhook URL</li>
+<li>Built-in screenshots</li>
+</ul>
+<h2 id="9-dataforseo-api">9. DataForSEO API</h2>
+<p>Here’s another SERP API that works with numerous search engines. <a href="https://dataforseo.com/apis/serp-api" rel="noreferrer" target="_blank">DataForSEO API</a> easily queries everything from Baidu to YouTube. However, the specialized search function is where DataForSEO API really shines. The ability to query Google Datasets is one of DataForSEO’s most striking features. It lets you search through public data repositories to find quality datasets. Integration with Google Autocomplete is its other standout feature. If you’re looking for a SERP API that does things others don’t, DataForSEO API is worth a look.</p>
+<p>Sample Request:</p>
+<pre><code>POST https:<span class="hljs-regexp">//</span>api.dataforseo.com<span class="hljs-regexp">/v3/</span>keywords_data<span class="hljs-regexp">/google_trends/</span>explore<span class="hljs-regexp">/task_post</span>
+</code></pre>
+<p><strong>DataForSEO API Features</strong></p>
+<ul>
+<li>Alternative search engine integration</li>
+<li>Searches datasets</li>
+<li>Google Autocomplete integration<br>
+<h1 id="10-scaleserp-api"></h1>
+</li>
+</ul>
+<h2 id="10-scaleserp-api">10. ScaleSERP API</h2>
+<p>We’ll wrap up with one final SERP API. <a href="https://www.scaleserp.com/docs" rel="noreferrer" target="_blank">ScaleSERP API</a> offers SEO tools similar to the other SERP APIs on our list but with some extra features. ScaleSERP API is built to work with batches, as its main distinction. You can have up to 10,000 batches per account. Batches can be set to run monthly, weekly, daily, or even hourly. Once the batch is complete, results can be integrated with a webhook, letting you easily integrate with other applications like a database or spreadsheet.</p>
+<p>Sample Response:</p>
+<pre><code>https:<span class="hljs-regexp">//</span>api.scaleserp.com<span class="hljs-regexp">/batches/</span><span class="hljs-number">123456</span>?api_key=demo
+</code></pre>
+<p><strong>ScaleSERP API Features</strong></p>
+<ul>
+<li>Batch support</li>
+<li>Webhook integration</li>
+</ul>
+<h1 id="final-thoughts-on-serp-apis-when-to-use-what-">Final Thoughts on SERP APIs: When to Use What?</h1>
+<p>In today’s data-driven world, there’s no reason to operate in the dark. There are endless scenarios where you need to know how your <a href="https://nordicapis.com/why-apis-are-important-to-a-digital-marketing-operation/" rel="noreferrer" target="_blank">business marketing</a> is performing, and a SERP API is one of the best ways to get clear insights in real-time. No matter what you’re trying to achieve, one of these ten SERP APIs should serve your needs beautifully.</p>
+<p>As you have seen, SERP APIs come in many forms and fulfill many functions. There’s no one SERP API to rule them all, as everyone has their particular needs to fill. That said, here are some general guidelines for common requirements.</p>
+<p>If performance is your top concern, <strong>SerpApi</strong> or <strong>ScaleSERP</strong> are good picks. If affordability is an issue, consider <strong>SERPStack</strong> or <strong>DataforSEO</strong>. <strong>SerpApi</strong> is also a good pick for API security. <strong>DataforSEO API</strong> is an excellent choice for anyone looking for the most verbose metadata. <strong>SEMRush API</strong>, <strong>Ahrefs API</strong>, and <strong>Moz APIs</strong> are all excellent choices for anyone looking for traditional SEO tools, like domain reports or backlink checkers, in API format. If you’re working with search engines other than Google or using a SERP API to populate a database or spreadsheet, <strong>Scrapingdog API</strong> is worth a look.</p>
+<p>Lastly, remember that web scraping could potentially break TOS, as material from proprietary websites is protected by copyright laws. So, if you’re planning on using SERP APIs for your products and services, do your due diligence to ensure that your usage complies with local <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">copyright and privacy laws</a>.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/10-search-engine-results-page-serp-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
