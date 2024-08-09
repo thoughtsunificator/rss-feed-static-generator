@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>3 Example Use Cases for Arazzo Descriptions</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">3 Example Use Cases for Arazzo Descriptions</h3>
+		<div><p>In June 2024, the OpenAPI Initiative <a href="https://www.openapis.org/announcement/2024/05/29/a-new-specification-from-openapi-arazzo" rel="noreferrer" target="_blank">announced</a> the first version of their new workflow specification, <a href="https://github.com/OAI/Arazzo-Specification" rel="noreferrer" target="_blank">Arazzo</a>. We’ve already mentioned Arazzo (in its unbranded form) in our <a href="https://nordicapis.com/how-to-link-api-requests-effectively/" rel="noreferrer" target="_blank">post</a> on linking API requests as a means to describe a sequence of related API calls. At version 1.0.0, Arazzo, the Italian word for “tapestry,” is designed to meet the needs of API providers and consumers in providing descriptions of sequences of API calls for end-to-end technical or business flows.</p>
+<div id="attachment_19957" class="wp-caption alignright"><p id="caption-attachment-19957" class="wp-caption-text"><a href="https://github.com/OAI/Arazzo-Specification" rel="noreferrer" target="_blank">The Arazzo Specification</a>: A “tapestry” for deterministic API workflows.</p></div>
+<p>As the meaning of the name implies, how Arazzo can help is clear. The API economy is built on cloud-based platforms, with many organizations implementing increasingly complex flows that require interactions with multiple platforms. To date, describing this accurately has been done in isolation. Like APIs before API description languages, defining complex flows has primarily been done in code or through visual integration builders that support integration and iPaaS solutions. But now, Arazzo supports weaving together different API calls and descriptions into a single picture to provide clarity for workflow consumers.</p>
+<p>As with most subjects, however, more context can aid understanding, so it’s worth looking at some real-life use cases for the Arazzo Specification.</p>
+<h2 id="linking-api-security-and-api-calls">Linking API Security and API calls</h2>
+<p>The first area where Arazzo could help is by linking API security and making API calls. Generally speaking, there is a separation between security endpoints that require calling a URL that “looks like” an API and the API descriptions you need for calling an API that your client has been granted access to. OpenAPI descriptions include the <a href="https://spec.openapis.org/oas/latest.html#security-scheme-object" rel="noreferrer" target="_blank">Security Scheme Object</a>, but this rarely bridges the gap between indicating the prescribed <a href="https://nordicapis.com/8-types-of-oauth-flows-and-powers/" rel="noreferrer" target="_blank">security flow</a> and making an actual API call based on a token you’ve elicited from the security flow. The decoupled nature of the security flow is often exacerbated by the source of security implementations, which come from a specific vendor with separately-maintained API descriptions.</p>
+<p>The separation between security and functional APIs may not seem like an issue on a case-by-case basis, but they are significant in terms of open standards. Having the means to accurately describe the sequence of API calls, including security, for an entire ecosystem is extremely valuable due to the number of questions it can answer, easing the implementation of standards for initiatives like open banking.</p>
+<p>The Arazzo team has already been thinking about this use case, and you can find <a href="https://github.com/OAI/Arazzo-Specification/tree/main/examples/1.0.0" rel="noreferrer" target="_blank">examples</a> in the Specification repository of flows that call multiple OAuth endpoints to authorize access and issue access tokens. They describe using the OAuth grant type to retrieve an authorization code, swapping this out for an access token, and finally using it to call an API.</p>
+<h2 id="providing-employee-performance-data-for-human-resource-management-platforms">Providing Employee Performance Data for Human Resource Management Platforms</h2>
+<p>Human resource management (HRM) SaaS solutions are another area where an Arazzo description can help. HRM solutions (and the APIs that support them) are increasingly popular as large organizations move their HR solutions to the cloud and take advantage of managed solutions. However, an HRM platform does not operate in isolation. For example, how do you automatically retrieve sales commissions in Salesforce so they can be captured against a given employee record in your BambooHR instance? What about employee tax records recorded in a payroll system, in the HRM platform, and submitted externally to the tax authorities?</p>
+<p>HRM integrations are littered with flows like this, many of which can be described using the Arazzo Specification. If you are creating your integrations yourself, you may not be interested in describing your flow other than as a means to document your work. However, if you are a <a href="https://nordicapis.com/what-is-a-unified-api-when-should-you-consider-using-one/" rel="noreferrer" target="_blank">unified API</a> provider like <a href="https://apideck.com" rel="noreferrer" target="_blank">Apideck</a> or <a href="https://unified.to" rel="noreferrer" target="_blank">Unified</a>, then using Arazzo to document flows available to your customers can be very useful.</p>
+<p>Using Arazzo can help create repeatable, well-defined workflows to enhance the key selling point of a unified API, namely that you can address multiple platforms through one API. Regardless of whether you are a unified API provider, Arazzo can help you describe your integration with HRM and other platforms, which could help you accurately document your workflow.</p>
+<h2 id="booking-specialist-treatment-in-healthcare-systems">Booking Specialist Treatment in Healthcare Systems</h2>
+<p>Healthcare systems could also benefit from the use of Arazzo. Healthcare provision increasingly relies on an <a href="https://nordicapis.com/10-top-healthcare-apis-services-to-upgrade-your-medical-software/" rel="noreferrer" target="_blank">electronic health record</a> (EHR) as the primary means to record appointments, diagnoses, and treatments for a given patient. While EHRs provide a system of record for the patient, the number of ways the EHR can be changed and updated in the healthcare ecosystem is vast and dependent on interactions with many other systems. Many countries have centralized bodies that help govern healthcare IT, and in such countries, Arazzo could be of considerable benefit in creating standardized workflows for activities such as treatment booking.</p>
+<p>Take the case of booking an appointment for a knee dislocation, for example. The first step is to retrieve the patient’s EHR. The patient ID and condition code for a knee dislocation are used as the inputs to the flow. The inputs to be defined in a <a href="https://spec.openapis.org/arazzo/latest.html#workflow-object" rel="noreferrer" target="_blank">Workflow Object</a>:</p>
+<pre><code class="lang-yaml">- workflowId: BookTreatment
+  <span class="hljs-selector-tag">summary</span>: Book treatment <span class="hljs-keyword">for</span> <span class="hljs-selector-tag">a</span> given condition
+  description: Provide <span class="hljs-selector-tag">a</span> patient identifier and condition <span class="hljs-selector-tag">code</span> to secure an appointment <span class="hljs-keyword">for</span> <span class="hljs-selector-tag">a</span> given condition
+  inputs:
+    type: <span class="hljs-selector-tag">object</span>
+    properties:
+      patientId:
+        description: Patient identifier
+        type: string
+      conditionCode:
+        description: Standardised condition <span class="hljs-selector-tag">code</span>
+        type: string
+</code></pre>
+<p>The first <a href="https://spec.openapis.org/arazzo/latest.html#step-object" rel="noreferrer" target="_blank">Step Object</a> then retrieves the EHR and locates the knee dislocation treatment reference code that provides the tracker for the specific patient diagnosis. The reference to the correct operation in the underlying API is provided by the <code>operationId</code>, which points to the <code>getEhr</code> operation on the EHR platform:</p>
+<pre><code>- step: GetEhrCondition
+  operationId: ehrPlatform<span class="hljs-selector-class">.getEhr</span>
+  parameters:
+  - name: patientId
+    <span class="hljs-keyword">in</span>: <span class="hljs-selector-tag">body</span>
+    value: <span class="hljs-variable">$inputs</span><span class="hljs-selector-class">.patientId</span>
+  - name: conditionCode
+    <span class="hljs-keyword">in</span>: <span class="hljs-selector-tag">body</span>
+    value: <span class="hljs-variable">$inputs</span><span class="hljs-selector-class">.conditionCode</span>
+  successCriteria:
+  - condition: <span class="hljs-variable">$statusCode</span> == <span class="hljs-number">200</span>
+  outputs:
+    treatmentReferenceCode: <span class="hljs-variable">$response</span><span class="hljs-selector-class">.body</span><span class="hljs-selector-class">.treatmentReferenceCode</span>
+</code></pre>
+<p>With the reference code in hand, the application code can find the correct step that describes calling the orthopedics platform to book a consultant appointment:</p>
+<pre><code>- step: BookOrthopedic
+  operationId: orthopedicsPlatform<span class="hljs-selector-class">.bookOrthopedicsConsultant</span>
+  parameters:
+  - name: patientId
+    <span class="hljs-keyword">in</span>: <span class="hljs-selector-tag">body</span>
+    value: <span class="hljs-variable">$inputs</span><span class="hljs-selector-class">.patientId</span>
+  - name: treatmentReferenceCode
+    <span class="hljs-keyword">in</span>: <span class="hljs-selector-tag">body</span>
+    value: <span class="hljs-variable">$steps</span><span class="hljs-selector-class">.GetEhrCondition</span><span class="hljs-selector-class">.outputs</span><span class="hljs-selector-class">.treatmentReferenceCode</span>
+  successCriteria:
+  - condition: <span class="hljs-variable">$statusCode</span> == <span class="hljs-number">200</span>
+  outputs:
+    appointmentId: <span class="hljs-variable">$response</span><span class="hljs-selector-class">.body</span><span class="hljs-selector-class">.appointmentId</span>
+    appointmentDateTime: <span class="hljs-variable">$response</span><span class="hljs-selector-class">.body</span><span class="hljs-selector-class">.appointmentDateTime</span>
+</code></pre>
+<p>The Arazzo Specification can also describe steps that include updating the EHR, booking subsequent appointments with different providers, and providing costs to insurers where patients have consented to share such information directly with their insurance company.</p>
+<p>Healthcare is, therefore, a use case for Arazzo that could offer significant benefits, providing comprehensive descriptions for API consumers that could engender efficiencies in platform integration. Any efforts to lower the cost of system integration through increased efficiency are welcome in most economies, given the significant burden of healthcare provision on the taxpayer.</p>
+<h2 id="going-beyond-use-cases-what-s-next-for-the-arazzo-specification-">Going Beyond Use Cases: What’s Next for the Arazzo Specification?</h2>
+<p>We have looked at three use cases for Arazzo (without mentioning generative AI) and can conclude that using Arazzo to describe sequences of API calls stacks up. However, we talk about <a href="https://nordicapis.com/tag/api-standards/" rel="noreferrer" target="_blank">many standards</a> on the Nordic APIs blog. One key, overarching theme apparent in all of them is tooling support. The utility of standards like the Arazzo Specification is only as good as the community that supports them.</p>
+<p>It’s early days for Arazzo and the development of supporting tooling in the community. The implementers’ draft was around for a while, and vendors have already been exploring Arazzo’s potential. However, support for Arazzo in open-source and commercial software will take time to filter through.</p>
+<p>There’s also the question of future development. Currently, inputs to an Arazzo description are limited to OpenAPI descriptions and other Arazzo descriptions. <a href="https://asyncapi.com" rel="noreferrer" target="_blank">AsyncAPI</a> will be coming into scope next, and <a href="https://nordicapis.com/how-to-test-apis-across-multiple-styles/" rel="noreferrer" target="_blank">other API styles</a> and description formats could be supported in future versions.</p>
+<p>An Arazzo description can make integration easier for many use cases. Fostering strong support in the tooling community and integrating more API description formats will help turn what Arazzo aims to achieve into reality.</p>
+<blockquote><p>We will be keeping an eye on the development of Arazzo and the growth of the Arazzo community, so please check back on the blog in the future for more updates.</p></blockquote>
+</div>
+		<a target="_blank" href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Open Source AI Definition – Weekly update June 17</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Open Source AI Definition – Weekly update June 17</h3>
+		<div>
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/explaining-the-concept-of-data-information/401" rel="noreferrer" target="_blank">Explaining the concept of Data information</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>After <a href="https://discuss.opensource.org/t/open-source-ai-needs-to-require-data-to-be-viable/351" rel="noreferrer" target="_blank">much debate</a> regarding training data, @stefano published a summary of the positions expressed and some clarifications about the terminology included in draft v.0.0.8. You can read the rationale about it and <a href="https://discuss.opensource.org/t/explaining-the-concept-of-data-information/401/3" rel="noreferrer" target="_blank">share your thoughts on the forum</a>.&nbsp;</li>
+
+
+
+<li><strong>Initial thoughts:</strong>
+<ul class="wp-block-list">
+<li>@<a href="https://discuss.opensource.org/u/Senficon" rel="noreferrer" target="_blank">Senficon</a> (Felix Reda) <a href="https://discuss.opensource.org/t/explaining-the-concept-of-data-information/401/2?u=mia" rel="noreferrer" target="_blank">adds</a> that while the discussion has highlighted the case for data information, it’s crucial to understand the implications of copyright law on AI, particularly concerning access to training data. Open Source software relies on a legal element (copyright licenses) and an access element (availability of source code). However, this framework does not seamlessly apply to AI, as different copyright regimes allow text and data mining (TDM) for AI training but not the <strong>redistribution</strong> of datasets. This discrepancy means that requiring the publication of training datasets would make Open Source AI models illegal, despite TDM exceptions that facilitate AI development. Also, <strong>public domain status is not consistent internationally</strong>, complicating the creation of legally publishable datasets. Consequently, a definition of Open Source AI that imposes releasing datasets would impede collaborative improvements and limit practical significance. Emphasizing data innovation can help maintain Open Source principles without legal pitfalls.</li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/concerns-and-feedback-on-anchoring-on-the-model-openness-framework/393" rel="noreferrer" target="_blank">Concerns and feedback on anchoring on the Model Openness Framework</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>@<a href="https://discuss.opensource.org/u/amcasari" rel="noreferrer" target="_blank">amcasari</a> <a href="https://discuss.opensource.org/t/concerns-and-feedback-on-anchoring-on-the-model-openness-framework/393?u=mia" rel="noreferrer" target="_blank">expresses concern</a> about the usability and neutrality of the “Model Openness Framework” (MOF) for identifying AI systems, suggesting it doesn’t align well with current industry practices and isn’t ready for practical application without further feedback and iteration.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/shujisado" rel="noreferrer" target="_blank">shujisado</a> <a href="https://discuss.opensource.org/t/concerns-and-feedback-on-anchoring-on-the-model-openness-framework/393/2?u=mia" rel="noreferrer" target="_blank">points out</a> that the MOF’s classification of components doesn’t depend on the specific IP laws applied, but rather on a general legal framework, and highlights that Japan’s IP law system differs from the US and EU, yet finds discussions based on the OSD consistent.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/t/concerns-and-feedback-on-anchoring-on-the-model-openness-framework/393/4?u=mia" rel="noreferrer" target="_blank">stefano</a> <a href="https://discuss.opensource.org/t/concerns-and-feedback-on-anchoring-on-the-model-openness-framework/393/4?u=mia" rel="noreferrer" target="_blank">emphasizes</a> the importance of having well-thought-out, timeless principles in the Open Source AI Definition document, while viewing the Checklist as a more frequently updated working document. He also supports the call to see practical examples of the framework in use and proposes separating the Checklist from the main document to reduce confusion.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/initial-report-on-definition-validation/368" rel="noreferrer" target="_blank">Initial Report on Definition Validation</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>Reviews of eleven different AI systems have been published. We do these review to check existing systems compatibility with our <a href="https://hackmd.io/@opensourceinitiative/osaid-0-0-8" rel="noreferrer" target="_blank">current definition</a>. These are the systems in question: Arctic, BLOOM, Falcon, Grok, Llama 2, Mistral, OLMo, OpenCV, Phy-2, Pythia, and T5.
+<ul class="wp-block-list">
+<li>@<a href="https://discuss.opensource.org/u/Mer" rel="noreferrer" target="_blank">mer</a> has set up a review sheet for the Viking model upon request from @<a href="https://discuss.opensource.org/u/merlijn-sebrechts" rel="noreferrer" target="_blank">merlijn-sebrechts</a>.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/anatta8538" rel="noreferrer" target="_blank">anatta8538</a> asks if MLOps is considered within the topic of the Model Openness Framework and whether CLIP, an LMM, would be consistent with the OSAID.</li>
+
+
+
+<li>@<a href="https://discuss.opensource.org/u/nick" rel="noreferrer" target="_blank">nick</a> clarifies that the evaluation focuses on components as described in the Model Openness Framework, which includes development and deployment aspects but does not cover MLOps as a whole.</li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/why-and-how-to-certify-open-source-ai/349" rel="noreferrer" target="_blank">Why and how to certify Open Source AI</a></h2>
+
+
+
+<ul class="wp-block-list">
+<li>@<a href="https://discuss.opensource.org/u/Alek_Tarkowski" rel="noreferrer" target="_blank">Alek_Tarkowski</a> agrees that certification of open-source AI will be crucial under the AI Act and highlights the importance of defining what constitutes an Open Source license. He points out the confusion surrounding terms like “free and open source license” and suggests that the issue of responsible AI licensing as a form of Open Source licensing needs resolution. Notes that some restrictive licenses are gaining traction and may need consideration for exemption from regulation, thus urging for a consensus.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><a href="https://discuss.opensource.org/t/open-source-ai-definition-town-hall-june-14-2024/392" rel="noreferrer" target="_blank">Open Source AI Definition Town Hall – June 14, 2024</a></h2>
+
+
+
+<p>Slides and the recording of our previous townhall meeting can be found <a href="https://discuss.opensource.org/t/open-source-ai-definition-town-hall-june-14-2024/392/2?u=mia" rel="noreferrer" target="_blank">here</a>.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/open-source-ai-definition-weekly-update-june-17">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

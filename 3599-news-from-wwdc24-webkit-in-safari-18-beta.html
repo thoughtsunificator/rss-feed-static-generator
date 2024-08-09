@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>News from WWDC24: WebKit in Safari 18 beta</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">News from WWDC24: WebKit in Safari 18 beta</h3>
+		<div><p>The last year has been a great one for WebKit. After unveiling Safari 17 beta at WWDC23, we’ve shipped six releases of Safari 17.x with a total of 200 new web technologies. And we’ve been hard at work on multiple architectural improvement projects that strengthen WebKit for the long-term.</p>
+<p>Now, we are pleased to announce WebKit for Safari 18 beta. It adds another 48 web platform features, as well as 18 deprecations and 174 bug fixes. Test it today on iOS 18 beta, iPadOS 18 beta, visionOS 2 beta, and macOS Sequoia beta.</p>
+<h2><a name="webxr" rel="noreferrer" target="_blank"></a>WebXR</h2>
+<p>Safari 18 for visionOS 2 beta adds support for immersive <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Fundamentals" rel="noreferrer" target="_blank">WebXR</a>. Now you can create fully immersive experiences and deliver them on the web to people using <a href="https://www.apple.com/apple-vision-pro/" rel="noreferrer" target="_blank">Apple Vision Pro</a>. Safari on visionOS 2 beta supports <code>immersive-vr</code> sessions. WebXR scenes are displayed using hardware-accelerated graphics driven by <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API" rel="noreferrer" target="_blank">WebGL</a>.</p>
+
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/chess-garden.webp" type="image/webp"></picture><figcaption>Try out the <a href="https://webkit.org/demos/webxr-chess/" rel="noreferrer" target="_blank">Chess Garden demo</a> to see WebXR in action.</figcaption></figure>
+<p>Safari for visionOS 2 beta supports the new WebXR <a href="https://webkit.org/blog/15162/introducing-natural-input-for-webxr-in-apple-vision-pro/" rel="noreferrer" target="_blank"><code>transient-pointer</code></a> input mode. It lets you make the most of natural input on visionOS, and allow your users to interact with a look and a pinch.</p>
+<figure><figcaption>Use <code>transient-pointer</code> in your WebXR experience to support interactions like this, where players use their hands to pinch and drag as they move chess pieces around.</figcaption></figure>
+<p>If you want to animate a 3D model of the user’s hands, Safari for visionOS 2 beta also includes support for WebXR <a href="https://immersive-web.github.io/webxr-hand-input/" rel="noreferrer" target="_blank">hand tracking</a>. To ensure privacy, permission to allow hand tracking will be requested from users at the start of their WebXR session.</p>
+<p>Learn all about WebXR on visionOS 2 beta by watching <a href="https://developer.apple.com/videos/play/wwdc2024/10066/" rel="noreferrer" target="_blank">Build immersive web experiences with WebXR</a> at WWDC24, available Wednesday June 12. And learn more about <a href="https://webkit.org/blog/15162/introducing-natural-input-for-webxr-in-apple-vision-pro/" rel="noreferrer" target="_blank"><code>transient-pointer</code></a> input mode by reading <a href="https://webkit.org/blog/15162/introducing-natural-input-for-webxr-in-apple-vision-pro/" rel="noreferrer" target="_blank">Introducing natural input for WebXR in Apple Vision Pro</a>.</p>
+<h2><a name="css" rel="noreferrer" target="_blank"></a>CSS</h2>
+<h3><a name="view-transitions" rel="noreferrer" target="_blank"></a>View Transitions</h3>
+<p>WebKit added support for the View Transitions API in Safari 18 beta. It provides an optimized browser API to animate elements from one state to another. Safari supports the <a href="https://www.w3.org/TR/css-view-transitions-1/" rel="noreferrer" target="_blank">CSS View Transitions Module Level 1</a> specification that adds new CSS properties and pseudo-elements for defining transition animations, along with a new browser API to start transition animations and react to different transition states. It works by capturing the current (old) state of the page and applying an animated transition to the new state. By default, the browser applies a cross-fade between the states.</p>
+<p>Call the <code>document.startViewTransition()</code> method to initiate the capture. You can pass a callback function as the first argument to make DOM state changes between the old and new captures. The method returns a <a href="https://developer.mozilla.org/docs/Web/API/ViewTransition" rel="noreferrer" target="_blank">ViewTransition</a> object which contains promises that can be used to track when the view transition starts or ends.</p>
+<p>Once the states are captured, a pseudo-element tree is built which can be targeted with CSS, allowing you to modify the CSS animations used for the transitions. The animations out of the old page state and into the new page state can be modified via the <code>::view-transition-new(*)</code> and <code>::view-transition-old(*)</code> selectors. You can also ask the browser to independently track state changes for a specific element by naming it with the CSS <code>view-transition-name</code> property. You can then use the pseudo-element to customize animations for it.</p>
+<pre><code class="css"><span class="keyword builtin">.page-view</span> {
+    <span class="attribute">view-transition-name</span>: <span class="identifier">page-view</span>;
+}
+::<span class="keyword">view-transition-old</span>(<span class="keyword">page-view</span>) {
+    <span class="attribute">animation</span>: <span class="number">500ms</span> <span class="identifier">ease-in-out</span> <span class="identifier">transition-out-animation</span>;
+}
+::<span class="keyword">view-transition-new</span>(<span class="keyword">page-view</span>) {
+    <span class="attribute">animation</span>: <span class="number">500ms</span> <span class="identifier">ease-in-out</span> <span class="identifier">transition-in-animation</span>;
+}
+</code></pre>
+<p>The example below demonstrates state management with tabbed navigation. Each tab view has a custom transition animation out and a subtly different animation in, while the tabs themselves rely on the default page transition.</p>
+<figure>
+<p class="codepen" data-height="369" data-default-tab="css,result" data-slug-hash="rNgzxgP" data-pen-title="CSS View Transitions Module Level 1 demo" data-user="jensimmons" data-token="1c18fa8d0f8d5eecb0a27a2ce35d271c"></p><figcaption>See View Transitions in action in <a href="https://codepen.io/jensimmons/pen/rNgzxgP/1c18fa8d0f8d5eecb0a27a2ce35d271c" rel="noreferrer" target="_blank">this demo</a>.</figcaption></figure>
+<h3><a name="style-queries" rel="noreferrer" target="_blank"></a>Style Queries</h3>
+<p>WebKit for Safari 18 beta adds support for Style Queries when testing CSS Custom Properties. Similar to how developers can use Sass mixins, Style Queries can be used to define a set of reusable styles that get applied as a group.</p>
+<p>Here, if the <code>--background</code> custom property is set to black, then certain styles will be applied — in this case to make the headline and paragraph text color white.</p>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">style</span>(<span class="keyword">--background</span>: <span class="keyword">black</span>) {
+  <span class="attribute">h2</span>, <span class="attribute">h3</span>, <span class="attribute">p</span> {
+    <span class="attribute">color</span>: <span class="identifier">white</span>;
+  }
+}
+</code></pre>
+<p>Don’t forget to pay attention the HTML structure. By default, Style Queries reference the styles on the direct parent element. You can create a different reference through the use of Container Query names.</p>
+<h3><a name="currentcolor-and-system-color-keywords-in-relative-color-syntax" rel="noreferrer" target="_blank"></a>currentcolor and system color keywords in Relative Color Syntax</h3>
+<p>Support for Relative Color Syntax shipped in <a href="https://webkit.org/blog/13966/webkit-features-in-safari-16-4/" rel="noreferrer" target="_blank">Safari 16.4</a>. It lets you define colors in a more dynamic fashion, creating a new color from an existing color. The value <code>lch(from var(--color) calc(L / 2) C H)</code> for instance uses the <code>lch</code> color space to take the variable <code>--color</code> and calculate a new color that’s half its lightness, <code>calc(L / 2)</code>.</p>
+<p>Now, starting in WebKit for Safari 18 beta, you can reference the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword" rel="noreferrer" target="_blank">currentcolor</a> or a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/system-color" rel="noreferrer" target="_blank">system color keyword</a> as you define the new color. For example, this code will set the background color to be the same color as the text color, only 4 times lighter, as calculated in the <code>oklch</code> color space.</p>
+<pre><code class="css"><span class="keyword">section</span> { <span class="attribute">background</span>: <span class="identifier">oklch</span>(<span class="identifier">from</span> <span class="identifier">currentcolor</span> <span class="identifier">calc</span>(<span class="identifier">L</span> * <span class="number">4</span>) <span class="identifier">C</span> <span class="identifier">H</span>); }
+</code></pre>
+<figure>
+<p class="codepen" data-height="311" data-default-tab="css,result" data-slug-hash="yLWgrXr" data-pen-title="currentcolor in Relative Color Syntax (demo)" data-user="jensimmons" data-token="78ae5a1796de664e75609cd03b930fc3"></p><figcaption>See how `currentcolor` works with Relative Color Syntax in <a href="https://codepen.io/jensimmons/pen/yLWgrXr?editors=1100" rel="noreferrer" target="_blank">this demo</a>.</figcaption></figure>
+<p>Being able to reference <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/system-color" rel="noreferrer" target="_blank">system color keywords</a> opens up another world of options. System colors are like variables that represent the default colors established by the OS, browser, or user — defaults that change depending on whether the system is set to light mode, dark mode, high contrast mode, etc. For example, <code>canvas</code> represents the current default background color of the HTML page, while <code>fieldtext</code> matches the color of text inside form fields. Find the full list of system colors in <a href="https://drafts.csswg.org/css-color/#css-system-colors" rel="noreferrer" target="_blank">CSS Color level 4</a>.</p>
+<p>Relative Color Syntax lets you define dynamic connections between colors in your CSS, lessening the need to control color through variables in a tightly-regimented design system. Learn more about Relative Color Syntax by watching <a href="https://www.youtube.com/watch?v=uadAfE6cAoM&amp;t=623s" rel="noreferrer" target="_blank">this portion of What’s new in CSS</a> from WWDC23.</p>
+<h3><a name="animating-display" rel="noreferrer" target="_blank"></a>Animating display</h3>
+<p>WebKit for Safari 18 beta adds support for transition animation of the <code>display</code> property.</p>
+<p>Many developers are excited to use <code>@starting-style</code> along with <code>transition-behavior</code> and <code>display: none</code> interpolation. WebKit for <a href="https://webkit.org/blog/15063/webkit-features-in-safari-17-4/" rel="noreferrer" target="_blank">Safari 17.4</a> added general support for <code>transition-behavior</code>, including <code>transition-behavior: allow-discrete</code>. WebKit for <a href="https://webkit.org/blog/15383/webkit-features-in-safari-17-5/" rel="noreferrer" target="_blank">Safari 17.5</a> added support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" rel="noreferrer" target="_blank"><code>@starting-style</code></a>, letting you define starting values for transitioning an element as it’s created (or re-created). Now in WebKit for Safari 18 beta, you can use these features together to transition the <code>display</code> property.</p>
+<h3><a name="shaping-interaction-regions-on-visionos" rel="noreferrer" target="_blank"></a>Shaping interaction regions on visionOS</h3>
+<p>As a web developer, you’re very familiar with how link styling works on the web. For decades you’ve been able to use CSS to style <code>text-decoration</code>, <code>color</code> and more for <code>:link</code>, <code>:hover</code>, <code>:active</code>, and <code>:visited</code> states. You’ve also been able to adjust the size of the invisible tap target through use of padding.</p>
+<p>Apple Vision Pro adds a new dimension to how links work — tap targets are <em>visible</em> on visionOS. Anytime a user looks at an interactive element, it’s highlighted to let them know that it can be tapped. And you as a designer or developer can intentionally design how an interaction region looks. You may want to add padding, for instance, or even a rounded corner to the otherwise invisible box.</p>
+<p>Now in Safari in visionOS 2 beta, when you use CSS <code>clip-path</code>  to change the shape of tappable area of a link, the visible interaction region will change shape as well. Interactive UI elements built with SVG will also be highlighted with the proper shape. Learn more by watching <a href="https://developer.apple.com/videos/play/wwdc2024/10065/" rel="noreferrer" target="_blank">Optimize for the spatial web</a> at WWDC24, available Tuesday June 11.</p>
+<h3><a name="backdrop-filter" rel="noreferrer" target="_blank"></a>Backdrop Filter</h3>
+<p>Originally shipped in Safari 9.0, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter" rel="noreferrer" target="_blank">backdrop filter</a> provides a way to apply graphics effects to the content behind a particular element. You can apply <code>backdrop-filter</code> to a headline, for example, and everything behind the headline will be blurred, or have decreased saturation, or increased contrast. Any of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function" rel="noreferrer" target="_blank">filter functions</a> from SVG can be used —  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur" rel="noreferrer" target="_blank"><code>blur()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness" rel="noreferrer" target="_blank"><code>brightness()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/contrast" rel="noreferrer" target="_blank"><code>contrast()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow" rel="noreferrer" target="_blank"><code>drop-shadow()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/grayscale" rel="noreferrer" target="_blank"><code>grayscale()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/hue-rotate" rel="noreferrer" target="_blank"><code>hue-rotate()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert" rel="noreferrer" target="_blank"><code>invert()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/opacity" rel="noreferrer" target="_blank"><code>opacity()</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/saturate" rel="noreferrer" target="_blank"><code>saturate()</code></a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/sepia" rel="noreferrer" target="_blank"><code>sepia()</code></a>.</p>
+<p>For many years, backdrop filter only worked in Safari. It was available when you prefixed the property with <code>-webkit-backdrop-filter</code>. Now, starting in Safari 18 beta, you don’t need the prefix. We also improved our implementation, fixing bugs and boosting interoperability.</p>
+<figure>
+<p class="codepen" data-height="399" data-default-tab="css,result" data-slug-hash="OJYJzNz" data-pen-title="Backdrop filter demo" data-user="jensimmons" data-token="ba0c7add12490a3ffad879a0eb25f9d3"></p><figcaption>See what’s possible with backdrop filter in <a href="https://codepen.io/jensimmons/pen/OJYJzNz/ba0c7add12490a3ffad879a0eb25f9d3?editors=1100" rel="noreferrer" target="_blank">this demo</a>. Use the dropdown to switch filters.</figcaption></figure>
+<p>This demo shows eight different filters and what you might do with each one alone. You can, of course, combine filters to create even more interesting results. With backdrop filter <a href="https://caniuse.com/css-backdrop-filter" rel="noreferrer" target="_blank">supported</a> in Safari since 2015, Edge since 2018, Chrome since 2019, Samsung Internet since 2020, and Firefox since 2022, this is a great time to consider the kind of graphic design possibilities it enables.</p>
+<h3><a name="safe-in-flexbox" rel="noreferrer" target="_blank"></a>safe in Flexbox</h3>
+<p>WebKit for Safari 18 beta adds support for the <code>safe</code> keyword for alignment in Flexbox. This provides a mechanism for refining how flex items overflow. Let’s look at an example of a simple navigation menu — a classic use of Flexbox.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">nav</span> <span class="keyword attribute">aria-label</span>=<span class="attribute value string">"main"</span>&gt;</span><span class="tag">&lt;<span class="keyword">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/us"</span>&gt;</span>U.S.<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/business"</span>&gt;</span>Business<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/investigations"</span>&gt;</span>Investigations<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/style"</span>&gt;</span>Style<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/tech"</span>&gt;</span>Tech<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/world"</span>&gt;</span>World<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">ul</span>&gt;</span><span class="tag">&lt;/<span class="keyword">nav</span>&gt;</span>
+</code></pre>
+<p>The following CSS creates a simple layout that wraps when there’s not enough space on one line for the menu, while centering the items in the available space.</p>
+<pre><code class="css"><span class="keyword">header</span> <span class="keyword">nav</span> {
+  <span class="attribute">display</span>: <span class="identifier">flex</span>;
+  <span class="attribute">flex-flow</span>: <span class="identifier">wrap</span>;
+  <span class="attribute">gap</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+  <span class="attribute">justify-content</span>: <span class="identifier">center</span>; <span class="comment">/* centers the items in the available space */</span>
+}
+</code></pre>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/flex-menu-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>By default, <code>justify-content: center</code> will always keep the items centered, even when the content is overflowing the containing box. You might prefer, however, that the content not be centered when it overflows — being centered cuts off both the beginning and end of the word, making the content harder to understand when the overflow is not visible.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/flex-safe-dark.png" media="(prefers-color-scheme: dark)"></picture><figcaption>Compare <code>justify-content: center</code> without and with the <code>safe</code> keyword in <a href="https://codepen.io/jensimmons/pen/qBGObXe?editors=1100" rel="noreferrer" target="_blank">this demo</a>.</figcaption></figure>
+<p>The <code>safe</code> keyword lets you change how alignment works when content overflows. The <code>justify-content: safe center</code> rule will instead start align any item that is overflowing, while continuing to center the items that are not overflowing.</p>
+<p>If you want to override the <code>safe</code> keyword, you can use <code>unsafe</code>. The <code>justify-content: unsafe center</code> rule will do the same thing as <code>justify-content: center</code>. The <code>unsafe</code> keyword has been supported in WebKit for Safari for quite some time.</p>
+<h3><a name="content-visibility" rel="noreferrer" target="_blank"></a>Content visibility</h3>
+<p>WebKit for Safari 18 beta adds support for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility" rel="noreferrer" target="_blank"><code>content-visibility</code></a>. This property controls whether or not an element renders its contents in a fashion that’s useful for making performance optimizations. It lets you communicate to the browser that certain portions of the page will likely be initially offscreen, and suggest they be omitted from layout and rendering. This can make the page load faster.</p>
+<h2><a name="web-apps-for-mac" rel="noreferrer" target="_blank"></a>Web apps for Mac</h2>
+<p><a href="https://webkit.org/blog/14205/news-from-wwdc23-webkit-features-in-safari-17-beta/#web-apps" rel="noreferrer" target="_blank">Last year</a>, we added support for web apps in macOS Sonoma. You can add any website to your dock — whether or not it was built with a Manifest file, Service Worker, or other technology to customize the web app experience. Go to the site in Safari, then File &gt; Add to Dock… where you can customize the icon, change the name, and even clean up the URL. Then, just click on the web app icon in your Dock, and it will open as an app.</p>
+<p>This year brings two improvements to web apps on Mac.</p>
+<h3><a name="opening-links" rel="noreferrer" target="_blank"></a>Opening links</h3>
+<p>macOS Sequoia beta adds support for opening links directly in web apps. Now, when a user clicks a link, if it matches the <code>scope</code> of a web app that the user has added to their Dock, that link will open in the web app instead of their default web browser.</p>
+<p>For example, imagine you have added MDN Web Docs to the Dock. Then a colleague sends you a link to an MDN page in Messages, Mail, Slack, Discord, IRC, or any non-browser application on your Mac. Now when you click on that link, it will open in the MDN Web Docs web app instead of your default browser.</p>
+<p>Clicking a link within a browser will maintain the current behavior. This feature only affects links opened elsewhere. (When a user is in Safari, clicking on a link that matches the <code>scope</code> of a web app that is added to Dock, they will see an “Open in web app” banner, unless they have previously dismissed the banner.)</p>
+<p>By default, this behavior applies when the link matches the host of the web page used to create the web app. As a developer, you can refine this experience by defining the range of URLs that should open in the web app with the <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest/scope" rel="noreferrer" target="_blank"><code>scope</code></a>  member in the <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" rel="noreferrer" target="_blank">web app manifest</a>.</p>
+<h3><a name="extension-support" rel="noreferrer" target="_blank"></a>Extension support</h3>
+<p>Now you can personalize web apps on Mac with Safari Web Extensions and Content Blockers. Navigate to the web app’s Settings menu to access all your installed Content Blockers and Web Extensions. Any enabled in Safari will be on by default in the web app. Each web app is uniquely customizable, just like Safari profiles.</p>
+<h2><a name="safari-extensions" rel="noreferrer" target="_blank"></a>Safari Extensions</h2>
+<p>Safari 18 beta also adds support for <a href="https://support.apple.com/guide/deployment/intro-to-mdm-profiles-depc0aadd3fe/web" rel="noreferrer" target="_blank">Mobile Device Management</a> of extension enabled state, private browsing state, and website access on managed devices. This means schools and businesses that manage iOS, iPadOS, or macOS devices can now include the configuration of Safari App Extensions, Content Blockers, and Web Extensions in their management.</p>
+<h2><a name="spatial-media" rel="noreferrer" target="_blank"></a>Spatial media</h2>
+<p>One of the amazing experiences you can have on Apple Vision Pro is looking at spatial photos and panoramas. When you open the Photos app in visionOS, you see a montage of your photos. Tap an image, it appears alone in a floating frame in front of you, while the rest of the app disappears.</p>
+<figure></figure>
+<p>A spatial photo appears at just the right height and viewing angle to make it feel like you’ve gone back to a moment in time. A second tap of the UI breaks it out of the frame, as it grows and becomes even more immersive. Similarly, a panorama floats in a frame on first tap. Then on second tap of the UI, it expands to wrap all around you, creating a fully immersive experience.</p>
+<p>Now in Safari 18 for visionOS 2 beta, you can use the Fullscreen API to create the same experience on the web. You can embed the photo in a web page, and provide the ability to tap. The photo will pop into a floating frame as the Safari window disappears. Then when the user taps on the spatial photo or panorama UI that visionOS provides, the photo will further expand to create a fully immersive experience. When they exit the image, the Safari window will return.</p>
+<p>Let’s walk through how to support experiencing a spatial photo or panorama on the web using Fullscreen API. First, include the image on your web page using any of the techniques we’ve used on the web for years. Here, we can embed a flattened panoramic photo into the web page using simple HTML.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">img</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"panorama.jpeg"</span> <span class="keyword attribute">class</span>=<span class="attribute value string">"go-fullscreen"</span> <span class="keyword attribute">alt</span>=<span class="attribute value string">"[description]"</span>&gt;</span>
+</code></pre>
+<p>Then using JavaScript, we’ll trigger <code>.requestFullscreen()</code> on tap. Perhaps like this.</p>
+<pre><code class="js"><span class="identifier">document</span>.<span class="identifier">querySelectorAll</span>(<span class="char">'.go-fullscreen'</span>).<span class="identifier">forEach</span>(<span class="identifier">element</span> <span class="operator">=</span><span class="operator">&gt;</span> {
+    <span class="identifier">element</span>.<span class="identifier">addEventListener</span>(<span class="char">'click'</span>, <span class="identifier">async</span> () <span class="operator">=</span><span class="operator">&gt;</span> {
+        <span class="identifier">await</span> <span class="identifier">element</span>.<span class="identifier">requestFullscreen</span>();
+    });
+});
+</code></pre>
+<p>You could, of course, create your own UI for the user to tap, rather than making the entire photo the tap target.</p>
+<p>Spatial images work just the same, although it’s likely we want to provide fallbacks for browsers that do not <a href="https://caniuse.com/heif" rel="noreferrer" target="_blank">support HEIC files</a>. We can do so with the <code>picture</code> element.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">picture</span>&gt;</span>
+    <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">srcset</span>=<span class="attribute value string">"spatial.heic"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"image/heic"</span>&gt;</span>
+    <span class="tag">&lt;<span class="keyword">source</span> <span class="keyword attribute">srcset</span>=<span class="attribute value string">"fallback.avif"</span> <span class="keyword attribute">type</span>=<span class="attribute value string">"image/avif"</span>&gt;</span>
+    <span class="tag">&lt;<span class="keyword">img</span> <span class="keyword attribute">src</span>=<span class="attribute value string">"fallback.jpg"</span> <span class="keyword attribute">class</span>=<span class="attribute value string">"go-fullscreen"</span> <span class="keyword attribute">alt</span>=<span class="attribute value string">"[description]"</span> &gt;</span>
+<span class="tag">&lt;/<span class="keyword">picture</span>&gt;</span>
+</code></pre>
+<p>Spatial images are stereoscopic, with both a left and right channel. In Safari, when the image is embedded in the web page, the browser will show the left channel. And there’s no need to worry about providing a fallback of any sort for Safari on macOS, iOS, or iPadOS — the stereoscopic HEIC file works great.</p>
+<p>This technique will also cause images to go fullscreen in any browser that supports Fullscreen API. Learn more about adding panorama and spatial photos to your websites by watching <a href="https://developer.apple.com/videos/play/wwdc2024/10065/" rel="noreferrer" target="_blank">Optimize for the spatial web</a> at WWDC24, available Tuesday June 11.</p>
+<h2><a name="html" rel="noreferrer" target="_blank"></a>HTML</h2>
+<h3><a name="writing-suggestions" rel="noreferrer" target="_blank"></a>Writing Suggestions</h3>
+<p>At last year’s WWDC, Apple <a href="https://developer.apple.com/videos/play/wwdc2023/101/?time=1703" rel="noreferrer" target="_blank">unveiled</a> inline predictive text on iOS, iPadOS, macOS and more. It helps users input text faster by predicting what they might be typing and finishing the word, phrase or even a whole sentence when the user taps the space bar. Now, WebKit for Safari 18 beta on iOS, iPadOS, visionOS, macOS Sequoia and macOS Sonoma brings inline predictive text to the web.</p>
+<p>While inline predictive text makes for a fantastic, personalized user experience, there might be specific situations on the web where it’s better to not have predictions. WebKit for Safari 18 beta on iOS, iPadOS, visionOS, macOS Sequoia and macOS Sonoma gives web developers the opportunity to disable inline predictions through the <a href="https://html.spec.whatwg.org/#writing-suggestions" rel="noreferrer" target="_blank"><code>writingsuggestions</code></a> attribute. By default, writing suggestions is set to true. You can turn off the capability by including the <code>writingsuggestions="false"</code> attribute on any type of text input field.</p>
+<figure>
+<p class="codepen" data-height="320" data-default-tab="html,result" data-slug-hash="gOJLQzW" data-pen-title="Writing suggestions attribute" data-user="jensimmons" data-token="7f546ca141d0f70f6649c9cf48ed7646"></p><figcaption>Try out the difference between having writing suggestions or not in <a href="https://codepen.io/jensimmons/pen/gOJLQzW??editors=1100" rel="noreferrer" target="_blank">this demo</a>. Be sure to use a browser and operating system that provide suggestions of what to write, and have support for <code>writingsuggestions</code>.</figcaption></figure>
+<h3><a name="switch" rel="noreferrer" target="_blank"></a>Switch</h3>
+<p>WebKit for Safari on iOS 18 beta adds haptic feedback for <code>&lt;input type=checkbox switch&gt;</code>. This means, now when a user taps a switch control on iPhone, a single tap is felt — just like how toggling a switch feels in Settings app on iOS. Try <a href="https://codepen.io/jensimmons/pen/GReLKWg" rel="noreferrer" target="_blank">this demo</a> to see what it’s like.</p>
+<h3><a name="date-and-time-inputs" rel="noreferrer" target="_blank"></a>Date and time inputs</h3>
+<p>WebKit for Safari 18 beta on macOS improves accessibility support for date and time input field types. Now <code>&lt;input type="date"&gt;</code>, <code>&lt;input type="datetime-local"&gt;</code>, and <code>&lt;input type="time"&gt;</code> elements work properly with VoiceOver.</p>
+<h3><a name="aria" rel="noreferrer" target="_blank"></a>ARIA</h3>
+<p>Usually elements have the labels they need, but sometimes there is no text label for a particular button or UI. In this situation, ARIA can be used to provide an accessible label. The <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label" rel="noreferrer" target="_blank"><code>aria-label</code></a> attribute provides names of labels while <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription" rel="noreferrer" target="_blank"><code>aria-roledescription</code></a> provides the description for the role of an element.</p>
+<p>On very rare occasions, you may need to override <code>aria-label</code> or <code>aria-roledescription</code> to provide different names or descriptions specifically for braille. The <code>aria-braillelabel</code> and <code>aria-brailleroledescription</code> attributes provide such an ability. They exist to solve very specific needs, including educational contexts where the site needs to render the specific braille table dot pattern. If you do use braille-related ARIA attributes, be sure to test them using a braille reader. If in doubt, relying on the accessible name from content or <code>aria-label</code> / <code>aria-roledescription</code> is <a href="https://w3c.github.io/aria/#aria-braillelabel" rel="noreferrer" target="_blank">almost always the better user experience</a>. WebKit has supported these ARIA attributes for years.</p>
+<p>Now, WebKit for Safari 18 beta adds support for the <code>ariaBrailleLabel</code> and <code>ariaBrailleRoleDescription</code> element reflection properties. These make it possible to get and set the <code>aria-braillelabel</code> and <code>aria-brailleroledescription</code> ARIA attributes on DOM elements directly via JavaScript APIs, rather than by using <code>setAttribute</code> and <code>getAttribute</code>.</p>
+<h2><a name="media" rel="noreferrer" target="_blank"></a>Media</h2>
+<p>Watch video without distractions in Viewer for Safari 18 beta on macOS.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/video-viewer.webp" type="image/webp"></picture></figure>
+<p>When you play in Viewer, the video fills the Safari window, while providing full access to system playback controls. Then it automatically enters picture-in-picture anytime you switch tabs, close the window, or occlude the web page with another window. Look for Video Viewer in the new page menu in Safari whenever you are on a web page with a prominent video element.</p>
+<h3><a name="video-on-visionos" rel="noreferrer" target="_blank"></a>Video on visionOS</h3>
+<p>Safari for visionOS 2 beta adds support for docking fullscreen videos into the current <a href="https://support.apple.com/guide/apple-vision-pro/use-environments-tanb58c3cfaf/visionos" rel="noreferrer" target="_blank">Environment</a>. Anytime a user is watching a video fullscreen, they can tap  to enter a fully immersive experience. Turning the Digital Crown adjusts the immersion. Light emitted from the video reflects off of the Environment, while audio is rendered on a large soundstage.</p>
+<h3><a name="managed-media-source" rel="noreferrer" target="_blank"></a>Managed Media Source</h3>
+<p>WebKit for Safari 18 beta adds <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" rel="noreferrer" target="_blank">Workers</a> support for both Managed Media Source (MMS) and Media Source Extensions (<a href="https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API" rel="noreferrer" target="_blank">MSE</a>). This can be especially helpful on complex websites that want to ensure continuous and smooth video playback even when other site activity (such as live commenting) causes a very busy main thread. You can see the performance difference in <a href="https://jyavenard.github.io/mse-in-workers-demo/mse-in-workers-demo.html" rel="noreferrer" target="_blank">this demo</a>.</p>
+<h2><a name="webrtc" rel="noreferrer" target="_blank"></a>WebRTC</h2>
+<p>WebKit for Safari 18 beta adds support for the WebRTC HEVC RFC 7789 RTP Payload Format. Previously, the WebRTC HEVC used generic packetization instead of RFC 7789 packetization. This payload format provides a new option for improving videoconferencing, video streaming, and delivering high-bitrate movies and TV shows.</p>
+<p>WebKit for Safari 18 beta adds support for MediaStreamTrack processing in a dedicated worker. And it adds support for missing WebRTC stats.</p>
+<h2><a name="passkeys" rel="noreferrer" target="_blank"></a>Passkeys</h2>
+<p>Two years ago at WWDC22, we announced support for <a href="https://support.apple.com/guide/iphone/use-passkeys-to-sign-in-to-apps-and-websites-iphf538ea8d0/ios" rel="noreferrer" target="_blank">passkeys</a> — a groundbreaking industry-standard way to login to websites and app services. Passkeys provide people with an extremely easy user experience, while delivering a profound increase in security. To learn more, watch <a href="https://developer.apple.com/videos/play/wwdc2022/10092/" rel="noreferrer" target="_blank">Meet Passkeys</a> or read <a href="https://developer.apple.com/documentation/authenticationservices/public-private_key_authentication/supporting_passkeys" rel="noreferrer" target="_blank">Supporting passkeys</a>.</p>
+<p>WebKit for Safari 18 beta adds support for three new features as we continue to improve passkeys. First, Safari 18 beta adds support for using <code>mediation=conditional</code> for web authentication credential creation. This allows websites to  automatically upgrade existing password-based accounts to use passkeys. Learn more by watching <a href="https://developer.apple.com/videos/play/wwdc2024/10125/" rel="noreferrer" target="_blank">Streamline sign-in with passkey upgrades and credential managers</a> at WWDC24, available on Tuesday, June 11.</p>
+<p>Second, WebKit for Safari 18 beta adds support for using passkeys across related origins. This lets websites use the same passkey across a limited number of domains which share a credential backend.</p>
+<p>And third, WebKit for Safari 18 beta adds support for the WebAuthn <code>prf</code> extension. It allows for retrieving a symmetric key from a passkey to use for the encryption of user data.</p>
+<h2><a name="https" rel="noreferrer" target="_blank"></a>HTTPS</h2>
+<p>WebKit for Safari 18 beta adds support for secure HTTPS for all images, video, and audio by upgrading passive subresource requests in mixed content settings. This means that if some files for a website are served using HTTPS and some are served using HTTP (known as “mixed content”), all images and media will now be auto-upgraded to HTTPS, in adherence with <a href="https://w3c.github.io/webappsec-mixed-content/level2.html" rel="noreferrer" target="_blank">Mixed Content Level 2</a>.</p>
+<h2><a name="javascript" rel="noreferrer" target="_blank"></a>JavaScript</h2>
+<p>WebKit for Safari 18 beta adds support for <a href="https://www.unicode.org/versions/Unicode15.1.0/" rel="noreferrer" target="_blank">Unicode 15.1.0</a> characters in RegExp. Unicode 15.1 added 627 characters, bringing the total of characters to 149,813. Now, these new characters can be used in regular expressions.</p>
+<p>WebKit for Safari 18 beta also adds support for the  <code>v</code> flag with <code>RegExp.prototype[Symbol.matchAll]</code>. providing more powerful ways to match Unicode characters, as specified in the ECMAScript 2024 standard.</p>
+<p>For example, you can now specify to only match on Latin characters, while avoiding matching on Cyrillic script characters.</p>
+<pre><code class="js"><span class="keyword type">const</span> <span class="identifier">regex</span> <span class="operator">=</span> <span class="operator">/</span>\<span class="identifier">p</span>{<span class="identifier">sc</span><span class="operator">=</span><span class="identifier">Latin</span>}<span class="operator">/</span><span class="identifier">v</span>;
+<span class="identifier">console</span>.<span class="identifier">log</span>(<span class="identifier">regex</span>.<span class="identifier">test</span>(<span class="char">'A'</span>)); <span class="comment">// true, 'A' is a Latin script character
+</span><span class="identifier">console</span>.<span class="identifier">log</span>(<span class="identifier">regex</span>.<span class="identifier">test</span>(<span class="char">'А'</span>)); <span class="comment">// false, 'А' is a Cyrillic script character
+</span></code></pre>
+<p>Or split a string matching on Emojis.</p>
+<pre><code class="js"><span class="string">"a 🥰 b 🥰"</span>.<span class="identifier">split</span>(<span class="operator">/</span>[\<span class="identifier">p</span>{<span class="identifier">Emoji</span>}<span class="operator">-</span><span class="operator">-</span>\<span class="identifier">p</span>{<span class="identifier">ASCII</span>}]<span class="operator">/</span><span class="identifier">v</span>)<span class="comment">// ["a ", " b ", ""]
+</span></code></pre>
+<h2><a name="web-api" rel="noreferrer" target="_blank"></a>Web API</h2>
+<p>WebKit for Safari 18 beta adds support for <code>URL.parse()</code>, a way to parse URLs which returns null rather than an exception when parsing fails.</p>
+<pre><code class="js"><span class="comment">// Before
+</span><span class="keyword type">let</span> <span class="identifier">url</span> <span class="operator">=</span> <span class="keyword literal">null</span>;
+<span class="keyword control">try</span> {
+  <span class="identifier">url</span> <span class="operator">=</span> <span class="keyword operator">new</span> <span class="identifier">URL</span>(<span class="identifier">input</span>, <span class="identifier">base</span>);
+} <span class="keyword control">catch</span>(<span class="identifier">e</span>) { }
+
+<span class="comment">// Now
+</span><span class="keyword type">const</span> <span class="identifier">url</span> <span class="operator">=</span> <span class="identifier">URL</span>.<span class="identifier">parse</span>(<span class="identifier">input</span>, <span class="identifier">base</span>);
+</code></pre>
+<p>WebKit for Safari 18 beta expands Declarative Shadow tree support by adding the <code>shadowRootDelegatesFocus</code> and <code>shadowRootClonable</code> IDL attributes to the <code>&lt;template&gt;</code> element. It also adds the <code>shadowRootSerializable</code> attribute and <code>shadowRootSerializable</code> IDL attribute to the <code>&lt;template&gt;</code> element, enabling those using Declarative Shadow roots to opt into making them serializable. Serializing can be done through the new <code>getHTML()</code> method that has been added at the same time.</p>
+<p>WebKit for Safari 18 beta adds support for <code>PopStateEvent</code>’s <code>hasUAVisualTransition</code>, indicating whether the user agent has a visual transition in place for the fragment navigation.</p>
+<p>WebKit for Safari 18 beta adds support for subresource integrity in imported module scripts, which gives cryptographic assurances about the integrity of contents of externally-hosted module scripts.</p>
+<p>WebKit for Safari 18 beta adds support for the <code>bytes()</code> method to the <code>Request,</code> <code>Response</code>, <code>Blob</code>, and <code>PushMessageData</code> objects. This replaces the need for web developers to call <code>arrayBuffer()</code>, which can be difficult to use, and wraps the result in a <code>Uint8Array</code> . Calling <code>bytes()</code> is now the recommended way going forward when you need to access the underlying bytes of the data these objects represent.</p>
+<p>WebKit for Safari 18 beta adds support for <a href="https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection" rel="noreferrer" target="_blank">feature detecting</a> text fragments by exposing <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/fragmentDirective" rel="noreferrer" target="_blank"><code>document.fragmentDirective</code></a>. Note that the returned object (a <code>FragmentDirective</code>) doesn’t provide any functionality, but it’s helpful if you need to know if Fragment Directives are supported by the browser.</p>
+<h2><a name="canvas" rel="noreferrer" target="_blank"></a>Canvas</h2>
+<p>WebKit for Safari 18 beta adds support for the <code>willReadFrequently</code> context attribute for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/getContextAttributes" rel="noreferrer" target="_blank"><code>getContext()</code></a> method. It indicates whether or not a lot of read-back operations are planned. It forces the use of a software accelerated 2D or offscreen canvas, instead of hardware accelerated. This can improve performance when calling <code>getImageData()</code> frequently.</p>
+<p>WebKit for Safari 18 beta extends 2D canvas support for <code>currentcolor</code>. It can now be used inside <code>color-mix()</code> or Relative Color Syntax. Here <code>currentcolor</code> will default to the computed <code>color</code> property value on the <code>canvas</code> element.</p>
+<h2><a name="webgl" rel="noreferrer" target="_blank"></a>WebGL</h2>
+<p>WebKit for Safari 18 beta adds support for six new WebGL extensions:</p>
+<ul>
+<li><code>EXT_texture_mirror_clamp_to_edge</code> </li>
+<li><code>WEBGL_render_shared_exponent</code> </li>
+<li><code>WEBGL_stencil_texturing</code> </li>
+<li><code>EXT_render_snorm</code> </li>
+<li><code>OES_sample_variables</code> </li>
+<li><code>OES_shader_multisample_interpolation</code></li>
+</ul>
+<h2><a name="web-inspector" rel="noreferrer" target="_blank"></a>Web Inspector</h2>
+<p>WebKit for Safari 18 beta adds support for fuzzy search code completion in the Web Inspector’s CSS source editor.</p>
+<h2><a name="wkwebview" rel="noreferrer" target="_blank"></a>WKWebView</h2>
+<p>WebKit for iOS 18 beta, iPadOS 18 beta, visionOS 2 beta, and macOS Sequoia beta adds support for two new API — the Writing Tools API and an API to control adaptive image glyph insertion. Learn more about these API by watching <a href="https://developer.apple.com/videos/play/wwdc2024/10168/" rel="noreferrer" target="_blank">Get started with Writing Tools</a> and <a href="https://developer.apple.com/videos/play/wwdc2024/10220/" rel="noreferrer" target="_blank">Bring expression to your app with Genmoji</a> at WWDC24, both available Tuesday June 11.</p>
+<h2><a name="apple-pay" rel="noreferrer" target="_blank"></a>Apple Pay</h2>
+<p>WebKit for Safari 18 beta adds support for Apple Pay funds transfer.</p>
+<h2><a name="deprecations" rel="noreferrer" target="_blank"></a>Deprecations</h2>
+<p>While it’s rare to deprecate older technology from the web, there are occasions when it makes sense. We’ve been busy removing <code>-webkit</code> prefixed properties that were never standardized, aging media formats that were never supported in other browsers, and more. This helps align browser engines, improve interoperability, and prevent compatibility problems by reducing the possibility that a website depends on something that’s not a web standard.</p>
+<h3><a name="canvas" rel="noreferrer" target="_blank"></a>Canvas</h3>
+<p>WebKit for Safari 18 beta removes support for <code>OffscreenCanvasRenderingContext2D</code>’s <code>commit()</code> method.</p>
+<h3><a name="css" rel="noreferrer" target="_blank"></a>CSS</h3>
+<p>WebKit for Safari 18 beta deprecates support for a number of rarely used <code>-webkit</code> prefixed CSS pseudo-classes and properties — and even one <a href="https://en.wikipedia.org/wiki/KHTML" rel="noreferrer" target="_blank"><code>-khtml</code></a> prefixed property.</p>
+<ul>
+<li><code>-webkit-alt</code> and <code>alt</code> properties</li>
+<li><code>:-webkit-animating-full-screen-transition</code> pseudo-class</li>
+<li><code>:-webkit-full-screen-ancestor</code> pseudo-class</li>
+<li><code>:-webkit-full-screen-controls-hidden</code> pseudo-class</li>
+<li><code>:-webkit-full-page-media</code> pseudo-class</li>
+<li><code>:-webkit-full-screen-document</code> pseudo-class</li>
+<li><code>:-khtml-drag</code> pseudo-class</li>
+</ul>
+<p>WebKit for Safari 18 beta also deprecates support for the <code>resize: auto</code> rule. <a href="https://caniuse.com/css-resize" rel="noreferrer" target="_blank">Support for the <code>resize</code> property</a> remains, just as it’s been since Safari 4. The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize" rel="noreferrer" target="_blank">values Safari continues to support include</a>: <code>none</code>, <code>both</code>, <code>horizontal</code>, <code>vertical</code>, <code>block</code>, <code>inline</code>, plus the global values. <a href="https://www.w3.org/TR/2002/WD-css3-ui-20020802/#resizer" rel="noreferrer" target="_blank">Early versions</a> of CSS Basic User Interface Module Level 3 defined <code>auto</code>, but it was <a href="https://www.w3.org/TR/2004/CR-css3-ui-20040511/#resize0" rel="noreferrer" target="_blank">later</a> written out of the web standard.</p>
+<p>WebKit for Safari 18 beta also deprecates support for non-standardize <code>WEBKIT_KEYFRAMES_RULE</code> and <code>WEBKIT_KEYFRAME_RULE</code> API in <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSRule" rel="noreferrer" target="_blank">CSSRule</a>.</p>
+<h3><a name="images" rel="noreferrer" target="_blank"></a>Images</h3>
+<p>WebKit for Safari 18 beta removes support for the JPEG2000 image format. Safari was <a href="https://caniuse.com/jpeg2000" rel="noreferrer" target="_blank">the only browser</a> to ever provide support.</p>
+<p>If you’ve been serving JPEG2000 files using best practices, then your site is using <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture" rel="noreferrer" target="_blank">the <code>picture</code> element</a> to offer multiple file format options to every browser. Safari 18 beta will simply no longer choose JPEG2000, and instead use a file compressed in JPEG XL, AVIF, WebP, HEIC, JPG/JPEG, PNG, or Gif — choosing the file that’s best for each user. Only one image will be downloaded when you use <code>&lt;picture&gt;</code>, and the browser does all the heavy lifting.</p>
+<p>We have noticed that some Content Deliver Networks (CDN) use User Agent sniffing to provide one file to each UA, offering only JPEG2000 images to Safari — especially on iPhone and iPad. If you expect this might be happening with your site, we recommend testing in Safari 18 beta on both macOS Sequoia and iOS or iPadOS 18. If you see problems, contact your SaaS provider or change your image delivery settings to ensure your website provides fallback images using industry best practices.</p>
+<p>If you notice a broken site, please file an issue at <a href="https://webcompat.com/" rel="noreferrer" target="_blank">webcompat.com</a>.</p>
+<h3><a name="media" rel="noreferrer" target="_blank"></a>Media</h3>
+<p>WebKit for Safari 18 beta removes support for non-standard <code>VTTRegion.prototype.track</code>.</p>
+<h3><a name="storage" rel="noreferrer" target="_blank"></a>Storage</h3>
+<p>WebKit for Safari 18 beta removes the last bits of support for AppCache.</p>
+<p>When <a href="https://www.w3.org/TR/2011/WD-html5-20110525/offline.html#offline" rel="noreferrer" target="_blank">AppCache</a> first appeared in 2009, in Safari 4, it held a lot of promise as a tool for caching web pages for use offline. It was imagined as “HTML5 Application Cache” back when HTML itself was being further expanded to handle more use cases for web applications. A developer could create a simple cache manifest file with a list of files to be cached. Its simplicity looked elegant, but there was no mechanism for cache busting, and that made both developing a site and evolving the site over time quite frustrating. AppCache also had security challenges. So new web standards were created to replace it. Today, developers use Service Workers and Cache Storage instead.</p>
+<p>WebKit <a href="https://commits.webkit.org/197701@main" rel="noreferrer" target="_blank">deprecated</a> AppCache with a warning to the Console in Safari 11.0. Then in 2021, we <a href="https://commits.webkit.org/236651@main" rel="noreferrer" target="_blank">removed support</a> for AppCache from Safari 15.0, with a few exceptions for third-party users of <a href="https://developer.apple.com/documentation/webkit/wkwebview" rel="noreferrer" target="_blank">WKWebView</a>. Now we are <a href="https://bugs.webkit.org/show_bug.cgi?id=259783" rel="noreferrer" target="_blank">removing</a> those exceptions. This change to WebKit will only affect the rare web content loaded in older third-party apps that have JavaScript code which relies on the existence of AppCache related interfaces.</p>
+<h3><a name="svg" rel="noreferrer" target="_blank"></a>SVG</h3>
+<p>WebKit for Safari 18 beta removes the <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimateColorElement" rel="noreferrer" target="_blank">SVGAnimateColorElement</a> interface.</p>
+<h3><a name="web-api" rel="noreferrer" target="_blank"></a>Web API</h3>
+<p>WebKit for Safari 18 beta removes support for four non-standard Web APIs:</p>
+<ul>
+<li><code>KeyboardEvent.altGraphKey</code></li>
+<li>AES-CFB support from WebCrypto</li>
+<li><code>KeyboardEvent.prototype.keyLocation</code></li>
+<li><code>HashChangeEvent</code>’s non-standard <code>initHashChangeEvent()</code> method</li>
+</ul>
+<h2><a name="bug-fixes-and-more" rel="noreferrer" target="_blank"></a>Bug Fixes and more</h2>
+<p>In addition to all the new features, WebKit for Safari 18 beta includes work to polish existing features.</p>
+<h3><a name="accessibility" rel="noreferrer" target="_blank"></a>Accessibility</h3>
+<ul>
+<li>Fixed role assignment for <code>&lt;header&gt;</code> inside <code>&lt;main&gt;</code> and sectioning elements.</li>
+<li>Fixed range input not firing an input event when incremented or decremented via accessibility APIs.</li>
+<li>Fixed setting <code>aria-hidden</code> on a slot not hiding the slot’s assigned nodes.</li>
+<li>Fixed comboboxes to expose their linked objects correctly. </li>
+<li>Fixed time input accessibility by adding labels to subfields.</li>
+<li>Fixed <code>aria-hidden=true</code> to be ignored on the <code>&lt;body&gt;</code> and <code>&lt;html&gt;</code> elements. </li>
+<li>Fixed <code>datetime</code> values being exposed to assistive technologies in the wrong timezone. </li>
+<li>Fixed time control accessibility by adding a label to the meridiem component.</li>
+<li>Fixed wrong <code>datetime</code> value being exposed to assistive technologies for <code>datetime-local</code> inputs. </li>
+<li>Fixed ignored CSS content property replacement text when it is an empty string. </li>
+<li>Fixed the computed role for these elements: <code>dd</code>, <code>details</code>, <code>dt</code>, <code>em</code>, <code>hgroup</code>, <code>option</code>, <code>s</code>, and <code>strong</code>. </li>
+<li>Fixed hidden elements targeted by <code>aria-labelledby</code> to expose their entire subtree text, not just their direct child text. </li>
+<li>Fixed accessible name computation for elements with <code>visibility: visible</code> inside a container with <code>visibility: hidden</code>. </li>
+<li>Fixed updating table accessibility text when its caption dynamically changes. </li>
+<li>Fixed updating <code>aria-describedby</code> text after the targeted element changes its subtree.</li>
+</ul>
+<h3><a name="animations" rel="noreferrer" target="_blank"></a>Animations</h3>
+<ul>
+<li>Fixed the <code>transition</code> property to produce the shortest serialization. </li>
+<li>Fixed the <code>animation</code> property to produce the shortest serialization. </li>
+</ul>
+<h3><a name="authentication" rel="noreferrer" target="_blank"></a>Authentication</h3>
+<ul>
+<li>Fixed <code>navigator.credentials.create()</code> rejects with “NotAllowedError: Operation Failed” after a conditional UI request is aborted.</li>
+<li>Fixed renaming DigitalCredential’s <code>response</code> attribute to <code>data</code>.  </li>
+<li>Fixed setting the cancel flag once the cancel completes regardless of a subsequent request occurring. </li>
+</ul>
+<h3><a name="canvas" rel="noreferrer" target="_blank"></a>Canvas</h3>
+<ul>
+<li>Fixed <code>drawImage(detachedOffscreenCanvas)</code> to throw an exception.</li>
+<li>Fixed OffscreenCanvas failing to render to the placeholder with nested workers. </li>
+<li>Fixed losing the contents layer of the placeholder canvas of OffscreenCanvas when switching off the tab. </li>
+<li>Fixed <code>drawImage</code> to not alter the input source or the destination rectangles. </li>
+<li>Fixed toggling the visibility on a canvas parent undoing the effect of <code>clearRect()</code>. </li>
+<li>Fixed the Canvas <code>drawImage()</code> API to throw an exception when the image is in broken state. </li>
+</ul>
+<h3><a name="css" rel="noreferrer" target="_blank"></a>CSS</h3>
+<ul>
+<li>Fixed setting <code>white-space</code> to a non-default value dynamically on a whitespace or a new line.</li>
+<li>Fixed turning <code>text-spacing</code> properties into <code>font</code> properties. </li>
+<li>Fixed custom counter styles extending <code>disclosure-open</code> and <code>disclosure-closed</code> to point to the correct direction in right-to-left.  </li>
+<li>Fixed <code>backface-visibility</code> to create a stacking context and containing block. </li>
+<li>Fixed <code>getComputedStyle()</code> to work with functional pseudo-elements like <code>::highlight()</code>. </li>
+<li>Fixed: Aliased <code>:-webkit-full-screen</code> pseudo-class to <code>:fullscreen</code>. </li>
+<li>Fixed: Aliased <code>:-webkit-any-link</code> to <code>:any-link</code> and <code>:matches()</code> to <code>:is()</code>. </li>
+<li>Fixed <code>getComputedStyle()</code> pseudo-element parsing to support the full range of CSS syntax. </li>
+<li>Fixed <code>@supports</code> to correctly handle support for some <code>-webkit</code> prefixed pseudo-elements that were incorrectly treated as unsupported. </li>
+<li>Fixed updating media-query sensitive meta tags after style changes. </li>
+<li>Fixed changing color scheme to update gradients with system colors or <code>light-dark()</code>. </li>
+<li>Fixed incorrect inline element size when using <code>font-variant-caps: all-small-caps</code> with <code>font-synthesis</code>. </li>
+<li>Fixed <code>:empty</code> selector to work with animations. </li>
+<li>Fixed preserving whitespace when serializing custom properties. </li>
+<li>Fixed updating style correctly for non-inherited custom property mutations.</li>
+<li>Fixed element removed by parent to end up losing the last remembered size.</li>
+<li>Fixed an incorrect difference between implicit and explicit initial values for custom properties. </li>
+<li>Fixed the contrast of Menu and MenuText system colors.</li>
+<li>Fixed keeping the shorthand value for CSS <code>gap</code> as-is in serialized and computed values. </li>
+<li>Fixed the style adjuster for <code>@starting-style</code> incorrectly invoking with a null element. </li>
+<li>Fixed excluding <code>-apple-pay-button</code> from applying to any element that supports <code>appearance: auto</code> and is not a button. </li>
+<li>Fixed missing color interpretation methods added to CSS color specifications. </li>
+<li>Fixed <code>hsl()</code> and <code>hsla()</code> implementation to match the latest spec changes. </li>
+<li>Fixed the implementation of <code>rgb()</code> and <code>rgba()</code> to match the latest spec. </li>
+<li>Fixed the <code>hwb()</code> implementation to match the latest spec.</li>
+<li>Fixed the remaining color types to be synced with the latest spec changes.</li>
+<li>Fixed carrying analogous components forward when interpolating colors</li>
+<li>Fixed applying the fill layer pattern for <code>mask-mode</code>.</li>
+</ul>
+<h3><a name="forms" rel="noreferrer" target="_blank"></a>Forms</h3>
+<ul>
+<li>Fixed displayed <code>datalist</code> dropdown to sync its <code>options</code> elements after a DOM update. </li>
+<li>Fixed <code>&lt;select multiple&gt;</code> scrollbars to match the used color scheme. </li>
+<li>Fixed updating the input value when selecting an <code>&lt;option&gt;</code> from a <code>&lt;datalist&gt;</code> element. </li>
+<li>Fixed the value attribute not getting displayed in an <code>input</code> element with <code>type="email"</code> and the <code>multiple</code> attribute. </li>
+<li>Fixed the iOS animation for <code>&lt;input type=checkbox switch&gt;</code>. </li>
+<li>Fixed form controls drawing with an active appearance when the window is inactive. </li>
+<li>Fixed constructed FormData object to not include entries for the image button submitter by default. </li>
+</ul>
+<h3><a name="history" rel="noreferrer" target="_blank"></a>History</h3>
+<ul>
+<li>Fixed the properties of <code>History</code> to throw a SecurityError when not in a fully active Document.</li>
+</ul>
+<h3><a name="html" rel="noreferrer" target="_blank"></a>HTML</h3>
+<ul>
+<li>Fixed “about:blank” <code>document.referrer</code> initialization.</li>
+<li>Fixed parsing a self-closing SVG script element. It now successfully executes. </li>
+</ul>
+<h3><a name="javascript" rel="noreferrer" target="_blank"></a>JavaScript</h3>
+<ul>
+<li>Fixed <code>RegExp.prototype.@@split</code> to update the following legacy RegExp static properties: <code>RegExp.input</code>, <code>RegExp.lastMatch</code>, <code>RegExp.lastParen</code>, <code>RegExp.leftContext</code>, <code>RegExp.rightContext</code>, and <code>RegExp.$1, ... RegExp.$9</code>. </li>
+<li>Fixed <code>String.prototype.replace</code> to not take the fast path if the pattern is RegExp Object and the <code>lastIndex</code> is not numeric. (</li>
+<li>Fixed spec compliance for Async / Await, Generators, Async Functions, and Async Generators. </li>
+<li>Fixed async functions and generators to properly handle promises with throwing “constructor” getter. </li>
+<li>Fixed<code>return</code> in async generators to correctly <code>await</code> its value.</li>
+<li>Fixed <code>Symbol.species</code> getters to not share a single JS Function. </li>
+<li>Fixed throwing a <code>RangeError</code> if <code>Set</code> methods are called on an object with negative <code>size</code> property.</li>
+<li>Fixed <code>eval()</code> function from another realm to not cause a direct <code>eval</code> call. </li>
+<li>Fixed <code>eval()</code> call with <code>...spread</code> syntaxt to be a direct call.</li>
+<li>Fixed try/catch to not intercept errors originated in <code>[[Construct]]</code> of derived class.</li>
+<li>Fixed several issues:
+<ul>
+<li>direct <code>eval()</code> in a default value expression inside a rest parameter creates a variable in the environment of the function rather than the separate one of the parameters;</li>
+<li>a ReferenceError is thrown when accessing a binding, which is defined inside rest parameter, in <code>eval()</code>, or a closure created in a default value expression of a preceding parameter, but only if there is a <code>var</code> binding by the same name;</li>
+<li>a closure, created in the default value expression inside a rest parameter, is created in a different VariableEnvironment of the function than its counterparts in preceding parameters which causes the incorrect environment to be consulted when querying or modifying parameter names that are “shadowed” by <code>var</code> bindings.</li>
+</ul>
+</li>
+<li>Fixed TypedArray sorting methods to have a special-case for camparator returning <code>false</code>. </li>
+<li>Fixed programming style for bitwise and in setExpectionPorts.</li>
+<li>Fixed <code>emitReturn()</code> to load <code>this</code> value from arrow function lexical environment prior to the TDZ check. </li>
+<li>Fixed NFKC normalization to work with Latin-1 characters. </li>
+<li>Fixed parsing of private names with Unicode start characters. </li>
+<li>Fixed <code>instanceof</code> to not get RHS prototype when LHS is primitive.</li>
+<li>Fixed bracket update expression to resolve property key at most once.</li>
+<li>Fixed bracket compound assignement to resolve the property key at most once.</li>
+<li>Fixed <code>Object.groupBy</code> and <code>Map.groupBy</code> to work for non-objects. </li>
+<li>Fixed <code>Array.fromAsync</code> to not call the Array constructor twice. </li>
+<li>Fixed inconsistent output of <code>Function.prototype.toString</code> for accessor properties. </li>
+<li>Fixed <code>Set#symmetricDifference</code> to call <code>this.has</code> in each iteration.  </li>
+<li>Fixed logical assignment expressions to throw a syntax error when the left side of the assignment is a function call. </li>
+<li>Fixed throwing a syntax error for nested duplicate-named capturing groups in RegEx. </li>
+<li>Fixed <code>ArrayBuffer</code> and <code>SharedArrayBuffer</code> constructor to check length before creating an instance.  </li>
+<li>Fixed Intl implementation to ensure canonicalizing “GMT” to “UTC” based on a spec update.</li>
+<li>Fixed RegEx lookbehinds differing from v8. </li>
+<li>Fixed <code>fractionalDigits</code> of <code>Intl.DurationFormat</code> to be treated as at most 9 digits if it is omitted. </li>
+</ul>
+<h3><a name="loading" rel="noreferrer" target="_blank"></a>Loading</h3>
+<ul>
+<li>Fixed <code>navigator.cookieEnabled</code> to return <code>false</code> when cookies are blocked. </li>
+</ul>
+<h3><a name="media" rel="noreferrer" target="_blank"></a>Media</h3>
+<ul>
+<li>Fixed video sound coming from another window after changing tabs in the Tab Bar in visionOS. </li>
+<li>Fixed playback for MSE videos on some sites.</li>
+<li>Fixed allowing a video’s <code>currentTime</code> to be further than the gap’s start time. </li>
+<li>Fixed broken audio playback for a WebM file with a Vorbis track.</li>
+<li>Fixed <code>sampleRate</code> and <code>numberOfChanges</code> to be required and non-zero in a valid AudioEncoderConfig.</li>
+<li>Fixed media elements appending the same media segment twice.</li>
+<li>Fixedrejecting valid NPT strings if ‘hours’ is defined using 1 digit. </li>
+<li>Fixed an issue where Safari audio may be emitted from the wrong window in visionOS. </li>
+</ul>
+<h3><a name="networking" rel="noreferrer" target="_blank"></a>Networking</h3>
+<ul>
+<li>Fixed upgrading inactive or passive subresource requests and fetches in would-be mixed security contexts to match standards. </li>
+<li>Fixed incorrect <code>Sec-Fetch-Site</code> value for navigation of a nested document. </li>
+<li>Fixed loading WebArchives with a non-persistent datastore. </li>
+<li>Fixed <code>Timing-Allow-Origin</code> to not apply to an HTTP 302 response. </li>
+</ul>
+<h3><a name="pdf" rel="noreferrer" target="_blank"></a>PDF</h3>
+<ul>
+<li>Fixed print buttons with a print action implementation.</li>
+<li>Fixed Open in Preview for a PDF with a space in its name.</li>
+</ul>
+<h3><a name="rendering" rel="noreferrer" target="_blank"></a>Rendering</h3>
+<ul>
+<li>Fixed Greek uppercase transforms failing for some characters.</li>
+<li>Fixed resizing a <code>&lt;textarea&gt;</code> element with <code>1rem</code> padding.</li>
+<li>Fixed the color correctness of the color matrix filter. </li>
+<li>Fixed <code>backdrop-filter</code> to apply to the border area of an element with a <code>border-radius</code>.</li>
+<li>Fixed intrinsic inline size calculators to account for whitespace before an empty child with nonzero margins.</li>
+<li>Fixed overlapping elements with flex box when <code>height: 100%</code> is applied on nested content.</li>
+<li>Fixed incorrect grid item positioning with out-of-flow sibling.</li>
+<li>Fixed <code>break-word</code> with a float discarding text.</li>
+<li>Fixed <code>min-content</code> calculation for unstyled <code>only-child</code> inlines elements.</li>
+<li>Fixed ellipsis rendering multiple times when <code>position: relative</code> and <code>top</code> are used. </li>
+<li>Fixed a bug for inline elements inserted in reverse order after a block in a continuation.</li>
+<li>Fixed the flash of a page background-colored bar in the footer when the window is resized. </li>
+</ul>
+<h3><a name="scrolling" rel="noreferrer" target="_blank"></a>Scrolling</h3>
+<ul>
+<li>Fixed the cursor not updating as content scrolls under it on some pages. </li>
+</ul>
+<h3><a name="svg" rel="noreferrer" target="_blank"></a>SVG</h3>
+<ul>
+<li>Fixed the SVG parser to interpret “form feed” as white space.</li>
+<li>Fixed error handling for invalid filter primitive references. </li>
+<li>Fixed displaying an SVG element inside a <code>&lt;switch&gt;</code> element.</li>
+<li>Fixed SVG title to have <code>display: none</code> as the default UA style rule. </li>
+<li>Fixed the UA stylesheet for links in SVGs to apply <code>cursor: pointer</code> matching standards. </li>
+<li>Fixed returning the initial value for the SVG gradient <code>stop-color</code> if it is not rendered in the page. </li>
+<li>Fixed the SVG marker segment calculations if the marker path consists of sub-paths.</li>
+<li>Fixed <code>SVGLength</code> to sync with the WebIDL specification. </li>
+</ul>
+<h3><a name="web-animations" rel="noreferrer" target="_blank"></a>Web Animations</h3>
+<ul>
+<li>Fixed percentage transform animations when <code>width</code> and <code>height</code> are animated.</li>
+<li>Fixed updating an animation when changing the value of a <code>transform</code> property while that property is animated with an implicit keyframe. </li>
+<li>Fixed animating with <code>color-mix</code>. </li>
+</ul>
+<h3><a name="web-api" rel="noreferrer" target="_blank"></a>Web API</h3>
+<ul>
+<li>Fixed <code>cssText</code>setter to change the <code>style</code> attribute when the serialization differs.</li>
+<li>Fixed <code>history.pushState()</code> and <code>history.replaceState()</code> to ignore the <code>title</code> argument. </li>
+<li>Fixed URL text fragment directives not fully stripped from JavaScript.  </li>
+<li>Fixed <code>showPicker()</code> method to trigger suggestions from a <code>datalist</code>. </li>
+<li>Fixed <code>lang</code> attribute in no namespace to only apply to HTML and SVG elements.</li>
+<li>Fixed unnecessarily unsetting the iframe fullscreen flag. </li>
+<li>Fixed DOM Range to correctly account for CDATASection nodes. </li>
+<li>Fixed <code>getGamepads()</code> to no longer trigger an insecure contexts warning.</li>
+<li>Fixed inserting a <code>&lt;picture&gt;</code> element displaying the same image twice. </li>
+<li>Fixed throwing exceptions in navigation methods if in a detached state. </li>
+<li>Fixed a minor issue in URL’s host setter.</li>
+<li>Fixed cloning of ShadowRoot nodes following a DOM Standard clarification. </li>
+<li>Fixed GeolocationCoordinates to expose a <code>toJSON()</code> method.</li>
+<li>Fixed GeolocationPosition to expose a <code>toJSON()</code> method.</li>
+<li>Fixed setting <code>CustomEvent.target</code> when dispatching an event. </li>
+<li>Fixed <code>navigator.language</code> only returning the system language in iOS 17.4.  </li>
+<li>Fixed: Removed presentational hints from the <code>width</code> attribute for <code>&lt;hr&gt;</code>.   </li>
+</ul>
+<h3><a name="web-apps" rel="noreferrer" target="_blank"></a>Web Apps</h3>
+<ul>
+<li>Fixed resolving <code>www.</code> sub-domain for Associated Domains for all web apps. </li>
+</ul>
+<h3><a name="web-assembly" rel="noreferrer" target="_blank"></a>Web Assembly</h3>
+<ul>
+<li>Fixed initialization of portable reference typed globals.</li>
+</ul>
+<h3><a name="web-inspector" rel="noreferrer" target="_blank"></a>Web Inspector</h3>
+<ul>
+<li>Fixed font sizes in the Audits tab.</li>
+<li>Fixed expanded sections of Storage to not collapse</li>
+<li>Fixed CSS font property values marked <code>!important</code> not getting overridden when using the interactive editing controls. </li>
+<li>Fixed an issue where the Web Inspector viewport might appear cut off. </li>
+<li>Fixed runtimes to be aligned in the Audit tab.</li>
+<li>Fixed remembering the message type selection in the Console tab. </li>
+<li>Fixed autocomplete for the <code>text-indent</code> property suggesting prefixed properties instead of <code>each-line</code> or <code>hanging</code>.</li>
+<li>Fixed <code>background</code> autocompletion suggestion to include <code>repeating-conic-gradient</code>.</li>
+<li>Fixed console clearing unexpectedly when Web Inspector reopens</li>
+<li>Fixed console code completion to be case-insensitive. </li>
+<li>Fixed <code>overflow: scroll</code> elements to scroll as expected when highlighting an element from the DOM tree. </li>
+<li>Fixed showing additional Safari tabs from an iOS device in the Develop menu. </li>
+<li>Fixed Console and code editor completion not auto-scrolling the suggestion into view.  </li>
+<li>Fixed search in the DOM tree view unexpectedly chaning the text display. </li>
+<li>Fixed clicking the “goto” arrow for computed CSS when “show independent Styles sidebar” is disabled.</li>
+<li>Fixed inspectable tabs from Safari in the visionOS Simulator don’t appear in Developer menu on the host macOS.  </li>
+</ul>
+<h3><a name="web-views" rel="noreferrer" target="_blank"></a>Web Views</h3>
+<ul>
+<li>Fixed Gamepad API in WKWebView.  </li>
+<li>Fixed repainting HTML elements when their width or height change in legacy WebView.</li>
+</ul>
+<h3><a name="webrtc" rel="noreferrer" target="_blank"></a>WebRTC</h3>
+<ul>
+<li>Fixed VideoTrackGenerator writer to close when its generator track (and all its clones) are stopped. </li>
+<li>Fixed WebRTC AV1 HW decoding on iPhone 15 Pro.</li>
+<li>Fixed black stripes with screen sharing windows.</li>
+<li>Fixed black stripes with getDisplayMedia captured windows when the window is resized.</li>
+</ul>
+<h2><a name="help-us-beta-test" rel="noreferrer" target="_blank"></a>Help us Beta Test</h2>
+<p>You can test Safari 18 beta by <a href="https://developer.apple.com/support/install-beta/" rel="noreferrer" target="_blank">installing</a> the <a href="https://beta.apple.com/sp/betaprogram/" rel="noreferrer" target="_blank">beta</a> of macOS 15, iOS 18, or iPadOS 18. Or, if you’d like, you can try out Safari 18 beta on macOS Sonoma or macOS Ventura by downloading the <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">Safari 18 beta</a>, once it’s available. (Sign in using a free <a href="https://appleid.apple.com/faq" rel="noreferrer" target="_blank">Apple ID</a> to download. Installing Safari 18 beta on macOS Sonoma or macOS Ventura will replace your existing version of Safari with no way to revert to an earlier version.) You can also help test many of these features in <a href="https://developer.apple.com/safari/technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a>.</p>
+<h2><a name="feedback" rel="noreferrer" target="_blank"></a>Feedback</h2>
+<p>We love hearing from you. To share your thoughts on Safari 18 beta, find us on Mastodon at <a href="https://front-end.social/@jensimmons" rel="noreferrer" target="_blank">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis" rel="noreferrer" target="_blank">@jondavis@mastodon.social</a>. Or send a reply on X to <a href="https://twitter.com/webkit" rel="noreferrer" target="_blank">@webkit</a>. You can also <a href="https://www.linkedin.com/in/apple-webkit/" rel="noreferrer" target="_blank">follow WebKit on LinkedIn</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/" rel="noreferrer" target="_blank">feedback</a> on Safari UI (learn more about <a href="https://developer.apple.com/bug-reporting/" rel="noreferrer" target="_blank">filing Feedback</a>), or your <a href="https://bugs.webkit.org/" rel="noreferrer" target="_blank">WebKit bug report</a> about web technologies or Web Inspector. If you notice a website that seems broken in Safari, but not in other browsers, please file a report at <a href="https://webcompat.com/" rel="noreferrer" target="_blank">webcompat.com</a>. Filing issues really does make a difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> on macOS to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<p>You can also find this information in the <a href="https://developer.apple.com/documentation/safari-release-notes/" rel="noreferrer" target="_blank">Safari 18 beta release notes</a>.</p>
+<p></p>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15443/news-from-wwdc24-webkit-in-safari-18-beta/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

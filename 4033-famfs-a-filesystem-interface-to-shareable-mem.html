@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Famfs: a filesystem interface to shareable memory</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Famfs: a filesystem interface to shareable memory</h3>
+		<div>At the 2024 <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux
+Storage, Filesystem, Memory Management, and BPF Summit</a>, John Groves led
+a session on famfs, which is a filesystem he has developed that uses the
+kernel's <a href="https://docs.kernel.org/filesystems/dax.html" rel="noreferrer" target="_blank">direct-access (DAX)</a>
+mechanism to access memory that is shareable between hosts.  The discussion
+was aimed at whether a different approach should be taken and, in
+particular, whether FUSE should be used instead of implementing as an
+in-kernel filesystem.  As noted in the <a href="https://lwn.net/ml/all/20240229002020.85535-1-john@groves.net/" rel="noreferrer" target="_blank">thread</a> about his
+proposal for an LSFMM+BPF session, and the mailing-list discussions on <a href="https://lwn.net/ml/all/cover.1708709155.git.john%40groves.net/" rel="noreferrer" target="_blank">the first</a> and <a href="https://lwn.net/ml/linux-fsdevel/cover.1714409084.git.john@groves.net/" rel="noreferrer" target="_blank">second
+version</a> of his patch set, there is some skepticism that a new in-kernel
+filesystem is warranted for the use case.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/983105/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

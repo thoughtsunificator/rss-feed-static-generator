@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>AI’s Glaring Problem: API Security</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">AI’s Glaring Problem: API Security</h3>
+		<div><p>AI is revolutionizing every aspect of development, including APIs. Developers are using AI for everything from generating code to testing and API documentation. Even more importantly, APIs are an AI’s nervous system. Large language models (LLMs) use APIs to perform many of their functions. Most LLMs are also available as APIs. Unfortunately, that also means that AI is susceptible to common API security concerns.</p>
+<p>Cybersecurity firm Wallarm recently issued the <a href="https://www.wallarm.com/resources/2024-api-threatstats-tm-report" rel="noreferrer" target="_blank">2024 API ThreatStats Report</a>, an exhaustive overview of API vulnerabilities. According to Wallarm’s report, the sudden surge in LLMs and LLM-driven applications is causing a massive spike in API threats.</p>
+<p>What <strong>are</strong> some of the API security risks caused by AI, though? We’ve delved deep into Wallarm’s ThreatStat Report and some of the most recent thought leadership on the topic of AI and API security to help make sure your AI and AI-driven products are as secure as possible.</p>
+<h2 id="how-the-rise-of-ai-creates-api-security-vulnerabilities">How The Rise of AI Creates API Security Vulnerabilities</h2>
+<p>The explosion of interest in AI is creating an unprecedented <a href="https://nordicapis.com/llm-security-hinges-on-api-security/" rel="noreferrer" target="_blank">API security risk</a> in numerous ways. AIs use APIs to both send and receive data, for one thing. Meanwhile, more APIs are being created than ever before. An increasing number of those APIs are public-facing, giving cybercriminals <a href="https://nordicapis.com/can-macroservices-solve-the-issues-of-microservices/" rel="noreferrer" target="_blank">more surface area</a> to attack.</p>
+<p>As <a href="https://www.linkedin.com/in/tim-erlin/" rel="noreferrer" target="_blank">Tim Erlin</a>, VP of Product at Wallarm, puts it, “APIs are already a blind spot for most organizations, and the reality is that generative AI relies heavily on APIs. With the current pressure for organizations to roll out AI/LLM-enabled platforms quickly, security best practices often take a back seat to velocity. The rapid velocity of generative AI adoption is driving a dramatic increase in the API attack surface, into which organizations simply lack visibility. AI APIs can be vulnerable to all the same security threats as any other API, plus those that are specific to LLMs, like prompt injection. As it stands now, this AI API attack surface is creating risk with little to no accountability.”</p>
+<p>Wallarm has created its own list of cybersecurity threats related to API security risks stemming from AI. Similar to the <a href="https://nordicapis.com/a-look-at-the-owasp-api-security-top-10-2023/" rel="noreferrer" target="_blank">OWASP top ten lists</a>, <a href="https://lab.wallarm.com/introducing-the-wallarm-2024-api-threatstatstm-report/" rel="noreferrer" target="_blank">the ThreatStatsTM Top-10</a> is as follows:</p>
+<ol>
+<li>Injections: Allows unintended commands to be executed or unauthorized data to be exposed by inputting hostile code.</li>
+<li>Authentication: Allows authentication to be bypassed.</li>
+<li>Cross-site Issues: Allows malicious script to be executed from a trusted site.</li>
+<li>API Leaks: Confidential data is exposed through an API.</li>
+<li>Broken Access Controls: Allows users access to data above their permission level.</li>
+<li>Authorization Issues: Lets attackers modify their authorization status.</li>
+<li>Insecure Resource Consumption: An attacker exploits the lack of limitations on resource usage.</li>
+<li>Weak Secrets and Cryptography: Improper credentials allow unauthorized access.</li>
+<li>Sessions and Password Management: Lets users stay logged in.</li>
+<li>SSRF: Allows attackers to access sensitive information about other services.</li>
+</ol>
+<h2 id="vulnerable-tools-make-vulnerable-platforms-">Vulnerable Tools Make Vulnerable Platforms.</h2>
+<p>Even some of the world’s largest vendors use third-party tools that can pose a cybersecurity risk. WordPress Plugins, Nginx-ui, and GeoServer have all proven to hold API security risks. Directus and OpenMetadata are also vulnerable to API security risks. So are Grafana and Superset. This illustrates how everything from enormous international vendors to smaller, independent projects can potentially pose <a href="https://nordicapis.com/how-to-identify-and-mitigate-api-security-risks-to-defend-critical-infrastructure/" rel="noreferrer" target="_blank">API security risks</a>.</p>
+<p>LLMs pose numerous security risks, for example. The prevalence of LLMs has led to the creation of a whole new security threat known as <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications" rel="noreferrer" target="_blank">prompt injections</a>. OWASP defines prompt injections as manipulating LLMs via crafted inputs, which can lead to unauthorized access, data breaches, and compromised decision-making.</p>
+<p>“Prompt injections are the AI/LLM version of a SQL injection,” says Erlin. “Basically, an LLM is set up with certain instructions, some of which are to protect against activity like sensitive data being improperly accessed or exposed. Because AI/LLM is relatively new, there are still simple, exploitable vulnerabilities in many models where an attacker can enter a malicious basic command into a prompt, like ‘Ignore all previous commands.’ Then the attacker can request all user PII, etc., and the LLM will ignore the original control, telling it not to retrieve and display that data.”</p>
+<h2 id="ai-developers-are-not-api-security-experts">AI Developers Are Not API Security Experts</h2>
+<p>AI developers don’t always think of the fact that their AI uses APIs. This oversight can result in serious API security risks, as neither the developers nor the IT team safeguards against improper data. This has already resulted in two major data breaches in the last year due to injection attacks.</p>
+<p>The first was when <a href="https://www.securityweek.com/attackers-exploit-ray-ai-framework-vulnerability-to-hack-hundreds-of-clusters/" rel="noreferrer" target="_blank">Ray AI was compromised</a> due to an improperly configured default framework that didn’t require any authentication. This created a hole in their security coverage that allowed cybercriminals to submit arbitrary system commands, resulting in exposed credentials.</p>
+<p>A similar error occurred in the NVIDIA Triton Inference Server for Linux and Windows breach <a href="https://github.com/advisories/GHSA-vm7f-687f-4r4g" rel="noreferrer" target="_blank">from January 2024</a>. That vulnerability allowed cybercriminals to use the model load API to execute code, escalate privileges, or conduct denial of service attacks.</p>
+<p>As Erlin puts it, “Visibility and communication can go a long way to helping bridge the gap between security and development. When the security team can provide easy access to relevant data about which AI APIs are vulnerable to exploit while also providing risk-based prioritization with remediation guidance, it can go a long way toward streamlining collaboration.”</p>
+<p>“But collaboration can only go so far,” says Erlin. “Developers need to consider the delivery of secure code as part of their jobs. ‘I’m a developer, not security’ should be a request for help, not an excuse.”</p>
+<h2 id="examples-of-ai-api-security-risks">Examples of AI API Security Risks</h2>
+<p>APIs used by AIs are not always as secure as they should be. This means it’s sometimes possible to bypass the authorization entirely. For example, in February 2024, it <a href="https://github.com/advisories/GHSA-37j2-h4x2-rp3v" rel="noreferrer" target="_blank">came to light</a> that an OAuth2 Client using <code>client_secret_jwt</code> as its authentication method was able to bypass the authorization flow entirely. Other breaches stemmed from access control issues, resulting in malicious actors getting access to things they shouldn’t.</p>
+<p>Wallarm API ThreatStats Report concludes with three examples of data breaches involving AI from Q1 2024. The fact that millions of records have been exposed from enormous multinational corporations like Goodyear and Airbus should tell you all you need to know about the severity of the API security issue for AI.</p>
+<h3 id="zenml-takeover">ZenML Takeover</h3>
+<p>The ZenML Takeover has been one of the year’s most significant data breaches. It’s also one of the most alarming, given the attack’s simplicity and the severity of its consequences. In the ZenML Takeover, attackers targeted an endpoint intended for AI/ML operations, which could be exploited by sending an existing username with a new password. It’s a prime example of how cybercriminals are targeting resources meant for AI and machine learning and the potential risks that can stem as a result.</p>
+<h3 id="nvidia-ai-platform-vulnerability">NVIDIA AI Platform Vulnerability</h3>
+<p>NVIDIA is a widespread component of distributed AI services. The second largest API breach related to AI is a warning of what could happen when an AI tool gets compromised. The NVIDIA AI platform breach allowed cybercriminals access to remote files with potentially disastrous consequences. This security flaw, known as path traversal, could have resulted in code execution, denial of service, escalation of privileges, information disclosure, and data tampering. It’s a perfect example of why we need to ensure AI tools are secure going forward.</p>
+<h3 id="hail-oauth2-bypass">Hail OAuth2 Bypass</h3>
+<p>The third and final AI data breach mentioned by Wallarm involved an authentication error. Hail, a popular Python-based tool for data analysis, allowed attackers to illicitly create accounts and then match them to the target organization’s domain. This vulnerability could have potentially led to the creation of Azure admin accounts. The Hail OAuth2 Bypass illustrates the need for good validation and verification processes. It’s also a warning of what can happen when a popular tool becomes compromised.</p>
+<h2 id="how-to-improve-api-security-for-your-ai">How To Improve API Security For Your AI</h2>
+<p>Vulnerable APIs can put every level of an organization at risk of attack. A multi-tiered approach to cybersecurity helps to neutralize this threat. Wallarm recommends using continuous vulnerability management, adopting proactive defense mechanisms, and implementing a company-wide culture of security awareness.</p>
+<p>That said, certain tools used in cybersecurity management tools like FortiSIEM and Grafana have themselves been susceptible to security issues. Vulnerabilities in Fortinet FortiSIEM allowed attackers to conduct remote code execution in other browsers, for example. <a href="https://grafana.com/security/security-advisories/" rel="noreferrer" target="_blank">Grafana’s been struggling</a> with security issues for years, ranging from cross-site scripting to broken access control. This creates what Wallarm calls <em>the vulnerability loop</em>, where cybersecurity tools used for API security are themselves security risks. Therefore, be careful regarding the <a href="https://nordicapis.com/8-ai-driven-threat-detection-tools/" rel="noreferrer" target="_blank">cybersecurity tools</a> in use.</p>
+<p>Some APIs can do a lot of damage, like deleting an entire inbox for example. To help ensure your AI is as secure as possible, start by <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">listing all APIs</a> that could put your organization at risk. Then, you can put those APIs into an API security workflow, like triggering <a href="https://nordicapis.com/8-apis-for-two-factor-authentication/" rel="noreferrer" target="_blank">two-factor authentication</a> for certain risky API calls, for example. Be careful not to overdo it with the authorizations, though, as you don’t want to annoy your users.</p>
+<h2 id="final-thoughts-on-ai-and-api-security">Final Thoughts on AI and API Security</h2>
+<p>AI isn’t going anywhere. That means APIs are only going to become more prevalent. This could result in a major cybersecurity cataclysm if we’re not careful. There have already been more data breaches due to lapses in API security since Wallarm published their report, says Erlin. For example, the Ticketmaster data breach exposed over 560 million accounts. The <a href="https://cybernews.com/security/pandabuy-data-breach/" rel="noreferrer" target="_blank">PandaBuy Data Breach</a> exposed 1.3 million accounts. The <a href="https://lab.wallarm.com/personal-information-of-49-million-customers-compromised-due-to-latest-api-abuse/" rel="noreferrer" target="_blank">Dell data breach</a> exposed 49 million user’s personal information.</p>
+<p>Thankfully, there are techniques developers can use to avoid some of these risks going forward. “Discovery, visibility, active protection, and rapid response capabilities are all important,” says Erlin. “But shifting left and implementing API security testing in production and CI/CD environments can help promote a more collaborative approach to API and application security into the software development lifecycle.” In addition to securing AI APIs, understanding the <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" rel="noreferrer" target="_blank">OWASP Top 10 for Large Language Model Applications</a> is a good starting point, he adds.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/ais-glaring-problem-api-security/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

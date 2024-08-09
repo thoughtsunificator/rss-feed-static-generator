@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WebKit Features in Safari 17.6</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">WebKit Features in Safari 17.6</h3>
+		<div><p>This update to Safari is the seventh release of Safari 17.x. With one feature and seven bug fixes, Safari 17.6 focuses on getting important changes into the hands of your users today.</p>
+<h2>Safe alignment in Flexbox</h2>
+<p><a href="https://webkit.org/blog/15443/news-from-wwdc24-webkit-in-safari-18-beta/" rel="noreferrer" target="_blank">Announced at WWDC</a> and first seen in Safari 18 beta, the <code>safe</code> keyword for alignment in Flexbox is now arriving in WebKit for Safari 17.6. This provides a mechanism for refining how flex items overflow. Let’s look at an example of a simple navigation menu — a classic use of Flexbox.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="keyword">nav</span> <span class="keyword attribute">aria-label</span>=<span class="attribute value string">"main"</span>&gt;</span><span class="tag">&lt;<span class="keyword">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/us"</span>&gt;</span>U.S.<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/business"</span>&gt;</span>Business<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/investigations"</span>&gt;</span>Investigations<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/style"</span>&gt;</span>Style<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/tech"</span>&gt;</span>Tech<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="keyword">li</span>&gt;</span><span class="tag">&lt;<span class="keyword">a</span> <span class="keyword attribute">href</span>=<span class="attribute value string">"/world"</span>&gt;</span>World<span class="tag">&lt;/<span class="keyword">a</span>&gt;</span><span class="tag">&lt;/<span class="keyword">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="keyword">ul</span>&gt;</span><span class="tag">&lt;/<span class="keyword">nav</span>&gt;</span>
+</code></pre>
+<p>The following CSS creates a simple layout that wraps when there’s not enough space on one line for the menu, while centering the items in the available space.</p>
+<pre><code class="css"><span class="keyword">header</span> <span class="keyword">nav</span> {
+  <span class="attribute">display</span>: <span class="identifier">flex</span>;
+  <span class="attribute">flex-flow</span>: <span class="identifier">wrap</span>;
+  <span class="attribute">gap</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+  <span class="attribute">justify-content</span>: <span class="identifier">center</span>; <span class="comment">/* centers the items in the available space */</span>
+}
+</code></pre>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/flex-menu-dark.png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>By default, <code>justify-content: center</code> will always keep the items centered, even when the content is overflowing the containing box. You might prefer, however, that the content not be centered when it overflows — being centered cuts off both the beginning and end of the word, making the content harder to understand when the overflow is not visible.</p>
+<figure><picture><source srcset="https://webkit.org/wp-content/uploads/flex-safe-dark.png" media="(prefers-color-scheme: dark)"></picture><figcaption>Compare <code>justify-content: center</code> without and with the <code>safe</code> keyword in <a href="https://codepen.io/jensimmons/pen/qBGObXe?editors=1100" rel="noreferrer" target="_blank">this demo</a>.</figcaption></figure>
+<p>The <code>safe</code> keyword lets you change how alignment works when content overflows. The <code>justify-content: safe center</code> rule will instead start align any item that is overflowing, while continuing to center the items that are not overflowing.</p>
+<p>If you want to override the <code>safe</code> keyword, you can use <code>unsafe</code>. The <code>justify-content: unsafe center</code> rule will do the same thing as <code>justify-content: center</code>. The <code>unsafe</code> keyword has been supported in WebKit for Safari for quite some time.</p>
+<h2>Bug Fixes</h2>
+<p>WebKit for Safari 17.6 includes work polishing existing features.</p>
+<h3>Media</h3>
+<ul>
+<li>Fixed firing <code>loadeddata</code> events for <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> on page load. (124079735) (FB13675360)  </li>
+<li>Fixed multiple cases of audio distortion occurring when using AudioWorklets. (128551401)  </li>
+</ul>
+<h3>PDF</h3>
+<ul>
+<li>Fixed PDF previews appearing tiny in the top left corner. (125796665)  </li>
+</ul>
+<h3>Rendering</h3>
+<ul>
+<li>Fixed scrolling of content overflowing a flex item in an end-aligned flex container. (131201271)  </li>
+</ul>
+<h3>Safari Web Extensions</h3>
+<ul>
+<li>Fixed an issue where Safari Web Extension background pages would stop responding after about 30 seconds. (127681420)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<ul>
+<li>Fixed showing additional Safari tabs from an iOS device in the Develop menu. (124876362)  </li>
+</ul>
+<h3>WebRTC</h3>
+<ul>
+<li>Fixed <code>navigator.mediaDevices.getDisplayMedia()</code> in WKWebView. (128988615)  </li>
+</ul>
+<h2>Updating to Safari 17.6</h2>
+<p>Safari 17.6 is available on <a href="https://www.apple.com/ios/ios-17/" rel="noreferrer" target="_blank">iOS 17.6</a>, <a href="https://www.apple.com/ipados/ipados-17/" rel="noreferrer" target="_blank">iPadOS 17.6</a>, <a href="https://www.apple.com/macos/sonoma/" rel="noreferrer" target="_blank">macOS Sonoma 14.6</a>, macOS Ventura, macOS Monterey and in visionOS 1.3.</p>
+<p>If you are running macOS Ventura or macOS Monterey, you can update Safari by itself, without updating macOS. On macOS Ventura, go to  &gt; System Settings &gt; General &gt; Software Update and click “More info…” under Updates Available.</p>
+<p>To get the latest version of Safari on iPhone, iPad, or Apple Vision Pro, go to Settings &gt; General &gt; Software Update, and tap to update.</p>
+<h2>Feedback</h2>
+<p>We love hearing from you. To share your thoughts on Safari 17.6, find us on Mastodon at <a href="https://front-end.social/@jensimmons" rel="noreferrer" target="_blank">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis" rel="noreferrer" target="_blank">@jondavis@mastodon.social</a>. Or send a reply on X to <a href="https://twitter.com/webkit" rel="noreferrer" target="_blank">@webkit</a>. You can also <a href="https://www.linkedin.com/in/apple-webkit/" rel="noreferrer" target="_blank">follow WebKit on LinkedIn</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/" rel="noreferrer" target="_blank">feedback</a> on Safari UI (learn more about <a href="https://developer.apple.com/bug-reporting/" rel="noreferrer" target="_blank">filing Feedback</a>), or your <a href="https://bugs.webkit.org/" rel="noreferrer" target="_blank">WebKit bug report</a> about web technologies or Web Inspector. If you notice a website that seems broken in Safari, but not in other browsers, please file a report at <a href="https://webcompat.com/" rel="noreferrer" target="_blank">webcompat.com</a>. Filing issues really does make a difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> on macOS to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<p>You can also find this information in the <a href="https://developer.apple.com/documentation/safari-release-notes/" rel="noreferrer" target="_blank">Safari 17.6 release notes</a>.</p>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15739/webkit-features-in-safari-17-6/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

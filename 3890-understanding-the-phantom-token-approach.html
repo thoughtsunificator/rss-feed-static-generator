@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Understanding The Phantom Token Approach</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Understanding The Phantom Token Approach</h3>
+		<div><p>One of the main balancing games in the API space is the balance between efficiency and privacy. The most efficient system in the world exposes everything, minimizing the level of exchange and conversion that is necessary in a system. The most private system in the world has everything behind lock and key, which introduces substantial inefficiency at scale, slowing the system and ultimately resulting in a costly effort for minimal work done.</p>
+<p>Balancing these two attributes is a complex question. Below, we’ll discuss one such solution in the world of authorization: the Phantom Token Approach. This powerful pattern unlocks great efficiency — but how does it work, exactly, and where did it come from?</p>
+<h2 id="what-is-the-phantom-token-approach-">What is the Phantom Token Approach?</h2>
+<p>Phantom Tokens are a relatively <a href="https://curity.io/resources/learn/phantom-token-pattern/" rel="noreferrer" target="_blank">new approach to tokens</a> offered within the OAuth security flow. They’re designed to be more privacy-preserving. In essence, Phantom Tokens are meant to combine the benefits of opaque tokens and JWTs, two different token types in OAuth. Therefore, let’s first define the pros and cons of these other token types to understand why Phantom Tokens are so necessary.</p>
+<h3 id="opaque-tokens">Opaque Tokens</h3>
+<p>Opaque tokens are a <a href="https://curity.io/resources/learn/phantom-token-pattern/" rel="noreferrer" target="_blank">type of token represented as a random string</a>. Because this string is random, no meaning can be extrapolated by any other system or user — this lack of context means that its purpose is entirely opaque. While a certain amount of metadata is connected to the token, this information is not contained within the token itself. It is thus meta-contextual information that can only be gleaned through authorization server introspection. During the process of introspection, information can be returned through an internal endpoint, which provides more context about the token and its data.</p>
+<p>While this creates a level of privacy, it does introduce cost. This kind of token is often referred to as passing a token by reference, and this referencing carries its own cost to the authorization server and, by means of the back and forth in such a flow, the infrastructure itself.</p>
+<ul>
+<li><strong>Privacy</strong>: Private; context is obfuscated and only discoverable via contextual introspection.</li>
+<li><strong>Efficiency</strong>: Inefficient; context is only gleaned through contextual conversation with <a href="https://nordicapis.com/what-is-the-difference-between-authentication-and-authorization/" rel="noreferrer" target="_blank">authorization servers</a>.</li>
+</ul>
+<h3 id="jwt-tokens">JWT Tokens</h3>
+<p>JSON Web Tokens (JWTs) are designed to get around this additional load and limitation of context. A JWT (often said aloud as “jot”) is compact and highly efficient. A JWT <a href="https://oauth.net/2/jwt-access-tokens/" rel="noreferrer" target="_blank">contains resources and contextual data</a> that can be used by the system to make an authorization decision. Notably, this <a href="https://nordicapis.com/why-cant-i-just-send-jwts-without-oauth/" rel="noreferrer" target="_blank">typically includes a lot more contextual data</a>, meaning that the cross-talk with authorization servers is significantly lower than in the opaque token type.</p>
+<p>This introduces some issues, however. While JWTs are much more efficient, this efficiency comes through bundled data. While JWTs can be encrypted, it still contains the data in question, resulting in a lower level of privacy in theory. JWT tokens are often referred to as passing a token by value, with the value being the meta-contextual information that otherwise was obfuscated in the opaque system. While there are mechanisms that protect the integrity of the data — notably the signing of content that prevents tampering —these only protect the integrity of the data rather than the data itself.</p>
+<ul>
+<li><strong>Privacy</strong>: Not private; context is included within the token itself, resulting in surfacing that undermines security.</li>
+<li><strong>Efficiency</strong>: Efficient; context is included, meaning communication can be limited by including context in the token itself.</li>
+</ul>
+<h3 id="the-phantom-token-paradigm">The Phantom Token Paradigm</h3>
+<p>The Phantom Token is <a href="https://ldapwiki.com/wiki/Wiki.jsp?page=Phantom%20Token%20Flow" rel="noreferrer" target="_blank">thus a hybrid approach</a> that attempts to provide the efficiency of a JWT with the privacy of an opaque token. The Phantom Token makes some assumptions based on the typical structure of an <a href="https://nordicapis.com/oauth-a-breakdown-for-beginners/" rel="noreferrer" target="_blank">OAuth flow</a> within an API. Principally, it assumes that there is a gateway or reverse proxy as a middleware within the authorization flow, a design that is all but required within most OAuth instances. By using this intermediary to do some conversion, we can make for a more private pattern.</p>
+<p>This works by pairing opaque and JWT tokens. The opaque token is the token issued to the end-user or public application — this is the external-facing token and is the one carried by the application, whatever form that application may take. When making a request, the application passes this opaque token into the system. A middleware solution, say an <a href="https://nordicapis.com/should-you-use-an-api-gateway-or-service-mesh/" rel="noreferrer" target="_blank">API Gateway</a>, then takes this token and utilizes an internal introspection endpoint to convert it to a JWT token. This JWT token is then used in its place internally and is passed upstream.</p>
+<p>This is where the term Phantom Token comes from. To the end user, the only known token is the Opaque one, and without the contextual information it provides, it might as well be any random number. Internally, however, the quick exchange into a JWT token makes for a kind of Phantom Token that the end user is unaware of but nonetheless carries the context and data necessary to make more efficient requests internally.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-oauth-enables-a-zero-trust-architecture/" rel="noreferrer" target="_blank">How OAuth Enables a Zero-Trust Architecture</a></div>
+<h2 id="benefits-of-using-a-phantom-token">Benefits of Using a Phantom Token</h2>
+<p>The Phantom Token may make some assumptions that are somewhat restrictive to the end user. Notably, it requires some sort of middleware. But in exchange, it unlocks significant benefits. Phantom Tokens combine the best of Opaque Tokens and JWTs by the nature of the fact that they use both. By combining these systems, the ultimate exchange flow results in a system that grants the privacy of the Opaque token with the efficiency to internal services of the JWT token. This efficiency is incredibly important to the overall flow requirements and can fundamentally change the nature of the <a href="https://nordicapis.com/why-identity-control-is-crucial-to-secure-api-access/" rel="noreferrer" target="_blank">API authorization</a> flow by orders of magnitude at scale.</p>
+<p>Notably, the adoption of Phantom Tokens also results in improved consistency across services. Since JWTs expose data and context that can be used to formalize the structure of data across services within a larger system, the use internally of JWTs is significant, allowing for efficiency and scalable interactions that are predictable. Additional data can always be added to the JWT internally without exposing this data to the external user, promoting extensibility without necessarily introducing issues to the end user.</p>
+<p>Ultimately, Phantom Tokens are the best of both worlds, and if your system is designed in a way that works with the pattern, it can be an incredibly powerful solution that boosts efficiency, scalability, and extensibility.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>What do you think of the Phantom Token approach? Are there other patterns that should be discussed within this context? Let us know below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/understanding-the-phantom-token-approach/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

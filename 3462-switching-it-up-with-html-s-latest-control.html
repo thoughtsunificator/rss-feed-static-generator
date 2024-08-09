@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Switching It Up With HTML’s Latest Control</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Switching It Up With HTML’s Latest Control</h3>
+		<div><p>The web is no stranger to taking HTML elements and transforming them to look, act, and feel like something completely different. A common example of this is the switch, or toggle, component. We would hide a checkbox beneath several layers of styles, define the ARIA role as “switch,” and then ship. However, this approach posed certain usability issues around indeterminate states and always felt rather icky. After all, as the saying goes, <em>the best ARIA is no ARIA</em>.</p>
+<p>Well, there is new hope for a native HTML switch to catch on.</p>
+<p>Safari Technology Preview (TP) 185 and Safari 17.4 released with an under-the-radar feature, a <a href="https://webkit.org/blog/15054/an-html-switch-control/" rel="noreferrer" target="_blank">native HTML switch control</a>. It evolves from <a href="https://www.wufoo.com/guides/custom-radio-buttons-and-checkboxes/" rel="noreferrer" target="_blank">the hidden-checkbox approach</a> and aims to make the accessibility and usability of the control more consistent.</p>
+<div>
+<pre><code>&lt;!-- This will render a native checkbox --//&gt;
+&lt;input type="checkbox" /&gt;
+
+&lt;!-- Add the <code>switch</code> attribute to render a switch element --//&gt;
+&lt;input type="checkbox" switch /&gt;
+&lt;input type="checkbox" checked switch /&gt;
+</code></pre>
+</div>
+
+<p></p>
+<p>Communication is one aspect of the control’s accessibility. Earlier in 2024, there were issues where the <a href="https://front-end.social/@alvaromontoro/111763578202895753" rel="noreferrer" target="_blank">switch would not adjust to page zoom levels properly</a>, leading to poor or broken visibility of the control. However, at the time I am writing this, Safari looks to have resolved these issues. Zooming retains the visual cohesion of the switch.</p>
+<p>The <code>switch</code> attribute seems to take accessibility needs into consideration. However, this doesn’t prevent us from using it in inaccessible and unusable ways. As mentioned, mixing the <code>required</code> and <code>indeterminate</code> properties between switches and checkboxes can cause unexpected behavior for people trying to navigate the controls. Once again, Adrian sums things up nicely:</p>
+<blockquote>“The <code>switch</code> role does not allow mixed states. Ensure your switch never gets set to a mixed state; otherwise, well, problems.”<br><br>— Adrian Roselli</blockquote>
+
+
+
+<h3>Internationalization (I18N): Which Way Is On?</h3>
+<p>Beyond the accessibility of the switch control, what happens when the switch interacts with different writing modes?</p>
+<p>When creating the switch, we had to ensure the use of logical CSS to support different writing modes and directions. This is because a switch being in its right-most position (or inline ending edge) doesn’t mean “on” in some environments. In some languages — e.g., those that are written right-to-left — the left-most position (or inline starting edge) on the switch would likely imply the “on” state.</p>
+<p>While we should be writing logical CSS by default now, the new switch control removes that need. This is because the control will adapt to its nearest <code>writing-mode</code> and <code>direction</code> properties. This means that in left-to-right environments, the switch’s right-most position will be its “on” state, and in right-to-left environments, its left-most position will be the “on” state.</p>
+<p>See the Pen <a href="https://codepen.io/smashingmag/pen/YzbWdGv" rel="noreferrer" target="_blank">Safari Switch Control - Styling [forked]</a> by <a href="https://codepen.io/DanielYuschick" rel="noreferrer" target="_blank">@DanielYuschick</a>.</p>
+Final Thoughts
+<p>As we continue to push the web forward, it’s natural for our tools to evolve alongside us. The switch control is a welcome addition to HTML for eliminating the checkbox hacks we’ve been resorting to for years.</p>
+<p>That said, combining the checkbox and switch into a single input, while being convenient, does raise some concerns about potential markup combinations. Despite this, I believe this can ultimately be resolved with linters or by the browsers themselves under the hood. </p>
+<p>Ultimately, <strong>having a native approach to switch components can make the accessibility and usability of the control far more consistent</strong> — assuming it’s ever supported and adopted for widespread use.</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/05/switching-it-up-html-latest-control/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

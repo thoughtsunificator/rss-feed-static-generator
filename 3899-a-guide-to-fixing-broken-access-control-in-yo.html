@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A Guide to Fixing Broken Access Control in Your APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">A Guide to Fixing Broken Access Control in Your APIs</h3>
+		<div><p>Saying that APIs are everywhere and more numerous than ever before is a bit of a tautology. The now-defunct website Programmable Web charted the exponential growth of public APIs in the early 2010s, which reached over 20,000 APIs, not including enterprise APIs deployed internally. Recently, Gartner revealed the API management market grew by 17% in 2022 to $3.3 billion in revenue, making it the fourth-fastest-growing segment of the application infrastructure and middleware market. Cloudflare’s 2024 API Security and Management Report reveals well over half of internet traffic is now API requests.</p>
+<p>The World Bank itself, not a tech organization, <a href="https://wdr2021.worldbank.org/spotlights/the-potential-of-open-data-to-help-businesses/" rel="noreferrer" target="_blank">estimates</a> the gross value added from public data to range from 0.4 percent to 1.4 percent of GDP. “For example, Denmark’s open access dataset of addresses generated direct economic benefits of €62 million between 2005 and 2009, returning the €2 million (roughly DKr 15 million) cost of investments in data many times over.” These findings are significant for the API economy, as open data is an API-driven way to share data.</p>
+<p>There are many reasons why we are seeing significant growth around APIs. For one, APIs promote a cleaner architectural approach to application development. Secondly, initiatives across sectors like open banking, finance, insurance, and healthcare are fueling the need for more APIs. Lastly, the digitization of <a href="https://nordicapis.com/5-examples-of-apis-we-use-in-our-everyday-lives/" rel="noreferrer" target="_blank">every aspect of our lives</a> is contributing to the need for more APIs.</p>
+<p>So, that’s good news, right? Well, yes, it’s become easier to develop appealing apps to a broader range of constituents. Time-to-market has gone down drastically. Companies can address new customer requirements quickly and innovate even faster.</p>
+<p>But… There’s a but, right? With every new tool and paradigm come new security threats. These threats often involve broken access control. It’s no surprise then to see that the #1 threat on OWASP’s Top Ten list is <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" rel="noreferrer" target="_blank">A01:2021 – Broken Access Control</a> and that the #1 threat on OWASP’s Top 10 API Security Risks is <a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" rel="noreferrer" target="_blank">API1:2023 – Broken Object Level Authorization</a>. Let’s dive into the challenge and see how we can solve it.</p>
+<h2 id="what-s-owasp-and-the-owasp-top-ten-">What’s OWASP and the OWASP Top Ten?</h2>
+<p>The Open Worldwide Application Security Project (OWASP) is an online community that produces freely available articles, methodologies, documentation, tools, and technologies in the fields of IoT, system software, and web application security. The OWASP Top 10 is a standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications.</p>
+<p>More specifically, the <a href="https://owasp.org/www-project-api-security/" rel="noreferrer" target="_blank">OWASP API Security Project</a> seeks to provide value to software developers and security assessors by underscoring the potential risks in insecure APIs and illustrating how to mitigate these risks. To facilitate this goal, the OWASP API Security Project creates and maintains a Top 10 API Security Risks document and a documentation portal for best practices when creating or assessing APIs.</p>
+<h3 id="authorization-related-api-threats">Authorization-Related API Threats</h3>
+<p>Broken Object Level Authorization (<a href="https://nordicapis.com/what-is-broken-object-level-authorization-and-how-to-fix-it/" rel="noreferrer" target="_blank">BOLA</a>) is not the only threat APIs face. Consider also:</p>
+<ul>
+<li>API3:2023 – Broken Object Property Level Authorization</li>
+<li>API5:2023 – Broken Function Level Authorization</li>
+<li>API6:2023 – Unrestricted Access to Sensitive Business Flows</li>
+<li>API7:2023 – Server Side Request Forgery</li>
+</ul>
+<div id="attachment_20033" class="wp-caption aligncenter"><p id="caption-attachment-20033" class="wp-caption-text"><a href="https://identiverse.com/idv24/session/2089495/" target="_blank" rel="noreferrer">source</a>&nbsp;| <a href="https://www.slideshare.net/slideshow/navigating-the-intersection-iam-and-owasp-in-the-cybersecurity-landscape-identiverse-2024/269726933" rel="noreferrer" target="_blank">slides</a></p></div>
+<h2 id="the-fix-a-combination-of-a-protective-layer-authentication-and-authorization">The Fix? A Combination of a Protective Layer, Authentication, and Authorization</h2>
+<p>To address API security efficiently, we need to use a combination of components:</p>
+<ul>
+<li>An API gateway, firewall, or proxy</li>
+<li>An authentication layer, either embedded in the gateway or as its own identity provider</li>
+<li>An authorization layer, either embedded in the gateway or as its own authorization service</li>
+</ul>
+<p>The first step is to deploy our API. Imagine we have an <a href="https://nordicapis.com/10-examples-of-open-banking-apis/" rel="noreferrer" target="_blank">open banking API</a>. We’ve just exposed it, and as it stands, it’s “naked,” entirely exposed to the outside world. What protection it has is baked into the application or the underlying framework used (such as <a href="https://spring.io/guides/tutorials/rest" rel="noreferrer" target="_blank">Java Spring</a>). As a result, the endpoint is exposed to threats like DoS, payload poisoning, and other content-level attacks.</p>
+<p>Let’s introduce an API gateway such as the <a href="https://www.broadcom.com/products/software/api-management/layer7-api-gateways" rel="noreferrer" target="_blank">Broadcom Layer7 API Gateway</a>. Gateways provide an extensible, scalable, high-performance way to connect your most important data and applications via APIs across any combination of cloud, container, or on-premises environments.</p>
+<div id="attachment_20034" class="wp-caption aligncenter"><p id="caption-attachment-20034" class="wp-caption-text">An unprotected API</p></div>
+<div id="attachment_20035" class="wp-caption aligncenter"><p id="caption-attachment-20035" class="wp-caption-text">Inserting an API gateway in front of the API</p></div>
+<p>The API gateway will take care of the core security challenges APIs face. It can also handle basic authentication and some levels of authorization. Nowadays, with the progress made by <a href="https://oauth.net/2/" rel="noreferrer" target="_blank">IETF on OAuth</a>, and with a mature set of OAuth tools (authorization servers), we can also tackle authentication better.</p>
+<h2 id="applying-standards-based-authentication-to-apis">Applying Standards-Based Authentication to APIs</h2>
+<p>When it comes to authentication, several standards can help. The most prevalent and modern is, of course, OAuth 2.0 and the authentication-specific profile, OpenID Connect. <a href="https://nordicapis.com/oauth-a-breakdown-for-beginners/" rel="noreferrer" target="_blank">OAuth 2.0</a> will enable user authentication, delegation, impersonation, and many more use cases. OAuth comes with <a href="https://nordicapis.com/8-types-of-oauth-flows-and-powers/" rel="noreferrer" target="_blank">different authentication flows</a>, each of which is tailored to specific use cases:</p>
+<ul>
+<li>Authorization Code Flow</li>
+<li>Client Credentials Flow</li>
+<li>Client Initiated Backchannel Authentication Flow (CIBA)</li>
+<li>Hybrid Flow</li>
+<li>JWT Bearer Flow</li>
+<li>Device Flow</li>
+</ul>
+<p>Regarding APIs, you’ll need your API client (maybe your app backend) to send the user’s token (an opaque access token or perhaps a JWT token). That token comes from the Authorization Server and is the result of the end-user running through the authentication ceremony (such as an <a href="https://curity.io/resources/learn/oauth-code-flow/" rel="noreferrer" target="_blank">Authorization Code Flow in OAuth 2.0</a>). There are different ways to handle authentication. For instance, the token used could be the user’s actual token (Access Token, JWT, or even ID), or the call to the API could use a system-to-system token (e.g., Client Credentials). That’s largely up to the architecture team to decide. When configuring the authorization layer, ensure you know where to find the end-user’s identity so the authorization layer can leverage it.</p>
+<p>Note that the authentication dance is sometimes referred to as the RS/AS pattern (resource server/authorization server) within OAuth 2.0. That pattern does allow for some degree of coarse-grained authorization through the use of scopes and claims. There is additional ongoing work happening within IETF to produce a new type of token called the <a href="https://datatracker.ietf.org/doc/draft-ietf-oauth-transaction-tokens/" rel="noreferrer" target="_blank">transaction token</a> that can help with authorization.</p>
+<div id="attachment_20036" class="wp-caption aligncenter"><p id="caption-attachment-20036" class="wp-caption-text">Delegating authentication from an API gateway to a dedicated OAuth Authorization Server (AS)</p></div>
+<p>The net result of running the authentication step is that we now know who we’re dealing with: we know who the actual end-user is. This is the outcome of this step, and the most critical input into the following step: authorization.</p>
+<h2 id="applying-standards-based-authorization-to-apis">Applying Standards-Based Authorization to APIs</h2>
+<p>So we know who you are! It’s now time to figure out what you can do. That’s the goal of the authorization step.</p>
+<div id="attachment_20037" class="wp-caption aligncenter"><p id="caption-attachment-20037" class="wp-caption-text">Delegating authorization from an API gateway to a dedicated Policy Decision Point (PDP)</p></div>
+<p>Fortunately, the folks at OASIS XACML and NIST have published an architecture that has now become the standard pattern for externalized/fine-grained authorization. The main components are:</p>
+<ul>
+<li><strong>The Policy Enforcement Point (PEP)</strong>: The PEP intercepts the call between the client and the targeted system (API, application, or database). It creates an authorization request (a yes/no question) from the intercepted call and sends it to the PDP. When the PDP replies, it enforces the decision the PDP gave. This is where the API gateway comes into play.</li>
+<li><strong>The Policy Decision Point (PDP)</strong>: The PDP is the brains of the operation. The PDP looks at the request it receives from the PEP, evaluates it against the policies it’s been configured with, retrieves missing metadata from the PIP, and produces a decision, either of Permit or Deny. It can also return a statement along with the decision (such as requiring MFA).</li>
+<li><strong>The Policy Administration Point (PAP)</strong>: The PAP is the control plane and does not play any part at runtime. Policies are written and managed in the PAP and are then sent to the PDP.</li>
+<li><strong>The Policy Information Point (PIP)</strong>: The PIP is an abstract interface the PDP can use to connect to third-party repositories (LDAP, REST, SCIM, SQL, Graph, and so on) to retrieve application metadata, resource metadata, and user metadata, such as a user’s approval limit and a bank account’s balance.</li>
+</ul>
+<div id="attachment_20038" class="wp-caption aligncenter"><p id="caption-attachment-20038" class="wp-caption-text">The P*P architecture for ABAC: PEP-PDP-PAP-PIP</p></div>
+<p>So, back to the original intent of this article, how can we fix the OWASP API threats? Let’s look at mitigation steps for these particular risks related to broken access control:</p>
+<ul>
+<li><a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" rel="noreferrer" target="_blank">API1:2023 – Broken Object Level Authorization</a></li>
+<li><a href="https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/" rel="noreferrer" target="_blank">API3:2023 – Broken Object Property Level Authorization</a></li>
+<li><a href="https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/" rel="noreferrer" target="_blank">API5:2023 – Broken Function Level Authorization</a></li>
+<li><a href="https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/" rel="noreferrer" target="_blank">API6:2023 – Unrestricted Access to Sensitive Business Flows</a></li>
+<li><a href="https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery/" rel="noreferrer" target="_blank">API7:2023 – Server Side Request Forgery</a></li>
+</ul>
+<p>Once you have the P*P architecture in place and you know the requester’s identity, the fix is quite simple: write a policy and deploy it to the PDP. There are various languages for writing policies, such as OPA’s Rego, Oso, or <a href="https://alfa.guide" rel="noreferrer" target="_blank">ALFA</a>. Below, we will use ALFA and deploy it to the PDP.</p>
+<p>Imagine our API exposes the following API endpoints. Keep in mind this design is just a basic example (Don’t try this at home!):</p>
+<ul>
+<li><code>/accounts</code>
+<ul>
+<li><code>GET</code> <code>/accounts</code>: lists a user’s accounts.</li>
+<li><code>GET</code> <code>/accounts/{accountId}</code>: lists a specific account as identified by its <code>accountId</code>.</li>
+<li><code>POST</code> <code>/accounts</code>: creates a new account.</li>
+</ul>
+</li>
+<li><code>/accounts/{accountId}/transactions</code>
+<ul>
+<li><code>GET</code> <code>/accounts/{accountId}/transactions</code>: lists the ten most recent transactions on the given account.</li>
+<li><code>GET</code> <code>/accounts/{accountId}/transactions/{txId}</code>: lists the details of a transaction.</li>
+<li><code>POST</code> <code>/accounts/accountId}/transactions/</code>: creates a payment from the given account to a target account specified in the payload.</li>
+</ul>
+</li>
+</ul>
+<p>For each endpoint and method, we can define a policy. For instance, here is sample ALFA code for an open banking use case:</p>
+<pre><code>namespace openbanking{
+    policyset main{
+        apply firstApplicable
+        <span class="hljs-comment">/**
+         * Control access to bank accounts
+         **/</span>
+        policyset accounts{
+            target clause object==<span class="hljs-string">"account"</span>
+            apply firstApplicable
+            <span class="hljs-comment">/**
+             * Determine who can view accounts
+             **/</span>
+            policy viewAccount{
+                target clause action==<span class="hljs-string">"view"</span>
+                apply firstApplicable
+                <span class="hljs-comment">/**
+                 * Any user can view an account they own
+                 */</span>
+                rule owner{
+                    permit
+                    condition account<span class="hljs-selector-class">.owner</span> == user<span class="hljs-selector-class">.username</span>
+                }
+                <span class="hljs-comment">/**
+                 * An employee in the teller role can view a customer's account in the same branch
+                 */</span>
+                rule branch{
+                    target clause user<span class="hljs-selector-class">.role</span> == <span class="hljs-string">"teller"</span>
+                    permit
+                    condition user<span class="hljs-selector-class">.branch</span> == account<span class="hljs-selector-class">.branch</span>
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>Once we’ve written our policy, we can start writing sample authorization requests. For example, here is a sample authorization request in XACML/JSON.</p>
+<pre><code>{
+    <span class="hljs-attr">"Request"</span>: {
+        <span class="hljs-attr">"ReturnPolicyIdList"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">"AccessSubject"</span>: {
+            <span class="hljs-attr">"Attribute"</span>: [
+                {
+                    <span class="hljs-attr">"AttributeId"</span>: <span class="hljs-string">"openbanking.user.username"</span>,
+                    <span class="hljs-attr">"Value"</span>: <span class="hljs-string">"Alice"</span>
+                }
+            ]
+        },
+        <span class="hljs-attr">"Resource"</span>: {
+            <span class="hljs-attr">"Attribute"</span>: [
+                {
+                    <span class="hljs-attr">"AttributeId"</span>: <span class="hljs-string">"openbanking.object"</span>,
+                    <span class="hljs-attr">"Value"</span>: <span class="hljs-string">"account"</span>
+                },
+                {
+                    <span class="hljs-attr">"AttributeId"</span>: <span class="hljs-string">"openbanking.account.accountId"</span>,
+                    <span class="hljs-attr">"Value"</span>: <span class="hljs-string">"AL47 2121 1009 0000 0002 3569 87411"</span>
+                }
+            ]
+        },
+        <span class="hljs-attr">"Action"</span>: {
+            <span class="hljs-attr">"Attribute"</span>: [
+                {
+                    <span class="hljs-attr">"AttributeId"</span>: <span class="hljs-string">"openbanking.action"</span>,
+                    <span class="hljs-attr">"Value"</span>: <span class="hljs-string">"view"</span>
+                }
+            ]
+        }
+    }
+}
+</code></pre>
+<p>Readers can refer to this <a href="https://www.postman.com/axiomatics" rel="noreferrer" target="_blank">Postman collection</a> for more samples. Note that the request doesn’t contain metadata, such as account ownership or branch information. The PDP will figure that out on-demand from the PIP.</p>
+<h3 id="a-note-on-authzen">A Note on AuthZEN</h3>
+<p>As of June 2023, several practitioners and vendors have gathered under the helm of the OpenID Foundation to foster the creation of a new PEP-PDP standard to increase interoperability between frameworks. That standard is now known as <a href="https://openid.net/wg/authzen/" rel="noreferrer" target="_blank">AuthZEN</a> and is, at the time of writing, in the Implementer’s Draft state, with 12 implementations already conforming. See this <a href="https://www.postman.com/axiomatics/workspace/authzen-sample-requests/overview" rel="noreferrer" target="_blank">Postman collection for samples</a>.</p>
+<h3 id="authorize-on-the-way-in-and-out">Authorize on the Way in… and Out</h3>
+<p>In the example above, we check whether a user can view a bank account as a whole. Perhaps we’d want to authorize which parts of an account a user can view, such as the account ID, the balance, or the transaction list. To do so, we can apply authorization on the outbound channel when the internal API returns the call to the gateway. The gateway can intercept the flow and trigger a new series of authorization checks. These checks can be done in a batch mode. For instance, a query like “Can Alice view the following fields: ID, balance, and transaction list for account #123?” could return various decisions, such as “Permit, Deny, Deny”.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>You’ve made it this far: congratulations! Externalized and policy-based authorization will solve the risks on the OWASP Top Ten. Take, for instance, <a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" rel="noreferrer" target="_blank">API1:2023 – Broken Object Level Authorization</a> (BOLA). The ALFA policy mentioned above solves it instantly as it checks whether the user is the account owner before granting access. Additionally, policies can be enriched and strengthened over time without having to redeploy your apps or APIs.</p>
+<p>To achieve this vision, you can combine the <a href="https://www.broadcom.com/products/software/api-management/layer7-api-gateways" rel="noreferrer" target="_blank">Layer7 API Gateway</a> with Axiomatics’s fine-grained <a href="https://axiomatics.com/about-us/orchestrated-authorization" rel="noreferrer" target="_blank">authorization service</a>. You can delegate authentication to <a href="https://curity.io/product/" rel="noreferrer" target="_blank">Curity’s Identity Server</a>. If you want to see it in action, let us know, and we’ll be happy to show you.</p>
+<div id="attachment_20039" class="wp-caption aligncenter"><p id="caption-attachment-20039" class="wp-caption-text">Integrated solution</p></div>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li>General
+<ul>
+<li>Check out my <a href="https://identiverse.com/idv24/session/2089495/" rel="noreferrer" target="_blank">Identiverse 2024 presentation on OWASP and Authorization</a> (<a href="https://www.snapsight.com/live-channel/86e9d4b1-8570-42e9-ad26-e190f202b7c5/acdfa3ff-ecaa-48d5-b0d6-113154f045fe/attendee?tab=takeaways" rel="noreferrer" target="_blank">AI-generated highlights</a>|<a href="https://www.slideshare.net/slideshow/navigating-the-intersection-iam-and-owasp-in-the-cybersecurity-landscape-identiverse-2024/269726933" rel="noreferrer" target="_blank">slides</a>).</li>
+<li><a href="https://owasp.org/API-Security/editions/2023/en/0x11-t10/" rel="noreferrer" target="_blank">OWASP Top 10 API Security Risks – 2023</a></li>
+</ul>
+</li>
+<li>API Authentication
+<ul>
+<li>Curity’s <a href="https://curity.io/resources/learn/implementing-zero-trust-apis/" rel="noreferrer" target="_blank">best practices for a zero-trust API architecture</a></li>
+<li>Dan Moore’s <a href="https://stackoverflow.blog/2022/12/22/the-complete-guide-to-protecting-your-apis-with-oauth2/" rel="noreferrer" target="_blank">compendium on OAuth 2.0 for API Authentication</a></li>
+<li><a href="https://curity.io/product/token-handler/" rel="noreferrer" target="_blank">Secure Single Page Applications with Curity Token Handler</a></li>
+</ul>
+</li>
+<li>API Authorization
+<ul>
+<li><a href="https://axiomatics.com/solutions/api-gateways" rel="noreferrer" target="_blank">Authorization for API Gateways – Axiomatics</a></li>
+<li><a href="https://alfa.guide/" rel="noreferrer" target="_blank">ALFA – the Abbreviated Language for Authorization</a></li>
+<li><a href="https://csrc.nist.gov/projects/attribute-based-access-control" rel="noreferrer" target="_blank">Attribute-Based Access Control ABAC</a></li>
+<li><a href="https://www.postman.com/axiomatics" rel="noreferrer" target="_blank">Axiomatics – Policy-Driven Authorization | Public APIs | Postman API Network</a></li>
+</ul>
+</li>
+</ul>
+</div>
+		<a target="_blank" href="https://nordicapis.com/a-guide-to-fixing-broken-access-control-in-your-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

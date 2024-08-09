@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>5 KPIs for API Platform Engineering</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">5 KPIs for API Platform Engineering</h3>
+		<div><p>As the API landscape has evolved, the idea of an API platform as an offering not of a single service but of a collection of applications, microservices, and functions has become more prominent. This development has allowed organizations to create compelling products at scale, bringing new functions to users across the globe.</p>
+<p>When considering the success of an <a href="https://nordicapis.com/best-practices-for-todays-api-platform-architect/" rel="noreferrer" target="_blank">API platform</a>, it helps to have some concrete key performance indicators (KPIs) to point to when measuring performance. Below, explore specific metrics that can be used as KPIs for your <a href="https://youtu.be/lTCCdBbngtY?si=rMCADRk9GZ9Ee7x0" rel="noreferrer" target="_blank">API platform engineering efforts</a>, both to measure ongoing success as well as detect potential pitfalls at scale.</p>
+<h2 id="what-is-api-platform-engineering-">What is API Platform Engineering?</h2>
+<p>Before diving into specific KPIs, let’s briefly define what API platform engineering is. <a href="https://nordicapis.com/the-role-of-apis-in-platform-engineering/" rel="noreferrer" target="_blank">Platform engineering</a> is the idea of offering a platform that delivers business value to the consumer through the improvement of developer experience, enhanced productivity, and self-service capabilities. These platforms are backed by automation and contained infrastructure.</p>
+<p>Put another way, <a href="https://konghq.com/blog/enterprise/api-platform-engineering-maturity-model" rel="noreferrer" target="_blank">API platform engineering</a> looks at the API platform as a vehicle for business enablement that can be streamlined, improved, and iterated upon. The design, development, and management of API platforms require ample consideration of scalability, extensibility, security, and more. API platform engineering intends to improve as much as possible for as many users as possible.</p>
+<p>However, part of the problem of these efforts is measuring each effort’s specific success. While a lot of time and resources can be spent making an incredibly scalable service, this means nothing if it can’t be extensible or secure as well. API platform engineering is as much a balancing game as it is an iteration one.</p>
+<h2 id="5-kpis-for-api-platform-engineering">5 KPIs for API Platform Engineering</h2>
+<p>With that in mind, how can developers measure the success of API platform engineering efforts? Let’s examine five key metrics that can help guide these efforts.</p>
+<h3 id="1-availability-and-uptime">1. Availability and Uptime</h3>
+<p>Measuring a service’s availability and relative uptime for end users is a KPI that is <a href="https://nordicapis.com/using-api-analytics-to-empower-the-platform/" rel="noreferrer" target="_blank">a lot more than the sum of its parts</a>. In the simplest form, this number is just a percentage of how much time an API has been operational and available to the end user. Diving deeper, however, reveals the hidden intricacies of this KPI.</p>
+<p><a href="https://nordicapis.com/6-techniques-99-999-uptime/" rel="noreferrer" target="_blank">Availability and uptime</a> suggest much about your network health, the connectivity between your user and the service, and the load balancing across clusters and systems. Imagine a coffee shop near you that has amazing coffee but is only sporadically open during posted hours. That would suggest a lot about its business practices and that it is dealing with underlying logistics issues.</p>
+<p>Similarly, availability and uptime can serve as a logistical snapshot, showing your platform’s relative health and external usability.</p>
+<h3 id="2-error-rates-in-service">2. Error Rates in Service</h3>
+<p>Error rates are another KPI that can help you understand the stability of your code and its underlying systems. Error rates, specifically in the form of failed request service, help give you a view of the codebase stability and the resources they depend on. High error rates suggest issues of transit, reliability of multiple nodes, and even poorly formed code. Low error rates suggest high-quality code. However, ludicrous points — such as 99.99999% lacking error rates — might indicate an issue in the production of disconnected systems.</p>
+<p>This metric can also serve a long-term value in establishing a <a href="https://nordicapis.com/how-to-log-api-errors-on-your-server/" rel="noreferrer" target="_blank">log-based heuristic</a>. If your error rate is 99.5%, which is quite good, all things considered, any deviation can set off a klaxon that alerts your developers to potential issues before they become broader in scale and scope.</p>
+<p>Ultimately, error rates can also be used as a form of sentiment prediction. Comparing how prone your system is to error rates to long-term continual use can help you gauge the perceived value of the product and the desire of your users to continue using it. As such, error rates are highly valuable insight generators.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-helpful-error-monitoring-tools-and-apis/" rel="noreferrer" target="_blank">5 Helpful Error Monitoring Tools and APIs</a></div>
+<h3 id="3-average-response-time">3. Average Response Time</h3>
+<p>The time it takes an API to respond to a request indicates the health of the system upon which your API rests. From a platform point of view, average response time <a href="https://nordicapis.com/10-tips-for-improving-api-performance/" rel="noreferrer" target="_blank">exposes infrastructural issues that are often hard to see</a>. Most software projects fail when it comes time to actually enact them, and likewise, a perfect platform might fail horrifically when put into production. When this happens, it can be hard to detect whether the uptime issue results from a poorly iterated code deployment or a poor-quality last-mile network for your users.</p>
+<p>Average response time, accordingly, can help detect issues in combination with other metrics. Is your uptime and availability excellent, but your average response time is high? This suggests an issue at the network layer that might be hard to detect without this context. Likewise, the inverse might be true. If your average response time is excellent and your system is never available, that’s a strong sign that the problem is you, not the infrastructure.</p>
+<h3 id="4-developer-engagement-and-sentiment">4. Developer Engagement and Sentiment</h3>
+<p>This KPI can be somewhat hard to track, but it is perhaps the most important on this list. Developer engagement and sentiment is the idea of tracking how developers interact with your platform, how many of those interactions are active, the frequencies of those calls, and so forth. This can help build an idea of the desire your developers have for the offering, helping to convert your system from a “nice external tool” into a veritable and desirable <a href="https://nordicapis.com/5-tips-to-spark-engagement-around-your-api-as-a-product/" rel="noreferrer" target="_blank">API-as-a-product offering that is core to business success</a>.</p>
+<p>Likewise, the sentiment piece of this is very important. Finding out how developers feel about the service can be challenging. But when <a href="https://nordicapis.com/accumulating-feedback-4-questions-api-providers-need-to-ask-their-users/" rel="noreferrer" target="_blank">collecting feedback</a>, error reports, and so forth, you can begin to build a picture. Do you have very low instances of errors and failures but a high rate of reporting? You have an engaged and passionate developer audience! Do you have high error rates paired with low reporting? Your developer user base might be pulling back and should be reached out to.</p>
+<div class="well">Related: <a href="https://nordicapis.com/how-platform-engineering-can-support-api-development/" rel="noreferrer" target="_blank">How Platform Engineering Can Support API Development</a></div>
+<h3 id="4-traffic-volume">4. Traffic Volume</h3>
+<p>Ultimately, an API platform will live or die based on the number of average users, and as such, this is an incredibly important metric. Monitoring traffic volume helps you understand how many users you have and what kind they might be. Reporting the total number of users is important, but you should also differentiate between paid and free users, as well as long-term users or short-term ones.</p>
+<p>Notably, this metric can also help you determine potentially underserved markets as well as markets that may be overserved or overleveraged, indicating opportunities for resource optimization or <a href="https://nordicapis.com/safely-throttle-high-traffic-apis/" rel="noreferrer" target="_blank">more efficient throttling</a>. By understanding where your users are coming from and what kind of volume you are servicing, you can tailor your efforts to them specifically. Have a high volume of free Korean users? Maybe you need to adjust your pricing strategy or clarify your value offering. Have a high volume of paid US users but a very low volume of Spanish users? Maybe you need better language support.</p>
+<h2 id="metrics-for-api-platform-engineering">Metrics For API Platform Engineering</h2>
+<p>Luckily, the KPI landscape is not a mystery. Tracking these KPIs is something that has been done — <a href="https://nordicapis.com/13-important-metrics-for-api-companies/" rel="noreferrer" target="_blank">and done well</a> — for a long time now. Figuring out what you want to track is the hardest step. Once you’ve decided on that, it’s simply a matter of enabling the systems required and collecting the data!</p>
+<p>What do you think of these KPIs? Did we miss anything that you think should have been included? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/5-kpis-for-api-platform-engineering/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why You Should Hack Your Own APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Why You Should Hack Your Own APIs</h3>
+		<div><p>In the ’90s, “hacker” was a bit of a dirty word. Movie hackers sported edgy names like Electra (Assassins), Neo (The Matrix), Phantom Phreak (Hackers), and Boris Grishenko (Goldeneye). Great taste in Hawaiian shirts, less so at coming up with plans to defeat James Bond.</p>
+<p>These godlike characters are vital to their respective films, their last-minute code cracking almost always the key to obtaining access to the <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/MacGuffin" rel="noreferrer" target="_blank">MacGuffin</a>. Thirty years later, hoodies have replaced the Hawaiian shirts and l337 speak has <em>mostly</em> been abandoned.</p>
+<p>Some things, however, haven’t changed. Although attitudes towards hackers have softened in some ways — YCombinator’s message board Hacker News is an homage to them, after all — they still retain an air of mystery among the general public. Perhaps, thanks to recent <a href="https://nordicapis.com/how-to-break-apis-a-hackers-perspective/" rel="noreferrer" target="_blank">high-profile cybercrimes</a>, even an air of danger.</p>
+<p>However silly it may seem, this is a valuable headspace for developers to enter sometimes. At least, that’s how <a href="https://nordicapis.com/speakers/dan-barahona/" rel="noreferrer" target="_blank">Dan Barahona</a> of <a href="https://www.apisecuniversity.com/" rel="noreferrer" target="_blank">APISec University</a> sees it. At our 2024 Austin API Summit, Barahona joined us to advocate for trying to hack your own APIs.</p>
+<p>In this post, we’ll draw some actionable takeaways from that talk and examine how this view of APIs might help you approach security in an entirely new way. Grab a Monster energy drink and a pair of armless sunglasses, and dive into that waterfall of green code with us.</p>
+<div class="well">Watch <a href="https://nordicapis.com/speakers/dan-barahona/" rel="noreferrer" target="_blank">Dan Barahona</a> present at the 2024 <a href="https://nordicapis.com/6-key-takeaways-from-austin-api-summit-2024/" rel="noreferrer" target="_blank">Austin API Summit</a>.<div class="responsive-iframe-container"></div></div>
+<h2 id="why-attackers-love-apis">Why Attackers Love APIs</h2>
+<p>Barahona starts his talk with a quick overview of what makes APIs attractive to attackers. Namely, that they enable them to circumvent the need to engage with the UI of web or mobile apps, which may have extra layers of protection. According to Barahona, hackers will often look for APIs that are over-permissioned, return too much information, access unauthorized functions, or expose logic flaws.</p>
+<p>He also points out that this is much more than just an academic exercise — problems with APIs have been responsible for several real-world breaches. For example, Coinbase had a missing logic validation check, resulting in an exploit that allowed a customer to issue a trade worth $43,000 that he was not authorized to — something that could never have been done through the front-end UI.</p>
+<p>Barahona also provides the example of Peloton’s leaky API, which allowed access to the account data of millions of riders… even if they had marked their profiles as private. “The pro tip here,” he quips, “is that authentication is <strong>not</strong> the same thing as authorization.”</p>
+<p>Coinbase addressed the exploit after being tipped off by the customer in question and rewarded him with $250,000. Although this post will focus on securing APIs yourself, bug bounties are worth mentioning as a valuable way to encourage people to take a crack at finding issues.</p>
+<h2 id="takeaways-from-breach-analysis">Takeaways From Breach Analysis</h2>
+<p>In their <a href="https://www.apisecuniversity.com/2024marketreport" rel="noreferrer" target="_blank">2024 API Security Market Report</a>, APIsec University breaks down the most common causes of recent data breaches and correlates them with <a href="https://owasp.org/API-Security/editions/2023/en/0x11-t10/" rel="noreferrer" target="_blank">OWASP’s Top 10 API Security Risks</a>:</p>
+<ul>
+<li>Rate limiting (70% of breaches) – OWASP #4</li>
+<li>Broken authorization (60%) – OWASP #1</li>
+<li>Broken authentication (45%) – OWASP #2</li>
+<li>Excess data exposure (30%) – OWASP #3</li>
+</ul>
+<p>Despite factoring into more than 70% of breaches, Barahona says that “rate limiting isn’t going to protect everything. Not having it makes things worse — instead of losing 100 records, you might lose 100 million — but it’s not the root cause of API vulnerabilities.”</p>
+<p>We also recently highlighted that <a href="https://nordicapis.com/3-steps-to-rate-limiting-success/" rel="noreferrer" target="_blank">rate limiting</a> isn’t a silver bullet for preventing data breaches. Despite coming behind rate limiting, numbers 1, 2, and 3 on OWASP’s Top 10 play a part in a combined 90% of notable breaches.</p>
+<p>Barahona suggests that the root problem behind many breaches is that there’s something interesting to harvest. Take the <a href="https://www.cpomagazine.com/cyber-security/massive-trello-user-data-leak-hacker-lists-15-million-records-on-a-dark-web-hacking-forum/" rel="noreferrer" target="_blank">recent Trello leak</a>, for example, in which 15 million user records were obtained via an exposed API.</p>
+<p>“If you only need to send a first name,” Barahona asks rhetorically, “why would you ever send last name, home address, account number, email address, or anything else in that record?”</p>
+<h2 id="the-problem-with-a-typical-developer-mindset">The Problem With a Typical Developer Mindset</h2>
+<p>As developers, we may be more concerned with ensuring things work correctly (and well) than making sure they’re doing so securely or as concisely as possible. If that statement sounds glib or painted with broad brushstrokes, it’s backed up by hard numbers:</p>
+
+<p>Postman’s <a href="https://www.postman.com/state-of-api/" rel="noreferrer" target="_blank">2023 State of the API Report</a> confirms that, while 67% and 64% of respondents conduct functional and integration testing, that number drops to less than 50% for security. And that may be because we’re thinking like developers, <a href="https://nordicapis.com/how-ai-generated-code-could-kill-your-api/" rel="noreferrer" target="_blank">not attackers</a>.</p>
+<p>Referring to a <a href="https://cybernews.com/security/hackers-exposed-duolingo-users-more-available-scraping/" rel="noreferrer" target="_blank">Duolingo leak</a>, Barahona makes the following statement about a hacked API that was not publicized, but left unsecure: “I can only imagine that the developer of this API probably thought ‘who’s ever going to find this thing? What would be the point in them using it?'”</p>
+<p>“But your hidden APIs,” Barahona concludes, “<strong>will</strong> be found.” When you spend a little time in certain corners of the internet, you’ll know that something absurd, pointless, or obtuse offers no guarantee that it won’t happen. Just take the world of gaming, for instance. From <a href="https://www.youtube.com/watch?v=EFr-tsbf25I" rel="noreferrer" target="_blank">crossing Red Dead Redemption 2’s entire map without taking a step</a> to the cult of <a href="https://www.youtube.com/watch?v=Ju4VYgjsck0" rel="noreferrer" target="_blank">360 no scopes</a>, there is always someone out there trying to do just about anything pointless that you can think of.</p>
+<p>In many cases, the hacker mindset is driven by curiosity: a desire to prove that something can be done just for the sake of proving it. Never assume that your API is safe just because you don’t publicize it or because it doesn’t send much useful information. Of course, there are some instances in which an attacker’s approach is driven by aims that are much more malicious than innocent curiosity.</p>
+<h2 id="understanding-how-hackers-think">Understanding How Hackers Think</h2>
+<p>Back in 2017, The Economist wrote that the <a href="https://www.economist.com/leaders/2017/05/06/the-worlds-most-valuable-resource-is-no-longer-oil-but-data" rel="noreferrer" target="_blank">world’s most valuable resource</a> is no longer oil, but data. Botnets, hacking, ransomware, and so on have a significant presence on the dark web, often with the common aim of acquiring user data to be sold.</p>
+<p>As the volume of that data scales, so too does the value its sale can command. And, as we’ve seen from the breaches above, APIs are an appealing way to secure massive amounts of data.</p>
+<p>Attackers are clever, and they’ll find ways to exploit APIs, says Barahona. “They’ll use proxies, rotate IP addresses, and throttle their own requests. They’ll use all these techniques, even if it takes months to pull off.” In other words? Never underestimate a hacker with their eye on the prize.</p>
+<h2 id="the-api-security-lifecycle">The API Security Lifecycle</h2>
+<p>Barahona suggests various points where you can implement API security measures in the API lifecycle, with the aim of mitigating such attacks.</p>
+
+<p>When it comes to combating attacks, he proposes the following methodology:</p>
+<ul>
+<li>Automate: eliminate manual testing as much as possible</li>
+<li>Comprehensive: test every endpoint across OWASP and more</li>
+<li>Continuous: integrate testing into SDLC, i.e. shift left</li>
+</ul>
+<p>“Manual testing is all well and good,” Barahona says. “But it’s not going to be able to keep up… If you have an API with 100 endpoints and you want to test authorization, authentication, data exposure, etc., you’ve got thousands of permutations. And if you’re doing a nightly build, you should be testing nightly. We need to take advantage of clever test generation capability.”</p>
+<p>If implementing these processes sounds like a lot of work, consider this: would you prefer to explain to thousands or millions of users why their data has been compromised instead? We know which one we’d opt for…</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/why-you-should-hack-your-own-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

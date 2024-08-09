@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Two talks on multi-size transparent huge page performance</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Two talks on multi-size transparent huge page performance</h3>
+		<div>Using huge pages has been known for years to improve the performance of
+many workloads.  But traditional huge pages, often sized by the CPU at 2MB,
+can be difficult to allocate and can waste memory due to internal
+fragmentation.  Driven by both the folio transition and hardware
+improvements, attention to smaller, multi-size transparent huge pages
+(mTHPs) has been on the rise.  In two memory-management-track sessions at
+the <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">2024 Linux Storage,
+Filesystem, Memory-Management and BPF Summit</a>, developers discussed the
+kernel's ability to reliably allocate mTHPs and the performance gains that
+result.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/974826/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

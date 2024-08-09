@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>API Discovery: How Do You Count APIs?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">API Discovery: How Do You Count APIs?</h3>
+		<div><p>When we discuss APIs, it’s often easy to forget that this topic is not as well-defined and strictly understood as it might seem. As with any topic that deals with complex systems, issues begin to pop up when you ask simple questions. A good example is the <a href="https://en.wikipedia.org/wiki/Ship_of_Theseus" rel="noreferrer" target="_blank">Ship of Theseus</a>. When something changes parts, when does it become something significantly different? Is it still the same ship when 50% of its parts are changed? What about 75%?</p>
+<p>This might seem an odd reference to make, but at the <a href="https://nordicapis.com/events/austin-api-summit-2024/" rel="noreferrer" target="_blank">2024 Austin API Summit</a>, Rob Dickinson, VP of Engineering at Graylog, asked a philosophical question of the same type with significant real-world implications. <em>What exactly is an API, and how do we count it?</em> The answer is surprisingly more convoluted than you may think.</p>
+<p>Below, we’ll look at Dickinson’s answer to see how to count an API. We’ll also consider why this is an important distinction to make for discoverability purposes and for producing <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">API inventories</a> that can manage security and risk at scale.</p>
+<div class="well">Watch <a href="https://nordicapis.com/speakers/rob-dickinson/" rel="noreferrer" target="_blank">Rob Dickinson</a>, VP of Engineering at Graylog, present <em>API Discovery from Crawl to Run</em> at the Austin API Summit.<div class="responsive-iframe-container"></div></div>
+<h2 id="why-does-api-discovery-matter-">Why Does API Discovery Matter?</h2>
+<p>Before diving into this topic, we should ask why it even matters. <a href="https://nordicapis.com/everything-you-need-to-know-about-api-discovery/" rel="noreferrer" target="_blank">API discovery</a> is the process of detecting and categorizing APIs within a service. This discovery begins to form the backbone of our understanding of the attack surface and the relative risk of decisions made within that reality.</p>
+<p>Without an understanding of <em>what</em> APIs make up a service, it can be difficult to even understand the surface area that is under threat with any degree of reliability. This gap in understanding further makes it difficult to address issues that may exist or to plan for recovery in the event of a significant threat or successful attack.</p>
+<p>A lack of understanding of this type also means we lack fundamental metrics to quantify risk, both as static threats and as changing ones. Without metrics on what’s being tracked, there can be no security, as there is no “goal” that indicates a successful security posture.</p>
+<p>In this talk, Dickinson states that the goal is simple: the ability to say, “We currently have X APIs, where Y are new, and Z need immediate attention.” But therein lies the main philosophical problem — what even is an API?</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/" rel="noreferrer" target="_blank">7 Reasons Why Cataloging Your API Inventory Matters</a></div>
+<h2 id="what-actually-is-an-api-">What Actually Is An API?</h2>
+<p>In the API world, being able to define what constitutes an API is absolutely vital. There’s just one issue with that — this definition may change from person to person, let alone organization to organization.</p>
+<p>Dickinson notes that there are some reasons this topic is not as simple as it might first seem. Firstly, API best practices aren’t terribly well understood, and for many, changes in the number of endpoints, the nature of services, or even the internal or external nature of each may change the fundamental count of APIs on hand. Ideally, the metrics we are searching for should be universally applicable, so how we count should also be relatively universal and portable.</p>
+<p>APIs are also “dark” compared to websites or emails. Whereas it’s obvious to most what a website is, APIs are harder to connect to and use, requiring substantial knowledge to even begin using a simple API. This, paired with the rapid change inherent to APIs and the different cultures underpinning their technologies, has resulted in the reality that APIs are somewhat loosely defined, even to experts, and are almost entirely opaque to the layman.</p>
+<div class="well">Related: <a href="https://nordicapis.com/dont-let-them-lurk-in-the-shadows-tools-to-discover-shadow-apis/" rel="noreferrer" target="_blank">Don’t Let Them Lurk in the Shadows: Tools to Discover Shadow APIs</a></div>
+<h2 id="api-discovery-example">API Discovery Example</h2>
+<p>Let’s look at an example of this problem in real code. Below are three hypothetical requests made within a system.</p>
+<pre><code>REQUEST A
+
+POST coinbroker.io/<span class="hljs-keyword">user</span>
+
+{
+<span class="hljs-string">"first_name"</span>:<span class="hljs-string">" Rob"</span>,
+<span class="hljs-string">"last_name"</span>:<span class="hljs-string">" Dickinson"</span>,
+<span class="hljs-string">"email"</span>:<span class="hljs-string">" rob@resurface.io"</span>
+}
+</code></pre>
+<pre><code><span class="hljs-symbol">REQUEST</span> <span class="hljs-keyword">B
+</span>
+<span class="hljs-symbol">GET</span> coinbroker.io/quote
+
+{
+“Account_token”:”<span class="hljs-number">4</span>b86cd3f-ccaf-<span class="hljs-number">445</span>b-<span class="hljs-keyword">b099”,
+</span><span class="hljs-string">"Amount_usd"</span>:<span class="hljs-string">" 6"</span>,
+<span class="hljs-string">"coin_type"</span>:<span class="hljs-string">" BTC"</span>
+}
+</code></pre>
+<pre><code>REQUEST C
+
+POST coinbroker.io/<span class="hljs-keyword">order</span>
+
+<span class="hljs-title">{
+“Account_token</span>”:”<span class="hljs-number">4</span>b86cd3f-ccaf-<span class="hljs-number">445</span>b-b099”,
+“Quote_token”:”<span class="hljs-number">552</span>cd9da-<span class="hljs-number">2</span>ff4-<span class="hljs-number">4</span>dfe-b2eb”,
+</code></pre>
+<p>How many APIs are shown here? Many would answer “three,” and those people may be correct. However, the answers “1” and “2” could also be correct. Is each request being made its own API? Each has its own endpoint, but they share similar data, so is it the path that decides?</p>
+<p>What about the rest of the service? Is this a collection of microservices? In that case, is every microservice its own API, or does the entire service constitute a single API?</p>
+<p>This is the fundamental problem that Dickinson is trying to showcase. There’s no clear, perfect answer in any of this logic, yet they are all fundamentally correct — so how do we actually count an API?</p>
+<h2 id="reasonable-ways-to-count-apis">Reasonable Ways to Count APIs</h2>
+<p>There are many ways to solve this problem, and many of them are quite sensible. We could count the fully qualified domain names (FQDNs), which could give us an idea of the number of specific APIs. But what about routes? Okay, maybe we can combine FQDN and routes to get something else.</p>
+<p>But what about the difference between internal and external APIs? What about deprecated APIs that are still usable as options but whose functionality exists in a different core API? These questions raise more problems than solutions. The answer here may be deceptively simple: to count via specifications. In this approach, the specification dictates the number of APIs, and the definition is less important.</p>
+<h2 id="a-new-problem-state-of-change">A New Problem: State of Change</h2>
+<p>This approach, while effective, does introduce a new problem. How do we count APIs by lifecycle state? <a href="https://nordicapis.com/proactive-tips-to-avoid-shadow-apis/" rel="noreferrer" target="_blank">Rogue or unmanaged APIs</a> are still APIs, even if they’re not specified in the specification, and should be counted. Dickinson’s solution is to consider these issues in terms of categories:</p>
+<ul>
+<li>Rogue or unmanaged APIs are new and need review;</li>
+<li>Monitored and supported APIs are actively maintained; and</li>
+<li>Deprecated, or <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/" rel="noreferrer" target="_blank">zombie</a>, APIs are dead but still relevant to the overall count.</li>
+</ul>
+<p>This introduces a more contextual count. Now, instead of just having a pure number to track, we have a number that is relevant to their state in the lifecycle, allowing us to progress into an <a href="https://nordicapis.com/api-inventory-navigating-through-invisible-threats/" rel="noreferrer" target="_blank">inventory of APIs</a> that can be tracked over time. This, paired with self-description through introspection, allows <a href="https://nordicapis.com/the-benefits-of-using-api-specifications/" rel="noreferrer" target="_blank">API specifications</a> to determine their definition and surface usable data.</p>
+<h2 id="what-about-the-risk-">What About the Risk?</h2>
+<p>To level up this usable data, we should also assign risk. Knowing these existing categories of APIs is helpful, but understanding the specific risk metrics was a huge benefit of this process we first discussed.</p>
+<p>With our specification in hand, we need to start looking at what metrics could be useful. User activity, specific context, network traffic, and even recent changes to the APIs should all be tracked, allowing us to contextualize recent changes to the API and, thus, the API attack surface.</p>
+<p>Now, we’re talking about more than just a specification — we’re including developer intention and real-life use. Threats are both internal and external, and intention is as important as practical use, so runtime monitoring and logging are vital to this process.</p>
+<p>While there is no current standard risk metric, tracking this data can begin to paint a picture that can be used to assign these scores internally with some validity. Rob specifically notes that Graylog views this process as a calculation based both on request and response data, noting that the response is often where the data leaks and unwanted behavior occur.</p>
+<h2 id="stages-of-api-discovery">Stages of API Discovery</h2>
+<p>From this, we can finally make a model for API discovery that meets all of our needs:</p>
+<ul>
+<li><strong>Walk</strong>: Create an API inventory. Use an API specification to define your API collection and determine what is considered an API internally. Document and track these APIs and assign runtime tracking to generate data internally for use in security posture evaluation.</li>
+<li><strong>Run</strong>: Track changes to your API inventory. Add additional context by categorizing these APIs. Track their changes over time through a consideration of lifecycle and end user purpose to enrich data and provide substantial context to the API collection.</li>
+<li><strong>Rocket ship</strong>: Track changes in risk metrics for your API inventory. Finally, track changes to your risk metrics as your API evolves and is used in the real world. This will allow for the calculation of relative risk and a metric-based approach to security posture that is informed by reality rather than philosophical musings.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>For many, this may seem obvious — especially for advocates of API specification — but for others, this is a revelation. Making it clear that the definition is less important than the mode of sharing that definition is vital to understanding your security posture. Security is metrics-based: you need some measure of how successful and secure your posture is, and this approach enables that for the broadest array of businesses, API designs, and paradigms.</p>
+<p>What do you think of this talk? Are there other ways APIs should be counted? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/api-discovery-how-do-you-count-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

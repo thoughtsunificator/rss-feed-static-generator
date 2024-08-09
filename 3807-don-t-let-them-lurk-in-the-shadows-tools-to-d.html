@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Don’t Let Them Lurk in the Shadows: Tools to Discover Shadow APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Don’t Let Them Lurk in the Shadows: Tools to Discover Shadow APIs</h3>
+		<div><p>Imagine a hidden network pulsating within your organization’s applications, a maze where features operate in the shadows. These functionalities exist and fulfill purposes, but they do so entirely under the radar, undocumented and unmonitored. This dim realm is the domain of <strong>shadow APIs</strong>, unauthorized code that bypasses official channels and creates ground for security vulnerabilities.</p>
+<p>Data breaches are one of the main threats posed by <a href="https://nordicapis.com/proactive-tips-to-avoid-shadow-apis/" rel="noreferrer" target="_blank">shadow APIs</a>. Hackers can use stealth techniques to infiltrate your systems and steal sensitive information. Without proper documentation and maintenance, these shadow APIs become like unlocked doors in your digital world. Accessibility is another major concern. Shadow APIs, operating under the radar, allow individuals to access your systems without proper authorization, resulting in data and resources that can be misused. In addition, these covert activities often violate <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">regulatory requirements</a>, resulting in compliance violations. Shadow APIs that operate outside of established rules can expose your organization to lawsuits, penalties, and reputational damage.</p>
+<p>But unlike a character lost in a dark alley, you don’t have to navigate this shadowy land alone. With the right tools, you can uncover these hidden corners and regain control of your API ecosystem. Let’s dive deeper and explore the weapons available to expose these shadow APIs, bring them to light, and ensure your data is secure. We will equip you to identify and dismantle these hidden agendas and transform your app landscape from a potential minefield to a safe and transparent environment where all functionality works with transparent oversight.</p>
+<h2 id="unveiling-the-shadows-key-tools-for-detecting-shadow-apis">Unveiling the Shadows: Key Tools for Detecting Shadow APIs</h2>
+<p>While there’s no single solution to unearth every shadow API, a multi-pronged approach is most effective. Here are some key tools to include in your detection arsenal, ranging from analyzing logs to code scanning, API discovery platforms, and more.</p>
+<h3 id="log-analysis">Log Analysis</h3>
+<p>Your application logs are a goldmine of information. Examining logs to identify shadow APIs is a careful process. Filled with valuable information, application logs require careful analysis. With logs, you can look for anomalies, like unexpected API calls on unknown endpoints, idle hours with increased activity, or unauthorized data.</p>
+<p>Deviations from the standard protocol, such as unsecured connections or incompatible authentication methods, can also be red flags. Since manual filtering is expensive, many use log data tools like <a href="https://www.splunk.com/" rel="noreferrer" target="_blank">Splunk</a> or the <a href="https://www.elastic.co/elastic-stack" rel="noreferrer" target="_blank">ELK</a> stack. These tools centralize log data from different sources, providing a comprehensive view to identify patterns and anomalies. Real-time analytics capabilities allow for rapid response to suspicious activity, while advanced analytics help pinpoint root causes and identify specific shadow APIs hiding in your system.</p>
+<h3 id="code-scanning">Code Scanning</h3>
+<p>Code scanning acts as your gatekeeper against shadow APIs, using tools like <a href="https://www.codescan.io/" rel="noreferrer" target="_blank">CodeScan</a> or <a href="https://www.veracode.com/" rel="noreferrer" target="_blank">Veracode</a> to analyze your codebase. These tools function like code detectives, scrutinizing each line for suspicious API references, such as calls to undocumented endpoints or unauthorized access attempts. By integrating code scanning into your development pipeline, you can identify and remove potential shadow APIs before they reach production, ensuring a secure codebase. For instance, CodeScan can detect calls to hardcoded API keys, which may indicate attempts to bypass authentication protocols and highlight shadow APIs. Other popular tools include <a href="https://www.microfocus.com/en-us/cyberres/application-security" rel="noreferrer" target="_blank">Micro Focus Fortify</a> and the <a href="https://www.cloudbees.com/solutions/devsecops" rel="noreferrer" target="_blank">CloudBees DevSecOps</a> platform. Incorporating any of these tools into your workflow gives you valuable insights into potential shadow APIs, allowing for early detection and improved security.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">10 Steps to Catalog Your Growing API Inventory</a></div>
+<h3 id="api-discovery-platforms">API Discovery Platforms</h3>
+<p>Unlike log analysis, which sifts through existing data, API discovery platforms act as digital bloodhounds, actively hunting down API activity across your network traffic. These specialized tools go beyond simply analyzing logs. They employ sophisticated techniques to discover APIs in real time, even those that might be well-documented or hidden. This proactive approach allows you to create a <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/" rel="noreferrer" target="_blank">comprehensive inventory</a> of all APIs in use within your organization, providing a detailed map of your API landscape with each API clearly labeled and its traffic patterns visualized.</p>
+<p>Tools like <a href="https://apiary.io/" rel="noreferrer" target="_blank">Apiary</a> or <a href="https://aws.amazon.com/api-gateway/" rel="noreferrer" target="_blank">AWS API Gateway</a> offer such functionalities. Furthermore, some API discovery platforms take the extra step of assessing potential security vulnerabilities associated with these unearthed APIs. This vulnerability assessment is crucial, as shadow APIs often lack the security protocols and access controls in well-governed APIs. By identifying these vulnerabilities, you can prioritize remediation efforts and ensure the overall security of your API ecosystem.</p>
+<h3 id="outbound-proxies">Outbound Proxies</h3>
+<p>Outbound proxies act as sentinel guardians at the gateways of your network, carefully intercepting all API requests from within your system. Imagine a central toll booth where every outbound API call must go. Tools such as <a href="https://www.haproxy.com/" rel="noreferrer" target="_blank">HAProxy</a> or the <a href="https://aws.amazon.com/api-gateway/" rel="noreferrer" target="_blank">AWS API Gateway</a> act as this digital interface, giving you a centralized view of all API functionality. This comprehensive view includes not only licensed APIs but also potentially shadowy APIs that may be hiding out of sight.</p>
+<p>Using an outbound proxy, you can monitor every API call your applications make. This allows you to identify anomalies like unexpected API calls on unknown endpoints, increased activity after business hours, or unauthorized data. These red flags can indicate shadow APIs trying to work under the radar. For example, a call to an undocumented API endpoint at night could indicate that a malicious script is trying to log in while unauthorized. By using outgoing proxies and monitoring captured traffic closely, you can gain valuable insight into your organization’s API activity and effectively mitigate threats posed by shadow APIs.</p>
+<h3 id="runtime-analysis-tools">Runtime Analysis Tools</h3>
+<p>Runtime analysis tools add an extra layer of protection against shadow APIs by continuously monitoring your API traffic in real-time for suspicious activity. Think of these tools as internal security cameras on your digital infrastructure, helping spot API calls to unknown endpoints (indicating unauthorized access), deviations from established protocols (insecure connections or invalid credentials), or unusual data transfer patterns (potential exfiltration of sensitive information). These tools support static methods such as log analysis, code scanning, and API discovery platforms. Some popular solutions for monitoring runtime behaviors include <a href="https://escape.tech/" rel="noreferrer" target="_blank">Escape</a>, <a href="https://treblle.com/product/api-observability" rel="noreferrer" target="_blank">Treblle</a>,&nbsp;<a href="https://nonamesecurity.com/" rel="noreferrer" target="_blank">Noname Security</a>, <a href="https://salt.security/" rel="noreferrer" target="_blank">Salt Security</a>, and <a href="https://www.wallarm.com/" rel="noreferrer" target="_blank">Wallarm</a>, which provide real-time analytics that reinforces your entire shadow API discovery strategy.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-reasons-you-need-api-runtime-security/" rel="noreferrer" target="_blank">5 Reasons You Need API Runtime Security</a></div>
+<h3 id="ai-integration-for-enhanced-detection">AI Integration for Enhanced Detection</h3>
+<p>Artificial intelligence (AI) can play a crucial role in enhancing the detection of shadow APIs. By leveraging <a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">machine learning algorithms</a>, AI can identify patterns and anomalies in API usage that might indicate the presence of shadow APIs. These algorithms can analyze vast amounts of data, including logs, network traffic, and code repositories, to detect deviations from normal behavior or unauthorized API calls. AI can also be used to continuously monitor API activity and alert security teams to potential threats in real time.</p>
+<h3 id="documentation-generation-and-cataloging">Documentation Generation and Cataloging</h3>
+<p>Some of the tools mentioned, such as API discovery platforms, may offer features for <a href="https://nordicapis.com/7-open-source-openapi-documentation-generators/" rel="noreferrer" target="_blank">automatically generating documentation</a> for discovered APIs. This can help maintain an up-to-date inventory of all APIs in use within the organization, including shadow APIs. Additionally, these tools may provide cataloging features to organize and manage discovered APIs systematically, making it easier to track and monitor their usage.</p>
+<h3 id="security-severity-warnings-and-error-analysis">Security Severity Warnings and Error Analysis</h3>
+<p>Advanced API discovery platforms and code scanning tools may offer security severity warnings or risk assessments for the discovered shadow APIs. These warnings can help prioritize remediation efforts by highlighting the most critical vulnerabilities or potential attack vectors. Furthermore, some tools may provide error analysis features to help developers understand and fix issues related to shadow APIs, such as incorrect configurations or coding errors.</p>
+<h2 id="shine-the-light-gain-control-the-benefits-of-introducing-shadow-apis">Shine the Light, Gain Control: The Benefits of Finding Shadow APIs</h2>
+<p>Shadow APIs, those unauthorized and undocumented connections that hide in your application landscape, can be a security nightmare. But don’t be afraid! By using the right tools and techniques, you can illuminate these dark corners and take complete control of your API ecosystem. Here are some ways introducing an active approach to identifying shadow APIs can empower your organization.</p>
+<h3 id="enhanced-security">Enhanced Security</h3>
+<p>Shadow APIs are like <a href="https://nordicapis.com/api-discovery-the-keys-to-the-castle/" rel="noreferrer" target="_blank">secret doors in your digital castle</a>. They are unmarked blind spots. Proactive detection shines a light on these hidden pathways, allowing you to identify and address potential vulnerabilities. This gives you the ability to implement robust security measures such as authentication policies (verifying user identity), authorization levels (checking access privileges), and rate limits (to prevent abuse) on all APIs — both approved and pre-hidden. Enforcing this access reduces the risk of unauthorized access, data breaches, and malicious activity that could damage your systems.</p>
+<h3 id="improved-governance">Improved Governance</h3>
+<p>Shadow APIs often work outside established <a href="https://nordicapis.com/api-governance-in-a-multi-cloud-world/" rel="noreferrer" target="_blank">governance structures</a>. They may be undocumented, their ownership unclear, and their use a mystery. By finding them through proactive detection, you can bring them into the official light. You can document their use, understand who built them, who used them, and analyze how they used them. This new knowledge enables better communication and collaboration between development and security teams. Developers can ensure that APIs are built correctly and that governance standards are met, while security teams can assess overall API risk and implement appropriate controls.</p>
+<h3 id="compliance">Compliance</h3>
+<p>Many laws, such as GDPR and HIPAA, mandate strict data security controls. Shadow APIs, as such, can cause compliance headaches since you can’t enforce data security on something you don’t know exists. Conversely, you gain complete insight into your API landscape by being actively aware of all the APIs used. This allows you to ensure compliance with relevant industry standards and data privacy laws. You can identify which APIs may be handling sensitive data and apply the necessary settings to protect that information. If you are highly identifiable, you can confidently demonstrate compliance with law enforcement agencies.</p>
+<p>Shadow APIs carry a lot of risk but don’t need to stay hidden. Identifying them early can bring them to light, increase security, improve governance, and ensure compliance. This empowers your organization to leverage the full potential of APIs with confidence.</p>
+<h2 id="conclusion-the-ever-evolving-battleground">Shadow APIs: The Ever-Evolving Battleground</h2>
+<p>The battle against shadow APIs is ongoing. As development practices evolve and technology advances, new ways of creating and storing these unauthorized APIs may emerge. But if you stay up-to-date and adopt an advanced search strategy, you can manage it. This includes tools such as log analysis, code scanning, API discovery platforms, and outbound proxies in a multi-faceted manner. Each tool provides a unique perspective, helping you identify shadow APIs that may be hiding in your organization’s API landscape.</p>
+<p>Remember, technology is only one piece of the puzzle. Developing a culture of open communication is essential. So, educate developers about shadow API risks and encourage them to report suspicious activity. Plan to monitor your API landscape regularly to analyze and identify new emerging threats. Combining these strategies allows you to effectively manage your API ecosystem and ensure a secure and prosperous digital environment.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/dont-let-them-lurk-in-the-shadows-tools-to-discover-shadow-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

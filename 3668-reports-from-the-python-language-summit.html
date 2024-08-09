@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Reports from the Python Language Summit</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Reports from the Python Language Summit</h3>
+		<div>The Python Software Foundation has published <a href="https://pyfound.blogspot.com/2024/06/python-language-summit-2024.html" rel="noreferrer" target="_blank">a
+set of reports</a> from the 2024 Python Language summit.  Topics covered
+include version numbering, the limited C API, a new default read-eval-print
+loop, and Python's security model in light of the XZ backdoor:
+<p>
+</p><blockquote class="bq">
+	For multiple reasons like being able to fix bugs and
+	single-maintainer modules, CPython doesn't require reviewers on the
+	pull requests of core developers. This can lead to "unilateral
+	action", meaning that a change is introduced into CPython without
+	the review of someone besides the author. Other situations like
+	release managers backporting fixes to other branches without review
+	are common.
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/978541/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

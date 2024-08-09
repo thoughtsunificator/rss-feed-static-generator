@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Redox: An operating system in Rust</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Redox: An operating system in Rust</h3>
+		<div><p>
+With the
+<a href="https://rust-for-linux.com/" rel="noreferrer" target="_blank">
+Rust-for-Linux</a> project starting to gain some ground, it is worth
+looking at other operating systems that use Rust in their kernels. There
+are <a href="https://github.com/flosse/rust-os-comparison" rel="noreferrer" target="_blank">
+many</a> attempts to use
+Rust for operating system development, but <a href="https://redox-os.org/" rel="noreferrer" target="_blank">Redox</a>
+may be the most complete.
+Redox is an MIT-licensed microkernel and corresponding user space, designed
+around concepts taken from
+<a href="https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs" rel="noreferrer" target="_blank">
+Plan 9</a>. While nowhere near being usable as a
+replacement for Linux, it already provides a graphical user interface and
+<a href="https://www.redox-os.org/faq/#what-programs-can-redox-run" rel="noreferrer" target="_blank">
+the ability to run many POSIX programs</a>.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/979524/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

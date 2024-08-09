@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What Is An API Definition?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">What Is An API Definition?</h3>
+		<div><p>One of the best things about the maturing API economy is not having to do everything from scratch. In the early days of APIs, developers would simply include whatever they wanted and then figure out how to make it happen. Not only is this inefficient, but it also highly reduces the likelihood of anyone else being able to use or consume an API.</p>
+<p>API definitions eliminate virtually all of these problems. An API definition, also known as an <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/" rel="noreferrer" target="_blank">API specification</a>, is both a blueprint for an API and an itemized receipt full of metadata describing everything about an API.</p>
+<p>But what <em>is</em> an API definition? We’ve assembled an API definition primer with everything you need to know!</p>
+<h2 id="understanding-the-concept-of-an-api-definition">Understanding the Concept of an API Definition</h2>
+<p>An <a href="https://nordicapis.com/3-example-openapi-definitions/" rel="noreferrer" target="_blank">API definition</a> is a diagram of how an API is structured and operates. An API definition specifies an API’s endpoints. It defines what kind of requests and responses are accepted and what type of data they expect. An API definition also includes any additional parameters that might be included. Finally, API definitions specify the authentication method used for API calls. An API definition acts as a <a href="https://nordicapis.com/what-is-contract-testing/" rel="noreferrer" target="_blank">contract</a> between the API provider and consumer, ensuring there’s a clear understanding of how an API works.</p>
+<p>API definitions are essential for everything from API development to <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/" rel="noreferrer" target="_blank">API documentation</a>. They’re also vital for API integration, as specifications play an important role in the onboarding process. API definitions let developers understand how to use an API without having to parse the code. <a href="https://nordicapis.com/what-is-specification-driven-api-development/" rel="noreferrer" target="_blank">Well-defined API specifications</a> also help ensure developers that their API implementations are consistent and reliable.</p>
+<p><a href="https://www.openapis.org/" rel="noreferrer" target="_blank">OpenAPI</a> is the most popular, industry-standard specification used for API definitions. That said, it’s not the only option. Over the years, many different <a href="https://nordicapis.com/asyncapi-vs-openapi-whats-the-difference/" rel="noreferrer" target="_blank">kinds of API specifications</a> have been formulated, each with its strengths and weaknesses.</p>
+<h2 id="the-history-of-api-definitions">The History of API Definitions</h2>
+<p>Before API specifications, API development was entirely haphazard and inconsistent. <a href="https://nordicapis.com/7-tips-on-how-to-navigate-api-documentation/" rel="noreferrer" target="_blank">API documentation</a> was often incomplete, at best, making API integration difficult, inefficient, and frustrating. It also prevented users with less technical expertise from using APIs, greatly limiting their appeal.</p>
+<h3 id="the-rise-of-swagger">The Rise of Swagger</h3>
+<p>API definitions started to come on the scene in 2010 with the advent of Swagger. Created by Tony Tim, Swagger set out to provide an all-inclusive solution for documenting, defining, and interacting with an API. To achieve this goal, Swagger adopted a standardized format for describing <a href="https://nordicapis.com/whats-the-difference-between-rest-and-restful/" rel="noreferrer" target="_blank">RESTful APIs</a> in a way that machines could understand and interact with. The adoption of Swagger led the way toward automated API documentation, SDK generation, and server stubs.</p>
+<p>Swagger had three main components. First, there was the API specification itself, which was usually included as a <a href="https://nordicapis.com/what-is-the-difference-between-json-and-yaml/" rel="noreferrer" target="_blank">JSON or YAML file</a>. Then, there was the <a href="https://nordicapis.com/using-swagger-editor-with-asyncapi/" rel="noreferrer" target="_blank">Swagger UI</a>, which let developers interact with an API in their browser. Finally, a code-gen tool allowed users to generate their own API documentation and client libraries from the API definition.</p>
+<div class="well">Related: <a href="https://nordicapis.com/whats-the-difference-between-swagger-and-openapi/" rel="noreferrer" target="_blank">What’s the Difference Between Swagger and OpenAPI?</a></div>
+<h3 id="the-rise-of-openapi-specification">The Rise of OpenAPI Specification</h3>
+<p>The Swagger API definition transitioned to the OpenAPI Specification (OAS) in 2015 when SmartBear <a href="https://www.linuxfoundation.org/press/press-release/new-collaborative-project-to-extend-swagger-specification-for-building-connected-applications-and-services" rel="noreferrer" target="_blank">donated Swagger to the Linux Foundation</a>. This was directed by the OpenAPI Initiative, a movement to make the API industry more agnostic, open-source, and vendor-neutral. Some of the largest tech companies in the world, like Microsoft and Google, joined the initiative, playing a major role in giving OpenAPI legitimacy.</p>
+<p>The OpenAPI definition retained the most essential elements of the Swagger API specification while introducing several key components. Most importantly, it standardized a way to describe API endpoints, methods for making requests and accepting responses, and authentication methods. This standardization allowed for the proliferation of APIs, making today’s API industry possible.</p>
+<p>OpenAPI continues to see continued development and extensibility for new use cases. For example, lately, progress around the <a href="https://github.com/OAI/Arazzo-Specification" rel="noreferrer" target="_blank">Arazzo specification</a> has enabled OpenAPI to describe complex interlinked <a href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/" rel="noreferrer" target="_blank">API workflows</a>.</p>
+<h2 id="the-benefits-of-api-definitions">The Benefits of API Definitions</h2>
+<p>API specifications are largely responsible for the role that APIs play in today’s software development industry. Here are a few of the key benefits of using API specifications.</p>
+<h3 id="1-consistency-and-standardization">1. Consistency and Standardization</h3>
+<p>API specifications validate all aspects of the API to verify they’re well-defined and standardized. This standardization helps make certain that developers understand how to interact with an API, reducing the learning curve and keeping errors to a minimum.</p>
+<h3 id="2-improved-collaboration">2. Improved Collaboration</h3>
+<p>API definitions make it so that different teams can collaborate with as little friction as possible. Backend developers can implement the API according to the API definition, while frontend developers can simultaneously work on the UI interface based on the same specification.</p>
+<h3 id="3-automated-documentation">3. Automated Documentation</h3>
+<p>API definitions make <a href="https://nordicapis.com/7-open-source-openapi-documentation-generators/" rel="noreferrer" target="_blank">automated API documentation tools</a> possible. This documentation is often interactive, letting developers test API endpoints directly from the documentation.</p>
+<h3 id="4-easier-maintenance-and-updates">4. Easier Maintenance and Updates</h3>
+<p>When an API needs to be updated or extended, a well-defined API specification makes the API more understandable, making it easier to plan the changes accordingly. This helps guarantee that an API will be compatible with older versions and helps to maintain a <a href="https://nordicapis.com/crafting-an-excellent-developer-experience-for-api-versioning/" rel="noreferrer" target="_blank">stable API versioning strategy</a>.</p>
+<h3 id="5-enhanced-testing-and-validation">5. Enhanced Testing and Validation</h3>
+<p>API definitions are often used to generate mock servers and client SDKs, making thorough testing of an API possible. Additionally, API specifications are often used to validate requests and responses, making sure they conform to the specified schema.</p>
+<h3 id="6-security-and-compliance">6. Security and Compliance</h3>
+<p>Clear API definitions help define and enforce security policies. They also aid with compliance with industry standards and best practices, helping to ensure that the API meets required security and privacy guidelines.</p>
+<div class="well">For more read: <a href="https://nordicapis.com/the-benefits-of-using-api-specifications/" rel="noreferrer" target="_blank">The Benefits of Using API Specifications</a></div>
+<h2 id="comparing-different-api-specifications">Comparing Different API Specifications</h2>
+<p>Now, let’s examine a few of the most popular API specifications closely to get a better idea of their similarities and differences.</p>
+<h3 id="openapi">OpenAPI</h3>
+<p>The OpenAPI Specification (OAS), formerly known as Swagger, is one of the most popular and widely adopted API definitions in use today. It allows developers to define their API’s structure in a machine-readable format, which can be used to generate documentation, client SDKs, and server stubs.</p>
+<h3 id="raml">RAML</h3>
+<p>RESTful API Modeling Language (RAML) is another API specification format. It emphasizes readability and simplicity, making it easier for humans to read and understand. <a href="https://nordicapis.com/oas-vs-raml-whats-the-difference/" rel="noreferrer" target="_blank">RAML files</a> are written in YAML, a human-readable data serialization format.</p>
+<h3 id="api-blueprint">API Blueprint</h3>
+<p><a href="https://apiblueprint.org/" rel="noreferrer" target="_blank">API Blueprint</a> is an API specification language that uses Markdown to define an API. Its focus is simplicity and collaboration, making it easy to write and share API documentation.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Specification</th>
+<th>Introduced</th>
+<th>Developed by</th>
+<th>Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swagger</td>
+<td>2010</td>
+<td>Tony Tam</td>
+<td>JSON/YAML format, interactive documentation, code generation</td>
+</tr>
+<tr>
+<td>OpenAPI Specification (OAS)</td>
+<td>2015</td>
+<td>OpenAPI Initiative (Linux Foundation)</td>
+<td>Standardized API description, community-driven, improved flexibility</td>
+</tr>
+<tr>
+<td>RAML</td>
+<td>–</td>
+<td>MuleSoft</td>
+<td>Concise API description, simplicity, ease of use</td>
+</tr>
+<tr>
+<td>API Blueprint</td>
+<td>–</td>
+<td>–</td>
+<td>Markdown-based, human-friendly syntax</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Feature</th>
+<th>Swagger/OpenAPI</th>
+<th>RAML</th>
+<th>API Blueprint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Documentation Generation</td>
+<td>Excellent</td>
+<td>Good</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Code Generation</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>Readability</td>
+<td>Moderate</td>
+<td>High</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Adoption</td>
+<td>High</td>
+<td>Moderate</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Extensibility</td>
+<td>High</td>
+<td>Moderate</td>
+<td>Moderate</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a-deeper-look-at-the-industry-standard-openapi">A Deeper Look At The Industry Standard: OpenAPI</h2>
+<p>OpenAPI is widely considered the industry standard for API specifications. It allows for comprehensive API documentation while providing a range of tools for code generation and testing.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Detailed documentation</strong>: OpenAPI can describe every aspect of an API, including its endpoints, request and response formats, parameters, and authentication methods.</li>
+<li><strong>Interactive documentation</strong>: Tools like Swagger UI can generate interactive documentation, allowing users to test API endpoints directly from their browser or even the documentation itself.</li>
+<li><strong>Broad tooling support</strong>: OpenAPI offers extensive tooling support, including code generators, API testing tools, and validation frameworks.</li>
+<li><strong>Community and ecosystem</strong>: With a large and energetic developer community, OpenAPI has one of the most extensive ecosystems of tools and libraries of any API specification.</li>
+</ul>
+<h3 id="use-cases">Use Cases</h3>
+<p>OpenAPI is ideal for complex APIs that require detailed documentation and comprehensive tooling support. It is well-suited for large-scale enterprise applications and services that need to maintain strict API standards.</p>
+<h3 id="openapi-sample">OpenAPI Sample</h3>
+<pre><code>openapi: <span class="hljs-string">"3.0.0"</span>
+info:
+  title: Simple API overview
+  <span class="hljs-keyword">version</span>: <span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>
+path<span class="hljs-variable">s:</span>
+  /:
+    ge<span class="hljs-variable">t:</span>
+      operationId: listVersionsv2
+      summary: List API versions
+      response<span class="hljs-variable">s:</span>
+        <span class="hljs-string">'200'</span>:
+          description: |-
+            <span class="hljs-number">200</span> response
+          conten<span class="hljs-variable">t:</span>
+            application/json:
+              example<span class="hljs-variable">s:</span> 
+                foo:
+                  value:
+                    {
+                      <span class="hljs-string">"versions"</span>: [
+                        {
+                            <span class="hljs-string">"status"</span>: <span class="hljs-string">"CURRENT"</span>,
+                            <span class="hljs-string">"updated"</span>: <span class="hljs-string">"2011-01-21T11:33:21Z"</span>,
+                            <span class="hljs-string">"id"</span>: <span class="hljs-string">"v2.0"</span>,
+                            <span class="hljs-string">"links"</span>: [
+                                {
+                                    <span class="hljs-string">"href"</span>: <span class="hljs-string">"http://127.0.0.1:8774/v2/"</span>,
+                                    <span class="hljs-string">"rel"</span>: <span class="hljs-string">"self"</span>
+                                }
+                            ]
+                        },
+                        {
+                            <span class="hljs-string">"status"</span>: <span class="hljs-string">"EXPERIMENTAL"</span>,
+                            <span class="hljs-string">"updated"</span>: <span class="hljs-string">"2013-07-23T11:33:21Z"</span>,
+                            <span class="hljs-string">"id"</span>: <span class="hljs-string">"v3.0"</span>,
+                            <span class="hljs-string">"links"</span>: [
+                                {
+                                    <span class="hljs-string">"href"</span>: <span class="hljs-string">"http://127.0.0.1:8774/v3/"</span>,
+                                    <span class="hljs-string">"rel"</span>: <span class="hljs-string">"self"</span>
+                                }
+                            ]
+                        }
+                      ]
+                    }
+</code></pre>
+<h2 id="typespec">TypeSpec</h2>
+<p>Another format aiding API descriptions is TypeSpec. <a href="https://nordicapis.com/introduction-to-typespec/" rel="noreferrer" target="_blank">TypeSpec</a> is designed by Microsoft to simplify API design with a code-like syntax, enhancing developer productivity and consistency.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Code-like syntax</strong>: Similar to TypeScript, making it intuitive for developers.</li>
+<li><strong>Design-first approach</strong>: Supports creating API designs before implementation.</li>
+<li><strong>Integration</strong>: Works with tools like OpenAPI for broader compatibility.</li>
+<li><strong>Reusable code</strong>: Allows API guidelines to be codified and reused.</li>
+</ul>
+<h3 id="use-cases">Use Cases</h3>
+<p>TypeSpec is ideal for developers looking for a lightweight, flexible alternative to OpenAPI. It’s suitable for projects that benefit from a <a href="https://nordicapis.com/design-first-api-development-myth-or-reality/" rel="noreferrer" target="_blank">design-first approach</a> and reusable API components.</p>
+<h3 id="typespec-sample">TypeSpec Sample</h3>
+<pre><code><span class="hljs-selector-tag">namespace</span> <span class="hljs-selector-tag">ExampleService</span> {
+  <span class="hljs-variable">@service</span>
+  interface ExampleAPI {
+    <span class="hljs-variable">@get</span>(<span class="hljs-string">"/items"</span>)
+    <span class="hljs-variable">@returns</span>(ItemList)
+    getItems(): ItemList;
+
+    <span class="hljs-variable">@post</span>(<span class="hljs-string">"/items"</span>)
+    <span class="hljs-variable">@body</span>(Item)
+    <span class="hljs-variable">@returns</span>(Item)
+    createItem(<span class="hljs-attribute">item</span>: Item): Item;
+  }
+
+  model Item {
+    <span class="hljs-attribute">id</span>: string;
+    <span class="hljs-attribute">name</span>: string;
+    <span class="hljs-selector-tag">description</span>?: <span class="hljs-selector-tag">string</span>;
+  }
+
+  <span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">ItemList</span> {
+    <span class="hljs-attribute">items</span>: Item[];
+  }
+}
+</code></pre>
+<h2 id="final-thoughts-on-api-definitions">Final Thoughts on API Definitions</h2>
+<p>API definitions are a vital component of modern software development, providing a clear and standardized way to define how APIs should operate. They offer numerous benefits, including a more consistent developer experience, enhanced collaboration, automated API documentation generation, easier maintenance, enhanced testing, and better API security.</p>
+<p>OpenAPI, RAML, and API Blueprint offer unique features and advantages among the popular API specifications. OpenAPI is highly detailed and has extensive tooling support, making it ideal for complex APIs. RAML prioritizes simplicity and readability, making it suitable for small-to-medium-sized projects. API Blueprint focuses on collaboration and readability, making it an excellent choice for teams that need to share and review API documentation easily.</p>
+<p>The right API definition sets your API project up for success. It helps verify that your APIs are well-documented and easy to use and maintain, ultimately leading to a more efficient and effective development workflow.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/what-is-an-api-definition/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

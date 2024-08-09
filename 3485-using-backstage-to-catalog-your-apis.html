@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using Backstage to Catalog Your APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Using Backstage to Catalog Your APIs</h3>
+		<div><p>In the world of platform engineering, there’s a growing excitement around the open-source tool <a href="https://backstage.spotify.com" rel="noreferrer" target="_blank">Backstage</a>. Developed initially as an internal tool at Spotify, Backstage has been donated to the <a href="https://www.cncf.io" rel="noreferrer" target="_blank">Cloud Native Computing Foundation (CNCF)</a> and is being adopted by thousands of companies.</p>
+<p>Backstage’s primary design goal is to improve internal DevOps processes by providing a unified, centralized system for managing software components. However, the potential applications of Backstage extend beyond this original intent.</p>
+<p>One intriguing possibility is the use of Backstage as a <a href="https://nordicapis.com/using-backstage-to-generate-developer-portals/" rel="noreferrer" target="_blank">catalog for your internal APIs</a>. Below, we’ll dive deeper to explore how to use Backstage to catalog your APIs and consider how this could revolutionize API management within your organization.</p>
+<h2 id="backstage-as-an-api-catalog">Backstage as an API Catalog</h2>
+<p>Backstage’s software catalog is its core feature, managing entities that describe various software components. This includes APIs, making it a potential tool for <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/" rel="noreferrer" target="_blank">cataloging your internal APIs</a> alongside your other services. Before we show sample code to set up Backstage for internal APIs, let’s consider one case study of a development team that is already doing this in practice.</p>
+<h3 id="traveloka-s-use-of-backstage">Traveloka’s Use of Backstage</h3>
+<p>Traveloka, one of the largest online travel companies in Southeast Asia, provides a compelling <a href="https://aws.amazon.com/blogs/opensource/how-traveloka-uses-backstage-as-an-api-developer-portal-for-amazon-api-gateway/" rel="noreferrer" target="_blank">case study</a>. They use Backstage as a developer portal for APIs hosted on Amazon API Gateway. Before Traveloka implemented Backstage, each service team documented APIs in their own way. As a result, developers lost time going back and forth with service teams to build integrations.</p>
+<p>An <a href="https://nordicapis.com/8-developer-portal-best-practices/" rel="noreferrer" target="_blank">API portal</a> consolidates API documentation in a central place. There are multiple ways to build an API portal. One option is to integrate solutions like ReadMe with your <a href="https://nordicapis.com/why-api-gateways-should-be-programmable/" rel="noreferrer" target="_blank">API gateway</a>. Software as a service (SaaS) solutions like ReadMe let you get started quickly and reduce operational overhead. However, folks who prefer a highly configurable setup or <a href="https://nordicapis.com/7-open-source-openapi-documentation-generators/" rel="noreferrer" target="_blank">open-source solutions</a> often choose to build their own.</p>
+<p>By using Backstage, Traveloka’s developers centralize and standardize API contracts and documentation, helping to accelerate development and avoid bottlenecks. Traveloka chose to host Backstage on a cloud service for its portal, partly because the company was already using Backstage as its developer portal.</p>
+<h2 id="how-to-start-cataloging-apis-with-backstage">How to Start Cataloging APIs With Backstage</h2>
+<p>In the following section, we’ll walk through the steps to deploy Backstage as an API catalog. This process involves setting up a Backstage app, configuring a cloud storage service as the catalog location, and uploading your API definitions for access through the portal. Let’s dive into the details:</p>
+<h3 id="1-create-backstage-app">1. Create a Backstage App</h3>
+<p>First, we need to set up the Backstage application. Start by creating a working directory for the code.</p>
+<pre><code><span class="hljs-built_in">mkdir</span> backstage-api-blog
+<span class="hljs-built_in">cd</span> backstage-api-blog
+</code></pre>
+<p>Next, use npm to create the Backstage app. When prompted for the app name, enter <code>api-portal</code>. This process may take a few minutes.</p>
+<pre><code><span class="hljs-selector-tag">npx</span> @<span class="hljs-keyword">backstage</span>/<span class="hljs-keyword">create</span>-<span class="hljs-keyword">app</span>
+</code></pre>
+<p>Use yarn to run the app.</p>
+<pre><code><span class="hljs-built_in">cd</span> api-portal &amp;&amp; yarn dev
+</code></pre>
+<p>Now, you can access your Backstage portal at <code>http://localhost:3000</code>. This is where you’ll be able to view and manage your APIs once they’re uploaded.</p>
+<p>After you’ve set up your Backstage app and started it using the command <code>yarn dev</code>, it will be locally hosted on your machine. This means the app is running on your computer and can be accessed through a web browser. The address <code>http://localhost:3000</code> is the default local network address where your Backstage app can be accessed.</p>
+<h3 id="2-configure-cloud-storage-as-catalog-location">2. Configure Cloud Storage as Catalog Location</h3>
+<p>After setting up your Backstage app, the next step is to configure a <a href="https://nordicapis.com/10-cloud-storage-apis-compared/" rel="noreferrer" target="_blank">cloud storage service</a>, such as Amazon S3 or Azure Blob Storage, as the catalog location. This involves creating a storage bucket and configuring it to store your API definitions. You’ll need to set up appropriate permissions to ensure your Backstage app can access the storage bucket.</p>
+<h2 id="3-upload-api-definition-to-cloud-storage-and-test-portal">3. Upload API Definition to Cloud Storage and Test Portal</h2>
+<p>Once your storage bucket is set up, you can upload your <a href="https://nordicapis.com/standard-api-definitions-demystified/" rel="noreferrer" target="_blank">API definitions</a> to it. These definitions should be in a format that Backstage can understand, such as <a href="https://nordicapis.com/what-is-the-difference-between-json-and-yaml/" rel="noreferrer" target="_blank">YAML or JSON</a>. After uploading the definitions, you can test your portal by navigating to the APIs in the Backstage interface. If everything is set up correctly, you should see your APIs listed in the catalog.</p>
+<h2 id="backstage-as-a-developer-portal">Backstage as a Developer Portal</h2>
+<p>Backstage’s potential extends beyond cataloging APIs. It could also serve as a <a href="https://nordicapis.com/6-examples-of-great-developer-portals/" rel="noreferrer" target="_blank">developer portal</a>, bridging the gap between API publishers and consumers. Developers can use API contracts and documentation published by producers to build client applications.</p>
+<p>Moreover, Backstage integrates with cloud providers and other external systems using plugins. This makes it a highly configurable setup for organizations preferring open-source solutions.</p>
+<h2 id="api-governance-with-backstage">API Governance With Backstage</h2>
+<p>API governance involves managing and controlling the usage, development, and maintenance of APIs within an organization. It ensures that APIs are developed, deployed, and used in a consistent, secure, and efficient manner.</p>
+<p>Backstage can aid <a href="https://nordicapis.com/api-governance-in-a-multi-cloud-world/" rel="noreferrer" target="_blank">API governance</a> by providing a centralized location for API documentation. This can streamline development efforts, enhance security and compliance, and foster collaboration. This could also drive innovation by enabling more seamless integration and interoperability across systems and applications.</p>
+<h2 id="backstage-plugin-marketplace">Backstage Plugin Marketplace</h2>
+<p>The <a href="https://backstage.io/plugins/" rel="noreferrer" target="_blank">Backstage plugin marketplace</a> offers a variety of plugins that can extend Backstage’s functionalities. Here are a few examples that are relevant to API development and operations:</p>
+<ul>
+<li><strong>3scale by Red Hat</strong>: This plugin synchronizes 3scale content into the Backstage catalog, allowing APIs from multiple 3scale tenants to be available in the Backstage catalog.</li>
+<li><strong>API Docs by SDA SE</strong>: This plugin provides components to discover and display API entities as an extension to the catalog plugin.</li>
+<li><strong>API Linter by Zalando</strong>: API Linter is a quality assurance tool that checks the compliance of API’s specifications to Zalando’s API rules.</li>
+<li><strong>API SDK Generator by Konfig</strong>: This plugin generates SDKs for your REST API to accelerate integration.</li>
+<li><strong>API Spectral Linter by dweber019</strong>: API Spectral Linter is a quality assurance tool that checks the compliance of API’s specifications Spectral rule sets.</li>
+<li><strong>WSDL/SOAP viewer by dweber019</strong>: An API docs extension to render WSDL/SOAP web services in a human-readable manner.</li>
+<li><strong>Apollo Explorer by unredundant</strong>: Integrates Apollo Explorer graphs as a tool to browse GraphQL API endpoints inside Backstage.</li>
+</ul>
+<p>These plugins, along with many others available in the marketplace, can greatly enhance your API management capabilities with Backstage.</p>
+<h2 id="final-thoughts-on-backstage-and-apis">Final Thoughts on Backstage and APIs</h2>
+<p>Backstage emerges as a highly promising solution for cataloging APIs, serving as a developer portal, and aiding in API governance. Its flexibility and extensibility, coupled with its growing adoption in the tech industry, make it a tool worth considering for organizations seeking to streamline their API management processes. By centralizing <a href="https://nordicapis.com/7-tips-on-how-to-navigate-api-documentation/" rel="noreferrer" target="_blank">API documentation</a>, fostering collaboration among teams, and driving innovation through seamless integration and interoperability across systems and applications, Backstage has the potential to significantly enhance your organization’s API strategy.</p>
+<p>As the Backstage community continues to grow and contribute new plugins and features, it’s an exciting time to consider adopting Backstage for your API management needs. Whether you’re a small startup or a large enterprise, Backstage offers solutions that can be tailored to your specific requirements, making it a versatile tool in the ever-evolving landscape of platform engineering.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/using-backstage-to-catalog-your-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

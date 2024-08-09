@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Universal Blue images need manual intervention for updates</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Universal Blue images need manual intervention for updates</h3>
+		<div><p>The <a href="https://universal-blue.org/" rel="noreferrer" target="_blank">Universal Blue</a>
+project, which produces operating system images based on Fedora's <a href="https://fedoraproject.org/atomic-desktops/" rel="noreferrer" target="_blank">Atomic Desktops</a>,
+has issued an <a href="https://universal-blue.discourse.group/t/important-announcement-regarding-system-updates-action-needed/2689/1" rel="noreferrer" target="_blank">announcement</a>
+that manual steps are required to continue receiving updates. Jorge
+Castro wrote:</p>
+
+
+<blockquote class="bq">
+<p>If you use Bazzite, Bluefin, Aurora, or any other Universal Blue
+image (including our toolboxes) then you need to follow the
+instructions in this announcement in order to ensure that your device
+is getting updates. We were rotating our cosign keypairs this morning,
+which is the method that we use to sign our images.</p>
+
+
+<p>During this process I made a critical error which has resulted in
+forcing you to take manual steps to migrate to our newly signed
+images.</p>
+</blockquote>
+
+<p>This applies to all Universal Blue images released before July 2,
+2024. See the full announcement for instructions. LWN <a href="https://lwn.net/Articles/954059/" rel="noreferrer" target="_blank">covered Bluefin</a> in
+December, 2023.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/980575/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

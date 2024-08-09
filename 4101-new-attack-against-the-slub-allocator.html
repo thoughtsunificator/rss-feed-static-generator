@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>New attack against the SLUB allocator</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">New attack against the SLUB allocator</h3>
+		<div><p>
+Researchers from Graz University of Technology have
+<a href="https://www.stefangast.eu/papers/slubstick.pdf" rel="noreferrer" target="_blank">published</a> details of a new attack
+on the Linux kernel called SLUBStick. The attack uses timing information to turn an ability to trigger use-after-free or double-free bugs into the ability to overwrite page tables, and thence into the ability to read and write arbitrary areas of memory. The good news is that this attack does require an existing bug to be usable; the bad news is that the kernel regularly sees bugs of this kind.
+</p>
+
+<blockquote class="bq">
+We assume that an unprivileged user has code execution. 
+Additionally, we consider the presence of a heap vulnerability
+in the Linux kernel. We assume that the Linux kernel 
+incorporates all defense mechanisms available in version 6.4, the
+most recent Linux kernel version when we started our work.
+These mechanisms include features such as WˆX, KASLR,
+SMAP, and kCFI. We do not assume any microarchitectural 
+vulnerabilities, e.g., transient execution, fault
+injection, or hardware side channels.
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/984984/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

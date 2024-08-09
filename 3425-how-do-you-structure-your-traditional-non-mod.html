@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How do you structure your traditional (non-modular) monolith applications?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How do you structure your traditional (non-modular) monolith applications?</h3>
+		<div><p>I’ve written a series of posts about <a href="/post/architecture/2024/05/13/how-modular-can-your-monolith-go-part-7-no-such-thing-as-a-modular-monolith.html" rel="noreferrer" target="_blank">modular monoliths</a>.
+But I recently realized that it’s been a long time since I’ve written anything about traditional monoliths, except to say that their primary organizing principle is technical. For example, <a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html" rel="noreferrer" target="_blank">a technically layered architecture or hexagonal architecture</a>.</p>
+
+<p></p>
+
+<p>But beyond this, there’s lots of options.</p>
+
+<p>One key question is how to organize the monolith’s codebase into Maven modules or Gradle projects?
+There are many ways to do this.
+Here are some options I’ve seen.</p>
+
+<h2 id="singular-maven-or-gradle-project">Singular Maven or Gradle project</h2>
+
+<p>The simplest option is a Maven project consisting of a single module or a Gradle project with no sub-projects.
+This is what <a href="https://start.spring.io/" rel="noreferrer" target="_blank">start.spring.io</a> gives you, for example.
+It’s great for small applications but can become unwieldy as the application grows.</p>
+
+<h2 id="mavengradle-multi-module-project-one-per-layer">Maven/Gradle multi-module project: one per layer</h2>
+
+<p>Another common option is to have a Maven module or Gradle sub-project per layer.
+I have vague memories of starting the development of a few applications this way:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>application
+<span class="nb">cd </span>application
+<span class="nb">mkdir </span>main web domain infrastructure
+...
+</code></pre></div></div>
+
+<p>Each subdirectory is a Maven module or Gradle sub-project.</p>
+
+<h2 id="mavengradle-multi-module-project-domain--feature-modulesprojects">Maven/Gradle multi-module project: domain + feature modules/projects</h2>
+
+<p>There are various other ways to structure a Maven multi-module or Gradle multi-project build.
+For example, I’ve seen applications with the following structure:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">persistence</code> or <code class="language-plaintext highlighter-rouge">infrastructure</code> module/project</li>
+  <li><code class="language-plaintext highlighter-rouge">domain</code> module/project containing the entities and value objects of a rich domain model</li>
+  <li>Multiple ‘feature’ module/projects, each one containing the service and (HTTP) controller classes for a given slice of functionality</li>
+</ul>
+
+<p>This structure is perhaps the most modular although the <code class="language-plaintext highlighter-rouge">domain</code> module can be rather large.</p>
+
+<h2 id="how-do-you-structure-your-traditional-monoliths">How do you structure your traditional monoliths?</h2>
+
+<p>How do you structure your traditional monoliths?
+I’d love to hear about it in the comments below.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/05/30/structuring-traditional-monoliths.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

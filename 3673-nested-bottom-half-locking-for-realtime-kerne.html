@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Nested bottom-half locking for realtime kernels</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Nested bottom-half locking for realtime kernels</h3>
+		<div>Software-interrupt handlers (also called "bottom halves") have a long
+history in the Linux kernel; for much of that history, developers have
+wished that they could go away.  One of their unfortunate characteristics
+is that they can add unexpected latency to the execution of unrelated
+processes; this problem is felt especially acutely in the
+realtime-preemption community.  The solution adopted there has created
+problems of its own, though; in response Sebastian Andrzej Siewior is <a href="https://lwn.net/ml/all/20240607070427.1379327-1-bigeasy@linutronix.de" rel="noreferrer" target="_blank">proposing</a>
+a new locking mechanism for realtime builds of the kernel that may have
+benefits for non-realtime users as well.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/978189/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

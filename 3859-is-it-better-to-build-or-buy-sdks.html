@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Is It Better to Build or Buy SDKs?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Is It Better to Build or Buy SDKs?</h3>
+		<div><p>Software development kits (SDKs) are a major element of a successful developer support program. SDKs offer a comprehensive toolkit of libraries, samples, documentation, processes, and more to help developers create new and exciting applications, substantially reducing the headache of development.</p>
+<p>While the <a href="https://nordicapis.com/what-is-the-difference-between-an-api-and-an-sdk/" rel="noreferrer" target="_blank">value of an SDK</a> is obvious, what may not be so obvious is <em>how</em> software providers create a valuable SDK. You could build it manually or leverage <a href="https://nordicapis.com/10-tools-to-automatically-generate-sdks-for-your-api/" rel="noreferrer" target="_blank">various tools on the market</a> for SDK generation. Choosing whether to build or buy is a significant obstacle to developing and adopting an SDK.</p>
+<p>Below, we’ll examine these two options to help clear the road ahead. We’ll explore some cases where buying or building makes sense and offer some tools to get you well on your way to SDK paradise.</p>
+<h2 id="the-purposeful-development-of-an-sdk">The Purposeful Development of an SDK</h2>
+<p>Before we consider options to build or buy, it helps to clarify the purpose behind its development. This purpose can give some form and intent to the development pathway and indicate which path may be optimal.</p>
+<p>Developers need support, and the level of support provided can often be the difference between a product that just does what it says on the tin and a product that is unique, powerful, and truly functional. SDKs give developers the toolset required to interact with and <a href="https://nordicapis.com/how-sdks-benefit-api-developer-experience/" rel="noreferrer" target="_blank">iterate upon your API</a>, allowing them to focus on developing a critical tool rather than getting into the weeds of uncovering particular functions and systems.</p>
+<p>It’s clear, then, that an SDK is not just a technical toolkit — it is as much a method of collecting systems and functions as it is a method of expressing form and intent. This gives us a bit of a clue as to which path may be best. The level of clarity and control over the API’s message, form, and intent will, in some ways, dictate whether an automated surfacing of functions is preferred over a tailor-built and deeply contextual custom offering is more appropriate.</p>
+<p>We should also note what makes a quality SDK, as both the build and buy options have pros and caveats. A good SDK must be <a href="https://nordicapis.com/build-consistent-and-delightful-sdks-for-your-apis/" rel="noreferrer" target="_blank">consistent and robust</a> — it should offer accurate options for the end developer in a format that is understandable and internally consistent with itself. SDKs are also often the <a href="https://nordicapis.com/10-best-practices-for-sdk-generation/" rel="noreferrer" target="_blank">first line of defense in solving issues</a>, and as such, they must be in-depth and designed for discoverability.</p>
+<p>With all this in mind, let’s consider our first option: building an SDK.</p>
+<h2 id="building-an-sdk">Building an SDK</h2>
+<p>Building an SDK can be a daunting task, but it is ultimately one that grants the most control. Due to the steps required to build a good SDK, there are multiple points at which the design, intent, and ethos of the API provider can be validated and instilled, creating both a technical tool as well as a communication pathway between the provider and the developer.</p>
+<p>A variety of terms can describe these steps, but roughly, software providers will follow this same general practical outline:</p>
+<ul>
+<li><strong>Design</strong>: Determine the form and function of your SDK, including the particular methodology to surface endpoints and functions.</li>
+<li><strong>Validate</strong>: Utilizing an <a href="https://nordicapis.com/generating-web-api-tests-from-an-openapi-specification/" rel="noreferrer" target="_blank">API specification</a> or other like-system, validate the API to ensure that your understanding of the API reflects the situation on-the-ground. SDKs and documentation should adhere to the actual structure of the API in situ, and ensuring this is the case is a major step towards creating useful systems.</li>
+<li><strong>Build</strong>: Now you can get to the process of actually building the SDK. This will be a very time consuming process, but it’s worth focusing on the details and specificity of how you build this out. Converting your API model and specification into usable endpoints and components will be vital. Ensure you have proper authentication and authorization methods, and <a href="https://nordicapis.com/best-practices-api-error-handling/" rel="noreferrer" target="_blank">implement clear error handling</a>.</li>
+<li><strong>Document</strong>: With the SDK developed, it’s time to document it. Documentation is a huge part of your SDK success pathway, and you should ensure that this documentation is accurate to the SDK as it exists. With each new element you add — API, CLI, SDK, documentation, and so on — information can drift out of context and out of sync. Ensure that you have created review and synchronization systems to prevent this.</li>
+<li><strong>Share</strong>: Share your SDK with your users! Developer portals, development guides, Discord, or Slack can all be used as part of a cohesive developer support strategy that can help surface the SDK and its associated documentation. Make sure your SDK is <a href="https://nordicapis.com/the-benefits-of-using-apis-json-and-apis-io/" rel="noreferrer" target="_blank">discoverable</a> — if it can’t be found, it won’t be used!</li>
+</ul>
+<p>Building SDKs can be very time-consuming, but by following a few simple principles — keeping it simple, usable, correctly mapped, well-documented, and published appropriately — your SDK development journey can be highly rewarding.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/best-practices-for-building-sdks-for-apis/" rel="noreferrer" target="_blank">Best Practices for Building SDKs for APIs</a></div>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>This process grants the developer complete control over the SDK, both in terms of content and intent. This can be major for the provider, establishing a significantly beneficial communication pathway.</li>
+<li>Building allows developers to spread this process over time. Automated systems tend to be all-or-nothing, but manual construction can be paused, given a different scope or schedule.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Building an SDK manually is time-consuming and costly. This process will likely incur significantly more costs.</li>
+<li>Manually updating SDKs can be a long-term cost sink both in terms of time and resources, and it can be less clear upfront how much this cost might be.</li>
+<li>Building an SDK introduces a human element as a risk into the development pipeline, introducing inaccuracy at scale.</li>
+</ul>
+<h2 id="-buying-your-sdk">“Buying” Your SDK</h2>
+<p>When we discuss the idea of “buying” an SDK, we’re really talking about using third-party tools and off-the-shelf components to generate an SDK without any intentional development by an internal team. In essence, we’re taking something that already exists and creating an SDK from that system.</p>
+<p>For example, we can look at how payment vendor Square <a href="https://nordicapis.com/case-study-how-square-automates-sdk-generation/" rel="noreferrer" target="_blank">generated their SDK using OpenAPI Specification</a>. In this process, Square focused on the creation of an Open API Specification to design its API and document its endpoints. From here, Square then utilized <a href="https://swagger.io/tools/swagger-codegen/" rel="noreferrer" target="_blank">Swagger Codegen</a>, a solution that automatically creates an SDK via a system to templates. In this way, Square was able to generate SDKs using an off-the-shelf open-source tool without having to manually create it, gaining additional benefits in long-term management in the process.</p>
+<p>There are various tools for generating SDKs, ranging from static open-source projects to fully-fledged SDK generation platforms and utilizing specific specification and definition paradigms. A sampling of these solutions include:</p>
+<ul>
+<li><strong>APIMatic</strong>: A comprehensive developer experience platform that provides tools to automatically build and maintain SDKs.</li>
+<li><strong>Appwrite’s SDK Generator</strong>: A backend-as-a-service platform that uses a PHP library to generate SDKs from Twig templates.</li>
+<li><strong>Fern</strong>: An open-source SDK generation solution that utilizes a compiler to bundle functions, creating SDKs, documentation, and backend code from a single API definition.</li>
+<li><strong>OpenAPI Generator</strong>: An open-source SDK generation solution that generates SDKs, documentation, and configuration data. This project is a fork from Swagger Codegen and supports various clients and languages.</li>
+</ul>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Buying your SDK may be more expensive than creating it by hand, but it is infinitely cheaper in terms of ongoing effort. Utilizing a pre-developed tool can get your SDK running without bogging your team down for a long time.</li>
+<li>Maintenance and long-term updates are typically automatic instead of manually developed, meaning you save time in the long run.</li>
+<li>This is also typically a solution that results in quicker market deployment with less overhead.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Speed does not equate to accuracy, and code generation carries risks stemming from poor or incorrect definitions and an inaccurate codebase. This ultimately means your team may lose some efficiency and speed in the process of creating an SDK if you don’t pay proper attention in the early days.</li>
+<li>Buying your SDK can sometimes be more expensive, depending on your team setup. If your role is already <a href="https://nordicapis.com/why-technical-writers-are-important-for-apis/" rel="noreferrer" target="_blank">focused on documentation</a>, it may be a sunk cost compared to doing something external to the organization. That being said, the additional cost of long-term maintenance may make this a moot point.</li>
+</ul>
+<h2 id="to-build-or-buy-">To Build or Buy?</h2>
+<p>With so many options, finding a path through the noise is complex. Ultimately, your choice to build or buy will depend highly on your team structure, the maturity of your code, and if you embrace <a href="https://nordicapis.com/what-is-specification-driven-api-development/" rel="noreferrer" target="_blank">specification-driven API development</a>.</p>
+<p>Immature or small codebases that aren’t defined in a specification may benefit from building an SDK, as your total work will be substantially lower. That said, if your codebase is planned to become more complex, you will likely benefit from the additional process of documenting and specifying now.</p>
+<p>Mature code that is accurately defined in a specification may benefit from “buying” your SDK, as you’ve already done the hard work of defining your API. This can result in significant cost savings but places a lot of dependence on external systems to generate and maintain your SDK.</p>
+<p>In either case, secure APIs or APIs that need specific aspects documented and specific elements obfuscated will likely benefit from the internal build, as this gives you way more control.</p>
+<p>What do you think of this discussion? Have you built or bought your SDKs? What was your process like? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/is-it-better-to-build-or-buy-sdks/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

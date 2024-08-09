@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Hierarchical storage management, fanotify, FUSE, and more</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Hierarchical storage management, fanotify, FUSE, and more</h3>
+		<div>Amir Goldstein led a filesystem-track session at the 2024 <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux Storage,
+Filesystem, Memory Management, and BPF Summit</a> on his project to build a
+<a href="https://en.wikipedia.org/wiki/Hierarchical_storage_management" rel="noreferrer" target="_blank">hierarchical
+storage management</a> (HSM) system using <a href="https://www.kernel.org/doc/html/latest/admin-guide/filesystem-monitoring.html" rel="noreferrer" target="_blank">fanotify</a>.
+The idea is to monitor file access in order to determine when to retrieve
+content from non-local storage (e.g. the cloud).  The session was a
+follow-up to last year's <a href="https://lwn.net/Articles/932415/" rel="noreferrer" target="_blank">introduction to the
+project</a>, which covered some of the problems he had encountered; this
+year, he
+was updating attendees on its status and progress, along with some other
+problem areas that he wanted to discuss.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/981392/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Handling the NFS change attribute</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Handling the NFS change attribute</h3>
+		<div>The saga of the <tt>i_version</tt> field for inodes, which tracks the
+occurrence of changes
+to the data or metadata of a file, continued in a discussion at the 2024 <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux Storage,
+Filesystem, Memory Management, and BPF Summit</a>.  In a session led by
+Jeff Layton, who has been doing a lot the work on <a href="https://lwn.net/Articles/905931/" rel="noreferrer" target="_blank">changing the semantics and functioning of
+<tt>i_version</tt></a> over the years, he updated attendees on the status of the <a href="https://lwn.net/Articles/946394/" rel="noreferrer" target="_blank">effort</a> since a <a href="https://lwn.net/Articles/937247/" rel="noreferrer" target="_blank">session at last year's summit</a>.  His summary
+was that things are
+"pretty much where we started last year", but the discussion this time
+pointed to some possible ways forward.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/975863/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

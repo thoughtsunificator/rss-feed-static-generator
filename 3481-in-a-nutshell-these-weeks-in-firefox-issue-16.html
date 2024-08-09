@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>In a nutshell – These Weeks in Firefox: Issue 162</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">In a nutshell – These Weeks in Firefox: Issue 162</h3>
+		<div><h3 dir="ltr">Highlights</h3>
+<ul>
+<li>
+<p role="presentation">The final patch for the new and improved text and layout menu in Reader Mode has landed. Try it out the full feature by flipping the improved_text_menu.enabled pref to true.</p>
+</li>
+</ul>
+<p></p>
+<ul>
+<li role="presentation">As part of the ongoing work related to improving cross-browser compatibility for Manifest Version 3 extensions, starting from Firefox 128:
+<ul>
+<li role="presentation">Context menus created by MV3 and MV2 WebExtensions with an event page are now persisted and preserved across browser updates – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1771328" target="_blank" rel="noreferrer">Bug 1771328</a></li>
+<li role="presentation">MV3 extensions can use optional_host_permissions to specify a set of additional host permissions that are expected to not be granted automatically as part of the install flow (unlike the ones specified in the host_permissions which are now optional but granted automatically at install time) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1766026" target="_blank" rel="noreferrer">Bug 1766026</a></li>
+<li role="presentation">Many improvements on content script matching and support for the match_origin_as_fallback content script option:</li>
+<li role="presentation">Fixed issue with content scripts unable to attach sandboxed http/file pages – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1411641" target="_blank" rel="noreferrer">Bug 1411641</a></li>
+<li role="presentation">Added support for match_origin_as_fallback, and as a side effect of that the ability to inject content scripts into webpages loaded from data URLs – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1475831" target="_blank" rel="noreferrer">Bug 1475831</a> / <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853411" target="_blank" rel="noreferrer">Bug 1853411</a> / <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897113" target="_blank" rel="noreferrer">Bug 1897113</a></li>
+<li role="presentation">declarativeNetRequest API improvements:
+<ul>
+<li role="presentation">accepts rules with unrecognized keys to aid cross-browser and backward compatibility of DNR rules – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1886608" target="_blank" rel="noreferrer">Bug 1886608</a></li>
+<li role="presentation">New API methods getDisabledRules / updateStaticRules to allow extensions to individually disable/enable rules part of static rulesets – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810762" target="_blank" rel="noreferrer">Bug 1810762</a></li>
+</ul>
+</li>
+<li role="presentation">webRequest chrome compatibility improvement:
+<ul>
+<li role="presentation">Added support for asyncBlocking listeners for webRequest.onAuthRequired – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889897" target="_blank" rel="noreferrer">Bug 1889897</a></li>
+</ul>
+</li>
+<li role="presentation">Thanks to Dave Vandyke for following up with adding test coverage for runtime.onPerformanceWarning event on Android builds (in addition to have previously have implemented this new WebExtensions API event in Firefox) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884584" target="_blank" rel="noreferrer">Bug 1884584</a></li>
+</ul>
+</li>
+</ul>
+<h3 dir="ltr">Friends of the Firefox team</h3>
+<h3 dir="ltr"><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20%28excluding%20employees%29&amp;quicksearch=28354%2C1894556%2C1895490%2C1895530%2C1895732%2C1818054%2C1884584%2C1896249%2C1565089%2C1897418%2C1874917%2C1892669&amp;list_id=17052395" target="_blank" rel="noreferrer">Resolved bugs (excluding employees)</a></h3>
+<p dir="ltr"><a href="https://github.com/niklasbaumgardner/NewContributorScraper" target="_blank" rel="noreferrer">Script to find new contributors from bug list</a></p>
+<h4 dir="ltr">New contributors (🌟 = first patch)</h4>
+<ul>
+<li>Joseph Webster added <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818054" target="_blank" rel="noreferrer">PiP captions in Vimeo player</a></li>
+<li>Leeya <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895490" target="_blank" rel="noreferrer">removed inline event handlers</a> from all tabs menu</li>
+<li>Steve P <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894556" target="_blank" rel="noreferrer">replaced idleTasksFinishedPromise</a> with idleTasksFinished.promise</li>
+<li dir="ltr" role="presentation">🌟 kravantokh <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=28354" target="_blank" rel="noreferrer">added option “browser.tabs.allow_<wbr>transparent_browser”</a> to “about:config” to stop forcing opaque backgrounds</li>
+<li dir="ltr" role="presentation">tannal2409 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895530" target="_blank" rel="noreferrer">removed security.allow_disjointed_<wbr>external_uri_loads</a> pref</li>
+<li dir="ltr" role="presentation">Ujas Thakkar <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874917" target="_blank" rel="noreferrer">renamed SearchTestUtils.<wbr>promiseNewSearchEngine</a> to SearchTestUtils.<wbr>installOpenSearchEngine</li>
+</ul>
+<h3 dir="ltr">Project Updates</h3>
+<h4 dir="ltr">Accessibility</h4>
+<ul>
+<li dir="ltr" role="presentation"><a href="https://firefox-source-docs.mozilla.org/testing/mochitest-plain/faq.html#how-to-debug-a-failing-accessibility-test-a11y-checks" target="_blank" rel="noreferrer">Mochitest FAQ page</a> was updated to include tips and tricks for <a href="https://firefox-source-docs.mozilla.org/testing/mochitest-plain/faq.html#how-to-debug-a-failing-accessibility-test-a11y-checks" target="_blank" rel="noreferrer">debugging a11y-checks</a>, when <a href="https://firefox-source-docs.mozilla.org/testing/mochitest-plain/faq.html#my-patch-is-failing-a11y-checks-can-i-skip-them-for-now" target="_blank" rel="noreferrer">skipping tests</a> is appropriate and when <a href="https://firefox-source-docs.mozilla.org/testing/mochitest-plain/faq.html#what-are-the-exceptions-from-a11y-checks-when-and-how-should-i-implement-them" target="_blank" rel="noreferrer">adding an exception</a> is needed (and how to do it)</li>
+</ul>
+<h4 dir="ltr">Lint, Docs and Workflow</h4>
+<ul>
+<li dir="ltr" role="presentation">We’ve improved the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897770" target="_blank" rel="noreferrer">sjs environment definitions</a>. sjs files no longer pick up the test environment, so you won’t have to ignore issues importing setTimeout &amp; other items.</li>
+<li dir="ltr" role="presentation">Temporary rule adjustments (e.g. disabling on specific files, or setting to warn) for rollouts <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897898" target="_blank" rel="noreferrer">now have their own file</a> – <a href="https://searchfox.org/mozilla-central/rev/893f350260faac2ee6bf2b14c627d55eb2babfb0/.eslintrc-rollouts.js" target="_blank" rel="noreferrer">.eslintrc-rollouts.js</a>. This is separated out from the main configuration so that it is clearer that these are temporary and are part of rollouts.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898556" target="_blank" rel="noreferrer">eslint-plugin-file-header has been removed from use</a>. This was doing the same job as the license linter, but only for devtools.</li>
+<li dir="ltr" role="presentation">A use of a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897891" target="_blank" rel="noreferrer">deprecated nodejs function</a> has been removed from eslint-plugin-mozilla, and :aminomancer <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889350" target="_blank" rel="noreferrer">removed the chrome-worker environment</a> that was broken and that we weren’t using anyway.</li>
+</ul>
+<h4 dir="ltr">Migration Improvements</h4>
+<ul>
+<li dir="ltr" role="presentation">Work is ongoing for settings / preferences UI</li>
+<li dir="ltr" role="presentation">mconley is tackling bits and pieces for encrypting the backup file (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897278" target="_blank" rel="noreferrer">Bug 1897278</a>) and preparing the archive file (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896715" target="_blank" rel="noreferrer">Bug 1896715</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897498" target="_blank" rel="noreferrer">Bug 1897498</a>)</li>
+</ul>
+<h4 dir="ltr">New Tab Page</h4>
+<ul>
+<li dir="ltr" role="presentation">Wallpapers v2 work is on going, adding categories and new wallpaper options</li>
+<li dir="ltr" role="presentation">Weather location picker work is also ongoing, working with DISCO team to expand the accuweather API.(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893007" target="_blank" rel="noreferrer">Bug 1893007</a>)</li>
+</ul>
+<h4 dir="ltr">Search and Navigation</h4>
+<ul>
+<li dir="ltr" role="presentation">Daisuke enabled the history flooding prevention feature in Nightly.<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895831" target="_blank" rel="noreferrer"> Bug 1895831</a></li>
+<li dir="ltr" role="presentation">Daisuke modified the favicons service when using setFaviconForPage to throw an error if the favicon was too large and can’t be optimized.<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894821" target="_blank" rel="noreferrer"> Bug 1894821</a></li>
+<li dir="ltr" role="presentation">Marco fixed a bug where opening the address bar would not hide already open menu popups.<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1626741" target="_blank" rel="noreferrer"> Bug 1626741</a></li>
+<li dir="ltr" role="presentation">Marco also fixed a bug related to the trim https feature where selecting a partial string from the beginning of the URL would also select the protocol that appears when the input field is focused.<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893871" target="_blank" rel="noreferrer"> Bug 1893871</a></li>
+<li dir="ltr" role="presentation">Karandeep updated the onEngagement event listener in UrlbarProviders to have this event triggered for its own results.<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857236" target="_blank" rel="noreferrer"> Bug 1857236</a></li>
+</ul>
+</div>
+		<a target="_blank" href="https://blog.nightly.mozilla.org/2024/06/03/in-a-nutshell-these-weeks-in-firefox-issue-162/">Go to article URL</a>
+		<div>Feed URL: https://blog.nightly.mozilla.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

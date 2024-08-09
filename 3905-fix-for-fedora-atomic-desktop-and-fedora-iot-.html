@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Fix for Fedora Atomic Desktop and Fedora IoT boot failure</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Fix for Fedora Atomic Desktop and Fedora IoT boot failure</h3>
+		<div><p>Fedora <a href="https://fedoraproject.org/atomic-desktops/" rel="noreferrer" target="_blank">Atomic Desktop</a>
+and <a href="https://fedoraproject.org/iot/" rel="noreferrer" target="_blank">Fedora IoT</a> systems installed
+before Fedora&nbsp;40 may fail to boot after an update if secure boot
+is enabled. Fedora Magazine has <a href="https://fedoramagazine.org/manual-action-needed-to-resolve-boot-failure-for-fedora-atomic-desktops-and-fedora-iot/" rel="noreferrer" target="_blank">a
+post</a> by Timothée Ravier about the problem, how users can work
+around it, and what the project is doing to avoid the similar problems
+in the future:</p>
+
+<blockquote class="bq">
+<p>On Fedora Atomic Desktops and Fedora IoT systems, the components
+that are part of the boot chain (Shim, GRUB) are not (yet)
+automatically updated alongside the rest of the system. Thus, if you
+have installed a Fedora Atomic Desktop or a Fedora IoT system before
+Fedora 40, it uses an old versions of the Shim and bootloader binaries
+to boot your system.</p>
+
+<p>When Secure Boot is enabled, the EFI firmware loads Shim
+first. Shim is signed by the Microsoft Third Party Certificate
+Authority so that it can be verified on most hardware out of the
+box. The Shim binary includes the Fedora certificates used to verify
+binaries signed by Fedora. Then Shim loads GRUB, which in turn loads
+the Linux kernel. Both are signed by Fedora.</p>
+
+<p>Until recently, the kernel binaries where signed two times, with an
+older key and a newer one. With the 6.9 kernel update, the kernel is
+no longer signed with the old key. If GRUB or Shim is old enough and
+does not know about the new key, the signature verification fails.</p>
+</blockquote>
+
+<p> </p></div>
+		<a target="_blank" href="https://lwn.net/Articles/981561/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

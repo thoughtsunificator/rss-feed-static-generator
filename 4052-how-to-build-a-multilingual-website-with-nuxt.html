@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How To Build A Multilingual Website With Nuxt.js</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How To Build A Multilingual Website With Nuxt.js</h3>
+		<div><p>This article is a sponsored by <a href="https://hygraph.com/" rel="noreferrer" target="_blank">Hygraph</a></p>
+<p>Internationalization, often abbreviated as i18n, is the process of designing and developing software applications in a way that they can be easily adapted to various spoken languages like English, German, French, and more without requiring substantial changes to the codebase. It involves <strong>moving away from hardcoded strings and techniques</strong> for translating text, formatting dates and numbers, and handling different character encodings, among other tasks.</p>
+<p>Internationalization can <strong>give users the choice</strong> to access a given website or application in their native language, which can have a positive impression on them, making it crucial for reaching a global audience.</p>
+What We’re Making
+<p>In this tutorial, we’re making a website that puts these i18n pieces together using a combination of libraries and a UI framework. You’ll want to have intermediate proficiency with JavaScript, Vue, and Nuxt to follow along. Throughout this article, we will <strong>learn by examples</strong> and incrementally <strong>build a multilingual Nuxt website</strong>. Together, we will learn how to provide i18n support for different languages, lazy-load locale messages, and switch locale on runtime.</p>
+<p>After that, we will explore features like interpolation, pluralization, and date/time translations.</p>
+<p>And finally, we will fetch dynamic localized content from an API server using Hygraph as our API server to get localized content. If you do not have a Hygraph account <a href="https://hygraph.com/" rel="noreferrer" target="_blank">please create one for free</a> before jumping in.</p>
+<p>As a final detail, we will use <a href="https://vuetifyjs.com/en/" rel="noreferrer" target="_blank">Vuetify</a> as our UI framework, but please feel free to use another framework if you want. The final code for what we’re building is published in a <a href="https://github.com/hygraph/hygraph-examples/tree/master/with-nuxtjs-i18n" rel="noreferrer" target="_blank">GitHub repository</a> for reference. And finally, you can also take a look at the final result <a href="https://nuxtjs-i18n.withheadlesscms.com/" rel="noreferrer" target="_blank">in a live demo</a>.</p>
+The <code>nuxt-i18n</code> Library
+<p><a href="https://i18n.nuxtjs.org/" rel="noreferrer" target="_blank"><code>nuxt-i18n</code></a> is a library for implementing internationalization in Nuxt.js applications, and it’s what we will be using in this tutorial. The library is built on top of <a href="https://vue-i18n.intlify.dev/" rel="noreferrer" target="_blank">Vue I18n</a>, which, again, is the de facto standard library for implementing i18n in Vue applications.</p>
+<p>What makes <code>nuxt-i18n</code> ideal for our work is that it provides the comprehensive set of features included in Vue I18n while adding more functionalities that are specific to Nuxt, like lazy loading locale messages, route generation and redirection for different locales, SEO metadata per locale, locale-specific domains, and more.</p>
+Initial Setup
+<p>Start a new Nuxt.js project and set it up with a UI framework of your choice. Again, I will be using Vue to establish the interface for this tutorial.</p>
+<p>Let us add a basic layout for our website and set up some sample Vue templates.</p>
+<p>First, a “Blog” page:</p>
+<pre><code>&lt;!-- pages/blog.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;v-card color="cardBackground"&gt;
+      &lt;v-card-title class="text-overline"&gt;
+        Home
+      &lt;/v-card-title&gt;
+      &lt;v-card-text&gt;
+        This is the home page description
+      &lt;/v-card-text&gt;
+    &lt;/v-card&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>Next, an “About” page:</p>
+<pre><code>&lt;!-- pages/about.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;v-card color="cardBackground"&gt;
+      &lt;v-card-title class="text-overline"&gt;
+        About
+      &lt;/v-card-title&gt;
+      &lt;v-card-text&gt;
+        This is the about page description
+      &lt;/v-card-text&gt;
+    &lt;/v-card&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>This gives us a bit of a boilerplate that we can integrate our i18n work into.</p>
+Translating Plain Text
+<p>The page templates look good, but notice how the text is hardcoded. As far as i18n goes, hardcoded content is difficult to translate into different locales. That is where the <code>nuxt-i18n</code> library comes in, providing the language-specific strings we need for the Vue components in the templates.</p>
+<p>We’ll start by installing the library via the command line:</p>
+<pre><code>npx nuxi@latest module add i18n
+</code></pre>
+
+<p>Inside the <code>nuxt.config.ts</code> file, we need to ensure that we have <code>@nuxtjs/i18n</code> inside the <code>modules</code> array. We can use the <code>i18n</code> property to provide module-specific configurations.</p>
+<pre><code>// nuxt.config.ts
+export default defineNuxtConfig({
+  // ...
+  modules: [
+    ...
+    "@nuxtjs/i18n",
+    // ...
+  ],
+  i18n: {
+    // nuxt-i18n module configurations here
+  }
+  // ...
+});
+</code></pre>
+
+<p>Since the <code>nuxt-i18n</code> library is built on top of the Vue I18n library, we can utilize its features in our Nuxt application as well. Let us create a new file, <code>i18n.config.ts</code>, which we will use to provide all <code>vue-i18n</code> configurations.</p>
+<pre><code>// i18n.config.ts
+export default defineI18nConfig(() =&gt; ({
+  legacy: false,
+  locale: "en",
+  messages: {
+    en: {
+      homePage: {
+        title: "Home",
+        description: "This is the home page description."
+      },
+      aboutPage: {
+        title: "About",
+        description: "This is the about page description."
+      },
+    },
+  },
+}));
+</code></pre>
+
+<p>Here, we have specified internationalization configurations, like using the <code>en</code> locale, and added messages for the <code>en</code> locale. These messages can be used inside the markup in the templates we made with the help of a <code>$t</code> function from Vue I18n.</p>
+<p>Next, we need to link the <code>i18n.config.ts</code> configurations in our Nuxt config file.</p>
+<pre><code>// nuxt.config.ts
+export default defineNuxtConfig({
+  ...
+  i18n: {
+    vueI18n: "./i18n.config.ts"
+  }
+  ...
+});
+</code></pre>
+
+<p>Now, we can use the <code>$t</code> function in our components — as shown below — to parse strings from our internationalization configurations.</p>
+<p><strong>Note</strong>: <em>There’s no need to import <code>$t</code> since we have Nuxt’s default auto-import functionality.</em></p>
+<pre><code>&lt;!-- i18n.config.ts --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;v-card color="cardBackground"&gt;
+      &lt;v-card-title class="text-overline"&gt;
+        {{ $t("homePage.title") }}
+      &lt;/v-card-title&gt;
+      &lt;v-card-text&gt;
+        {{ $t("homePage.description") }}
+      &lt;/v-card-text&gt;
+    &lt;/v-card&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p></p>
+Lazy Loading Translations
+<p>We have the title and description served from the configurations. Next, we can add more languages to the same config. For example, here’s how we can establish translations for English (<code>en</code>), French (<code>fr</code>) and Spanish (<code>es</code>):</p>
+<pre><code>// i18n.config.ts
+export default defineI18nConfig(() =&gt; ({
+  legacy: false,
+  locale: "en",
+  messages: {
+    en: {
+      // English
+    },
+    fr: {
+      // French
+    },
+    es: {
+      // Spanish
+    }
+  },
+}));
+</code></pre>
+
+<p>For a production website with a lot of content that needs translating, it would be unwise to bundle all of the messages from different locales in the main bundle. Instead, we should use the <code>nuxt-i18</code> lazy loading feature asynchronously load only the required language rather than all of them at once. Also, having messages for all locales in a single configuration file can become difficult to manage over time, and breaking them up like this makes things easier to find.</p>
+<p>Let’s set up the lazy loading feature in <code>nuxt.config.ts</code>:</p>
+<pre><code>// etc.
+  i18n: {
+    vueI18n: "./i18n.config.ts",
+    lazy: true,
+    langDir: "locales",
+    locales: [
+      {
+        code: "en",
+        file: "en.json",
+        name: "English",
+      },
+      {
+        code: "es",
+        file: "es.json",
+        name: "Spanish",
+      },
+      {
+        code: "fr",
+        file: "fr.json",
+        name: "French",
+      },
+    ],
+    defaultLocale: "en",
+    strategy: "no_prefix",
+  },
+
+// etc.
+</code></pre>
+
+<p>This enables lazy loading and specifies the <code>locales</code> directory that will contain our locale files. The <code>locales</code> array configuration specifies from which files Nuxt.js should pick up messages for a specific language.</p>
+<p>Now, we can create individual files for each language. I’ll drop all three of them right here:</p>
+<pre><code>
+// locales/en.json
+{
+  "homePage": {
+    "title": "Home",
+    "description": "This is the home page description."
+  },
+  "aboutPage": {
+    "title": "About",
+    "description": "This is the about page description."
+  },
+  "selectLocale": {
+    "label": "Select Locale"
+  },
+  "navbar": {
+    "homeButton": "Home",
+    "aboutButton": "About"
+  }
+}
+</code></pre>
+
+<div>
+<pre><code>// locales/fr.json
+{
+  "homePage": {
+    "title": "Bienvenue sur la page d'accueil",
+    "description": "Ceci est la description de la page d'accueil."
+  },
+  "aboutPage": {
+    "title": "À propos de nous",
+    "description": "Ceci est la description de la page à propos de nous."
+  },
+  "selectLocale": {
+    "label": "Sélectionner la langue"
+  },
+  "navbar": {
+    "homeButton": "Accueil",
+    "aboutButton": "À propos"
+  }
+}
+</code></pre>
+</div>
+
+<div>
+<pre><code>// locales/es.json
+{
+  "homePage": {
+    "title": "Bienvenido a la página de inicio",
+    "description": "Esta es la descripción de la página de inicio."
+  },
+  "aboutPage": {
+    "title": "Sobre nosotros",
+    "description": "Esta es la descripción de la página sobre nosotros."
+  },
+  "selectLocale": {
+    "label": "Seleccione el idioma"
+  },
+  "navbar": {
+    "homeButton": "Inicio",
+    "aboutButton": "Acerca de"
+  }
+}
+</code></pre>
+</div>
+
+<p>We have set up lazy loading, added multiple languages to our application, and moved our locale messages to separate files. The user gets the right locale for the right message, and the locale messages are kept in a maintainable manner inside the code base.</p>
+Switching Between Languages
+<p>We have different locales, but to see them in action, we will build a component that can be used to switch between the available locales.</p>
+<pre><code>&lt;!-- components/select-locale.vue --&gt;
+&lt;script setup&gt;
+const { locale, locales, setLocale } = useI18n();
+
+const language = computed({
+  get: () =&gt; locale.value,
+  set: (value) =&gt; setLocale(value),
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-select
+    :label="$t('selectLocale.label')"
+    variant="outlined"
+    color="primary"
+    density="compact"    
+    :items="locales"
+    item-title="name"
+    item-value="code"
+    v-model="language"
+  &gt;&lt;/v-select&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>This component uses the <code>useI18n</code> hook provided by the Vue I18n library and a computed property <code>language</code> to get and set the global locale from a <code>&lt;select&gt;</code> input. To make this even more like a real-world website, we’ll include a small navigation bar that links up all of the website’s pages.</p>
+<pre><code>&lt;!-- components/select-locale.vue --&gt;
+&lt;template&gt;
+  &lt;v-app-bar app :elevation="2" class="px-2"&gt;
+    &lt;div&gt;
+      &lt;v-btn color="button" to="/"&gt;
+        {{ $t("navbar.homeButton") }}
+      &lt;/v-btn&gt;
+      &lt;v-btn color="button" to="/about"&gt;
+        {{ $t("navbar.aboutButton") }}
+      &lt;/v-btn&gt;
+    &lt;/div&gt;
+    &lt;v-spacer /&gt;
+    &lt;div class="mr-4 mt-6"&gt;
+      &lt;SelectLocale /&gt;
+    &lt;/div&gt;
+  &lt;/v-app-bar&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>That’s it! Now, we can switch between languages on the fly.</p>
+<p></p>
+<p></p>
+<p>We have a basic layout, but I thought we’d take this a step further and build a playground page we can use to explore more i18n features that are pretty useful when building a multilingual website.</p>
+Interpolation and Pluralization
+<p>Interpolation and pluralization are internationalization techniques for handling dynamic content and grammatical variations across different languages. <strong>Interpolation</strong> allows developers to insert dynamic variables or expressions into translated strings. <strong>Pluralization</strong> addresses the complexities of plural forms in languages by selecting the appropriate grammatical form based on numeric values. With the help of interpolation and pluralization, we can create more natural and accurate translations.</p>
+<p>To use pluralization in our Nuxt app, we’ll first add a configuration to the English locale file.</p>
+<pre><code>// locales/en.json
+{
+  // etc.
+  "playgroundPage": {
+    "pluralization": {
+      "title": "Pluralization",
+      "apple": "No Apple | One Apple | {count} Apples",
+      "addApple": "Add"
+    }
+  }
+  // etc.
+}
+</code></pre>
+
+<p>The pluralization configuration set up for the key <code>apple</code> defines an output — <code>No Apple</code> — if a count of 0 is passed to it, a second output — <code>One Apple</code> — if a count of 1 is passed, and a third — <code>2 Apples</code>, <code>3 Apples</code>, and so on — if the count passed in is greater than 1.</p>
+<p>Here is how we can use it in your component: Whenever you click on the add button, you will see pluralization in action, changing the strings.</p>
+<div>
+<pre><code>&lt;!-- pages/playground.vue --&gt;
+&lt;script setup&gt;
+let appleCount = ref(0);
+const addApple = () =&gt; {
+  appleCount.value += 1;
+};
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;v-container fluid&gt;
+    &lt;!-- PLURALIZATION EXAMPLE  --&gt;
+    &lt;v-card color="cardBackground"&gt;
+      &lt;v-card-title class="text-overline"&gt;
+        {{ $t("playgroundPage.pluralization.title") }}
+      &lt;/v-card-title&gt;
+
+      &lt;v-card-text&gt;
+        {{ $t("playgroundPage.pluralization.apple", { count: appleCount }) }}
+      &lt;/v-card-text&gt;
+      &lt;v-card-actions&gt;
+        &lt;v-btn
+          @click="addApple"
+          color="primary"
+          variant="outlined"
+          density="comfortable"
+          &gt;{{ $t("playgroundPage.pluralization.addApple") }}&lt;/v-btn
+        &gt;
+      &lt;/v-card-actions&gt;
+    &lt;/v-card&gt;
+  &lt;/v-container&gt;
+&lt;/template&gt;
+</code></pre>
+</div>
+
+<p>To use interpolation in our Nuxt app, first, add a configuration in the English locale file:</p>
+<div>
+<pre><code>// locales/en.json
+{
+  ...
+  "playgroundPage": {
+    ... 
+    "interpolation": {
+      "title": "Interpolation",
+      "sayHello": "Hello, {name}",
+      "hobby": "My favourite hobby is {0}.",
+      "email": "You can reach out to me at {account}{'@'}{domain}.com"
+    },
+    // etc. 
+  }
+  // etc.
+}
+</code></pre>
+</div>
+
+<p>The message for <code>sayHello</code> expects an object passed to it having a key <code>name</code> when invoked — a process known as <a href="https://vue-i18n.intlify.dev/guide/essentials/syntax#named-interpolation" rel="noreferrer" target="_blank">named interpolation</a>.</p>
+<p>The message <code>hobby</code> expects an array to be passed to it and will pick up the 0th element, which is known as <a href="https://vue-i18n.intlify.dev/guide/essentials/syntax#list-interpolation" rel="noreferrer" target="_blank">list interpolation</a>.</p>
+<p>The message <code>email</code> expects an object with keys <code>account</code>, and <code>domain</code> and joins both with a literal string <code>"@"</code>. This is known as <a href="https://vue-i18n.intlify.dev/guide/essentials/syntax#literal-interpolation" rel="noreferrer" target="_blank">literal interpolation</a>.</p>
+<p>Below is an example of how to use it in the Vue components:</p>
+<div>
+<pre><code>&lt;!-- pages/playground.vue --&gt;
+&lt;template&gt;
+  &lt;v-container fluid&gt;
+    &lt;!-- INTERPOLATION EXAMPLE  --&gt;
+    &lt;v-card color="cardBackground"&gt;
+      &lt;v-card-title class="text-overline"&gt;
+        {{ $t("playgroundPage.interpolation.title") }}
+      &lt;/v-card-title&gt;
+      &lt;v-card-text&gt;
+        &lt;p&gt;
+          {{
+            $t("playgroundPage.interpolation.sayHello", {
+              name: "Jane",
+            })
+          }}
+        &lt;/p&gt;
+        &lt;p&gt;
+          {{
+            $t("playgroundPage.interpolation.hobby", ["Football", "Cricket"])
+          }}
+        &lt;/p&gt;
+        &lt;p&gt;
+          {{
+            $t("playgroundPage.interpolation.email", {
+              account: "johndoe",
+              domain: "hygraph",
+            })
+          }}
+        &lt;/p&gt;
+      &lt;/v-card-text&gt;
+    &lt;/v-card&gt;
+  &lt;/v-container&gt;
+&lt;/template&gt;
+</code></pre>
+</div>
+
+<p></p>
+Date &amp; Time Translations
+<p>Translating dates and times involves translating date and time formats according to the conventions of different locales. We can use Vue I18n’s features for formatting date strings, handling time zones, and translating day and month names for managing date time translations. We can give the configuration for the same using the <code>datetimeFormats</code> key inside the <code>vue-i18n</code> config object.</p>
+<pre><code>// i18n.config.ts
+export default defineI18nConfig(() =&gt; ({
+  fallbackLocale: "en",
+  datetimeFormats: {
+    en: {
+      short: {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      },
+      long: {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        weekday: "short",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
+      },
+    },
+    fr: {
+      short: {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      },
+      long: {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        weekday: "long",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      },
+    },
+    es: {
+      short: {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      },
+      long: {
+        year: "2-digit",
+        month: "short",
+        day: "numeric",
+        weekday: "long",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      },
+    },
+  },
+}));
+</code></pre>
+
+<p>Here, we have set up <code>short</code> and <code>long</code> formats for all three languages. If you are coding along, you will be able to see available configurations for fields, like month and year, thanks to TypeScript and Intellisense features provided by your code editor. To display the translated dates and times in components, we should use the <code>$d</code> function and pass the format to it.</p>
+<div>
+<pre><code>&lt;!-- pages.playground.vue --&gt;
+&lt;template&gt;
+  &lt;v-container fluid&gt;
+    &lt;!-- DATE TIME TRANSLATIONS EXAMPLE  --&gt;
+    &lt;v-card color="cardBackground"&gt;
+      &lt;v-card-title class="text-overline"&gt;
+        {{ $t("playgroundPage.dateTime.title") }}
+      &lt;/v-card-title&gt;
+      &lt;v-card-text&gt;
+        &lt;p&gt;Short: {{ (new Date(), $d(new Date(), "short")) }}&lt;/p&gt;
+        &lt;p&gt;Long: {{ (new Date(), $d(new Date(), "long")) }}&lt;/p&gt;
+      &lt;/v-card-text&gt;
+    &lt;/v-card&gt;
+  &lt;/v-container&gt;
+&lt;/template&gt;
+</code></pre>
+</div>
+
+<p></p>
+<p></p>
+Localization On the Hygraph Side
+<p>We saw how to implement localization with static content. Now, we’ll attempt to understand how to fetch dynamic localized content in Nuxt.</p>
+<p>We can build a blog page in our Nuxt App that fetches data from a server. The server API should accept a locale and return data in that specific locale.</p>
+<p>Hygraph has a flexible localization API that allows you to publish and query localized content. If you haven’t created a free Hygraph account yet, <a href="https://hygraph.com/" rel="noreferrer" target="_blank">you can do that on the Hygraph website</a> to continue following along.</p>
+<p>Go to <strong>Project Settings</strong> → <strong>Locales</strong> and add locales for the API.</p>
+<p></p>
+<p>We have added two locales: English and French. Now we need aq <code>localized_post</code> model in our schema that only two fields: <code>title</code> and <code>body.</code> Ensure to make these “Localized” fields while creating them.</p>
+<p></p>
+<p>Add permissions to consume the localized content, go to <strong>Project settings</strong> → <strong>Access</strong> → <strong>API Access</strong> → <strong>Public Content API</strong>, and assign <strong>Read</strong> permissions to the <code>localized_post</code> model.</p>
+<p></p>
+<p>Now, we can go to the <a href="https://hygraph.com/docs/api-reference/basics/api-playground" rel="noreferrer" target="_blank">Hygrapgh API playground</a> and add some localized data to the database with the help of GraphQL mutations. To limit the scope of this example, I am simply adding data from the Hygraph API playground. In an ideal world, a create/update mutation would be triggered from the front end after receiving user input.</p>
+<p>Run this mutation in the Hygraph API playground:</p>
+<div>
+<pre><code>mutation createLocalizedPost {
+  createLocalizedPost(
+    data: {
+      title: "A Journey Through the Alps", 
+      body: "Exploring the majestic mountains of the Alps offers a thrilling experience. The stunning landscapes, diverse wildlife, and pristine environment make it a perfect destination for nature lovers.", 
+      localizations: {
+        create: [
+          {locale: fr, data: {title: "Un voyage à travers les Alpes", body: "Explorer les majestueuses montagnes des Alpes offre une expérience palpitante. Les paysages époustouflants, la faune diversifiée et l'environnement immaculé en font une destination parfaite pour les amoureux de la nature."}}
+        ]
+      }
+    }
+  ) {
+    id
+  }
+}
+</code></pre>
+</div>
+
+<p>The mutation above creates a post with the <code>en</code> locale and includes a <code>fr</code> version of the same post. Feel free to add more data to your model if you want to see things work from a broader set of data.</p>
+Putting Things Together
+<p>Now that we have Hygraph API content ready for consumption let’s take a moment to understand how it’s consumed inside the Nuxt app.</p>
+<p>To do this, we’ll install <a href="https://nuxt.com/modules/graphql-client" rel="noreferrer" target="_blank">nuxt-graphql-client</a> to serve as the app’s GraphQL client. This is a minimal GraphQL client for performing GraphQL operations without having to worry about complex configurations, code generation, typing, and other setup tasks.</p>
+<pre><code>npx nuxi@latest module add graphql-client
+</code></pre>
+
+<pre><code>// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: [
+    // ...
+    "nuxt-graphql-client"
+    // ...
+  ],
+  runtimeConfig: {
+    public: {
+      GQL_HOST: 'ADD_YOUR_GQL_HOST_URL_HERE_OR_IN_.env'
+    }
+  },
+});
+</code></pre>
+
+<p>Next, let's add our GraphQL queries in <code>graphql/queries.graphql</code>.</p>
+<pre><code>query getPosts($locale: [Locale!]!) {
+  localizedPosts(locales: $locale) {
+    title
+    body
+  }
+}
+</code></pre>
+
+<p>The GraphQL client will automatically scan <code>.graphql</code> and <code>.gql</code> files and generate client-side code and typings in the <code>.nuxt/gql</code> folder. All we need to do is stop and restart the Nuxt application. After restarting the app, the GraphQL client will allow us to use a <code>GqlGetPosts</code> function to trigger the query.</p>
+<p>Now, we will build the Blog page where by querying the Hygraph server and showing the dynamic data.</p>
+<pre><code>// pages/blog.vue
+&lt;script lang="ts" setup&gt;
+  import type { GetPostsQueryVariables } from "#gql";
+  import type { PostItem, Locale } from "../types/types";
+
+  const { locale } = useI18n();
+  const posts = ref&lt;PostItem[]&gt;([]);
+  const isLoading = ref(false);
+  const isError = ref(false);
+
+  const fetchPosts = async (localeValue: Locale) =&gt; {
+    try {
+      isLoading.value = true;
+      const variables: GetPostsQueryVariables = {
+        locale: [localeValue],
+      };
+      const data = await GqlGetPosts(variables);
+      posts.value = data?.localizedPosts ?? [];
+    } catch (err) {
+      console.log("Fetch Error, Something went wrong", err);
+      isError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  // Fetch posts on component mount
+  onMounted(() =&gt; {
+    fetchPosts(locale.value as Locale);
+  });
+
+  // Watch for locale changes
+  watch(locale, (newLocale) =&gt; {
+    fetchPosts(newLocale as Locale);
+  });
+&lt;/script&gt;
+</code></pre>
+
+<p>This code fetches only the current locale from the <code>useI18n</code> hook and sends it to the <code>fetchPosts</code> function when the Vue component is mounted. The <code>fetchPosts</code> function will pass the locale to the GraphQL query as a variable and obtain localized data from the Hygraph server. We also have a watcher on the <code>locale</code> so that whenever the global locale is changed by the user we make an API call to the server again and fetch posts in that locale.</p>
+<p>And, finally, let’s add markup for viewing our fetched data!</p>
+<div>
+<pre><code>&lt;!-- pages/blog.vue --&gt;
+&lt;template&gt;
+  &lt;v-container fluid&gt;
+    &lt;v-card-title class="text-overline"&gt;Blogs&lt;/v-card-title&gt;
+    &lt;div v-if="isLoading"&gt;
+      &lt;v-skeleton-loader type="card" v-for="n in 2" :key="n" class="mb-4" /&gt;
+    &lt;/div&gt;
+    &lt;div v-else-if="isError"&gt;
+      &lt;p&gt;Something went wrong while getting blogs please check the logs.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div v-else&gt;
+      &lt;div
+        v-for="(post, index) in posts"
+        :key="post.title || index"
+        class="mb-4"
+      &gt;
+        &lt;v-card color="cardBackground"&gt;
+          &lt;v-card-title class="text-h6"&gt;{{ post.title }}&lt;/v-card-title&gt;
+          &lt;v-card-text&gt;{{ post.body }}&lt;/v-card-text&gt;
+        &lt;/v-card&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/v-container&gt;
+&lt;/template&gt;
+</code></pre>
+</div>
+
+<p>Awesome! If all goes according to plan, then your app should look something like the one in the following video.</p>
+Wrapping Up
+<p>Check that out — we just made the <strong>functionality for translating content for a multilingual website</strong>! Now, a user can select a locale from a list of options, and the app fetches content for the selected locale and automatically updates the displayed content.</p>
+<p>Did you think that translations would require more difficult steps? It’s pretty amazing that we’re able to cobble together a couple of libraries, hook them up to an API, and wire everything up to render on a page.</p>
+<p>Of course, there are other libraries and resources for handling internationalization in a multilingual context. The exact tooling is less the point than it is seeing what pieces are needed to handle dynamic translations and how they come together.</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/08/how-build-multilingual-website-nuxt-i18n/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

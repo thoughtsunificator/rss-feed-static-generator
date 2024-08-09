@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using TypeSpec to Design APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Using TypeSpec to Design APIs</h3>
+		<div><p>Microsoft recently sent shockwaves through the API industry when they announced TypeSpec, a new API definition language and platform that’s especially useful for API-first development. It’s inspired by two other programming languages created by Microsoft: C# and TypeScript, their version of JavaScript. Many of TypeSpec’s features are entirely new, while others are built around familiar concepts and principles. This makes TypeSpec ideal for seasoned API developers as well as new API developers.</p>
+<p><a href="https://typespec.io/" rel="noreferrer" target="_blank">TypeSpec</a> might be new to API developers, but Microsoft has already been using it internally for a number of years. It was created to address issues with deploying resources at scale in Azure. One outcome of this is TypeSpec’s ability to create components that can be reused across services. It’s also intended to be lightweight, familiar, and easy to use. Its terse syntax will be particularly interesting to API developers, as it’s meant to make authoring API specifications and integrating with existing OpenAPI tools as easy as possible.</p>
+<p>To show you <a href="https://nordicapis.com/introduction-to-typespec/" rel="noreferrer" target="_blank">what TypeSpec is capable of</a>, we’ve put together a tutorial to help you get started designing APIs with TypeSpec for yourself.</p>
+<h2 id="using-typespec-to-design-apis">Using TypeSpec to Design APIs</h2>
+<p>To start, create a directory in your programming environment for this project. We’ve just called ours <code>TypeSpec</code>. Now, install TypeSpec. Run the following code:</p>
+<pre><code>npm install -g <span class="hljs-meta">@typespec</span><span class="hljs-comment">//compiler</span>
+</code></pre>
+<p>This installs the TypeSpec compiler globally. You’ll need to be running npm 7+. To update npm, run <code>npm install -g npm</code>.</p>
+<h2 id="create-your-first-typespec-project">Create Your First TypeSpec Project</h2>
+<p>Once the TypeSpec compiler is installed, we can create our first TypeSpec project. Run the following command:</p>
+<pre><code><span class="hljs-attribute">tsp init</span>
+</code></pre>
+<p>After initializing the project, you’ll be prompted with a few questions. Choose <code>Generic REST API</code> and <code>@typespec/openapi3</code> library. Then, install the dependencies by inputting <code>npm install</code>.</p>
+<p>Finally, compile the initial file by running <code>npx tsp compile</code> in the command prompt. You should be left with the following file structure:</p>
+<pre><code>main<span class="hljs-selector-class">.tsp</span>
+tspconfig<span class="hljs-selector-class">.yaml</span>
+package<span class="hljs-selector-class">.json</span>
+node_modules/
+tsp-output/
+  @typespec/
+    openapi3/
+      openapi.yaml
+</code></pre>
+<p>Now we’re ready to start creating our API using TypeSpec.</p>
+<h2 id="services-and-servers">Services and Servers</h2>
+<p>In TypeSpec, a service is a namespace containing all of the operations and top-level metadata like service name and version. The server is the host for the service. Servers are also able to accept additional parameters. Here’s an example of how to implement a service and server in TypeSpec.</p>
+<pre><code><span class="hljs-keyword">using</span> TypeSpec.Http;
+<span class="hljs-keyword">using</span> TypeSpec.Rest;
+
+<span class="hljs-comment">/**
+ * This is a sample server Petstore server.
+ */</span>
+@service({
+  title: <span class="hljs-string">"Pet Store Service"</span>,
+})
+@server(<span class="hljs-string">"https://example.com"</span>, <span class="hljs-string">"Single server endpoint"</span>)
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">PetStore</span>;
+</code></pre>
+<p>After you’ve inserted that code into the <code>main.tsp</code> file, you can compile the code using the <code>tsp compile .</code> command. Once it’s finished, you should see a <code>tsp-output</code> folder. Inside this folder, you should see a sub-directory for <code>@typespec</code>, which contains an <code>@openapi3</code> directory. You’ll see an <code>openapi.yaml</code> file, which converts everything from your TypeSpec code into an <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/" rel="noreferrer" target="_blank">OpenAPI specification</a>.</p>
+<p>This should give you some ideas of <a href="https://nordicapis.com/tis-but-a-scratch-does-typespec-reignite-the-specification-wars/" rel="noreferrer" target="_blank">the power of TypeSpec</a> and its functionality. With a simple command, you can create a fully functional API straight from your code editor and transform it into a working <a href="https://nordicapis.com/using-api-insights-to-test-openapi-specifications/" rel="noreferrer" target="_blank">OpenAPI specification</a>. This makes integrating TypeSpec with existing OpenAPI tools incredibly easy, which is one of the main reasons it exists in the first place.</p>
+<p>At this point, you’ve got a working TypeSpec API. We’ll delve into a few more of its features to give you a better idea of how TypeSpec works and what it’s doing.</p>
+<h2 id="routes-and-resources">Routes and Resources</h2>
+<p>In TypeSpec, anything that can be identified with a URL and manipulated with an HTTP method is known as a resource. The operations for a resource are typically grouped under a namespace. These are specified using the <code>@Route</code> decorator and specifying the path to that resource.</p>
+<pre><code>@route(<span class="hljs-string">"/pets"</span>)
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Pets</span> {
+}
+</code></pre>
+<p>Now, add a <code>Pet</code> model to the namespace.</p>
+<pre><code><span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">Pet</span> {
+  <span class="hljs-variable">@minLength</span>(<span class="hljs-number">100</span>)
+  <span class="hljs-attribute">name</span>: string;
+
+  <span class="hljs-variable">@minValue</span>(<span class="hljs-number">0</span>)
+  <span class="hljs-variable">@maxValue</span>(<span class="hljs-number">100</span>)
+  <span class="hljs-attribute">age</span>: int32;
+
+  <span class="hljs-attribute">kind</span>: <span class="hljs-string">"dog"</span> | <span class="hljs-string">"cat"</span> | <span class="hljs-string">"fish"</span>;
+}
+</code></pre>
+<p>Finally, operations can be defined using <code>@get</code>, <code>@head</code>, <code>@post</code>, <code>@put</code>, <code>@patch</code>, or <code>@delete</code> decorators. Let’s add a <code>@get</code> decorator to our <code>Pets</code> namespace.</p>
+<pre><code>@route(<span class="hljs-string">"/pets"</span>)
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Pets</span> {
+  <span class="hljs-function">op <span class="hljs-title">list</span>(): Pet[]</span>;
+
+  <span class="hljs-comment">// or you could also use</span>
+  @<span class="hljs-function"><span class="hljs-keyword">get</span> op <span class="hljs-title">listPets</span>(): Pet[]</span>;
+}
+</code></pre>
+<p>The end result should look something like this:</p>
+<pre><code><span class="hljs-variable">@route</span>(<span class="hljs-string">"/pets"</span>)
+namespace Pets {
+<span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">Pet</span> {
+  <span class="hljs-variable">@minLength</span>(<span class="hljs-number">100</span>)
+  <span class="hljs-attribute">name</span>: string;
+
+  <span class="hljs-variable">@minValue</span>(<span class="hljs-number">0</span>)
+  <span class="hljs-variable">@maxValue</span>(<span class="hljs-number">100</span>)
+  <span class="hljs-attribute">age</span>: int32;
+
+  <span class="hljs-attribute">kind</span>: <span class="hljs-string">"dog"</span> | <span class="hljs-string">"cat"</span> | <span class="hljs-string">"fish"</span>;
+}
+<span class="hljs-variable">@get</span> op listPets(): Pet[];
+}
+</code></pre>
+<h2 id="generate-routes-automatically">Generate Routes Automatically</h2>
+<p>You can generate routes automatically from the code rather than manually specifying each route using <code>@autoroute</code> decorators. <code>@Path</code> parameters must be accompanied by a <code>@segment</code> decorator that defines the preceding path. Here’s an example:</p>
+<pre><code><span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">CommonParameters</span> {
+  <span class="hljs-variable">@path</span>
+  <span class="hljs-variable">@segment</span>(<span class="hljs-string">"tenants"</span>)
+  <span class="hljs-attribute">tenantId</span>: string;
+
+  <span class="hljs-variable">@path</span>
+  <span class="hljs-variable">@segment</span>(<span class="hljs-string">"users"</span>)
+  <span class="hljs-attribute">userName</span>: string;
+}
+
+<span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">User</span> {
+  <span class="hljs-attribute">name</span>: string;
+}
+<span class="hljs-variable">@error</span>
+model Error {
+  <span class="hljs-attribute">message</span>: string;
+}
+
+<span class="hljs-variable">@autoRoute</span>
+interface UserOperations {
+  <span class="hljs-variable">@get</span>
+  getUser(...CommonParameters): User | Error;
+
+  <span class="hljs-variable">@put</span>
+  updateUser(...CommonParameters, <span class="hljs-attribute">user</span>: User): User | Error;
+}
+</code></pre>
+<p>This results in both operations ending up at the following endpoint:</p>
+<pre><code><span class="hljs-regexp">/tenants/</span>{tenantId}<span class="hljs-regexp">/users/</span>{userName}
+</code></pre>
+<h2 id="path-and-query-parameters">Path and Query Parameters</h2>
+<p>Operations can be modified using query parameters, as well. For example, if you wanted to add pagination and a read operation to the <code>Pets</code> resource, it would look like this:</p>
+<pre><code><span class="hljs-variable">@route</span>(<span class="hljs-string">"/pets"</span>)
+namespace Pets {
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">list</span>(<span class="hljs-variable">@query</span> skip?: int32, <span class="hljs-variable">@query</span> top?: int32): <span class="hljs-selector-tag">Pet</span><span class="hljs-selector-attr">[]</span>;
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">read</span>(<span class="hljs-variable">@path</span> <span class="hljs-attribute">petId</span>: int32): <span class="hljs-selector-tag">Pet</span>;
+}
+</code></pre>
+<h2 id="headers">Headers</h2>
+<p>A model’s properties and parameters can be defined using the <code>@header</code> decorator. The header name gets its name from a parameter. If it’s not specified, it’s inferred from the parameter or property name. For example, if you wanted to add a header that accepted eTag support to your read operation, you would insert the following:</p>
+<pre><code><span class="hljs-variable">@route</span>(<span class="hljs-string">"/pets"</span>)
+namespace Pets {
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">list</span>(<span class="hljs-variable">@query</span> <span class="hljs-attribute">skip</span>: int32, <span class="hljs-variable">@query</span> <span class="hljs-attribute">top</span>: int32): <span class="hljs-selector-tag">Pet</span><span class="hljs-selector-attr">[]</span>;
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">read</span>(<span class="hljs-variable">@path</span> <span class="hljs-attribute">petId</span>: int32, <span class="hljs-variable">@header</span> ifMatch?: string): {
+    <span class="hljs-variable">@header</span> <span class="hljs-attribute">eTag</span>: string;
+    <span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet;
+  };
+  <span class="hljs-variable">@post</span>
+  op create(<span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet): {};
+}
+</code></pre>
+<h2 id="request-and-response-bodies">Request and Response Bodies</h2>
+<p>Requests and responses can be specified using <code>@body</code> decorators. For example, if you wanted to create an endpoint for adding a pet, it would like this:</p>
+<pre><code><span class="hljs-variable">@route</span>(<span class="hljs-string">"/pets"</span>)
+namespace Pets {
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">list</span>(<span class="hljs-variable">@query</span> <span class="hljs-attribute">skip</span>: int32, <span class="hljs-variable">@query</span> <span class="hljs-attribute">top</span>: int32): {
+    <span class="hljs-variable">@body</span> <span class="hljs-attribute">pets</span>: Pet[];
+  };
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">read</span>(<span class="hljs-variable">@path</span> <span class="hljs-attribute">petId</span>: int32): {
+    <span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet;
+  };
+  <span class="hljs-variable">@post</span>
+  op create(<span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet): {};
+}
+</code></pre>
+<p>If a <code>@body</code> is not specified, the parameters not allocated to <code>@header</code>, <code>@query</code>, or <code>@path</code> are considered the body.</p>
+<h2 id="status-codes">Status Codes</h2>
+<p>There’s also a <code>@statusCode</code> decorator if you want to specify a status code for a resource or operation. For example, if you wanted to add a 404 to the read endpoint, you would include the following code after the <code>op read</code> operation.</p>
+<pre><code>| {
+    <span class="hljs-variable">@statusCode</span> <span class="hljs-attribute">statusCode</span>: <span class="hljs-number">404</span>;
+  };
+  <span class="hljs-selector-tag">op</span> <span class="hljs-selector-tag">create</span>(<span class="hljs-variable">@body</span> <span class="hljs-attribute">pet</span>: Pet): {
+    <span class="hljs-variable">@statusCode</span> <span class="hljs-attribute">statusCode</span>: <span class="hljs-number">204</span>;
+  };
+}
+</code></pre>
+<p>After inputting that code, you should be left with something like the following:</p>
+<pre><code><span class="hljs-keyword">import</span> <span class="hljs-string">"@typespec/http"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"@typespec/rest"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"@typespec/openapi3"</span>;
+
+<span class="hljs-meta">@service</span>({
+<span class="hljs-symbol">  title:</span> <span class="hljs-string">"Widget Service"</span>,
+})
+namespace DemoService;
+
+<span class="hljs-meta">@route</span>(<span class="hljs-string">"/pets"</span>)
+namespace Pets {
+model Pet {
+  <span class="hljs-meta">@minLength</span>(<span class="hljs-number">100</span>)
+<span class="hljs-symbol">  name:</span> string;
+
+  <span class="hljs-meta">@minValue</span>(<span class="hljs-number">0</span>)
+  <span class="hljs-meta">@maxValue</span>(<span class="hljs-number">100</span>)
+<span class="hljs-symbol">  age:</span> int32;
+<span class="hljs-symbol">
+  kind:</span> <span class="hljs-string">"dog"</span> | <span class="hljs-string">"cat"</span> | <span class="hljs-string">"fish"</span>;
+}
+op list(<span class="hljs-meta">@query</span> <span class="hljs-string">skip:</span> int32, <span class="hljs-meta">@query</span> <span class="hljs-string">top:</span> int32): {
+    <span class="hljs-meta">@statusCode</span> <span class="hljs-string">statusCode:</span> <span class="hljs-number">200</span>;
+    <span class="hljs-meta">@body</span> <span class="hljs-string">pets:</span> Pet[];
+};
+  op read(<span class="hljs-meta">@path</span> <span class="hljs-string">petId:</span> int32, <span class="hljs-meta">@header</span> ifMatch?: string): {
+  <span class="hljs-meta">@statusCode</span> <span class="hljs-string">statusCode:</span> <span class="hljs-number">200</span>;
+    <span class="hljs-meta">@header</span> <span class="hljs-string">eTag:</span> string;
+    <span class="hljs-meta">@body</span> <span class="hljs-string">pet:</span> Pet;
+  };
+  <span class="hljs-meta">@post</span>
+  op create(<span class="hljs-meta">@body</span> <span class="hljs-string">pet:</span> Pet): {};
+}
+
+
+using TypeSpec.Http;
+using TypeSpec.Rest;
+
+model Widget {
+  <span class="hljs-meta">@key</span> <span class="hljs-string">id:</span> string;
+<span class="hljs-symbol">  weight:</span> int32;
+<span class="hljs-symbol">  color:</span> <span class="hljs-string">"red"</span> | <span class="hljs-string">"blue"</span>;
+}
+
+<span class="hljs-meta">@error</span>
+model Error {
+<span class="hljs-symbol">  code:</span> int32;
+<span class="hljs-symbol">  message:</span> string;
+}
+
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">WidgetService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Resource</span>.<span class="hljs-title">ResourceOperations</span>&lt;<span class="hljs-title">Widget</span>, <span class="hljs-title">Error</span>&gt; {</span>
+  <span class="hljs-meta">@get</span> <span class="hljs-meta">@route</span>(<span class="hljs-string">"customGet"</span>) customGet(): Widget;
+}
+</code></pre>
+<p>If you compile that code and open <code>openapi.yaml</code>, you should see a fully defined OpenAPI specification generated solely from your TypeSpec code with a simple command.</p>
+<h2 id="final-thoughts-on-using-typespec">Final Thoughts on Using TypeSpec</h2>
+<p>TypeSpec stands to be a real game-changer in <a href="https://nordicapis.com/how-the-api-economy-is-changing-in-2024/" rel="noreferrer" target="_blank">the API industry</a>. It’s likely to become increasingly important and popular with the rise of API-first design. This also means TypeSpec could play an essential part in the interaction between <a href="https://nordicapis.com/how-ai-is-transforming-the-future-of-apis/" rel="noreferrer" target="_blank">AI and APIs</a>, as an AI could easily decipher, design, or implement an API solely with a TypeSpec specification.</p>
+<p>TypeSpec is also simply solving existing problems in API design. Many developers find creating OpenAPI specifications unwieldy and inefficient, and not everyone knows how to read or interpret them. The ability to create and interpret clean, clear API specifications from code and the command line will likely become increasingly important as the industry continues to shift and evolve.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/using-typespec-to-design-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

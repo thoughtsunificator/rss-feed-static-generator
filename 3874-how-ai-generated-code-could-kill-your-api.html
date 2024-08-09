@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How AI-Generated Code Could Kill Your API</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How AI-Generated Code Could Kill Your API</h3>
+		<div><p>In a <a href="https://nordicapis.com/gen-ai-apis-and-the-future-of-development/" rel="noreferrer" target="_blank">recent post</a>, we recapped a keynote speech by former Gartner analyst Paul Dumas at our Austin API Summit. The gist of the talk was that, as the practice of using AI to generate code grows, we will become stewards of content. In other words, prompting, testing, and curating AI-created code.</p>
+<p>According to <a href="https://github.blog/2023-06-13-survey-reveals-ais-impact-on-the-developer-experience/" rel="noreferrer" target="_blank">research by GitHub</a>, in 2023, as many as 92% of US developers were using AI coding tools “both in and outside of work.” Another <a href="https://github.blog/2022-09-07-research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" rel="noreferrer" target="_blank">study conducted by GitHub</a> found that those using Copilot (a tool developed by GitHub) completed tasks up to 55% faster than those working without it.</p>
+<p>However, this AI reliance brings potential consequences. Due to the “sheer amount of code produced… without guardrails, generative AI will likely lead to more technical debt,” writes <a href="https://devops.com/does-using-ai-assistants-lead-to-lower-code-quality/" rel="noreferrer" target="_blank">Bill Doerrfeld</a>. Why reuse and refine code when you can just ditch it and generate something new?</p>
+<p>Problems can also arise when developers, say, use AI to generate code in a language that they’re not familiar with. Do they understand the relevant best practices? Security risks? The fixes for problems that arise? The answer to these questions is often a resounding “no.”</p>
+<p>Still, the implicit message of the research above is to get on board with AI coding tools or get left in the dust, which, for some skeptics, could be a scary prospect…</p>
+<h2 id="risks-of-using-ai-generated-code">Risks of Using AI-Generated Code</h2>
+<p>It’s worth pointing out that both of the studies above refer to “AI coding tools” (check out our article on <a href="https://nordicapis.com/5-ai-assistants-for-api-developers/" rel="noreferrer" target="_blank">AI tools for API developers</a>), which isn’t necessarily the same thing as AI-generated code. Such tools might, for example, suggest code completions or fixes for known bugs.</p>
+<p>But there certainly are people out there, both developers and laypersons, creating tools and <a href="https://nordicapis.com/tips-for-boosting-product-features-with-generative-ai/" rel="noreferrer" target="_blank">products purely from AI-generated code</a>. At <a href="https://nordicapis.com/events/austin-api-summit-2024/" rel="noreferrer" target="_blank">Austin API Summit 2024</a>, we spoke with <a href="https://nordicapis.com/speakers/katie-paxton-fear/" rel="noreferrer" target="_blank">Katie Paxton-Fear</a>, API Security Educator, Traceable AI, about some of the implications of people using AI-generated code at this scale.</p>
+<p>“It’s great that they are able to get their app ideas out there, but they have no idea how to actively look at that code to see if it’s secure or if this is the most appropriate way of doing things,” says Paxton-Fear. “If you’re using AI-generated code, you may not even be aware of what your regulatory requirements are.”</p>
+<p>Let alone whether or not you’re meeting them. And, even if you are aware of the security requirements around storing specific data, you may not know how to handle breaches.</p>
+<p>Then again, Paxton-Fear observes, the opposite might also be true. “People who don’t know anything about security probably can learn some common pitfalls by questioning ChatGPT or Copilot. And I can see that coming in handy for junior developers who don’t feel comfortable or confident asking senior engineers for fear of wasting their time.”</p>
+<p>We’ve previously covered how tools like Hacking APIs GPT might be used for <a href="https://nordicapis.com/using-hacking-apis-gpt-for-api-security-testing/" rel="noreferrer" target="_blank">API security testing</a>. Other companies are out there chasing funding for their own tools, focusing on <a href="https://nordicapis.com/8-ai-driven-threat-detection-tools/" rel="noreferrer" target="_blank">using AI to test security</a>. Such tools should certainly, for the time being at least, be considered supplemental measures rather than a replacement for typical <a href="https://nordicapis.com/a-checklist-for-your-next-api-design-review/" rel="noreferrer" target="_blank">code reviews and testing</a>.</p>
+<p>With the right security protocols and observability in place, using AI-generated or AI-assisted code doesn’t have to be a problem. It can even have significant benefits. But in situations where there might already be cracks, relying on AI-created code could be downright dangerous.</p>
+<h2 id="the-risks-of-using-ai-generated-code">The Risks of Using AI-Generated Code</h2>
+<p>Before we get into the API space, let’s look at the big picture. Using AI-generated code has various associated risks, such as the possibility of introducing inaccuracies or errors. The fact is thousands of tutorials and posts written 10+ years ago (now thoroughly out of date) may end up being used as training data.</p>
+<p>Take <a href="https://www.php.net/manual/en/control-structures.continue.php" rel="noreferrer" target="_blank">PHP’s documentation</a>, suggests Paxton-Fear. The documentation contains notes around deprecation, but there are comments from 14 years ago that may no longer be relevant. “As a result, we’re going to see the return of things, like vulnerabilities and exploits, that we thought we had already dealt with,” she says.</p>
+<p>Hallucinations are also a cause for concern. Consider <a href="https://blog.opencagedata.com/post/dont-believe-chatgpt" rel="noreferrer" target="_blank">ChatGPT recommending</a> the OpenCage Geocoding API’s phone lookup functionality…which doesn’t exist. It’s a perfect example of, in Paxton-Fear’s words, “AI telling us what we want to hear” rather than providing accurate and reliable information.</p>
+<p>In addition to the accidental misstep, there’s also activity that’s actively bad-natured to be considered. In a recent case, cybercriminals <a href="https://www.bleepingcomputer.com/news/security/cybercriminals-pose-as-helpful-stack-overflow-users-to-push-malware/" rel="noreferrer" target="_blank">pushed malware via a malicious package</a> suggested as a fix for various problems on StackOverflow.</p>
+<p>Paxton-Fear suggests that “we can absolutely expect to see the same thing with AI-generated responses to prompts or questions, especially because AI is non-deterministic. A smart attacker could include malicious packages in training data and sneak them in as responses to really specific problems that won’t be asked often.”</p>
+<h2 id="why-is-gen-ai-particularly-dangerous-to-apis-">Why Is Gen AI Particularly Dangerous to APIs?</h2>
+<p>The general risk of developers using AI-generated code is compounded in the API space, Paxton-Fear believes, because of the nature of writing APIs. Creating and documenting endpoints can be repetitive, even <a href="https://nordicapis.com/why-its-ok-for-your-api-to-be-boring/" rel="noreferrer" target="_blank">boring</a>, so the incentive to automate the process is high. In that respect, APIs are more susceptible to these risks than other projects might be.</p>
+<p>As more products integrate AI into their offerings, we can expect further adoption of external tools like OpenAI’s API. Beyond the documented risks of over-reliance on AI — something that cracks OWASP’s <a href="https://genai.owasp.org/llmrisk/llm09-overreliance/" rel="noreferrer" target="_blank">top 10 risks of LLMs</a> — there’s always a risk of interactions between applications and such APIs failing in some way or another.</p>
+<p>“We’re never going to solve prompt injection,” Paxton-Fear worries. “If you’re relying on AI input to generate blog posts or code, you have to look to the usual suspects. You can’t necessarily trust user input, and AI input is just another form of that.” Whether or not you trust AI input over something created manually by an engineer is another issue entirely…</p>
+<p>As more and more apps out there come to rely on <a href="https://nordicapis.com/tag/generative-ai/" rel="noreferrer" target="_blank">generative AI</a>, we better hope that their providers are doing a stellar job of maintaining and securing those products.</p>
+<h2 id="can-we-mitigate-risks-and-embrace-gen-ai-coding-">Can We Mitigate Risks and Embrace Gen AI Coding?</h2>
+<p>On the face of it, the viewpoints of a self-confessed AI skeptic like Paxton-Fear and Gartner’s former analyst Paul Dumas — who predicts that AI will soon produce APIs for you — are very different.</p>
+<p>In fact, though, they do share commonalities. Paxton-Fear told us that, despite her reservations, “I do think it’s a powerful creative tool, especially for developers who know what they’re doing. They can look at that code and actually evaluate its quality.” Which echoes Dumas’ sentiments.</p>
+<p>However, Paxton-Fear also observes that a workplace’s culture plays a big part in mitigating the risk of AI-generated code. “Developers of all levels aren’t measured on security outcomes, they’re measured on lines of code, features submitted, and tickets resolved.”</p>
+<p>As such, they are incentivized towards efficiency, and we’ve seen that using AI can be a big help by cutting down the work they have to do. “But there’s a real risk there, especially for organizations that don’t really have security teams, if they find [or <em>don’t find</em>] that they’re missing documentation explaining that something is deprecated or sunsetted.”</p>
+<p>One possible solution to this problem is providing senior engineers with real balance: giving them a chance to think about applications more broadly and the big-picture questions, not just reviewing requests. This presents more challenging problems that they want to engage with themselves, rather than outsourcing the work to gen AI tools.</p>
+<p>Ultimately, Paxton-Fear concludes that AI-generated code should be “a tool used alongside humans, not a replacement for them.” Much like Paul Dumas did in his Austin API Summit keynote. <a href="https://nordicapis.com/5-examples-of-excellent-api-documentation/" rel="noreferrer" target="_blank">Good documentation</a> is regularly updated with guidance, security issues, and so on. Due to lag, AI tools won’t have access to that information for a long time. A skilled human developer will.</p>
+<p>“There’s a lot of clear benefits in cutting corners,” Paxton-Fear observes offhand. “Run every red light, and you’ll get there quicker… most of the time. The one time you don’t? It could be bad.”</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/how-ai-generated-code-could-kill-your-api/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

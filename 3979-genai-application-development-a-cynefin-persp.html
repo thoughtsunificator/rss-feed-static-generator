@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>GenAI application development - a Cynefin perspective</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">GenAI application development - a Cynefin perspective</h3>
+		<div><p>These days a lot of energy is being poured into developer Generative AI applications.
+A key part of developing these applications is prompt engineerig: carefully crafting prompts to get the desired behavior from the LLM.
+This often requires a lot of experimentation and iteration to get right.
+What’s more, a prompt that works for one LLM (version) might not work with another.
+Arguably, generative AI application development is what the Cynefin framework would call a complex domain.</p>
+
+<h2 id="about-cynefin">About Cynefin</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Cynefin_framework" rel="noreferrer" target="_blank">Cynefin</a> is a framework that helps us understand the nature of the problem we’re facing. 
+It’s a sense-making framework that characterizes problems as either clear, complicated, complex, or chaotic.</p>
+
+<p></p>
+
+<p>In clear and complicated domains, the relationship between cause and effect is knowable.
+You simply need to understand the rules.
+In the case of a complicated domain, you might need to do some analysis to figure out the rules.
+You could consider <code class="language-plaintext highlighter-rouge">User Profile Management</code> to be a clear domain, and the <code class="language-plaintext highlighter-rouge">Federal Incone Tax Calculator</code> to be a complicated domain.</p>
+
+<h2 id="developer-tools-are-clear-or-complicated">Developer tools are clear or complicated</h2>
+
+<p>Typical developer technologies - languages, tools, etc - are usually clear or complicated.
+You simply need to learn a bunch of rules in order to use.
+And even when you do need to experiment, the problem is almost always poorly written documentation.</p>
+
+<h2 id="about-cynefix-complex-domains">About Cynefix complex domains</h2>
+
+<p>In a complex domain, the relationship between cause and effect is only knowable in retrospect.
+In order to devise a solution, a lot of experimentation is required.
+What’s more, you might not even know whether a given solution is the best one.
+An example of a complex domain is <code class="language-plaintext highlighter-rouge">Delivery Management</code>.
+Creating a courier scheduling algorithm requires a lot of experimentation.</p>
+
+<h2 id="llms-are-complex-and-random">LLMs are complex and random</h2>
+
+<p>As I mentioned earlier, generate AI development is a complex domain.
+You typically need to experiment a lot to get the desired behavior.
+And, what works for one LLM might not work for another.
+Moreover, LLMs exhibit random behavior, which makes development even more difficult.</p>
+
+<p>For example, the <a href="https://github.com/cer/faramir-microservice/blob/0e1a006888986c1bb71c8555ad45e0e505fb98c7/spring-boot-spring-ai/src/main/java/net/chrisrichardson/faramir/PhoneNumberParser.java#L21-L28" rel="noreferrer" target="_blank">Faramir phone number parser prompt</a> required a lot of experimentation to get right.
+Moreover, it works with GPT-4 but fails with other LLMs, for reason unknown.</p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/07/21/using-an-llm-cynefin-complex-domain.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

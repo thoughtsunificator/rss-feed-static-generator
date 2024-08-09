@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 198</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Release Notes for Safari Technology Preview 198</h3>
+		<div><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 198 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/4d06a3cab666d588be8081b3a898a55cbd673540...8ca6c3acfc2b6998b79a46502908cbb1b95ac71f" rel="noreferrer" target="_blank">279855@main…280286@main</a>.</p>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <code>:active-view-transition</code> pseudo-class. (<a href="https://commits.webkit.org/280027@main" rel="noreferrer" target="_blank">280027@main</a>)  (129851076)  </li>
+</ul>
+<h3>Forms</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed input elements to use the <code>[value]</code> as the first fallback step base. (<a href="https://commits.webkit.org/280127@main" rel="noreferrer" target="_blank">280127@main</a>)  (107721910)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed V128 values to be throwable to match the specification. (<a href="https://commits.webkit.org/279989@main" rel="noreferrer" target="_blank">279989@main</a>)  (106030051)  </li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed missing picture-in-picture when leaving Safari with picture-in-picture enabled from video viewer. (<a href="https://commits.webkit.org/279877@main" rel="noreferrer" target="_blank">279877@main</a>)  (124376686)  </li>
+<li>Fixed the context menu to show “Exit Viewer” when using video viewer. (<a href="https://commits.webkit.org/280128@main" rel="noreferrer" target="_blank">280128@main</a>)  (126300924)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed scrolling in a flexbox container. (<a href="https://commits.webkit.org/279992@main" rel="noreferrer" target="_blank">279992@main</a>)  (129343181)  </li>
+</ul>
+<h3>Safari Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed throwing an exception when calling <code>browser.storage.set</code> with <code>undefined</code> as a map value. (<a href="https://commits.webkit.org/280265@main" rel="noreferrer" target="_blank">280265@main</a>)  (130282050)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed non-standard <code>getTransformToElement</code> from SVGGraphicsElement (<a href="https://commits.webkit.org/280208@main" rel="noreferrer" target="_blank">280208@main</a>)  (122435702)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue when inserting writing suggestions into an editable <code>display: grid</code> container. (<a href="https://commits.webkit.org/279986@main" rel="noreferrer" target="_blank">279986@main</a>)  (129366300)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed disappearing objects and disclosure triangles when Web Inspector is at narrow widths. (<a href="https://commits.webkit.org/279894@main" rel="noreferrer" target="_blank">279894@main</a>)  (121861970)  </li>
+<li>Fixed the list of breakpoints in the Sources tab disappearing when Web Inspector is reloaded. (<a href="https://commits.webkit.org/279884@main" rel="noreferrer" target="_blank">279884@main</a>)  (123641994)  </li>
+</ul>
+<h3>WebRTC</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed RTCEncodedVideoFrame and RTCEncodedAudioFrame to match the WebIDL specification. (<a href="https://commits.webkit.org/280198@main" rel="noreferrer" target="_blank">280198@main</a>)  (118607685)  </li>
+</ul>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15694/release-notes-for-safari-technology-preview-198/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

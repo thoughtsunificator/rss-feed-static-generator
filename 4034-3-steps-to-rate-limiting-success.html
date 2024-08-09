@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>3 Steps To Rate Limiting Success</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">3 Steps To Rate Limiting Success</h3>
+		<div><p>On the face of it, rate limiting can almost seem counterintuitive. We spend all this time opening up our product or service via an API, only to implement an “ah ah ah” and a wagging finger — a la Jurassic Park’s Dennis Nedry — when users make too many requests.</p>
+<p>If we fail to indicate what “too many” requests is, we risk frustrating users. However, when we make it clear, we risk opening up our APIs to bad actors. This is just one part of what the team from Zuplo, an API gateway and management platform, has called “<a href="https://zuplo.com/blog/2023/05/02/subtle-art-of-rate-limiting-an-api" rel="noreferrer" target="_blank">the subtle art of rate limiting</a>.” In fact, they define the protection rate limiting can offer as one of their <a href="https://zuplo.com/blog/2022/05/11/the-three-pillars-of-an-API-program" rel="noreferrer" target="_blank">three pillars of an API program</a>.</p>
+<p>Zuplo’s <a href="https://nordicapis.com/speakers/nate-totten/" rel="noreferrer" target="_blank">Nate Totten</a> joined us at our <a href="https://nordicapis.com/6-key-takeaways-from-austin-api-summit-2024/" rel="noreferrer" target="_blank">Austin API Summit in 2024</a>, where he spoke extensively about balancing the tradeoffs of consumer experience and performance. Below, we’ll cover the key takeaways of his talk, along with some major rate-limiting blunders…</p>
+<div class="well">Watch Nate Totten present at the Austin API Summit:<div class="responsive-iframe-container"></div></div>
+<h2 id="why-do-we-need-rate-limiting-">Why Do We Need Rate Limiting?</h2>
+<p>We’ve written extensively about rate limiting in the past, covering everything from the <a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/" rel="noreferrer" target="_blank">basics of API rate limiting</a> to a deep dive into <a href="https://nordicapis.com/different-algorithms-to-implement-rate-limiting-in-apis/" rel="noreferrer" target="_blank">different algorithms to implement rate limiting</a>. On the off chance you’re not already using rate limiting, be sure to check them out.</p>
+<p>At the beginning of his speech, Totten asks rhetorically, “Am I really going to be attacked?” The answer, he says, is “yes, but not by who you think.” A clumsy for loop, Totten suggests, or some other error on your part can result in you hammering your own API… and large bills.</p>
+<p>Rate limiting is great for protecting resource consumption. But, with all of that said, there are bad actors out there looking to take advantage of APIs that lack rate limiting. Unfortunately, it seems like some companies didn’t get that memo.</p>
+<h2 id="example-of-a-rate-limiting-related-breach">Example of a Rate Limiting Related Breach</h2>
+<p>At the beginning of 2024, <a href="https://www.bleepingcomputer.com/news/security/email-addresses-of-15-million-trello-users-leaked-on-hacking-forum/" rel="noreferrer" target="_blank">a Trello breach</a> saw more than 21GB of data leaked, including more than 15 million user email addresses. The hacker responsible, “emo,” told BleepingComputer that the information was acquired using an unsecured REST API.</p>
+<p>Specifically, emo fed a list of 500 million email addresses into the API (used by developers to query public information about Trello profiles) to check if they were linked to a Trello account. Using the returned account information, they were able to create profiles for 15 million users.</p>
+<p>Trello has since tightened up rate limiting around their APIs. Still, the fact that someone could make calls to the tune of 500 million email addresses — a number far larger than anyone making legitimate queries would ever realistically need — has raised more than a few eyebrows.</p>
+<h2 id="1-make-rate-limiting-transparent-and-observable">1. Make Rate Limiting Transparent and Observable</h2>
+<p>Canonical responses are pretty straightforward. For instance:</p>
+<ul>
+<li>Status – 429</li>
+<li>Status Text – Too Many Requests</li>
+<li>Header – Retry-After: 3600</li>
+<li>Body – Use Problem Details format (IETF RFC 7807)</li>
+</ul>
+<p>However, Totten acknowledges that disclosing limits (like the 3600 shown in the header above) makes it easier for malicious users to maximize resource consumption without hitting limits. Not disclosing them, on the other hand, makes it hard for legitimate consumers to avoid doing so.</p>
+<p>He suggests that the formality of your relationship with users could dictate the amount of information you share with them. For instance, don’t disclose rate limiting information to free tiers. Instead, only disclose it to contracted partners. However, he highlights that bad actors can probably figure this information out anyway.</p>
+<p>Visibility is, Totten says, a key factor to consider throughout the entire rate limiting process: “When you add rate limiting to your API, you’ll get a lot of support requests…especially if you just add it where you didn’t have it before.” In an ideal world, he continues, “both you as the developer and your customers will have some visibility into what’s happening in the system.”</p>
+<p>In this context, visibility means checking things like requests per second (RPS), a breakdown of requests by bucket (like IP or user), and rate-limited responses. You can consider sharing this information with your users, as long as you trust them with it, in the same way that you might share uptime or server status updates. The more clarity you give them about using your API, the more you can reduce incoming support requests regarding rate-limiting (and other) issues.</p>
+<h2 id="2-balancing-optimization-and-latency">2. Balancing Optimization and Latency</h2>
+<p>Whether as developers or consumers, we all want APIs to have certain characteristics: speed, reliability (high uptime), good usability, and security. Sometimes, however, improving one of these characteristics can negatively impact another.</p>
+<p>IP-based rate limiting, for example, risks punishing those who share addresses (like services operating from the same data center or even a WeWork facility). Rate limiting by user or app may be more intensive on the developer side but improves the overall user experience.</p>
+<p>Likewise, Totten points out that completing a rate limit check before allowing a request to proceed results in a slower API for everyone because it incurs latency on every request. He suggests a more lenient approach: running checks asynchronously and caching blocked users:</p>
+<ul>
+<li>Store known consumers (and retry time) in a local cache.</li>
+<li>Check the rate limit in parallel with performing the primary request.</li>
+<li>If the rate limit check comes back blocked, update the cache and (if the primary request is not complete) override the response.</li>
+<li>Otherwise, the next request will be blocked anyway.</li>
+</ul>
+<p>A downside? “A certain amount of requests will,” Totten acknowledges, “get over the quota.” But that tradeoff, he argues, is typically worth it. “Rather than making every single request pay that penalty,” he says, “we can increase performance and decrease latency.”</p>
+<h2 id="3-rate-limiting-is-not-the-be-all-and-end-all">3. Rate Limiting Is Not the Be All and End All</h2>
+<p>In July 2024, hacking group NullBulge leaked more than 1.1TB of Disney’s Slack data (alleged to include unreleased projects, raw images and code, and links to internal APIs/web pages). In fact, most of the information leaked appears to be fairly benign — a terabyte of random dog pictures, memes, and screenshots, according to some commenters.</p>
+<p>Although Disney has since pointed the finger at an inside man, an early theory circulating during the writing of this article suggested that — like in Trello’s case — the leak may have been due to an unsecured Slack API endpoint.</p>
+<p>Actually, Slack already imposed <a href="https://api.slack.com/apis/rate-limits" rel="noreferrer" target="_blank">rate limiting</a> on its APIs and offers DLP <a href="https://slack.com/intl/en-gb/help/articles/12914005852819-Slack-data-loss-prevention" rel="noreferrer" target="_blank">features for data loss prevention</a>. However, it should go without saying that we aren’t privy to the extent of Disney’s engagement with those features or their broader security stack.</p>
+<p>Even so, it’s interesting to note that a hacker could still make thousands of calls per hour <strong>within</strong> the confines of Slack’s rate limiting. In fact, they could grab all 16,735 files in the torrent file shown above in less than three. A good reminder that rate limiting is not, on its own, a silver bullet.</p>
+<p>As useful as rate limiting can be, it should only be considered one aspect of your approach to <a href="https://nordicapis.com/why-api-security-is-a-growing-concern-for-cisos-in-2024/" rel="noreferrer" target="_blank">API security</a>. For a truly secure API, you’ll want to follow other best practices, such as using a gateway, OAuth, conducting regular audits and tests, and so on.</p>
+<p>Nevertheless, as we’ve seen above, rate limiting remains a valuable way to limit access (or at least the <a href="https://nordicapis.com/api-rate-limiting-vs-api-throttling-how-are-they-different/" rel="noreferrer" target="_blank">rate of that access</a>) to your APIs, and it’s not a bad tool to have in the toolbox.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/3-steps-to-rate-limiting-success/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

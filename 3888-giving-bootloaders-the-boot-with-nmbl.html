@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Giving bootloaders the boot with nmbl</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Giving bootloaders the boot with nmbl</h3>
+		<div><p>At <a href="https://www.devconf.info/cz/" rel="noreferrer" target="_blank">DevConf.cz 2024</a>,
+Marta Lewandowska gave a talk to discuss a
+new approach for booting Linux systems, "<a href="https://pretalx.com/devconf-cz-2024/talk/W3AVCT/" rel="noreferrer" target="_blank">No more boot
+loader: Please use the kernel instead</a>". The talk, <a href="https://www.youtube.com/watch?v=ywrSDLp926M" rel="noreferrer" target="_blank">available on
+YouTube</a>, introduced a new project called nmbl (for "no more bootloader",
+pronounced "nimble"). The idea is to get rid of bootloaders (e.g., 
+<a href="https://www.gnu.org/software/grub/" rel="noreferrer" target="_blank">GNU GRUB</a>) with a
+<a href="https://uapi-group.org/specifications/specs/unified_kernel_image/" rel="noreferrer" target="_blank">Unified
+Kernel Image</a> (UKI) that removes the need for a separate bootloader
+altogether. It is early days for nmbl, currently the project is only
+being tested for use with virtual machines, but the idea is
+compelling. If successful, nmbl could offer security, performance, and
+maintenance benefits compared to GRUB and other separate bootloaders.</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/979789/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

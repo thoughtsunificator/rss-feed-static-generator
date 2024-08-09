@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>New Human Interface Guidelines for KDE</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">New Human Interface Guidelines for KDE</h3>
+		<div><p>KDE developer Nate Graham has <a href="https://pointieststick.com/2024/06/09/new-human-interface-guidelines/" rel="noreferrer" target="_blank">announced</a>
+a new set of <a href="https://develop.kde.org/hig/" rel="noreferrer" target="_blank">KDE Human
+Interface Guidelines</a> (HIG) for the <a href="https://kde.org/" rel="noreferrer" target="_blank">KDE</a> project. Graham says that the goals
+for the new HIGs were to reflect how KDE designs software today, make
+the content 100% actionable, improve navigation, and to improve the
+guidelines so people feel comfortable contributing:</p>
+
+<blockquote class="bq">
+Like any rewrite, there are bound to be rough edges and omissions
+compared to the old version. Maybe I missed a piece of useful
+information in the old HIG that had been buried somewhere but retained
+some value. Maybe there's low-hanging fruit for improvement. Help out
+by <a href="https://develop.kde.org/hig/#contributing" rel="noreferrer" target="_blank">contributing</a>!
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/978465/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

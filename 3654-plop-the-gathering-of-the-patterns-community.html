@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>PLoP: the gathering of the patterns community</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">PLoP: the gathering of the patterns community</h3>
+		<div><p>Throughout my career, numerous individuals and communities have shaped my thinking.
+Perhaps the most influential of these is the patterns community.
+In this article, I briefly describe the history of patterns, why I find them valuable, and why you should consider attending the <a href="https://plopcon.org/plop2024/" rel="noreferrer" target="_blank">PLoP 2024 conference</a>.</p>
+
+<p></p>
+
+<h2 id="what-is-a-pattern">What is a pattern?</h2>
+
+<p>The simplest definition of a pattern is that it is reusable solution to a problem occurring in a context.
+It’s a nicely distilled chunk of knowledge that you can apply if you have the same problem in a similar context.</p>
+
+<h2 id="patterns--a-valuable-problem-solving-framework">Patterns = a valuable problem solving framework</h2>
+
+<p>There’s usually more to a pattern than simply context, problem, and solution
+As I described in a 2016 article <a href="https://www.oreilly.com/content/why-a-pattern-language-for-microservices/" rel="noreferrer" target="_blank">Why a pattern language for microservices?</a> and the more recent talk <a href="/post/misc/2022/01/26/the-microservices-pattern-language.html" rel="noreferrer" target="_blank">Using patterns and pattern languages to make better architectural decisions</a>, a pattern often consists of several valuable elements:</p>
+
+<ul>
+  <li>Forces - the (possibly conflicting) concerns that you must consider when solving the problem in the context</li>
+  <li>Consequences:
+    <ul>
+      <li>Benefits - the forces that the pattern resolves</li>
+      <li>Drawbacks - the forces that the pattern leaves unresolved</li>
+      <li>Issues - the new sub-problems that the solution introduces</li>
+    </ul>
+  </li>
+  <li>Related patterns:
+    <ul>
+      <li>Alternatives - other solutions to the same problem</li>
+      <li>Successors - patterns that solve the problems introduced by this pattern</li>
+    </ul>
+  </li>
+</ul>
+
+<p>As a result, patterns are a great framework for thinking about problems and solutions.
+For example, the attendees of a recent <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">Architecting for fast, sustainable flow workshop</a> described how the <a href="/post/architecture/2023/03/26/dark-energy-dark-matter-force-descriptions.html" rel="noreferrer" target="_blank">dark energy and dark matter forces</a> were a valuable way to structure architecture and design discussions.</p>
+
+<p>Moreover, as I describe in <a href="/post/architecture/2023/03/13/better-decision-making-with-patterns.html" rel="noreferrer" target="_blank">#becauseItDepends Finding your inner Vulcan: unemotional decision making with pattern-style thinking</a> you don’t even need formally use patterns to find the ideas valuable.
+The concepts of <em>forces</em> - issues that you need consider - and <em>consequences</em> - a given solution is both good and bad - are useful in their own right.
+They are an antidote to the all to common Suck/Rock dichotomy that we often fall into when making decisions.</p>
+
+<h2 id="patterns-started-with-christopher-alexander">Patterns started with Christopher Alexander</h2>
+
+<p>The origins of patterns can be traced back to the work of <a href="https://en.wikipedia.org/wiki/Christopher_Alexander" rel="noreferrer" target="_blank">Christopher Alexander</a>.
+In the 1970s, he published a series of books on real-world architecture.
+In these books, he described a pattern language for designing buildings and towns.
+Eventually, he was discovered by the software community.
+In 1996, Christopher Alexander gave a keynote at the OOPSLA conference: <a href="https://www.patternlanguage.com/archive/ieee.html" rel="noreferrer" target="_blank">article</a> and <a href="https://www.youtube.com/watch?v=98LdFA-_zfA" rel="noreferrer" target="_blank">video</a>.
+An experience he described as “pretty strange” since he knew little about software.</p>
+
+<h2 id="the-gang-of-four">The Gang of Four</h2>
+
+<p>The most famous book on software patterns is the <a href="https://en.wikipedia.org/wiki/Design_Patterns" rel="noreferrer" target="_blank">Gang of Four’s Design Patterns</a>, which was published in 1994.</p>
+
+<h2 id="the-big-ball-of-mud">The big ball of mud</h2>
+
+<p>These days we often use the term ‘big ball of mud’ to describe a messy software system.
+Here’s the original 1999 paper <a href="https://laputan.org/mud/" rel="noreferrer" target="_blank">Big Ball of Mud</a> by Brian Foote and Joseph Yoder.
+It describes a collection of patterns including <em>Big Ball of Mud</em> and attempts to explain why this architectural style is so popular and what to do about it.</p>
+
+<h2 id="two-of-my-favorite-patterns-books">Two of my favorite patterns books</h2>
+
+<p>Numerous other books on patterns have been published.
+Two of my favorites are Martin Fowler’s <a href="https://www.martinfowler.com/books/eaa.html" rel="noreferrer" target="_blank">Patterns of enterprise application architecture</a> and Gregor Hohpe’s <a href="https://www.enterpriseintegrationpatterns.com/" rel="noreferrer" target="_blank">Enterprise integration patterns</a>.
+Gregor’s book is especially valuable today because it describes a pattern language for messaging-based applications: i.e. microservice architectures.</p>
+
+<h2 id="about-plop-pattern-languages-of-programs-people--practices">About PLoP: Pattern Languages of Programs, People &amp; Practices</h2>
+
+<p><a href="https://plopcon.org/conferences/" rel="noreferrer" target="_blank">PLoP</a> is a conference where the patterns community gather to discuss, and learn.
+The first PLoP was in 1994.</p>
+
+<h2 id="patterns-and-me">Patterns and me</h2>
+
+<p>I’ve been excited about patterns since I first read the Gang of Four book.
+I also have very fuzzy memories of going to patterns study groups in the late 1990s.
+My paper <a href="https://www.plopcon.org/pastplops/plop2001/accepted_submissions/PLoP2001/crichardson0/PLoP2001_crichardson0_3.pdf" rel="noreferrer" target="_blank">A Pattern Language for J2EE Web Application Development (PDF)</a> was accepted at PLoP 2001 but sadly, I couldn’t attend due to 9/11.
+I finally made it to PLoP in 2017, where I gave a talk on the <a href="https://www.slideshare.net/slideshow/a-pattern-language-for-microservices/81399383" rel="noreferrer" target="_blank">microservices pattern language</a> and received valuable feedback.
+My book <a href="/book" rel="noreferrer" target="_blank">Microservices patterns</a> was published in 2018.</p>
+
+<h2 id="why-attend-plop-2024">Why attend PLoP 2024?</h2>
+
+<p>This year the PLoP conference is at the Skamania Lodge just outside of Portland, Oregon.
+It’s a great opportunity to learn from the truly smart people who have shaped modern software development.
+To learn more about PLoP, and, hopefully, register please see the <a href="https://plopcon.org/plop2024/" rel="noreferrer" target="_blank">website</a>.
+I hope to be there too!</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/patterns/2024/06/13/about-plop.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

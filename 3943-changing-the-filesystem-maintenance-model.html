@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Changing the filesystem-maintenance model</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Changing the filesystem-maintenance model</h3>
+		<div>Maintenance of the kernel is a difficult, often thankless, task; how it is
+being handled, the role of maintainers, burnout, and so on are recurring
+topics at kernel-related conferences.  At
+the 2024 <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux Storage,
+Filesystem, Memory Management, and BPF Summit</a>, Josef Bacik and
+Christian Brauner led a session to discuss possible changes to the way
+filesystems are maintained, though Bacik took the lead role (and the podium).  There are a number of interrelated topics,
+including merging new filesystems, removing old ones, making and testing changes
+throughout the filesystem tree, and more.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/981854/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

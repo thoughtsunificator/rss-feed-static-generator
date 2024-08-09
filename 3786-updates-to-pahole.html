@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Updates to pahole</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Updates to pahole</h3>
+		<div><p>
+Arnaldo Carvalho de Melo spoke at the 2024
+<a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux Storage,
+Filesystem, Memory Management, and BPF Summit</a>
+about his work on
+<a href="https://lwn.net/Articles/335942/" rel="noreferrer" target="_blank">
+Poke-a-hole</a> (pahole),
+a program that has expanded greatly over the years, but which was relevant to the
+BPF track because it produces BPF Type Format (BTF) information from DWARF
+debugging information. He covered some small changes to the program, and then
+went into detail about the new support for data-type profiling. His
+<a href="http://vger.kernel.org/~acme/prez/lsfmm-bpf-2024/" rel="noreferrer" target="_blank">slides</a> include
+several examples.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/978727/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] CRIB: checkpoint/restore in BPF</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] CRIB: checkpoint/restore in BPF</h3>
+		<div>The desire for the ability to checkpoint a process — to record its state in
+a form that can be restarted at a future time — on Linux is almost as old as
+Linux itself.  See, for example, <a href="https://lwn.net/1998/0528/a/checkpoint.html" rel="noreferrer" target="_blank">this announcement</a> of a checkpoint
+project that appeared in LWN in 1998.  While working solutions exist, they
+can be somewhat fragile and difficult to use; it is not surprising that
+some people are interested in finding a better alternative.  A current
+effort goes by the name CRIB,
+for Checkpoint/Restore in (naturally) BPF.  It is far from clear that CRIB
+will replace the existing solutions, but it is an interesting look at a
+different way of solving the problem.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/984313/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Handling filesystem interruptibility</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Handling filesystem interruptibility</h3>
+		<div>David Howells wanted to discuss changing the way filesystem code handles
+the ability to interrupt or kill operations, in order to fix some
+longstanding problems with network 
+(and other) filesystems, in a session at
+the 2024 <a href="https://events.linuxfoundation.org/lsfmmbpf/" rel="noreferrer" target="_blank">Linux
+Storage, Filesystem, Memory Management, and BPF Summit</a>.   As noted in
+his <a href="https://lwn.net/ml/all/2701318.1706863882%40warthog.procyon.org.uk/" rel="noreferrer" target="_blank">session
+proposal</a>, some filesystems may be expecting to not be interruptible,
+but are calling code can take locks and mutexes that are interruptible (or
+killable), which are effectively
+changing the state of the task incorrectly.
+He would like to find a solution for that problem.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/983714/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

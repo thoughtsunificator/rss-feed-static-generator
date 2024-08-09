@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Brown: Fixing a 6-year-old bug in Ubuntu MATE and Xubuntu</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Brown: Fixing a 6-year-old bug in Ubuntu MATE and Xubuntu</h3>
+		<div><p>Doug Brown <a href="https://www.downtowndougbrown.com/2024/07/i-fixed-a-6-year-old-deb-installation-bug-in-ubuntu-mate-and-xubuntu/" rel="noreferrer" target="_blank">documents
+the long journey</a> to fixing a bug in the <a href="https://simple.wikipedia.org/wiki/GDebi" rel="noreferrer" target="_blank">GDebi</a> utility for
+installing Debian packages. He first encountered the bug in
+Ubuntu&nbsp;MATE&nbsp;18.04: "<q>at the time I just ignored this
+issue. I didn't want to deal with it. I went off to the trusty Linux
+terminal and installed Chrome that way instead</q>".</p>
+
+<blockquote class="bq">
+<p>Two and a half years ago, I committed to doing more open-source
+contributions in my free time and was finally irritated enough about
+this problem to look into it. I searched around for more info. Lo and
+behold, <a href="https://askubuntu.com/questions/985009/gdebi-installer-exits-without-installing-the-deb-file-in-17-10" rel="noreferrer" target="_blank">lots
+of</a> <a href="https://dev1galaxy.org/viewtopic.php?id=4900" rel="noreferrer" target="_blank">people
+were</a> <a href="https://forums.debian.net/viewtopic.php?t=142601" rel="noreferrer" target="_blank">also
+affected</a> and <a href="https://bugs.launchpad.net/ubuntu/+source/gdebi/+bug/1854588" rel="noreferrer" target="_blank">there was already an
+issue from 2019 on Ubuntu's bug tracker</a> about it.</p>
+
+<p>[...] As is commonly the case in software development, the difficult part of
+this fix had nothing to do with the code itself. All of my effort was
+spent figuring out Ubuntu's patch submission processes and advocating
+for my merge request. Nobody else seemed to be interested in doing the
+work to actually fix this bug that has been plaguing Ubuntu MATE and
+Xubuntu, not to mention some Debian users, for over 6 years. After
+dealing with the long process of getting my merge request approved, I
+think I'm starting to understand why!
+</p></blockquote>
+
+<p>Brown notes that the fix <a href="https://changelogs.ubuntu.com/changelogs/pool/universe/g/gdebi/gdebi_0.9.5.7+nmu7ubuntu0.24.10.1/changelog" rel="noreferrer" target="_blank">is
+now packaged</a> for the upcoming Ubuntu 24.10 release, and should be
+backported to 22.04 and 24.04 eventually.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/981565/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>STOP hurting yourself by doing big bang modernizations!</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">STOP hurting yourself by doing big bang modernizations!</h3>
+		<div><p>I recently had yet another conversation that described how the rollout of a ‘Next generation’ system was a long painful process.
+Users encountered all kinds of business impacting showstopper issues.
+It took months before the system was usable.
+This, of course, is hardly surprising.
+Any time you engage in a big bang modernization effort, you are taking a huge risk, and the odds are not in your favor.</p>
+
+<p></p>
+
+<p>That’s especially true when the new system’s name includes the phrase ‘Next generation’.
+One rare exception is ST:NG, but that’s a TV show, not a software system 😀.</p>
+
+<p>This article discusses at why big bang modernizations are a bad idea.
+But first, let’s look at why organizations are attracted to big bang modernizations.</p>
+
+<h2 id="big-bang-modernizations-are-appealing">Big bang modernizations are appealing</h2>
+
+<p>Big bang modernizations are very appealing.
+For example:</p>
+
+<ul>
+  <li>You have the illusion of certainty that comes from a project plan</li>
+  <li>You have a big project, which is a good way to get promoted</li>
+  <li>You don’t have to confront the reality of the current system and your past mistakes, which are obstacles to promotions</li>
+</ul>
+
+<p>And, not only are big bang modernizations appealing, they can be agile!</p>
+
+<h2 id="but-we-are-agile">But we are agile!</h2>
+
+<p>What’s even more interesting is that organizations undertaking big bang rewrites often describe themselves as agile.
+For example, they often use Scrum.
+Development consists of a series of sprints.
+There’s stand ups, retrospectives, and all the other trappings of agile.
+What’s missing, of course, is that software is not delivered to customers until the end of the project.
+An approach that’s distinctly not agile.</p>
+
+<h2 id="agile-manifesto-principles">Agile Manifesto principles</h2>
+
+<p>There are two <a href="https://agilemanifesto.org/principles.html" rel="noreferrer" target="_blank">principles from the Agile Manifesto</a> that are relevant here:</p>
+
+<h3 id="agile-principle-1">Agile principle #1</h3>
+
+<p>Here’s the first principle:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Our highest priority is to satisfy the customer
+through early and continuous delivery
+of valuable software.
+</code></pre></div></div>
+
+<p>If you are not delivering software until the end of the project, there’s nothing ‘early’ or ‘continuous’ about it.</p>
+
+<h3 id="agile-principle-2">Agile principle #2</h3>
+
+<p>Here’s the second principle:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Deliver working software frequently, from a
+couple of weeks to a couple of months, with a
+preference to the shorter timescale.
+</code></pre></div></div>
+
+<p>Once again, if you are not delivering software until the end of the project, you are not following this principle.
+“Not true! We have sprints!”, they might say.
+But if the software isn’t in the hands of customers, it’s not working software.</p>
+
+<h2 id="working-software--in-production-in-the-hands-of-customers">Working software = in production, in the hands of customers</h2>
+
+<p>The key point here is that working software is software that is in the hands of customers.
+If it’s not in the hands of customers, then you have not validated your assumptions about user needs.
+Nor, have you validated any of your technical assumptions.
+You’ve ran a bunch of tests so in theory, it should work.
+But theory and practice are two different things.</p>
+
+<p>With a big bang modernization, unvalidated assumptions continuously accumulate until the end of the project.</p>
+
+<p></p>
+
+<p>You then discover gaps in your understanding of both user needs and technology.
+You might discover, for example, that your <a href="/post/architecture/2024/06/18/premium-post-theres-more-to-microservices.html" rel="noreferrer" target="_blank">service collaborations are broken</a>.</p>
+
+<h2 id="big-changes--series-of-incremental-changes">Big changes = series of incremental changes</h2>
+
+<p>The only practical way to modernize a complex system is to make a series of incremental changes - the <a href="/post/refactoring/2023/06/21/strangler-fig-application-pattern-incremental-modernization-to-services.md.html" rel="noreferrer" target="_blank">Strangler Fig pattern</a>.
+This means that you, as the architect, need to determine the sequence of steps that will get you from your AS-IS architecture to your TO-BE architecture.
+In other words, a series of <code class="language-plaintext highlighter-rouge">AS-IS -&gt; Architecture 1 -&gt; Architecture 2 -&gt; ... -&gt; TO-BE</code> that enable you to delivery incrementally and validate all your assumptions.
+Each increment of the new architecture is deployed into production and released to customers.</p>
+
+<h2 id="an-incremental-modernization-is-the-least-worst-option">An incremental modernization is the least worst option</h2>
+
+<p>An incremental modernization is not easy.
+You might need to jump through numerous hoops to integrate the (growing) Strangler Fig application with the (shrinking) existing system.
+For example, it’s common to replicate data between the two systems.
+You will also need figure a migration strategy at each step that minimizes risk and allows you to rollback if necessary.</p>
+
+<p>But while incremental modernization is difficult, it’s the least worst option.
+After all, doing a big bang rewrite - the wrong thing - repeatedly and expecting different results is the definition of insanity.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/06/27/stop-hurting-yourself-by-doing-big-bang-modernizations.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

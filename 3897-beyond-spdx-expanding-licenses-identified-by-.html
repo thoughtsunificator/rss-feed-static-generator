@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Beyond SPDX: expanding licenses identified by ClearlyDefined</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Beyond SPDX: expanding licenses identified by ClearlyDefined</h3>
+		<div>
+<p><a href="https://docs.clearlydefined.io/" rel="noreferrer" target="_blank">ClearlyDefined</a> is an Open Source project that helps organizations with supply chain compliance. Until recently, ClearlyDefined’s tooling only supported licenses that were part of the standardized <a href="https://spdx.org/licenses/" rel="noreferrer" target="_blank">SPDX license list</a>. Any component identified by a license that was not part of this list resulted in NOASSERTION, which introduced uncertainty about the permissible use of such component, potentially hindering collaboration, creating legal complexities and security concerns for developers.</p>
+
+
+
+<p>Fortunately, <a href="https://github.com/nexB/scancode-toolkit" rel="noreferrer" target="_blank">Scancode</a>, which is an integral part of how ClearlyDefined detects and normalizes origin, dependencies and licensing metadata of components, already supports non-SPDX licenses thanks to its use of <a href="https://github.com/nexB/scancode-licensedb" rel="noreferrer" target="_blank">LicenseDB</a>. LicenseDB is the largest free and open database of software licenses, in particular all the Open Source software licenses, with over 2000 community curated licenses texts and their metadata.</p>
+
+
+
+<p><a href="https://github.com/pombredanne" rel="noreferrer" target="_blank">Philippe Ombredanne</a>, the leading author of Scancode and LicenseDB, <a href="https://github.com/clearlydefined/service/issues/1008" rel="noreferrer" target="_blank">defended ClearlyDefined</a> leveraging this capability already provided by Scancode:</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p>As one of many examples, common public domain dedications are not tracked nor supported by SPDX and are not approved as OSI licenses. Not a single lawyer I know is treating these as proprietary licenses. They are carefully cataloged and properly detected by ScanCode (at least 850+ variants of these at last count plus an infinity of variations detected approximately)…</p>
+
+
+
+<p>Collecting data is not endorsing nor promoting anything in particular be it proprietary, open source, free software, source available or else. But rather, just accepting that the world of actual licenses is what it is in all its glorious messy diversity and capturing what these licenses are, without discarding valuable information detected by ScanCode. Discarding and losing data has been the problem until now and has been making ClearlyDefined data mostly harmless and useless at scale as you get better and more information out of a straight ScanCode scan.</p>
+
+
+
+<p>You are welcome to use anything you like, but I think it would be better to adopt the de-facto industry standard of ScanCode license data, rather than to reinvent the wheel, especially since ClearlyDefined is kinda using ScanCode rather heavily.</p>
+
+
+
+<p>We use a suffix as LicenseRef-scancode in <a href="https://scancode-licensedb.aboutcode.org/" rel="noreferrer" target="_blank">https://scancode-licensedb.aboutcode.org/</a> and guarantee stability of these with the track record to prove this.</p>
+</blockquote>
+
+
+
+<p>After a healthy <a href="https://github.com/clearlydefined/service/issues/1008" rel="noreferrer" target="_blank">discussion</a> on the topic, the ClearlyDefined community agreed that supporting non-SPDX licenses was important. Scancode already provides this functionality and it offers mapping from these non-SPDX licenses to the SPDX LicenseRef. Organizations using ClearlyDefined now have the option to decide how to handle non-SPDX licenses based on their own needs. This work to have ClearlyDefined use the latest version of Scancode and support non-SPDX licenses was led by <a href="https://github.com/lumaxis" rel="noreferrer" target="_blank">Lukas Spieß</a> from <a href="https://github.com/about" rel="noreferrer" target="_blank">GitHub</a> with the stewardship from <a href="https://github.com/qtomlinson" rel="noreferrer" target="_blank">Qing Tomlinson</a> (from <a href="https://www.sap.com/about/company/innovation/open-source.html" rel="noreferrer" target="_blank">SAP</a>) and <a href="https://github.com/elrayle" rel="noreferrer" target="_blank">E. Lynette Rayle</a> (also from GitHub). We would like to thank them and all those involved in the development and testing of this implementation.</p>
+
+
+
+<p>We are looking for feedback. Please test this feature on <a href="https://dev.clearlydefined.io/" rel="noreferrer" target="_blank">dev.clearlydefined.io</a> or <a href="https://dev-api.clearlydefined.io/" rel="noreferrer" target="_blank">dev-api.clearlydefined.io</a> and file any issues <a href="https://github.com/clearlydefined/crawler/issues" rel="noreferrer" target="_blank">here</a>.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/beyond-spdx-expanding-licenses-identified-by-clearlydefined">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

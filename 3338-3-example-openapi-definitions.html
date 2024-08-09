@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>3 Example OpenAPI Definitions</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">3 Example OpenAPI Definitions</h3>
+		<div><p>For many years, whenever anyone wanted to learn about APIs, they’d inevitably encounter the Petstore API. Created by Swagger, Petstore API serves as a fully working template so you can see an API in action. It’s like Example.com but for API definitions. It lets you test out authorization tokens, try out different endpoints, and interact with a database. You can see payloads returned as JSON files and try out basic CRUD commands.</p>
+<p>Petstore API isn’t the only API template in town, though. APIs have evolved to do a lot more than update a database. APIs can power products and services all on their own, for example, as you’ll see with the <a href="https://github.com/Redocly/museum-openapi-example" rel="noreferrer" target="_blank">Museum API</a>. Others interact with multiple systems, creating a rough approximation of something like a travel app, which the <a href="https://github.com/bump-sh-examples/train-travel-api" rel="noreferrer" target="_blank">Train Travel API</a> does well.</p>
+<p>Below, we’ll examine all three OpenAPI API descriptions in depth to give you a better idea of what they have in common, how they’re different, and how things have changed since <a href="https://nordicapis.com/whats-the-difference-between-swagger-and-openapi/" rel="noreferrer" target="_blank">Swagger</a> first introduced the PetStore API.</p>
+<h2 id="petstore-api">PetStore API</h2>
+<p>The PetStore API is best known as a way to practice working with and implementing REST and executing the standard HTTP commands that drive most APIs.</p>
+<p>For best results, open the <a href="https://petstore.swagger.io/" rel="noreferrer" target="_blank">PetStore API</a> example in a new tab. You might want to open <a href="https://github.com/swagger-api/swagger-petstore" rel="noreferrer" target="_blank">the source code</a> in its own tab, as well. We’re mainly interested in the <code>openapi.yaml</code> file.</p>
+<p>Looking at these two examples will help give you a better idea of how an <a href="https://nordicapis.com/your-guide-to-openapi/" rel="noreferrer" target="_blank">OpenAPI description</a> manifests in real life. As you can see from the OpenAPI description, this description was created using the OpenAPI 3.0.2 description.</p>
+<p>After some general housekeeping, the API description and its origins are described, and the different sections that make up the PetStore API are explained. It then goes on to specify the actions that can be performed in each section. The Pet section allows users to upload an image of a pet using <code>POST</code>, for example. Following the <code>openapi.yaml</code> is an excellent blueprint for learning how to think about API design.</p>
+<p>PetStore can also give you hints on <a href="https://nordicapis.com/web-service-what-is-a-rest-api-and-how-does-it-work/" rel="noreferrer" target="_blank">how to code a REST API</a> if you take the time to pour over the code. If you scroll down to the bottom of Petstore.Swagger.io, you’ll see the section for <code>Models</code>. Parsing through each of the models will show you what variables each model is expecting, for instance. The <code>petId</code> parameter only accepts an integer, as specified by <code>integer($int64)</code>. The <code>name</code> parameter expects a string, though, as specified in the API description.</p>
+<p>The PetStore API has its critics, though. Some take issue with the lack of resources being pluralized, for example. The first tag is <code>Pet</code>, for example, when it should be <code>pets.</code> Once you start to notice the errors, others start to stand out. The login and logout functions are less than obvious, as they’re nested under the <code>USER</code> endpoint, which arguably also should be pluralized.</p>
+<p>Based on criticisms some developers have for the PetStore API, it’s clear that it’s lacking in real-world usefulness. It’s useful as a general <code>Hello World</code> but it’s lacking as an effective API design training manual.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/" rel="noreferrer" target="_blank">10+ Best Practices for Naming API Endpoints</a></div>
+<h2 id="train-travel-api">Train Travel API</h2>
+<p>Now let’s turn our attention to the first <a href="https://nordicapis.com/standard-api-definitions-demystified/" rel="noreferrer" target="_blank">OpenAPI definition</a>&nbsp;to replace the PetStore API. The Train Travel API was created to address some of the API design concerns mentioned above. The <a href="https://github.com/bump-sh-examples/train-travel-api" rel="noreferrer" target="_blank">Train Travel API</a> is also contained in a single <code>openapi.yaml</code> file, making it slightly more efficient for use in mockups and documentation.</p>
+<p>The Train Travel API is based on real-world examples, making it slightly more useful and practical than the PetStore API. It’s also based on real needs, as the author wanted a way to search for trains that would accept bicycles or pets. The <code>BookingPayments</code> function is based on the actual Stripe Payments API. Spending some time with the mock-up will give the user a pretty good idea of how to implement accepting different kinds of payments, whether they come from a credit or debit card or a bank account.</p>
+<p>The Train Travel API uses appropriate web standards when possible and draft standards otherwise. It also uses standard HTTP codes, which makes its payloads easily understandable and consumable by tools like <a href="https://nordicapis.com/8-asyncapi-documentation-generators/" rel="noreferrer" target="_blank">API documentation generators</a>. Some of the Train Travel API’s implementation is particularly elegant, though, like their choice to contain results using a Wrapper-Collection instead of returning raw JSON. This structure allows the user to easily add simple <a href="https://nordicapis.com/unraveling-the-mystery-understanding-hateoas/" rel="noreferrer" target="_blank">HATEOAS controls</a> or pagination controls. These are then expanded using <code>allOf</code> for responses instead of having to define that format repetitively.</p>
+<p>The Train Travel API was explicitly created for OpenAPI 3.1, as opposed to PetStore API, which was written <a href="https://nordicapis.com/comparing-the-features-of-openapi-v3-vs-openapi-v2/" rel="noreferrer" target="_blank">in OpenAPI 2.0</a> and later converted into OpenAPI 3.0. This means the Train Travel API works better with WebHooks than the PetStore API. It also uses <code>unevaluatedProperties</code> instead of <code>additionalProperties</code>, which means it understands the use of <code>allOf</code> in subschemas, so no properties get lost accidentally. OpenAPI 3.1 also supports <code>Property Examples</code>, which help properties make more sense in API documentation generators.</p>
+<p>The Train Travel API is a much better model of current API best practices. It’s also easier to work with in demos, thanks to its efficient <code>.yaml</code> structure. If you’re looking to learn or demonstrate current API principles, you’ll be much better off working with the Train Travel API than PetStore.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/creating-industry-standard-webhooks-with-standard-webhooks/" rel="noreferrer" target="_blank">Creating Industry-Standard Webhooks with Standard Webhooks</a></div>
+<h2 id="museum-api">Museum API</h2>
+<p>Created by Redocly, the <a href="https://github.com/Redocly/museum-openapi-example" rel="noreferrer" target="_blank">Museum OpenAPI definition</a> is another API definition written to take advantage <a href="https://nordicapis.com/whats-new-in-openapi-3-1-0/" rel="noreferrer" target="_blank">of OpenAPI 3.1</a>. It operates similarly to the Train Travel API, performing multiple functions that simulate a real museum API. These include everything from creating special events to retrieving museum hours. These are primarily accomplished using OpenAPI tags, which is one of the Museum API’s most striking features. OpenAPI tags dictate what endpoint a resource belongs to. The tag section also lets you include information about each tag. The Museum API tag section looks like this:</p>
+<pre><code><span class="hljs-keyword">tags:</span>
+  - name: Operations
+    description: Operational information about the museum.
+  - name: Events
+    description: Special events hosted by the Museum.
+  - name: Tickets
+    description: Museum tickets for general entrance or special events.
+</code></pre>
+<p>Each endpoint also contains a section for the tags that pertain to it.</p>
+<pre><code> /special-events:
+    post:
+      summary: <span class="hljs-keyword">Create</span> special <span class="hljs-keyword">events</span>
+      description: Creates a <span class="hljs-keyword">new</span> special <span class="hljs-keyword">event</span> <span class="hljs-keyword">for</span> the museum.
+      operationId: createSpecialEvent
+      tags:
+        - <span class="hljs-keyword">Events</span>
+</code></pre>
+<p>Best of all, many documentation tools use tags as a way to group navigation. They can also be customized to return additional information using the <code>x-displayName</code> variable. The <code>x-tagGroups</code> can be used to group tags together, too, which is convenient for navigating and organizing large APIs.</p>
+<h2 id="final-thoughts-on-openapi-definitions">Final Thoughts on OpenAPI Definitions</h2>
+<p>While the PetStore API may not deserve the ire it gets from a lot of the API development community, it doesn’t fully represent modern API design. As we have seen, it can be useful for visualizing API design by digging into its .yaml file and studying its structure. However, it doesn’t fully take advantage of the <a href="https://nordicapis.com/whats-new-in-openapi-3-0/" rel="noreferrer" target="_blank">OpenAPI 3.0 specification</a> or follow all of today’s best practices for API design. If you’re serious about learning modern API design, you might do better to study the Train Travel API and then supplement it with the Museum API.</p>
+<p>You can’t ever have too many examples of API design done right. If you’re looking for more examples of OpenAPI 3.1 best practices to model your APIs after, you can also check out <a href="https://www.speakeasyapi.dev/openapi" rel="noreferrer" target="_blank">Speakeasy’s OpenAPI 3.1 Reference</a>. It’s incredibly clean, sleek, and easy to understand. Best of all, the documentation and sample code are presented side-by-side — no tabbing required! Seeing a description of the different OpenAPI 3.1 components in plain language right next to the <code>.yaml</code> code is a huge help for taking an API description out of the realm of abstraction and into practical reality.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/3-example-openapi-definitions/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

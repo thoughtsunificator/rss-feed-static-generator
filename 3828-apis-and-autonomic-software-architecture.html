@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>APIs and Autonomic Software Architecture</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">APIs and Autonomic Software Architecture</h3>
+		<div><p>Included in the <a href="https://www.gartner.com/en/documents/5505695" rel="noreferrer" target="_blank">2024 Gartner Hype Cycle for AI</a>, but still early in the curve as an innovation trigger, we find autonomic systems. Gartner analysts describe this innovation trigger as “…self-managing physical or software systems performing domain-bounded tasks that exhibit three fundamental characteristics: autonomy, learning, and agency.”</p>
+<p>This essay proposes a structure for autonomic systems that specifically addresses software. We will refer to it as autonomic software architecture (ASA). ASA facilitates the identification of and binding to software-related domains and provides a construct for the detection of and governed adaptation for threats and usage patterns. With this structure, ASA affords software a degree of self-regulation for stability, self-protection in mitigating events, and self-adaptation for accommodating client usage preferences.</p>
+<p>The ASA pattern is inspired by the utility of the autonomic nervous system (ANS) studied in the science of physiology. ANS regulates internal physical functions (breathing, heart rate, and blood pressure) and automatically manages adjustments needed in response to external demands and stressors. ANS affords allostasis, an agile physiological adaptation in response to stimuli, and then the return to baseline settings and function for stabilization.</p>
+<p>In the same way that our physiological systems adapt and self-regulate to navigate the world around us, ASA allows software to adapt safely to events and usage trends to better align with its environment. ASA also helps to determine whether adaptations should be made permanent or if a return to the previous state is best for system stabilization.</p>
+<p>ASA is a natural objective for software systems. If the “intelligence” referred to in AI reflects human intelligence, then it follows that technologies incorporating AI would also endeavor to model other human systems, like ANS, in the pursuit of replicating human capabilities.</p>
+<h2 id="the-precepts-of-autonomic-systems">The Enablers of Autonomic Systems</h2>
+<p>Several modern software development trends could enable ASA. The first driver is the practice of “everything as code.” This means that in addition to the application software itself, all things related to the build and operation of software are also code-driven. This includes infrastructure, delivery pipelines, security solutions, and so forth.</p>
+<p>The next precept is machine learning (ML). <a href="https://nordicapis.com/understanding-the-benefits-of-api-observability/" rel="noreferrer" target="_blank">Observability tools</a> and ML capabilities such as pattern recognition and anomaly detection enable evaluating how clients use software, assessing the software’s performance, and detecting malicious behavior.</p>
+<p>Automation is also an important element for ASA. Workflow automation tools for testing and deployment are mature, pervasive, and code-driven, allowing code to be automatically deployed when it passes testing.</p>
+<p>The final and most recent enabler for ASA is generative AI (gen AI). Gen AI is quickly advancing to the stage where, when served precise and unambiguous prompts, it can produce reliable code.</p>
+<h2 id="recommendations-for-developing-asa">Recommendations For Developing ASA</h2>
+<h3 id="separate-architectural-dimensions">Separate Architectural Dimensions</h3>
+<p>The ASA framework can be established by organizing the solution into separate architectural dimensions. Much like how the <a href="https://www.techtarget.com/whatis/definition/model-view-controller-MVC" rel="noreferrer" target="_blank">model-view-controller</a> (MVC) framework organizes a web application’s primary components, ASA is an architecture model for the entire software solution that depends on a clear “separation of concerns.”</p>
+<p>To build autonomic systems, you must delineate dimensions that have unique analysis metrics and that are modified with particular actions. Architectural dimensions for software include user interface, functions and services, protection, infrastructure, logging, and application data.</p>
+<h3 id="mar-modules-and-decision-agents">MAR Modules And Decision Agents</h3>
+<p>For each architectural dimension, ASA must implement monitoring, adaptation, and reorientation (MAR) modules, with decision agents managing the communication and the flow of adaptation initiatives. Let’s examine the modules that power ASA to see how they work.</p>
+<h4 id="monitoring-module">Monitoring Module</h4>
+<p>This module monitors for threats and usage patterns that indicate needed adaptations. The architectural dimension being served by the monitoring module constrains the adaptation triggers to consider, informs the thresholds and margins that generate triggers, and curates the adaptation actions available.</p>
+<p>For example, suppose the protection dimension is tasked to monitor for scenarios such as brute force attacks and DoS attempts. It also is focused only on allowed adaptation actions such as adjusting request throttling settings or blocking a requestor’s IP.</p>
+<p>To assemble a monitoring module, select monitoring tools with robust configurations for alerts or that support real-time queries of the monitoring output. Create thresholds and margins that, when breached, will send alerts (push) of an adaptation trigger or use intelligent queries (pull) to identify an adaptation trigger. The monitoring module also uses historical analysis, predictive analytics, and enterprise guidelines to set the “baseline adaptation” flag to indicate if an adaptation is permanent or temporary.</p>
+<p>The monitoring module will have a cross reference of the relationships between adaptation triggers and adaptation actions. The details of these relationships, the identified trigger, the corresponding allowed action, and the architectural dimension’s domain context all feed into a prompt assist tool to create a prompt asking for the needed adaptation code.</p>
+<h4 id="decision-agents">Decision Agents</h4>
+<p>Decision agents between MAR modules serve as gateways for ensuring that adaptations comply with enterprise governance, among other responsibilities. Decision agents are contextual to their architectural dimension and the MAR modules they serve.</p>
+<p>To keep with our example using the protection dimension, the decision agent between monitoring and adaptation may include enterprise governance that dictates minimum and maximum request throttling settings or could refer to a protected list of clients that cannot have their IPs blocklisted.</p>
+<h4 id="adaptation-module">Adaptation Module</h4>
+<p>As expected, adaptation modules are highly related to their architectural dimension. They can execute curated adaptation actions and have well-defined flows for those executions. Use the adaptation code provided by the monitoring module and a well-defined process to drive testing and validation. Refer to a predefined, enterprise-compliant versioning and delivery model. Use all this information in a prompt assist tool and create prompts to generate testing scripts and a deployment pipeline.</p>
+<p>In keeping with the example related to our protection dimension, if the adaptation action is to block one or more IPs, we already have the adaptation code provided by the monitoring module. In the adaptation module, we use a prompt assist tool to generate a prompt that creates tests to verify the blocklisting works as expected. We also create a prompt to generate code for the delivery pipeline to publish the adaptation code to block the target IP(s).</p>
+<h4 id="reorientation-module">Reorientation Module</h4>
+<p>Reorientation after the delivery of the adaptation is where we take appropriate actions for adaptations that are temporary and for adaptations that are permanent changes to the software baseline. Reorientation modules are pre-configured to know, for each adaptation action, the documentation components to be updated and any related changes to monitoring that must be implemented.</p>
+<p>The decision agent between the adaptation and reorientation modules also evaluates the success of the adaptation delivery. If post-production metrics are poor, the reorientation module is instructed to initiate a rollback of the adaptation. For example, and in keeping with our scenario in the protection dimension, if the IP blocklisting adaptation is erroneously blocking more than the intended IP(s), the reorientation module will perform a rollback of the adaptation.</p>
+<div id="attachment_19966" class="wp-caption aligncenter"><p id="caption-attachment-19966" class="wp-caption-text">Figure 1: A template of the MAR modules and decision agents that serve an architectural dimension.</p></div>
+<h2 id="how-asa-can-serve-apis">How ASA Can Serve APIs</h2>
+<p>A demonstration is often the best way to convey an idea. Let’s use the autonomic software architecture model to enable an API to self-adapt and accommodate a usage-implied need for an additional filter.</p>
+<p>In an ASA architecture for APIs, the architectural dimensions could look like the following diagram:</p>
+<div id="attachment_19967" class="wp-caption aligncenter"><p id="caption-attachment-19967" class="wp-caption-text">Figure 2: This shows MAR modules and decision agents are instantiated for each architectural dimension.</p></div>
+<h3 id="example-api">Example API</h3>
+<p>Let’s assume the following API exists to get subscriber data:</p>
+<pre><code>Resource: 
+/subscribers
+
+Data elements: 
+{subscriberId, fName, lName, address, city, <span class="hljs-keyword">state</span>, zip, subscribeDate, renewalDate, subscriptionLevel, paymentPlan, hyperLinkTransactionHistory}
+
+Query/Header Filters: 
+{subscriberId, <span class="hljs-keyword">state</span>, subscribeDate, renewalDate, subscriptionLevel}
+</code></pre>
+<h3 id="asa-event-summary-identifying-a-client-desired-api-enhancement-and-deploying-it">ASA Event Summary: Identifying a Client-Desired API Enhancement and Deploying It</h3>
+<p>The monitoring module for the contract architectural dimension observes that occasionally, clients pass “zip” as a filter. Because “zip” is not a valid filter in the API contract, it is ignored in the request. The occurrence count for this anomaly crosses a threshold and is identified as a stimulus for an adaptation. A flow is initiated that will enhance the API to process “zip” as a valid filter.</p>
+<h4 id="example-flow-">Example Flow:</h4>
+<ol>
+<li>Monitoring Module
+<ol>
+<li>The module identifies clients using a non-valid attribute, “zip”, as a filter. The module recognizes that adding a filter is an allowed adaptation.</li>
+<li>The module utilizes a prompt generator to create a prompt and uses the prompt to generate code that will accept “zip” as a filter in the API contract parser.</li>
+<li>The module determines this to be a “baseline adaptation” that will be permanent.</li>
+</ol>
+</li>
+<li>Monitoring-Adaptation Decision Agent
+<ol>
+<li>The adaptation code is confirmed to be compliant with enterprise governance and guidelines.</li>
+<li>The adaptation code is determined to be non-breaking for clients.</li>
+</ol>
+</li>
+<li>Adaptation Module
+<ol>
+<li>The module utilizes a prompt generator, considering enterprise guidelines and process definitions, to create tests and a delivery pipeline.</li>
+<li>With successful testing completed, the delivery pipeline is executed.</li>
+<li>Update API documentation</li>
+</ol>
+</li>
+<li>Adaptation-Reorientation Decision Agent
+<ol>
+<li>Execute post-production testing to validate the delivery or determine if rollback is needed.</li>
+<li>Instruct the reorientation process to rebaseline the API with this adaptation.</li>
+</ol>
+</li>
+<li>Reorientation Module
+<ol>
+<li>Rebaseline the API
+<ol>
+<li>Publish the API documentation that includes the “zip” filter as valid for the API</li>
+<li>Communicate the API update to all stakeholders</li>
+</ol>
+</li>
+<li>Determine and initiate any needed code changes to the monitoring module related to the new “zip” filter. For example, new monitoring may be added to track how often “zip” is used as a filter, the performance of the API when “zip” is used as a filter, and error codes received when using “zip” as a filter.</li>
+</ol>
+</li>
+</ol>
+<h4 id="notes-">Notes:</h4>
+<ul>
+<li>Step 3.2 assumes the technology is in place to auto-generate appropriate testing.</li>
+<li>The monitoring module interrogated the data schema to understand that “zip” could be used as a filter. In the prompt generation task, the request only needed to focus on additional code for the contract parser to manage the “zip” filter when seen in a request. If the application data was not prepared for filtering by “zip”, then the flow stops until intervention is taken.</li>
+<li>Decoupling architecture dimensions allows for a change to the contract service without risk to the API’s protection solution, logging, infrastructure, or application data.</li>
+<li>To minimize risk, there could be approval steps at any point along this flow for manual review.</li>
+</ul>
+<h2 id="summary-of-autonomic-software-architecture">Summary of Autonomic Software Architecture</h2>
+<p>ASA is a nascent concept, but it is an achievable goal with the <a href="https://nordicapis.com/gen-ai-apis-and-the-future-of-development/" rel="noreferrer" target="_blank">maturation of gen AI</a>. Well-defined guidelines are needed. Anyone who wishes to participate in this project is welcome.</p>
+<p>In the future, <a href="https://nordicapis.com/how-gen-ai-is-evolving-api-management/" rel="noreferrer" target="_blank">API management solutions</a> will integrate ASA components into their platforms to expedite autonomic architectures. In that new world, API design becomes even more critical as it must consider the potential direction of an API’s self-evolution. We will have to craft APIs and the related governance used in MAR modules so that our APIs remain aligned with the business strategy during adaptations. Such APIs will serve the consumer and benefit the provider when they adjust as needed to better protect themselves and accommodate usage preferences.</p>
+<p>During our journey with software engineering, intuition has driven us down the path of “everything as code”. This sets the stage for gen AI to participate in “code enables everything.” We know the importance of agility in software engineering. Now, we have the tools to build solutions that, to some degree, have the self-adaptation power needed to deliver autonomous agility.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/apis-and-autonomic-software-architecture/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Pulling Linux up by its bootstraps</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Pulling Linux up by its bootstraps</h3>
+		<div><p>
+A <a href="https://lwn.net/Articles/841797/" rel="noreferrer" target="_blank">
+bootstrappable build</a> is one that builds existing
+software from scratch — for example, building GCC without relying on an existing
+copy of GCC. In 2023, the Guix project
+<a href="https://lwn.net/Articles/930650/" rel="noreferrer" target="_blank">announced</a> that the project had reduced the size
+of the binary bootstrap seed needed to build its operating system to just 357-bytes —
+not counting the Linux kernel required to run the build process. Now, the
+<a href="https://github.com/fosslinux/live-bootstrap" rel="noreferrer" target="_blank">live-bootstrap</a> project
+has gone a step further and removed the need for an existing kernel at all.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/983340/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What To Expect In OPA 1.0</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">What To Expect In OPA 1.0</h3>
+		<div><p>Open Policy Agent (OPA) is a stalwart policy offering in the API space, beloved and used widely to set and enforce policies at scale. After much development, <a href="https://blog.openpolicyagent.org/opa-1-0-is-coming-heres-what-you-need-to-know-c8fb0d258368" rel="noreferrer" target="_blank">OPA 1.0 has been announced</a>, and with this news, a range of new features promises to bring the codebase into the future. With that in mind, let’s examine OPA 1.0 and see what changes we can expect!</p>
+<h2 id="what-is-opa-anyway-">What is OPA, Anyway?</h2>
+<p>Before we dig into what to expect in OPA 1.0, let’s take a look at where OPA currently stands. <a href="https://www.openpolicyagent.org/" rel="noreferrer" target="_blank">OPA</a>, a graduated project with the CNCF, is an open-source and general-purpose policy engine that allows developers to create unified policies at scale and across complex environments. The idea behind OPA is pretty simple — by using a declarative language called “Rego,” which allows developers to specify policies as code, developers can query them via a central source for enforcement across the stack.</p>
+<p>The best way to think of OPA is to consider it as a source of truth that is authoritative and referential. Instead of simply creating a policy and querying a source for what is allowed, OPA allows developers to define these policies across multiple levels without coupling those policies to specific services. This <a href="https://nordicapis.com/how-to-design-loosely-coupled-microservices/" rel="noreferrer" target="_blank">decoupled architecture</a> makes for a lightweight policy definition and efficient runtime. When paired with the centralized nature of such policy management, OPA creates a consistent but easy-to-use platform for policy development, enforcement, and management.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/using-opa-to-achieve-zero-trust-apis/" rel="noreferrer" target="_blank">Using OPA To Achieve Zero-Trust APIs</a></div>
+<h2 id="development-on-opa-moves-forward">Development on OPA Moves Forward</h2>
+<p>While OPA’s core offering still stands strong, it’s very much a product of the environment in which it was developed. OPA 1.0 comes on the heels of the eighth anniversary of the first commit. While it’s impressive that code from day one can still be evaluated and maintained this long after the first commit, this “maintain but don’t remove” approach has resulted in some issues.</p>
+<p>Developer advocate <a href="https://nordicapis.com/speakers/anders-eknert-2/" rel="noreferrer" target="_blank">Anders Eknert</a> of Styra, the company that maintains OPA, noted these issues <a href="https://blog.openpolicyagent.org/opa-1-0-is-coming-heres-what-you-need-to-know-c8fb0d258368" rel="noreferrer" target="_blank">in his blog post</a> on the context and expectations around OPA 1.0. Within this scope of focus, many of the updates being made to OPA come with a support infrastructure to make the process more streamlined and complete. Eknert notes that the current development cycle emphasizes establishing a clear path for migration and long-term support.</p>
+<p>“Making sure our users have plenty of time to prepare for the changes coming in 1.0 and that the organizations integrating OPA and Rego in their products have a clear migration path feels more important than committing to a deadline right now,” says Eknert. “We’re currently working with some of the organizations most heavily invested in OPA to make sure there aren’t any uncertainties around upgrading.”</p>
+<p>The changes coming to OPA require substantial tooling, but they also require ample documentation, and Styra is investing heavily in that effort. While you can <a href="https://github.com/open-policy-agent/opa/issues?q=is%3Aissue+label%3A1.0+" rel="noreferrer" target="_blank">track changes via GitHub using the 1.0 tag</a>, the <a href="https://www.openpolicyagent.org/docs/latest/" rel="noreferrer" target="_blank">documentation</a> dives into more technical reasons for each change as well as the actual workflow impact that they may impose.</p>
+<p>“We really want to ensure that we provide a smooth migration path for all users,” says Eknert. “Some organizations have several thousands of lines of Rego in production, and while 1.0 is a breaking change, we’ve spent a lot of time building tools to make sure most of the migration process can be automated and that the few things that can’t are well documented.”</p>
+<h3 id="improved-rego-structure-and-functionality">Improved Rego Structure and Functionality</h3>
+<p>Styra has focused on shifting to OPA 1.0 to bring a lot of improvements to the core Rego structure and functionality. Eknert notes that much of this improvement ultimately results in Rego being more uniform, understandable, and intentful.</p>
+<p>“Most of the features of Rego v1 have been available for quite some time already but have required statements like <code>import future.keywords</code> and so on,” says Eknert. “With Rego v1 making these imports redundant and the use of keywords like <code>if</code> and <code>contains</code> mandatory, I’m mostly excited about seeing Rego become a more uniform language for expressing policy.”</p>
+<p>Some of the biggest improvements in uniformity coming to OPA 1.0 are the result of changes to keywords. Keywords are important for setting policies, but the long-term development cycle of OPA has created some headaches that require addressing. “These aren’t huge changes, but they go a long way to help better express how Rego is meant to be read,” says Eknert. “Having the language better reflect intent will help make it more approachable.”</p>
+<h3 id="universal-keywords">Universal Keywords</h3>
+<p>Firstly, many keywords are now made universal that were previously available only through importing <code>future.keywords</code>. Keywords such as <code>in</code> and <code>contains</code> are critical for granular policy creation, and the surfacing of these keywords universally means that developers should have greater flexibility without worrying about importing the <code>future.keywords</code> list or breaking existing policy.</p>
+<h3 id="mandatory-keywords">Mandatory Keywords</h3>
+<p>As Eknert alluded to, perhaps the biggest change is the adoption of the <code>if</code> keyword as a mandatory one. This keyword is critical to Rego in general and helps to formalize how data flows and is controlled at scale. By defaulting to <code>if</code>, OPA is seeking to standardize these rules and make them easier to understand and read. Similarly, the <code>contains</code> keyword is now also mandatory, allowing for multi-value rules to exist without the ambiguity and inconsistency that has been common at scale in pre-1.0 versions.</p>
+<h3 id="improved-security-via-binding-to-localhost">Improved Security via Binding to localhost</h3>
+<p>An uncommon but potentially dangerous issue with OPA before 1.0 is the exposure of OPA policies online. This exposure can make systems less secure by exposing the logic and policies to agents who may want to develop workarounds. To fix this issue, OPA 1.0 will bind the server to the local host interface by default. While you’ll still be able to bind against other locations via <code>--addr flag</code>, this will result in a more secure system that prevents policy leaks.</p>
+<h3 id="strict-mode-by-default-usually-">Strict Mode by Default (Usually)</h3>
+<p><a href="https://www.openpolicyagent.org/docs/latest/policy-language/#strict-mode" rel="noreferrer" target="_blank">Strict mode</a> is a mode in OPA where additional layers of safety checks and policy constraints are deployed to create a safer environment for policy development. Previously, this was an optional mode, but now, this will largely be the default through incorporating those rules in OPA 1.0. The rules from Strict Mode that will be on by default are:</p>
+<ul>
+<li>No duplicate imports</li>
+<li>No deprecated built-in functions</li>
+<li><code>input</code> and <code>data</code> are now reserved keywords</li>
+</ul>
+<h3 id="continued-support">Continued Support</h3>
+<p>While all of these changes are significant, Styra has focused on ensuring that legacy users can still use their systems while they migrate to the next generation. “Even after 1.0, it’ll be possible to run OPA in a “legacy” mode for those that can’t quickly upgrade, and there’ll even be an option to run a single OPA with some pre-1.0 policies as well as 1.0 conforming ones,” says Eknert.</p>
+<p>This additional long-term support for legacy functionality means that organizations will be given a path to migrate to stronger and better implementations without the immediate demand that can often come with <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/" rel="noreferrer" target="_blank">breaking changes</a> and new releases.</p>
+<p>“Already, from the start of the project, we’ve been very careful about not breaking backward compatibility with updates to OPA,” says Eknert. “So in that regard, it’s not like OPA 1.0 is the first “stable” release where we’ve started to care about these things. The number of organizations that trust OPA today is, of course, a testament to that. Still, it feels good to finally get a 1.0 release out, and it’ll surely be a milestone for the project.”</p>
+<div class="well">Related: <a href="https://nordicapis.com/using-opa-for-api-authorization/" rel="noreferrer" target="_blank">Using OPA For API Authorization</a></div>
+<h2 id="modernizing-and-standardizing">Modernizing and Standardizing</h2>
+<p>While these changes are pretty obvious — and for many, a long time coming — they do mark a shift in how OPA has been developed. While the previous mentality was to avoid breaking changes and keep everything internally consistent, moving to 1.0 will result in some breaking changes.</p>
+<p>The trade-off with introducing breaking changes is modernizing and standardizing the current offering, which will make OPA 1.0 stable now and into the future. Many organizations would shy away from this sea change, so Styra’s doing so — and investing in ensuring the process is as smooth as possible — is a testament of how to do this right.</p>
+<p>Are you excited about this new version of OPA? Do you have any concerns? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/what-to-expect-in-opa-1-0/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

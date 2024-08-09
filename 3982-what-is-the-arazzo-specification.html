@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What is the Arazzo Specification?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">What is the Arazzo Specification?</h3>
+		<div><p>API calls rarely occur alone. It’s far more common for a programming function to require a series of API calls, otherwise known as an API workflow. To help describe these situations, the OpenAPI Initiative has released a new specification, <a href="https://spec.openapis.org/arazzo/latest.html" rel="noreferrer" target="_blank">Arazzo</a>, specifically to address API workflows.</p>
+<p>At the 2024 API Days in Helsinki, <a href="https://nordicapis.com/author/frankkilcommins/" rel="noreferrer" target="_blank">Frank Kilcommins</a> of SmartBear <a href="https://youtu.be/EQaGHjMIcD8?si=7Pn2PTU-EC6afRsx" rel="noreferrer" target="_blank">announced Arazzo</a> and how it describes groups of APIs and their relationships. We’ve looked into the specification and compiled a short guide and introduction to Arazzo to get you started with this new API standard.</p>
+<h2 id="introduction-to-arazzo-specification">Introduction to Arazzo Specification</h2>
+<div id="attachment_19957" class="wp-caption alignright"><p id="caption-attachment-19957" class="wp-caption-text">The Arazzo Specification: A “tapestry” for deterministic API workflows.</p></div>
+<p>The <a href="https://github.com/OAI/Arazzo-Specification" rel="noreferrer" target="_blank">Arazzo Specification</a> introduces a solution for adding a layer of abstraction to define a series of API calls. It also describes their dependencies, which can be linked together to produce a particular outcome. The Arazzo Specification is both machine-readable and human-readable. The fact that Arazzo is machine-readable enables a rich ecosystem of tools and features.</p>
+<p>Arazzo is designed to make swapping APIs in a workflow fast and easy. It’s also meant to streamline large, unwieldy API documentation. As such, using Arazzo could improve both the user experience (UX) <em>and</em> the developer experience (DX).</p>
+<div class="well">Also read: <a href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/" rel="noreferrer" target="_blank">3 Example Use Cases for Arazzo Descriptions</a></div>
+<h2 id="inside-the-arazzo-specification">Inside the Arazzo Specification</h2>
+<p>Arazzo isn’t that dissimilar to an API specification. An Arazzo specification file contains all the information about an API workflow in either JSON or YAML format. If you are trying out Arazzo for yourself, it’s considered best practice to name the file either <code>arazzo.json</code> or <code>arazzo.yaml</code>.</p>
+<p>The core of the Arazzo Specification is the Arazzo Specification Object. Like the <a href="https://nordicapis.com/your-guide-to-openapi/" rel="noreferrer" target="_blank">OpenAPI Specification</a>, the Arazzo Specification Object defines what version of Arazzo is being used. It also contains metadata about the workflow that can be used by tooling. The <code>sourceDescription</code> field is a list of source descriptions, like OpenAPI descriptions, for example. This is followed by the <code>workflows</code> object, which lists all the workflows used by the specifications including inputs, dependencies, and individual steps. Finally, the <code>components</code> object contains the schema used by the Arazzo Description.</p>
+<p>Here’s an example Arazzo Specification Object:</p>
+<pre><code><span class="hljs-attr">arazzo:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span>
+<span class="hljs-attr">info:</span>
+<span class="hljs-attr">  title:</span> A pet purchasing workflow
+<span class="hljs-attr">  summary:</span> This Arazzo Description showcases the workflow for how to purchase a pet through a sequence of API calls
+<span class="hljs-attr">  description:</span> <span class="hljs-string">|
+      This Arazzo Description walks you through the workflow and steps of `searching` for, `selecting`, and `purchasing` an available pet.
+</span><span class="hljs-attr">  version:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.1</span>
+<span class="hljs-attr">sourceDescriptions:</span>
+<span class="hljs-attr">- name:</span> petStoreDescription
+<span class="hljs-attr">  url:</span> https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml
+<span class="hljs-attr">  type:</span> openapi
+
+<span class="hljs-attr">workflows:</span>
+<span class="hljs-attr">- workflowId:</span> loginUserAndRetrievePet
+<span class="hljs-attr">  summary:</span> Login User and then retrieve pets
+<span class="hljs-attr">  description:</span> This workflow lays out the steps to login a user and then retrieve pets
+<span class="hljs-attr">  inputs:</span>
+<span class="hljs-attr">      type:</span> object
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">          username:</span>
+<span class="hljs-attr">              type:</span> string
+<span class="hljs-attr">          password:</span>
+<span class="hljs-attr">              type:</span> string
+<span class="hljs-attr">  steps:</span>
+<span class="hljs-attr">  - stepId:</span> loginStep
+<span class="hljs-attr">    description:</span> This step demonstrates the user login step
+<span class="hljs-attr">    operationId:</span> loginUser
+<span class="hljs-attr">    parameters:</span>
+      <span class="hljs-comment"># parameters to inject into the loginUser operation (parameter name must be resolvable at the referenced operation and the value is determined using {expression} syntax)</span>
+<span class="hljs-attr">      - name:</span> username
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> $inputs.username
+<span class="hljs-attr">      - name:</span> password
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> $inputs.password
+<span class="hljs-attr">    successCriteria:</span>
+      <span class="hljs-comment"># assertions to determine step was successful</span>
+<span class="hljs-attr">      - condition:</span> $statusCode == <span class="hljs-number">200</span>
+<span class="hljs-attr">    outputs:</span>
+      <span class="hljs-comment"># outputs from this step</span>
+<span class="hljs-attr">      tokenExpires:</span> $response.header.X-Expires-After
+<span class="hljs-attr">      rateLimit:</span> $response.header.X-Rate-Limit
+<span class="hljs-attr">      sessionToken:</span> $response.body
+<span class="hljs-attr">  - stepId:</span> getPetStep
+<span class="hljs-attr">    description:</span> retrieve a pet by status from the GET pets endpoint
+<span class="hljs-attr">    operationPath:</span> <span class="hljs-string">'{$sourceDescriptions.petstoreDescription.url}#/paths/~1pet~1findByStatus/get'</span>
+<span class="hljs-attr">    parameters:</span>
+<span class="hljs-attr">      - name:</span> status
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> <span class="hljs-string">'available'</span>
+<span class="hljs-attr">      - name:</span> Authorization
+<span class="hljs-attr">        in:</span> header
+<span class="hljs-attr">        value:</span> $steps.loginUser.outputs.sessionToken
+<span class="hljs-attr">    successCriteria:</span>
+<span class="hljs-attr">      - condition:</span> $statusCode == <span class="hljs-number">200</span>
+<span class="hljs-attr">    outputs:</span>
+      <span class="hljs-comment"># outputs from this step</span>
+<span class="hljs-attr">      availablePets:</span> $response.body
+<span class="hljs-attr">  outputs:</span>
+<span class="hljs-attr">      available:</span> $steps.getPetStep.availablePets
+</code></pre>
+<h2 id="inside-the-workflows-object">Inside the Workflows Object</h2>
+<p>Let’s take a moment to consider the <code>workflows</code> object as it makes up the bulk of the Arazzo Specification. Let’s start by focusing solely on the workflows section of the specification.</p>
+<pre><code><span class="hljs-attr">workflows:</span>
+<span class="hljs-attr">- workflowId:</span> loginUserAndRetrievePet
+<span class="hljs-attr">  summary:</span> Login User and then retrieve pets
+<span class="hljs-attr">  description:</span> This workflow lays out the steps to login a user and then retrieve pets
+<span class="hljs-attr">  inputs:</span>
+<span class="hljs-attr">      type:</span> object
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">          username:</span>
+<span class="hljs-attr">              type:</span> string
+<span class="hljs-attr">          password:</span>
+<span class="hljs-attr">              type:</span> string
+<span class="hljs-attr">  steps:</span>
+<span class="hljs-attr">  - stepId:</span> loginStep
+<span class="hljs-attr">    description:</span> This step demonstrates the user login step
+<span class="hljs-attr">    operationId:</span> loginUser
+<span class="hljs-attr">    parameters:</span>
+      <span class="hljs-comment"># parameters to inject into the loginUser operation (parameter name must be resolvable at the referenced operation and the value is determined using {expression} syntax)</span>
+<span class="hljs-attr">      - name:</span> username
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> $inputs.username
+<span class="hljs-attr">      - name:</span> password
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> $inputs.password
+<span class="hljs-attr">    successCriteria:</span>
+      <span class="hljs-comment"># assertions to determine step was successful</span>
+<span class="hljs-attr">      - condition:</span> $statusCode == <span class="hljs-number">200</span>
+<span class="hljs-attr">    outputs:</span>
+      <span class="hljs-comment"># outputs from this step</span>
+<span class="hljs-attr">      tokenExpires:</span> $response.header.X-Expires-After
+<span class="hljs-attr">      rateLimit:</span> $response.header.X-Rate-Limit
+<span class="hljs-attr">      sessionToken:</span> $response.body
+<span class="hljs-attr">  - stepId:</span> getPetStep
+<span class="hljs-attr">    description:</span> retrieve a pet by status from the GET pets endpoint
+<span class="hljs-attr">    operationPath:</span> <span class="hljs-string">'{$sourceDescriptions.petstoreDescription.url}#/paths/~1pet~1findByStatus/get'</span>
+<span class="hljs-attr">    parameters:</span>
+<span class="hljs-attr">      - name:</span> status
+<span class="hljs-attr">        in:</span> query
+<span class="hljs-attr">        value:</span> <span class="hljs-string">'available'</span>
+<span class="hljs-attr">      - name:</span> Authorization
+<span class="hljs-attr">        in:</span> header
+<span class="hljs-attr">        value:</span> $steps.loginUser.outputs.sessionToken
+<span class="hljs-attr">    successCriteria:</span>
+<span class="hljs-attr">      - condition:</span> $statusCode == <span class="hljs-number">200</span>
+<span class="hljs-attr">    outputs:</span>
+      <span class="hljs-comment"># outputs from this step</span>
+<span class="hljs-attr">      availablePets:</span> $response.body
+<span class="hljs-attr">  outputs:</span>
+<span class="hljs-attr">      available:</span> $steps.getPetStep.availablePets
+</code></pre>
+<p>To start, we see that this workflow is named <code>loginUserAndRetrievePet</code>. This is followed by a short summary and meta-description explaining the workflow’s function. The inputs are the next item on the specification. The <code>inputs</code> object lets the user know what data to expect as well as its format. The Pet Store Arazzo Specification accepts username and password, for example, accepting string data for both.</p>
+<p>The <code>steps</code> segment comprises the bulk of the <code>workflows</code> object. Each step contains a meta description and a summary, like the <code>inputs</code>. It also contains a section for parameters, and details for when the parameters are successful or not. Finally, once a step is successful, the <code>workflows</code> object concludes with the <code>outputs</code> object, which specifies what happens when a parameter is completed successfully.</p>
+<p>The <code>steps</code> object isn’t only useful for authenticating successes, however. Workflow output variables can be passed on even if they fall outside the parameters. These variables can also be passed onto additional workflows or monitored and tracked using your logging platform, for example.</p>
+<h2 id="how-arazzo-improves-developer-experience">How Arazzo Improves Developer Experience</h2>
+<p>As APIs get more complicated, API documentation can become prohibitively dense and challenging to understand. It can also make an API brittle, with dependencies upon different calls to fulfill a particular goal. Much of this behavior was completely undocumented before the release of Arazzo.</p>
+<p>There’s often a disconnect between API producers and consumers. API developers often pass along raw API specifications to API consumers as part of the onboarding process, which are often messy and hard to understand. Official API documentation tends to go stale very quickly once it’s written. The Arazzo Specification will solve both of these issues simultaneously, empowering interactive workflow documentation as well as API documentation automation.</p>
+<p>Arazzo’s first benefit for developers is the fact that they’ll likely be familiar with the format. The Arazzo Specification is very similar to the OpenAPI Specification for individual APIs. In fact, they’re often stored side-by-side which you can see if you look at the <a href="https://github.com/OAI/Arazzo-Specification/tree/main/examples/1.0.0" rel="noreferrer" target="_blank">GitHub Repository</a> for Arazzo examples.</p>
+<p>The Arazzo Specification also allows developers to create their own components using the <code>sourceDescriptions</code> function. This feature alone makes API workflows much less brittle and unwieldy. The ability to define API workflows also makes Arazzo excellent for <a href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/" rel="noreferrer" target="_blank">implementing authorization workflows</a>. The specification can detail every step of a workflow, complete with its own HTTP status code. It also helps consumers understand what the API producer intends, a major boost for DX.</p>
+<p>Arazzo’s main DX benefit is for <a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">large language models</a> (LLMs), though. Having a specification that details what each API call is doing makes it much more understandable for LLMs like ChatGPT. As Frank Kilcommins recently <a href="https://www.youtube.com/watch?v=2dW85UChfKs" rel="noreferrer" target="_blank">mentioned to an interviewer</a>, at the moment, generative AIs like LLMs have a roughly 80-90% success rate for creating or consuming APIs. The rest has a troubling tendency to be hallucinations, which makes it difficult to trust the LLM’s output. Adding documentation to API workflows to accompany existing API documentation promises to significantly improve accuracy. It also allows an API to be generated from the specification using custom GPTs.</p>
+<h2 id="final-thoughts-on-the-arazzo-specification">Final Thoughts On The Arazzo Specification</h2>
+<p>The Arazzo Specification is an essential missing link between an API being both machine-readable and human-readable. It promises to be an important component in helping developers describe an API function using natural language and having an AI like ChatGPT create the API from scratch.</p>
+<p>Arazzo also has the potential to make APIs far less brittle and much more modular and versatile, which will become increasingly crucial as APIs continue to become more complex. Last but not least, Arazzo promises to open up a whole new world of powerful new tools that will benefit how developers work with APIs.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/what-is-the-arazzo-specification/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

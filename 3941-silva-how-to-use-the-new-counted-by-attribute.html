@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Silva: How to use the new counted_by attribute in C (and Linux)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Silva: How to use the new counted_by attribute in C (and Linux)</h3>
+		<div>Gustavo A. R. Silva <a href="https://people.kernel.org/gustavoars/how-to-use-the-new-counted_by-attribute-in-c-and-linux" rel="noreferrer" target="_blank">describes
+the path to safer flexible arrays in the kernel</a>, thanks to the
+<tt>counted_by</tt> attribute supported by Clang&nbsp;18 and GCC&nbsp;15.
+<p>
+</p><blockquote class="bq">
+	There are a number of requirements to properly use the
+	<tt>counted_by</tt> attribute. One crucial requirement is that the
+	counter must be initialized before the first reference to the
+	flexible-array member. Another requirement is that the array must
+	always contain at least as many elements as indicated by the
+	counter.
+</blockquote>
+<p>
+See also: <a href="https://lwn.net/Articles/936728/" rel="noreferrer" target="_blank">this article</a> from 2023.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/982275/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

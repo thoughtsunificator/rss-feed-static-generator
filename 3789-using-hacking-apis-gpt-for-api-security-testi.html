@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Using Hacking APIs GPT For API Security Testing</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Using Hacking APIs GPT For API Security Testing</h3>
+		<div><p>AI has massively revolutionized the API landscape since ChatGPT went mainstream in 2022. Developers are already using AI to generate code from scratch for their APIs. APIs also allow developers and users to interact with large language models (LLMs). As such, the growth of AI and APIs is inextricably intertwined.</p>
+<p>Recently, alarms have been raised about potential security issues due to the proliferation of AI and APIs. Wallarm recently issued a report, the <a href="https://www.wallarm.com/resources/2024-api-threatstats-tm-report" rel="noreferrer" target="_blank">2024 API ThreatStats Report</a>, which discusses some of the security risks due to AI and APIs, ranging from the inherent risks of simply having more APIs to AI being used to write malicious code. Can AI improve API security, though?</p>
+<p>In January 2024, cybersecurity expert Corey J. Ball, author of <a href="https://www.hackingapis.com/" rel="noreferrer" target="_blank">Hacking APIs</a>, generated huge buzz in API circles with a tweet announcing the arrival of <a href="https://chatgpt.com/g/g-UZxOCmqLH-hacking-apis-gpt" rel="noreferrer" target="_blank">Hacking APIs GPT</a>, an AI assistant for assessing and enhancing API security. Considering other LLM’s difficulty in living up to their hype, however, is Hacking APIs GPT all that it’s cracked up to be? To find out, we’ve delved deep to bring you an in-depth review of Hacking APIs GPT!</p>
+<h2 id="hacking-apis-gpt-review">Hacking APIs GPT Review</h2>
+<p>Hacking APIs GPT, a specialized version of ChatGPT, is essentially <a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">an LLM</a> designed specifically for working with APIs. Hacking APIs GPT can do everything from generating API documentation to writing code for launching an API <a href="https://nordicapis.com/how-to-create-an-api-from-scratch-using-python-and-flask/" rel="noreferrer" target="_blank">using Python and Flask</a> from scratch. However, its primary purpose is to analyze API security.</p>
+<p>Hacking APIs GPT can perform many types of API security reviews, but it excels in a few specific functions. Hacking APIs GPT is designed for endpoint analysis, <a href="https://nordicapis.com/using-api-insights-to-test-openapi-specifications/" rel="noreferrer" target="_blank">OpenAPI review</a>, JWT examination, and fuzzing payloads. These are the areas we’re mostly focusing on in our Hacking APIs GPT review, but we’ll offer some general thoughts and overall observations as well.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-ai-assistants-for-api-developers/" rel="noreferrer" target="_blank">5 AI Assistants for API Developers</a></div>
+<h2 id="hacking-apis-gpt-endpoint-analysis-review">Hacking APIs GPT Endpoint Analysis Review</h2>
+<p>Certain API endpoints can be more vulnerable than others. If you’re not careful, a vulnerable endpoint can become a serious security risk for your entire network. This fact makes the Hacking APIs GPT endpoint analysis function especially exciting and useful.</p>
+<p>For our review, we asked the GPT about a few different APIs of varying complexity to see how it responded. To start, we fed it the <a href="https://http.cat/" rel="noreferrer" target="_blank">HTTP Cat API</a>, a relatively simplistic API that’s popular for trials and experiments. Here’s a brief example of the Hacking APIs GPT response when asked to evaluate HTTP Cat’s endpoints.</p>
+<pre><code>GET /{status_code}.jpg
+Example: https:<span class="hljs-comment">//http.cat/404.jpg</span>
+This endpoint returns a cat image representing the specified HTTP status code.
+<span class="hljs-comment">**Potential Vulnerabilities and Mitigations**:</span>
+<span class="hljs-number">1.</span> URL Manipulation:
+<span class="hljs-comment">* Description: Since the endpoint directly takes a status code in the URL, improper handling could lead to unintended behavior.</span>
+<span class="hljs-comment">* Mitigation: Ensure the server strictly validates the status code input. Only valid HTTP status codes should be accepted to avoid potential abuse or injection attacks.</span>
+</code></pre>
+<p>Not only does Hacking API GPT detect potential security risks, but it also mentions possible solutions. This alone is reason enough to get excited about the LLM’s usefulness.</p>
+<p>Next, we evaluated the code for <a href="https://nordicapis.com/how-to-create-an-api-from-scratch-using-python-and-flask/" rel="noreferrer" target="_blank">a dummy API written in Python using Flask</a> with a simple three endpoint structure to get a sense of how it performs on a simple API that isn’t processing data yet. Here’s a brief example of its output:</p>
+<pre><code>**Endpoint Analysis <span class="hljs-keyword">and</span> Potential Vulnerabilities**:
+
+<span class="hljs-number">1.</span> **Endpoint <span class="hljs-number">1</span>**: GET /hello
+
+Description: This endpoint returns a static welcome message.
+Potential Vulnerabilities:
+
+Minimal Risk: Since <span class="hljs-keyword">this</span> endpoint does <span class="hljs-keyword">not</span> process user input <span class="hljs-keyword">or</span> interact <span class="hljs-keyword">with</span> any external resources, <span class="hljs-literal">it</span> has minimal risk. However, ensure <span class="hljs-literal">that</span> <span class="hljs-literal">no</span> sensitive information <span class="hljs-keyword">is</span> accidentally included <span class="hljs-keyword">in</span> the response.
+
+<span class="hljs-number">2.</span> **Endpoint <span class="hljs-number">2</span>**: POST /data
+
+Description: This endpoint accepts JSON data via POST <span class="hljs-keyword">and</span> returns <span class="hljs-literal">it</span>.
+Potential Vulnerabilities:
+
+Input Validation: Ensure <span class="hljs-literal">that</span> the incoming JSON data <span class="hljs-keyword">is</span> validated. Without validation, malicious data could lead <span class="hljs-keyword">to</span> unexpected behavior.
+
+Injection Attacks: If the data <span class="hljs-keyword">is</span> later used <span class="hljs-keyword">in</span> database queries, command execution, <span class="hljs-keyword">or</span> other critical operations, ensure <span class="hljs-literal">it</span> <span class="hljs-keyword">is</span> properly sanitized <span class="hljs-keyword">to</span> prevent injection attacks.
+
+Large Payloads: Limit the size <span class="hljs-keyword">of</span> the incoming JSON payload <span class="hljs-keyword">to</span> prevent Denial <span class="hljs-keyword">of</span> Service (DoS) attacks via large payloads.
+</code></pre>
+<p>We then asked Hacking APIs GPT to analyze the Instagram API to see its effectiveness on larger, more complicated APIs. Here’s an example of its response:</p>
+<pre><code><span class="hljs-keyword">Access</span> Token Management:
+
+Description: <span class="hljs-keyword">Access</span> tokens are critical <span class="hljs-keyword">for</span> securing user data <span class="hljs-keyword">and</span> ensuring proper permissions.
+
+Mitigation: Ensure tokens are stored securely <span class="hljs-keyword">and</span> refreshed regularly. Implement scopes <span class="hljs-keyword">to</span> <span class="hljs-keyword">restrict</span> token usage <span class="hljs-keyword">to</span> necessary permissions only.
+OAuth <span class="hljs-keyword">and</span> Authorization:
+
+Description: The OAuth flow needs <span class="hljs-keyword">to</span> be secure <span class="hljs-keyword">to</span> prevent unauthorized <span class="hljs-keyword">access</span>.
+
+Mitigation: <span class="hljs-keyword">Use</span> secure redirect URIs <span class="hljs-keyword">and</span> ensure the OAuth flow <span class="hljs-keyword">is</span> implemented correctly <span class="hljs-keyword">to</span> avoid vulnerabilities like token leakage.
+</code></pre>
+<p>Finally, we asked the LLM to evaluate the <a href="https://nordicapis.com/8-significant-api-breaches-of-recent-years" rel="noreferrer" target="_blank">Optus OpenAPI spec from 2022</a> to get a sense of how it reacts to compromised endpoints. Here’s what it had to say.</p>
+<pre><code>**<span class="hljs-keyword">Key</span> Issues Identified:**
+
+Lack <span class="hljs-keyword">of</span> Authentication <span class="hljs-keyword">and</span> Authorization:
+
+The API endpoints did <span class="hljs-keyword">not</span> require proper authentication <span class="hljs-keyword">or</span> authorization, allowing attackers <span class="hljs-keyword">to</span> access sensitive data without valid credentials. This <span class="hljs-keyword">is</span> a severe <span class="hljs-keyword">case</span> <span class="hljs-keyword">of</span> broken authentication, violating basic API security principles​ (APISecurity.io)​​ (SidSecure Cyber Security)​.
+
+No Rate Limiting:
+
+The absence <span class="hljs-keyword">of</span> rate limiting enabled attackers <span class="hljs-keyword">to</span> make numerous requests <span class="hljs-keyword">in</span> a <span class="hljs-built_in">short</span> period, facilitating massive data exfiltration. Rate limiting <span class="hljs-keyword">is</span> essential <span class="hljs-keyword">to</span> prevent abuse <span class="hljs-keyword">and</span> mitigate the risk <span class="hljs-keyword">of</span> Denial-<span class="hljs-keyword">of</span>-Service (DoS) attacks​ (APISecurity.io)​.
+
+Use <span class="hljs-keyword">of</span> Shadow-IT Systems:
+
+Some API endpoints were hosted <span class="hljs-keyword">on</span> shadow-IT systems, which are unauthorized <span class="hljs-keyword">and</span> unmanaged. This can lead <span class="hljs-keyword">to</span> significant security gaps <span class="hljs-keyword">as</span> these systems may <span class="hljs-keyword">not</span> adhere <span class="hljs-keyword">to</span> organizational security policies​ (SidSecure Cyber Security)​.
+</code></pre>
+<h3 id="final-thoughts-on-hacking-apis-gpt-endpoint-analysis">Final Thoughts on Hacking APIs GPT Endpoint Analysis</h3>
+<p>Hacking APIs GPT’s endpoint analysis is one of its most useful features. It’s reason enough to check out the LLM, as it can help discover potential API security risks you might’ve overlooked. You’ll need to be at least slightly familiar with APIs to truly understand what it’s saying, but that’s true of almost any API security product.</p>
+<h2 id="hacking-apis-gpt-openapi-analysis-review">Hacking APIs GPT OpenAPI Analysis Review</h2>
+<p>Now we’ll review Hacking APIs GPT’s analysis of OpenAPI specifications to get a sense of how it works with APIs that might not be live yet. To start, we’ve analyzed the <a href="https://swagger.io/docs/specification/basic-structure/" rel="noreferrer" target="_blank">Basic Structure</a> YAML file from OpenAPI to see how it works on a simplistic OpenAPI specification that is almost guaranteed to be correct. Here’s a representative example of its response.</p>
+<pre><code>**Analysis <span class="hljs-keyword">of</span> the OpenAPI Specification**
+:
+Basic Information:
+OpenAPI Version: <span class="hljs-number">3.0</span>.<span class="hljs-number">0</span>
+Title: Sample API
+Version: <span class="hljs-number">0.1</span>.<span class="hljs-number">9</span>
+Servers:
+Production: http:<span class="hljs-comment">//api.example.com/v1</span>
+Staging: http:<span class="hljs-comment">//staging-api.example.com</span>
+
+**Endpoint Analysis**
+
+Endpoint: /users
+* <span class="hljs-function"><span class="hljs-keyword">Method</span>:</span> GET
+* Summary: Returns a list <span class="hljs-keyword">of</span> users.
+* Response:
+* <span class="hljs-number">200</span>: A JSON <span class="hljs-keyword">array</span> <span class="hljs-keyword">of</span> user names
+* Response Schema: An <span class="hljs-keyword">array</span> <span class="hljs-keyword">of</span> strings
+* Security Considerations:
+* Authentication <span class="hljs-keyword">and</span> Authorization:
+
+Issue: The specification does <span class="hljs-keyword">not</span> mention any form <span class="hljs-keyword">of</span> authentication <span class="hljs-keyword">or</span> authorization <span class="hljs-keyword">for</span> accessing the /users endpoint.
+
+Recommendation: Implement authentication mechanisms such <span class="hljs-keyword">as</span> OAuth <span class="hljs-number">2.0</span>, API keys, <span class="hljs-keyword">or</span> JWT <span class="hljs-keyword">to</span> protect the endpoint. Define security schemes <span class="hljs-keyword">in</span> the OpenAPI specification <span class="hljs-keyword">to</span> <span class="hljs-keyword">ensure</span> that only authorized users can access the data.
+</code></pre>
+<p>As you can see, the LLM first interprets the OpenAPI specification and extracts the necessary information. Then, it evaluates the endpoints for potential risks and recommends some best practices to make the API more secure. Many of the OpenAPI YAML’s issues seem to come from it being a template, as a live API would likely address most of these concerns.</p>
+<p>For this evaluation, we asked the LLM to evaluate the Trello OpenAPI specification to see how it performs on an extensive and popular API. We asked Hacking APIs GPT to assess the OpenAPI directly rather than uploading 15,000+ lines of code. Here’s a brief overview of its findings.</p>
+<pre><code>**Potential Vulnerabilities**:
+
+<span class="hljs-number">1</span>. Insufficient Authentication:
+
+* Ensure all API endpoints are protected with appropriate authentication mechanisms to prevent unauthorized access. Publicly accessible API keys without corresponding tokens can lead to security <span class="hljs-keyword">breaches.
+</span>
+<span class="hljs-number">2</span>. Token Exposure:
+
+* Tokens must <span class="hljs-keyword">be </span>securely stored <span class="hljs-keyword">and </span>never exposed in client-side <span class="hljs-meta">code</span> or logs. <span class="hljs-meta">If</span> a token is leaked, <span class="hljs-keyword">it </span>should <span class="hljs-keyword">be </span><span class="hljs-keyword">revoked </span>immediately to prevent unauthorized access.
+
+<span class="hljs-number">3</span>. <span class="hljs-meta">Data</span> Sensitivity:
+
+* The API allows access to sensitive user <span class="hljs-meta">data</span>, including email <span class="hljs-keyword">addresses </span>when the account scope is requested. Proper <span class="hljs-meta">data</span> handling <span class="hljs-keyword">and </span>masking should <span class="hljs-keyword">be </span>implemented to protect sensitive information.
+
+<span class="hljs-number">4</span>. Rate Limiting <span class="hljs-keyword">Bypass:
+</span>
+* Ensure that rate limiting cannot <span class="hljs-keyword">be </span><span class="hljs-keyword">bypassed </span><span class="hljs-keyword">by </span>using different <span class="hljs-built_in">IP</span> <span class="hljs-keyword">addresses </span>or creating <span class="hljs-keyword">multiple </span>accounts. Implement comprehensive rate limiting policies.
+</code></pre>
+<p>There are some useful thoughts here, but they also feel a bit like generic API security best practices. They’re good to keep in mind but are not entirely revelatory. However, it still seems worthwhile to run your OpenAPI specification through the LLM as part of the development process. You can’t ever have too many pairs of eyes on a piece of code!</p>
+<h2 id="hacking-apis-gpt-jwt-analysis-review">Hacking APIs GPT JWT Analysis Review</h2>
+<p>JSON Web Tokens (JWTs) have become a popular method of verifying user identification. To start, we used a hypothetical JWT to see how the LLM performs. We asked it to evaluate the JWT:</p>
+<pre><code>eyJhbGciOiJIUzI<span class="hljs-number">1</span><span class="hljs-symbol">NiIsInR5</span>cCI<span class="hljs-number">6</span>IkpX<span class="hljs-attr">VCJ9</span>.eyJzdWIiOiIxMj<span class="hljs-name">M0</span><span class="hljs-symbol">NTY3</span>ODkwIiwibmFtZSI<span class="hljs-number">6</span>Ikpva<span class="hljs-name">G4</span>gR<span class="hljs-name">G9</span>lIiwiaWF<span class="hljs-number">0</span>Ijox<span class="hljs-symbol">NTE2</span>Mj<span class="hljs-name">M5</span>MDIyLCJleHAiOjE<span class="hljs-number">1</span>MTYy<span class="hljs-symbol">NDI2</span>MjIsI<span class="hljs-symbol">nJvbGUiOiJhZG1</span>pbiJ<span class="hljs-number">9.</span>DyDq<span class="hljs-number">9</span>P<span class="hljs-number">7</span><span class="hljs-meta">O9</span>l<span class="hljs-name">g9</span>VhHX<span class="hljs-number">8</span>D<span class="hljs-number">0</span><span class="hljs-name">M9</span>E<span class="hljs-number">3</span>cvjK<span class="hljs-number">5</span>-Jj<span class="hljs-number">7</span>WxaK<span class="hljs-number">7</span>Yeq<span class="hljs-number">2</span>As.
+</code></pre>
+<p>The response begins by interpreting the JWT’s structure and breaking down the token into the header, payload, and signature. It then identifies a potential security risk, noticing that the JWT has expired.</p>
+<p>Now, let’s see how it performs on a real example. We asked Hacking APIs GPT to analyze the following JWT from Auth0’s <em>The JWT Handbook</em>:</p>
+<pre><code>eyJhbGciOiJIUzI<span class="hljs-number">1</span><span class="hljs-symbol">NiIsInR5</span>cCI<span class="hljs-number">6</span>IkpX<span class="hljs-attr">VCJ9</span>.eyJzdWIiOiIxMj<span class="hljs-name">M0</span><span class="hljs-symbol">NTY3</span>ODkwIiwibmFtZSI<span class="hljs-number">6</span>Ikpva<span class="hljs-name">G4</span>gR<span class="hljs-name">G9</span>lIiwiYWRtaW<span class="hljs-number">4</span>iO<span class="hljs-symbol">nRydWV9</span>.TJVA<span class="hljs-number">95</span><span class="hljs-keyword">Or</span><span class="hljs-name">M7</span>E<span class="hljs-number">2</span>cBab<span class="hljs-number">30</span>RMHrHDcEfxjoYZgeFO<span class="hljs-symbol">NFh7</span>HgQ.
+</code></pre>
+<p>Hacking APIs GPT breaks down the JWT and analyzes each part. It determines that the user’s name is John Doe, with a user ID of 1234567890, and he has administrative privileges. The token is signed using HMAC SHA-256, but it’s impossible to verify that without the secret key.</p>
+<h2 id="hacking-apis-gpt-code-analysis-review">Hacking APIs GPT Code Analysis Review</h2>
+<p>Let’s finish up by making sure Hacking APIs GPT is telling the truth. One of the biggest drawbacks of using LLMs for any practical purpose is that they often make things up. To make matters worse, they hallucinate with complete certainty. This can leave undetected errors in anything generated by an LLM, which you might not catch unless you go through it line by line, which defeats the purpose of using an LLM in the first place.</p>
+<p>To measure its accuracy and truthfulness, we’ve run a Flask app through Hacking APIs GPT with a known error to see how it responds. Our code accepted the wrong method type for one of the endpoints, asking for POST instead of GET. Encouragingly, the LLM caught the error immediately and, even better, offered solutions to fix it.</p>
+<h2 id="final-thoughts-on-hacking-apis-gpt">Final Thoughts on Hacking APIs GPT</h2>
+<p>After running it through its paces, Hacking APIs GPT lives up to the hype. It stands to revolutionize the API industry, opening things up to people with little technical experience. It’s also highly useful for seasoned developers, helping to debug your code and catch any potential errors.</p>
+<p>Hacking APIs GPT certainly isn’t the only <a href="https://nordicapis.com/api-vulnerability-scanners/" rel="noreferrer" target="_blank">API vulnerability scanner</a> on the market. There are numerous excellent tools for analyzing OpenAPI schema and endpoints for security risk. Yet, Hacking APIs GPT may be the most fully featured, as it can also write code from scratch and suggest improvements. If you’re looking for one AI tool for working with APIs, consider Hacking APIs GPT.</p>
+<p>Perhaps most useful of all, Hacking APIs GPT is one of the best tools for learning how to create and work with APIs. It’s like the world’s smartest API tutorial, answering questions and problems put forth in plain language with clean, working code using the latest best practices. Anyone interested in learning how to work with APIs can reverse engineer its output and learn how to write their own code.</p>
+<p>It should also help lay some fears about AI taking over all of the coding jobs to rest. While it’s definitely capable of producing clean, working code from scratch, you still have to know what to ask for in the first place. It sometimes takes fine-tuning to get things up and running, just like any other API product. With that being said, Hacking APIs GPT is definitely one of the most game-changing API tools we’ve encountered in a while, though. It’s well worth trying out for yourself, no matter how much experience you have working with APIs.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/using-hacking-apis-gpt-for-api-security-testing/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

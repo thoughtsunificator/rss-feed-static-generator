@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>OSI at PyCon US: engaging with AI practitioners and developers as we reach OSAID’s first release candidate</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">OSI at PyCon US: engaging with AI practitioners and developers as we reach OSAID’s first release candidate</h3>
+		<div>
+<p>As part of the Open Source AI Definition <a href="https://opensource.org/blog/open-source-ai-definition-on-the-road-looking-back-and-forward" rel="noreferrer" target="_blank">roadshow</a> and as we approach the first release candidate of the <a href="https://opensource.org/deepdive/drafts" rel="noreferrer" target="_blank">draft</a>, the Open Source Initiative (OSI) participated at <a href="https://us.pycon.org/2024/" rel="noreferrer" target="_blank">PyCon US 2024</a>, the annual gathering of the Python community. This opportunity was important because PyCon US brings together AI practitioners and developers alike, and having their input regarding what constitutes Open Source AI is of most value. The OSI organized a workshop and had a community booth there.</p>
+
+
+
+<h3 class="wp-block-heading">OSAID Workshop: compiling a FAQ to make the definition clear and easy to use</h3>
+
+
+
+<p>The OSI has embarked on a co-design process with multiple stakeholders to arrive at the Open Source AI Definition (OSAID). This process has been led by <a href="https://www.linkedin.com/in/merjoyce/" rel="noreferrer" target="_blank">Mer Joyce</a>, the co-design expert and facilitator, and <a href="https://www.linkedin.com/in/maffulli" rel="noreferrer" target="_blank">Stefano Maffulli</a>, the executive director of the OSI.</p>
+
+
+
+<p>At the workshop organized at PyCon US, Mer provided an overview of the co-design process so far, summarized below.</p>
+
+
+
+<p>The first step of the co-design process was to identify the freedoms needed for Open Source AI. After various <a href="https://opensource.org/deepdive" rel="noreferrer" target="_blank">online and in-person activities</a> and <a href="https://discuss.opensource.org/" rel="noreferrer" target="_blank">discussions</a>, including five workshops across the world, the community identified four freedoms:</p>
+
+
+
+<ol class="wp-block-list">
+<li>To <strong>Use</strong> the system for any purpose and without having to ask for permission.</li>
+
+
+
+<li>To <strong>Study</strong> how the system works and inspect its components.</li>
+
+
+
+<li>To <strong>Modify</strong> the system for any purpose, including to change its output.</li>
+
+
+
+<li>To <strong>Share</strong> the system for others to use with or without modifications, for any purpose.</li>
+</ol>
+
+
+
+<p>The next step was to form four working groups to initially analyze four AI systems. To achieve better representation, special attention was given to diversity, equity and inclusion. Over 50% of the working group participants are people of color, 30% are black, 75% were born outside the US and 25% are women, trans and nonbinary.</p>
+
+
+
+<p>These working groups discussed and voted on which AI system components should be required to satisfy the four freedoms for AI. The components we adopted are described in the <a href="https://arxiv.org/pdf/2403.13784" rel="noreferrer" target="_blank">Model Openness Framework</a> developed by the Linux Foundation.</p>
+
+
+
+<p>The vote compilation was performed based on the mean total votes per component (μ). Components which received over 2μ votes were marked as required and between 1.5μ and 2μ were marked likely required. Components that received between 0.5μ and μ were marked likely not required and less than 0.5μ as not required.</p>
+
+
+
+<p>The working groups evaluated legal frameworks and legal documents for each component. Finally, each working group published a recommendation report. The end result is the OSAID with a comprehensive definition checklist encompassing a total of 17 components. More working groups are being formed to evaluate how well other AI systems align with the definition.</p>
+
+
+
+<figure class="wp-block-image size-large"><figcaption class="wp-element-caption">OSAID multi-stakeholder process: from component list to a definition checklist</figcaption></figure>
+
+
+
+<div aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>After providing an overview of the co-design process, Mer went on to organize an exercise with the participants to compile a FAQ.</p>
+
+
+
+<p>The questions raised at the workshop revolved around the following topics:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>End user comprehension</strong>: how and why are AI systems different from Open Source software? As an end-user, why should they care if an AI system is open?</li>
+
+
+
+<li><strong>Datasets</strong>: Why is data itself not required? Should Open Source AI datasets be required to prove copyright compliance? How can one audit these systems for bias without the data? What does data provenance and data labeling entail?</li>
+
+
+
+<li><strong>Models</strong>: How can proper attribution of model parameters be enforced? What is the ownership/attribution of model parameters which were trained by one author and then “fine-tuned” by another?</li>
+
+
+
+<li><strong>Code</strong>: Can projects that include only source code (no data info or model weights) still use a regular Open Source license (MIT, Apache, etc.)?</li>
+
+
+
+<li><strong>Governance</strong>: For a specific AI, who determines whether the information provided about the training, dataset, process, etc. is “sufficient” and how?</li>
+
+
+
+<li><strong>Adoption of the OSAID</strong>: What are incentives for people/companies to adopt this standard?</li>
+
+
+
+<li><strong>Legal weight</strong>: Is the OSAID supposed to have legal weight?</li>
+</ul>
+
+
+
+<p>These questions and answers raised at the workshop will be important for enhancing the existing <a href="https://hackmd.io/@opensourceinitiative/osaid-faq" rel="noreferrer" target="_blank">FAQ</a>, which will be made available along with the OSAID.</p>
+
+
+
+<figure class="wp-block-image size-large"><figcaption class="wp-element-caption">OSAID workshop: a collection of post-its with questions raised by participants.</figcaption></figure>
+
+
+
+<div aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h3 class="wp-block-heading">Community Booth: gathering feedback on the “Unlock the OSAID” visualization</h3>
+
+
+
+<p>At the community booth, the OSI held two activities to draw in participants interested in Open Source AI. The first activity was a quiz developed by <a href="http://linkedin.com/in/ajolo" data-type="link" data-id="linkedin.com/in/ajolo" rel="noreferrer" target="_blank">Ariel Jolo</a>, program coordinator at the OSI, to assess participants’ knowledge of &nbsp;Python and AI/ML. Once we had an understanding of their skills, we went on to the second and main activity, which was to gather feedback on the OSAID using a novel way to visualize how different AI systems match the current draft definition as described below.</p>
+
+
+
+<p>Making it easy for different stakeholders to visualize whether or not an AI system matches the OSAID is a challenge, especially because there are so many components involved. This is where the visualization concept we named “Unlock the OSAID” came in.&nbsp;</p>
+
+
+
+<p>The OSI keyhole is a well recognized logo that represents the source code that unlocks the freedoms to use, study, modify, and share software. With the <a href="https://colab.research.google.com/drive/1u-cOuU0STnIli-IATJkRqEMCaKRe5WtO" rel="noreferrer" target="_blank">Unlock the OSAID</a>, we played on that same idea, but now for AI systems. We displayed three keyholes representing the three domains these 17 components fall within: code, model and data information.</p>
+
+
+
+<p>Here is the image representing the “code keyhole” with the required components to unlock the OSAID:</p>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<p>On the inner ring we have the required components to unlock the OSAID, while on the outer ring we have optional components. The required code components are: libraries and tools; inference; training, validation and testing; data pre-processing. The optional components are: inference for benchmark and evaluation code.&nbsp;</p>
+
+
+
+<p>To fully unlock the OSAID, an AI system must have all the required components for code, model and data information. To better understand how the “Unlock the OSAID” visualization works, let’s look at two hypothetical AI systems: example 1 and example 2.</p>
+
+
+
+<p>Let’s start looking at example 1 (in red) and see if this system unlocks the OSAID for code:</p>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<p>Example 1 only provides inference code, so the key (in red) doesn’t “fit” the code keyhole (in green).</p>
+
+
+
+<p>Now let’s look at example 2 (in blue):</p>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<p>Example 2 provides all required components (and more), so the key (in blue) fits the code keyhole (in green). Therefore, example 2 unlocks the OSAID for code. For example 2 to be considered Open Source AI, it would also have to unlock the OSAID for model and data information:&nbsp;</p>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<p>We received good feedback from participants about the “Unlock the OSAID” visualization. Once participants grasped the concept of the keyholes and which components were required or optional, it was easy to identify if an AI system unlocks the OSAID or not. They could visually see if the keys fit the keyholes or not. If all keys fit, then that AI system adheres to the OSAID.</p>
+
+
+
+<h3 class="wp-block-heading">Final thoughts: engaging with the community and promoting Open Source principles</h3>
+
+
+
+<p>For me, the highlight of PyCon US was the opportunity to finally meet members of the OSI and the Python community in person, both new and old acquaintances. I had good conversations with Deb Nicholson (Python Software Foundation), Hannah Aubry (Fastly), Ana Hevesi (Uploop), Tom “spot” Callaway (AWS), Julia Ferraioli (AWS), Tony Kipkemboi (Streamlit), Michael Winser (Alpha-Omega), Jason C. MacDonald (OWASP), Cheuk Ting Ho (CMD Limes), Kamile Demir (Adobe), Mariatta Wijaya (PSF), Loren Clary (PSF) and Miaolai Zhou (AWS). I also interacted with many folks from the following communities: Python Brazil, Python en Español, PyLadies and Black Python Devs. It was great to bump into great legends like Seth Larson (PSF), Peter Wang (Anaconda) and Guido van Rossum.</p>
+
+
+
+<p>I loved all the keynotes, in particular from Sumana Harihareswara about how she has improved Python Software Foundation’s infrastructure, and from Simon Willison about how we can all benefit from Open Source AI.</p>
+
+
+
+<p>We also had a special dinner hosted by Stefano to celebrate this special milestone of the OSAID, with Stefano, Mer and I overlooking Pittsburgh.</p>
+
+
+
+<p>Overall, our participation at PyCon US was a success. We shared the work OSI has been doing toward the first release candidate of the Open Source AI Definition, and we did it in an entertaining and engaging way, with plenty of connection throughout.</p>
+
+
+
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped wp-block-gallery-1 is-layout-flex wp-block-gallery-is-layout-flex">
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+</figure>
+
+
+
+<p><em>Photo credits: <a href="https://www.uploop.dev/" data-type="link" data-id="https://www.uploop.dev/" rel="noreferrer" target="_blank">Ana Hevesi</a>, <a href="https://www.dobiggood.com/about" rel="noreferrer" target="_blank">Mer Joyce</a>, and <a href="https://opensource.org/blog/author/nvidal" rel="noreferrer" target="_blank">Nick Vidal</a></em></p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/osi-at-pycon-us-engaging-with-ai-practitioners-and-developers-as-we-reach-osaids-first-release-candidate">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
