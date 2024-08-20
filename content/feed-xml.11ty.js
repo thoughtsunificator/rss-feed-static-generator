@@ -1,3 +1,7 @@
+const { JSDOM } = require("jsdom")
+const virtualDOM = new JSDOM()
+const { document } = virtualDOM.window
+
 exports.data = {
 	eleventyExcludeFromCollections: true,
 	permalink: "/feed.xml",
@@ -18,10 +22,11 @@ exports.render = function(data) {
 		<name>${data.site.author.name}</name>
 	</author>
 	${data.feed.items.filter(rssItem => !rssItem.tags.find(tag => data.tagIndexBlacklist.includes(tag))).map(rssItem => {
+		document.body.textContent = rssItem.title
 		return `<entry>
 			<id>${rssItem.id}</id>
 			<link href="${data.site.url}/${rssItem.getSlug.call(this)}.html"/>
-			<title>${ rssItem.title }</title>
+			<title>${ document.body.innerHTML }</title>
 			<updated>${new Date(rssItem.pubDate * 1000).toISOString()}</updated>
 		</entry>`
 	}).join("")}
