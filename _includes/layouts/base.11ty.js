@@ -20,7 +20,6 @@ exports.render = function(data) {
 			display: grid;
 			height: 100vh;
 			grid-template-rows: auto 1fr auto;
-			font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
 		}
 		main {
 			word-break: break-word;
