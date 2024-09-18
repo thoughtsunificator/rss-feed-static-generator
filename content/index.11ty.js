@@ -56,7 +56,7 @@ exports.render = function(data) {
 				<small>${new URL(rssItem.feedurl)}</small>
 				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 				${h3.outerHTML}
-			</div>`
+			</div><hr>`
 
 		}).join("")}
 		<nav style="display: flex; gap: 10px; flex-flow: wrap">
