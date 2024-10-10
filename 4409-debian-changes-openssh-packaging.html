@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Debian changes OpenSSH packaging</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Debian changes OpenSSH packaging</h3>
+		<div><p>In the wake of the <a href="https://lwn.net/Articles/967866/" rel="noreferrer" target="_blank">XZ
+backdoor</a>, the Debian project has revisited some of the
+patches included in its <a href="https://www.openssh.com/" rel="noreferrer" target="_blank">OpenSSH</a>
+packages to improve security. The outcome of this is that the project
+will be splitting out support for <a href="https://en.wikipedia.org/wiki/Kerberos_(protocol)" rel="noreferrer" target="_blank">Kerberos</a> key exchange into a
+separate set of packages, though not until after the Debian&nbsp;13
+("trixie") release expected next year. The impact on Debian users
+should be minimal, but it is an interesting look into the changes
+Linux distributions make to upstream software as well as some of the
+long-term consequences of those choices.</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/991088/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

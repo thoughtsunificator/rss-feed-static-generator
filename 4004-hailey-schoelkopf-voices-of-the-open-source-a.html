@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hailey Schoelkopf: Voices of the Open Source AI Definition</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Hailey Schoelkopf: Voices of the Open Source AI Definition</h3>
+		<div>
+<p>The Open Source Initiative (OSI) is running a blog series to introduce some of the people who have been actively involved in the <a href="https://opensource.org/deepdive" rel="noreferrer" target="_blank">Open Source AI Definition</a> (OSAID) co-design process. The co-design methodology allows for the integration of diverging perspectives into one just, cohesive and feasible standard. Support and contribution from a significant and broad group of stakeholders is imperative to the Open Source process and is proven to bring diverse issues to light, deliver swift outputs and garner community buy-in.</p>
+
+
+
+<p>This series features the voices of the volunteers who have helped shape and are shaping the Definition.</p>
+
+
+
+<h1 class="wp-block-heading">Meet Hailey Schoelkopf</h1>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<h2 class="wp-block-heading"><strong>What’s your background related to Open Source and AI?</strong></h2>
+
+
+
+<p>One of the main reasons I was able to get more deeply involved in AI research was through open research communities such as the BigScience Workshop and EleutherAI, where discussions and collaboration were available to outsiders. These opportunities to share knowledge and learn from others more experienced than me were crucial to learning about the field and growing as a practitioner and researcher.</p>
+
+
+
+<p>I co-lead the training of the Pythia language models (<a href="https://arxiv.org/abs/2304.01373" rel="noreferrer" target="_blank">https://arxiv.org/abs/2304.01373</a>), some of the first fully-documented and reproducible large-scale language models with as many related artifacts as possible released Open Source. We were happy and lucky to see these models fill a clear need, especially in the research community, where Pythia has since contributed to a large amount of studies attempting to build our understanding of LLMs, including interpreting their internals, understanding the process by which these models improve over training, and disentangling some of the effects of the dataset contents on these models’ downstream behavior.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>What motivated you to join this co-design process to define Open Source AI?</strong></h2>
+
+
+
+<p>There has been a significant amount of confusion induced by the fact that not all ‘open-weights’ AI models released are released under OSI-compliant licenses-–or impose restrictions on their usage or adaptation-–so I was excited that OSI was working on reducing this confusion by producing a clear definition that could be used by the Open Source community. I more directly joined the process by helping discuss how the Open Source AI Definition could be mapped onto the Pythia language models and the accompanying artifacts we released.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Can you describe your experience participating in this process? What did you most enjoy about it and what were some of the challenges you faced?</strong></h2>
+
+
+
+<p>Deciding what counts as sufficient transparency and modifiability to be Open Source was an interesting problem. Although public model weights are very beneficial to the Open Source community, releasing model weights without sufficient detail to understand the model and its development process to make modifications or understand reasons behind its design and resulting characteristics can hinder understanding or prevent the full benefits of a completely Open Source model from being realized.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Why do you think AI should be Open Source?</strong></h2>
+
+
+
+<p>There are clear advantages to having models that are Open Source. Access to such fully-documented models can help a much, much broader group of people–trained researchers and also many others–who can use, study, and examine these models for their own purposes. While not every model should be made Open Source under all conditions, wider scrutiny and study of these models can help increase our understanding of AI systems’ behavior, raise societal preparedness and awareness of AI capabilities, and improve these models’ safety by allowing more people to understand them and explore their flaws.</p>
+
+
+
+<p>With the Pythia language models, we’ve seen many researchers explore questions around the safety and biases of these models, including a breadth of questions we’d not have been able to study ourselves, or many that we could not even anticipate. These different perspectives are a crucial component in making AI systems safer and more broadly beneficial.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>What do you think is the role of data in Open Source AI?</strong></h2>
+
+
+
+<p>Data is a crucial component of AI systems. Transparency around (and, potentially, open release of) training datasets can enable a wide range of extended benefits to researchers, practitioners, and society at large. I think that for a model to be truly Open Source, and to derive the greatest benefits from its openness, information on training data must be shared transparently. This information also importantly allows various members of the Open Source community to avoid replicating each other’s work independently. Transparent sharing about motivations and findings with respect to dataset creation choices can improve the community’s collective understanding of system and dataset design for the future and minimize overlapping, wasted effort.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Has your personal definition of Open Source AI changed along the way? What new perspectives or ideas did you encounter while participating in the co-design process?</strong></h2>
+
+
+
+<p>An interesting perspective that I’ve grown to appreciate is that the Open Source AI definition includes public and Open Source licensed training and inference code. Actually making one’s Open Source AI model effectively usable by the community and practitioners is a crucial step of promoting transparency, though not often enough discussed.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>What do you think the primary benefit will be once there is a clear definition of Open Source AI?</strong></h2>
+
+
+
+<p>Having a clear definition of Open Source AI can make it clearer where existing currently “open” systems fall, and potentially encourage future open-weights models to be released with more transparency. Many current open-weights models are shared under bespoke licenses with terms not compliant with Open Source principles–this creates legal uncertainty and also makes it less likely that a new open-weights model release will benefit practitioners at large or contribute to better understanding of how to design better systems. I would hope that a clearer Open Source AI definition will make it easier to draw these lines and encourage those currently releasing open-weights models to do so in a way more closely fitting the Open Source AI standard.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>What do you think are the next steps for the community involved in Open Source AI?</strong></h2>
+
+
+
+<p>An exciting future direction for the Open Source AI research community is to explore methods for greater control over AI model behavior; attempting to explore approaches to collective modification and collaborative development of AI systems that can adapt and be “patched” over time. A stronger understanding of how to properly evaluate these systems for capabilities, robustness, and safety will also be crucial. I hope to see the community direct greater attention to evaluation in the future as well.</p>
+
+
+
+<h1 class="wp-block-heading">How to get involved</h1>
+
+
+
+<p>The OSAID co-design process is open to everyone interested in <a href="https://discuss.opensource.org/t/faq-guidelines/" rel="noreferrer" target="_blank">collaborating</a>. There are many ways to get involved:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Join the <a href="https://discuss.opensource.org/t/definition-validation-seeking-volunteers/320" rel="noreferrer" target="_blank">working groups</a>: be part of a team to evaluate various models against the OSAID.</li>
+
+
+
+<li>Join the <a href="https://discuss.opensource.org/" rel="noreferrer" target="_blank">forum</a>: support and comment on the drafts, record your approval or concerns to new and existing threads.</li>
+
+
+
+<li>Comment on the <a href="https://opensource.org/deepdive/drafts" rel="noreferrer" target="_blank">latest draft</a>: provide feedback on the latest draft document directly.</li>
+
+
+
+<li>Follow the <a href="https://opensource.org/blog/author/mia-lykoulund" rel="noreferrer" target="_blank">weekly recaps</a>: subscribe to our newsletter and blog to be kept up-to-date.</li>
+
+
+
+<li>Join the <a href="https://opensource.org/events/tags/townhall" rel="noreferrer" target="_blank">town hall</a> meetings: participate in the online public town hall meetings to learn more and ask questions.</li>
+
+
+
+<li>Join the <a href="https://opensource.org/events" rel="noreferrer" target="_blank">workshops and scheduled conferences</a>: meet the OSI and other participants at in-person events around the world.</li>
+</ul>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/hailey-schoelkopf-voices-of-the-open-source-ai-definition">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

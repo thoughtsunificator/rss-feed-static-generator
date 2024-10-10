@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 200 🎉</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Release Notes for Safari Technology Preview 200 🎉</h3>
+		<div><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 200 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/d4bb9d2c03f31fbe54cd1dc7fc27c6628567fe86...958d1de8af7b3bea8e5df94bcf029935abc7b3e0" rel="noreferrer" target="_blank">280675@main…281143@main</a>.</p>
+<h3>CSS</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Optimized Masonry Grids for items with a span of 1. (<a href="https://commits.webkit.org/280919@main" rel="noreferrer" target="_blank">280919@main</a>)  (131407028)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Implemented <code>Uint8Array.prototype.toHex</code> in SIMD. (<a href="https://commits.webkit.org/280719@main" rel="noreferrer" target="_blank">280719@main</a>)  (131249821)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>
+<p>Fixed class field initializers to disallow <code>yield</code> and <code>await</code> expressions. (<a href="https://commits.webkit.org/280837@main" rel="noreferrer" target="_blank">280837@main</a>)  (119044881)</p>
+</li>
+<li>
+<p>Fixed DestructuringAssignmentTarget to be evaluated prior to calling <code>[[Get]]</code> or a stepping iterator. (<a href="https://commits.webkit.org/281013@main" rel="noreferrer" target="_blank">281013@main</a>)  (121960976)</p>
+</li>
+<li>
+<p>Fixed throwing an exception for negative exponent in BigInt in the JIT compiler. (<a href="https://commits.webkit.org/280841@main" rel="noreferrer" target="_blank">280841@main</a>)  (131051084)</p>
+</li>
+<li>
+<p>Fixed RegExp range quantifier to allow 2^53 – 1. (<a href="https://commits.webkit.org/280953@main" rel="noreferrer" target="_blank">280953@main</a>)  (131710011)</p>
+</li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>
+<p>Fixed garbled bold text caused by glyph lookup using the wrong font’s glyph IDs when multiple installed fonts have the same name. (<a href="https://commits.webkit.org/281022@main" rel="noreferrer" target="_blank">281022@main</a>)  (129891005) (FB13909556)</p>
+</li>
+<li>
+<p>Fixed scrolling of content overflowing a flex item in an end-aligned flex container. (<a href="https://commits.webkit.org/279992@main" rel="noreferrer" target="_blank">279992@main</a>)  (131201271)</p>
+</li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Service Workers not appearing in the Develop menu or remote Web Inspector menu. (<a href="https://commits.webkit.org/280912@main" rel="noreferrer" target="_blank">280912@main</a>)  (130712941)  </li>
+</ul>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15779/release-notes-for-safari-technology-preview-200/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

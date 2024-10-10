@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Build A Static RSS Reader To Fight Your Inner FOMO</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Build A Static RSS Reader To Fight Your Inner FOMO</h3>
+		<div><p>In a fast-paced industry like tech, it can be hard to deal with the fear of missing out on important news. But, as many of us know, there’s an absolutely huge amount of information coming in daily, and finding the right time and balance to keep up can be difficult, if not stressful. A classic piece of technology like <strong>an RSS feed is a delightful way of taking back ownership of our own time</strong>. In this article, we will create a static Really Simple Syndication (RSS) reader that will bring you the latest curated news only once (yes: <em>once</em>) a day.</p>
+<p>We’ll obviously work with RSS technology in the process, but we’re also going to combine it with some things that maybe you haven’t tried before, including <strong>Astro</strong> (the static site framework), <strong>TypeScript</strong> (for JavaScript goodies), a package called <strong>rss-parser</strong> (for connecting things together), as well as <strong>scheduled functions</strong> and <strong>build hooks</strong> provided by Netlify (although there are other services that do this).</p>
+<p>I chose these technologies purely because I really, really enjoy them! There may be other solutions out there that are more performant, come with more features, or are simply more comfortable to you — and in those cases, I encourage you to swap in whatever you’d like. The most important thing is getting the end result!</p>
+The Plan
+<p>Here’s how this will go. Astro generates the website. I made the intentional decision to use a static site because I want the different RSS feeds to be fetched only once during build time, and that’s something we can control each time the site is “rebuilt” and redeployed with updates. That’s where Netlify’s scheduled functions come into play, as they let us trigger rebuilds automatically at specific times. There is no need to manually check for updates and deploy them! Cron jobs can just as readily do this if you prefer a server-side solution.</p>
+<p>During the triggered rebuild, we’ll let the rss-parser package do exactly what it says it does: parse a list of RSS feeds that are contained in an array. The package also allows us to set a filter for the fetched results so that we only get ones from the past day, week, and so on. Personally, I only render the news from the last seven days to prevent content overload. We’ll get there!</p>
+<p>But first...</p>
+What Is RSS?
+<p>RSS is a web feed technology that you can feed into a reader or news aggregator. Because RSS is standardized, you know what to expect when it comes to the feed’s format. That means we have a ton of fun possibilities when it comes to handling the data that the feed provides. Most news websites have their own RSS feed that you can subscribe to (this is <strong>Smashing Magazine’s RSS feed</strong>: <a href="https://www.smashingmagazine.com/feed/" rel="noreferrer" target="_blank">https://www.smashingmagazine.com/feed/</a>). An RSS feed is capable of updating every time a site publishes new content, which means it can be a quick source of the latest news, but we can tailor that frequency as well.</p>
+<p>RSS feeds are written in an Extensible Markup Language (XML) format and have specific elements that can be used within it. Instead of focusing too much on the technicalities here, I’ll give you a link to the <a href="https://www.rssboard.org/rss-specification" rel="noreferrer" target="_blank">RSS specification</a>. Don’t worry; that page should be scannable enough for you to find the most pertinent information you need, like the kinds of elements that are supported and what they represent. For this tutorial, we’re only using the following elements: <strong><code>&lt;title&gt;</code></strong>, <strong><code>&lt;link&gt;</code></strong>, <strong><code>&lt;description&gt;</code></strong>, <strong><code>&lt;item&gt;</code></strong>, and <strong><code>&lt;pubDate&gt;</code></strong>. We’ll also let our RSS parser package do some of the work for us.</p>
+Creating The State Site
+<p>We’ll start by creating our Astro site! In your terminal run <code>pnpm create astro@latest</code>. You can use any package manager you want — I’m simply trying out <a href="https://pnpm.io" rel="noreferrer" target="_blank">pnpm</a> for myself.</p>
+<p>After running the command, Astro’s chat-based helper, Houston, walks through some setup questions to get things started.</p>
+<pre><code> astro   Launch sequence initiated.
+
+   dir   Where should we create your new project?
+         ./rss-buddy
+
+  tmpl   How would you like to start your new project?
+         Include sample files
+
+    ts   Do you plan to write TypeScript?
+         Yes
+
+   use   How strict should TypeScript be?
+         Strict
+
+  deps   Install dependencies?
+         Yes
+
+   git   Initialize a new git repository?
+         Yes
+</code></pre>
+
+<p>I like to use Astro’s sample files so I can get started quickly, but we’re going to clean them up a bit in the process. Let’s clean up the <code>src/pages/index.astro</code> file by removing everything inside of the <code>&lt;main&gt;&lt;/main&gt;</code> tags. Then we’re good to go!</p>
+<p>From there, we can spin things by running <code>pnpm start</code>. Your terminal will tell you which localhost address you can find your site at.</p>
+Pulling Information From RSS feeds
+<p>The <code>src/pages/index.astro</code> file is where we will make an array of RSS feeds we want to follow. We will be using <a href="https://docs.astro.build/en/basics/astro-syntax/" rel="noreferrer" target="_blank">Astro’s template syntax</a>, so between the two code fences (---), create an array of <code>feedSources</code> and add some feeds. If you need inspiration, you can copy this:</p>
+<pre><code>const feedSources = [
+  'https://www.smashingmagazine.com/feed/',
+  'https://developer.mozilla.org/en-US/blog/rss.xml',
+  // etc.
+]
+</code></pre>
+
+<p>Now we’ll install the <a href="https://github.com/rbren/rss-parser" rel="noreferrer" target="_blank">rss-parser package</a> in our project by running <code>pnpm install rss-parser</code>. This package is a small library that turns the XML that we get from fetching an RSS feed into JavaScript objects. This makes it easy for us to read our RSS feeds and manipulate the data any way we want.</p>
+<p>Once the package is installed, open the <code>src/pages/index.astro</code> file, and at the top, we’ll import the rss-parser and instantiate the <code>Partner</code> class.</p>
+<pre><code>import Parser from 'rss-parser';
+const parser = new Parser();
+</code></pre>
+
+<p>We use this parser to read our RSS feeds and (surprise!) <em>parse</em> them to JavaScript. We’re going to be dealing with a list of promises here. Normally, I would probably use <code>Promise.all()</code>, but the thing is, this is supposed to be a complicated experience. If one of the feeds doesn’t work for some reason, I’d prefer to simply ignore it.</p>
+<p>Why? Well, because <code>Promise.all()</code> rejects everything even if only one of its promises is rejected. That might mean that if one feed doesn’t behave the way I’d expect it to, my entire page would be blank when I grab my hot beverage to read the news in the morning. I do not want to start my day confronted by an error.</p>
+<p>Instead, I’ll opt to use <code>Promise.allSettled()</code>. This method will actually let all promises complete even if one of them fails. In our case, this means any feed that errors will just be ignored, which is perfect.</p>
+<p>Let’s add this to the <code>src/pages/index.astro</code> file:</p>
+<div>
+<pre><code>interface FeedItem {
+  feed?: string;
+  title?: string;
+  link?: string;
+  date?: Date;
+}
+
+const feedItems: FeedItem[] = [];
+
+await Promise.allSettled(
+  feedSources.map(async (source) =&gt; {
+    try {
+      const feed = await parser.parseURL(source);
+      feed.items.forEach((item) =&gt; {
+        const date = item.pubDate ? new Date(item.pubDate) : undefined;
+
+          feedItems.push({
+            feed: feed.title,
+            title: item.title,
+            link: item.link,
+            date,
+          });
+      });
+    } catch (error) {
+      console.error(<code>Error fetching feed from ${source}:</code>, error);
+    }
+  })
+);
+</code></pre>
+</div>
+
+<p>This creates an array (or more) named <code>feedItems</code>. For each URL in the <code>feedSources</code> array we created earlier, the rss-parser retrieves the items and, yes, parses them into JavaScript. Then, we return whatever data we want! We’ll keep it simple for now and only return the following:</p>
+<ul>
+<li>The feed title,</li>
+<li>The title of the feed item,</li>
+<li>The link to the item,</li>
+<li>And the item’s published date.</li>
+</ul>
+<p>The next step is to ensure that all items are sorted by date so we’ll truly get the “latest” news. Add this small piece of code to our work:</p>
+<div>
+<pre><code>const sortedFeedItems = feedItems.sort((a, b) =&gt; (b.date ?? new Date()).getTime() - (a.date ?? new Date()).getTime());
+</code></pre>
+</div>
+
+<p>Oh, and... remember when I said I didn’t want this RSS reader to render anything older than seven days? Let’s tackle that right now since we’re already in this code.</p>
+<p>We’ll make a new variable called <code>sevenDaysAgo</code> and assign it a date. We’ll then set that date to seven days ago and use that logic before we add a new item to our <code>feedItems</code> array.</p>
+<p>This is what the <code>src/pages/index.astro</code> file should now look like at this point:</p>
+<div>
+<pre><code>---
+import Layout from '../layouts/Layout.astro';
+import Parser from 'rss-parser';
+const parser = new Parser();
+
+const sevenDaysAgo = new Date();
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+const feedSources = [
+  '<a href="https://www.smashingmagazine.com/feed/'" rel="noreferrer" target="_blank">https://www.smashingmagazine.com/feed/'</a>,
+  '<a href="https://developer.mozilla.org/en-US/blog/rss.xml'" rel="noreferrer" target="_blank">https://developer.mozilla.org/en-US/blog/rss.xml'</a>,
+]
+
+interface FeedItem {
+  feed?: string;
+  title?: string;
+  link?: string;
+  date?: Date;
+}
+
+const feedItems: FeedItem[] = [];
+
+await Promise.allSettled(
+  feedSources.map(async (source) =&gt; {
+    try {
+      const feed = await parser.parseURL(source);
+      feed.items.forEach((item) =&gt; {
+        const date = item.pubDate ? new Date(item.pubDate) : undefined;
+        if (date &amp;&amp; date &gt;= sevenDaysAgo) {
+          feedItems.push({
+            feed: feed.title,
+            title: item.title,
+            link: item.link,
+            date,
+          });
+        }
+      });
+    } catch (error) {
+      console.error(<code>Error fetching feed from ${source}:</code>, error);
+    }
+  })
+);
+
+const sortedFeedItems = feedItems.sort((a, b) =&gt; (b.date ?? new Date()).getTime() - (a.date ?? new Date()).getTime());
+
+---
+
+&lt;Layout title="Welcome to Astro."&gt;
+  &lt;main&gt;
+  &lt;/main&gt;
+&lt;/Layout&gt;
+</code></pre>
+</div>
+
+
+
+Rendering XML Data
+<p>It’s time to show our news articles on the Astro site! To keep this simple, we’ll format the items in an unordered list rather than some other fancy layout.</p>
+<p>All we need to do is update the <code>&lt;Layout&gt;</code> element in the file with the XML objects sprinkled in for a feed item’s title, URL, and publish date.</p>
+<pre><code>&lt;Layout title="Welcome to Astro."&gt;
+  &lt;main&gt;
+  {sortedFeedItems.map(item =&gt; (
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;a href={item.link}&gt;{item.title}&lt;/a&gt;
+        &lt;p&gt;{item.feed}&lt;/p&gt;
+        &lt;p&gt;{item.date}&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  ))}
+  &lt;/main&gt;
+&lt;/Layout&gt;
+</code></pre>
+
+<p>Go ahead and run <code>pnpm start</code> from the terminal. The page should display an unordered list of feed items. Of course, everything is styled at the moment, but luckily for you, you can make it look exactly like you want with CSS!</p>
+<p>And remember that there are even <strong>more fields available in the XML for each item</strong> if you want to display more information. If you run the following snippet in your DevTools console, you’ll see all of the fields you have at your disposal:</p>
+<pre><code>feed.items.forEach(item =&gt; {}
+</code></pre>
+
+Scheduling Daily Static Site Builds
+<p>We’re nearly done! The feeds are being fetched, and they are returning data back to us in JavaScript for use in our Astro page template. Since feeds are updated whenever new content is published, we need a way to fetch the latest items from it.</p>
+<p>We want to avoid doing any of this manually. So, let’s set this site on Netlify to gain access to their scheduled functions that trigger a rebuild and their build hooks that do the building. Again, other services do this, and you’re welcome to roll this work with another provider — I’m just partial to Netlify since I work there. In any case, you can follow Netlify’s documentation for <a href="https://docs.netlify.com/welcome/add-new-site/#import-from-an-existing-repository" rel="noreferrer" target="_blank">setting up a new site</a>. </p>
+<p>Once your site is hosted and live, you are ready to schedule your rebuilds. A <a href="https://docs.netlify.com/configure-builds/build-hooks/" rel="noreferrer" target="_blank">build hook</a> gives you a URL to use to trigger the new build, looking something like this:</p>
+<pre><code>https://api.netlify.com/build_hooks/your-build-hook-id
+</code></pre>
+
+<p>Let’s trigger builds every day at midnight. We’ll use Netlify’s <a href="https://docs.netlify.com/functions/scheduled-functions/" rel="noreferrer" target="_blank">scheduled functions</a>. That’s really why I’m using Netlify to host this in the first place. Having them at the ready via the host greatly simplifies things since there’s no server work or complicated configurations to get this going. Set it and forget it!</p>
+<p>We’ll install <code>@netlify/functions</code> (<a href="https://docs.netlify.com/functions/get-started/" rel="noreferrer" target="_blank">instructions</a>) to the project and then create the following file in the project’s root directory: <code>netlify/functions/deploy.ts</code>.</p>
+<p>This is what we want to add to that file:</p>
+<div>
+<pre><code>// netlify/functions/deploy.ts
+
+import type { Config } from '@netlify/functions';
+
+const BUILD_HOOK =
+  '<a href="https://api.netlify.com/build_hooks/your-build-hook-id'" rel="noreferrer" target="_blank">https://api.netlify.com/build_hooks/your-build-hook-id'</a>; // replace me!
+
+export default async (req: Request) =&gt; {
+  await fetch(BUILD_HOOK, {
+    method: 'POST',
+  })
+};
+
+export const config: Config = {
+  schedule: '0 0 * * *',
+};
+</code></pre>
+</div>
+
+<p>If you commit your code and push it, your site should re-deploy automatically. From that point on, it follows a schedule that rebuilds the site every day at midnight, ready for you to take your morning brew and catch up on everything that <em>you</em> think is important.</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/10/build-static-rss-reader-fight-fomo/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

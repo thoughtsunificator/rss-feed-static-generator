@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Implement Attribute-Based Access Control For APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How to Implement Attribute-Based Access Control For APIs</h3>
+		<div><p>When discussing access control, one might encounter two common methodologies. The first, and arguably more widely understood, is the traditional approach of role-based access control (RBAC). A secondary option exists, however, in the form of attribute-based access control (ABAC), offering greater granularity and extensibility. But how exactly does ABAC work, and what is the difference between RBAC and ABAC?</p>
+<p>Below, we’ll dive into both RBAC and ABAC and start to form a solid idea of what they are. Then, we’ll provide a high-level understanding of how to implement ABAC to enhance API security.</p>
+<h2 id="what-is-role-based-access-control-rbac-">What is Role-Based Access Control (RBAC)?</h2>
+<p>When discussing attribute-based access control, it helps to first understand how <a href="https://nordicapis.com/why-identity-control-is-crucial-to-secure-api-access/" rel="noreferrer" target="_blank">role-based access control</a> works. For a system with multiple types of users, you can segment these users into the specific role they play within the organization and, accordingly, within the system itself. For instance, a user who performs administrative actions, such as a Systems Admin, has a higher level of needs than a Sales Representative. Accordingly, that user may need a level of access to the underlying system that is higher than other employees, as determined by the role.</p>
+<p>On the functional side, this translates to a limitation on functions and resources per the role accessing it. The aforementioned Systems Admin might have permission to access a function working on internal access control or might be able to access privileged information. That Sales Representative, conversely, may only be able to access elements such as trial authentication code generation or basic user functionality.</p>
+<p>While RBAC does an okay job of controlling access, it has some significant drawbacks.</p>
+<h3 id="drawbacks-of-rbac">Drawbacks of RBAC</h3>
+<p>First and foremost, the RBC model has one critical weakness — mapping roles to operations is not always clear. In our example of the Sales Representative, what if the organization decided that sales representatives should be able to create user accounts for demonstration purposes? Access control basics tell us that we wouldn’t want to just make them an administrator, but their current role does not fit their need. Our only solution in that case is to create a new role. A Sales Representative Elevated role can be created in no time flat. Easy, right?</p>
+<p>But what about the next situation? What if a vice president of marketing needs different access from that of a marketing manager? What about basic administration versus moderation of user-facing systems? If each new scenario means a new role, then we introduce a huge variability and a weakness known as <a href="https://docs.evolveum.com/iam/role-explosion/" rel="noreferrer" target="_blank">Role Explosion</a>. While proper role management can help mitigate many of these issues, this is an inherent problem of a role-based approach that can’t simply be managed away.</p>
+<p>Even if we solve for that problem, there is the reality that RBAC has issues with scaling. Even in a perfect organization where roles are well-defined and controlled, this is only temporarily true. Roles don’t last forever, and they don’t stay static. In such a case, roles may not explode, but they can morph, requiring that each change of role function or purpose is paired with a fundamental shift on the backend of the role as represented in code and by resource access. This means your business is coupled with the API in a single direction, introducing inefficiency and issues with scalability and extensibility.</p>
+<p>Additionally, RBAC adds cost and complexity to your security posture. When you define resource security by who needs to access it, you are taking a directional approach that couples the code to the organization. This requires someone to manage the issue, someone to constantly review the roles and their access, and someone to ensure that new onboarding comes with proper role allocation. Over time, this can add up quite significantly, and while such costs might be easy to deal with in a startup of 20 people, a massive organization of hundreds or thousands will quickly find that the logistics and management to ensure security through role-based models is quite expensive — sometimes prohibitively so.</p>
+<h2 id="what-is-attribute-based-access-control-abac-">What is Attribute-Based Access Control (ABAC)?</h2>
+<p>As an alternative to RBAC, there is attribute-based access control. As opposed to RBAC, which limits access based on the role of the person accessing the resource, ABAC specifically seeks control through the creation of attributes. These attributes are not limited just to the resource being accessed or the role of the person accessing it. In fact, these attributes can be attached to any element on the network regardless of origination, type, or structure.</p>
+<p>For instance, we can attach attributes in the following ways:</p>
+<ul>
+<li><strong>Users</strong>: Attributes such as type of user (employee, regular user, admin), their IP address, or whether they are internal to the network or not. These attributes can also arise from the user authentication itself, such as a designation of authentication strength or origination of the authentication. Note user attributes are essentially a conversion of role from being a final differentiator to simply a portion of what’s considered as an attribute.</li>
+<li><strong>Resource</strong>: Whether the resource is privileged, requires high credentials, is new, or is older than a certain date.</li>
+<li><strong>Requests</strong>: The data of the request, when the request was made, or how many requests of this kind of have been made.</li>
+<li><strong>Environment</strong>: The date, the relative load of the environment, the level of traffic, and so on.</li>
+</ul>
+<p>This is not an exhaustive list. In essence, attributes can be attached to almost anything in the network and then used as a restrictive element by which interactions are controlled.</p>
+<h3 id="how-abac-works">How ABAC Works</h3>
+<p>Let’s take a look at how ABAC works in principle and how it solves the aforementioned issue of role explosion. Imagine you have a Sales Representative trying to access customer order information. They have the following attributes, which are included in an access token:</p>
+<pre><code><span class="hljs-selector-tag">access_token</span> {
+    <span class="hljs-attribute">type</span>: sales_rep;
+    <span class="hljs-attribute">department</span>: sales;
+    <span class="hljs-attribute">user_id</span>: <span class="hljs-number">123</span>;
+    <span class="hljs-attribute">admin_level</span>: <span class="hljs-number">2</span>;
+    <span class="hljs-attribute">exp</span>: &lt;some timestamp&gt;;
+}
+</code></pre>
+<p>When the Sales Representative calls the system to retrieve order information, it evaluates whether they have the necessary privilege. If we’re using ABAC, we can define rules based on these particular attributes to accept or deny requests. For instance, perhaps only users with an <code>admin_level</code> of 3 or above are allowed to see order details. Additionally, a rule related to the <code>user_id</code> field could ensure the Sales Representative can only see orders related to customers they are assigned to.</p>
+<p>Attributes like this could also be assigned automatically to follow the behavior of the organization. For instance, let’s say a Sales Representative creates a new user. The system updates this new customer profile with a <code>created_by</code> field that matches that of the Sales Representative, thus tethering this customer to the specific Sales Representative’s account and preventing access from unauthorized users.</p>
+<pre><code><span class="hljs-selector-tag">user</span> {
+    <span class="hljs-attribute">user_id</span>: <span class="hljs-number">00918</span>;
+    <span class="hljs-attribute">created_by</span>: <span class="hljs-number">123</span>;
+    <span class="hljs-attribute">orderPlaced</span>: yes;
+}
+</code></pre>
+<p>Going a step further, we could prepend the Sales Representative’s user ID to each order number as follows:</p>
+<pre><code><span class="hljs-selector-tag">orderID</span> {
+    <span class="hljs-attribute">orderNumber</span>: $incrementOrder;
+    <span class="hljs-attribute">prepend</span>: created_by;
+}
+</code></pre>
+<p>This would generate an order number that looks like “123-00011” for an order placed by that user linked to a sales rep. From here, we can ensure that the sales rep can only access orders with this prepended value and cannot view orders tied to other sales reps.</p>
+<p>This eliminates the risk of one customer accessing another customer’s orders, which RBAC might not handle as well. It also provides a method to dynamically adjust particular permissions and avoid the possibility of role explosion.</p>
+<h2 id="designing-abac-for-apis">Designing ABAC for APIs</h2>
+<p>Now that we have an understanding of what ABAC looks like, let’s take a look at what design considerations should be accounted for when designing ABAC for APIs.</p>
+<h3 id="consider-design-attributes">Consider Design Attributes</h3>
+<p>Since all of our control is vested in the attributes themselves, rather than the user interacting with said attributes, API providers should put significant consideration into what specific attributes should be in play. Unlike roles, which are clearly set by organizational strictures and the reality of those interacting with the system, attributes are a bit more opaque. They are largely up to the provider to discover.</p>
+<p>A lot of what goes into this consideration will come down to the API in question and how it interacts with users. APIs that work with&nbsp;<a href="https://nordicapis.com/how-to-find-and-protect-sensitive-data-in-apis/" target="_blank" rel="noreferrer">secure data</a> may want to consider attributes in high granular detail, including controls on user attributes, environmental values, interaction considerations, and even time between request origination and transmittal to prevent man-in-the-middle or replay attacks.</p>
+<p>APIs looking for basic access control, especially those dealing with small amounts of data, should not consider ABAC an opportunity to make a highly detailed system just because the tooling exists. To a hammer, everything looks like a nail — providers should consider the minimum amount of attributes necessary to secure their services and work from that understanding to start setting up their security posture.</p>
+<h3 id="authorization-flows">Authorization Flows</h3>
+<p>An authorization flow should enable a client to retrieve an access token with attributes and send it to APIs. For instance, when a user sends a request, the client redirects the user to authenticate at an identity system, and a token is issued containing attributes. That token is then sent to APIs. The API then verifies tokens from the identity system, trusts them, and uses their attributes. This is depicted in the diagram below.</p>
+<div id="attachment_20637" class="wp-caption aligncenter"><p id="caption-attachment-20637" class="wp-caption-text">Authorization flow for attribute-based access control using tokens.</p></div>
+<p>Similarly, there should be a plan for access revoking through attribute updates and timeouts. Attributes are not permanent and, just like authorization flows, should be something that can be revoked or updated as needs and access levels change. Thus, it’s important to not just consider what the flow looks like right now with the given attributes at scale, but what they might look like, and how the provider can control those attributes to control such an environment.</p>
+<h3 id="token-based-architecture-to-enable-abac">Token-Based Architecture to Enable ABAC</h3>
+<p>Much of the consideration around this approach also comes down to <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/" rel="noreferrer" target="_blank">specific architectural styles</a>. How you deal with attributes on each object should be largely internally consistent, but certain architectural styles —especially those which provide opportunities for remixing or combination, <a href="https://nordicapis.com/7-tips-for-graphql-security/" rel="noreferrer" target="_blank">such as GraphQL</a> — should take into account potential issues of cross-site scripting, insertion, and so forth. This is especially true with any attribute that can update itself, such as our example where a customer has placed an order.</p>
+<p>Ultimately, attributes are going to be the core system that controls your ABAC approach, and as such, should be treated with the same secure posture and consideration that you would a key or a token – this includes ample encryption at rest and in transit, tracking attributes, having a sensible deprecation pattern, and so forth. Achieving such an architecture requires adopting an integrative solution that is flexible and powerful.</p>
+<p>Thankfully, solutions such as <a href="https://curity.io/resources/learn/oauth-overview/" rel="noreferrer" target="_blank">OAuth 2.0</a> are strong solutions for access control that allow for a high level of control and efficiency at scale, making the adoption of ABAC relatively easy to get started.</p>
+<h2 id="using-abac-for-api-authorization">Using ABAC for API Authorization</h2>
+<p><a href="https://curity.io/blog/strengthen-api-access-control-with-attribute-based-authorization/" rel="noreferrer" target="_blank">ABAC</a> is a more powerful approach than RBAC, offering significant benefits to extensibiltiy and scalability. Adopting ABAC does, however, require greater separation and more complex flows. For some APIs, this can be overly complex, introducing management concerns and, ironically, creating its own scaling issue through complex management and the need to track a larger system.</p>
+<p>With adequate planning, however, alongside a plan to track, update, revoke, and deprecate, ABAC can be used to make a very secure system indeed.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/how-to-implement-attribute-based-access-control-for-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

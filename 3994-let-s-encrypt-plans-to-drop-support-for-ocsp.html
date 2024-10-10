@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Let's Encrypt plans to drop support for OCSP</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Let's Encrypt plans to drop support for OCSP</h3>
+		<div><p>
+Let's Encrypt has
+<a href="https://letsencrypt.org/2024/07/23/replacing-ocsp-with-crls.html" rel="noreferrer" target="_blank">announced</a>
+that it intends to end support "<q>as soon as possible</q>" for the 
+<a href="https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol" rel="noreferrer" target="_blank">
+Online Certificate Status Protocol</a> (OCSP) over privacy concerns. OCSP was developed as a
+lighter-weight alternative to
+<a href="https://en.wikipedia.org/wiki/Certificate_revocation_list" rel="noreferrer" target="_blank">
+Certificate Revocation Lists</a> (CRLs) that did not involve downloading
+the entire CRL in order to check whether a certificate was valid. Let's Encrypt will continue
+supporting OCSP as long as it is a requirement for Microsoft's
+<a href="https://learn.microsoft.com/en-us/security/trusted-root/program-requirements" rel="noreferrer" target="_blank">
+Trusted Root Program</a>, but hopes to discontinue it soon:
+</p>
+
+<blockquote class="bq">
+We plan to end support for OCSP primarily because it represents a considerable risk to privacy on the Internet. When someone visits a website using a browser or other software that checks for certificate revocation via OCSP, the Certificate Authority (CA) operating the OCSP responder immediately becomes aware of which website is being visited from that visitor's particular IP address. Even when a CA intentionally does not retain this information, as is the case with Let's Encrypt, CAs could be legally compelled to collect it. CRLs do not have this issue.
+</blockquote>
+
+<p>
+People using Let's Encrypt as their CA should, for the most part, not need to change their setups.
+All modern browsers support CRLs, so end-users shouldn't notice an impact either.
+</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/982965/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

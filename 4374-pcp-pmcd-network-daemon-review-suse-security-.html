@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>pcp: pmcd network daemon review (SUSE Security Team Blog)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">pcp: pmcd network daemon review (SUSE Security Team Blog)</h3>
+		<div><p>The SUSE Security Team Blog has a <a href="https://security.opensuse.org/2024/09/18/pcp-network-audit.html" rel="noreferrer" target="_blank">detailed review</a> of the <a href="https://pcp.io/" rel="noreferrer" target="_blank">Performance Co-Pilot</a> (PCP) <a href="https://github.com/performancecopilot/pcp/releases/tag/6.2.1" rel="noreferrer" target="_blank">6.2.1 release</a>:</p>
+
+<blockquote class="bq">
+The rather complex PCP software suite was difficult to judge just from
+a cursory look, so we decided to take a closer look especially at
+PCP's networking logic at a later time. This report contains two CVEs
+and some non-CVE related findings we also gathered during the
+follow-up review.
+</blockquote>
+
+<p><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45769" rel="noreferrer" target="_blank">CVE-2024-45769</a>,
+a flaw that could allow an attacker to send crafted data to crash
+<a href="https://man7.org/linux/man-pages/man1/pmcd.1.html" rel="noreferrer" target="_blank">pcmd</a>, and <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45770" rel="noreferrer" target="_blank">CVE-2024-45770</a>,
+which could allow a full local root exploit from the pcp user to root,
+have been addressed in the <a href="https://github.com/performancecopilot/pcp/releases/tag/6.3.1" rel="noreferrer" target="_blank">6.3.1</a>
+release of PCP.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/991091/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

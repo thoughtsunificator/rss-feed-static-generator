@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Better identifying conda packages with ClearlyDefined</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Better identifying conda packages with ClearlyDefined</h3>
+		<div>
+<p><a href="https://docs.clearlydefined.io/" rel="noreferrer" target="_blank">ClearlyDefined</a>, an Open Source project that helps organizations with supply chain compliance,&nbsp; now provides a new <a href="https://github.com/clearlydefined/crawler/pull/532" rel="noreferrer" target="_blank">harvester</a> implementation for <a href="https://conda.org/" rel="noreferrer" target="_blank">conda</a>, a popular package manager with a large collection of pre-built packages for various domains, including data science, machine learning, scientific computing and more.</p>
+
+
+
+<p>Conda provides package, dependency and environment management for any language and is very popular with Python and R. It allows users to manage and control the dependencies and versions of packages specific to each project, ensuring reproducibility and avoiding conflicts between different software requirements.</p>
+
+
+
+<p>ClearlyDefined crawls both the main conda package and the source code for licensing metadata. The main conda package is hosted on the conda channels themselves and contains all necessary licensing information, compilers, environment configuration scripts and dependencies that are needed to make the package work. The source code from which the conda package is created oftentimes is hosted in an external website such as GitHub.</p>
+
+
+
+<p>The conda crawler uses the following <a href="https://conda.io/projects/conda/en/latest/user-guide/concepts/pkg-search.html#standard-specification" rel="noreferrer" target="_blank">coordinates</a>:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>type</strong> (required): conda or condasource</li>
+
+
+
+<li><strong>provider</strong> (required): channel on which the package will be crawled, such as conda-forge, anaconda-main or anaconda-r</li>
+
+
+
+<li><strong>namespace</strong> (optional): architecture and OS of the package to be crawled, i.e. win64, linux-aarch64 or any if no architecture is specified.</li>
+
+
+
+<li><strong>package name</strong> (required): name of the package</li>
+
+
+
+<li><strong>revision</strong> (optional): package version and optional build version</li>
+</ul>
+
+
+
+<p>For example, the popular numpy package is represented as shown below.</p>
+
+
+
+<figure class="wp-block-image size-full"></figure>
+
+
+
+<p>With the increased importance of data science, machine learning and scientific computing, this support for conda packages in ClearlyDefined is extremely important. It will allow organizations to better manage the licenses of their conda packages for compliance. This work was led by <a href="https://github.com/lamarrr" rel="noreferrer" target="_blank">Basit Ayantunde</a> from <a href="https://www.codethink.co.uk/" rel="noreferrer" target="_blank">Codethink</a> with the stewardship from <a href="https://github.com/qtomlinson" rel="noreferrer" target="_blank">Qing Tomlison</a> from <a href="https://www.sap.com/about/company/innovation/open-source.html" rel="noreferrer" target="_blank">SAP</a>. We would like to thank them and all those involved in the development and testing of this implementation.</p>
+
+
+
+<p>We are looking for feedback. Please test this feature on&nbsp;<a href="https://dev.clearlydefined.io/" rel="noreferrer" target="_blank">dev.clearlydefined.io</a>&nbsp;or&nbsp;<a href="https://dev-api.clearlydefined.io/" rel="noreferrer" target="_blank">dev-api.clearlydefined.io</a>&nbsp;and file any issues&nbsp;<a href="https://github.com/clearlydefined/crawler/issues/535" rel="noreferrer" target="_blank">here</a>.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/better-identifying-conda-packages-with-clearlydefined">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

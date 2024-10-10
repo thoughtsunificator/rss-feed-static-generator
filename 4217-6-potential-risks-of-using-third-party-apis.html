@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>6 Potential Risks of Using Third-Party APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">6 Potential Risks of Using Third-Party APIs</h3>
+		<div><p>Imagine you’re driving on a long road and come to a tunnel that will cut your journey time by a couple of hours. You pull up to the barrier and say, “Hey, can I get through here?”</p>
+<p>“Sure!” The attendant replies. “We’ll just load up your car on the back of that truck, I’ll drive it through, and I’ll meet you on the other side.” Would you hand your keys over without checking the attendant’s license, the condition of the truck, or whether they have insurance?</p>
+<p>The metaphor isn’t subtle, but it’s essentially what many developers do when they sign up for and start using <a href="https://nordicapis.com/7-practices-to-secure-third-party-api-usage/" rel="noreferrer" target="_blank">third-party APIs</a> without vetting them first.</p>
+<p>According to Gartner’s 2024 API Strategy Survey, 82% of respondents use APIs within their organization, and a massive 71% are using APIs provided by third parties (SaaS vendors). Without the right measures in place to ensure safe implementation, that could be a problem.</p>
+<p>Below, we’ll look at some of the motivating factors behind the growth in third-party APIs, how careless consumption of them can result in problems, and a few ways to mitigate those risks.</p>
+<h2 id="1-blindly-trusting-data-from-services">1. Blindly Trusting Data From Services</h2>
+<p>Almost three out of every four organizations now rely on third-party APIs to one degree or another. As companies rush to <a href="https://nordicapis.com/6-ways-ai-can-enhance-api-testing/" rel="noreferrer" target="_blank">integrate generative AI into products</a>, which is facilitated by products like OpenAI’s APIs, we should expect to see that 71% figure quoted above rise even higher.</p>
+<p>The problem is that, as certain APIs become the de facto status quo, we may be inclined to trust the data they return without question. That problem isn’t limited to APIs associated with genAI, which has a reputation of its own for <a href="https://nordicapis.com/how-ai-generated-code-could-kill-your-api/" rel="noreferrer" target="_blank">producing questionable content</a>, but extends to those that have formerly been considered ‘gold standard.’</p>
+<p>Take, for example, a wave of <a href="https://www.nytimes.com/2024/07/10/opinion/google-maps-driving-apps-flaws.html" rel="noreferrer" target="_blank">recent complaints</a> that <a href="https://support.google.com/maps/thread/275558160/route-selection-has-been-getting-worse-lately?hl=en" rel="noreferrer" target="_blank">Google Maps</a> is <a href="https://news.ycombinator.com/item?id=37563069" rel="noreferrer" target="_blank">getting worse</a>. Their APIs have been used by Domino’s, Uber, and millions of other organizations. Even as some voice concerns about route selection and data freshness, companies continue to flock to it. No matter how high profile its provider may be, we should never assume an API is infallible.</p>
+<h2 id="2-hallucinations-and-llm-risks-for-third-party-genai-apis-">2. Hallucinations and LLM Risks (For Third-Party GenAI APIs)</h2>
+<p>In a recent post on <a href="https://nordicapis.com/tips-for-boosting-product-features-with-generative-ai/" rel="noreferrer" target="_blank">boosting product features with generative AI</a>, we mentioned how Air Canada is being forced to match a discount promised by a chatbot. Canadian courts determined that the chatbot could not be held responsible as a separate legal entity, which is significant if you intend to white-label API-driven genAI offerings within your own products.</p>
+<p>In fact, OWASP lists overreliance on LLMs in its <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" rel="noreferrer" target="_blank">Top 10 For LLM Applications</a>. According to OWASP, “systems or people overly depending on LLMs without oversight may face misinformation, miscommunication, legal issues, and security vulnerabilities due to incorrect or inappropriate content generated by LLMs.”</p>
+<p>While that doesn’t mean you should disregard the value that <a href="https://nordicapis.com/how-to-design-robust-generative-ai-apis/" rel="noreferrer" target="_blank">genAI APIs</a> can add entirely, it should be an important consideration throughout the implementation and evaluation process.</p>
+<h2 id="3-improper-input-validation-on-incoming-data">3. Improper Input Validation on Incoming Data</h2>
+<p>Talking about the unsafe consumption of APIs, OWASP <a href="https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/" rel="noreferrer" target="_blank">posits that</a> some developers may be too trusting of data received from third-party APIs. They may even, especially in the case of well-established APIs, adopt weaker security standards as a result.</p>
+<p>Syntactic and semantic input validation can reduce the impact of SQL injection and other attacks. Doing so could involve verifying the syntax of structured fields or the contextual correctness of values. Regardless, <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/" rel="noreferrer" target="_blank">input validation</a> should be considered when dealing with data from third-party APIs.</p>
+<p>We recently wrote about trying to <a href="https://nordicapis.com/why-you-should-hack-your-own-apis/" rel="noreferrer" target="_blank">hack your own APIs</a>. Considering external APIs and data sources that your product interacts with should definitely be a part of this <a href="https://nordicapis.com/using-hacking-apis-gpt-for-api-security-testing/" rel="noreferrer" target="_blank">API security testing process</a>. It’s also worth looking at other measures API providers take to defend their services.</p>
+<div class="well">Related: <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/" rel="noreferrer" target="_blank">How to Implement Input Validation for APIs</a></div>
+<h2 id="4-outages-denial-of-service-attacks">4. Outages, Denial of Service Attacks</h2>
+<p>Many API providers feature status pages detailing uptime, past incidents, and other relevant information. <a href="https://status.openai.com/" rel="noreferrer" target="_blank">OpenAI’s API uptime</a>, for example, stands at 99.86% at the time of writing. Looking at the time taken to resolve issues, along with the overall uptime of a service, will give you some insight into how responsive companies are to issues relating to outages.</p>
+<p>DDoS attacks represent a significant threat to third-party APIs, and rate limiting is a good way to prevent that. In our recent guide to <a href="https://nordicapis.com/3-steps-to-rate-limiting-success/" rel="noreferrer" target="_blank">rate limiting success</a>, we talked about how valuable this method can be for mitigating the impact of data breaches. Does the service you’re considering use it?</p>
+<p>In an ideal world, API providers will feel comfortable enough with their uptime and rate limiting stats to share them with end users. If they’re hesitant to do so, it’s worth asking yourself why.</p>
+<h2 id="5-versioning-or-breaking-changes-on-client-side">5. Versioning or Breaking Changes on Client-Side</h2>
+<p>Releasing new versions of an API is, generally speaking, a good thing. <a href="https://nordicapis.com/everything-you-need-to-know-about-api-versioning/" rel="noreferrer" target="_blank">API versioning</a> implies a desire to fix ongoing issues or add new endpoints/parameters to responses. The downside, however, is that excessive versioning can result in <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/" rel="noreferrer" target="_blank">breaking changes</a>. These can leave you as the API consumer struggling to implement a hotfix until documentation is updated to reflect the necessary changes you need to make within your applications.</p>
+<p>Sometimes, developers will continue to host documentation that concerns deprecated versions of their API(s), along with supplementary information about major changes they’ve made to the service. Looking at this holistically can help parse how often the company changes its API(s), whether they’ve had significant issues in the past, and more.</p>
+<h2 id="6-improper-inventory-management-and-shadow-apis">6. Improper Inventory Management and Shadow APIs</h2>
+<p>As outlined in OWASP’s API Security Top 10, <a href="https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management/" rel="noreferrer" target="_blank">Improper Inventory Management</a> poses a significant risk to APIs when, say, <a href="https://nordicapis.com/dont-let-them-lurk-in-the-shadows-tools-to-discover-shadow-apis/" rel="noreferrer" target="_blank">old API versions</a> or <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/" rel="noreferrer" target="_blank">zombie endpoints</a> are left running unpatched or using weaker security requirements.</p>
+<p>In the case of <a href="https://nordicapis.com/proactive-tips-to-avoid-shadow-apis/" rel="noreferrer" target="_blank">shadow APIs</a>, organizations may not be managing or securing an API at all. Trying to spot documentation (and data flow) blindspots is always a sensible move before you commit to using an API. OWASP suggests looking for things like the following:</p>
+<ul>
+<li>Clarity around the purpose of an API host and who has network access to the API</li>
+<li>Which API version is running, and retirement plans for API versions</li>
+<li>Visibility of flows and whether/how much sensitive data is being shared</li>
+</ul>
+<p>Look at whether or not the API’s documentation is up-to-date, thorough, and completely transparent. Also, does it conform to an existing standard like the OpenAPI Specification?</p>
+<div class="well">Also read: <a href="https://nordicapis.com/the-undercurrents-of-third-party-api-consumption-management/" rel="noreferrer" target="_blank">The Undercurrents of Third-Party API Consumption Management</a></div>
+<h2 id="final-thoughts-on-using-third-party-apis">Final Thoughts on Using Third-Party APIs</h2>
+<p>Unfortunately, building on someone else’s land always carries some degree of risk. As we’ve seen above, relying on third-party APIs that aren’t properly secured or are unreliable in some way could be a recipe for disaster. Or, perhaps more likely, it might just lead to mild frustration.</p>
+<p>As the <a href="https://nordicapis.com/a-guide-to-api-first-design/" rel="noreferrer" target="_blank">API-first design</a> movement gathers steam, not to mention the mounting pressure to integrate genAI capabilities using AI and LLM APIs, we expect to see even wider consumption of APIs in 2024 and beyond than we’re already seeing right now.</p>
+<p>The performance of third-party APIs — uptime, versioning, how they’re secured — has always been important. Still, the extent to which many organizations now rely on them underscores the importance of ensuring their quality before you engage with them. If you weren’t as thorough as you could have been, it’s not too late to audit existing integrations.</p>
+<p>As an API developer, you already know what the hallmarks of quality look like when it comes to APIs. If a third-party API demonstrates flaws that you wouldn’t be happy with in one of your own APIs, it’s probably best avoided. Or, to return to that earlier metaphor, look for another tunnel…</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/6-potential-risks-of-using-third-party-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

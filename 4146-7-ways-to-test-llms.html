@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>7 Ways to Test LLMs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">7 Ways to Test LLMs</h3>
+		<div><p>Large language models (LLMs) have become relatively ubiquitous in a very short time. These <a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">AI tools</a> have offered a novel solution to everything from simple tasks to complex data analysis, unlocking incredible value for many organizations.</p>
+<p>While LLMs have <a href="https://nordicapis.com/10-ai-powered-api-security-tools/" rel="noreferrer" target="_blank">obvious value</a>, they have shortcomings, especially given their tendency to hallucinate. It’s easy for a business to judge whether a tool like Slack makes sense for their organization. For something like an LLM, however, this is harder to judge. This is where LLM testing comes in.</p>
+<p>Because LLMs are relatively new in their current form, there are many competing standards for measuring their efficacy. Below, we’ll look at seven methods and standards for testing LLMs. While this is not an exhaustive list and is subject to change as the industry evolves, it does act as a good primer for organizations just stepping into this question.</p>
+<h2 id="1-bertscore">1. BERTScore</h2>
+<p><a href="https://arxiv.org/abs/1904.09675" rel="noreferrer" target="_blank">BERTScore</a>, based around the <a href="https://arxiv.org/abs/1810.04805v2" rel="noreferrer" target="_blank">Bidirectional Encoder Representations from Transformers language model</a> introduced by LLM researchers at Google in October 2018, is a metric used to measure the output of LLM models in relation to a reference sentence.</p>
+<p>By providing reference sentence tokens and comparing them to the tokens in the candidate sentence, the output of a model can be scored and provided to estimate the relative similarity between the two. The BERTScore is specifically the cosine similarity between these two elements. Still, additional values <a href="https://github.com/Tiiiger/bert_score#readme" rel="noreferrer" target="_blank">such as precision and recall</a> are provided when generating the top-level similarity score.</p>
+<p>BERTScore remains in use but does have some limitations that have necessitated the creation of other methodologies. Chief amongst these is that BERTScore <a href="https://github.com/google-research/bert/blob/master/multilingual.md#list-of-languages" rel="noreferrer" target="_blank">only supports a specific subset of languages</a>. While this might be good enough for popular languages, it limits its use as a testing model for all use cases. Additionally, the model is quite large and is often seen as a brute-force method that compares references to generated content without much concern about meta-contextual transformation or novel interpretation.</p>
+<p>This weakness has inspired other developments in this category — notably, <a href="https://github.com/google-research/bleurt" rel="noreferrer" target="_blank">BLEURT</a>, which utilizes regression training to provide a measure representing both the original BERTScore metrics and the contextuality and understandability of the resultant content.</p>
+<h2 id="2-rouge">2. ROUGE</h2>
+<p>ROUGE, or Recall-Oriented Understudy for Gisting Evaluation, is a <a href="https://aclanthology.org/W04-1013/" rel="noreferrer" target="_blank">metric that was first proposed in 2004</a> as a methodology for comparing an original text to generated text, forming a summary or translation. Notably, ROUGE is not a standalone metric and instead has several sub-metrics:</p>
+<ul>
+<li><strong>ROUGE-N</strong>: This metric measures the <a href="https://en.wikipedia.org/wiki/N-gram" rel="noreferrer" target="_blank">n-grams</a> matching between the reference text and the generated text. This roughly estimates the overall similarity of the text by measuring how many words, and in what order, match between the two sources.</li>
+<li><strong>ROUGE-1 and ROUGE-2</strong>: These metrics consider the matches at the level of unigrams and bigrams, adding granularity to the n-gram matching sequences computed in ROUGE-N.</li>
+<li><strong>ROUGE-L</strong>: This metric is based on the <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence" rel="noreferrer" target="_blank">longest common subsequence, or LCS</a>, when comparing the output candidate and the reference model. This specifically calls out exact copies of text between the two elements, scoring the overall metric and preventing ‘copying’ from being seen as high-equivalence between the output and reference.</li>
+<li><strong>ROUGE-S</strong>: This metric is a skip-gram test, allowing the detection of n-grams that would match but are nonetheless separated by additional context or words. This allows for the detection of matches that occur with additional separation. For instance, ‘AI testing methods’ would be detected in this model even if the generated text said ‘AI and LLM testing methods,’ allowing for more fuzzy logic within the overall metric.</li>
+</ul>
+<p>The main drawback of ROUGE is that it’s based on syntax detection rather than semantic detection. By only looking for repetitive frequency, you can score the output on visual similarity but not on similarity in meaning. This metric has been rightly criticized as being one of uniformity of recall rather than the quality of the output. That being said, this very focus has made it useful in <a href="https://cacm.acm.org/research/the-science-of-detecting-llm-generated-text/" rel="noreferrer" target="_blank">detecting text originating from LLMs</a> or direct copying.</p>
+<h2 id="3-bleu">3. BLEU</h2>
+<p>BLEU, or Bilingual Evaluation Understudy, is an older metric first published by <a href="https://aclanthology.org/P02-1040.pdf" rel="noreferrer" target="_blank">researchers from IBM in 2002</a>. Originally, BLEU was specifically concerned with machine translation, comparing the similarity of n-grams between a high-quality reference model and a specific segment from an output text. Scoring the relationship between 0 and 1, with 1 being perfect, BLEU was essentially comparing the quality of the translation to a “known-perfect” reference model.</p>
+<p>The metric focuses on machine translation, but it has one major inherent problem. It assumes a single valid translation or set of translations and scores based on correlation to that reference. While this, in theory, is acceptable with small samples, such as comparing ‘konnichiwa’ to ‘hello,’ it misses other acceptable translations, such as ‘good afternoon.’ This, in addition to BLEU’s widespread usage in natural language processing, or NLP, has seen a trend towards scoring based upon accepted output without really justifying why there’s only a small set of accepted output in the first place.</p>
+<p>BLEU is also very specific in terms of how the initial score is generated, largely using tokens. While this is similar to other models, BLEU numbers are often correlated without the context of their token values. This means that BLEU numbers, even with a shared corpus, can be wildly different, mitigating much of its use outside of a narrow range of circumstances.</p>
+<h2 id="4-mmlu-and-mmlu-pro">4. MMLU and MMLU Pro</h2>
+<p>The MMLU, or Massive Multi-task Language Understanding test, allows LLMs to be tested against certain tasks with domains of expertise. It was first proposed in September 2020 by a paper by <a href="https://arxiv.org/abs/2009.03300" rel="noreferrer" target="_blank">a group of LLM and AI researchers</a> as a novel test to measure accuracy across a wide set of domains. The test relies on a set of question-and-answer pairs that represent advanced knowledge within 57 topics, reaching across mathematics, law, world history, and more. The test makers do not publish the correct answers to these questions to prevent poisoning of the results, making this an opaque — albeit useful — test.</p>
+<p>When an LLM is challenged with the MMLU test, its response is measured using various criteria, including <a href="https://klu.ai/glossary/mmlu-eval" rel="noreferrer" target="_blank">coherence, relevance, detail, and clarity</a>. This result is then converted into a numerical score, which represents the overall accuracy of the response compared to the expected answers.</p>
+<p>The MMLU test has faced some criticism due to issues with the question-answer pairs, both in terms of their accuracy and potential bias and poorly phrased or semantically structured questions. To resolve these issues, a new test called MMLU Pro was developed by <a href="https://arxiv.org/abs/2406.01574" rel="noreferrer" target="_blank">a group of researchers</a> in June 2024. This test sought to reduce both the variability in test responses due to prompt variation and increase the overall difficulty by correcting inaccuracies and semantic issues with the initial data set. Although MMLU Pro still has criticisms targeted at accuracy and bias, it has begun seeing use in place of or in addition to the original MMLU test.</p>
+<h2 id="5-glue">5. GLUE</h2>
+<p>GLUE, the General Language Understanding Evaluation, is a metric benchmark that is <a href="https://arxiv.org/abs/1804.07461" rel="noreferrer" target="_blank">purposefully general and decoupled from specific tasks</a>. Unlike BLEU or ROUGE, it is meant to be a holistic and general-purpose metric across nine domains of NLP tasks, including sentiment, question answers, sentence similarity (akin to ROUGE), and more.</p>
+<p>The express design and form purpose behind GLUE is split into <a href="https://gluebenchmark.com/" rel="noreferrer" target="_blank">three core tenets</a>:</p>
+<ul>
+<li>A benchmark of nine sentence or sentence-pair language understanding tasks built on established existing datasets and selected to cover a diverse range of dataset sizes, text genres, and degrees of difficulty.</li>
+<li>A diagnostic dataset designed to evaluate and analyze model performance with respect to a wide range of linguistic phenomena found in natural language.</li>
+<li>A public leaderboard for tracking performance on the benchmark and a dashboard for visualizing the performance of models on the diagnostic set.</li>
+</ul>
+<p>Because GLUE is entirely model and platform-agnostic, it can compare LLMs across different formats, structures, and approaches. This removes the limitations of previous metrics, which were designed specifically for sub-tasks such as language translation, even if they were ultimately used for something more broadly applicable.</p>
+<p>The biggest criticism of GLUE is that it was ultimately a “one size fits all” approach to metric testing, providing a single number that gave some sort of statement as to quality and performance. To rectify this, an additional metric, <a href="https://super.gluebenchmark.com/" rel="noreferrer" target="_blank">SuperGLUE</a>, has been introduced, representing a “<a href="https://w4ngatang.github.io/static/papers/superglue.pdf" rel="noreferrer" target="_blank">new set of more difficult language understanding tasks, a software toolkit, and a public leaderboard</a>.”</p>
+<h2 id="6-g-eval">6. G-Eval</h2>
+<p><a href="https://arxiv.org/abs/2303.16634" rel="noreferrer" target="_blank">G-Eval</a> is very much a response to the issues inherent in previous testing metrics, and as such, it takes a different tack on testing altogether. In essence, G-Eval focuses on the context of the generated content rather than just the semantic similarity to a reference set. By using chain-of-thoughts (CoT), a <a href="https://deepgram.com/learn/chain-of-thought-prompting-guide" rel="noreferrer" target="_blank">mechanism by which the LLM holds on to a reasoning chain and utilizes it as part of an ongoing prompt dialogue</a>, the internal logic of the LLM is made as important as the resultant text.</p>
+<p>This seems like a small shift, but it’s pretty huge in practice. Many hallucinations and other <a href="https://nordicapis.com/llm-security-hinges-on-api-security/" rel="noreferrer" target="_blank">issues in LLM systems</a> are not in the initial prompt or the first line of output but instead in the follow-up generation. Simply testing by syntax tests how accurate the output is to a reference model, but it doesn’t test the logic that was used to get to that point. For simple output, this is fine, but for complex systems, and within the backdrop of LLMs, which are becoming more complex and detailed in their processing steps, a measure of this logical consistency and accuracy is important.</p>
+<p>While this has resulted in more substantive movement in LLM evaluation and accuracy metrics, it is still, in many ways, bound by the issues inherent in benchmarking. Notably, G-Eval still depends on the <a href="https://arxiv.org/abs/1908.08960" rel="noreferrer" target="_blank">datasets that were used to train its LLM evaluation</a>, which can introduce bias and account for accuracy to the dataset rather than alignment with the human judgment of the output. This can certainly be worked around with higher datasets, but G-Eval’s use of <a href="https://aclanthology.org/2023.emnlp-main.153.pdf" rel="noreferrer" target="_blank">GPT-4</a> means that it has a single source of truth that is relatively opaque in terms of the source of training content.</p>
+<h2 id="8-helm">8. HELM</h2>
+<p>HELM, or the <a href="https://arxiv.org/abs/2211.09110" rel="noreferrer" target="_blank">Holistic Evaluation of Language Models</a>, is a unique metric. First published in October 2022, it focuses more on a comprehensive approach than on any particular attribute. Its model stretches across seven metrics, as noted in the original paper: “We measure 7 metrics (accuracy, calibration, robustness, fairness, bias, toxicity, and efficiency) for each of 16 core scenarios when possible (87.5% of the time).”</p>
+<p>Notably, this means that HELM is more concerned with the generation intention, rather than how close a response is to the reference sentence or prompt. Put another way, HELM tests for quality, especially around the logical consistency of an answer, the disinformation contextually linked to it, and the overall matching of the output to a perceived intent for generation.</p>
+<p>It’s important to note that HELM still largely relies on several datasets for this work, such as LegalBench, MedQA, OpenbookQA, and even MMLU. For this reason, while the internal logic and algorithm are unique, they are still somewhat dependent on potentially biased or flawed content.</p>
+<h2 id="honorable-mentions">Honorable Mentions</h2>
+<p>As mentioned at the start of this piece, this is by no means an exhaustive dive into every single metric in current use. Accordingly, here are some honorable mentions for LLM metrics in wide use today:</p>
+<ul>
+<li><strong>SelfCheckGPT</strong>: A sampling-based methodology to assess the accuracy of an LLM by measuring <a href="https://arxiv.org/abs/2303.08896" rel="noreferrer" target="_blank">internal consistency with a topic over multiple prompts</a>.</li>
+<li><strong>LLM-Eval</strong>: An “open domain” testing methodology focused on <a href="https://arxiv.org/abs/2305.13711" rel="noreferrer" target="_blank">consistent rating across scenarios and domains of knowledge</a>.</li>
+<li><strong>METEOR</strong>: METEOR, or Metric for Evaluation of Translation with Explicit Ordering, is an LLM evaluation metric used principally to grade machine translation by comparing it with human translations using <a href="https://aclanthology.org/W05-0909.pdf" rel="noreferrer" target="_blank">n-grams and weighted averages of internal measures</a>.</li>
+<li><strong>AlpacaEval</strong>: An evaluation framework that measures the <a href="https://github.com/tatsu-lab/alpaca_eval" rel="noreferrer" target="_blank">closeness by which an LLM follows the user instructions</a>, especially in complex, multi-prompt scenarios.</li>
+</ul>
+<h2 id="final-thoughts-on-llm-testing">Final Thoughts on LLM Testing</h2>
+<p>The world of LLMs is, in many ways, a new frontier that has yet to be fully realized. Unsurprisingly, the methods by which success is measured in this new environment are not yet set in stone. As quickly as AI and LLMs are evolving, these benchmarks are sure to evolve as well.</p>
+<p>That said, this list provides an overview of what metrics are commonly used and, at the very least, an idea of how the thinking around LLM measurement has progressed in recent years.</p>
+<p>Are there any metrics you would have liked to see on this list? Feel free to leave us a comment and let us know what we should check out!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/7-ways-to-test-llms/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
