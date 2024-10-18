@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Divvi Up: privacy-respecting telemetry aggregation</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Divvi Up: privacy-respecting telemetry aggregation</h3>
+		<div><p>
+There is ongoing discussion about the ethics and effectiveness of
+telemetry following some recent LWN articles that touched on
+<a href="https://lwn.net/Articles/982610/" rel="noreferrer" target="_blank">
+Thunderbird's use of opt-out
+telemetry</a> and <a href="https://lwn.net/Articles/980598/" rel="noreferrer" target="_blank">planned metrics in Fedora</a>. The
+<a href="https://www.abetterinternet.org/" rel="noreferrer" target="_blank">
+Internet Security Research Group</a> (ISRG), the nonprofit behind
+<a href="https://letsencrypt.org/" rel="noreferrer" target="_blank">
+Let's Encrypt</a>, has a potential solution to the problem of how to collect and
+aggregate telemetry without violating users' privacy. The scheme is based on a
+<a href="https://datatracker.ietf.org/doc/draft-ietf-ppm-dap/" rel="noreferrer" target="_blank">draft
+protocol</a> being standardized with the Internet Engineering Task Force (IETF),
+and has an
+<a href="https://github.com/divviup/libprio-rs" rel="noreferrer" target="_blank">open-source implementation</a>
+available.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/983843/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

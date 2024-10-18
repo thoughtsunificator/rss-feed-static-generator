@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Interview With Dan Barahona From APISec University</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Interview With Dan Barahona From APISec University</h3>
+		<div><p>Authentication and authorization make up the foundation for modern APIs. However, they’re deceptively complex to implement in practice. Solving this problem is becoming a growing concern for any digital enterprise in 2024, with the rise of API attacks and breaches costing organizations a fortune in fees and a loss of reputation.</p>
+<div id="attachment_17613" class="wp-caption alignright"><p id="caption-attachment-17613" class="wp-caption-text">Dan Barahona, Head of Growth, APISec University, will speak at <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a>.</p></div>
+<p>Ahead of <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a>, we’re syncing with select speakers to learn more about their upcoming sessions and their role in the API community. One such person who needs little introduction is <a href="https://nordicapis.com/speakers/dan-barahona/" rel="noreferrer" target="_blank">Dan Barahona</a>, who, along with cohort <a href="https://www.linkedin.com/in/coreyjball" rel="noreferrer" target="_blank">Corey Ball</a>, has pioneered the <a href="https://www.apisecuniversity.com/" rel="noreferrer" target="_blank">APISec University</a>, <a href="https://conf.apisecuniversity.com/" rel="noreferrer" target="_blank">APISec|Con</a>, and other events. He’s also Head of Growth at <a href="https://www.apisec.ai/" rel="noreferrer" target="_blank">APIsec</a>, an API security testing company.</p>
+<p>It turns out that what Gartner warned us about the <a href="https://salt.security/blog/api-security-hits-gartner-radar-for-predicts-2022" rel="noreferrer" target="_blank">rise of API attacks</a> years ago has come to fruition… I checked in with Dan to get his insights on some of the most common vulnerabilities out there and how to respond. Be sure to check out his great responses below, and attend the <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit</a> for more specific insights!</p>
+<p><strong>Hey Dan! Tell us a bit about your background in API security and what goes on with <a href="https://www.apisecuniversity.com/" rel="noreferrer" target="_blank">APISec University</a>.</strong></p>
+<p>I’m an engineer wannabe at heart. I started my career as a crash engineer at General Motors but shifted to cybersecurity after 9/11. I have spent the last 20+ years in this space. I got started in API security back in 2020 when I joined APIsec, a startup focused on automated API security testing. In 2022, I hooked up with Corey Ball, author of <a href="https://nostarch.com/hacking-apis" rel="noreferrer" target="_blank">Hacking APIs</a>, and we had a crazy idea to start making online courses to teach about API security. We hit a nerve and now have almost 100,000 students enrolled in our free classes. It’s been a ton of fun, and we’ve added a lot to the site, including many more courses, API security workshops, webinars, conferences, and more.</p>
+<p><strong>Why do you think APIs are increasingly targeted for cyberattacks in 2024? What breaches particularly sound the alarm?</strong></p>
+<p><a href="https://cybersecurity.att.com/blogs/security-essentials/gartner-predicted-apis-would-be-the-1-attack-vector-two-years-later-is-it-true" rel="noreferrer" target="_blank">Gartner’s prediction</a> that API attacks would become the “most frequent attack vector” has turned out to be true. The reason is that organizations have frequently ignored or undersecured their APIs. There are many reasons for this, but it’s primarily due to:</p>
+<ol>
+<li>Lack of awareness of the threats to APIs.</li>
+<li>The need to secure APIs <em>during</em> the development process.</li>
+<li>Lack of solid tooling to detect API vulnerabilities.</li>
+</ol>
+<p>In 2024, we’ve seen a number of high-profile API incidents. An attacker found an open API at Trello that allowed them to extract profile data simply by providing an email address. After submitting 500 million email addresses to the API, they harvested 15 million accounts, which they promptly put up for sale on the Dark Web. More recently, the US Federal Communications Commission <a href="https://docs.fcc.gov/public/attachments/DA-24-481A1.pdf" rel="noreferrer" target="_blank">concluded an investigation of TracFone</a> (owned by Verizon), where they discovered subscriber data had been exposed in a vulnerable API. The FCC handed down a $16 million fine and mandated stringent API security requirements.</p>
+<p><strong>Are any new trends emerging regarding vulnerabilities or flaws that are being exploited the most?</strong></p>
+<p>First and foremost, APIs are not getting breached in “classic” web application vulnerability techniques. It’s now unheard of to see breaches from common vulnerabilities such as SQL injection, cross-site scripting, or buffer overflow, for instance. We’ve long had vulnerability scanners to find these flaws, which can easily be fixed in code or runtime protections. What attackers are looking for in APIs are <em>uncommon</em> vulnerabilities, such as vulnerabilities that are unique to your API. These often include logic flaws, authorization gaps, and other more difficult-to-detect vulnerabilities.</p>
+<p>We analyzed over 100 API breaches and categorized the top attack vectors. The top three attack types present in 90% of the breaches we studied map perfectly to the <a href="https://owasp.org/www-project-api-security/" rel="noreferrer" target="_blank">OWASP API Security Top 10</a>. These are:</p>
+<ul>
+<li>API1:2023 – Broken Object Level Authorization: can User A access User B’s data?</li>
+<li>API2:2023 – Broken Authentication: are APIs left open with the door unlocked?</li>
+<li>API3:2023 – Broken Object Property Level Authorization (formerly “Excess Data Exposure”): are APIs revealing sensitive data?</li>
+</ul>
+<p><strong>How should the development lifecycle respond to these API threats?</strong></p>
+<p>The challenge with logic vulnerabilities is attacks on these are almost impossible to detect in real time. The attacks look like normal traffic to our firewalls and detection systems. So it’s even more important to identify and fix these issues <em>before</em> production, in the development lifecycle. There are two key approaches — the first is education. We need the engineers developing our APIs to understand how they’re being attacked so they can create more resilient code. APIsec University offers free, high-quality courses to help Dev and Ops teams understand how to keep APIs secure. Second is testing. We need to significantly improve API security testing to uncover logic flaws, authorization gaps, data leaks, and other flaws before they reach production. This testing must be automated, continuous, and shift-left.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/using-hacking-apis-gpt-for-api-security-testing/" rel="noreferrer" target="_blank">Using Hacking APIs GPT For API Security Testing</a></div>
+<p><strong>How do you define shift-left security testing? What are some guidelines for integrating a shift-left mindset and process around API security?</strong></p>
+<p>Shift-left testing recognizes the importance of finding flaws as early as possible in the application lifecycle. In the case of APIs, the vast majority of vulnerabilities can only be fixed in the application code itself, not in a monitoring rule. So it’s critical to test APIs pre-production and simulate the types of exploits attackers use to breach APIs. These simulations must cover a wide range of attack types and be tailored to each unique API endpoint. We cannot rely on manual testing to achieve this as it requires too much expertise and time, and we cannot keep up with the pace of Engineering releases. Fortunately, new API security testing tooling exists that can achieve this level of automation, coverage, and continuous assessment.</p>
+<p><strong>In Austin earlier this year, you discussed ‘<a href="https://youtu.be/6nAGANaElJs" rel="noreferrer" target="_blank">Why You Should Hack Your Own APIs</a>.’ What are the benefits of being a white hat hacker with your own APIs?</strong></p>
+<p>We’re big believers in <a href="https://nordicapis.com/why-you-should-hack-your-own-apis/" rel="noreferrer" target="_blank">hacking your own APIs</a> here at APIsec University. The first course we launched was <a href="https://www.apisecuniversity.com/courses/api-penetration-testing" rel="noreferrer" target="_blank">API Penetration Testing</a>, where Corey Ball teaches students exactly how to hack their APIs to find vulnerabilities. This is a crucial exercise for all application security teams, as we cannot assume all attacks will get blocked by the firewall. Attackers are clever and determined to find ways around the defenses. This is why it’s so important to have a hacker mentality and pressure test your APIs (ahead of production) to ensure there are no logic flaws or data leaks.</p>
+<p><strong>At Platform Summit 2024, you’ll be speaking about ‘<a href="https://nordicapis.com/sessions/protecting-your-code-api-security-from-development-to-deployment/" rel="noreferrer" target="_blank">Protecting Your Code: API Security from Development to Deployment</a>,’ without giving away too much else; what can attendees expect to take away from your talk?</strong></p>
+<p>In this talk, I will explore specific attack vectors criminals use to exploit gaps in our API defenses. Based on our analysis, there are certain common patterns to attacks, and if we can identify those, we can fix them. Many are fairly easy to address. We’ll also get specific and tactical about not only WHY organizations should shift testing left but also HOW they can get there. With AI advances, API testing has become much smarter and more comprehensive.</p>
+<p><strong>Why are you excited about the Platform Summit this year? More to the point, why do you like Nordic APIs events enough to speak at two in one year?!</strong></p>
+<p>I always learn so much from the Nordic APIs conferences — it’s now a must-attend event for me. I love this conference because the sessions are so incredibly interesting, educational, and free of vendor pitches. I’m always amazed by the authentication and authorization sessions. It seems like such a basic topic, and yet so very complex. These sessions always have packed audiences, as we all need to start with strong authentication for our applications and APIs. Naturally, I’m interested in AI-related sessions, both as a source of risk and a tool for defense. And I can’t wait to visit my favorite Swedish meatball spot in Stockholm!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/interview-with-dan-barahona-from-apisec-university/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

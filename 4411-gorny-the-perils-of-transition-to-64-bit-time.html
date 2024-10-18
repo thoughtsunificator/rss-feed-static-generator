@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Górny: The perils of transition to 64-bit time_t</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Górny: The perils of transition to 64-bit time_t</h3>
+		<div>Michał Górny <a href="https://blogs.gentoo.org/mgorny/2024/09/28/the-perils-of-transition-to-64-bit-time_t/" rel="noreferrer" target="_blank">describes
+the challenges</a> involved in transitioning Gentoo to year-2038-safe time
+representations:
+<p>
+</p><blockquote class="bq">
+	There is a general agreement that the way forward is to change
+	time_t to a 64-bit type. Musl has already switched to that, glibc
+	supports it as an option. A number of other distributions such as
+	Debian have taken the leap and switched. Unfortunately,
+	source-based distributions such as Gentoo don't have it that
+	easy. So we are still debating the issue and experimenting, trying
+	to figure out a maximally safe upgrade path for our users.
+<p>
+	Unfortunately, that's nowhere near trivial. Above all, we are
+	talking about a breaking ABI change.
+</p></blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/992120/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

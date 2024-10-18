@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Why API Security Needs a Proactive Approach</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Why API Security Needs a Proactive Approach</h3>
+		<div><p>API security and governance are top concerns for <a href="https://www.cio.com/article/1305658/why-cios-back-api-governance-to-avoid-tech-sprawl.html" rel="noreferrer" target="_blank">many technology leaders</a> these days. And if they aren’t, they should be. Pervasive issues, like a lack of <a href="https://nordicapis.com/3-steps-to-rate-limiting-success/" rel="noreferrer" target="_blank">rate limiting</a>, poor <a href="https://nordicapis.com/use-oauth-to-mitigate-top-of-the-top-api-risks/" rel="noreferrer" target="_blank">authorization and authentication</a>, and minimal security awareness, can easily make APIs vulnerable to misuse.</p>
+<p>At <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">The Platform Summit 2024</a>, several sessions will explore API security and tactics to mitigate pressing threats. Ahead of the conference, we’re syncing with a handful of key speakers to learn about their upcoming talks and the state of the industry.</p>
+<div id="attachment_19712" class="wp-caption alignright"><p id="caption-attachment-19712" class="wp-caption-text">At Platform Summit 2024, <a href="https://nordicapis.com/speakers/antoine-carossio/" rel="noreferrer" target="_blank">Antoine Carossio</a>, co-founder and CTO of <a href="https://escape.tech/" rel="noreferrer" target="_blank">Escape</a>, will share <a href="https://nordicapis.com/sessions/api-secret-tokens-exposed-insights-from-analyzing-1-million-domains-reveal-critical-risks-of-the-modern-web/" rel="noreferrer" target="_blank">recent research on API risks</a> and offer remediation advice.</p></div>
+<p>In Stockholm, we’re very excited to welcome back Escape co-founders <a href="https://nordicapis.com/speakers/antoine-carossio/" rel="noreferrer" target="_blank">Antoine Carossio</a>, CTO, and <a href="https://nordicapis.com/speakers/tristan-kalos/" rel="noreferrer" target="_blank">Tristan Kalos</a>, CEO, two Nordic APIs alumni who were <a href="https://www.forbes.com/30-under-30/2024/europe/technology?profile=escape" rel="noreferrer" target="_blank">recently featured</a> in Forbes’ Europe’s 30 under 30. At the event, they’ll share the results of recent research that analyzed one million domains and revealed over 18,000 exposed API tokens and RSA keys.</p>
+<p>I recently caught up with Carossio about the state of API risks. According to Carossio, we need a more proactive and automated approach to avoid issues like secret exposure, business logic gaps, poor visibility, and more. Read his responses to my questions below, and be sure to register for <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">The Platform Summit</a> for a ton of practical API security insights!</p>
+<p><strong>What are some key API security issues you see in mid-2024?</strong></p>
+<p>To be honest, we still see many organizations struggling to build and maintain a comprehensive API inventory. They don’t even know what they need to secure, and it takes time to integrate API discovery into their roadmaps. Traditional traffic-based API security solutions are slow to deploy, leaving gaps in visibility and, hence, API security for months.</p>
+<p>In GraphQL APIs, <a href="https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/" rel="noreferrer" target="_blank">our latest research indicates</a> that the most significant issue is API4:2023 Unrestricted Resource Consumption, as many GraphQL APIs lack proper rate limiting and resource allocation mechanisms. However, <strong>business logic vulnerabilities</strong> are even more challenging to detect and address, as they involve flaws in the application’s logic rather than straightforward technical issues, making them harder to identify and mitigate.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">10 Steps to Catalog Your Growing API Inventory</a></div>
+<p><strong>Escape recently published some <a href="https://escape.tech/blog/how-we-discovered-over-18-000-api-secret-tokens/" rel="noreferrer" target="_blank">damning research</a> exposing 18k API tokens left open on the public web. Why do you think API secrets like keys and tokens are still routinely left open?</strong></p>
+<p>API secrets like keys and tokens are often left open due to human error, a lack of appropriate training, and insufficient testing. In our research, 35% of the exposed secrets were actually leaking into frontend code. Indeed, when developing with modern frameworks like Angular or React, developers have to “pack” multiple components together, sometimes including sensitive setup files. If you don’t train them on potential risks, they don’t have the reflexes to avoid these practices.</p>
+<p>Security is frequently reactive, with many organizations only prioritizing it after an incident occurs. We hope our research highlights the importance of proactive measures and the need for tools that provide visibility into exposed secrets.</p>
+<p><strong>What are some best practices that organizations need to implement to prevent this from happening so often?</strong></p>
+<p>To prevent API secrets from being exposed, organizations should centralize the management of API keys and tokens to ensure they are stored securely, accessed appropriately, and rotated regularly. This helps monitor their use and spot vulnerabilities.</p>
+<p>Scope tokens to specific teams or services so only the necessary people have access and establish a clear process for revoking tokens if they’re compromised. Make sure to grant only the permissions needed for each token to minimize potential damage, and limit their scope within the system. Keep an eye on usage patterns to detect any unusual activity.</p>
+<p>It’s also crucial to educate your team about the importance of token security, possibly using gamification or a Security Champion Program to make the learning process engaging and effective. <a href="https://escape.tech/blog/how-to-secure-api-secret-keys/#best-practices-to-secure-your-api-secret-keys" rel="noreferrer" target="_blank">We’ve also covered this topic here</a>.</p>
+<p><strong>When do you think implementing an automated API testing process is most crucial: within the testing and development stages or at runtime?</strong></p>
+<p>Implementing an automated API testing process is most crucial during the testing and development stages. Early detection and remediation of security issues can prevent vulnerabilities from reaching production, thereby reducing potential risks and costs associated with post-deployment fixes. Again, we do believe that security must be proactive, not reactive.</p>
+<p><strong>Do you see generative AI playing a role in mitigating some of these API security threats outlined above? Why or why not? If yes, is it safe to give it this power?</strong></p>
+<p>Yes, generative AI will play a significant role in mitigating API security threats. As businesses are pressured to ship revenue-driving features faster, automated solutions are essential for detecting API security threats at scale. API security solutions like Escape will continue to improve their genAI-based algorithms (ex., Escape AI), and solutions that can actually solve market problems will always stand out. While it is safe to leverage generative AI, it is crucial to <a href="https://escape.tech/blog/ai-security-how-hard-is-it-to-develop-secure-ai/" rel="noreferrer" target="_blank">have proper AI governance</a> to ensure that these tools operate within established security and ethical guidelines.</p>
+<p><strong>Without giving away <em>too</em> many details, what can attendees expect from your upcoming talk at the Platform Summit 2024?</strong></p>
+<p>Attendees can expect to hear how we made the best investment of our life — turning $100 into the discovery of $20 million in exposed Stripe tokens. We’ll discuss the risks of exposed API tokens, share insights from our research that analyzed a million domains and found 18,000 exposed secrets, and explain our unique web scanning methods. Plus, we’ll reveal some of the sensitive data we uncovered and offer practical tips to help your organization avoid exposing secrets!</p>
+<p><strong>Are you excited for the Platform Summit? Why or why not?</strong></p>
+<p>Yes, I am very excited for the Platform Summit! It is a fantastic opportunity to share our latest research, connect with other industry leaders, and have insightful discussions :)</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/why-api-security-needs-a-proactive-approach/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

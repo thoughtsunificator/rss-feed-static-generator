@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Context Should Direct API Architecture Choices</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Context Should Direct API Architecture Choices</h3>
+		<div><p>API design is always shifting, with new architectures coming in and out of the fold. While many HTTP APIs share JSON and still follow <a href="https://nordicapis.com/whats-the-difference-between-rest-and-restful/" rel="noreferrer" target="_blank">RESTful constraints</a>, there is a litany of other architectures to consider, from <a href="https://nordicapis.com/centralize-data-access-control-with-graphql/" rel="noreferrer" target="_blank">GraphQL</a> to <a href="https://nordicapis.com/apis-101-what-is-soap-simple-object-access-protocol/" rel="noreferrer" target="_blank">SOAP</a> and XML, <a href="https://nordicapis.com/using-grpc-to-connect-a-microservices-ecosystem/" rel="noreferrer" target="_blank">RPC-style services</a>, <a href="https://nordicapis.com/the-world-is-asynchronous-get-used-to-it/" rel="noreferrer" target="_blank">asynchronous protocols</a>, and more.</p>
+<div id="attachment_19848" class="wp-caption alignright"><p id="caption-attachment-19848" class="wp-caption-text">At <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a>, software consultant Rob Allen will compare popular API architectures.</p></div>
+<p>At this year’s <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit</a>, a handful of sessions will cover today’s trends around API design and architecture. Before the event, we’re catching up with a handful of key speakers to learn more about their upcoming sessions and their impressions of the API economy at large.</p>
+<p>I recently caught up with Nordic APIs veteran speaker <a href="https://nordicapis.com/speakers/rob-allen/" rel="noreferrer" target="_blank">Rob Allen</a>, software consultant at Nineteen Feet Limited, to learn his take on choosing the proper API architecture. My takeaway is that what matters most in determining API architecture is your context, like your developer audience and their working environment.</p>
+<p>Check out the full interview below for great tips about making tough decisions about API architectures. Also, be sure to attend <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a> for plenty more advice on making the best API-based technology choices for your team!</p>
+<p><strong>Last year, you talked about <a href="https://youtu.be/1wUiJ6wsrYg?si=D-sFOm5RE3rD34ei" rel="noreferrer" target="_blank">the important elements of a great web API</a>. Has anything changed in the past year that affects what makes a good HTTP API?</strong></p>
+<p>Nothing particular has changed, but equally, there are still far too many HTTP APIs that do not follow what I consider the basics. In particular, following the HTTP spec around methods, content negotiation, and status codes. It’s become a trope now, but I’m still seeing APIs that return a 200 status code on an error, or a 204 status with a Location header when a 30x would make more sense.</p>
+<p>The most important thing I tried to convey last year, though, is that the JSON response from your API should not be directly coupled to your database design. It’s far better to have a malleable application and to think about the JSON representation as the view layer of your application and keep it separate in the same way a website keeps its HTML representation separated. I hope that more teams are thinking like this.</p>
+<div class="well">Watch <a href="https://nordicapis.com/speakers/rob-allen/" rel="noreferrer" target="_blank">Rob Allen</a> present ‘<a href="https://nordicapis.com/sessions/the-key-features-of-a-great-web-api/" rel="noreferrer" target="_blank">The Key Features Of A Great Web API</a>‘ at <a href="https://nordicapis.com/events/platform-summit-2023/" rel="noreferrer" target="_blank">Platform Summit 2023</a>.<br>
+<div class="responsive-iframe-container"></div></div>
+<p><strong>This year, you’ll be talking about different API architectures and when to use what. Is there one in particular that you’ve noticed more interest in lately throughout your work?</strong></p>
+<p>If anything, I’ve seen a resurgence of interest in HTTP APIs that are mostly RESTful. This is probably being driven by the OpenAPI specification work, which continues to do interesting things. This year, in particular, the <a href="https://www.openapis.org/arazzo" rel="noreferrer" target="_blank">Arazzo specification</a> has come to the fore, which is really interesting as a way to document workflows that use multiple endpoints to achieve a goal. This is really useful and will help API developers provide clearer and better information to their clients, both the machine and the human ones.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/" rel="noreferrer" target="_blank">3 Example Use Cases for Arazzo Descriptions</a></div>
+<p><strong>How can API designers match API style or architecture to the project at hand? What are your tips for determining when to use what architecture?</strong></p>
+<p>There are a couple of key things to consider when choosing your API architecture, and current fashion is not one of them! Firstly, you should consider your audience — that is, the people who will be using your product. Ideally, you want to produce something that fits their needs and works well with their workflows. For many cases, a RESTful API is a good default for this. However, some use cases will work better with GraphQL or even an RPC-based API and are, therefore, better choices.</p>
+<p>The other thing to consider is the environment in which the new API will be used. If the organization already offers APIs, then complementing them with a similar architecture and approach is generally beneficial. The abilities and enthusiasm of the team building the API are also a factor, as while pushing the envelope with a new and cool language and architecture is fun, it also increases delivery risk, which may not be wise.</p>
+<p><strong>What is the role of open-source API development frameworks in supporting specific programming language needs?</strong></p>
+<p>Open-source API development frameworks improve the speed of delivery while also providing a great foundation for the necessary API foundations. For example, <a href="https://github.com/api-platform/api-platform" rel="noreferrer" target="_blank">API Platform</a> gives you a leg up on support for standards such as JSON-LD if you’re writing a RESTful API. It will also provide pagination, sorting, hypermedia support, and so on. These are all really important for a competent and competitive API, but aren’t core to the business of the product and the problem you’re solving which is where you want to spend most of your effort. Each language has good frameworks available, and I’m a big proponent of picking one that fits your team’s needs.</p>
+<p><strong>What’s next on the horizon for API architecture? Do you see things set to evolve with new description languages, generative AI, or other trends?</strong></p>
+<p>I’m hopeful to see more adoption of wider-API-ecosystem things like Arrazo and overlays. I imagine we’ll see more GraphQL internally within enterprises and the mobile app ecosystem. The trend of APIs being at the heart of the product is going to continue. We’ll also see more API governance as more organizations have APIs at the center of their product offerings.</p>
+<p>In terms of building APIs, I expect to see generative AI providing development support as it will for all development. I would not be surprised to see AI and machine learning turn up in areas like security, too, as security companies leverage its pattern-spotting abilities.</p>
+<p><strong>Without giving away too many details of your talk, what can attendees expect from your presentation in Stockholm this year?</strong></p>
+<p>I love APIs of all shapes and am pretty agnostic about whether they’re RPC, REST, or GraphQL. However, I really care that when a team picks their choice of API architecture, they are making an informed choice. So, I’ll be looking at what the main API architectures offer, comparing them, and offering some thoughts on the type of applications where I think each one fits well.</p>
+<p><strong>Why are you excited about the Platform Summit? Why are you returning to speak another year?</strong></p>
+<p>Platform Summit is one of the key places to keep up to date on what’s happening in the API world and where I should focus my attention. Each year, there is a wide selection of talks covering every aspect of the API ecosystem, and this is valuable knowledge. I have been particularly struck by the in-person conversations that I’ve had at Platform Summit in the so-called hallway track. I learned a lot by talking to other attendees and speakers and am attending to continue my education while hopefully helping other people on their journey.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/context-should-direct-api-architecture-choices/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

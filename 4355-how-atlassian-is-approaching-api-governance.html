@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How Atlassian Is Approaching API Governance</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How Atlassian Is Approaching API Governance</h3>
+		<div><p>The phrase ‘technology governance’ often conjures up images of bureaucratic red tape that can make even the most seasoned programmers bristle. Yet, governance is looking like an attractive (if not necessary) course of action to reduce <a href="https://www.cio.com/article/1305658/why-cios-back-api-governance-to-avoid-tech-sprawl.html" rel="noreferrer" target="_blank">technology sprawl</a>, rising technical debt, and inconsistent development patterns. And arguably, nowhere is governance more needed than with API design and development.</p>
+<p>One organization that has been experimenting with internal API governance is Atlassian, specifically the R&amp;D division. Atlassian maintains what they call Extensibility Standards within an internal governance platform, and the idea is to apply these rules to conduct automated conformance checks against new APIs.</p>
+<p>I recently chatted with <a href="https://www.linkedin.com/in/dugaldmorrow/" rel="noreferrer" target="_blank">Dugald Morrow</a>, Developer Advocate at Atlassian, to learn more about their strides toward <a href="https://youtu.be/YteaiYIhaDs?si=TMcgYLh9i6PPzRH2" rel="noreferrer" target="_blank">encouraging standards for their internal APIs</a>. According to Morrow, their process is still ongoing but has already shown promise, resulting in less undesirable API changes and instilling an “ecosystem DNA.”</p>
+<h2 id="the-state-of-the-api-portfolio">The State of The API Portfolio</h2>
+<p>A lack of API standards is a common scenario across today’s digital organizations. “It’s a big problem as it’s a lot to tackle,” says Morrow. For instance, a lack of alignment around API change management can have negative downstream consequences like <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/" rel="noreferrer" target="_blank">broken integrations</a>.</p>
+<p>Before implementing a governance strategy, siloed API development was an all-too-common dilemma at Atlassian. “Our R&amp;D teams would accidentally break APIs too often, which impacted both our partners and customers,” says Morrow. “There were quite a few causes of this, but it boiled down to R&amp;D teams operating independently and therefore missing steps.”</p>
+<p>A lack of standards around change management hurt the Atlassian ecosystem, but discovering the cause wasn’t apparent initially. “We knew we had a problem with change management, but it took a while to realize that a lack of standards, practices, and tooling was the root cause.” This recognition largely came from the bottom-up, he adds.</p>
+<h2 id="introducing-an-api-governance-framework">Introducing an API Governance Framework</h2>
+<p>To address these issues, Atlassian is producing its Extensibility Standards, which are documented internally and enforced automatically against APIs as they are developed. To enact this, Atlassian’s automated API governance framework involves a handful of components.</p>
+<p>First is documenting the rules. The Extensibility Standards are privately documented at developer.atlassian.com. The platform contains standards, such as guides, rules, authentication standards, and definitions, in a Bitbucket repository in structured <a href="https://nordicapis.com/what-is-the-difference-between-json-and-yaml/" rel="noreferrer" target="_blank">JSON and YAML</a> text files, says Morrow.</p>
+<p>Next is providing easy editing capabilities for the rules. The repo contains a web app that allows editing standards, with guidelines for maintaining them, says Morrow. It also provides continuous integration processing to automatically generate Extensibility Standards documentation.</p>
+<p>Then, the idea is to automatically run governance checks. According to Morrow, Atlassian has a Node/TypeScript report on the conformance to rules. The process uses a specification-driven approach to lint rules. As he describes, this involves building a <a href="https://nordicapis.com/using-spectral-to-lint-your-openapi-definition/" rel="noreferrer" target="_blank">Spectral ruleset</a> from the standards, retrieving all the OpenAPI specs of various products and services, running Spectral against the rules, and reporting the results to a data lake and internal Confluence pages.</p>
+<p>The platform also provides methods for managing changelogs. “The CI processing builds reports identifying the health of changelogs and occurrences when changelog entries were announced late,” says Morrow. An internal application also provides helpful tooling to preview changelogs before they are published, assess the impacts of API changes, and calculate deprecation periods.</p>
+<p>A big goal is to provide actionable data. The team behind the Extensibility Standards has thought much about streamlining the API lifecycle and providing helpful reporting and visualizations. “There is much more to do, but the intention is to automate as much reporting as possible and then have teams analyze the data during their TechOps meetings,” says Morrow.</p>
+<h2 id="realizing-the-benefits">Realizing the Benefits</h2>
+<p>Atlassian is early in its journey, but teams have already seen tangible outcomes from doubling down on API governance. One such outcome is a decreased number of incidents, says Morrow. “There are fewer regrettable API changes and consequently less negative impact on partners and customers.”</p>
+<p>Another positive result is the impact on collaboration. “There is also an increase of ‘ecosystem DNA’ within R&amp;D teams because of practices like request for comments (RFC), which results in R&amp;D teams engaging with partners during the API design phase,” says Morrow.</p>
+<p>Last but not least are the potential productivity benefits. “I would hope that overall productivity is improved due to better tooling and better ways of working,” says Morrow. <a href="https://devops.com/how-to-get-developer-productivity-engineering-right/" rel="noreferrer" target="_blank">Developer productivity engineering</a> has been a hot topic <a href="https://www.cio.com/article/1255774/is-it-worth-measuring-software-developer-productivity-cios-weigh-in.html" rel="noreferrer" target="_blank">throughout the world of tech</a> lately, and this ambition is not lost on the <a href="https://www.moesif.com/blog/technical/api-development/Ultimate-Guide-To-API-For-Developer-Productivity/" rel="noreferrer" target="_blank">API community</a>.</p>
+<h2 id="learning-from-atlassian-s-strategy">Learning From Atlassian’s Strategy</h2>
+<p>So, what can engineering leaders in other companies learn from Atlassian’s foray into API governance? Here are some tips for governing a burgeoning API portfolio.</p>
+<ul>
+<li><strong>Enact change from the bottom-up</strong>: Looping in developers early in the process typically yields the best results. “We’ve taken a bottom-up approach whereby we’ve built the standards necessary to address pain points, and we’re now bringing this together to form a platform of standards,” says Morrow.</li>
+<li><strong>Explain your rationale</strong>: Getting folks to adopt new rules can be challenging, especially when they don’t have context. Therefore, Morrow recommends making the API standards attractive and explaining the rationale behind these rules.</li>
+<li><strong>Provide great tooling</strong>: Provide tooling to make it easier for developers to implement and edit your rules. For instance, consider constructing an <a href="https://nordicapis.com/how-to-build-and-enforce-great-api-governance/" rel="noreferrer" target="_blank">internal API governance framework</a>. Atlassian’s automated approach to its Extensibility Standards eases how maintainers interact with the platform.</li>
+<li><strong>Automate everything</strong>: As we’ve seen, Atlassian has adopted rigor in its internal tools, creating an integrated platform with a high degree of continuous automation, from updating rules to enforcing them, producing reporting, and more.</li>
+</ul>
+<p>All in all, getting everyone on board with extensibility standards will take effort, but the payoff is worth it. “It’s a lot of work, but I think our approach has worked so far,” says Morrow.</p>
+<h2 id="the-rising-need-for-api-governance">The Rising Need For API Governance</h2>
+<p>Atlassian’s experimentations with API governance is an interesting model to consider. Although it’s still a work in progress, the internal platform intends to bring a collaborative, cross-team method to <a href="https://nordicapis.com/api-improvement-proposals-googles-take-on-the-api-style-guide/" rel="noreferrer" target="_blank">managing API standards</a>.</p>
+<p>Across most organizations, the number of APIs being developed shows no signs of shrinking. Plus, large companies now contend with <a href="https://nordicapis.com/api-governance-in-a-multi-cloud-world/" rel="noreferrer" target="_blank">various API styles</a>, and engineers often juggle different lifecycle management tools concurrently.</p>
+<p>To respond to the state of things, we need more than a written style guide or recommendations. Helpful technology, perhaps in the form of internal platforms like Atlassian’s, will be required to enforce and iterate API standards. This should bring more consistency to the development culture and promote a healthier API mindset.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/how-atlassian-is-approaching-api-governance/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

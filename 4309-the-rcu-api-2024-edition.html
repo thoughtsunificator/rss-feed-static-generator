@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] The RCU API, 2024 edition</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] The RCU API, 2024 edition</h3>
+		<div>Read-copy-update (RCU) is a synchronization mechanism that was added to the
+Linux kernel in October 2002.  RCU is most frequently used as a <a href="https://linuxfoundation.org/webinars/unraveling-rcu-usage-mysteries/" rel="noreferrer" target="_blank">replacement
+for reader-writer locking</a>, but is also used in <a href="https://linuxfoundation.org/webinars/unraveling-rcu-usage-mysteries-additional-use-cases/" rel="noreferrer" target="_blank">a
+number of other ways</a>.  This article covers recent changes to the RCU
+API; it was contributed by Paul McKenney, Boqun Feng, Frederic Weisbecker,
+Joel Fernandes, Neeraj Upadhyay, and Uladzislau Rezki.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/988638/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
