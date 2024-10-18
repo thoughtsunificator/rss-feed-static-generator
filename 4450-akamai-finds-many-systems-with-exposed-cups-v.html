@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Akamai finds many systems with exposed CUPS vulnerability</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Akamai finds many systems with exposed CUPS vulnerability</h3>
+		<div><p>
+Akamai
+<a href="https://www.akamai.com/blog/security-research/october-cups-ddos-threat" rel="noreferrer" target="_blank">
+released a report</a> pointing out that the
+<a href="https://lwn.net/Articles/991929/" rel="noreferrer" target="_blank">
+recently-reported CUPS vulnerability</a>
+(<a href="https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/" rel="noreferrer" target="_blank">original disclosure</a>)
+could be used to drive distributed denial-of-service (DDoS) attacks as well. Even if an attacker cannot gain remote control over a computer, they can still cause it to fetch a URL of their choice — potentially getting free DDoS amplification.
+</p>
+
+<blockquote class="bq">
+The Akamai Security Intelligence and Response Team (SIRT) found that more than 198,000 devices are vulnerable to this attack vector and are accessible on the public internet; roughly 34% of those could be used for DDoS abuse (58,000+).
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/993044/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

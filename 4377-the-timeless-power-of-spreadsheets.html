@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Timeless Power Of Spreadsheets</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Timeless Power Of Spreadsheets</h3>
+		<div><p>Part of me can’t believe I’m writing this article. Applying the insights of <a href="https://www.smashingmagazine.com/2023/03/leonardo-da-vinci-teach-web-design/" rel="noreferrer" target="_blank">Leonardo da Vinci</a> or <a href="https://www.smashingmagazine.com/2021/02/saul-bass-teach-web-design/" rel="noreferrer" target="_blank">Saul Bass</a> to web design is more my groove, but sometimes you simply have to write about spreadsheets. You have to advocate for them. Because someone should.</p>
+<p>In a checkered career spanning copywriting, journalism, engineering, and teaching, I’ve seen time and time again how powerful and useful spreadsheets are in all walks of life. The cold, hard truth is that you — yes, you — likely have <strong>an enormous amount to gain by understanding how spreadsheets work</strong>. And, more importantly, <em>how</em> they can work for you.</p>
+<p>That’s what this piece is about. It’s a rallying cry, with examples of spreadsheets’ myriad uses and how they can actually, in the right circumstances, be the bedrock of altogether inspiring, lovely things. </p>
+Cellular Organisms
+<p>Spreadsheets have been around for thousands of years. <a href="https://connectreport.com/blog/the-first-spreadsheets/" rel="noreferrer" target="_blank">Papyrus remnants have been discovered from as far back as 4,600 BC</a>. Their going digital in the late ‘70s was a major factor in the rise of personal computing. Much is (rightly) made of the cultural transformation brought about by the printing press. The digital spreadsheet, not so much.</p>
+<p>For as long as people have had projects and data to organize, spreadsheets have been indispensable. They were the original databases.</p>
+<p></p>
+<p>Spreadsheets don’t always get a lot of attention these days. For organization and workflow, we usually find ourselves in the worlds of Trello, Jira, or GitHub Projects. Datasets live in Oracle, MongoDB, and the like. There are good reasons for these services emerging — everything has its place — but</p>
+<p>I do get the sense that specialized tooling causes us to skip over the flexibility and power that today’s spreadsheet editors provide.</p>
+<p>This is especially true for smaller projects and ones in their early stages. Yes, sometimes only a huge database will do, but often spreadsheets are more than fit for purpose.</p>
+Benefits
+<p>What makes spreadsheets so great? We’ll get into a few real-world examples in a second, but several qualities hold true. They include the following:</p>
+<ul>
+<li><strong>Collaboration</strong><br>Cloud-based editors like Google Sheets give groups of people a space in which to collaborate on data. They can serve as a middle ground for people working on different parts of the same project.</li>
+<li><strong>Structure</strong><br>It’s inherent to spreadsheets that they’ll get you thinking about the ‘shape’ of the information you’re dealing with. In the same way that <a href="https://www.smashingmagazine.com/2021/09/power-pen-paper-sketching/" rel="noreferrer" target="_blank">a blank piece of paper invites fluidity of thought</a>, tables coax out frameworks — and both have their place </li>
+<li><strong>Flexibility</strong><br>Spreadsheets can evolve in real time, which is especially useful during the formative stages of a project when the shape of the ‘data’ is still being established. Adding a field is as simple as naming a column, and the ability to weave in formulas makes it easy to infer other values from the ones you have. With stuff like the <a href="https://developers.google.com/sheets/api/reference/rest" rel="noreferrer" target="_blank">Google Sheets API</a>, you can even scrape data directly from the spreadsheet</li>
+<li><strong>Power</strong><br>You’d be surprised how much you can do in spreadsheets. Sometimes, you don’t even need bespoke dashboards; you can do it all in the editor. From data visualization to pivot tables, spreadsheet editors come with a bunch of powerful out-of-the-box features.</li>
+<li><strong>They translate into other data formats</strong><br>Spreadsheets are one small jump from the mighty CSV. When the time is right, spreadsheets can still become raw data if you want them to.</li>
+</ul>
+<p>Such is the flexibility and power of spreadsheets, and what’s listed here is scratching the surface. Their fundamental strength of organizing data has made them useful for thousands of years, while contemporary enhancements have taken them to the next level.</p>
+Case Studies
+<p>Below are a few examples from my own experiences that showcase these benefits in the real world. They’re obviously slanted towards my interests, but hopefully, they illustrate the usefulness of spreadsheets in different contexts.</p>
+<h3>Galaxies (Of The Guardian)</h3>
+<p>I work as a software engineer at Guardian News &amp; Media, a place where 10% of the time, i.e., one work day every two weeks, is yours to spend on independent learning, side projects, and so on, is part of the working culture. An ongoing project of mine has been Galaxies (of the Guardian), a <a href="https://d3js.org/d3-force" rel="noreferrer" target="_blank">D3-powered</a> org chart that represents departments as a series of interrelated people, teams, and streams.</p>
+<p></p>
+<p>What you see above is powered by information stored and edited in spreadsheets. A lambda scraps departmental information using the aforementioned Google Sheets API, then reformats into a shape Galaxies plays nicely with.</p>
+<p>This approach has had several benefits. The earliest iterations of Galaxies were only possible because there was already a spreadsheet being maintained by those who needed to keep track of who worked where. Techies and non-techies alike are able to update information easily, and it is transparent to anyone who works inside the organization.</p>
+<p>For anyone interested, <a href="https://www.theguardian.com/info/2023/feb/03/galaxies-of-the-guardian-the-formation-of-an-irregular-org-chart" rel="noreferrer" target="_blank">I wrote a piece about how Galaxies works on the Guardian engineering blog</a>. Suffice it to say here, spreadsheets were — and remain — the engine of the whole thing.</p>
+<h3>Food Bank Britain</h3>
+<p>My background is in journalism, and I still freelance in my own time. As my coding skills have improved, I’ve naturally gravitated towards data journalism, even teaching it for a year at my old journalism school. </p>
+<p>Spreadsheets are inseparable from a lot of modern journalism — and, indeed, copyrighting in general. The digital world is awash with data, and good luck making sense of it without a working knowledge of spreadsheets. </p>
+<p>For example, <a href="https://bylinetimes.com/2024/06/18/food-banks-uk-trussell-trust/" rel="noreferrer" target="_blank">a piece I wrote for the Byline Times about foodbanks</a> earlier this year simply wouldn’t have been possible without spreadsheets. It was by collating data from the Trussell Trust, the Independent Food Aid Network, and national census reports that I was able to map out the sheer scale of the UK’s food bank network.</p>
+<p></p>
+<p></p>
+<p>Granted, the map is more visually engaging. But then that’s the idea. It’s the same information, just presented more pointedly.</p>
+<p>There are plenty of other instances of spreadsheets being instrumental at the Guardian alone. <a href="https://www.theguardian.com/help/insideguardian/2020/nov/20/introducing-typerighter-making-life-easier-for-journalists-and-stories-better-for-readers" rel="noreferrer" target="_blank">Typerighter</a>, the newspaper’s automated house style checker, began life as a subeditor’s spreadsheet. User research and bug tracking for the new <a href="https://www.theguardian.com/help/insideguardian/2024/apr/17/introducing-the-feast-app" rel="noreferrer" target="_blank">Feast cooking app</a>, which I worked on during its formative stages, was tracked and discussed in spreadsheets. </p>
+<p>And, of course, countless pieces of quality journalism at the Guardian and beyond continue to be powered by them.</p>
+Another Cell In The Table
+<p>If this piece has got you to at least consider learning more about spreadsheets and spreadsheet editors, you’re in luck. There are countless free learning resources available on the web. Here are a few excellent beginner videos to help you on your way:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=TENAbUa-R-w" rel="noreferrer" target="_blank">Google Sheets Tutorial for Beginners</a> </li>
+<li><a href="https://www.youtube.com/watch?v=0bojnxjNMTM" rel="noreferrer" target="_blank">How to use Pivot Tables in Google Sheets</a></li>
+<li><a href="https://www.youtube.com/watch?v=LgXzzu68j7M" rel="noreferrer" target="_blank">Excel Tutorial for Beginners</a></li>
+<li><a href="https://www.youtube.com/watch?v=m0wI61ahfLc" rel="noreferrer" target="_blank">Pivot Table Excel Tutorial</a></li>
+</ul>
+<p>As for spreadsheet editors, the big three these days are probably <a href="https://docs.google.com/spreadsheets/create" rel="noreferrer" target="_blank">Google Sheets</a>, <a href="https://www.microsoft.com/en-gb/microsoft-365/excel" rel="noreferrer" target="_blank">Microsoft Excel</a>, and <a href="https://www.libreoffice.org/discover/calc/" rel="noreferrer" target="_blank">LibreOffice Calc</a> (for the open source devotees out there). They all work much the same way. And as you get comfortable with their functionality, new avenues will open.</p>
+<p>Data is the lifeblood of the modern web, and spreadsheets remain one of the most accessible, flexible ways to organize, analyze, and share it. As I hope the examples I’ve shared with you show, <strong>spreadsheets aren’t inherently boring</strong>. They can be, but when used in the right ways, they become <strong>the engines of dynamic, impactful work</strong>.</p>
+<p>The way they go is up to you.</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/09/timeless-power-of-spreadsheets/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

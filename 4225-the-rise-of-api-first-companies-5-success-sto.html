@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Rise of API-First Companies: 5 Success Stories</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Rise of API-First Companies: 5 Success Stories</h3>
+		<div><p>API-first is a powerful paradigm for successful companies to rapidly iterate and develop. As an approach to market fit, it grants a closer alignment to product needs. As a development exercise, it promises to ensure modularity, extensibility, and scalability.</p>
+<p>Below, we’ll look at five of the best API-first success stories and lessons learned from these endeavors. These case studies embody what it means to embrace an API-first mindset within your development culture.</p>
+<h2 id="what-is-api-first-">What is API-First?</h2>
+<p>Before we dive into our success stories, it helps to first define <a href="https://nordicapis.com/what-are-the-benefits-of-api-first-development/" rel="noreferrer" target="_blank">API-first development</a>. As with many tech terms that have become popular quickly, many organizations might call themselves <em>API-first</em> even though they don’t fully embody the concept.</p>
+<p>API-first is more than just <a href="https://nordicapis.com/difference-between-api-first-and-api-as-a-product/" rel="noreferrer" target="_blank">having an API as part of your product</a>. To be API-first, the APIs underpinning the organization must be placed as the initial movers for the rest of the lifecycle and development process.</p>
+<p>Instead of designing a product offering and <em>then</em> creating an API to sell it, you first design the API as the core product around which everything else is created. By doing this, you are sidestepping the major faults of developing a product and forcing an API solution to wrap around it, improving your organizational outcomes and the end-user experience.</p>
+<p>To put this another way, <a href="https://nordicapis.com/the-ggv-api-first-index-and-the-future-of-the-api-economy/" rel="noreferrer" target="_blank">API-first companies</a> start with a core question: how can we make the API the central piece of the business offering by which everything else is designed and configured? With this in mind, let’s look at some practical use cases of the API-first model.</p>
+<h2 id="1-stripe">1. Stripe</h2>
+<p><a href="https://stripe.dev/" rel="noreferrer" target="_blank">Stripe</a> is an excellent case study because, in many ways, they’re not just API-first — they’re “<a href="https://blog.postman.com/how-stripe-builds-apis/" rel="noreferrer" target="_blank">API-only</a>“. Stripe is a payments platform that took the concept of API-first to heart, developing a world-class fintech system that responded to market needs with a simple-to-use and <a href="https://docs.stripe.com/api" rel="noreferrer" target="_blank">straightforward API</a>.</p>
+<p>By focusing on its developers, Stripe developed a world-class collection of APIs and rich documentation that led to rapid integration across the industry. These APIs were designed for rapid response to market requests, designed as much around scalability as extensibility, resulting in a product that had a value offering that was ever-evolving and improving.</p>
+<p>As of 2024, these efforts have paid huge dividends. <a href="https://www.datanyze.com/market-share/payment-processing--26/stripe-market-share" rel="noreferrer" target="_blank">Datanyze</a> tracks that Stripe has a 17% market share, beaten out only by juggernaut Paypal.</p>
+<h2 id="2-netflix">2. Netflix</h2>
+<p>Netflix is a wonderful case study that proves it’s never too late to adopt an API-first mindset. After reaping massive growth from its original DVD rental service, Netflix faced a conundrum: how to deploy resources to a new consumption medium without a set screen size, technological stack, or known network environment. It was a tall order, but if Netflix could figure it out, it could dominate the media streaming industry for years to come.</p>
+<p>To support its massive growth out of the DVD rental business, Netflix had to change its digital distribution systems. Firstly, Netflix took its legacy systems — largely a monolith — and <a href="https://www.contentstack.com/blog/tech-talk/api-first-digital-transformation" rel="noreferrer" target="_blank">broke them up to decouple the backend from the client devices</a>. What once had to be installed via DVD in video game consoles or accessed via a custom-built application suddenly could be accessed across a wide variety of devices through a decoupled and extensible API.</p>
+<p>This decoupling shifted the product away from the physical movie and its digital representation and to the access of remote resources — it also allowed for the development of regional and edge resource storage, which would dramatically increase its market share worldwide. This scalability shift allowed its microservices-centric API-first approach to enable the service of hundreds of millions of devices worldwide regardless of network or device type, ushering in a new era of digital streaming.</p>
+<div class="well">For more read: <a href="https://nordicapis.com/graphql-microservices-gqlms-as-a-backend-a-netflix-case-study/" rel="noreferrer" target="_blank">GraphQL Microservices (GQLMS) as a Backend: A Netflix Case Study</a></div>
+<h2 id="3-amazon">3. Amazon</h2>
+<p>Amazon is a famous case of what adopting API-first can look like in a service-oriented organization. Then CEO Jeff Bezos famously issued the so-called “Bezos API Mandate” in 2002. In this mandate, <a href="https://nordicapis.com/the-bezos-api-mandate-amazons-manifesto-for-externalization/" rel="noreferrer" target="_blank">he stated</a>:</p>
+<ol>
+<li>All teams will henceforth expose their data and functionality through service interfaces.</li>
+<li>Teams must communicate with each other through these interfaces.</li>
+<li>There will be no other form of interprocess communication allowed: no direct linking, no direct reads of another team’s data store, no shared-memory model, no back-doors whatsoever. The only communication allowed is via service interface calls over the network.</li>
+<li>It doesn’t matter what technology they use. HTTP, Corba, Pubsub, custom protocols — doesn’t matter.</li>
+<li>All service interfaces, without exception, must be designed from the ground up to be externalizable. That is to say, the team must plan and design to be able to expose the interface to developers in the outside world. No exceptions.</li>
+<li>Anyone who doesn’t do this will be fired.</li>
+<li>Thank you; have a nice day!</li>
+</ol>
+<p>This approach did a few things to shift the Amazon business towards a true API-first paradigm. First and foremost, it established the expectation that all services should be developed and surfaced as an API. This changed the development focus from individual products to APIs that <em>surfaced</em> products, establishing an expectation of modularity and portability.</p>
+<p>Secondly, this forced a developer focus that would define AWS’s success and its associated systems and processes. Establishing that all services should be accessed via API, and not solely through dashboards, backdoors, or clients, established the consumption format that would come to dominate Amazon’s cloud business model, offering compute and storage power at scale with extensible, reliable, and scalable API web services.</p>
+<h2 id="4-twilio">4. Twilio</h2>
+<p>Twilio solved a unique problem with its API-first paradigm, and for many, it stands as the best and earlier example of true API-first scaling success. Twilio’s problem was simple: how to bring telecommunications across the internet to a market with unknown devices and unsure network capabilities. Where traditional telecom companies had years of telecom standards to lean back on, Twilio had <a href="https://vestedfinance.com/in/blog/api-first-saas-twilio-and-agora/" rel="noreferrer" target="_blank">some basic internet standards and frameworks to work with</a> and a wide user base with very little in common.</p>
+<p>To solve this problem, Twilio adopted an API-first strategy based on flexibility. Instead of providing a bespoke API for each product offering, the microservice-oriented solution at Twilio <a href="https://paullehair.medium.com/apis-are-eating-the-world-the-rise-of-api-first-e47eb913c2a5" rel="noreferrer" target="_blank">broke each function into a discrete microservice</a> that could be scaled, extended, and integrated, allowing for developers to plug the API that they needed into their specific use case.</p>
+<p>This support for broad use cases led to Twilio’s rapid growth and near-ubiquity in the market, with one of the largest client bases and billions in net worth.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-rest-apis-with-great-developer-experience/" rel="noreferrer" target="_blank">5 REST APIs With Great Developer Experience</a></div>
+<h2 id="5-checkr">5. Checkr</h2>
+<p>Checkr was created to solve a very specific problem. Founds Daniel Yanisee and Jonathan Perichon noted the extreme slowness of the traditional background-checking industry in their roles at startup Deliv. They wanted a faster, more extensible, and more scalable solution. Out of this desire, Checkr was created.</p>
+<p>From the get-go, Checkr was designed to be highly modular and scalable, focusing on efficiency and speed to bridge background check processes with collected data and publicly available information. This approach required extensibility at a high level. But, more than anything, it required <a href="https://checkr.com/blog/why-future-thinking-companies-are-betting-on-api-first" rel="noreferrer" target="_blank">modularity in each service to allow for rapid innovation and development</a>. This would allow for a quicker turnaround without sacrificing accuracy or authority.</p>
+<p>This exact development mindset led Checkr to seize market share and become one of the most profitable and well-respected API-first solutions in the market today.</p>
+<h2 id="final-thoughts-on-api-first-case-studies">Final Thoughts on API-First Case Studies</h2>
+<p>While each of these examples is a solid case study in API-first approaches, <a href="https://nordicapis.com/api-case-study-us-air-force-goes-api-first/" rel="noreferrer" target="_blank">many more are just like them</a>. Some are currently experiencing extreme growth, and others have been at it for years. Ultimately, API-first is a wonderful paradigm for API development that puts the developer central to the product lifecycle.</p>
+<p>What do you think are the biggest benefits and drawbacks of API-first? Let us know in the comments!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-rise-of-api-first-companies-5-success-stories/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What Is API Developer Experience?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">What Is API Developer Experience?</h3>
+		<div><p>API developer experience (DX) refers to the experience a developer has using an application programming interface (API). In this context, DX encompasses all a developer’s actions using an API, from the initial onboarding phase to integrating and testing calls and maintaining the integration for the long term.</p>
+<p>Like user experience (UX) design, the goal of DX design is to streamline the user’s process and reduce friction within the user journey. However, unlike traditional user interfaces, API developer experience is unique because developers engage with many touchpoints to learn and use APIs, including visual and code-centric means.</p>
+<p>A <a href="https://devops.com/how-github-approaches-internal-developer-experience/" rel="noreferrer" target="_blank">quality developer experience</a> was once considered a competitive advantage in the tech industry. Now, it is an expectation. As such, improving an API’s developer experience can enhance user engagement, increase signups, and lead to a better overall <a href="https://nordicapis.com/the-keys-to-building-a-successful-api-product/" rel="noreferrer" target="_blank">API product</a>. Below, we’ll explore API developer experience and how to optimize it.</p>
+<h2 id="what-makes-a-quality-api-developer-experience-">What Makes A Quality API Developer Experience?</h2>
+<p>Many factors work in tandem to make an <a href="https://zuplo.com/blog/2024/02/13/rickdiculous-dev-experience-for-apis" rel="noreferrer" target="_blank">excellent developer experience for APIs</a>. First off, great APIs have great documentation! You don’t want to send your developers a PDF over email — instead, a <a href="https://nordicapis.com/developer-portals-need-to-be-unique-to-stand-out/" rel="noreferrer" target="_blank">developer portal</a> should be well-documented and easy to get going with. For examples of <a href="https://nordicapis.com/5-examples-of-excellent-api-documentation/" rel="noreferrer" target="_blank">quality REST API documentation</a>, check out the docs from industry leaders like <a href="https://stripe.com/docs/api" rel="noreferrer" target="_blank">Stripe</a>, <a href="https://www.twilio.com/docs" rel="noreferrer" target="_blank">Twilio</a>, <a href="https://developer.github.com/v3/guides/getting-started/" rel="noreferrer" target="_blank">GitHub</a>, <a href="https://www.shutterstock.com/developers/documentation" rel="noreferrer" target="_blank">Shutterstock</a>, and others. Although it’s not a requirement, a growing expectation is to share a public OpenAPI Specification, too.</p>
+<p>Next is self-service capabilities. Most developers want to see how it works in action. Therefore, APIs with an easy onboarding process that help you rapidly get to ‘Hello World’ offer a better experience. Unless you’re locking access down for <a href="https://accelerationeconomy.com/cxo/how-apis-fuel-revenue-co-creation-great-cx-in-partners-ecosystems/" rel="noreferrer" target="_blank">select partners</a>, gatekeeping API key generation behind a ‘Contact us’ button is a surefire way to keep potential users at bay. Instead, APIs should be as <a href="https://nordicapis.com/5-ways-to-make-your-api-more-self-service/" rel="noreferrer" target="_blank">self-service</a> as possible with a getting started guide, a playground to test calls, sample code, and so on.</p>
+<p>No one likes changes that <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/" rel="noreferrer" target="_blank">break integrations</a>. Especially if these changes happen unexpectedly without forewarning. Therefore, a solid API developer experience is stable and responds as expected. Production performance matches what’s documented, and when versioning occurs or features are added, these changes are communicated and logged in a <a href="https://nordicapis.com/dont-forget-these-five-items-in-your-api-changelog/" rel="noreferrer" target="_blank">changelog</a>. If possible, a good API design and change management posture retains backward compatibility.</p>
+<p>These tidbits only scratch the surface of what it means to craft great developer experiences for APIs. Helpful error messages with actionable advice can improve usability as they help debugging. The design of the API itself is also a determining factor in the developer experience. (Are paths, methods, and parameters <a href="https://nordicapis.com/10-best-practices-for-naming-api-endpoints/" rel="noreferrer" target="_blank">clearly named</a> and use consistent styling?) Lastly, developers are unique snowflakes, each with their own coding habits and preferred languages. A quality developer experience typically understands this and offers code generation for various languages or <a href="https://nordicapis.com/how-sdks-benefit-api-developer-experience/" rel="noreferrer" target="_blank">software developer kits</a> (SDKs).</p>
+<h2 id="common-hangups-around-api-developer-experience">Common Hangups Around API Developer Experience</h2>
+<p>A great developer experience can tremendously enhance <a href="https://medium.com/coord/what-it-takes-to-build-usable-apis-4d9b7346629" rel="noreferrer" target="_blank">API usability</a> when things go well. But what are some developer experience anti-patterns? There are several common hangups around integrating with APIs that negatively affect developer experience.</p>
+<p>The first and most apparent detractor from developer experience is missing documentation. The <a href="https://www.postman.com/state-of-api/executing-on-apis/#executing-on-apis" rel="noreferrer" target="_blank">2023 State of the API Report</a> found a lack of documentation to be the top obstacle to consuming APIs. If documentation isn’t visible or missing elements, it’s an instant blocker for developer onboarding. Programmers shouldn’t have to reverse-engineer or make guesses about how to construct queries.</p>
+<p>Next is discoverability. Simply <em>finding</em> APIs isn’t as easy as it sounds, and this challenge ranks as the second-highest obstacle in the report mentioned above. Often, APIs and their references are scattered throughout an organization without a consolidated portal. Even public API products aren’t always organized in a way that aids the consumption experience. As such, investing in better organization and <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">inventory management</a> will help more consumers get started. A <a href="https://nordicapis.com/7-reasons-why-cataloging-your-api-inventory-matters/" rel="noreferrer" target="_blank">streamlined API catalog</a> with metadata could also <a href="https://nordicapis.com/how-to-design-apis-for-llms/" rel="noreferrer" target="_blank">benefit AI consumption</a>, arming models with more context to aid their training.</p>
+<p>Other top barriers to API usability include a lack of time and knowledge. Scouring through intricate references can take time, let alone knowledge, to know what you’re looking at. As such, <a href="https://nordicapis.com/8-key-metrics-to-track-when-productizing-apis/" rel="noreferrer" target="_blank">tracking and key optimizing metrics</a> like ‘Time to First Call,’ churn rate, error rates, and other indicators can help understand what is troubling an API’s user base. Another option is to create pathways and sample code for specific user types to ease the implementation of common workflows.</p>
+<p>On the whole, working with APIs is complex, and many other factors can inhibit a developer’s experience. For instance, naming inconsistencies, opaque error responses, <a href="https://nordicapis.com/most-apis-suffer-from-specification-drift/" rel="noreferrer" target="_blank">specification drift</a>, sudden breaking changes, long response times, challenges around authentication, and more can all cause frustration. As such, it’s a good idea to <a href="https://www.doerrfeld.io/what-is-an-api-developer-experience-audit" rel="noreferrer" target="_blank">continually audit the experience</a> developers have to see what needs improving.</p>
+<h2 id="why-api-developer-experience-matters">Why Developer Experience Matters</h2>
+<p>A focus on developer experience is important to improve developer agility, <a href="https://www.cio.com/article/1255774/is-it-worth-measuring-software-developer-productivity-cios-weigh-in.html" rel="noreferrer" target="_blank">productivity</a>, and <a href="https://devops.com/how-linkedin-is-investing-in-developer-productivity-and-satisfaction/" rel="noreferrer" target="_blank">overall satisfaction</a>. For SaaS products, a better DX can boost SaaS sales since developers are often decision-makers when it comes to purchasing new tech, and first impressions matter.</p>
+<p>But the benefits extend beyond just selling to external devs — it’s important to note that developer experience matters, regardless of whether your API is an external product or an <a href="https://nordicapis.com/how-to-measure-and-improve-internal-developer-experience/" rel="noreferrer" target="_blank">internal-facing service</a>. Quality developer experience has the added effect of <a href="https://devops.com/can-improving-developer-experience-actually-reduce-costs/" rel="noreferrer" target="_blank">reducing cost</a> since cycle times are shorter, there’s less overhead, and there’s less re-engineering. “Removing friction in the developer workflow can help launch projects faster, “creating longer revenue-generating timelines and opportunities,” he said,” says Isaac Nassimi, SVP of product, Nylas on <a href="https://devops.com/can-improving-developer-experience-actually-reduce-costs/" rel="noreferrer" target="_blank">DevOps.com</a>.</p>
+<p>In the wake of <a href="https://nordicapis.com/12-top-performing-llms-in-2024/" rel="noreferrer" target="_blank">generative AI</a>, <a href="https://leaddev.com/process/using-ai-make-sci-fi-developer-experience" rel="noreferrer" target="_blank">engineering leadership</a> is doubling down on developer experience for a number of reasons.&nbsp;<span>For where APIs are concerned, developer experience is one of the critical components that determine the usability and overall success of an <a href="https://blog.treblle.com/why-executive-interest-in-apis-is-booming/" target="_blank" rel="noreferrer">API strategy</a>.</span>&nbsp;So, next time you’re designing APIs, put yourself in the developer’s shoes!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/what-is-api-developer-experience/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

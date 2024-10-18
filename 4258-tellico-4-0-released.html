@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Tellico 4.0 released</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Tellico 4.0 released</h3>
+		<div><p><a href="https://tellico-project.org/tellico-4-0-released/" rel="noreferrer" target="_blank">Version 4.0</a> of the <a href="https://tellico-project.org/" rel="noreferrer" target="_blank">Tellico</a> collection-management
+software has been released. This is the first release to use the
+KDE&nbsp;Frameworks&nbsp;6 and Qt6 libraries, with a fallback
+available for Frameworks&nbsp;5 and Qt5. Other notable changes in 4.0
+include importing video collections from file metadata and correctly
+importing multi-disc album data from <a href="https://www.discogs.com/" rel="noreferrer" target="_blank">Discogs</a>, <a href="https://musicbrainz.org/" rel="noreferrer" target="_blank">MusicBrainz</a>, and <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html" rel="noreferrer" target="_blank">iTunes</a>. Users
+of prior versions are advised to make a backup of their data before upgrading.</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/988837/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

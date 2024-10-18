@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Eight Pillars of API Security</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Eight Pillars of API Security</h3>
+		<div><p>APIs, the backbone of modern software, require strong security measures to safeguard data and applications from unauthorized access, modification, or disruption. As such, technology leaders must foster a <a href="https://nordicapis.com/why-api-security-is-a-growing-concern-for-cisos-in-2024/" rel="noreferrer" target="_blank">security-conscious environment</a> by equipping developers and security professionals with the necessary knowledge and tools to implement robust API security practices.</p>
+<p>Securing these API connections is crucial for several reasons, including data protection, reputation management, and <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">compliance</a>. Neglecting to strengthen your API security capabilities exposes your digital ecosystem to vulnerabilities in an ever-changing threat landscape.</p>
+<p>Below, we’ll uncover the eight pillars of API security capability. Each of these pillars contributes to forming a comprehensive framework for establishing crucial defenses.</p>
+
+<h2 id="1-api-design">1. API Design</h2>
+<p>To effectively address threats such as injection or Broken Authentication (OWASP API2), it’s essential to implement a proactive threat modeling workflow during API design. Here are some ways to enforce this:</p>
+<ul>
+<li><strong>Model threats</strong>: Conduct thorough threat modeling early in the design process.</li>
+<li><strong>Choose frameworks</strong>: Carefully select security frameworks that align perfectly with your tech stack.</li>
+<li><strong>Code securely</strong>: Implement robust secure coding principles to minimize vulnerabilities effectively.</li>
+<li><strong>Control access</strong>: Enforce strict mandatory authentication and granular authorization for comprehensive security measures.</li>
+</ul>
+<h2 id="2-secret-management">2. Secret Management</h2>
+<p>Secure management of sensitive API credentials is crucial to prevent the <a href="https://nordicapis.com/keep-api-keys-safe-because-the-repercussions-are-huge/" rel="noreferrer" target="_blank">exploitation of compromised keys</a>, unauthorized access, and attempts at privilege escalation. Here are some ways to ensure strong secret management:</p>
+<ul>
+<li><strong>Avoid hardcoding</strong>: Store API keys, tokens, and credentials in dedicated secret management solutions.</li>
+<li><strong>Encrypt data at rest and in transit</strong>: Protect <a href="https://commission.europa.eu/law/law-topic/data-protection/reform/rules-business-and-organisations/legal-grounds-processing-data/sensitive-data/what-personal-data-considered-sensitive_en" rel="noreferrer" target="_blank">sensitive data</a> using robust encryption algorithms.</li>
+<li><strong>Key rotation policies</strong>: Implement a regular key and credential rotation policy.</li>
+</ul>
+<h2 id="3-deployment">3. Deployment</h2>
+<p>To effectively address attack vectors targeting API deployment, such as exploiting misconfigurations, unpatched vulnerabilities (OWASP API8), and security logging failures (OWASP API9), a thorough deployment update workflow is necessary. A deployment workflow can be secured with the following actions:</p>
+<ul>
+<li><strong>Protect environments</strong>: Deploy APIs to environments that have been hardened following security standards.</li>
+<li><strong>Control access</strong>: Use network segmentation and <a href="https://nordicapis.com/how-api-gateways-are-evolving-lighter-smarter-and-cloud-native/" rel="noreferrer" target="_blank">API gateways</a> to filter traffic and control access.</li>
+<li><strong>Minimize exposure</strong>: Limit public exposure and deactivate unnecessary endpoints.</li>
+<li><strong>Patch and update</strong>: Regularly update systems and software to address vulnerabilities.</li>
+</ul>
+<h2 id="4-testing">4. Testing</h2>
+<p>This pillar outlines integrating comprehensive testing to discover flaws such as Broken Object Level Authorization (OWASP API1), Broken Authentication (OWASP API2), and more. It includes static analysis of code and dynamic testing to detect <a href="https://nordicapis.com/5-common-api-vulnerabilities-and-how-to-fix-them/" rel="noreferrer" target="_blank">runtime vulnerabilities</a>. Some ways to enhance testing include:</p>
+<ul>
+<li><strong>Integrate throughout</strong>: Embed <a href="https://nordicapis.com/how-to-mitigate-risk-through-api-security-testing/" rel="noreferrer" target="_blank">security testing</a> from development to production (SAST, DAST, and pen-testing).</li>
+<li><strong>Focus on vulnerabilities</strong>: Target <a href="https://owasp.org/www-project-api-security/" rel="noreferrer" target="_blank">OWASP Top 10 risks</a>, especially injection attacks and access control flaws.</li>
+<li><strong>Automate</strong>: Leverage tools to automate security tests within your <a href="https://nordicapis.com/the-differences-between-continuous-integration-continuous-delivery-and-continuous-deployment/" rel="noreferrer" target="_blank">CI/CD pipeline</a>.</li>
+<li><strong>Remediate quickly</strong>: Establish processes for rapid vulnerability fixing.</li>
+</ul>
+<h2 id="5-inventory">5. Inventory</h2>
+<p>Maintaining a <a href="https://nordicapis.com/api-inventory-navigating-through-invisible-threats/" rel="noreferrer" target="_blank">comprehensive API inventory</a> is important for ensuring visibility and safeguarding against various threats, including unauthorized access (OWASP API5), exploitation of <a href="https://nordicapis.com/whats-the-difference-between-shadow-apis-and-zombie-apis/" rel="noreferrer" target="_blank">shadow APIs</a>, and insufficient logging and monitoring. Let’s consider some methods to improve API inventory management:</p>
+<ul>
+<li><strong>Centralized catalog</strong>: Keep a complete list of all internal and external APIs in one place.</li>
+<li><strong>Thorough documentation</strong>: Record API specifications, versions, access controls, owners, and dependencies.</li>
+<li><strong>Classification by sensitivity</strong>: <a href="https://nordicapis.com/8-tips-for-creating-an-api-catalog-and-why-you-need-one/" rel="noreferrer" target="_blank">Categorize APIs</a> based on the data they handle.</li>
+<li><strong>Regular reviews</strong>: Update your inventory to reflect changes and decommissioned APIs.</li>
+</ul>
+<h2 id="6-protection">6. Protection</h2>
+<p>Proactive protection mechanisms, such as those outlined in this workflow, are essential to counter threats like SQL injection, cross-site scripting (XSS), denial-of-service (DoS) attacks, and others covered by the OWASP Top 10. Some ways to bring better protection to APIs:</p>
+<ul>
+<li><strong>Use web application firewalls (WAFs)</strong>: Deploy WAFs to filter malicious traffic and protect against common attacks.</li>
+<li><strong>Intrusion detection/prevention (IDS/IPS)</strong>: Detect and block attack attempts and abnormal behavior.</li>
+<li><strong>Input validation and sanitization</strong>: Rigorously <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/" rel="noreferrer" target="_blank">sanitize all user inputs</a> on the server side.</li>
+<li><strong>Rate limiting and throttling</strong>: Prevent resource exhaustion and DoS attacks.</li>
+</ul>
+<h2 id="7-security-monitoring">7. Security Monitoring</h2>
+<p>A structured real-time monitoring and incident response workflow offers a methodical approach to investigate and address the OWASP Top 10 issues, such as <a href="https://nordicapis.com/a-guide-to-fixing-broken-access-control-in-your-apis/" rel="noreferrer" target="_blank">Broken Object Level Authorization</a> (OWASP API1) or Mass Assignment, to minimize the impact of potential breaches. Some tips for creating robust security monitoring practices:</p>
+<ul>
+<li><strong>Log comprehensively</strong>: Log API requests, responses, errors, authentication events, and configuration changes.</li>
+<li><strong>Establish baselines</strong>: Understand normal API behavior to detect anomalies.</li>
+<li><strong>Real-time alerting</strong>: Implement alerts for suspicious activity or significant deviations from the norm.</li>
+<li><strong>Centralize and analyze</strong>: Aggregate logs for broader security insights and forensic investigations.</li>
+</ul>
+<h2 id="8-governance">8. Governance</h2>
+<p>A <a href="https://nordicapis.com/how-atlassian-is-approaching-api-governance/" rel="noreferrer" target="_blank">robust governance workflow</a> is essential to ensure your organization remains resilient against evolving threats, such as new OWASP risks and attack vectors. Many factors go into establishing <a href="https://www.infoworld.com/article/3529600/how-do-you-govern-a-sprawling-disparate-api-portfolio.html" rel="noreferrer" target="_blank">API governance</a> — here are some ways to enforce it:</p>
+<ul>
+<li><strong>Clear policies</strong>: Develop policies on data management, access control, incident response, and patch management.</li>
+<li><strong>Regular review and update</strong>: Regularly update policies to address new threats and industry standards.</li>
+<li><strong>Accountability</strong>: Assign roles and responsibilities for API security across teams.</li>
+<li><strong>Training</strong>: Educate developers, operations staff, and security professionals on API security principles.</li>
+</ul>
+<h2 id="final-thoughts-on-the-eight-pillars-of-api-security">Final Thoughts on The Eight Pillars of API Security</h2>
+<p>Consider implementing these eight API security pillars to enhance your defenses against various attacks and ensure that your APIs operate securely. It’s important to remember that API security is a continuous process that requires constant monitoring, refinement, and adaptability to stay ahead of ever-changing security threats.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-eight-pillars-of-api-security/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

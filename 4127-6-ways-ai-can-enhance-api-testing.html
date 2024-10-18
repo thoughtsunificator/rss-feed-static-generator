@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>6 Ways AI Can Enhance API Testing</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">6 Ways AI Can Enhance API Testing</h3>
+		<div><p>Artificial intelligence has evolved in recent years to be more than just a curious implementation of logic gates. Instead, AI, and more specifically, <a href="https://nordicapis.com/7-large-language-model-llm-apis/" rel="noreferrer" target="_blank">large language models</a> (LLMs), have opened a new domain of tools for API creation and testing. AI has the potential to truly shine in the realm of software testing.</p>
+<p>Below, we’ll look at some specific areas where AI could assist API testing. While this list is not exhaustive, it provides some insight into the particular benefits AI brings to the table. These could serve as a template for considering new ways to implement AI at scale to supercharge your testing regiment.</p>
+<h2 id="1-generating-data-for-testing">1. Generating Data for Testing</h2>
+<p>APIs use data, but quality dummy data is surprisingly difficult to generate. While many organizations have tested with live data, this has caused headaches in practice, leaking secure data into the wild and exposing systems that otherwise should not be secured. Instead, mock data is a better blend of efficacy and security, but something more substantial is needed to generate quality mock data.</p>
+<p>AI fits this bill perfectly. <a href="https://nordicapis.com/how-gen-ai-is-evolving-api-management/" rel="noreferrer" target="_blank">Generative AI</a> is adept at taking existing data and generating similar data. Accordingly, feeding some basic expectations for data into an LLM and setting constraints can result in data that feels real without exposing the underlying resources or users.</p>
+<p>Notably, developers should remember that <a href="https://www.technologyreview.com/2024/06/18/1093440/what-causes-ai-hallucinate-chatbots/" rel="noreferrer" target="_blank">AI hallucinates</a>, and in some cases, it does so dramatically. For this reason, data should be validated against the expected form and function, and such data should be used as an adjunct for testing, not a primary dependency.</p>
+<h2 id="2-heuristic-response-validation">2. Heuristic Response Validation</h2>
+<p>A great skill of today’s modern AI is comparison. LLMs are designed to look at content and generate what should follow. For this reason, they’re often adept at testing whether or not this logic follows between two real-world outcomes.</p>
+<p>In this way, AI can be used as a comparative test for heuristic response validation. Feeding the AI responses to requests, and the requests themselves for context, can allow developers to then use this AI to look at future requests to see whether the outcome is as expected. This heuristic-based detection system could then expand this <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/" rel="noreferrer" target="_blank">validation process</a> to suggested corrective actions. For instance, detecting a malformed request, noting that no error code context has been documented, and then forwarding the suggested action to the end developer.</p>
+<p>Of course, the hallucinatory effect of AI is a risk here, but this is mitigated by increasing both the quality and quantity of response data for the underlying system. The more data is provided, the more the system can learn and thus improve its detective ability.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-ai-powered-api-security-tools/" rel="noreferrer" target="_blank">10 AI-Powered API Security Tools</a></div>
+<h2 id="3-load-simulation">3. Load Simulation</h2>
+<p>Generative AI can be used to simulate a range of user behaviors, user environments, and even interaction pathways. This allows developers to <a href="https://nordicapis.com/gen-ai-apis-and-the-future-of-development/" rel="noreferrer" target="_blank">leverage generative AI</a> to simulate load across the API, both subjecting the system to realistic common threats as well as less common but still possible interaction pathways.</p>
+<p>With so many generative <a href="https://nordicapis.com/8-ai-driven-threat-detection-tools/" rel="noreferrer" target="_blank">AI solutions</a> and clients in the marketplace, it’s not uncommon to see your systems hit by other AIs relatively regularly. Using an AI to simulate this content interaction could help prepare the production system for this new reality, <a href="https://nordicapis.com/tips-for-boosting-product-features-with-generative-ai/" rel="noreferrer" target="_blank">improving the product</a> and end-user experience.</p>
+<h2 id="4-threat-modeling-and-adaptive-testing">4. Threat Modeling and Adaptive Testing</h2>
+<p>Security testing is only as good as the model in use. Threat modeling is the process of identifying potential vectors and test cases to validate that your approach is effective and secure. Accordingly, making this threat model broader and more effective can result in a more secure end result.</p>
+<p>Generative AI is great at making such models, as it can look at the context of an environment and identify potential threats based on the data it has trained upon. Given that LLMs and AI have been used widely in security implementations, sometimes there is already a wealth of data that can be leveraged to make realistic threat models that surface threats developers may not even be aware of.</p>
+<p>The benefit to threat testing doesn’t stop there, either. Generative models can take existing results from threat model testing and adapt both the load and attack vector to identify new potential threats. Fixing one problem might create another, and adaptive testing can be used to discover these “wack-a-mole” style issues at scale.</p>
+<h2 id="5-vulnerability-discovery">5. Vulnerability Discovery</h2>
+<p>One major benefit of AI is how rapidly it can understand a complex system. This can be put to great use by targeting your API with the AI model to discover vulnerabilities. While the system is not perfect — and it is again affected by hallucinations, requiring validation of issues — it can nonetheless result in a relatively rapid and decently heavy list of potential risks and vulnerabilities that might otherwise require hours of effort to discover.</p>
+<p>Notably, <a href="https://nordicapis.com/api-vulnerability-scanners/" rel="noreferrer" target="_blank">vulnerability scanning</a> can also help identify vulnerabilities accessible to end users. While you can provide the AI more critical access to detect all issues, having the AI act as an external threat actor can help identify the vulnerabilities most likely to be abused from the outside, such as cross-site scripting, SQL injection, malformed queries, and so forth.</p>
+<div class="well">Related: <a href="https://nordicapis.com/using-hacking-apis-gpt-for-api-security-testing/" rel="noreferrer" target="_blank">Using Hacking APIs GPT For API Security Testing</a></div>
+<h2 id="6-error-handling-validation">6. Error Handling Validation</h2>
+<p><a href="https://nordicapis.com/best-practices-api-error-handling/" rel="noreferrer" target="_blank">Error handling</a> is a critical part of API testing, as it allows for setting context around known errors. Error communication can help resolve errors without developers having to get hands-on, offering a self-serve contextual boost to the end user. The quality of these error messages and how they are handled is quite vital, however, and LLM AIs, once again, can help in major ways.</p>
+<p>First and foremost, AI systems can help generate errors and validate that the API handles them as expected. They can collect and collate the resulting error messages but can also do more advanced testing, such as validating the reading level and clarity of the error messages and whether or not adequate documentation exists to resolve these issues.</p>
+<p>In essence, the AI can function as a helpful end user who validates and improves error handling without the overhead and negative impact of actually encountering errors in the real world.</p>
+<h2 id="conclusion">Using AI in API Testing</h2>
+<p>Ultimately, AI has proven to be a powerful tool that can help developers test, validate, and improve their ultimate output in the API space. This list is by no means complete, as there are almost as many use cases for AIs in the API space as there are AIs themselves. AI promises to make for more effective and efficient testing as long as you can work around the hallucinations and drawbacks of the technology.</p>
+<p>What do you think of these benefits? What other benefits would you like us to dive into? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/6-ways-ai-can-enhance-api-testing/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

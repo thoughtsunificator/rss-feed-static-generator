@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Understanding CAMARA, The API Standards For Telcos</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Understanding CAMARA, The API Standards For Telcos</h3>
+		<div><p>Standardization is a fact of business. Every industry or sector, across every activity from software development, food preparation, or recruitment, is affected by a standard that influences how ‘something’ is done. The API economy is no exception to the effect of standards.</p>
+<p><a href="https://nordicapis.com/7-api-standards-bodies-to-get-involved-with/" rel="noreferrer" target="_blank">API standards</a> are often considered both an enabler and an inhibitor of growth and competition, with some arguing against standardization in favor of market forces. Nevertheless, several industries are <em>required</em> to publish APIs built to a pre-defined specification. <a href="https://nordicapis.com/7-global-open-banking-standards/" rel="noreferrer" target="_blank">Open banking</a> is the obvious example, where banks must deliver APIs to the market to increase competition and allow other service providers to meet customer needs.</p>
+<p>Other sectors, from <a href="https://nordicapis.com/tips-for-making-fhir-compliant-healthcare-apis/" rel="noreferrer" target="_blank">healthcare</a> to telecommunications, have endeavored to create standards around common API-related functions. In this post, we consider the efforts of the <a href="https://camaraproject.org/" rel="noreferrer" target="_blank">CAMARA Project</a>, an API standards body for telcos that has recently become a Linux Foundation project, and the effect standardized APIs might have on the telco industry.</p>
+<h2 id="api-standards-for-telcos">API Standards for Telcos</h2>
+<p>Having consistent standards has been a <em>must</em> for telcos since the days of yore and the birth of the industry. Mobile network operators must be interoperable, work at a massive scale, and process hundreds of billions of calls and call records. Having standards that facilitate this scale is natural to the telco industry. For example, Transferred Account Procedures, or TAP for short, was invented in 1991 and has allowed cell phone networks to exchange roaming billing records for decades. Most <a href="https://www.gsma.com/" rel="noreferrer" target="_blank">GSMA</a> standards and technologies have a similar legacy to TAP.</p>
+<p>However, standardized <em>network</em> APIs elude the telco industry. Standardized network APIs allow common functions of operator networks, such as making a call, to be invoked consistently across any network, reducing integration time and increasing efficiency for API consumers. McKinsey <a href="https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/what-it-will-take-for-telcos-to-unlock-value-from-network-apis" rel="noreferrer" target="_blank">cites</a> standardized network APIs as being worth between $100 billion and $300 billion, so there is certainly a compelling case for implementing them.</p>
+<p>However, many non-operators still have to deal directly with standards like TAP or integrate with different APIs across different networks. Implementing network APIs has had limited success for many reasons, from the network operators’ fears of changing market dynamics and disruption to continued rapid product development as networks move to 5G. CAMARA is, therefore, looking to address the standardization aspect through common APIs.</p>
+<h2 id="what-is-the-goal-of-camara-">What Is the Goal of CAMARA?</h2>
+<p>CAMARA aims to move telco networks away from point-to-point integrations and ad-hoc APIs on specific technology stacks to generic, abstracted, and common APIs that can unlock network value. According to the CAMARA website, this approach is necessary as it will “pave the way for transforming operator networks into service enablement platforms, facilitating the application-to-network integration, which will be key to deliver enhanced and service tailored customer experience in the 5G era.”</p>
+<p>The transformation from a network to a platform and the focus on custom experience mirrors a general trend throughout <a href="https://nordicapis.com/how-the-api-economy-is-changing-in-2024/" rel="noreferrer" target="_blank">the API economy</a>. API providers deliver their products and services through a means that is based on their platform being a black box, meaning customers only need to understand the APIs and not the inner workings, promoting scale and efficiency. Doing the same thing at the telco network level, allowing developers to ignore the guts of the underlying network operator, will achieve <strong><em>the same efficiencies</em></strong> and help accelerate innovation as network integration becomes a commodity.</p>
+<p>Take the example of initiating a mobile call from a web page or application, where the browser or app hands off to a provider to make the call. The provider could be the operating system of a mobile phone or an application that provides calling capabilities. There is a <em>huge</em> number of ways to do this, with different capabilities based on the providers’ implementation, varying through mobile operating systems, providers like <a href="https://www.twilio.com/docs/voice/make-calls#initiate-an-outbound-call-with-twilio" rel="noreferrer" target="_blank">Twilio</a>, and network operators. CAMARA, therefore, provides the <a href="https://camaraproject.org/clicktodial/" rel="noreferrer" target="_blank">ClickToDial</a> API, with a sub-project on GitHub and a <a href="https://github.com/camaraproject/ClickToDial/blob/main/code/API_definitions/Click%20to%20Dial.yaml" rel="noreferrer" target="_blank">standardized design</a> for implementing an API. The means to initiate dialing a number becomes a simple API, described in OpenAPI:</p>
+<pre><code class="lang-yaml">paths:
+  /clicktodialbegin:
+    post:
+      summary: The app calls this API to establish a <span class="hljs-keyword">call</span> <span class="hljs-keyword">between</span> caller <span class="hljs-keyword">and</span> callee.
+      operationId: ClickToDialBegin
+      tags:
+        - Click <span class="hljs-keyword">To</span> Dial <span class="hljs-keyword">Begin</span>
+      requestBody:
+        description: Contains the information <span class="hljs-keyword">for</span> the <span class="hljs-keyword">creation</span> the resource.
+        <span class="hljs-keyword">required</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-keyword">content</span>:
+          application/<span class="hljs-keyword">json</span>:
+            <span class="hljs-keyword">schema</span>:
+              $<span class="hljs-keyword">ref</span>: <span class="hljs-string">'#/components/schemas/ClickToDialBeginRequest'</span>
+      responses:
+        <span class="hljs-string">'200'</span>:
+          description:  The <span class="hljs-keyword">result</span> <span class="hljs-keyword">of</span> Click <span class="hljs-keyword">to</span> Dial <span class="hljs-keyword">Begin</span> 
+          <span class="hljs-keyword">content</span>:
+            application/<span class="hljs-keyword">json</span>:
+              <span class="hljs-keyword">schema</span>:
+                $<span class="hljs-keyword">ref</span>: <span class="hljs-string">"#/components/schemas/ClickToDialBeginResponse"</span>
+        <span class="hljs-string">'400'</span>:
+          $<span class="hljs-keyword">ref</span>: <span class="hljs-string">'#/components/responses/Generic400'</span>
+        <span class="hljs-string">'403'</span>:
+          $<span class="hljs-keyword">ref</span>: <span class="hljs-string">'#/components/responses/Generic403'</span>
+        <span class="hljs-string">'500'</span>:
+          $<span class="hljs-keyword">ref</span>: <span class="hljs-string">'#/components/responses/Generic500'</span>          
+        <span class="hljs-string">'504'</span>:
+          $<span class="hljs-keyword">ref</span>: <span class="hljs-string">'#/components/responses/Generic504'</span>
+</code></pre>
+<p>The CAMARA API standards replicate this simplicity for approximately 30 common operations. Here are a few other examples:</p>
+<ul>
+<li><a href="https://github.com/camaraproject/DeviceLocation" rel="noreferrer" target="_blank">Device location</a>, which is important for geolocation and geofencing capabilities and could be consistently supplied by a network operator.</li>
+<li><a href="https://github.com/camaraproject/SimSwap" rel="noreferrer" target="_blank">SIM swaps</a>, which allows a customer’s phone to be accurately paired with their current device, supporting capability mapping more accurately for service provision.</li>
+<li><a href="https://github.com/camaraproject/NumberVerification" rel="noreferrer" target="_blank">Number verification</a>, which provides assurance and security for phone users in verifying the number received is made from the phone paired with the SIM.</li>
+</ul>
+<p>These examples extend to any similar function or operation that an application developer needs to cater to when interacting with a telco network. CAMARA could, therefore, unlock significant value for network operators and API consumers in the telco industry. Network APIs have been an acknowledged goal in the industry for many years and have enormous value. As such, simplifying network integration through API standardization is an important goal.</p>
+<h2 id="the-challenges-of-increasing-api-standardization">The Challenges of Increasing API Standardization</h2>
+<p>Before embracing API standards, however, the telco industry should reflect on the lessons learned in <a href="https://nordicapis.com/do-api-standards-differ-from-industry-to-industry/" rel="noreferrer" target="_blank">existing open API ecosystems</a> like open banking and open finance. Alongside API standards, an ecosystem needs rules of engagement, an operating model, a trust framework, and an established and easily-used security model. Some of these features are absent in open banking markets, which has inhibited trust and adoption, as an open API ecosystem must provide a <em>network experience</em>. A network experience cannot be achieved solely by implementing standardized APIs.</p>
+<p>There are also other kids on the block in telco API standards. For example, <a href="https://www.tmforum.org/oda/open-apis/" rel="noreferrer" target="_blank">TM Forum</a> has launched an open API program to promote standardization across the telecoms industry. While TM Forum professes to work with CAMARA on standards, open banking shows us how ineffective collaboration across standards bodies can be, with a multitude of standards for account data sharing and payment initiation across the world. One of the key recommendations for PSD3 in the EU is a <a href="https://nordicapis.com/what-will-psd3-mean-for-open-banking/" rel="noreferrer" target="_blank">common, universal API standard for banking APIs</a>, so recent history already shows how important a joined-up approach is.</p>
+<p>Creating API standards is great for interoperability and unlocking closed platforms but does not necessarily deliver a money-printing machine. APIs need a commercial imperative to be successful and, in the case of open API ecosystems, a universal operating model for API providers and API consumers. API standards only grease the wheels of commerce. It takes delivering something people want through the products and services built on top of them to unlock the real value.</p>
+<div class="well">If you want to get involved with CAMARA, please see their <a href="https://camaraproject.org/contact/" rel="noreferrer" target="_blank">contact page</a>.</div>
+</div>
+		<a target="_blank" href="https://nordicapis.com/understanding-camara-the-api-standards-for-telcos/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

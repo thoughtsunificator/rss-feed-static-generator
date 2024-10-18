@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Most APIs Suffer From Specification Drift</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Most APIs Suffer From Specification Drift</h3>
+		<div><p>You never get a second chance to make a first impression. An API is often a developer’s first point of contact with a software-as-a-service. It must perform as expected, or you risk leaving a bad impression that stays with them. Delivering a <a href="https://nordicapis.com/what-does-a-bad-developer-experience-look-like/" rel="noreferrer" target="_blank">sub-par developer experience</a> can lead to negative feedback and a subsequent toll on your brand reputation. At worst, it can cause <a href="https://nordicapis.com/why-api-security-needs-a-proactive-approach/" rel="noreferrer" target="_blank">API security issues</a> and, in some instances, even <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">cause legal issues</a>.</p>
+<p>Unfortunately, APIs don’t always behave as they should. APIs have a tendency to get away from their specifications, sometimes due to a lack of regular upkeep. When this occurs, the specification doesn’t match the production behavior, causing issues. This is known as <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/" rel="noreferrer" target="_blank">API drift</a>.</p>
+<p>API drift is a common phenomenon, as reported by APIContext in their recent white paper <a href="https://apicontext.com/resources/api-drift-white-paper/" rel="noreferrer" target="_blank"><em>OpenAPI Specifications in the Real World</em></a>, featuring research based on 650 million API calls to more than 10,000 different API endpoints. Here are some of the key findings, which should underscore why API teams should always keep their API specifications up-to-date.</p>
+<h2 id="75-of-apis-have-nonconformant-endpoints">75% of APIs Have Nonconformant Endpoints</h2>
+<p>According to APIContext, 75% of production APIs tested had variances to their published OpenAPI Specifications. As APIs are developed, they may drift away from API specifications, no matter how detailed they may be. Certain types of APIs are more prone to drift than others. Certain banking, fintech, and bulk email management APIs showed 0% API drift. Some other APIs, like those from Box or Pivotal Tracker, had a much higher API drift rate.</p>
+<p>Some of the most common errors include:</p>
+<ul>
+<li>API returns the wrong format</li>
+<li>The API returns the wrong data</li>
+<li>The API resolves ambiguously</li>
+<li>Poorly defined pass/fail criteria</li>
+</ul>
+<p>For the wrong format errors, APIContext recommends returning structured objects as either null or empty as a best practice. For value errors, they recommend returning an HTTP status to make debugging easier if there’s a problem.</p>
+<h2 id="43-of-apis-don-t-have-a-public-api-specification">43% of APIs Don’t Have A Public API Specification</h2>
+<p>After searching common terms like ” OpenAPI Specification”, APIContext discovered that only 57% of APIs have public API specifications. A <a href="https://nordicapis.com/the-benefits-of-using-api-specifications/" rel="noreferrer" target="_blank">public API specification</a> is an important aspect of delivering a positive developer experience. It can also facilitate API integration and <a href="https://nordicapis.com/8-tools-to-automatically-generate-api-documentation/" rel="noreferrer" target="_blank">automated API documentation</a>. Last but not least, a public API specification is an excellent opportunity to market your API.</p>
+<div id="attachment_20598" class="wp-caption aligncenter"><p id="caption-attachment-20598" class="wp-caption-text">Source: APIContext</p></div>
+<h2 id="most-uk-banks-don-t-customize-their-open-banking-openapi-specification">Most UK Banks Don’t Customize Their Open Banking OpenAPI Specification</h2>
+<p>Even though UK banks are required to adhere to <a href="https://standards.openbanking.org.uk/" rel="noreferrer" target="_blank">specific UK open banking API standards</a>, many don’t go the extra mile with their OpenAPI specifications. Not doing so could cause errors and be a missed branding opportunity.</p>
+<p>Individual banks can customize their specification to their specific hostname, which is the base URL of a service. For one thing, providing documentation containing specific endpoints lets users know <em>exactly</em> how to use the API. It’s also an excellent opportunity to show users that a banking API is up-to-date, secure, and well-maintained at the same time.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-global-open-banking-standards/" rel="noreferrer" target="_blank">7 Global Open Banking Standards</a></div>
+<h2 id="openapi-2-0-still-shows-significant-use">OpenAPI 2.0 Still Shows Significant Use</h2>
+<p><a href="https://github.com/OAI/OpenAPI-Specification" rel="noreferrer" target="_blank">OpenAPI Specification</a> (OAS) 2.0 is still a popular API specification despite being published roughly ten years ago. 30% of the APIs examined by APIContext were still using OAS 2.0. Of the 54% of APIs using OAS 3.0, minor versions 3.0.0 and 3.0.1 are the most common. Not many (7%) use the latest version, <a href="https://nordicapis.com/whats-new-in-openapi-3-1-0/" rel="noreferrer" target="_blank">3.1.0</a>, which was released in early 2021.</p>
+
+<p>The use of older OAS versions is partially due to some service providers acting as a bottleneck for updating an API. For instance, AWS Gateway doesn’t support OAS 3.1, and Google’s API gateway only supports OAS 2.0.</p>
+<h2 id="52-of-apis-haven-t-been-updated-in-six-months">52% of APIs Haven’t Been Updated In Six Months</h2>
+<p>APIContext discovered that over half of API specifications hadn’t been updated in over six months. When API specifications <em>are</em> updated, they’re updated as often as every few days. This discrepancy illustrates the different attitudes towards <a href="https://nordicapis.com/3-example-openapi-definitions/" rel="noreferrer" target="_blank">API specifications</a>. Those who update their spec regularly see it as part of their <a href="https://nordicapis.com/the-differences-between-continuous-integration-continuous-delivery-and-continuous-deployment/" rel="noreferrer" target="_blank">development cycle</a> and as a best practice for API upkeep. Those that don’t update regularly have a different philosophy about specifications.</p>
+<p>Without OAS 3.0, API developers can’t leverage new features, such as <a href="https://swagger.io/docs/specification/links/" rel="noreferrer" target="_blank">OpenAPI Links</a>, which describes the relationship between responses and operations. They won’t be able to use OAS 3.0’s reusable components, either, making it more cumbersome and time-consuming.</p>
+<p>Finally, without upgrading to OAS 3.0 API, developers can’t take advantage of the specification’s <a href="https://nordicapis.com/what-is-the-arazzo-specification/" rel="noreferrer" target="_blank">latest features</a>, such as greater handling of asynchronous APIs or Webhooks. Yet, not wanting a JSON schema to be prescriptive is the most common reason for not updating an OAS regularly. Reliance on legacy service providers like Google API Gateway or AWS Gateway is another common reason.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/" rel="noreferrer" target="_blank">3 Example Use Cases for Arazzo Descriptions</a></div>
+<h2 id="final-thoughts-on-api-drift">Final Thoughts on API Drift</h2>
+<p>APIContext concludes its report with some best practices to avoid API drift. To start, they recommend making your OAS public and discoverable, preferably with a direct link or GitHub Repository that is updated regularly. They also recommend <a href="https://nordicapis.com/using-spectral-to-lint-your-openapi-definition/" rel="noreferrer" target="_blank">testing your production APIs</a> against the published spec, which should help keep API drift to a minimum.</p>
+<p>Inaccurate and unreliable APIs play a large part in some users’ unwillingness to adopt APIs. So, ensuring your API adheres to its specifications will help encourage API adoption, as developers will know they can trust the API and that it’ll work. It also helps reduce the risk of alienating potential users and customers, which can negatively impact your brand reputation while simultaneously boosting your API security.</p>
+<p>API calls make up over 80% of all internet traffic, according to <a href="https://www.akamai.com/newsroom/press-release/state-of-the-internet-security-retail-attacks-and-api-traffic" rel="noreferrer" target="_blank">Akamai data</a>. Arguably, the surge in API usage in the last decade has a lot to do with the adoption of standardized API formats like OpenAPI. They’re an important part of everything from API testing to eliminating shadow APIs.</p>
+<p>Given the importance of accurate API descriptions, a broader emphasis on the benefits of regularly updating an API specification would be a huge step forward in <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/" rel="noreferrer" target="_blank">reducing API drift</a>. Considering how much you stand to gain, and how much you have to lose, there’s every incentive to avoid API drift by keeping your API specifications up-to-date.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/most-apis-suffer-from-specification-drift/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

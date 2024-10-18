@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What’s The Difference Between Shadow APIs and Zombie APIs?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">What’s The Difference Between Shadow APIs and Zombie APIs?</h3>
+		<div><p>Shadow APIs and zombie APIs are, unfortunately, all too common. While they have cool names, their impact on organizations, data security, and user privacy is very uncool, threatening proper security best practices. In this piece, we’ll look at the difference between these types of APIs and suggest some ways to mitigate their negative effects.</p>
+<h2 id="what-is-a-shadow-api-">What is a Shadow API?</h2>
+<p>First, let’s define a shadow API. When APIs are developed, they come with a bevy of associated tasks. Chief among these is <a href="https://nordicapis.com/why-documentation-is-important-for-api-security/" rel="noreferrer" target="_blank">documenting the API</a>, ensuring that they are <a href="https://nordicapis.com/10-steps-to-catalog-your-growing-api-inventory/" rel="noreferrer" target="_blank">cataloged</a> with an explanation for its use.</p>
+<p><a href="https://nordicapis.com/proactive-tips-to-avoid-shadow-apis/" rel="noreferrer" target="_blank">Shadow APIs</a> arise from a lack of proper documentation practices. While documentation is a best practice for API development, it’s not technically a requirement for an API to run. As such, APIs are sometimes developed without any documentation, without any note that the API exists, and without any addition to a catalog or corpus of other APIs.</p>
+<p>These APIs exist in the shadows of the organization, and in many cases, awareness is lost due to siloed knowledge, organizational shifts, or just plain forgetfulness. This can result in an API with privileged access or critical functionality existing without the organization’s awareness, introducing significant issues in the general security posture.</p>
+<p><strong><em>Shadow APIs are APIs that exist without organizational awareness or documentation.</em></strong></p>
+<h2 id="what-is-a-zombie-api-">What is a Zombie API?</h2>
+<p>Let’s imagine your API is developed, has a <a href="https://nordicapis.com/best-practices-for-improving-your-api-security-posture/" rel="noreferrer" target="_blank">decent security posture</a>, and is well-documented. The reality of documentation is that it’s only as good as it is current and maintained. Regular maintenance and auditing are required to make it worthwhile.</p>
+<p>So what happens, then, when an API is left to linger even though it has been abandoned, deprecated, or otherwise left accessible but rendered unnecessary? In this case, an API becomes a <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/" rel="noreferrer" target="_blank">zombie API</a>.</p>
+<p>Zombie APIs are still accessible and usable despite being no longer part of the regular product offering. Like zombies of pulp fiction, they shuffle in the API graveyard, not quite dead but not quite alive, wreaking havoc just by being present. This can cause major issues. The API is still usable, accessing data, and working on the network, yet has none of the maintenance or attention required of a standard API.</p>
+<p><strong><em>Zombie APIs are APIs that have been deprecated or abandoned but are still usable.</em></strong></p>
+<h2 id="how-shadow-apis-and-zombie-apis-are-similar">How Shadow APIs and Zombie APIs Are Similar</h2>
+<p>Firstly, it should be noted that both of these types of APIs arise from a lack of attention. <a href="https://nordicapis.com/what-does-a-bad-developer-experience-look-like/" rel="noreferrer" target="_blank">Poor documentation practices</a> and lifecycle management processes ultimately result in a product being developed that flies under the radar in the case of the shadow API, and poor <a href="https://nordicapis.com/how-to-smartly-sunset-and-deprecate-apis/" rel="noreferrer" target="_blank">sunsetting and deprecation standards</a> resulting in lax communication and policy adherence results in zombie APIs.</p>
+<p>In both of these cases, this lack of attention could be negligent as well as accidental. Regardless, the result is the same: <a href="https://nordicapis.com/api-discovery-how-do-you-count-apis/" rel="noreferrer" target="_blank">visibility is reduced</a>, and the security posture is dramatically damaged.</p>
+<h2 id="how-shadow-apis-and-zombie-apis-are-different">How Shadow APIs and Zombie APIs are Different</h2>
+<p>That being said, these types of APIs do have some stark differences. Shadow APIs arise from organizational issues that can be rectified by simply creating and sustaining the <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/" rel="noreferrer" target="_blank">proper documentation culture</a> alongside strong tooling for version tracking and development. No product should be developed and released into the shadows, and the existence of shadow endpoints underscores the need for <a href="https://www.infoworld.com/article/3486176/api-security-starts-with-api-discovery.html" rel="noreferrer" target="_blank">internal discovery</a> as much as an organizational overhaul.</p>
+<p>In the case of zombie APIs, however, the problem is foundational. Outside of just the organizational issue inherent in shadow APIs, zombie APIs suggest a lack of cultural alignment. In an <a href="https://nordicapis.com/the-rise-of-api-first-companies-5-success-stories/" rel="noreferrer" target="_blank">API-first culture</a>, the API is the product, so the idea of leaving a zombie API shambling in the graveyard is like leaving a sack of gold on the ground. It’s fundamentally incompatible with healthy business and points to a large cultural misalignment that needs to be corrected.</p>
+<h2 id="mitigating-issues-from-shadow-and-zombie-apis">Mitigating Issues From Shadow and Zombie APIs</h2>
+<p>Thankfully, you can take certain steps to improve organizational alignment and decrease the likelihood of creating shadow and zombie APIs. Here are ways to mitigate a handful of concerns that arise from these types of APIs.</p>
+<h3 id="security-concerns">Security Concerns</h3>
+<p>Shadow APIs might connect with secure resources, as they were designed to act as a standard API. The big problem with shadow APIs is their lack of documentation. Accordingly, the first step to resolving security concerns is ensuring the API is necessary, up-to-date, and documented. Once documented, the API must be reviewed to ensure that it fits with the current product offering and adheres to the security posture <a href="https://nordicapis.com/redefining-api-discovery-with-compliance-and-security/" rel="noreferrer" target="_blank">rules and regulations</a> currently implemented.</p>
+<p>On the other hand, zombie APIs represent a problem because they have outlived their intended timelines. Zombie APIs were meant to be deprecated or abandoned for good reason, and as such, the only real step that must occur to rectify security issues is to find them and cut off access entirely.</p>
+<h3 id="compliance-concerns">Compliance Concerns</h3>
+<p>Compliance concerns can arise from either of these API types. With shadow APIs, the problem is whether or not the route of accessing the information complies with <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">industry and regulatory standards</a>. With zombie APIs, the concern will be whether or not the API is still compliant regardless of whether it once was — if it was knowingly abandoned, this could be negligence, and if this abandonment happened when its security was <em>known</em> to be weak, this could be even worse.</p>
+<p>Without documentation, none of this can be known. Accordingly, your first step is to either locate documentation or <a href="https://nordicapis.com/10-best-api-documentation-tools-for-2024/" rel="noreferrer" target="_blank">create it</a>. Next, review and audit all configurations and functions to ensure they are actually compliant, as well as review transactions over time to ensure that no data has been exfiltrated and that security was maintained.</p>
+<h3 id="privacy-concerns">Privacy Concerns</h3>
+<p>Finally, you must review the privacy considerations of both API types. With shadow APIs, privacy should be aligned with the organization’s standard, but without documentation, this must be audited and reviewed in great detail. With zombie APIs, this is more complicated. The APIs may have adhered to privacy expectations when developed but could be outdated.</p>
+<p>In such a situation, you must not only fix the problem but also document the problem and do your due diligence to ensure no private data has been accessed and no vulnerability was exploited. In many cases, this will be required by regulatory bodies, but even if it’s not, it’s morally correct and should be done as a standard course.</p>
+<h2 id="final-thoughts-on-securing-shadowy-apis">Final Thoughts on Securing Shadowy APIs</h2>
+<p>Ultimately, shadow and zombie APIs are significant concerns that should be handled immediately when detected. The causes of the issue should be identified and swiftly rectified to ensure the problem does not continue unabated.</p>
+<p>Organizations often view their security posture as the sum of all its parts, including the firewall, gateway, and other components. However, the reality is that your security posture is only as good as the information you have about your system. As they say, you can’t secure what you don’t know.</p>
+<p>Accordingly, understanding and clarity are key elements of your security posture. Shadow APIs and zombie APIs undermine understanding and clarity, and the presence of either represents a substantial weakness in this overall posture. Accordingly, doubling down on these areas is crucial to heighten overall security.</p>
+<p>What do you think of our strategies for dealing with these spooky APIs? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/whats-the-difference-between-shadow-apis-and-zombie-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

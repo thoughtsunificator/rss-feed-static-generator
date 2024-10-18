@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to Design More Inclusive APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How to Design More Inclusive APIs</h3>
+		<div><p>Today, technology has the power to change lives. From connecting us with loved ones across continents to streamlining daily tasks, innovation plays a huge role in shaping our experiences. However, for this change to have an impact, it needs to be inclusive.</p>
+<p>This is where the idea of ​​creating inclusive APIs comes into play. Traditional API design often ignores the user’s native language, capabilities, and device compatibility, creating barriers for some. Building inclusive APIs solves this by identifying different users and ensuring that the API is accessible and usable by all.</p>
+<p>Creating inclusive APIs isn’t just about checking boxes — it’s about creating a welcoming environment for diverse users. From terminology to more accessible developer portal designs, let’s explore some basic principles that could help guide this approach.</p>
+<h2 id="language-and-terminology-fostering-clarity-and-respect">Language and Terminology: Fostering Clarity and Respect</h2>
+<p>APIs should be clear, respectful, and understandable to everyone, regardless of background. Therefore, the language you use to describe an API should not carry bias. For instance, when creating example usernames, avoid names that imply a specific gender (like “john123” or “mary”). In walkthroughs, tutorials, or blog posts, don’t assume the subject’s gender. Instead, use gender-neutral examples or placeholder terms.</p>
+<p>The world is a fabric of cultures. As such, technical language should embrace cultural sensitivity. Be mindful of idioms, metaphors, or statements specific to a particular region. Consider using a universally understood language for your developer documentation that transcends cultural boundaries. Many technical writers prefer <a href="https://www.unitedlanguagegroup.com/learn/what-is-global-english" rel="noreferrer" target="_blank">Global English</a> for this exact purpose.</p>
+<p>Also, accessibility is key. People with disabilities rely on <a href="https://pronovix.com/articles/accessible-features-and-tools-developer-portals-api-docs-2023" rel="noreferrer" target="_blank">assistive technology</a> like screen readers. Use clear and concise language that accurately conveys the meaning of these tools. Avoid jargon or vague technical terms. Explanatory notes and error messages are also important for a seamless user experience.</p>
+<p>Here are some examples of non-inclusive versus inclusive terms:</p>
+<ul>
+<li>Master/Slave -&gt; Primary/Secondary</li>
+<li>Whitelist/Blacklist -&gt; Allowlist/Denylist</li>
+<li>Man Hours -&gt; Person Hours or Work Hours</li>
+<li>Sanity Check -&gt; Quick Check or Confidence Check</li>
+</ul>
+<h2 id="opening-doors-through-ux-accessibility">Opening Doors Through UX Accessibility</h2>
+<p>To ensure an inclusive API experience, consider supporting assistive devices and technologies in your developer portals and documentation when possible. Create clear labels with Accessible Rich Internet Applications (ARIA) features for screen readers, and consider keyboard navigation for motor-impaired users.</p>
+<p>Other user experience tips and best practices can aid accessibility. For example, WCAG provides <a href="https://www.w3.org/TR/WCAG21/" rel="noreferrer" target="_blank">guidelines</a> for optimal color contrast, which helps users with low vision. Embrace responsive design principles for a seamless experience on desktops, laptops, tablets, and smartphones.</p>
+<p>Finally, create clear and actionable <a href="https://nordicapis.com/best-practices-api-error-handling/" rel="noreferrer" target="_blank">error messages</a> that describe the problem and provide solutions. This assistance will empower users to navigate your API more efficiently. By prioritizing these accessibility mechanisms in your developer resources, you create an inclusive API that welcomes anyone to participate in the digital world.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/how-apis-can-enhance-digital-accessibility-and-inclusion/" rel="noreferrer" target="_blank">How APIs Can Enhance Digital Accessibility and Inclusion</a></div>
+<h2 id="flexibility-and-customization-catering-to-a-global-audience">Flexibility and Customization: Catering to a Global Audience</h2>
+<p>A truly flexible API must meet the needs of various users. One way to do so is by supporting multiple authentication methods to meet user preferences and security needs. Acknowledge the global nature of your API by allowing local (language options) and international transactions (data format options for dates, times, and currencies). This flexibility empowers developers worldwide to seamlessly integrate your API and deliver an intuitive experience to a global audience.</p>
+<h2 id="documentation-and-support-building-bridges-with-knowledge">Documentation and Support: Building Bridges with Knowledge</h2>
+<p>Bridge the knowledge gap with clear API support. Create user-friendly documentation that avoids jargon and explains complex concepts. Offer code snippets in various programming languages to cater to a global audience. Additionally, explore other options such as video tutorials, interactive coding examples, or community meetings. Providing this variety of learning materials allows users to choose their preferred method and gain a deeper understanding of your API functionality.</p>
+<h2 id="moving-from-theory-to-practice">Moving from Theory to Practice</h2>
+<p>So far, these principles are purely hypothetical, so let’s see how to translate them into code.</p>
+<h3 id="inclusive-naming-conventions">Inclusive Naming Conventions</h3>
+<p>First, let’s consider how to bring inclusivity into naming conventions. Here is a sample route:</p>
+<pre><code>@app.route('/master_control')
+def master_control():
+</code></pre>
+<p>The route name, <code>master_control</code>, uses the term “master,” which might have negative connotations of dominance or control. Here is a more inclusive alternative:</p>
+<pre><code>@app.route('/primary_control')
+def primary_control():
+# …
+</code></pre>
+<p>The route name is changed to <code>primary_control</code>, which is more neutral and avoids any potential offense. Using clear and neutral language like this in your API path names helps them become inclusive for a wider audience.</p>
+<h3 id="accessibility-features">Accessibility Features</h3>
+<p>Now, let’s consider how API design could help improve end-user accessibility. One way to support this is by sharing additional information in the JSON response body.</p>
+<pre><code class="lang-JSON">{
+  "data": [
+    {
+      "id": 1,
+      "name": "Product A",
+      "aria-label": "Product A, price $19.99, 4.5-star rating"  // Improves screen reader support
+    }
+  ]
+}
+</code></pre>
+<p>The <code>aria-label</code> attribute is added to the product object. This attribute provides additional context about the data element for screen readers, making the API more accessible to visually impaired users.</p>
+<h3 id="flexible-authentication">Flexible Authentication</h3>
+<p>Finally, offering varying means of authentication could help open up your API to a wider user base. Consider the following:</p>
+<pre><code>def authenticate(request):
+    if 'api_key' in request.headers:
+        return authenticate_with_api_key(request)
+    elif 'oauth_token' in request.headers:
+        return authenticate_with_oauth(request)
+    else:
+        return authenticate_with_basic_auth(request)
+</code></pre>
+<p>This code snippet showcases an authenticate function that checks for different authentication methods in the request headers. This approach offers flexibility for developers to choose the most suitable authentication method for their needs.</p>
+<p>Of course, API design should follow security best practices. <a href="https://nordicapis.com/the-difference-between-http-auth-api-keys-and-oauth/" rel="noreferrer" target="_blank">BasicAuth</a> and <a href="https://nordicapis.com/why-api-keys-are-not-enough/" rel="noreferrer" target="_blank">API keys</a> have their security weaknesses. Therefore, usability must be balanced with <a href="https://nordicapis.com/is-oauth-enough-for-financial-grade-api-security/" rel="noreferrer" target="_blank">high-grade security</a>.</p>
+<h2 id="case-studies-of-inclusive-api-design">Case Studies of Inclusive API Design</h2>
+<p>Let’s delve deeper into how real-world APIs implement inclusive practices and explore valuable resources for your API design. First, consider how communication platform provider <a href="https://www.twilio.com/docs" rel="noreferrer" target="_blank">Twilio</a> supports inclusiveness in its API design and developer-facing materials:</p>
+<ul>
+<li><strong>Language and Vocabulary:</strong> Twilio prioritizes clear and respectful language. They avoid gendered terms and cultural issues, making choices that are universally understood.</li>
+<li><strong>Accessibility:</strong> Twilio ensures compatibility with screen readers and other supporting technologies. Clear fonts and descriptions with appropriate color contrast are provided for the best user experience.</li>
+<li><strong>Flexibility:</strong> Recognizing different user needs, Twilio offers different methods of authentication. Developers can choose API keys, OAuth tokens, or basic authentication based on the needs of their project.</li>
+<li><strong>Localization and Internationalization:</strong> Twilio meets the needs of a global audience by supporting localization and internationalization. This empowers developers around the world to ensure APIs will integrate seamlessly.</li>
+</ul>
+<p>Other industry leaders similarly advocate for inclusive API design. For instance, Google provides comprehensive guidelines for building inclusive APIs in their <a href="https://cloud.google.com/apis/design" rel="noreferrer" target="_blank">API Design Guide</a>. It emphasizes using clear and concise language, avoiding jargon, and adhering to accessibility standards. Google’s guidelines also address cultural sensitivity and the importance of providing context for error messages.</p>
+<p>Microsoft also prioritizes accessibility across all its products, including APIs. They offer tools and resources for developers to ensure their APIs work flawlessly with assistive technologies. Their approach focuses on keyboard navigation, precise screen reader interactions, and proper color contrast for optimal user experience.</p>
+<h2 id="challenges-and-solutions-in-implementing-inclusive-apis">Challenges and Solutions in Implementing Inclusive APIs</h2>
+<p>Implementing inclusive API design presents significant challenges that require careful consideration. Balancing the need for accessibility features, such as detailed error messages or ARIA attributes, with performance optimization can be complex. Adding these elements might slightly increase response times, potentially impacting user experience. Therefore, striking the right balance is crucial.</p>
+<p>Additionally, updating existing APIs to incorporate inclusive design principles may introduce <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/" rel="noreferrer" target="_blank">breaking changes</a>, affecting compatibility with existing integrations. To mitigate this, a gradual implementation approach with clear deprecation policies or maintaining separate API versions for backward compatibility can be adopted.</p>
+<p>Furthermore, testing inclusive design features with a limited audience before a wider rollout can help gather valuable feedback and minimize disruptions. Therefore, involving a diverse range of users throughout the development process is essential to identify and address potential barriers to access. By continuously collecting and analyzing user feedback, developers can identify areas where the API may be unclear, inaccessible, or inefficient.</p>
+<p>By carefully considering these challenges and implementing appropriate strategies, developers can create inclusive APIs without compromising performance or user experience.</p>
+<h2 id="future-trends-in-inclusive-api-design">Future Trends in Inclusive API Design</h2>
+<p>Creating inclusive APIs is a cornerstone to realizing the full potential of the technology. By prioritizing accessibility, transparency, and user experience, we can build APIs that empower a wide range of individuals and drive innovation. When APIs are designed with inclusion in mind, they become more than just functional tools. They drive positive change, break down barriers, and force a more level digital landscape.</p>
+<p>The landscape of inclusive API design is constantly evolving, with exciting trends on the horizon. Imagine APIs that can dynamically adapt to user preferences and needs. <a href="https://nordicapis.com/how-ai-can-be-used-in-api-security/" rel="noreferrer" target="_blank">Machine learning algorithms</a> could analyze user behavior and suggest alternative API calls or data formats based on factors like location, device, or accessibility requirements. This would further personalize the API experience and enhance inclusivity.</p>
+<p>Other emerging technologies, like voice interfaces, augmented reality (AR), and virtual reality (VR) are revolutionizing human-computer interaction and could bring better inclusion and availability to APIs. Ensuring that users with varying physical abilities and conditions can use this emerging technology seamlessly is critical to widespread adoption.</p>
+<p>These trends highlight the dynamic nature of inclusive API design. As technology evolves, so too will the strategies and techniques for creating APIs that are accessible and user-friendly for everyone.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/how-to-design-more-inclusive-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

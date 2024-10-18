@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Architecting microservices for fast, sustainable flow</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Architecting microservices for fast, sustainable flow</h3>
+		<div><p>In the previous article, <a href="/post/architecture/2024/08/21/architecting-monoliths-for-fast-flow.html" rel="noreferrer" target="_blank">Architecting monoliths for fast, sustainable flow</a>, I described the key challenges that you will encounter when architecting a monolith for fast flow.</p>
+
+<p>In this article, which, like others in this series, is based on my workshop <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">Architecting for fast, sustainable flow: enabling DevOps and Team Topologies</a> I describe how to architect a microservice architecture to achieve fast, sustainable flow.</p>
+
+<h2 id="about-the-microservice-architecture">About the microservice architecture</h2>
+
+<p>In a nutshell, the <a href="/patterns/microservices.html" rel="noreferrer" target="_blank">microservice architecture</a> is an architectural style that structures an application as a collection of two or more services that are <a href="/post/architecture/2023/03/28/microservice-architecture-essentials-loose-coupling.html" rel="noreferrer" target="_blank">loosely design-time coupled</a> and <a href="/post/architecture/2022/05/04/microservice-architecture-essentials-deployability.html" rel="noreferrer" target="_blank">independently deployable</a>.</p>
+
+<p></p>
+
+<p>Both loose design-time coupling and independent deployability are essential characteristics of the microservice architecture.</p>
+
+<h3 id="essential-characteristic-loose-design-time-coupling">Essential characteristic: loose design-time coupling</h3>
+
+<p>Services are loosely design-time coupled when changing one service rarely requires changing to another service.
+This characteristic enables each team to work independently without coordinating with other teams.</p>
+
+<h3 id="essential-characteristic-independently-deployable">Essential characteristic: independently deployable</h3>
+
+<p>Services are independently deployable when they are packaged as a deployable or executable unit and are production-ready after being tested in isolation.
+It enables each team to frequently and independently deploy their services.</p>
+
+<p>Much of the benefit of microservices is derived from these two characteristics.
+Let’s now look at the challenges.</p>
+
+<h2 id="architecting-microservices-for-fast-sustainable-flow">Architecting microservices for fast, sustainable flow</h2>
+
+<p>With careful design, a microservice architecture is able to satisfy the architectural requirements for fast, sustainable flow.
+Let’s look at the details starting with the biggest benefit of the microservice architecture: great evolvability.</p>
+
+<h3 id="microservices-simplify-technology-stack-evolution">Microservices simplify technology stack evolution</h3>
+
+<p>One of the key benefits of the microservice architecture is that it simplifies the evolution of the application’s technology stack.
+Each service can, in theory, have its own technology stack.
+This enables a team to pick the best technology for the job.
+But, more importantly, it means that the application’s technology stack can evolve incrementally, one service at a time, which is far less disruptive to feature delivery.
+Microservices also enable teams to experiment with new technologies and determine if they are a good fit for the application.</p>
+
+<h3 id="microservices-have-better-observability">Microservices have better observability</h3>
+
+<p>A monolith can be instrumented so that it emits a stream of telemetry.
+But a valuable feature of the microservice architecture is that the telemetry is more granular.
+You have insight into the behavior of individual services, i.e. subdomains or business capabilities.</p>
+
+<h3 id="microservices-accelerate-the-deployment-pipeline-but-">Microservices accelerate the deployment pipeline but …</h3>
+
+<p>Another key benefit of the microservice architecture is that it accelerates the deployment pipeline.
+Each service has its own deployment pipeline.
+It’s relatively small compared to the entire application.
+Also, a service is tested in isolation before being deployed and so the tests are much simpler and fast than end-to-end tests.
+As a result, the deployment pipeline will typically be very fast.
+Moreover, since a service is an independently deployable unit, deploying it is much simpler and faster than deploying a monolith.</p>
+
+<p></p>
+
+<p>There are two challenges, however, with testing and deploying services independently.
+The first is cultural.
+An organization needs to abandon the idea of testing the entire application before deploying a change to a single service.
+It needs to replace end-to-end testing with techniques, such as consumer driven contract testing, and canary deployments.</p>
+
+<p>The second challenge is ensuring that services are truly loosely design-time coupled.
+Otherwise, there’s a risk of a change accidentally causing a production outage.
+Let’s look more at loose design-time coupling.</p>
+
+<h3 id="creating-a-loosely-coupled-microservice-architecture-requires-careful-design">Creating a loosely coupled microservice architecture requires careful design</h3>
+
+<p>A key challenge when designing a microservice architecture is to create a loosely design-time coupled architecture.
+Otherwise, you will end up with a distributed monolith, where some or all services regularly change in lockstep.</p>
+
+<p>Services need to resemble <a href="/post/architecture/2023/03/01/geometry-of-microservices.html" rel="noreferrer" target="_blank">icebergs</a>.
+Each one must have small, stable API that encapsulates the much larger implementation.</p>
+
+<p></p>
+
+<p>When you define an API you are essentially making a bet about the ways in which your architecture will and will not change in the future.
+The service APIs are the stable parts of your architecture.
+You are betting that they will not change, at least not very often in ways that break the clients.
+Coincidentally, David Parnas wrote about this exact topic in this famous 1972 paper about modularity, <a href="https://dl.acm.org/doi/10.1145/361598.361623" rel="noreferrer" target="_blank">“On the Criteria To Be Used in Decomposing Systems into Modules”</a>.</p>
+
+<p></p>
+
+<p>Defining stable APIs requires very careful design and a deep understanding of the business domain.
+That’s why if you are building an application for a brand new domain you should consider starting with a monolith.
+You can then evolve the monolith into a microservice architecture when you learn more about the domain and understand which parts are stable and which are not.</p>
+
+<p>Defining stable APIs also requires an organization to abandon the myth that a microservice architecture must consist of lots of small services.
+The overriding concern is that services must be loosely coupled and independently deployable even if this means that services are no longer small.</p>
+
+<h2 id="want-to-learn-more">Want to learn more?</h2>
+
+<p>As you can see, architecting microservices for fast flow requires careful design.
+If you want to learn how to design a fast flow architecture, enroll in my <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">upcoming public online workshop on architecting for fast, sustainable flow</a>.</p>
+
+<p>You will learn:</p>
+
+<ul>
+  <li>Architectural requirements for fast, sustainable flow.</li>
+  <li>The forces that shape an architecture and the trade-offs that you will need to make when designing an architecture.</li>
+  <li>How to decide between the monolithic and microservice architectural styles.</li>
+  <li>How to design a microservice architecture using dark energy and dark matter.</li>
+</ul>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/08/27/architecting-microservices-for-fast-flow.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

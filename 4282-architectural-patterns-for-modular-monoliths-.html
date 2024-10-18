@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Architectural patterns for modular monoliths that enable fast flow</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Architectural patterns for modular monoliths that enable fast flow</h3>
+		<div><p>In this article, I describe three architectural patterns for modular monoliths. 
+These patterns are based on my experience developing both monoliths and microservices.</p>
+
+<p>You will learn about these and other patterns in my <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">Architecting for fast flow: enabling DevOps and Team Topologies workshop</a>, 9am-11am CET/4pm-7pm Korea Time, September 23th-25th, 2024. 20% discount for groups of 6 or more.</p>
+
+<h2 id="designing-monoliths-for-fast-flow">Designing monoliths for fast flow</h2>
+
+<p>The primary concerns when using the <a href="/patterns/monolithic.html" rel="noreferrer" target="_blank">monolithic architecture pattern</a> are:</p>
+
+<ul>
+  <li>Managing the complexity of a large codebase</li>
+  <li>Maximizing team autonomy despite the single code base</li>
+  <li>Accelerating the single deployment pipeline in order to still provide fast feedback</li>
+</ul>
+
+<p>There are three patterns that address these concerns:</p>
+
+<ul>
+  <li>Modular monolith, aka. domain-oriented monolith</li>
+  <li>Domain module API</li>
+  <li>Domain API build module</li>
+</ul>
+
+<p></p>
+
+<p>Let’s first look at the modular monolith pattern.</p>
+
+<h2 id="pattern-modular-monolith-aka-domain-oriented-monolith">Pattern: Modular monolith, aka. domain-oriented monolith</h2>
+
+<p>Organize a monolith as a collection of loosely coupled, domain modules that are based on DDD subdomains/bounded context rather than technical layers in order to manage complexity and improve team autonomy.</p>
+
+<p></p>
+
+<p>For more information, see <a href="/post/architecture/2023/07/31/how-modular-can-your-monolith-go-part-1.html#the-modular-monolith" rel="noreferrer" target="_blank">The modular monolith</a>, which introduces the basic idea, and <a href="/post/architecture/2024/05/13/how-modular-can-your-monolith-go-part-7-no-such-thing-as-a-modular-monolith.html" rel="noreferrer" target="_blank">No such thing as a modular monolith</a>, which explains why the term ‘modular monolith’ is a misnomer.</p>
+
+<h2 id="pattern-domain-module-api">Pattern: Domain module API</h2>
+
+<p>Encapsulate each domain module’s implementations details, which includes its database schema, behind a stable, facade-style API in order to reduce loose design-time coupling between modules and improve testability.</p>
+
+<p></p>
+
+<p>For more information, see <a href="/post/architecture/2023/08/28/how-modular-can-your-monolith-go-part-3.html#encapsulating-the-customers-domain-behind-a-facade" rel="noreferrer" target="_blank">Encapsulating the <code class="language-plaintext highlighter-rouge">customers</code> domain behind a facade</a>.</p>
+
+<h2 id="pattern-domain-api-build-module">Pattern: Domain API build module</h2>
+
+<p>Define a separate build module (e.g. Gradle subproject) for the domain module’s API, which the domain module’s clients depend upon (rather than the implementation), in order to reduce build-time coupling and accelerate the deployment pipeline.</p>
+
+<p></p>
+
+<p>For more information, see <a href="/post/architecture/2023/09/12/how-modular-can-your-monolith-go-part-4-physical-design.html#using-domain-api-modules-to-reduce-build-time-coupling" rel="noreferrer" target="_blank">Using domain API modules to reduce build-time coupling</a>.</p>
+
+<h2 id="want-to-learn-more">Want to learn more</h2>
+
+<p>You will learn about these and other patterns in my <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">Architecting for fast flow: enabling DevOps and Team Topologies workshop</a>, 9am-11am CET/4pm-7pm Korea Time, September 23th-25th, 2024. 20% discount for groups of 6 or more.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/09/09/modular-monolith-patterns-for-fast-flow.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

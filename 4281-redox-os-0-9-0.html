@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Redox OS 0.9.0</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Redox OS 0.9.0</h3>
+		<div><p><a href="https://www.redox-os.org/news/release-0.9.0/" rel="noreferrer" target="_blank">Version
+0.9.0</a> of <a href="https://lwn.net/Articles/979524/" rel="noreferrer" target="_blank">Redox OS</a>,
+an open-source, Unix-like operating system written in
+Rust, has been released. Notable changes in this release include
+performance and stability improvements, better management of physical
+and virtual memory, bootloader improvements, and more. It also brings
+support for RustPython, Perl 5, Simple HTTP Server, the addition of
+several applications including GNU Nano, Helix, and the <a href="https://lwn.net/Articles/984638/" rel="noreferrer" target="_blank">COSMIC</a>
+Files, Editor, and Terminal applications. See the <a href="https://www.redox-os.org/news/release-0.9.0/#changelog" rel="noreferrer" target="_blank">changelog
+section of the announcement</a> for a full list of changes in the release.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/989517/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

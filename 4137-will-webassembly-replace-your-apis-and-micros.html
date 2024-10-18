@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Will WebAssembly Replace Your APIs and Microservices?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Will WebAssembly Replace Your APIs and Microservices?</h3>
+		<div><p>HTTP APIs have existed largely without change for nearly 25 years. The <a href="https://nordicapis.com/there-are-only-6-constraints-in-rest-lets-use-them-all/" rel="noreferrer" target="_blank">REST architectural style</a>, which Roy Fielding first described in 2000, still largely defines how we think about and use APIs. Considering how much digital tools have changed in the last 25 years, <a href="https://nordicapis.com/beyond-the-http-api-webassembly-and-the-future-of-systems-integration/" rel="noreferrer" target="_blank">some say</a> it’s time for APIs to evolve to take advantage of today’s technology. That’s where WebAssembly comes in.</p>
+<p>First <a href="https://medium.com/javascript-scene/what-is-webassembly-the-dawn-of-a-new-era-61256ec5a8f6" rel="noreferrer" target="_blank">introduced in 2015</a>, WebAssembly was designed to allow high-performance programs to be executed client-side. Running programs on websites may be one of the primary uses for WebAssembly, but that’s far from its only application. As the <a href="https://webassembly.github.io/spec/core/intro/introduction.html" rel="noreferrer" target="_blank">Introduction to WebAssembly</a> states, “Its main goal is to enable high performance applications on the Web, but it does not make any Web-specific assumptions or provide Web-specific features, so it can be employed in other environments as well.”</p>
+<p>Will WebAssembly live up to its hype? Will the WebAssembly standard prove to be as disruptive as some are predicting? Could WebAssembly components replace current architectural styles for APIs and microservices? Let’s take a deeper look into this emerging technology to find out.</p>
+<h2 id="what-is-webassembly-">What Is WebAssembly?</h2>
+<p><a href="https://webassembly.org/" rel="noreferrer" target="_blank">WebAssembly</a>, often abbreviated as Wasm, is a binary instruction format for running executable programs on virtual machines. It was originally created to circumvent the limitations of JavaScript, which was the primary language used by the internet up to that point. It was designed to be implemented on the client side, such as a web browser, making WebAssembly almost completely platform agnostic. Not only can Wasm be run on nearly any machine, including video games, smartwatches, and smart TVs, but the programs it compiles can be written in virtually any language.</p>
+<p>Wasm is meant to be used alongside JavaScript, allowing it to be easily integrated via existing web technologies. It’s also gaining a lot of traction in emerging technologies like serverless architecture and edge computing. Considering how nicely Wasm works with existing cloud technology, it’s likely that Wasm won’t replace APIs and microservices but will rise alongside them, instead.</p>
+<p>Let’s delve a bit deeper into the similarities and differences between the different formats for a deeper understanding of how these technologies may work together going forward.</p>
+<h2 id="webassembly-vs-apis-similarities-and-differences">WebAssembly vs. APIs: Similarities and Differences</h2>
+<p>Think of how an API works. Something queries something else, usually via HTTP, which delivers a payload in response. This brief, simplified definition should make the similarities between WebAssembly and APIs immediate and obvious. Wasm transmits executable programs instead of JSON files. This speaks to the other main difference between APIs and Wasm. APIs exist solely for different applications to communicate with one another. Wasm, on the other hand, is more like an application in its own right.</p>
+<p>Now, let’s look at microservices to see how they compare to Wasm.</p>
+<h2 id="webassembly-vs-microservices-similarities-and-differences">WebAssembly vs. Microservices: Similarities and Differences</h2>
+<p>WebAssembly has as much in common with microservices as APIs, if not more. But although they’re similar, they differ in specific key ways. Like Wasm, microservices exist to perform a particular function on a virtual machine. Using this definition, you might think of Wasm as a microservice executed on the client side.</p>
+<p>This also illustrates one of the major differences between Wasm and microservices. Think of a microservice as a phone number that performs a particular function when dialed. Wasm is more like texting someone a copy of Adobe Acrobat, by contrast. The other main difference is that Microservices require APIs for virtually all of their functionality. Wasm can be invoked via programming languages like JavaScript, on the other hand.</p>
+<p>Let’s finish by examining some Wasm use cases to illustrate whether the standard is likely to replace your APIs and Microservices anytime soon.</p>
+<h2 id="webassembly-use-cases">WebAssembly Use Cases</h2>
+<p>Let’s start by considering an example of APIs and WebAssembly working together. Imagine a service for processing images in real time. The user uploads their image to the service via an API. This could result in a computationally intensive load on the server. It could also result in performance issues in the instance of surges in traffic or heavy processing demands.</p>
+<p>Instead, the API could be designed to deliver an executable binary to an endpoint, where the necessary transformations will be performed. This virtually eliminates the load on the server, making for a much smoother user experience (UX) while keeping resource consumption to a minimum.</p>
+<p>Wasm does address some of APIs’ shortcomings, however. Wasm is designed to be as efficient as possible, allowing it to run nearly identically on every platform. This allows developers to integrate Wasm into every workflow, enabling platforms and websites to allow custom plugins. <a href="https://shopify.dev/docs/apps/functions/language-support/webassembly" rel="noreferrer" target="_blank">Shopify Functions</a> is an excellent example of this principle in action. It also proves why these plugins are necessary in light of the recent <a href="https://cybernews.com/security/shopify-plugins-data-leak-saara/" rel="noreferrer" target="_blank">Shopify data leak</a>.</p>
+<p>API security is a known issue, and judging from the fact that there have been <a href="https://www.itgovernanceusa.com/blog/data-breaches-and-cyber-attacks-in-2024-in-the-usa" rel="noreferrer" target="_blank">over 6 billion records</a> exposed via data breaches <em>in 2024 alone</em>, this isn’t going to change anytime soon. Clearly, alternatives need to be considered. WebAssembly promises to be an important part of that solution.</p>
+<p>Microservices and Wasm are already being used together in all manner of intriguing ways. For instance, Fermyon has <a href="https://github.com/fermyon/spin" rel="noreferrer" target="_blank">developed Spin</a>, a resource for developing serverless applications and microservices with just a few lines of code. <a href="https://www.spinkube.dev/" rel="noreferrer" target="_blank">SpinKube</a> is an open-source project that performs a similar function, deploying WebAssembly binaries on Kubernetes.</p>
+<h2 id="will-webassembly-replace-apis-or-microservices-">Will WebAssembly Replace APIs or Microservices?</h2>
+<p>Based on these examples and everything else we’ve seen, <a href="https://leaddev.com/tech/webassembly-still-waiting-its-moment" rel="noreferrer" target="_blank">WebAssembly</a> won’t be replacing APIs or microservices anytime soon. Microservices may be in greater danger, as both microservices and WebAssembly allow access to distributed executables. As things stand, there’s room for all three. WebAssembly, APIs, and microservices promise to deliver the best of all worlds.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/will-webassembly-replace-your-apis-and-microservices/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

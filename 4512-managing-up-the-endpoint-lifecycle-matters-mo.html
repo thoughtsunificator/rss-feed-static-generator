@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Managing Up: The Endpoint Lifecycle Matters More</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Managing Up: The Endpoint Lifecycle Matters More</h3>
+		<div><p>If you’re building APIs, your biggest expense is almost certainly your developers’ time. But what are your current API tools doing to maximize that limited resource? If you follow the widespread advice surrounding API lifecycle management, the answer is likely “not much.”</p>
+<p>You can’t manage your way into an API — you have to develop it. That means building tools and practices that support how your developers work: one endpoint at a time.</p>
+<h2 id="api-management-does-too-much-and-not-enough">API Management Does Too Much and Not Enough</h2>
+<p>Most API tools on the market are based on API lifecycle management, an adaptation of product lifecycle management (PLM). PLM has been around <a href="https://www.atlassian.com/agile/product-management/plm" rel="noreferrer" target="_blank">since the 1930s</a>, and its application to APIs came alongside the growth of Agile methodologies and the growing role of project managers in engineering organizations.</p>
+<h2 id="too-many-steps-too-many-meetings-too-many-tools">Too Many Steps, Too Many Meetings, Too Many Tools</h2>
+<p>What is <a href="https://nordicapis.com/what-is-api-lifecycle-management/" rel="noreferrer" target="_blank">API lifecycle management</a>? It’s a set of practices that begins with API design but tends to diverge across companies. It may be <a href="https://www.techtarget.com/searchapparchitecture/definition/API-lifecycle-management" rel="noreferrer" target="_blank">five phases</a>, <a href="https://www.getambassador.io/blog/optimizing-api-lifecycle-complete-guide" rel="noreferrer" target="_blank">six phases</a>, or <a href="https://www.moesif.com/blog/technical/api-development/Mastering-API-Lifecycle/" rel="noreferrer" target="_blank">more</a>. Even without broad agreement on the stages involved, most project management approaches require engineers to attend meetings and review documentation at every step.</p>
+<p><a href="https://nordicapis.com/best-api-management-tools-in-2024/" rel="noreferrer" target="_blank">API management tools</a> follow suit — there might be a different tool for every stage or one clunky tool that attempts to cover everything. Managing processes and tools starts to be more work than actually writing API code.</p>
+<p>No one <em>wants</em> to write inconsistent, redundant code, but when teams and tools take a 5,000-foot, product-level approach, it happens more than it should. A kitchen where every cook has a hand in every pot is not a recipe for success.</p>
+<h2 id="not-enough-practical-support">Not Enough Practical Support</h2>
+<p>At the same time, those bloated tools and practices don’t offer features that individual engineers actually need, and certainly not with any efficiency. No one will create a better hammer by looking at a finished house. But any carpenter will tell you that quality tools make all the difference to the finished product.</p>
+<p>Building endpoints is like the basic carpentry work of an API. If you take a product-level view of the API, it’s easy to lose sight of the day-to-day labor that goes into creating it.</p>
+<p>To make a hammer that carpenters love, you start by watching them work. You focus on reducing fatigue and improving the ergonomics of every hammer stroke. You look for durable, comfortable materials and make micro-adjustments to angles and curves, knowing it takes thousands of hammer strokes to build a house.</p>
+<p>To build better APIs, you must look at your developers and how they work. For API developers, the unit of work is the endpoint. You need tools that reduce fatigue and improve efficiency for the lifecycle of an endpoint — a process your developers will repeat hundreds or thousands of times as they build an API.</p>
+<h2 id="modularity-is-an-api-hallmark">Modularity Is an API Hallmark</h2>
+<p>When a tool is well-suited to the user and the basic unit of work, it’s efficient for a wide range of projects. A good hammer is useful for building a deck, installing cabinetry, or nailing up a “For Sale” sign. It serves all these purposes without being made to fit any particular process or product design.</p>
+<p>All APIs are built of individual endpoints, whether small, private microservices or enterprise products. That architecture makes APIs extremely modular and adaptable. Depending on their needs, API consumers can use a handful of endpoints or hundreds. Endpoints can be reused for different purposes and must be <a href="https://nordicapis.com/api-discovery-how-do-you-count-apis/" rel="noreferrer" target="_blank">easily discoverable</a> to make that work.</p>
+<p>The same applies to API tools — they can and should be modular and reusable. When you reduce the overhead of your tools, you can focus on the value and purpose of the API rather than a clunky all-consuming process. That means leaving API lifecycle management behind and focusing instead on the lifecycle of an endpoint.</p>
+<h2 id="how-are-endpoints-built-">How Are Endpoints Built?</h2>
+<p>The goal is to find — or create — tools that let your developers focus on the lifecycle of an endpoint. But what <em>is</em> the lifecycle of an endpoint? It looks something like this:</p>
+<ol>
+<li>Gather requirements.
+<ol>
+<li>Describe the required functionality, which is included in the API Spec.</li>
+<li>Look at data to understand the shape of the object the endpoint will touch.</li>
+</ol>
+</li>
+<li>Write code.
+<ol>
+<li>Boilerplate code for basic endpoint structure.</li>
+<li>Custom code for endpoint functionality.</li>
+<li>Error handling.</li>
+</ol>
+</li>
+<li>Debug and test code.
+<ol>
+<li>Write and run some simple tests.</li>
+<li>Check in code and resolve conflicts with existing codebase.</li>
+</ol>
+</li>
+<li>Deploy.
+<ol>
+<li>Gather data on usage.</li>
+<li>Update code as needed.</li>
+</ol>
+</li>
+</ol>
+<p>It’s not a hugely complicated process, but it gets repeated hundreds, if not thousands, of times while building an API. Any efficiency gains you make in this process will pay off in spades.</p>
+<h2 id="endpoint-lifecycle-management-isn-t-a-compromise">Endpoint Lifecycle Management Isn’t a Compromise</h2>
+<p>Giving up the laser focus on <a href="https://nordicapis.com/how-to-manage-breaking-changes-throughout-an-apis-lifecycle/" rel="noreferrer" target="_blank">API lifecycle management</a> doesn’t mean giving up on <a href="https://nordicapis.com/9-reasons-why-you-need-api-governance/" rel="noreferrer" target="_blank">governance</a> or code quality. It’s not a choice to silo developers away from product and consumer concerns. And it’s not any kind of denigration of the work of product and design teams. If anything, it’s the opposite.</p>
+<p>Shifting your emphasis to endpoint lifecycles empowers everyone in the organization. Developers can focus more deeply on code quality, repeatability, and discoverability. Designers expend energy on the products and services that most need their expertise. Cost savings and quality improvements pay off, resulting in better results and more resources to allocate to innovation.</p>
+<p>API lifecycle management had its moment. Collectively, the API industry has matured and evolved in significant ways since that approach started, in part because of what teams learned from the process. However, the approach has outlived its usefulness. API teams must stop managing down, requiring developers to fit their work into a clunky, tired process. Refocus on the lifecycle of an endpoint and let developers get back to the work they’re best at with tools that serve their needs first.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/managing-up-the-endpoint-lifecycle-matters-more/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
