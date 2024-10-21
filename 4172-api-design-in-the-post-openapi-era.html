@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>API Design in the Post-OpenAPI Era</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">API Design in the Post-OpenAPI Era</h3>
+		<div><p>New description languages and frameworks are slowly changing how APIs are designed. This doesn’t mean the industry-standard OpenAPI Specification <a href="https://nordicapis.com/tis-but-a-scratch-does-typespec-reignite-the-specification-wars/" rel="noreferrer" target="_blank">becomes obsolete</a> — instead, it will likely become more of a compilation target for new description languages and frameworks, like <a href="https://nordicapis.com/using-typespec-to-design-apis/" rel="noreferrer" target="_blank">TypeSpec</a>. Hopefully, the result will be reduced errors and a better API development experience.</p>
+<div id="attachment_19713" class="wp-caption alignright"><p id="caption-attachment-19713" class="wp-caption-text"><a href="https://nordicapis.com/speakers/daniel-kocot/" rel="noreferrer" target="_blank">Daniel Kocot</a>, Head of API Consulting, codecentric AG, will return to speak at <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a>.</p></div>
+<p>This year’s <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit</a> will bring together a handful of experts in areas like OpenAPI Specification, TypeSpec, API design, and beyond. For instance, <a href="https://nordicapis.com/speakers/daniel-kocot/" rel="noreferrer" target="_blank">Daniel Kocot</a>, Head of API Consulting, <a href="https://www.codecentric.de/" rel="noreferrer" target="_blank">codecentric AG</a> will discuss navigating the “post-OpenAPI” era <a href="https://nordicapis.com/sessions/navigating-the-post-openapi-era-with-innovative-api-design-frameworks/" rel="noreferrer" target="_blank">using innovative design frameworks</a>.</p>
+<p>I recently caught up with Kocot, who spoke at Platform Summit in ’19 and ’23, to explore the undercurrents surrounding these new design trends a bit more deeply. Check out the interview below to learn how new tools and frameworks will help deliver on the promise of API-first. Also, be sure to attend <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a> for plenty of helpful knowledge to inform your internal API development processes.</p>
+<p><strong>What are some recent trends you’re noticing in the world of API development?</strong></p>
+<p>A very nice question to start with. Currently, I can see two trends in API development. The first thing I see is that the APIOps movement, which I have been a part of since the beginning, is becoming more and more important. More specifically, I clearly see a burgeoning of domain-specific languages (DSLs) to programmatically create API descriptions. This is very valuable in turning good data products into good API products, as the programmatic creation of the interface ensures consistency between the API and the underlying data product. I would even state that DSLs/programmatic creation of the interface is the only way to turn good-quality data products into good-quality API products.</p>
+<p>The second trend I see is that API development is increasingly being seen as part of software engineering. The use of the programmatic approach based on a DSL and APIOps fits in with this. Both trends are changes in the mindset from which practical technology is derived.</p>
+<p><strong>You say we’re entering a post-OpenAPI era. Why is this, and how do you anticipate it will affect API design going forward?</strong></p>
+<p>We can clearly see that a large number of APIs are created through the use of code first. From a developer’s point of view, this is the easiest and perhaps most painless way to quickly design an interface. However, the design of an API should not be about speed but about ensuring long-term availability until sunsetting. A standard for a description such as OpenAPI, AsyncAPI, JSON Schema, and ProtoBuf quickly degenerates into an unwelcome companion whose added value is not visible.</p>
+<p>If we now look in the direction of frameworks or tools such as TypeSpec, TaxiLang, Fern, and Apple Pkl, we are not simply creating or writing a textual file based on traditional development virtues, which are only used for reading purposes without the corresponding tooling. Instead, we are moving programmatically from the model description to the interface description. And this is exactly what describes the post-OpenAPI era for me.</p>
+<p><strong>What, then, do you think will be the role of <a href="https://nordicapis.com/tag/openapi-specification/" rel="noreferrer" target="_blank">OpenAPI Specification</a> in this new era? How might the standard evolve?</strong></p>
+<p>In this post-OpenAPI era, I see standards like OpenAPI as automatically generated artifacts. Nothing more. Let’s be honest: nobody should really create or edit OpenAPI, JSON schema, and other files directly. The reason is that the error rate is very high despite linting and validation in today’s IDEs. But there is no question in my mind that the standards need to evolve.</p>
+<div class="well">Sign up for the <a href="https://nordicapis.com/sessions/openapi-fundamentals/" rel="noreferrer" target="_blank">Workshop: OpenAPI Fundamentals</a></div>
+<p><strong>You mentioned a few frameworks that go beyond the status quo to improve the developer experience. Which one are you most interested in, and how do you think it will be used?</strong></p>
+<p>I currently have a strong interest in <a href="https://typespec.io/" rel="noreferrer" target="_blank">TypeSpec</a>, as this type of description is considered to be the most advanced, and its clear priority is to describe the interface. Despite its maturity, there will certainly be one or two breaking changes at some point. I see TypeSpec as a key tool in automation, allowing us to secure interfaces more effectively from the start through consistent governance.</p>
+<p><strong>In the past, you’ve spoken about the reality of API-first. Do you think these new tools help deliver on the promise of design-first, code-first, or entirely enable new development processes?</strong></p>
+<p>The tools and frameworks will provide even better support in achieving API-first, which is just the strategic approach to make APIs one part of the business of an organization. Whereas design-first and code-first refer to methodologies for creating APIs. A preferred multi-stage process implements API design first using API thinking: It starts with thinking in APIs, then moves on to designing the interface using a DSL such as TypeSpec, and ultimately leads to a high-quality implementation of the backend that also fits the description.</p>
+<p><strong>Without giving away too many details, what can attendees expect from your upcoming talk at the Platform Summit 2024?</strong></p>
+<p>The talk will focus on the possible integration of frameworks into existing development processes. Through this, we will take a first look at a possible future of API development.</p>
+<p><strong>Are you excited for the Platform Summit? Why or why not?</strong></p>
+<p>Again, I’m very excited about the Platform Summit this year. After 2019 and last year, I’m looking forward to being also a speaker this year. I like that the Platform Summit is a well-curated and well-organized event.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/api-design-in-the-post-openapi-era/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

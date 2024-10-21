@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A New Approach to Writing API Documentation</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">A New Approach to Writing API Documentation</h3>
+		<div><p>The world’s greatest APIs have many similarities and differences, but there’s one thing that virtually all of them have in common: great documentation. API integration can be a nightmare without solid documentation, forcing many developers to give up. However you slice it, you can’t overstate the importance of API documentation.</p>
+<p>At our <a href="https://nordicapis.com/6-key-takeaways-from-austin-api-summit-2024/" rel="noreferrer" target="_blank">2024 Austin API Summit</a>, <a href="https://nordicapis.com/speakers/laura-rubin/" rel="noreferrer" target="_blank">Laura Rubin</a>, Staff Technical Writer at Nylas, joined us to talk about improving <a href="https://nordicapis.com/5-examples-of-api-documentation-with-great-developer-experience/" rel="noreferrer" target="_blank">the documentation experience</a> for readers and writers alike. According to Rubin, there is often a disconnect between consumer expectations and the reality of hastily thrown-together docs. Below, we’ll cover the salient points and some actionable insights from Rubin’s talk.</p>
+<h2 id="identifying-a-need-for-better-documentation">Identifying a Need for Better Documentation</h2>
+<p>There are many different criteria to consider when assessing the quality of an API’s documentation. In her talk, Rubin points out some scenarios that typically indicate the documentation needs a little work:</p>
+<ul>
+<li>There are long implementation times or high rates of abandonment.</li>
+<li>You have a high volume of support tickets or GitHub issues on open-source projects.</li>
+<li>It takes a long time to close sales (such as for an <a href="https://nordicapis.com/8-unexpected-challenges-of-running-an-api-as-a-product/" rel="noreferrer" target="_blank">API-as-a-product</a>)</li>
+<li>The net promoter score (NPS), a metric used to measure customer experience, is low.</li>
+</ul>
+<p>Ironically, she says, rapid growth often results in some of these issues. Generally speaking, growth is a good thing for smaller companies. It can, however, result in a high-pressure environment that requires quick turnaround times with little room for organization. Unfortunately, this trajectory can result in FUD — fear, uncertainty, and doubt.</p>
+<p>“This is what happens when you have a decentralized group of people writing docs. You don’t know who wrote it, when they wrote it, why they wrote it, if it’s done, or whether someone has edited it,” says Rubin. This leads to people spending more time fighting the toolchain or figuring out where they need writing, as opposed to actually developing helpful content.</p>
+<p>Of course, knowing your docs need some polishing is only half the battle. The next step is figuring out where and how you should be trying to improve them.</p>
+<div class="well">Watch Laura Rubin present at the Austin API Summit:<div class="responsive-iframe-container"></div></div>
+<h2 id="finding-the-right-areas-for-improvement">Finding the Right Areas for Improvement</h2>
+<p>Developers get very close to the products they work on, lacking the fresh eyes of a newbie, making it difficult to answer the question: “Can someone new figure out how to use your product just by reading the docs?” Rubin suggests enlisting the help of new hires for this, provided they haven’t been tasked with using your APIs during the application process.</p>
+<p>No new hires around? Another source of truth is your support team. “They know where all the bodies are buried,” Rubin jokes. They can provide you with bug reports, <a href="https://nordicapis.com/what-does-a-bad-developer-experience-look-like/" rel="noreferrer" target="_blank">common UX issues</a> people find frustrating, where they typically send users to get more clarity, and so on.</p>
+<p>But, as Rubin also observes, “documentation is not a substitute for good development practices.” Sometimes, docs folks can write around frustrating UX issues, but not always. “If you’re working closely with an engineer,” she suggests, “it’s a great time to say, ‘instead of calling this ID, could we call it calendar ID so it’s more clear?'”</p>
+<p>You can also consider adding opportunities for users to <a href="https://www.developermarketing.io/the-science-behind-feedback-gathering-from-developers/" rel="noreferrer" target="_blank">provide feedback</a> within your documentation: email links at the bottom of each page, “Did you find this helpful?” with thumbs up or down, and so on. “But,” Rubin adds, “as a counterpoint, they’re going to lie to you. They’re going to be mad, but they’re going to feel bad about typing abuse into a box.”</p>
+<p>An alternative is to look at their behavior through analytics dashboards, search logs, and other things that let you actually see what they’re doing. You could also look at the bounce rate or how many pages are referred from different sources. “That sort of stuff does not lie,” says Rubin.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/5-examples-of-excellent-api-documentation/" rel="noreferrer" target="_blank">8 Examples of Excellent API Documentation</a></div>
+<h2 id="all-purpose-documentation-tips">All-Purpose Documentation Tips</h2>
+<p>As an <a href="https://nordicapis.com/why-technical-writers-are-important-for-apis/" rel="noreferrer" target="_blank">experienced technical writer</a>, Rubin offers up a ton of advice for folks trying to write documentation. One tip is to craft helpful developer materials. “Code samples, examples, use cases. That stuff is wonderful [even if it’s not exactly what they’re planning to create] – don’t make people guess what the end result might look like.”</p>
+<p>But she also encourages zooming out and adopting a more holistic approach to API docs. “You can have a perfectly described endpoint, but if you don’t know how it goes together with the rest of them, it just looks like a jumbled mess when what the users really want is instructions.”</p>
+<p>“Be organized,” she continues. “Even if it’s just putting things in alphabetical order. Readers will always assume that there’s some purpose to the order, and they’ll try to guess what it is… until they’ve tried everything they can think of and assume you’re just being chaotic.”</p>
+<p>As such, writers should consider a multi-faceted approach to improving documentation. In addition to thinking about readers, Rubin points out that we need to consider the maintainers: “Once you have good docs,” she states, “usability for the people maintaining them is how you <strong>keep</strong> docs good.”</p>
+<p>What, in practice, does that look like?</p>
+<ul>
+<li>Own the docs, co-own it, or split it up and own it. “If it’s everybody’s job, it’s nobody’s job.”</li>
+<li>Write things down. Spell out the ‘how’ and ‘what’ for future maintainers.</li>
+<li>Progress over perfection. Don’t be afraid of an iterative process.</li>
+<li>Opinionated tooling. Plugins, linters, and automation tools will reduce decision fatigue in the future.</li>
+<li>Consistency. Build a mental model that users can follow across all your products or services.</li>
+</ul>
+<p>On that last point, she echoes the <a href="https://nordicapis.com/creating-support-resources-to-improve-developer-experience/" rel="noreferrer" target="_blank">Similar Hallways model</a> championed by Kristin Womack in her talk at our 2023 Platform Summit). “Even if you don’t think they are,” Rubin cautions, “readers are always [looking for patterns and] building mental models of your docs.”</p>
+<div class="well">Also read: <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/" rel="noreferrer" target="_blank">10 Tips for Writing API Documentation</a></div>
+<h2 id="think-like-a-writer-because-you-are-one-">Think Like a Writer (Because You Are One!)</h2>
+<p>As Rubin points out, good writing is essential to good documentation. And, while we might not think of API documentation as being on par with the Great American Novel, “good writing” in this scenario shares a lot of the same characteristics we can expect from the sparse prose of novelists like Ernest Hemingway or John Steinbeck:</p>
+<ul>
+<li>Omit needless words.</li>
+<li>Avoid past tense and passive voice.</li>
+<li>Use simple words and avoid slang. Rubin suggests using <a href="https://www.unitedlanguagegroup.com/learn/what-is-global-english" rel="noreferrer" target="_blank">Global English</a>, a literal and logical form of writing.</li>
+<li>Progressive disclosure. In other words, do not infodump.</li>
+<li>Don’t use complex terminology where it isn’t necessary.</li>
+<li>Demonstrate confidence, says Rubin. “Don’t say, ‘This should return a 200.’ Be confident! It does.”</li>
+</ul>
+<p>As APIs evolve through <a href="https://nordicapis.com/crafting-an-excellent-developer-experience-for-api-versioning/" rel="noreferrer" target="_blank">versioning and deprecation</a>, so should their documentation: good documentation is a journey, not a destination. The earlier you start treating docs as cyclicly written, consumed, and edited, the more painless that iterative process becomes.</p>
+<p>One last thought on this comparison: thinking like a great writer means thinking less about yourself and more about your audience. What are <em>they</em> expecting? Are there conventions they’re used to? Are they ‘getting’ the story you’re telling? All while applying existing best practices.</p>
+<p>Well, nobody ever said that creating great documentation was easy!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/a-new-approach-to-writing-api-documentation/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

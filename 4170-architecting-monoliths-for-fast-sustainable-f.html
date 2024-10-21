@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Architecting monoliths for fast, sustainable flow</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Architecting monoliths for fast, sustainable flow</h3>
+		<div><p>In a previous article <a href="/post/architecture/2024/04/29/dissecting-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">Dissecting ‘architecting for fast, sustainable flow’</a>, I described how fast, sustainable flow requires an architecture with several key characteristics. In this article, which is based on my workshop <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">Architecting for fast, sustainable flow: enabling DevOps and Team Topologies</a> I’ll describe how to architect monoliths to achieve fast, sustainable flow.</p>
+
+<h2 id="architectural-requirements-for-fast-sustainable-flow">Architectural requirements for fast, sustainable flow</h2>
+
+<p>As I previously described, fast flow is the continuous delivery of a stream of valuable changes to customers.
+Sustainable flow is ability to keep the application’s technology stack current.
+Fast, sustainable flow requires an architecture with several key characteristics:</p>
+
+<ul>
+  <li><strong>Team-sized elements</strong> - in order to avoid cognitive overload, the architecture must consist of team-sized elements</li>
+  <li><strong>Loose (design-time) coupling</strong> - loose coupling was identified by the Accelerate authors as a key enabler of high performance. 
+It’s also a consequence of <a href="https://en.wikipedia.org/wiki/Conway%27s_law" rel="noreferrer" target="_blank">Conway’s law</a>: loosely coupled teams (defined by Team Topologies) need a loosely coupled architecture.</li>
+  <li><strong>Testability</strong> - the path from development to production must be a fast, automated deployment pipeline.
+An application must, therefore, be capable of being tested using automated tests.
+Those tests must be fast.
+Moreover, a developer must be able to run the tests on their local machine.</li>
+  <li><strong>Deployability</strong> - the application must support fast, reliable, automated deployments.</li>
+  <li><strong>Observability</strong> - the deployed application must emit a stream of telemetry - logs, metrics, and distributed traces - which is feedback to the developers about the behavior of application and its users.
+The telemetry is used to monitor the application’s health and diagnose problems.
+It’s also used to understand user behavior.</li>
+  <li><strong>Evolvability</strong> - the architecture must support the continuous upgrading of the application’s technology stack.</li>
+</ul>
+
+<h2 id="about-the-monolithic-architecture">About the monolithic architecture</h2>
+
+<p>The <a href="/patterns/monolithic.html" rel="noreferrer" target="_blank">monolithic architecture</a> is an architectural style that structures the application as a single executable/deployable unit, e.g. a single WAR or executable file.
+Moreover, there’s a single code base with a single deployment pipeline.</p>
+
+<p></p>
+
+<p>A monolithic architecture is simpler than a microservice architecture.
+For example, operations can be implemented as ACID transactions.
+But unfortunately, for some applications, the monolithic architecture can be an obstacle to fast, sustainable flow.
+To understand why, let’s take a look at how well it satisfies the architectural requirements described earlier.</p>
+
+<h2 id="architecting-monoliths-for-fast-sustainable-flow">Architecting monoliths for fast, sustainable flow</h2>
+
+<p>With careful design, a monolith architecture is able to satisfy some but not all of the architectural requirements for fast, sustainable flow.
+Let’s look at the details starting with the biggest drawback of the monolithic architecture: poor evolvability.</p>
+
+<h3 id="evolving-a-monoliths-technology-stack-is-challenging">Evolving a monolith’s technology stack is challenging</h3>
+
+<p>Sadly, one inherent limitation of the monolithic architecture is that evolving the technology stack can be challenging.
+Because a monolith has a single technology stack, you must upgrade the entire technology stack at once.
+While tools such as <a href="/post/architecture/2024/08/06/eliminating-tedium-with-openrewrite.html" rel="noreferrer" target="_blank">OpenRewrite can automate some upgrades</a>, upgrading a large code base is often a massive task that spans multiple teams.
+It’s difficult to schedule since it disrupts feature delivery.
+There are also limited opportunities to experiment with new technologies.</p>
+
+<h3 id="monoliths-are-mostly-observable">Monoliths are mostly observable</h3>
+
+<p>Observability is mostly unrelated to the architecture style.
+A monolith can be instrumented so that it emits a stream of telemetry.
+One inherent limitation, however, is that the telemetry is for the entire application.
+You cannot, for example, see the resource consumption of an individual subdomain.</p>
+
+<h3 id="creating-a-loosely-coupled-monolith-requires-careful-design">Creating a loosely coupled monolith requires careful design</h3>
+
+<p>To achieve fast flow the monolith must be structured as a collection of loosely (design-time) coupled, team-sized elements (e.g. modules).
+Loose (design-time) coupling requires elements to resemble <a href="/post/architecture/2023/03/01/geometry-of-microservices.html" rel="noreferrer" target="_blank">icebergs</a>.
+Each element must have small, stable API that encapsulates the much larger implementation.</p>
+
+<p></p>
+
+<p>Unfortunately, however, the traditional monolithic architecture is a technically-oriented, layered architecture, which does not meet these requirements.
+The layers of a large application’s layers not team-sized.
+Teams typically work across multiple layers.
+And to make matters worse, the layers are typically not loosely coupled.
+Careful design is required to structure the monolith as a collection of loosely coupled, team-sized modules.</p>
+
+<h3 id="creating-a-testable-and-deployable-monolith-requires-careful-design">Creating a testable and deployable monolith requires careful design</h3>
+
+<p>Designing a monolith that is loosely coupled is not the only challenge.
+The monolith consists of a single code base and a single deployment pipeline.
+As a result, the deployment pipeline is potentially a bottleneck and an obstacle to fast flow.</p>
+
+<p>That’s because the larger the code base, the longer the deployment pipeline’s execution time.
+And to make matters worse, the larger the engineering organization the higher the rate of Git pushes.
+As a result, Git commits either wait in the deployment pipeline’s queue, which delays feedback, or are batched, which makes it more difficult to troubleshoot production issues.</p>
+
+<p>The throughput of a single deployment pipeline is limited.
+But, you can minimize its execution time and increase its throughput through careful design.
+You must use a combination of physical design techniques, and testing strategies, to minimize the deployment pipeline’s execution time.</p>
+
+<h2 id="want-to-learn-more">Want to learn more?</h2>
+
+<p>As you can see, architecting monoliths for fast flow requires careful design.
+If you want to learn how to design a fast flow architecture, enroll in my <a href="https://chrisrichardson.net/training-architecting-for-fast-flow.html" rel="noreferrer" target="_blank">upcoming public online workshop on architecting for fast, sustainable flow</a>.</p>
+
+<p>You will learn:</p>
+
+<ul>
+  <li>Architectural requirements for fast, sustainable flow.</li>
+  <li>The forces that shape an architecture and the trade-offs that you will need to make when designing an architecture.</li>
+  <li>How to decide between the monolithic and microservice architectural styles.</li>
+  <li>How to design a loosely coupled monolith.</li>
+  <li>Physical design techniques and testing strategies to accelerate the deployment pipeline.</li>
+  <li>How to design a microservice architecture.</li>
+</ul>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/08/21/architecting-monoliths-for-fast-flow.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

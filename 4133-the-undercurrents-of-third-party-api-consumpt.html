@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The Undercurrents of Third-Party API Consumption Management</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The Undercurrents of Third-Party API Consumption Management</h3>
+		<div><p>Developers are using more third-party APIs than ever before. And, the recent interest in AI is bringing <a href="https://www.apifirst.tech/p/ai-and-apis-what-experts-think-the-future-holds" rel="noreferrer" target="_blank">more integration needs</a> to the forefront. Yet, while there are many best practices and tools to manage API-first internal strategies and API products, less effort has been placed on managing how organizations <a href="https://www.lunar.dev/post/how-api-consumption-management-aids-financial-compliance" rel="noreferrer" target="_blank">consume <em>external</em> APIs</a>.</p>
+<div id="attachment_19720" class="wp-caption alignright"><p id="caption-attachment-19720" class="wp-caption-text">At the <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit 2024</a>, <a href="https://nordicapis.com/speakers/eyal-solomon/" rel="noreferrer" target="_blank">Eyal Solomon</a>, CEO of <a href="https://www.lunar.dev/" rel="noreferrer" target="_blank">Lunar.dev</a> will be sharing helpful insights on managing and optimizing API consumption traffic.</p></div>
+<p>According to <a href="https://nordicapis.com/speakers/eyal-solomon/" rel="noreferrer" target="_blank">Eyal Solomon</a>, CEO of <a href="https://www.lunar.dev/" rel="noreferrer" target="_blank">Lunar.dev</a>, traditional API management falls short in managing third-party APIs. There are also countless things to consider post-integration that are often overlooked, too, he says, such as egress traffic visibility, governance, and optimization.</p>
+<p>I recently caught up with Solomon to learn more about his <a href="https://nordicapis.com/sessions/the-hidden-currents-of-api-consumption-strategies-for-effective-egress-traffic-control/" rel="noreferrer" target="_blank">upcoming talk</a> at Platform Summit 2024 and his takes on the API economy. Read his answers to my questions below, and be sure to attend <a href="https://nordicapis.com/events/platform-summit-2024/" rel="noreferrer" target="_blank">Platform Summit</a> for plenty more insights around API management and beyond.</p>
+<p><strong>What is the state of the API ecosystem as you see it? Specifically, how is third-party API usage evolving?</strong></p>
+<p>I think that the API ecosystem is undergoing rapid and significant transformation, characterized by two main trends: the proliferation of API providers and the rise of AI-driven APIs. Both of these developments present unique challenges and opportunities for businesses leveraging third-party APIs.</p>
+<p>The number of API providers offering their products via accessible APIs continues to grow exponentially. According to Postman’s <a href="https://www.postman.com/state-of-api/" rel="noreferrer" target="_blank">2023 State of the API Report</a>, 60% of companies view their APIs as products, and the number of companies identifying as API-first has doubled in the past year. This surge spans various industries, from travel to financial institutions, insurance, and cybersecurity, as well as many others. These sectors leverage APIs to enhance their services, streamline operations, and integrate with other platforms seamlessly.</p>
+<p>The increasing number of APIs correlates with a significant shift in how companies perceive and utilize them. We’re seeing engineering leaders now more focused on managing API integration dependencies. We see platform teams stepping up to build and provide a management layer to oversee API calls across development teams within their organizations. This necessity for structured API maintenance and middleware mechanisms was less prominent a few years ago but has now become a critical component of modern software architecture.</p>
+<p>The second significant trend is the rise of AI, particularly the implementation of genAI capabilities into products. Many companies are still in the experimentation phase, but there’s a growing demand to integrate AI APIs into production environments. This shift is nascent and brings unique challenges, as AI APIs have distinct characteristics, such as token usage and choosing between different LLM models.</p>
+<p>In my opinion, the implications of integrating AI APIs into production are still being understood. Companies are increasingly looking to address the specific needs of AI APIs, which include managing token usage, optimizing performance, and ensuring reliable integration with various AI models. This demand for AI-driven solutions necessitates new approaches to API consumption management, where traditional methods may fall short.</p>
+<p><strong>What is traditional API management lacking? Do you think API management is “<a href="https://nordicapis.com/the-unbundling-of-api-management/" rel="noreferrer" target="_blank">unbundling</a>,” as some analysts have indicated?</strong></p>
+<p>Traditional API management has primarily focused on providing value to API providers by ensuring efficient, scalable, and secure usage of their APIs. This approach centers on governance and control mechanisms for managing ingress traffic—traffic coming into an organization. However, this model falls short when addressing the needs of egress traffic management, where an organization consumes third-party APIs.</p>
+<p>Traditional solutions lack the architectural design to handle outgoing traffic effectively, as they are built to manage inbound requests. This limitation makes it difficult to intercept and manage the outbound API calls necessary for leveraging external services.</p>
+<p>Moreover, traditional API management frameworks do not offer the visibility and usage insights required for effective egress traffic control. They fail to provide detailed tracking of how external APIs are being used, which is crucial for understanding rate limits, predicting quota exceedances, and receiving timely alerts. The specific policy requirements for egress traffic—such as prioritized queue for API calls, load balancing consumption across multiple environments that share the same API quota, or defining cost control on usage —are also not supported by traditional gateways. These needs necessitate a different set of controls and policies that traditional API management solutions are not equipped to handle.</p>
+<p>The concept of “unbundling” in API management reflects the growing recognition that a single solution cannot address all aspects of API governance and consumption effectively. Organizations are increasingly adopting specialized tools to manage both ingress and egress traffic. This best-of-breed approach involves using API gateways for provided APIs and dedicated API consumption gateways for third-party API interactions.</p>
+<p><strong>The API community seems obsessed with quick onboarding and optimizing ‘Time to Hello World.’ But what do the realities of post-integration API maintenance look like on the ground?</strong></p>
+<p>The API community’s focus on quick onboarding and optimizing ‘Time to Hello World’ often overshadows the realities of post-integration API maintenance, which involve significant time and effort. API consumers should be equally concerned with questions such as:</p>
+<ul>
+<li>What are the performance metrics of my third-party APIs?</li>
+<li>Do I know how to measure and act upon a change in the SLA?</li>
+<li>Are my external APIs prone to breaking changes and poorly documented, forcing me to implement my own controls?</li>
+<li>Do I have visibility into the monthly costs of these APIs and predictability based on usage?</li>
+<li>How much do I trust the security standards of my external APIs?</li>
+</ul>
+<p>These questions highlight the importance of shifting the focus from integration to the long-term maintenance of API integrations, as the time and engineering effort required for upkeep can far exceed the initial integration effort.</p>
+<p><strong>Your company, Lunar.dev, is pioneering a brand new field, third-party API consumption management. Tell me a bit about this and why a greater focus on egress has become necessary.</strong></p>
+<p>At Lunar.dev, we’re pioneering the field of third-party API consumption management, focusing on egress traffic visibility, governance, and optimization. This issue has been unmet for years, even though analysts have <a href="https://www.gartner.com/document/3849354" rel="noreferrer" target="_blank">highlighted the need</a> for managing the consumption of third-party APIs. The surge in API products, particularly AI APIs, calls for a robust mediation layer that provides real-time visibility and control over outbound traffic. The same governance and security principles applied to internal APIs should also govern egress traffic. I believe that, soon, companies will view their external APIs as resources that need to be managed, just like databases and storage.</p>
+<p>Over the past two years, I’ve had the opportunity to talk and work with many amazing companies and engineers. As their API consumption scales, so does their dependency on these integrations, often leading them to build their own management layers in-house. Our goal with Lunar.dev is to change that by offering an off-the-shelf, enterprise-grade API consumption management solution. This way, companies can focus on developing new features instead of spending extensive time on maintenance.</p>
+<p><strong>Why is the burden on the consumers to manage their API consumption? Why not place these expectations, like optimization, monitoring, and cost reduction, on the shoulders of the API providers themselves?</strong></p>
+<p>That’s a great question. Ultimately, the interests of API providers and consumers are not always completely aligned, which makes it necessary for consumers to take a proactive approach to managing their API consumption. For instance, OpenAI has a rate limit called TPM (tokens per minute). When a consumer surpasses this rate limit, they receive a 429 response (too many requests error) and must try again later. OpenAI enforces this limit to ensure fair service distribution among all customers. As a consumer, it’s up to you to handle this rate limit effectively, perhaps by queuing API calls by priority to serve VIP customers first or switching to another OpenAI model when faced with this limitation.</p>
+<p>Another example is caching API calls. Consumers might cache responses to reduce latency or cut down on usage costs, goals that don’t necessarily align with the provider’s intentions. Providers focus on offering stable, scalable services to many clients, but they can’t tailor optimizations to each individual consumer’s specific needs and business logic.</p>
+<p>Therefore, managing API consumption involves being proactive about traffic control, security posture, and governance of outgoing traffic. It’s closely tied to your business logic and is ultimately your responsibility to manage this valuable resource effectively.</p>
+<p><strong>Lunar.dev recently published a report, <a href="https://www.lunar.dev/report-2024" rel="noreferrer" target="_blank">The State of API Consumption Management</a>. What were some of the most curious findings, in your opinion?</strong></p>
+<p>Yes, this report is the first of its kind to focus heavily on the API consumption side, surveying 200 companies across various sizes and industries. Some of the most intriguing insights include the fact that 60% of respondents reported spending too many weekly hours troubleshooting third-party API issues, with 36% spending more time on troubleshooting than developing new features. This highlights the significant amount of time engineering teams spend on maintenance rather than innovation.</p>
+<p>Additionally, 66% of companies might be exposed to security risks due to under-prioritizing API management, as only 33% consider third-party API maintenance and optimization a high priority. This lack of focus on post-integration management poses substantial risks, both in terms of security and SLA impact.</p>
+<p>These findings underscore the need for greater emphasis on the ongoing management and optimization of API consumption. For a more comprehensive understanding and to see how your company compares to industry benchmarks, you can explore the full report <a href="https://www.lunar.dev/report-2024" rel="noreferrer" target="_blank">here</a>.</p>
+<p><strong>At Platform Summit, you’ll be speaking about the hidden currents of API consumption. Without giving away too much else, what can attendees anticipate to take away from your session?</strong></p>
+<p>In my session, I’ll be sharing aggregated best practices from engineering leaders across various companies on how to better manage and optimize API consumption traffic. Attendees can expect to learn about the active controls these leaders are enforcing to tackle common challenges. There are some true gems in this talk, and I welcome everyone to join me for insights that can significantly improve their API management strategies.</p>
+<p><strong>What are you looking forward to at Platform Summit? Why are you excited to be involved?</strong></p>
+<p>This will be my first time participating in the Platform Summit, and I’ve been following the event and its talks for quite some time. I’m excited for the opportunity to finally participate and share my insights. I’ve also listed some cool talks I want to attend and look forward to grabbing drinks with colleagues. It looks like we have a great event ahead of us, and I’m eager to be a part of it.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-undercurrents-of-third-party-api-consumption-management/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

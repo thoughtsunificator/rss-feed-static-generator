@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Python PGP proposal poses packaging puzzles</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Python PGP proposal poses packaging puzzles</h3>
+		<div><p><a href="https://docs.sigstore.dev/" rel="noreferrer" target="_blank">Sigstore</a> is a 
+project that is meant to simplify and improve the process of signing,
+verifying, and protecting software. It is a relatively new project, <a href="https://www.prnewswire.com/news-releases/sigstore-announces-general-availability-at-sigstorecon-301657741.html" rel="noreferrer" target="_blank">declared</a>
+"generally available" in 2022. Python is an early adopter of sigstore; it started <a href="https://www.python.org/downloads/metadata/sigstore/" rel="noreferrer" target="_blank">providing
+signatures for CPython artifacts</a> with <a href="https://www.python.org/downloads/release/python-3110/" rel="noreferrer" target="_blank">Python&nbsp;3.11</a>
+in&nbsp;2022. This is in addition to the <a href="https://www.openpgp.org/" rel="noreferrer" target="_blank">OpenPGP</a> signatures it has been
+providing <a href="https://peps.python.org/pep-0101/" rel="noreferrer" target="_blank">since at
+least&nbsp;2001</a>. Now, Seth&nbsp;Michael&nbsp;Larson—the <a href="https://www.python.org/psf-landing/" rel="noreferrer" target="_blank">Python Software
+Foundation</a> (PSF) <a href="https://pyfound.blogspot.com/2023/06/announcing-our-new-security-developer.html" rel="noreferrer" target="_blank">security
+developer-in-residence</a>—would like to deprecate the PGP
+signature and move to sigstore exclusively by next year. If that
+happens, it will involve some changes in the way that Linux
+distributions verify Python releases, since none of the major
+distributions have processes for working with sigstore.</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/993787/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

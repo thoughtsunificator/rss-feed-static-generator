@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Data Transparency in Open Source AI: Protecting Sensitive Datasets</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Data Transparency in Open Source AI: Protecting Sensitive Datasets</h3>
+		<div>
+<p>The Open Source Initiative (OSI) is running a blog series to introduce some of the people who have been actively involved in the Open Source AI Definition (OSAID) co-design process. The co-design methodology allows for the integration of diverging perspectives into one just, cohesive and feasible standard. Support and contribution from a significant and broad group of stakeholders is imperative to the Open Source process and is proven to bring diverse issues to light, deliver swift outputs and garner community buy-in.</p>
+
+
+
+<p>This series features the voices of the volunteers who have helped shape and are shaping the Definition.</p>
+
+
+
+<h1 class="wp-block-heading">Meet Tarunima Prabhakar</h1>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<p>I am the research lead and co-founder at <a target="_blank" href="https://tattle.co.in/" rel="noreferrer">Tattle</a>, a civic tech organization that builds citizen centric tools and datasets to respond to inaccurate and harmful content. My broad research interests are in the intersection of technology, policy and global development. Prior to starting Tattle, I worked as a research fellow at the Center for Long-Term Cybersecurity at UC, Berkeley studying the deployment of behavioral credit scoring algorithms towards financial inclusion goals in the global majority. I’ve also been fortunate to work on award-winning ICTD and data driven development projects with stellar non-profits. My career working in low-resource environments has turned me into an ardent advocate for Open Source development and citizen science movements.&nbsp;</p>
+
+
+
+<h1 class="wp-block-heading">Protecting Sensitive Datasets</h1>
+
+
+
+<p>I recently gave a lightning talk at <a target="_blank" href="https://fossunited.org/indiafoss/2024" rel="noreferrer">IndiaFOSS</a> where I shared about <a target="_blank" href="http://uli.tattle.co.in" rel="noreferrer">Uli</a>, a project to co-design solutions to online gendered abuse in Indian languages. As a part of this project, we’re building and maintaining datasets that are useful for machine learning models that detect abuse. The talk exhibited the importance of and the care that must be given when choosing a license for sensitive data, and why open datasets in Open Source AI should be carefully considered.</p>
+
+
+
+<p>With the Uli project, we created a dataset annotated by gender rights activists and researchers who speak Hindi, Tamil and Indian English. Then, we fine-tuned Twitter’s <a target="_blank" href="https://huggingface.co/docs/transformers/en/model_doc/xlm-roberta" rel="noreferrer">XLM-RoBERTa</a> model to detect gender abuse, which we deployed as a browser plugin. When activated, the Uli plugin would redact abusive tweets from a person’s feed. Another dataset we created was of slur words in the three languages that might be used to target people. Such a list is not only useful for the Uli plugin- these words are redacted from web pages if the plugin is installed- but they are also useful for any platform needing to moderate conversations in these languages.&nbsp; At the time of the launch of the plugin, we chose to license the two datasets under an Open Data License (ODL). The model is hosted on Hugging Face and the code is available on GitHub.&nbsp;</p>
+
+
+
+<p>As we have continued to maintain and grow Uli, we have reconsidered how we license the data. When thinking about how to license this data, several factors come into play. First, annotating a dataset on abuse is labor-intensive and mentally exhausting, and the expert annotators should be fairly compensated for their expertise. Second, when these datasets are used by platforms for abuse detection, it creates a potential loophole—if abusive users realize the list of flagged words is public, they can change their language to evade moderation.</p>
+
+
+
+<p>These concerns have led us to think carefully about how to license the data. On one end of the spectrum, we could continue to make everything open, regardless of commercial use. On the other end, we could keep all the data closed. We’ve historically operated as an Open Source organization, and every decision we make about data access impacts how we license our machine learning models as well. We are trying to find a happy medium that lets us balance the numerous concerns- recognition of effort and effectiveness of the data on one hand, and transparency, adaptability and extensibility on the other.<br><br>As we’ve thought about different strategies for data licensing, we haven’t been sure what that would mean for the license of the machine learning models. And that’s partly because we don’t have a clear definition for what “Open Source AI” really means.&nbsp;</p>
+
+
+
+<p>It is for this reason that we’ve closely followed the Open Source Initiative’s (OSI) process for converging on a definition for Open Source AI. OSI has been grappling with the definition of “Open Source AI” as it pertains to the four freedoms: the freedom to use, study, modify, and share. Over the past year, the OSI has been iterating on a definition for Open Source AI, and they’ve reached a point where they propose the following:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Open weights: The model weights and parameters should be open.</li>
+
+
+
+<li>Open source code: The source code used to train the system should be open.</li>
+
+
+
+<li>Open data or transparent data: Either the dataset should be open, or there should be enough detailed information for someone to recreate the dataset.</li>
+</ul>
+
+
+
+<p>It’s important to note that the dataset doesn’t necessarily have to be open. The departure from a stance of maximally open dataset accounts for the complexity in the collection and management of data driving real world ML applications. While frontier models need to deal with copyright and privacy concerns, many smaller projects like ours worry about the uneven power dynamics between those creating the data and the entities using it. In our specific case, opening data also reduces its efficacy.</p>
+
+
+
+<p>But having struggled with papers that describe research or data without sharing the dataset itself, I also recognize that ‘enough detailed information’ might not be information enough to repeat, adapt or extend another group’s work. In the end, the question becomes: how much information about the dataset is enough to consider the model “open?” It’s a fine line, and not everyone is comfortable with OSI’s stance on this issue. For our project in particular, we are considering the option of staggered data release- older data is released under an open data license, while the newest data requires users to request access.&nbsp;</p>
+
+
+
+<p>If you have strong opinions on this process, I encourage you to visit the OSI website and leave feedback. The OSI process is influential, and your input on open weights, open code, and their specifications around data openness could shape the future of Open Source AI.</p>
+
+
+
+<p>You can learn more about the participatory process behind the Uli dataset <a target="_blank" href="https://aclanthology.org/2024.woah-1.16/" rel="noreferrer">here</a>, and about <a target="_blank" href="https://uli.tattle.co.in/" rel="noreferrer">Uli </a>and <a target="_blank" href="https://tattle.co.in/" rel="noreferrer">Tattle</a> on their respective websites.&nbsp;</p>
+
+
+
+<h1 class="wp-block-heading">How to get involved</h1>
+
+
+
+<p>The OSAID co-design process is open to everyone interested in <a target="_blank" href="https://discuss.opensource.org/t/faq-guidelines/" rel="noreferrer">collaborating</a>. There are many ways to get involved:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Join the <a target="_blank" href="https://discuss.opensource.org/" rel="noreferrer">forum</a>: share your comment on the drafts.</li>
+
+
+
+<li>Leave comment on the <a href="https://opensource.org/deepdive/drafts" rel="noreferrer" target="_blank">latest draft</a>: provide precise feedback on the text of the latest draft.</li>
+
+
+
+<li>Follow the <a href="https://opensource.org/blog/author/mia-lykoulund" rel="noreferrer" target="_blank">weekly recaps</a>: subscribe to our monthly <a href="https://opensource.org/newsletter" rel="noreferrer" target="_blank">newsletter</a> and blog to be kept up-to-date.</li>
+
+
+
+<li>Join the <a href="https://opensource.org/events/tags/townhall" rel="noreferrer" target="_blank">town hall</a> meetings: we’re increasing the frequency to weekly meetings where you can learn more, ask questions and share your thoughts.</li>
+
+
+
+<li>Join the <a href="https://opensource.org/events" rel="noreferrer" target="_blank">workshops and scheduled conferences</a>: meet the OSI and other participants at in-person events around the world.</li>
+</ul>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/data-transparency-in-open-source-ai-protecting-sensitive-datasets">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

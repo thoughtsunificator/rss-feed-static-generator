@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>GUAC adopts license metadata from ClearlyDefined</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">GUAC adopts license metadata from ClearlyDefined</h3>
+		<div>
+<p>The software supply chain just gained some transparency thanks to an integration of the Open Source Initiative (OSI) project, ClearlyDefined, into <a href="https://guac.sh/" rel="noreferrer" target="_blank">GUAC</a> (Graph for Understanding Artifact Composition), an <a href="https://openssf.org/" rel="noreferrer" target="_blank">OpenSSF</a> project from the Linux Foundation. GUAC provides a comprehensive mapping of software packages, dependencies, vulnerabilities, attestations, and more, allowing organizations to achieve better compliance and security of their software supply chain.</p>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<h2 class="wp-block-heading">GUAC offers the full view of the supply chain</h2>
+
+
+
+<p>Software supply chain attacks are on the rise. Many tools are available to help generate software bills of materials (SBOMs), signed attestations and vulnerability reports, but they stop there, leaving users to figure out how they all fit together. GUAC provides an aggregated, queryable view across the whole software supply chain, not just one SBOM at a time.</p>
+
+
+
+<p>GUAC is for developers, operations and security practitioners who need to identify and address problems in their software supply chain, including proactively managing dependencies and responding to vulnerabilities. GUAC provides supply chain observability with a graph view of the software supply chain and tools for performing queries to gain actionable insights.</p>
+
+
+
+<h2 class="wp-block-heading">GUAC enhanced with ClearlyDefined integration</h2>
+
+
+
+<p>The <a href="https://www.kusari.dev/blog/announcing-guac-v0-8-0-license-data-integration-immediate-vuln-scans-and-streamlined-node-deletion" rel="noreferrer" target="_blank">latest version</a> of GUAC (v0.8.0) now provides <a href="https://github.com/guacsec/guac/pull/2034" rel="noreferrer" target="_blank">support</a> for ClearlyDefined. GUAC will query the <a href="https://clearlydefined.io/" rel="noreferrer" target="_blank">ClearlyDefined license metadata store</a> to discover license information for packages, even when the SBOM does not include that information.</p>
+
+
+
+<p>A ClearlyDefined certifier will listen on collector-subscriber for any pkg/src strings, then convert to ClearlyDefined <a href="https://docs.clearlydefined.io/docs/resources/coordinates" rel="noreferrer" target="_blank">coordinates</a>, then query the API service for the <a href="https://docs.clearlydefined.io/using-data#definitions" rel="noreferrer" target="_blank">definition</a>. The user agent will be the same as existing outgoing GUAC requests <a href="https://github.com/guacsec/guac/blob/main/pkg/version/version.go#L35" rel="noreferrer" target="_blank">GUAC/&lt;version&gt;</a> (e.g. GUAC/v0.1.0).</p>
+
+
+
+<p>A CertifyLegal node will be created using the “<em>licensed</em>”  “<em>declared</em>” field from the definition. The expression will be copied and any license identifiers found will result in linked License noun nodes, created if needed. Type will be “<em>declared</em>”. Justification will be “<em>Retrieved from ClearlyDefined</em>”. Time will be the current time the information was retrieved from the API.</p>
+
+
+
+<p>Similarly a node will be created using the “<em>licensed</em>”  “<em>facets</em>”  “<em>core</em>”  “<em>discovered</em>”  “<em>expressions</em>” field. Multiple expressions will be “AND”ed together. Type will be “<em>discovered</em>”, and other fields the same (Time, Justification, License links, etc).</p>
+
+
+
+<p>The “<em>licensed</em>”  “<em>facets</em>”  “<em>core</em>”  “<em>attribution</em>”  “<em>parties</em>” array will be concatenated and stored in the Attribution field on CertifyLegal.</p>
+
+
+
+<p>Optionally, “<em>described</em>”  “<em>sourceLocation</em>” can be used to create a HasSourceAt GUAC node.</p>
+
+
+
+<h2 class="wp-block-heading">Thanks to the community</h2>
+
+
+
+<p>Although licenses don’t directly impact security, they are an important part of understanding the software supply chain. We would like to thank <a href="https://github.com/pxp928" rel="noreferrer" target="_blank">Parth Patel</a> (Kusari), <a href="https://github.com/jeffmendoza" rel="noreferrer" target="_blank">Jeff Mendoza</a> (Kusari), <a href="https://github.com/funnelfiasco" rel="noreferrer" target="_blank">Ben Cotton</a> (Kusari), and <a href="https://github.com/qtomlinson" rel="noreferrer" target="_blank">Qing Tomlinson</a> (SAP) for their support to get this feature implemented in GUAC. The ClearlyDefined community looks forward to working together with the GUAC community to help organizations worldwide to better achieve compliance and security of their software supply chain.</p>
+</div>
+		<a target="_blank" href="https://opensource.org/blog/guac-adopts-license-metadata-from-clearlydefined">Go to article URL</a>
+		<div>Feed URL: https://blog.opensource.org/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

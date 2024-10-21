@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The pattern format: an antidote to hype</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The pattern format: an antidote to hype</h3>
+		<div><p>I regularly read articles advocating for the use of a particular technology.
+Recent examples include “S3 is a great storage backend” or “your monolith’s modules should communicate via a message broker”.
+While these articles are often informative, they are also typically one-sided.
+They focus on the benefits of the solution and ignore the drawbacks.
+This is a problem because every solution has drawbacks.
+And, if you don’t consider the drawbacks, you might choose a solution that doesn’t work for you.</p>
+
+<p>In this article I describe a better way to structure an article: the pattern format.
+You will learn how it provides a balanced view of a solution.
+Let’s first look at the structure of a pattern.</p>
+
+<p></p>
+
+<h2 id="whats-a-pattern">What’s a pattern</h2>
+
+<p>A pattern is reusable solution to a problem occurring in a context and its consequences
+There are a few different ways to structure a patterns.
+My favorite consist of the following elements:</p>
+
+<ol>
+  <li>Context - the situation within which the pattern is applicable</li>
+  <li>Problem - the problem that the pattern solves</li>
+  <li>Forces - the issues or concerns that you must consider that can determine the suitability of a solution</li>
+  <li>Solution - the solution that the pattern proposes</li>
+  <li>Consequences - describes the consequences of applying the pattern</li>
+  <li>Related patterns - patterns that either solve the sub-problems created by this pattern or are alternative solutions to the same problem</li>
+</ol>
+
+<p>Let’s look at the consequences and related patterns sections in more detail.</p>
+
+<h2 id="patterns-highlight-consequences">Patterns highlight consequences</h2>
+
+<p>A valuable part of a pattern is its consequences.
+The consequences consists of the following elements:</p>
+
+<ul>
+  <li>Benefits - the positive outcomes of applying the pattern</li>
+  <li>Drawbacks - the negative outcomes of applying the pattern</li>
+  <li>Issues - the sub-problems that are created by applying this pattern</li>
+</ul>
+
+<p>As you can see, you cannot simply describe the solutions benefits.
+You also must describe its drawbacks and the sub-problems that it creates.</p>
+
+<p>A pattern is requires you to consider the pattern’s issues, which are the sub-problems that are created by applying this pattern.
+The issues highlight the fact that there are no silver bullets.
+They are also extra work that you must take on if you choose to apply the pattern.
+For example, the <a href="/patterns/microservices.html" rel="noreferrer" target="_blank">Microservice architecture pattern</a> introduces the sub-problem of needing to implement commands and queries that span multiple services.
+As you will see in the next section, these issues are often solved by applying other patterns.</p>
+
+<h2 id="patterns-reference-other-patterns">Patterns reference other patterns</h2>
+
+<p>The related patterns section is also important.
+It consists of the following elements:</p>
+
+<ul>
+  <li>Successor patterns - patterns that solve the sub-problems created by this pattern</li>
+  <li>Alternative patterns - different ways of solving the same problem</li>
+</ul>
+
+<p>Let’s first look at successor patterns.</p>
+
+<h3 id="about-successor-patterns">About successor patterns</h3>
+
+<p>As mentioned above, applying a particular pattern often introduces sub-problems (the pattern’s issues).
+These sub-problems are often solved by applying other patterns.
+For example, distributed commands and queries are implemented using the <a href="/post/patterns/2023/07/29/service-collaboration-patterns.html" rel="noreferrer" target="_blank">service collaboration patterns</a>.</p>
+
+<h3 id="patterns-point-to-alternative-solutions">Patterns point to alternative solutions</h3>
+
+<p>A pattern should also reference any <em>alternative patterns</em>, which are different ways of solving the same problem.
+A pattern cannot pretend that it’s the only solution to a problem.
+It must acknowledge that there are other solutions, which usually have different trade-offs.
+For example, an alternative to the Microservice architecture pattern is the <a href="/patterns/monolithic.html" rel="noreferrer" target="_blank">Monolithic architecture pattern</a>.</p>
+
+<h2 id="the-pattern-format-is-an-antidote-to-hype">The pattern format is an antidote to hype</h2>
+
+<p>IMHO A great many articles and presentations that I’ve seen over the years would be improved by using the pattern format.
+Even adding a brief description of the drawbacks would have dramatically improved their quality.
+I would, however, recommend going further and including all the pattern format’s sections described at the start of the article.</p>
+
+<h2 id="the-downside-of-using-the-pattern-format-less-hype">The downside of using the pattern format: less hype</h2>
+
+<p>But naturally there’s are downsides to use the pattern format!
+It’s a lot more work to think through the consequences, issues, and related patterns.
+What’s more, it’s less exciting.
+And, developers are human and humans like hype and excitement.</p>
+
+<p>However, we can only build great software if we have an informed view of the technologies that we use.
+We must have a through understanding of each technology’s benefits, drawbacks and issues.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/08/08/pattern-format-hype-antidote.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

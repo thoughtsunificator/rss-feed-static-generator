@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Garrett: What is an SBAT and why does everyone suddenly care</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Garrett: What is an SBAT and why does everyone suddenly care</h3>
+		<div>Matthew Garrett <a href="https://mjg59.dreamwidth.org/70348.html" rel="noreferrer" target="_blank">describes
+the role of the Secure Boot Advanced Targeting mechanism</a> and how it
+played into the recent Windows upgrade problems.
+<p>
+</p><blockquote class="bq">
+	So why is this suddenly relevant? SBAT was developed
+	collaboratively between the Linux community and Microsoft, and
+	Microsoft chose to push a Windows update that told systems not to
+	trust versions of grub with a security generation below a certain
+	level. This was because those versions of grub had genuine security
+	vulnerabilities that would allow an attacker to compromise the
+	Windows secure boot chain, and we've seen real world examples of
+	malware wanting to do that.
+</blockquote></div>
+		<a target="_blank" href="https://lwn.net/Articles/986844/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

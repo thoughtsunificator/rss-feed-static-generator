@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Should You Build Or Buy OpenAPI Tooling?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Should You Build Or Buy OpenAPI Tooling?</h3>
+		<div><p>Since the days of yore, long before Roy Fielding’s dissertation on REST and around the time the words ‘strategic alignment’ were first uttered in public, an enterprise architect asked the question: <em>Do we build, or do we buy our software?</em> This question is a classic piece of the IT puzzle, a never-ending search for enlightenment to ensure that an organization spends its money wisely by making the right choice in sourcing software tools.</p>
+<p>Roll forward about a thousand years, and we still ask that question in the context of the API economy, especially for OpenAPI. OpenAPI is supported by a huge variety of tools and platforms across the API lifecycle, with those tools and platforms providing different functions and fulfilling many purposes.</p>
+<p>However, the broad OpenAPI ecosystem isn’t always easy for enterprise architects (or anyone looking for OpenAPI tools). Before starting your search for OpenAPI tools, or going ahead and building them, you need to ask yourself what your goals are so you can answer the build vs. buy question successfully.</p>
+<h2 id="the-experience-of-building-openapi-tools">The Experience of Building OpenAPI Tools</h2>
+<p>Building your own <a href="https://openapi.tools/" rel="noreferrer" target="_blank">OpenAPI tools</a>, or creating them for others to consume, is a path many developers have taken. The tooling ecosystem is vast. As the OpenAPI Initiative <a href="https://tools.openapis.org/" rel="noreferrer" target="_blank">tooling website</a> shows, there are innumerable tools of many different types, with a great number of commercial solutions available as well, to support organizations in their efforts as both API providers and API consumers. However, an out-of-the-box tool does not always meet organizational needs, for many reasons.</p>
+<p>Our 2024 Austin Summit was notable for many reasons, including a talk on this subject by <a href="https://www.linkedin.com/in/adamleventhal/" rel="noreferrer" target="_blank">Adam Leventhal</a>. Leventhal is from <a href="https://oxide.computer/" rel="noreferrer" target="_blank">Oxide Computer Company</a> and <a href="https://youtu.be/UptsQuOlhBU?si=XuzcsuPahcVzwaif" rel="noreferrer" target="_blank">presented</a> his experiences of building OpenAPI tools from scratch. Oxide leverages OpenAPI for their private cloud in-a-box solution, where they favored a Rust-based, code-first approach to creating their API layer and with it OpenAPI descriptions for their platform.</p>
+<p>Oxide’s experience with the OpenAPI tooling ecosystem was, by Leventhal’s account, not great. One requirement Oxide had was to generate clients based on the OpenAPI descriptions generated from their <a href="https://github.com/oxidecomputer/dropshot" rel="noreferrer" target="_blank">Dropshot</a> tool. Existing OpenAPI tools for Rust simply did not provide what Oxide needed, so they set about building a home-grown tool, <a href="https://github.com/oxidecomputer/progenitor" rel="noreferrer" target="_blank">Progenitor</a>. Progenitor is a Rust crate that generates an API client based on an OpenAPI description, and is an important part of how Oxide supports their platforms.</p>
+<div class="well">Watch <a href="https://nordicapis.com/speakers/adam-leventhal/" rel="noreferrer" target="_blank">Adam Leventhal</a> present at the 2024 <a href="https://nordicapis.com/events/austin-api-summit-2024/" rel="noreferrer" target="_blank">Austin API Summit</a>:<div class="responsive-iframe-container"></div></div>
+<h2 id="encountering-friction-with-openapi">Encountering Friction With OpenAPI</h2>
+<p>Leventhal’s talk described the challenges Oxide encountered with OpenAPI. Leventhal’s experience was that OpenAPI is a broad specification, which caters to many edge cases. “There are eight different ways of saying the same thing,” he said. This flexibility means there are many design choices, and finding the right one is not always straightforward.</p>
+<p>Furthemore, the goal of implementing a code-first approach to master the shape of the API in code meant that many edge cases needed to be ignored. “We were trying to be inflexible,” said Leventhal, “doing it one particular way.” He was clear that building a tool that leverages OpenAPI has to be geared to a use case or problem statement. “You don’t need to solve the general problem, you need to solve your problem,” said Leventhal. This singularity of purpose may not suit tooling makers who cover a wide range of use cases, but it is vital for organizations that have a clear need to implement tools that they build themselves.</p>
+<h2 id="the-path-forward-building-an-openapi-tool">The Path Forward: Building an OpenAPI Tool</h2>
+<p>Leventhal’s conclusions suggest that building Progenitor with OpenAPI support was the correct course of action: “OpenAPI was right…even though the ecosystem wasn’t what we had hoped it would be.” This conclusion provides a valuable insight into the value of using OpenAPI, namely: The ecosystem <strong><em>is enormous</em></strong> and your developer community will undoubtedly find the tools they need to help them consume your APIs. That is not, however, always a guarantee. Reasons that you might need to build your own OpenAPI tools include:</p>
+<ul>
+<li><strong>Specific use cases</strong>: The Oxide use case was specific and the quality they needed from a code generator was significant. A use case off the beaten track gives more weight to the argument for building OpenAPI tools.</li>
+<li><strong>Version support</strong>: Tooling makers evolve their tools at their own cadence. There may be a significant lag between a new version of OpenAPI being available and support becoming available in a given tool. For example, there are many tools in the ecosystem that have not adopted <a href="https://nordicapis.com/whats-new-in-openapi-3-1-0/" rel="noreferrer" target="_blank">version 3.1</a> yet, and some significant vendors, such as the Google Cloud Endpoints solution, stuck with version 2.0 (Swagger). Building your own OpenAPI tools puts you in charge of your destiny in this respect.</li>
+<li><strong>Ownership</strong>: There may also be reasons why you want to build your solution because it forms a significant part of your intellectual property. If your OpenAPI tool is an important part of your software stack and a significant reason for how you make money, you need as much control as possible. In this context, building your tools makes sense.</li>
+</ul>
+<p>These reasons are not specific to OpenAPI. Use cases, programming languages, operating environments, and industry regulations can all result in the need to build your tools in any technology. However, the reasons for creating your OpenAPI tools do not apply across the board.</p>
+<h2 id="the-arguments-for-buying-your-openapi-tools">The Arguments for Buying Your OpenAPI Tools</h2>
+<p>There are many reasons why you would either buy your OpenAPI tools or use freely-available open-source tools. In Oxide’s case, this was clearly not an option, as support for the Rust programming language and code generation was not good enough for their needs. However, the Oxide use case is one that most software developers simply do not have. We do not build machines from scratch, nor develop operating systems and management planes for hardware systems. Many of us have simple use cases, like <a href="https://nordicapis.com/10-tips-for-writing-great-api-documentation/" rel="noreferrer" target="_blank">publishing documentation</a>.</p>
+<p>The key here is that OpenAPI tools are often coupled with “something else,” to do a specific job or task. The documentation use case is an obvious example, but API design (when not doing code-first) across a team is another. Commercial tools like <a href="https://www.postman.com/postman-enterprise/" rel="noreferrer" target="_blank">Postman Enterprise</a>, <a href="https://swagger.io/tools/swaggerhub/" rel="noreferrer" target="_blank">SwaggerHub</a>, and <a href="https://redocly.com/" rel="noreferrer" target="_blank">Redoc Workflows</a> offer collaboration and automation features that build on OpenAPI compatibility to offer users a unified design experience.</p>
+<p>The buy argument here is significant. Your organization is very unlikely to invest the time and money in creating a design tool with a collaboration feature when they can just lift one off the shelf. The main caveat is, of course, the same one that Leventhal pointed out: OpenAPI is very broad, and there may be a feature critical to your needs that is missing. Sourcing products compatible with OpenAPI is therefore like any purchasing decision, in that you <strong>must</strong> do your due diligence before buying by understanding <strong>your needs</strong>.</p>
+<h2 id="a-use-case-view-of-openapi">A Use Case View of OpenAPI</h2>
+<p>The build vs. buy debate for OpenAPI tools is not a straightforward slam dunk for many API professionals looking for something to help accelerate their efforts in providing or consuming APIs. As Leventhal’s experience shows, starting from scratch and ensuring you have done everything you <em>need</em> to do is difficult, as is trying to be “feature complete.” There is also the question of whether tools need to implement everything because in many cases the functionality that marks the tool as being feature-complete is not used by the developer community.</p>
+<p>The proposed refactoring coming in <a href="https://nordicapis.com/openapi-sets-it-sights-on-v4-moonwalk-for-2024/" rel="noreferrer" target="_blank">version 4 of OpenAPI</a> will help make sections of the specification more modular and, therefore, easier to ignore if irrelevant for some tools. However, there still needs to be easier answers to the question of what needs to be implemented for a given use case. One possible solution that the OpenAPI Initiative could help with is creating tooling “profiles,” which describe features that are important to a well-defined use case.</p>
+<p>For example, consider the <a href="https://spec.openapis.org/oas/latest.html#tag-object" rel="noreferrer" target="_blank">Tag Object</a>. The guidance in the specification talks about “additional metadata” being provided through a Tag, but most implementers leverage tags for navigation when providing documentation tools. Improving the specification would help clarify usage, as reflected in the current Moonwalk <a href="https://github.com/OAI/sig-moonwalk/discussions/67" rel="noreferrer" target="_blank">discussion</a> on this topic, but also providing a use case view that describes using tags for documentation would be of enormous value as well.</p>
+<p>This use case view may well prove very useful to the wider OpenAPI community. As the OpenAPI Initiative moves from a single specification community to a multi-specification community, with the publication of Overlay and <a href="https://nordicapis.com/3-example-use-cases-for-arazzo-descriptions/" rel="noreferrer" target="_blank">Arazzo</a>, finding a way to provide insights like this will be extremely valuable in its future development.</p>
+<h2 id="build-vs-buy-openapi-tools">Build vs. Buy OpenAPI Tools</h2>
+<p>Going back to the original question of whether to build or buy OpenAPI tooling, the answer is: It depends. We’ve described clear reasons why building your own tools is a good idea, but you should be prepared for the inherent complexity of a standard that attempts to represent a variety of different internet standards.</p>
+<p>The “hidden” complexity of OpenAPI is especially important if you are looking to build a commercial product where users might demand features considered edge cases in the OpenAPI Specification. Many of us will be satisfied, however, with what we can get from the tooling community. The huge number of tools, many of which are very mature and cover OpenAPI features well, will provide what we need to be successful in our efforts to build and consume APIs.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/should-you-build-or-buy-openapi-tooling/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

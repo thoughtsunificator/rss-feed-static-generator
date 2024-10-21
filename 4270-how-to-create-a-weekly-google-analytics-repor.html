@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How To Create A Weekly Google Analytics Report That Posts To Slack</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How To Create A Weekly Google Analytics Report That Posts To Slack</h3>
+		<div><p>Google Analytics is great, but not everyone in your organization will be granted access. In many places I’ve worked, it was on a kind of “need to know” basis. </p>
+<p>In this article, I’m gonna flip that on its head and show you how I wrote a <a href="https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions" rel="noreferrer" target="_blank">GitHub Action</a> that queries Google Analytics, generates a top ten list of the most frequently viewed pages on <a href="https://www.paulie.dev/" rel="noreferrer" target="_blank">my site</a> from the last seven days and compares them to the previous seven days to tell me which pages have increased in views, which pages have decreased in views, which pages have stayed the same and which pages are new to the list.</p>
+<p>The report is then nicely formatted with icon indicators and posted to a public Slack channel every Friday at 10 AM. </p>
+<p>Not only would this surfaced data be useful for folks who might need it, but it also provides <strong>an easy way to copy and paste</strong> or <strong>screenshot the report</strong> and add it to a slide for the weekly company/department meeting. </p>
+<p>Here’s what the finished report looks like in Slack, and below, you’ll find a link to the GitHub Repository.</p>
+<p></p>
+GitHub
+<p>To use this repository, follow the steps outlined in the README.</p>
+<ul>
+<li><a href="https://github.com/PaulieScanlon/smashing-weekly-analytics" rel="noreferrer" target="_blank">https://github.com/PaulieScanlon/smashing-weekly-analytics</a></li>
+</ul>
+Prerequisites
+<p>To build this workflow, you’ll need <strong>admin access</strong> to your <a href="https://analytics.google.com/" rel="noreferrer" target="_blank">Google Analytics</a> and <a href="https://slack.com/" rel="noreferrer" target="_blank">Slack</a> Accounts and <strong>administrator privileges</strong> for GitHub Actions and Secrets for a GitHub repository.</p>
+Customizing the Report and Action
+<p>Naturally, all of the code can be changed to suit your requirements, and in the following sections, I’ll explain the areas you’ll likely want to take a look at. </p>
+<h3>Customizing the GitHub Action</h3>
+<p>The file name of the Action <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics/blob/main/.github/workflows/weekly-analytics.report.yml" rel="noreferrer" target="_blank">weekly-analytics.report.yml</a> isn’t seen anywhere other than in the code/repo but naturally, change it to whatever you like, you won’t break anything. </p>
+<p>The <code>name</code> and <code>jobs:</code> names detailed below are seen in the GitHub UI and Workflow logs.</p>
+<p>The <code>cron</code> syntax determines when the Action will run. <a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule" rel="noreferrer" target="_blank">Schedules</a> use <a href="https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07" rel="noreferrer" target="_blank">POSIX cron syntax</a> and by changing the numbers you can determine when the Action runs.  </p>
+<p>You could also change the secrets variable names; just make sure you update them in your repository <strong>Settings</strong>. </p>
+<div>
+<pre><code># .github/workflows/weekly-analytics-report.yml
+
+name: Weekly Analytics Report
+
+on:
+  schedule:
+    - cron: '0 10 * * 5' # Runs every Friday at 10 AM UTC
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  analytics-report:
+    runs-on: ubuntu-latest
+
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_BASE64: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the JavaScript script
+        run: node src/services/weekly-analytics.js
+</code></pre>
+</div>
+
+<h3>Customizing the Google Analytics Report</h3>
+<p>The <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics/blob/main/src/services/weekly-analytics.js#L75" rel="noreferrer" target="_blank">Google Analytics API request</a> I’m using is set to pull the <code>fullPageUrl</code> and <code>pageTitle</code> for the <code>totalUsers</code> in the last seven days, and a <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics/blob/main/src/services/weekly-analytics.js#L100" rel="noreferrer" target="_blank">second request</a> for the previous seven days, and then aggregates the totals and limits the responses to 10.</p>
+<p>You can use Google’s <a href="https://ga-dev-tools.google/ga4/query-explorer/" rel="noreferrer" target="_blank">GA4 Query Explorer</a> to construct your own query, then replace the <code>requests</code>. </p>
+<pre><code>// src/services/weekly-analytics.js#L75
+
+const [thisWeek] = await analyticsDataClient.runReport({
+  property: `properties/${process.env.GA4_PROPERTY_ID}`,
+  dateRanges: [
+    {
+      startDate: '7daysAgo',
+      endDate: 'today',
+    },
+  ],
+  dimensions: [
+    {
+      name: 'fullPageUrl',
+    },
+    {
+      name: 'pageTitle',
+    },
+  ],
+  metrics: [
+    {
+      name: 'totalUsers',
+    },
+  ],
+  limit: reportLimit,
+  metricAggregations: ['MAXIMUM'],
+});
+</code></pre>
+
+Creating the Comparisons
+<p>There are two functions to determine which page views have increased, decreased, stayed the same, or are new. </p>
+<p>The first is a simple reduce function that returns the URL and a count for each.</p>
+<div>
+<pre><code>const lastWeekMap = lastWeekResults.reduce((items, item) =&gt; {
+  const { url, count } = item;
+  items[url] = count;
+  return items;
+}, {});
+</code></pre>
+</div>
+
+<p>The second maps over the results from this week and compares them to last week.</p>
+<div>
+<pre><code>// Generate the report for this week
+const report = thisWeekResults.map((item, index) =&gt; {
+  const { url, title, count } = item;
+  const lastWeekCount = lastWeekMap[url];
+  const status = determineStatus(count, lastWeekCount);
+
+  return {
+    position: (index + 1).toString().padStart(2, '0'), // Format the position with leading zero if it's less than 10
+    url,
+    title,
+    count: { thisWeek: count, lastWeek: lastWeekCount || '0' }, // Ensure lastWeekCount is displayed as '0' if not found
+    status,
+  };
+});
+</code></pre>
+</div>
+
+<p>The final function is used to determine the status of each.</p>
+<pre><code>// Function to determine the status
+const determineStatus = (count, lastWeekCount) =&gt; {
+  const thisCount = Number(count);
+  const previousCount = Number(lastWeekCount);
+
+  if (lastWeekCount === undefined || lastWeekCount === '0') {
+    return NEW;
+  }
+
+  if (thisCount &gt; previousCount) {
+    return HIGHER;
+  }
+
+  if (thisCount &lt; previousCount) {
+    return LOWER;
+  }
+
+  return SAME;
+};
+</code></pre>
+
+<p>I’ve purposely left the code fairly verbose, so it’ll be easier for you to add <code>console.log</code> to each of the functions to see what they return. </p>
+Customizing the Slack Message
+<p>The <a href="https://app.slack.com/block-kit-builder/T070FFUDNH3#%7B%22blocks%22:%5B%7B%22type%22:%22header%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22%F0%9F%93%8A%20Friday,%20August%2016,%202024%22,%22emoji%22:true%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22Top%2010%20Page%20Views%20for%20%3Chttps://www.paulie.dev%20%7C%20paulie.dev%3E%22%7D%7D,%7B%22type%22:%22context%22,%22elements%22:%5B%7B%22type%22:%22image%22,%22image_url%22:%22https://www.paulie.dev/images/down-triangle.png%22,%22alt_text%22:%22notifications%20warning%20icon%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%2201.%20%3Chttps://https://www.paulie.dev/%7CHome%3E%20-%20*%60x49%60*%20/%20x81%22%7D%5D%7D,%7B%22type%22:%22context%22,%22elements%22:%5B%7B%22type%22:%22image%22,%22image_url%22:%22https://www.paulie.dev/images/up-triangle.png%22,%22alt_text%22:%22notifications%20warning%20icon%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%2202.%20%3Chttps://www.paulie.dev/posts/2023/11/a-set-of-sign-in-with-google-buttons-made-with-tailwind/%7CSign%20In%20With%20Google%20Buttons%3E%20-%20*%60x48%60*%20/%20x43%22%7D%5D%7D,%7B%22type%22:%22context%22,%22elements%22:%5B%7B%22type%22:%22image%22,%22image_url%22:%22https://www.paulie.dev/images/new-plus-2.png%22,%22alt_text%22:%22notifications%20warning%20icon%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%2203.%20%3Chttps://www.paulie.dev/posts/2020/08/react-hooks-and-matter-js/%7CReact%20hooks%20and%20matter.js%3E%20-%20*%60x18%60*%20/%20x0%22%7D%5D%7D,%7B%22type%22:%22context%22,%22elements%22:%5B%7B%22type%22:%22image%22,%22image_url%22:%22https://www.paulie.dev/images/same-slash-1.png%22,%22alt_text%22:%22notifications%20warning%20icon%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%2204.%20%3Chttps://www.paulie.dev/articles/%7CArticles%3E%20-%20*%60x15%60*%20/%20x15%22%7D%5D%7D%5D%7D" rel="noreferrer" target="_blank">Slack message config</a> I’m using creates a heading with an emoji, a divider, and a paragraph explaining what the message is.</p>
+<p>Below that I’m using the context object to construct a <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics/blob/main/src/services/weekly-analytics.js#L151" rel="noreferrer" target="_blank">report by iterating over comparisons</a> and returning an object containing Slack specific message syntax which includes an icon, a count, the name of the page and a link to each item.</p>
+<p>You can use Slack’s <a href="https://app.slack.com/block-kit-builder/T070FFUDNH3#%7B%22blocks%22:%5B%7B%22type%22:%22header%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22%F0%9F%93%8A%207%20Days%20Google%20Analytics%20Report%22,%22emoji%22:true%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Top%20ten%20page%20views.%22%7D%7D,%7B%22type%22:%22context%22,%22elements%22:%5B%7B%22type%22:%22mrkdwn%22,%22text%22:%221.%20%3Chttps://www.example.com%7CItem%201%3E%5Cn2.%20%3Chttps://www.example.com%7CItem%202%3E%5Cn%203.%20%3Chttps://www.example.com%7CItem%203%3E%22%7D%5D%7D%5D%7D" rel="noreferrer" target="_blank">Block Kit Builder</a> to construct your own message format. </p>
+<div>
+<pre><code>// src/services/weekly-analytics.js#151 
+
+    const slackList = report.map((item, index) =&gt; {
+      const {
+        position,
+        url,
+        title,
+        count: { thisWeek, lastWeek },
+        status,
+      } = item;
+
+      return {
+        type: 'context',
+        elements: [
+          {
+            type: 'image',
+            image_url: <code>${reportConfig.url}/images/${status}</code>,
+            alt_text: 'icon',
+          },
+          {
+            type: 'mrkdwn',
+            text: <code>${position}.  &amp;lt;${url}|${title}&amp;gt; | &amp;#42;\</code>${<code>x${thisWeek}</code>}`* / x${lastWeek}`,
+          },
+        ],
+      };
+    });
+</code></pre>
+</div>
+
+<p>Before you can run the GitHub Action, you will need to complete a number of <strong>Google</strong>, <strong>Slack</strong>, and <strong>GitHub</strong> steps.</p>
+<p>Ready to get going? </p>
+Creating a Google Cloud Project
+<p>Head over to your <a href="https://console.cloud.google.com/" rel="noreferrer" target="_blank">Google Cloud console</a>, and from the dropdown menu at the top of the screen, click <strong>Select a project</strong>, and when the modal opens up, click <strong>NEW PROJECT</strong>. </p>
+<p></p>
+<h3>Project name</h3>
+<p>On the next screen, give your project a name and click <strong>CREATE</strong>. In my example, I’ve named the project <strong>smashing-weekly-analytics</strong>.</p>
+<p></p>
+<h3>Enable APIs &amp; Services</h3>
+<p>In this step, you’ll enable the Google Analytics Data API for your new project. From the left-hand sidebar, navigate to <strong>APIs &amp; Services</strong> &gt; <strong>Enable APIs &amp; services</strong>. At the top of the screen, click <strong>+ ENABLE APIS &amp; SERVICES</strong>.</p>
+<p></p>
+<h3>Enable Google Analytics Data API</h3>
+<p>Search for “<strong>Google analytics data API</strong>,” select it from the list, then click <strong>ENABLE</strong>.</p>
+<p></p>
+<h3>Create Credentials for Google Analytics Data API</h3>
+<p>With the API enabled in your project, you can now create the required credentials. Click the <strong>CREATE CREDENTIALS</strong> button at the top right of the screen to set up a new Service account. </p>
+<p>A Service account allows an “application” to interact with Google APIs, providing the credentials include the required services. In this example, the credentials grant access to the Google Analytics Data API. </p>
+<p></p>
+<h3>Service Account Credentials Type</h3>
+<p>On the next screen, select <strong>Google Analytics Data API</strong> from the dropdown menu and <strong>Application data</strong>, then click <strong>NEXT</strong>.</p>
+<p></p>
+<h3>Service Account Details</h3>
+<p>On the next screen, give your Service account a <strong>name</strong>, <strong>ID</strong>, and <strong>description</strong> (optional). Then click <strong>CREATE AND CONTINUE</strong>.</p>
+<p>In my example, I’ve given my service account a name and ID of <strong>smashing-weekly-analytics</strong> and added a short description that explains what the service account does.</p>
+<p></p>
+<h3>Service Account Role</h3>
+<p>On the next screen, select <strong>Owner</strong> for the <strong>Role</strong>, then click <strong>CONTINUE</strong>. </p>
+<p></p>
+<h3>Service Account Done</h3>
+<p>You can leave the fields blank in this last step and click <strong>DONE</strong> when you’re ready.</p>
+<p></p>
+<h3>Service Account Keys</h3>
+<p>From the left-hand navigation, select <strong>Service Accounts</strong>, then click the “<strong>more dots</strong>” to open the menu and select <strong>Manage keys</strong>.</p>
+<p></p>
+<h3>Service Accounts Add Key</h3>
+<p>On the next screen, locate the <strong>KEYS</strong> tab at the top of the screen, then click <strong>ADD KEY</strong> and select <strong>Create new key</strong>.</p>
+<p></p>
+<h3>Service Accounts Download Keys</h3>
+<p>On the next screen, select <strong>JSON</strong> as the key type, then click <strong>CREATE</strong> to download your Google Application credentials <code>.json</code> file.</p>
+<p></p>
+<h3>Google Application Credentials</h3>
+<p>If you open the <code>.json</code> file in your code editor, you should be looking at something similar to the one below.</p>
+<p></p>
+<p>In case you’re wondering, no, you can’t use an object as a variable defined in an <code>.env</code> file. To use these credentials, it’s necessary to convert the whole file into a base64 string.</p>
+<p><strong>Note</strong>: <em>I wrote a more detailed post about how to use Google Application credentials as environment variables here: “<a href="https://www.paulie.dev/posts/2024/06/how-to-use-google-application-json-credentials-in-environment-variables/" rel="noreferrer" target="_blank">How to Use Google Application .json Credentials in Environment Variables</a>.”</em></p>
+<p>From your terminal, run the following: replace <strong>name-of-creds-file.json</strong> with the name of your <code>.json</code> file. </p>
+<pre><code>cat name-of-creds-file.json | base64
+</code></pre>
+
+<p>If you’ve already cloned the repo and followed the <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics?tab=readme-ov-file#google-analytics-to-slack-notification-using-github-actions" rel="noreferrer" target="_blank">Getting started steps in the README</a>, add the base64 string returned after running the above and add it to the <code>GOOGLE_APPLICATION_CREDENTIALS_BASE64</code> variable in your <code>.env</code> file, but make sure you wrap the string with double quotation makes.</p>
+<pre><code>GOOGLE_APPLICATION_CREDENTIALS_BASE64="abc123"
+</code></pre>
+
+<p>That completes the Google project side of things. The next step is to add your service account email to your Google Analytics property and find your Google Analytics <strong>Property ID</strong>. </p>
+Google Analytics Properties
+<p>Whilst your service account now has access to the Google Analytics Data API, it doesn’t yet have access to your Google Analytics account. </p>
+<h3>Get Google Analytics Property ID</h3>
+<p>To make queries to the Google Analytics API, you’ll need to know your <strong>Property ID</strong>. You can find it by heading over to your <a href="https://analytics.google.com/" rel="noreferrer" target="_blank">Google Analytics account</a>. Make sure you’re on the correct property (in the screenshot below, I’ve selected paulie.dev — GA4).</p>
+<p>Click the admin <strong>cog</strong> in the bottom left-hand side of the screen, then click <strong>Property details</strong>.</p>
+<p></p>
+<p>On the next screen, you’ll see the <strong>PROPERTY ID</strong> in the top right corner. If you’ve already cloned the repo and followed the <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics?tab=readme-ov-file#google-analytics-to-slack-notification-using-github-actions" rel="noreferrer" target="_blank">Getting started steps in the README</a>, add the property ID value to the <code>GA4_PROPERTY_ID</code> variable in your <code>.env</code> file.</p>
+<p></p>
+<h3>Add Client Email to Google Analytics</h3>
+<p>From the Google application credential <code>.json</code> file you downloaded earlier, locate the <code>client_email</code> and copy the email address. </p>
+<p>In my example, it looks like this: <a href="mailto:tns-weekly-analytics@tns-weekly-analytics.iam.gserviceaccount.com" rel="noreferrer" target="_blank"><strong>smashing-weekly-analytics@smashing-weekly-analytics.iam.gserviceaccount.com</strong></a>.</p>
+<p>Now navigate to <strong>Property access management</strong> from the left hide side navigation and click the <strong>+</strong> in the top right-hand corner, then click <strong>Add users</strong>.</p>
+<p></p>
+<p>On the next screen, add the <strong>client_email</strong> to the <strong>Email addresses</strong> input, uncheck <strong>Notify new users by email</strong>, and select <strong>Viewer</strong> under <strong>Direct roles and data restrictions</strong>, then click <strong>Add</strong>.</p>
+<p></p>
+<p>That completes the Google Analytics properties section. Your “application” will use the Google application credentials containing the <strong>client_email</strong> and will now have access to your Google Analytics account via the Google Analytics Data API.</p>
+Slack Channels and Webhook
+<p>In the following steps, you’ll create a new Slack channel that will be used to post messages sent from your “application” using a <a href="https://api.slack.com/messaging/webhooks" rel="noreferrer" target="_blank">Slack Webhook</a>.</p>
+<h3>Creating The Slack Channel</h3>
+<p>Create a new channel in your Slack workspace. I’ve named mine #<strong>weekly-analytics-report</strong>. You’ll need to set this up before proceeding to the next step. </p>
+<h3>Creating a Slack App</h3>
+<p>Head over to the <a href="https://api.slack.com/apps" rel="noreferrer" target="_blank">slack api</a> dashboard, and click <strong>Create an App</strong>.</p>
+<p></p>
+<p>On the next screen, select <strong>From an app manifest</strong>.</p>
+<p></p>
+<p>On the next screen, select your Slack workspace, then click <strong>Next</strong>.</p>
+<p></p>
+<p>On this screen, you can give your app a name. In my example, I’ve named my <strong>Weekly Analytics Report</strong>. Click <strong>Next</strong> when you’re ready.</p>
+<p></p>
+<p>On step 3, you can just click <strong>Done</strong>.</p>
+<p>With the App created, you can now set up a Webhook. </p>
+<h3>Creating a Slack Webhook</h3>
+<p>Navigate to <strong>Incoming Webhooks</strong> from the left-hand navigation, then switch the Toggle to <strong>On</strong> to activate incoming webhooks. Then, at the bottom of the screen, click <strong>Add New Webook to Workspace</strong>. </p>
+<p></p>
+<p>On the next screen, select your Slack workspace and a channel that you’d like to use to post messages, too, and click <strong>Allow</strong>. </p>
+<p></p>
+<p>You should now see your new Slack Webhook with a copy button. Copy the <strong>Webhook URL</strong>, and if you’ve already cloned the repo and followed the <a href="https://github.com/PaulieScanlon/smashing-weekly-analytics?tab=readme-ov-file#google-analytics-to-slack-notification-using-github-actions" rel="noreferrer" target="_blank">Getting started steps in the README</a>, add the <strong>Webhook URL</strong> to the <code>SLACK_WEBHOOK_URL</code> variable in your <code>.env</code> file.</p>
+<p></p>
+<h3>Slack App Configuration</h3>
+<p>From the left-hand navigation, select <strong>Basic Information</strong>. On this screen, you can customize your app and add an icon and description. Be sure to click <strong>Save Changes</strong> when you’re done.</p>
+<p></p>
+<p>If you now head over to your Slack, you should see that your app has been added to your workspace.</p>
+<p></p>
+<p>That completes the Slack section of this article. It’s now time to add your environment variables to GitHub Secrets and run the workflow.</p>
+Add GitHub Secrets
+<p>Head over to the <strong>Settings</strong> tab of your GitHub repository, then from the left-hand navigation, select <strong>Secrets and variables</strong>, then click <strong>Actions</strong>. </p>
+<p>Add the three variables from your <code>.env</code> file under <strong>Repository secrets</strong>.</p>
+<p><strong>A note on the base64 string</strong>: <em>You won’t need to include the double quotes!</em></p>
+<p></p>
+Run Workflow
+<p>To test if your Action is working correctly, head over to the <strong>Actions</strong> tab of your GitHub repository, select the Job name (<strong>Weekly Analytics Report</strong>), then click <strong>Run workflow</strong>. </p>
+<p></p>
+<p>If everything worked correctly, you should now be looking at a nicely formatted list of the top ten page views on your site in Slack.</p>
+<p></p>
+Finished
+<p>And that’s it! A fully automated Google Analytics report that posts directly to your Slack. I’ve worked in a few places where Google Analytics data was on lockdown, and I think this approach to sharing Analytics data with Slack (something everyone has access to) could be super valuable for various people in your organization.</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/09/how-create-weekly-google-analytics-report-posts-slack/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>10 Tools For API Contract Testing</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">10 Tools For API Contract Testing</h3>
+		<div><p>Contract testing is a vital part of API development. Testing that the API does what it says it should and in the way that is expected internally is a huge first step towards ensuring you have dealt with errors in development. Below we’re going to look at ten tools for <a href="https://nordicapis.com/what-is-contract-testing/" rel="noreferrer" target="_blank">API contract testing</a>, providing a brief summary and some pros and cons for each.</p>
+<h2 id="1-pactflow">1. PactFlow</h2>
+<p><a href="https://pactflow.io" rel="noreferrer" target="_blank">PactFlow</a> is a contract testing platform based on the Pact framework and the <a href="https://nordicapis.com/how-to-write-your-first-openapi-specification/" rel="noreferrer" target="_blank">OpenAPI Specification</a>. It makes testing quicker and cheaper to implement and boasts a “bi-directional contract testing” solution that promises to create more dependable tests that are easier to deploy, much more scalable, and customizable for specific workflows and designs.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>PactFlow is a very easy-to-use and robust solution. Easier deployment and customization mean this is a scalable tool that <a href="https://nordicapis.com/plugging-into-the-future-of-api-contract-testing-with-pact/" rel="noreferrer" target="_blank">fits into many workflows</a>.</li>
+<li>The Bi-Directional Contract Testing approach allows providers to use schemas to test the consumer and provider contract, allowing for more useful and dependable tests at scale.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>PactFlow depends largely on Pact, even though it strongly supports OpenAPI. Accordingly, an intimate knowledge of Pact is required to really get everything out of this system, which is a sort of soft vendor lock-in that might turn some developers away from it as a solution.</li>
+<li>Tests may be easier to deploy, but testing both the consumer and provider contract is a paradigm shift that might introduce a learning curve in some organizations.</li>
+</ul>
+<h2 id="2-hypertest">2. HyperTest</h2>
+<p><a href="https://www.hypertest.co/" rel="noreferrer" target="_blank">HyperTest</a> is more focused on testing integration contracts and was designed to fill a perceived gap in tooling targeting this slice of the workflow. HyperTest offers integration tests and mocking through an auto-generation service and purposefully targets things earlier in development. This is made clear in their promotional materials, where they note that HyperTest is designed to “shift left and identify issues early.”</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Shifting left means that you can handle most issues before they go into live testing or production, making HyperTest a great part of the development release pipeline.</li>
+<li>HyperTest’s options for testing are relatively comprehensive, offering a lot of different and powerful functionality for what it is.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>HyperTest does not have as long a track record in the API space, and for this reason, it also doesn’t have as large a community as other options on this list. Considering your development focus, this may or may not be a drawback, but it is notable.</li>
+</ul>
+<h2 id="3-spring-cloud-contract">3. Spring Cloud Contract</h2>
+<p><a href="https://spring.io/" rel="noreferrer" target="_blank">Spring</a> is a pretty powerful framework, promising to “modernize Java” applications across a wide variety of paradigms. As part of its core offering, Spring Cloud Contract is a series of tools that offer contract testing through consumer-driven contracts. The built-in Contract Definition Language (DSL) produces <a href="https://nordicapis.com/prototype-first-api-design/" rel="noreferrer" target="_blank">WireMock server stubs</a> and systems to facilitate this testing.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Spring supports a wide variety of paradigms, and if you’re using Spring, it only makes sense to use the built-in Cloud Contract system!</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Spring is quite powerful but isn’t the perfect solution for every use case. Using Spring Cloud Contract locks you into Spring in a way that may not be appropriate for every use case, meaning it’s only really appropriate for a segment of APIs.</li>
+<li>The main problem with the approach taken by Spring Cloud Contract is that tests still have to be written by hand — even if the data and stubs are auto-generated, this is still a steep cost for complex APIs looking to simply and quickly test.</li>
+</ul>
+<h2 id="4-dredd">4. Dredd</h2>
+<p><a href="https://dredd.org/en/latest/" rel="noreferrer" target="_blank">Dredd</a> is named after (and takes its logo iconography) from Judge Dredd, and this makes sense, given the form and function of the service. In essence, Dredd is a service that takes the API description as provided and compares it with the backend implementation of the API. If things match, great! If not, the test has failed, and you have more serious issues. Currently, Dredd supports API Blueprint and OpenAPI 2 and 3 (with 3 being supported as an experimental format).</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>This solution is super simple to use and compares two obvious things. For that reason, simple APIs will find this an easy system to get up and running with relatively immediate results.</li>
+<li>Dredd is language agnostic! (Although, in practice, it can be more complicated, as noted below).</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Dredd only supports Go, Node.js, Perl, PHP, Python, Ruby, and Rust. While there is tooling to <a href="https://dredd.org/en/latest/hooks/new-language.html#hooks-new-language" rel="noreferrer" target="_blank">write new hooks</a> for other languages, it is somewhat limited out of the box to this specific set of options despite being technically language agnostic.</li>
+<li>Large and more complex APIs will stretch Dredd to its limits, making it a bad choice for extremely dense API clusters or <a href="https://nordicapis.com/when-is-microservices-architecture-worth-it/" rel="noreferrer" target="_blank">microservices in complex environments</a>.</li>
+</ul>
+<h2 id="5-karate">5. Karate</h2>
+<p><a href="https://www.karatelabs.io/" rel="noreferrer" target="_blank">Karate</a> is designed to do more than just contract testing, with support for performance tests, UI testing, mocking, and more. It’s designed to be a <a href="https://nordicapis.com/25-low-code-platforms/" rel="noreferrer" target="_blank">low-code solution</a>, offering a collaborative tool that can be as useful in the hands of engineers as it is in the hands of project managers or non-technical individual contributors. Karate supports many integrations and is actively developing new integrations for popular options.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Karate is an all-in-one testing framework that makes it easy to create and reuse tests. This saves significant time, as the same tests can be used for performance once the contract is tested and validated.</li>
+<li>Nested parallel threads mean that it is highly efficient and quick, getting test results faster and with potentially less overhead.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Karate is, in essence, a powerful DSL, but this also means that it can constrain users to a specific style and approach that may not be appropriate in every use case.</li>
+</ul>
+<h2 id="6-rest-assured">6. REST Assured</h2>
+<p><a href="https://rest-assured.io/" rel="noreferrer" target="_blank">REST Assured</a> is a Java-focused RESTful API testing solution. It supports both <a href="https://nordicapis.com/what-is-the-difference-between-json-and-xml/" rel="noreferrer" target="_blank">JSON and XML</a> and provides additional support for Spring, Scala, and Kotlin. It’s pretty powerful and integrates well with CI/CD pipelines, presenting a simple but powerful option in the Java space.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>REST Assured is powerful and flexible, offering various testing paradigms and approaches.</li>
+<li>A strong community exists around REST Assured, offering feedback, commentary, and walkthroughs.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>REST Assured is specific to Java, and many APIs are not Java. If you aren’t a Java API, this is not the option for you.</li>
+<li>This solution can also have a steep learning curve due to Java’s nature and the depth of options in the product itself.</li>
+</ul>
+<h2 id="7-microcks">7. Microcks</h2>
+<p><a href="https://microcks.io/" rel="noreferrer" target="_blank">Microcks</a> approaches contract testing with a comprehensive “mock and test” paradigm. Using open standards, Microcks can quickly mock your service, the underlying dependencies, and the tests, automate testing, and deploy at scale to test the contracts per your service’s definition. It is also deployable via containers and <a href="https://nordicapis.com/tag/kubernetes/" rel="noreferrer" target="_blank">Kubernetes</a>, making it usable in almost any environment.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>The end-to-end mocking approach of Microcks takes a lot of the guesswork out of testing, removing the potential for failed tests due to broken dependency chains.</li>
+<li>The broad support for protocols and integrations with a huge range of languages makes Microcks a great choice for testing.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Microcks is a relative newcomer to the industry and doesn’t have as large a community support base as other options on this list. This is not a dealbreaker, but it would be a consideration for some developers.</li>
+<li>Microcks runs in so many different ways, and having so many options can make it unclear to novice users where to begin and how to get started. More advanced users shouldn’t have any issues, but this is a situation where the solution rides right on “the line” of being too much for novices.</li>
+</ul>
+<h2 id="8-assertible">8. Assertible</h2>
+<p><a href="https://assertible.com/" rel="noreferrer" target="_blank">Assertible</a> is one of the more traditional testing systems on this list. It provides a series of assertions for testing and monitoring a live API service. Assertible synchronizes with your specification and integrates with <a href="https://nordicapis.com/walkthrough-of-using-github-to-host-api-documentation/" rel="noreferrer" target="_blank">GitHub and other systems</a> to automatically track when tests or live services fail.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Assertible offers a wide range of integrations, which opens up its use and extensibility to many more developers than might otherwise be possible.</li>
+<li>This solution is quite easy to use and understand, making it a great starting point for testing non-complex APIs and systems.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Assertible is a <a href="https://nordicapis.com/top-25-api-testing-tools/" rel="noreferrer" target="_blank">classic testing solution</a>, but in some ways, that’s its downfall. Assertible is not as fully featured as others on this list, and for those looking for something new in the industry, Assertible might seem a bit too “classic.”</li>
+<li>For what it is, Assertible can be expensive for smaller teams. Since smaller teams are more likely to have simple APIs that can benefit from traditional testing, this is a negative that should be considered.</li>
+</ul>
+<h2 id="9-wiremock">9. WireMock</h2>
+<p>Much like Microcks, <a href="https://www.wiremock.io/" rel="noreferrer" target="_blank">WireMock</a> takes a mock-heavy approach to testing. Beyond just mocking dependencies, it also mocks unstable third-party APIs, APIs that aren’t yet in deployment, edge cases that introduce network faults, and more. This makes WireMock great for testing the “worst-case scenario” while maintaining development inertia.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>This solution is purpose-built for a specific use case and does that use case well. When you are working with edge case scenarios, broken dependencies, or half-built APIs, WireMock is one of the best solutions on offer.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>WireMock is a bit like cleaning a wall with a pressure washer — it offers so much mocking capability that it might actually be so complex and powerful that it’s not worth it except in specific use cases. In a simple API environment without network concerns or bad third-party dependencies, developers might not see the value proposition.</li>
+</ul>
+<h2 id="10-postman">10. Postman</h2>
+<p><a href="https://www.postman.com/" rel="noreferrer" target="_blank">Postman</a> might seem like a strange addition to this list, but it actually has native support for contract testing through its provided contracting testing template. This template contains a series of contract tests that can get Postman users started on contract testing, and given its relative popularity, it’s absolutely worth mentioning!</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>For Postman users, this is likely the easiest way to get started, as clear tests are provided, which can simply have routes and APIs inserted in a “plug and play” approach to testing.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>This isn’t so much a contract testing solution in form. Yes, you can test contracts using this template, but this is very much a starting point, not a true-to-form solution.</li>
+</ul>
+<h2 id="final-thoughts-on-contract-testing-tools">Final Thoughts on Contract Testing Tools</h2>
+<p>Hopefully, this list has provided a strong starting point for your journey into API contract testing. There are many options currently on the market, but this list represents a good cross-section of those options.</p>
+<div class="well">Are there any tools you would like mentioned in a future list or covered in a Nordic APIs article? Please let us know in the comments below, and we will consider mentioning them when we update this piece in the future!</div>
+</div>
+		<a target="_blank" href="https://nordicapis.com/10-tools-for-api-contract-testing/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

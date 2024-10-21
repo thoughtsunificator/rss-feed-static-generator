@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The 6.11 kernel has been released</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The 6.11 kernel has been released</h3>
+		<div>Linus has <a href="https://lwn.net/Articles/990403/" rel="noreferrer" target="_blank">released the 6.11 kernel</a>.
+"<q>I'm once again on the road and not in my normal timezone, but it's
+Sunday afternoon here in Vienna, and 6.11 is out.</q>"
+Significant changes in this release include
+new io_uring operations for <tt>bind()</tt> and <tt>listen()</tt>,
+the <a href="https://lwn.net/Articles/978189/" rel="noreferrer" target="_blank">nested bottom-half locking</a> patches,
+the <a href="https://lwn.net/Articles/866493/" rel="noreferrer" target="_blank">ability</a> to write to busy executable
+files,
+support for writing block drivers in Rust,
+support for <a href="https://lwn.net/Articles/974578/" rel="noreferrer" target="_blank">atomic write operations</a> in the
+block layer,
+the <a href="https://lwn.net/Articles/965837/" rel="noreferrer" target="_blank">dedicated bucket slab allocator</a>,
+the <a href="https://lwn.net/Articles/980447/" rel="noreferrer" target="_blank">vDSO implementation of <tt>getrandom()</tt></a>,
+and more.  See the LWN merge-window summaries
+(<a href="https://lwn.net/Articles/982034/" rel="noreferrer" target="_blank">part&nbsp;1</a>,
+<a href="https://lwn.net/Articles/982605/" rel="noreferrer" target="_blank">part&nbsp;2</a>) for more information.</div>
+		<a target="_blank" href="https://lwn.net/Articles/990307/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

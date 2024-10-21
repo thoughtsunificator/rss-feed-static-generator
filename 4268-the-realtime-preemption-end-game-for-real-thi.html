@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The realtime preemption end game — for real this time</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The realtime preemption end game — for real this time</h3>
+		<div>Work on realtime preemption for the Linux kernel <a href="https://lwn.net/Articles/106010/" rel="noreferrer" target="_blank">got its start</a> almost exactly 20&nbsp;years ago
+(though it had its roots in earlier work, of course).  It is fair to say
+that finishing that job has taken a bit longer than anybody involved would
+have expected.  Now, though, Sebastian Andrzej Siewior has <a href="https://lwn.net/ml/all/20240906111841.562402-1-bigeasy@linutronix.de" rel="noreferrer" target="_blank">posted a brief
+patch series</a> making it possible to enable realtime preemption in the
+mainline kernel on three architectures.
+<p>
+</p><blockquote class="bq">
+	With the printk bits merged, PREEMPT_RT could be enabled on X86,
+	ARM64 and Risc-V. These three architectures merged required changes
+	over the years leaving me in a position where I have no essential
+	changes in the queue that would affect them.
+</blockquote>
+<p>
+Congratulations are due to the many developers who have worked on this
+project for the last two decades.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/989212/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
