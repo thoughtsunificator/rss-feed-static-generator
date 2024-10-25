@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Sched_ext at LPC 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Sched_ext at LPC 2024</h3>
+		<div>The <a href="https://lwn.net/Articles/922405/" rel="noreferrer" target="_blank">extensible scheduler class (sched_ext)</a>
+enables the implementation of CPU schedulers as a set of BPF programs
+loaded from user space; it first hit the mailing lists in late 2022.
+Sched_ext has engendered its share of controversy since, but is currently
+slated to be part of the 6.12 kernel release.  At the 2024 <a href="https://lpc.events/" rel="noreferrer" target="_blank">Linux Plumbers Conference</a>, the growing
+sched_ext community held one of its first public gatherings; sched_ext
+would appear to have launched a new burst of creativity in scheduler
+design.
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/991205/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

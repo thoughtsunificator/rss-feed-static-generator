@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How Netflix Scales Using Data Abstraction</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How Netflix Scales Using Data Abstraction</h3>
+		<div><p>With over <a href="https://www.statista.com/statistics/250934/quarterly-number-of-netflix-streaming-subscribers-worldwide/" rel="noreferrer" target="_blank">275 million subscribers worldwide</a>, Netflix continues to be a streaming juggernaut. If you still need convincing, just compare that figure with Prime Video’s <a href="https://variety.com/2024/digital/news/amazon-prime-video-200-million-monthly-viewers-tv-advertising-ceo-1235967913/" rel="noreferrer" target="_blank">200 million subscribers</a>, or Disney+, Hulu, and ESPN+, which combine for a total of <a href="https://www.indiewire.com/news/analysis/streamers-need-200-million-subscribers-1235019397/" rel="noreferrer" target="_blank">229 million</a>.</p>
+<p>And even though it wasn’t the first video-on-demand service to launch (Amazon’s Prime Video launched in September 2006, and the first version of YouTube appeared at the end of 2005) Netflix is still the king. Around <a href="https://www.statista.com/statistics/529734/netflix-households-in-the-uk/" rel="noreferrer" target="_blank">60% of UK households</a> have at least one Netflix viewer.</p>
+<p>So how did the company that Blockbuster once turned down an offer to buy for $50 million become a $150 billion company? Comfort shows, like that one with those friends in New York, and original content, like that other group of chums who keep encountering strange things in small-town Indiana, are certainly factors.</p>
+<p>But, as Netflix’s <a href="https://nordicapis.com/speakers/vidhya-arvind/" rel="noreferrer" target="_blank">Vidhya Arvind</a> demonstrated when she joined us to speak at our <a href="https://nordicapis.com/events/austin-api-summit-2024/" rel="noreferrer" target="_blank">2024 Austin API Summit</a>, they’re far from the only reason Netflix’s growth has been so meteoric. A big part of the brand’s success lies in its data abstraction and API-first approach.</p>
+<p>Below, we’ll dive into the company’s stack to find ways you can mimic their agility and ability to scale.</p>
+<div class="well">This post was inspired by Vidhya Arvind’s session at the 2024 Austin API Summit.<br>
+<div class="responsive-iframe-container"></div></div>
+<h2 id="netflix-s-api-first-approach">Netflix’s API-First Approach</h2>
+<p>We’ve written a lot about the rise of <a href="https://nordicapis.com/the-rise-of-api-first-companies-5-success-stories/" rel="noreferrer" target="_blank">API-first companies</a> and even highlighted Netflix as one such product in a recent piece about <a href="https://nordicapis.com/the-rise-of-api-first-companies-5-success-stories/" rel="noreferrer" target="_blank">API-first success stories</a>.</p>
+<p>Here’s the short version of that story: by breaking down its <a href="https://nordicapis.com/whats-the-difference-microservice-macroservice-monolith/" rel="noreferrer" target="_blank">monolithic systems</a>, Netflix created a decoupled and extensible API that can be accessed from a huge range of devices without the need for DVDs or custom-built applications.</p>
+<p>Back in 2021, we wrote about how Netflix <a href="https://nordicapis.com/graphql-microservices-gqlms-as-a-backend-a-netflix-case-study/" rel="noreferrer" target="_blank">deployed GraphQL Microservices</a> (GQLMS) as a backend to unlock a range of benefits, including increased organizational understanding and faster deployment. Bear in mind that GraphQL was only released as open source in 2015 and then moved to the newly established GraphQL Foundation in 2018. These experimentations speak to the fact that Netflix has never shied away from embracing new technology to get an edge over its competitors.</p>
+<p>There is, of course, a downside to all of this: using hundreds of microservices — Netflix currently uses more than 1,000 of them — can cause complexity, data translation issues, and cascade failures. Data abstraction is one of the ways Netflix sought to mitigate these risks.</p>
+<h2 id="more-use-cases-more-problems">More Use-Cases, More Problems</h2>
+<p>If you should feel inclined to do so, you can watch Netflix on everything from aging Roku devices to smart refrigerators. While that flexibility is one of Netflix’s greatest strengths, it also poses a significant problem for the company itself: hugely varied use cases.</p>
+<p>Arvind specifically highlights how, when we don’t have abstraction measures in place, every application needs to be able to understand various data formats from a range of APIs. And that means extra legwork for client teams who may need to work with all these different APIs.</p>
+<p>That means, as Arvind continues, that client teams need to familiarize themselves with “different languages, rough edges, tuning parameters,” and so on. In seeking to address this problem, she asks two questions:</p>
+<ul>
+<li>“Can we take the common patterns and provide a common solution?”</li>
+<li>“Can the solution be generic and storage agnostic?”</li>
+</ul>
+<h2 id="components-of-abstraction-and-virtualization">Components of Abstraction and Virtualization</h2>
+<p>One solution is introducing data abstraction layers. With abstraction, you break a complex system into smaller pieces with clearly defined boundaries. Arvind outlines how abstraction and virtualization can help in distributed systems by enabling you to switch between implementations and providing the ability to layer systems to solve bigger problems.</p>
+<p>This can be achieved by using a data gateway as an abstraction server to obfuscate what’s going on between a client application and the storage engines/APIs mentioned above. According to Arvind, the three main components of abstraction are an abstraction client that sits in your client application, a gateway (abstraction server), and a control plane.</p>
+<p>Arvind comments, however, “When many applications are connected to a single abstraction layer, that can be a single point of failure. So we need to think about how we can deploy these in a way that offers isolation and avoids noisy neighbor problems.”</p>
+<p>We can accomplish that by using sharding, one of the key components of virtualization. Here, we connect different sets of applications to their own abstraction layers with a control plane that knows how to talk to different databases, thus giving us the isolation we’re seeking.</p>
+<p>Arvind also highlights that we shouldn’t think of abstraction as one simple server. In fact, we can use different processes, like key-value (KV) abstraction, tree abstraction (in conjunction with KV abstraction), or UI personalization (in conjunction with KV abstraction), to add extra layers.</p>
+<p>Be sure to check out the video of Arvind’s talk, embedded above, for some in-depth examples (inc. runtime and persistence) of how we can use configuration to deploy such compositions.</p>
+<h2 id="ease-the-pain-of-migration-with-abstraction">Ease the Pain of Migration With Abstraction</h2>
+<p>Arvind goes on to explain how abstractions can be used for shadow writing, which can help with migration. “Migrations are painful,” she says. “It took almost a year and a half for us to migrate 250 Cassandra clusters from Cassandra 2.0 to Cassandra 3.0.”</p>
+<p>With shadow writing, she continues, “We start with DB1, your only implementation. Then we add DB2, and now we talk to both the databases in parallel. Underneath, we move the data from DB2 to DB1 to backfill the data. All of which happens without the client touching anything on their site. We can then promote DB2 as a primary, at which point we can decommission DB1.”</p>
+<p>As many interesting possibilities as abstraction opens up, such as easier data migration, it’s important to remember that “your API is your contract with a client,” says Arvind. “No matter how many abstractions you have, you need to have a clean and simple API on the client’s side so that they can come and use it without being aware of what’s going on behind the scenes.” In Netflix’s case, all of that behind-the-scenes action is packaged into a slick UI that’s surprisingly consistent across many different devices.</p>
+<h2 id="starting-down-the-road-to-abstraction">Starting Down the Road to Abstraction</h2>
+<p>Arvind rounds out her talk by discussing some of the building blocks for KV abstraction…</p>
+<ul>
+<li>Chunking</li>
+<li>Compression</li>
+<li>Caching and Nearline Caching</li>
+<li>Adaptive Pagination</li>
+<li>Signaling and SLO Signaling</li>
+<li>Summarization</li>
+<li>Dictionary Compression</li>
+</ul>
+<p>…before closing with a quote from Marc Andreessen:</p>
+<blockquote><p>“Every new layer of abstraction is a new chance for a clean-slate redesign of everything, making everything a little faster, less power hungry, more elegant, easier to use, and cheaper.”</p></blockquote>
+<p>Although most API developers are unlikely to need to scale to the same degree that Netflix has (although you never know!), abstraction can still be a valuable tool in the toolbox because it offers API providers a greater degree of flexibility in how they provide their service.</p>
+<p>When an endpoint decouples a consuming application from the infrastructure providing that service, it allows you to make changes behind the scenes without negatively impacting the API.</p>
+<p>And, with how it shifts away from code and very specific implementation models towards common metadata frameworks and language-agnostic modeling, abstraction has also been <a href="https://www.digitalml.com/api-abstraction-is-key-to-an-api-first-strategy/" rel="noreferrer" target="_blank">touted by some</a> as a match made in heaven with the API-first mindset.</p>
+<p>If you’re already thinking API-first, it could make sense to start thinking about abstraction, too.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/how-netflix-scales-using-data-abstraction/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Kadlčík: Copr Modularity, the End of an Era</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Kadlčík: Copr Modularity, the End of an Era</h3>
+		<div><p>Jakub Kadlčík <a href="https://frostyx.cz/posts/copr-modularity-the-end-of-an-era" rel="noreferrer" target="_blank">announced
+on his blog</a> that Fedora's <a href="https://copr.fedorainfracloud.org/" rel="noreferrer" target="_blank">Copr</a> build system will
+be dropping support for building <a href="https://docs.fedoraproject.org/en-US/modularity/core-concepts/module-stream/" rel="noreferrer" target="_blank">modules</a>
+(groups of RPM packages that are built, installed, and shipped
+together) soon:</p>
+
+<blockquote class="bq">
+The Fedora Modularity project never really took off, and building
+modules in Copr even less so. We've had only 14 builds in the last two
+years. It's not feasible to maintain the code for so few
+users. Modularity has also been <a href="https://fedoraproject.org/wiki/Changes/RetireModularity" rel="noreferrer" target="_blank">retired
+since Fedora 39</a> and will die with RHEL 9.
+</blockquote>
+
+<p>Modularity features in Copr are now deprecated, and it will not be
+possible to submit new module builds after April&nbsp;2025. LWN <a href="https://lwn.net/Articles/805180/" rel="noreferrer" target="_blank">covered</a> some of the
+problems with Fedora's <a href="https://docs.pagure.org/modularity/" rel="noreferrer" target="_blank">modularity initiative</a> in 2019.</p>
+<p></p></div>
+		<a target="_blank" href="https://lwn.net/Articles/995337/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

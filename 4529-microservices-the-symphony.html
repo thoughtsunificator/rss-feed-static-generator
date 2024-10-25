@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Microservices: the symphony</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Microservices: the symphony</h3>
+		<div><p>Last week, I attended the excellent <em>Pattern Languages of Programs, People &amp; Practices (<a href="https://plopcon.org/plop2024/" rel="noreferrer" target="_blank">PLoP 2024</a>)</em> conference.
+One of the most fascinating sessions was <em>Deliver Your Patterns Through Song: A Hands-On Workshop on Creating Original Pattern Songs with Generative AI</em> by members of <a href="https://note.com/iba/n/nf5d5b1b728ab" rel="noreferrer" target="_blank">Iba Labs (Takashi Iba, Erika Inoue, Mizuki Ota, Kiyoka Hayashi, Sae Adachi, An Hikino, Mimi Kuwataka), Keio University, Japan</a>.</p>
+
+<p>Walking in, I had absolutely no idea what to expect.
+I quickly discovered that the goal was to create songs about patterns using <a href="https://suno.com/" rel="noreferrer" target="_blank">Suno</a>, which is an AI-based song generator that takes your lyrics and generates a song with music.
+It was surprisingly fun!</p>
+
+<p></p>
+
+<h2 id="generating-lyrics">Generating lyrics</h2>
+
+<p>Writing the lyrics seemed like a lot of work, so naturally, I asked ChatGPT to generate the lyrics for the <a href="/patterns/microservices.html" rel="noreferrer" target="_blank">Microservice Architecture pattern</a>.
+Here’s the prompt:</p>
+
+<blockquote>
+  <p>Create the lyrics for this software architecture pattern https://microservices.io/patterns/microservices.html</p>
+</blockquote>
+
+<p>Here are the generated lyrics:</p>
+
+<blockquote>
+  <p>Here’s a fun, creative take on lyrics that describe the Microservices Architecture Pattern, inspired by the essence of the article you linked! These lyrics blend software engineering concepts with playful rhythm and rhyme.</p>
+
+  <p>“Microservices Symphony”
+(To the tune of a jazzy, upbeat song – think something you can sing along to at a tech meetup!)</p>
+
+  <p>[Verse 1]
+We used to build it all in one,
+A monolith so strong and done.
+But scaling up, oh, what a grind,
+A tangle of code—left us behind!</p>
+
+  <p>Break it down, split the seams,
+Each module runs its own little dream.
+No more waiting for a giant deploy,
+Microservices—oh, what joy!</p>
+
+  <p>[Chorus]
+Each service small, doin’ its part,
+Talks through APIs, playin’ smart.
+Independent, fast, and free,
+That’s the microservices symphony!</p>
+
+  <p>Scaling out, scaling wide,
+Failures caught, and we divide.
+Deploy them quick, release with ease,
+That’s the way to build, please!</p>
+
+  <p>[Verse 2]
+Loose coupling, yeah, that’s our way,
+Bounded context saves the day.
+Kafka streams, events that flow,
+Keeping data in the know.</p>
+
+  <p>Containers runnin’ in a cloud,
+Docker and Kubernetes—make us proud.
+Logs and metrics? We got tools,
+To monitor well—that’s the rules!</p>
+
+  <p>[Chorus]
+Each service small, doin’ its part,
+Talks through APIs, playin’ smart.
+Independent, fast, and free,
+That’s the microservices symphony!</p>
+
+  <p>Scaling out, scaling wide,
+Failures caught, and we divide.
+Deploy them quick, release with ease,
+That’s the way to build, please!</p>
+
+  <p>[Bridge]
+Oh, the challenges, they arise,
+Distributed systems—no surprise!
+Network calls and retries too,
+But we’ve got tricks to see it through!</p>
+
+  <p>Circuit breakers, fallbacks ready,
+Keep the load light, hold it steady.
+With observability in the lead,
+We find the bug, oh yes indeed!</p>
+
+  <p>[Chorus]
+Each service small, doin’ its part,
+Talks through APIs, playin’ smart.
+Independent, fast, and free,
+That’s the microservices symphony!</p>
+
+  <p>Scaling out, scaling wide,
+Failures caught, and we divide.
+Deploy them quick, release with ease,
+That’s the way to build, please!</p>
+
+  <p>[Outro]
+So if you wanna move with speed,
+Microservices plant the seed.
+Autonomous, agile, light as air,
+A pattern built with thought and care!</p>
+
+  <p>♪ Microservices, take the lead—
+Build it smart, meet every need! ♪</p>
+
+  <p>This playful tune captures the spirit of microservices: small, autonomous services that communicate effectively while scaling smoothly. Feel free to tweak the lyrics to better fit the vibe you’re aiming for!</p>
+</blockquote>
+
+<h2 id="how-accurate-is-it">How accurate is it?</h2>
+
+<p>The lyrics aren’t bad.
+ChatGPT has, however, included ideas from elsewhere: “Tangled code”, “Containers”, “Kafka”, etc.</p>
+
+<h2 id="selecting-the-genre">Selecting the genre</h2>
+
+<p>I also asked ChatGPT to recommend a genre.
+Here’s the prompt:</p>
+
+<blockquote>
+  <p>What genre of music is best for “Microservices Symphony”?</p>
+</blockquote>
+
+<p>Here’s the result:</p>
+
+<blockquote>
+  <p>The best genre for “Microservices Symphony” would be jazz! Here’s why jazz fits perfectly:</p>
+
+  <p>Modularity &amp; Improvisation:</p>
+
+  <p>Like microservices, jazz is all about individual instruments (or services) working independently but harmonizing together. Each instrument (service) can improvise and have its own moment to shine without disrupting the whole composition.
+Loose Coupling:</p>
+
+  <p>Jazz is known for loose, adaptive structures, where musicians are free to adapt in real time. Similarly, microservices allow independent updates without breaking the whole system.
+Orchestration vs. Choreography:</p>
+
+  <p>In jazz ensembles, there is a mix of coordination (orchestration) and spontaneous collaboration (choreography), just like microservices can use orchestration (e.g., with Kubernetes) or let services interact autonomously.
+Scalable and Resilient:</p>
+
+  <p>Just like microservices scale independently, jazz bands can expand (big band) or shrink (small quartet) without losing their essence.
+So, imagine “Microservices Symphony” as a jazzy track, with each instrument (piano, trumpet, saxophone, bass, drums) representing a microservice—each playing its part, occasionally soloing, but always syncing back into a smooth, coherent groove!</p>
+</blockquote>
+
+<h2 id="generating-the-song">Generating the song</h2>
+
+<p>The Iba lab folks then used the application to generate the song.</p>
+
+<p>Here it is:</p>
+
+
+
+<p>The song is not going to win a Grammy, but it’s a fun exercise.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/10/21/microservices-symphony.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

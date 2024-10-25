@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Security proof for Linux's random number generator</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Security proof for Linux's random number generator</h3>
+		<div><p>
+Four researchers have <a href="https://eprint.iacr.org/2024/1421.pdf" rel="noreferrer" target="_blank">published</a> a formal proof that Linux's new deterministic random bit generator (DRBG) is secure in a particular sense — specifically, that the number of queries that would need to be made to it to uncover its internal state depends on the quality of the entropy it can collect from different sources. As long as it can gather enough entropy, it produces secure random numbers.
+</p>
+
+<blockquote class="bq">
+Since the significant structural changes in Linux 4 and Linux 5.17, there has
+been no research on the provable security of Linux-DRBG. For the first time (to
+the best of our knowledge), we formally model the Linux-DRBG in Linux 6.4.8
+and prove its security in the seedless robustness model
+</blockquote>
+
+<p>
+Thanks to Jason Donenfeld for bringing the paper to our attention.
+</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/990596/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

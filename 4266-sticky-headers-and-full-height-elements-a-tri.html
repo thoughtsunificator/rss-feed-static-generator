@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Sticky Headers And Full-Height Elements: A Tricky Combination</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Sticky Headers And Full-Height Elements: A Tricky Combination</h3>
+		<div><p>I was recently asked by a student to help with a <em>seemingly</em> simple problem. She’d been working on a website for a coffee shop that sports a sticky header, and she wanted the hero section right underneath that header to span the rest of the available vertical space in the viewport.</p>
+<p>Here’s a visual demo of the desired effect for clarity.</p>
+<p>Looks like it should be easy enough, right? I was sure (read: overconfident) that the problem would only take a couple of minutes to solve, only to find it was a much deeper well than I’d assumed.</p>
+<p>Before we dive in, let’s take a quick look at the initial markup and CSS to see what we’re working with:</p>
+<pre><code>&lt;body&gt;
+  &lt;header class="header"&gt;Header Content&lt;/header&gt;
+  &lt;section class="hero"&gt;Hero Content&lt;/section&gt;
+  &lt;main class="main"&gt;Main Content&lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+
+<pre><code>.header {
+  position: sticky;
+  top: 0; /* Offset, otherwise it won't stick! */
+}
+
+/* etc. */
+</code></pre>
+
+<p>With those declarations, the <code>.header</code> will stick to the top of the page. And yet the <code>.hero</code> element below it remains intrinsically sized. This is what we want to change.</p>
+The Low-Hanging Fruit
+<p>The first impulse you might have, as I did, is to enclose the header and hero in some sort of parent container and give that container <code>100vh</code> to make it span the viewport. After that, we could use Flexbox to distribute the children and make the hero grow to fill the remaining space.</p>
+<pre><code>&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;header class="header"&gt;Header Content&lt;/header&gt;
+    &lt;section class="hero"&gt;Hero Content&lt;/section&gt;
+  &lt;/div&gt;
+  &lt;main class="main"&gt;Main Content&lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+
+<pre><code>.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  flex-grow: 1;
+}
+
+/* etc. */
+</code></pre>
+
+<p>This looks correct at first glance, but watch what happens when scrolling past the hero.</p>
+<p>See the Pen <a href="https://codepen.io/smashingmag/pen/yLdQgQo" rel="noreferrer" target="_blank">Attempt #1: Container + Flexbox [forked]</a> by <a href="https://codepen.io/Phendan" rel="noreferrer" target="_blank">Philip</a>.</p>
+<p><strong>The sticky header gets trapped in its parent container!</strong> But.. <em>why</em>?</p>
+<p>If you’re anything like me, this behavior is unintuitive, at least initially. You may have heard that <a href="https://css-tricks.com/almanac/properties/p/position/#aa-values" rel="noreferrer" target="_blank"><code>sticky</code> is a combination of <code>relative</code> and <code>fixed</code> positioning</a>, meaning it participates in the normal flow of the document but only until it hits the edges of its scrolling container, at which point it becomes <code>fixed</code>. While viewing <code>sticky</code> as a combination of other values can be a useful mnemonic, it fails to capture one important difference between <code>sticky</code> and <code>fixed</code> elements:</p>
+<p><strong>A <code>position: fixed</code> element doesn’t care about the parent it’s nested in or any of its ancestors.</strong> It will break out of the normal flow of the document and place itself directly offset from the viewport, as though glued in place a certain distance from the edge of the screen.</p>
+<p><strong>Conversely, a <code>position: sticky</code> element will be pushed along with the edges of the viewport (or next closest scrolling container), but it will never escape the boundaries of its direct parent.</strong> Well, at least if you don’t count visually <code>transform</code>-ing it. So a better way to think about it might be, <a href="https://css-tricks.com/sticky-as-a-local-fixed/" rel="noreferrer" target="_blank">to steal from Chris Coyier</a>, that “<code>position: sticky</code> is, in a sense, a locally scoped <code>position: fixed</code>.” This is an intentional design decision, one that allows for section-specific sticky headers like the ones made famous by alphabetical lists in mobile interfaces.</p>
+<p>See the Pen <a href="https://codepen.io/smashingmag/pen/OJeaWrM" rel="noreferrer" target="_blank">Sticky Section Headers [forked]</a> by <a href="https://codepen.io/Phendan" rel="noreferrer" target="_blank">Philip</a>.</p>
+<p>Okay, so this approach is a no-go for our predicament. We need to find a solution that doesn’t involve a container around the header.</p>
+Fixed, But Not Solved
+<p>Maybe we can make our lives a bit simpler. Instead of a container, what if we gave the <code>.header</code> element a <em>fixed</em> height of, say, <code>150px</code>? Then, all we have to do is define the <code>.hero</code> element’s height as <code>height: calc(100vh - 150px)</code>.</p>
+<p>See the Pen <a href="https://codepen.io/smashingmag/pen/yLdQgGz" rel="noreferrer" target="_blank">Attempt #2: Fixed Height + Calc() [forked]</a> by <a href="https://codepen.io/Phendan" rel="noreferrer" target="_blank">Philip</a>.</p>
+<p>This approach <em>kinda</em> works, but the downsides are more insidious than our last attempt because they may not be immediately apparent. You probably noticed that the header is too tall, and we’d wanna do some math to decide on a better height.</p>
+<p>Thinking ahead a bit,</p>
+<ul>
+<li>What if the <code>.header</code>’s children need to wrap or rearrange themselves at different screen sizes or grow to maintain legibility on mobile?</li>
+<li>What if JavaScript is manipulating the contents?</li>
+</ul>
+<p>All of these things could subtly change the <code>.header</code>’s ideal size, and chasing the right height values for each scenario has the potential to spiral into a maintenance nightmare of unmanageable breakpoints and magic numbers — especially if we consider this needs to be done not only for the <code>.header</code> but also the <code>.hero</code> element that depends on it.</p>
+<p>I would argue that this workaround also just <em>feels</em> wrong. Fixed heights break one of the main affordances of CSS layout — the way elements automatically grow and shrink to adapt to their contents — and not relying on this usually makes our lives <em>harder</em>, not simpler.</p>
+<p>So, we’re left with…</p>
+A Novel Approach
+<p>Now that we’ve figured out the constraints we’re working with, another way to phrase the problem is that we want the <code>.header</code> and <code>.hero</code> to <em>collectively</em> span <code>100vh</code> without sizing the elements explicitly or wrapping them in a container. Ideally, we’d find <em>something</em> that already is <code>100vh</code> and align them to that. This is where it dawned on me that <code>display: grid</code> may provide just what we need!</p>
+<p>Let’s try this: We declare <code>display: grid</code> on the <code>body</code> element and add another element before the <code>.header</code> that we’ll call <code>.above-the-fold-spacer</code>. This new element gets a height of <code>100vh</code> and spans the grid’s entire width. Next, we’ll tell our spacer that it should take up two grid rows and we’ll anchor it to the top of the page.</p>
+<p>This element must be entirely empty because we don’t ever want it to be visible or to register to screen readers. We’re merely using it as a crutch to tell the grid how to behave.</p>
+<div>
+<pre><code>&lt;body&gt;
+  &lt;!-- This spacer provides the height we want --&gt;
+  &lt;div class="above-the-fold-spacer"&gt;&lt;/div&gt;
+
+  &lt;!-- These two elements will place themselves on top of the spacer --&gt;
+  &lt;header class="header"&gt;Header Content&lt;/header&gt;
+  &lt;section class="hero"&gt;Hero Content&lt;/section&gt;
+
+  &lt;!-- The rest of the page stays unaffected --&gt;
+  &lt;main class="main"&gt;Main Content&lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+</div>
+
+<pre><code>body {
+  display: grid;
+}
+
+.above-the-fold-spacer {
+  height: 100vh;
+  /* Span from the first to the last grid column line */
+  /* (Negative numbers count from the end of the grid) */
+  grid-column: 1 / -1;
+  /* Start at the first grid row line, and take up 2 rows */
+  grid-row: 1 / span 2; 
+}
+
+/* etc. */
+</code></pre>
+
+<p><em>This</em> is the magic ingredient.</p>
+<p>By adding the spacer, we’ve created two grid rows that <em>together</em> take up exactly <code>100vh</code>. Now, all that’s left to do, in essence, is to tell the <code>.header</code> and <code>.hero</code> elements to align themselves to those existing rows. We do have to tell them to start at the same grid column line as the <code>.above-the-fold-spacer</code> element so that they won’t try to sit next to it. But with that done… <em>ta-da!</em></p>
+<p>See the Pen <a href="https://codepen.io/smashingmag/pen/YzoRNdo" rel="noreferrer" target="_blank">The Solution: Grid Alignment [forked]</a> by <a href="https://codepen.io/Phendan" rel="noreferrer" target="_blank">Philip</a>.</p>
+<p>The reason this works is that <strong>a grid container can have multiple children occupying the same cell overlaid on top of each other</strong>. In a situation like that, the tallest child element defines the grid row’s overall height — or, in this case, the combined height of the two rows (<code>100vh</code>).</p>
+<p>To control how exactly the two visible elements divvy up the available space between themselves, we can use the <code>grid-template-rows</code> property. I made it so that the first row uses <code>min-content</code> rather than <code>1fr</code>. This is necessary so that the <code>.header</code> doesn’t take up the same amount of space as the <code>.hero</code> but instead only takes what it needs and lets the hero have the rest.</p>
+<p>Here’s our full solution:</p>
+<pre><code>
+body {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+.above-the-fold-spacer {
+  height: 100vh;
+  grid-column: 1 / -1;
+  grid-row: 1 / span 2;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.hero {
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
+</code></pre>
+
+<p>And voila: A sticky header of arbitrary size above a hero that grows to fill the remaining visible space!</p>
+Caveats and Final Thoughts
+<p>It’s worth noting that <strong>the HTML order of the elements matters here</strong>. If we define <code>.above-the-fold-spacer</code> after our <code>.hero</code> section, it will overlay and block access to the elements underneath. We can work around this by declaring either <code>order: -1</code>, <code>z-index: -1</code>, or <code>visibility: hidden</code>.</p>
+<p>Keep in mind that this is a simple example. If you were to add a sidebar to the left of your page, for example, you’d need to adjust at which column the elements start. Still, in the majority of cases, using a CSS Grid approach is likely to be less troublesome than the Sisyphean task of manually managing and coordinating the height values of multiple elements.</p>
+<p>Another upside of this approach is that it’s <strong>adaptable</strong>. If you decide you want a group of three elements to take up the screen’s height rather than two, then you’d make the invisible spacer span three rows and assign the visible elements to the appropriate one. Even if the hero element’s content causes its height to exceed <code>100vh</code>, the grid adapts without breaking anything. It’s even well-supported in all modern browsers.</p>
+<p>The more I think about this technique, the more I’m persuaded that it’s actually quite clean. Then again, you know how lawyers can talk themselves into their own arguments? If you can think of an even simpler solution I’ve overlooked, feel free to reach out and let me know!</p>
+</div>
+		<a target="_blank" href="https://smashingmagazine.com/2024/09/sticky-headers-full-height-elements-tricky-combination/">Go to article URL</a>
+		<div>Feed URL: https://www.smashingmagazine.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>7 Developer Experience Metrics to Track</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">7 Developer Experience Metrics to Track</h3>
+		<div><p>Developer experience, or DX, can be very hard to get right. With all the variable levers and efforts that go into a cohesive DX plan, things can go very wrong very quickly. Still, even when things are well-designed, it can often be hard to gauge the appropriateness and desirability of your approach. By its nature, DX ensures that developers can utilize your systems effectively and enjoyably, but how can we measure that?</p>
+<p>While some prioritize collecting <a href="https://nordicapis.com/accumulating-feedback-4-questions-api-providers-need-to-ask-their-users/" rel="noreferrer" target="_blank">developer feedback</a>, a more quantitative approach is possible and, in some cases, desirable. In this piece, we’ll review some key metrics that any software provider can use today to help track and guide their developer experience improvements.</p>
+<h3 id="1-adoption-and-churn-rate">1. Adoption and Churn Rate</h3>
+<p>Adoption rates measure how many developers use your platform over time, while churn rates indicate how many are leaving. These metrics give you a strong understanding of how attractive your service is to the targeted user and can help signal where you should be spending your time to improve the experience.</p>
+<p>For instance, high churn rates might suggest an underlying issue with fit to market, while high adoption might signal demand for the product. High adoption with high churn may signal that the product has problems with onboarding and documentation. Low adoption with low churn might suggest your product is poorly marketed but a perfect fit for the market itself.</p>
+<p>These metrics can help you get a firm understanding of the value proposition of your product and how clear that proposition is to the end developer.</p>
+<h3 id="2-documentation-engagement">2. Documentation Engagement</h3>
+<p>Documentation is the most direct way you can communicate with developers using an API. Documentation portals express the understanding and intent of the provider and, as such, should be considered the source of truth for API operations.</p>
+<p>Accordingly, documentation engagement metrics like pageviews or time on page can help form an understanding of how effective the documentation actually is. What query took users to specific documentation pages can also be informative.</p>
+<p>Most importantly, this data can help you understand how developers interact with your documentation or surface specific interests and intents. For instance, if you frequently see a particular page resulting from a query, but it has low time on page and high bounce rates, this suggests developers are not finding the answer they need or the documentation is overly complex.</p>
+<p>Simple metrics around engagement can play a huge role in the efficacy of your documentation experience.</p>
+<h3 id="3-time-to-first-win">3. Time to First Win</h3>
+<p>‘Time to first win’ goes beyond ‘<a href="https://nordicapis.com/why-time-to-first-call-is-a-vital-api-metric/" rel="noreferrer" target="_blank">time to first call</a>‘ because it measures the time it takes for a user to reach their first real success. For instance, let’s assume your API allows merchants to accept payments. Your main goal metric with this API may be the first payment accepted through your integration.</p>
+<p>In this case, the time from the first creation of an account to the moment the first payment is processed reflects the developer’s experience as it suggests how easy or hard it is to implement and use the solution. Of course, ‘time to first win’ is a general concept and will be measured differently depending on the use case at hand.</p>
+<h3 id="4-error-rates">4. Error Rates</h3>
+<p>Error rates are a great metric to track, as they point to where the developer experience is most important. When the system works properly, there is very little likelihood of getting developers frustrated. When they fail, however, the <a href="https://nordicapis.com/what-is-api-developer-experience/" rel="noreferrer" target="_blank">developer experience</a> is what makes the difference between a user who never returns to the system and a user who continues to grow their engagement.</p>
+<h3 id="5-error-resolution">5. Error Resolution</h3>
+<p>Tracking <a href="https://nordicapis.com/best-practices-api-error-handling/" rel="noreferrer" target="_blank">error rates</a> and the amount of time developers must spend to resolve those errors can highlight pain points in your documentation and platform and give insights into your system’s general health. High error rates and lengthy troubleshooting times suggest that certain processes may be overly complex or poorly documented or that those systems are poorly explained in what documentation exists. Quick <a href="https://nordicapis.com/9-common-errors-made-during-api-testing/" rel="noreferrer" target="_blank">error resolution</a> can actually suggest an effective developer experience, giving you a way to test different methodologies for resolution and surfacing of answers and documentation to the end user.</p>
+<h3 id="6-task-completion-rates-and-usage-patterns">6. Task Completion Rates and Usage Patterns</h3>
+<p>Task completion rates, that is, how often tasks of a specific kind (such as first registration, tutorial completion, or application deployment) can help you track both the interest in particular aspects of your API and the specific gravity of each process. For example, an API showing a high frequency of new account creation but a low frequency of the first API call might suggest that something is broken in your onboarding, blocking your first users from fully using the system.</p>
+<p>Similarly, ongoing tracking to see usage patterns can help identify common issues and bottlenecks in your API. This data, such as the frequency of use of specific endpoints or how often particular resources are called, can help you in load balancing, operational efficiency, and, when paired with data on error generation, can help you identify potential gaps in documentation or guidance materials.</p>
+<h3 id="7-feedback-loop-efficiency">7. Feedback Loop Efficiency</h3>
+<p>Beyond collecting metrics around errors and API usage, it’s just as important to track how quickly and effectively you respond to support requests and error resolutions. Tracking metrics such as the average ticket response time, the frequency of ticket resolution, and other indicators that reflect your contact with developers will give you an idea of the quantitative values of your feedback loop.</p>
+<p>In many ways, the feedback loop is the ultimate test of your developer experience process. If your feedback loop is strong, this gives at least some evidence that you are heading in the right direction.</p>
+<h2 id="why-quantitative-datapoints-">Why Quantitative Datapoints?</h2>
+<p>When we discuss developer feedback, we’re really talking about an approach rooted in qualitative metrics. Qualitative metrics are data points that focus on a thing’s quality and characteristics. They often focus on how things “feel” or “seem” and are primarily collected via surveys, focus groups, and observation.</p>
+<p>While qualitative metrics have their place, they come with drawbacks. Chief amongst these is the fact that they are largely biased. A qualitative piece of feedback will be necessarily biased by how it is sourced, with the age-old adage that the bulk of people who reply to surveys are either over the moon with the product or absolutely hate it. Because of this, qualitative data can give you a very slanted view of the product feedback, both in the negative and the positive.</p>
+<p>There is also the reality that this feedback requires much effort to collect. When your only source of feedback is surveys and direct sentiment, you need someone who manages, collates, and interprets this data, which itself can introduce additional bias. Ultimately, this data is useful but is limited to a specific scope and interest.</p>
+<p>On the other hand, quantitative is based on data that can actually be measured and quantified. That data is not free from bias, but it is cold and direct — the bias will be implemented more by the system itself in the collection or by the follow-up interpretation, allowing for clarity on where the bias is introduced and how to mitigate it. These data points can be automatically collected and, in many cases, are specific to attributes of the system rather than the sentiment of the system as a whole.</p>
+<h2 id="follow-metrics-to-improve-dx">Follow Metrics to Improve DX</h2>
+<p>Above, we’ve identified a few possible metrics to look at when assessing your developer experience. However, the reality is that every software provider has a range of metrics open to their tracking that will need to be reviewed and compared to find the best fit for form and function. With the proper metric tracking, your developer experience can be made stronger, better, and more effective.</p>
+<p>Did we miss any core metrics providers should track relating to Developer Experience? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/7-developer-experience-metrics-to-track/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

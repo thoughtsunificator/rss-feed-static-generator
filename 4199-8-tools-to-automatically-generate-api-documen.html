@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>8 Tools To Automatically Generate API Documentation</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">8 Tools To Automatically Generate API Documentation</h3>
+		<div><p>API documentation is a critical piece of communication between the developer and the end user, and automatically generating this documentation is effectively a holy grail for many developers. Today, we’re going to look at some of the top tools for automatic API documentation generation. While this is not an exhaustive list, these are some of the best offerings in the current market, and any of these options can be a powerful tool in the developer toolkit.</p>
+<h2 id="1-swagger-swaggerhub">1. Swagger / SwaggerHub</h2>
+<p><a href="https://swagger.io/" rel="noreferrer" target="_blank">Swagger</a> is an open-source framework for defining APIs. Notably, Swagger goes a step further, offering the method for defining APIs and a toolset using that definition to design, build, and document these APIs. It uses the OpenAPI specification for these efforts, supporting a wide variety of builds and environments.</p>
+<p>Since Swagger offers tooling to define APIs, it predictably is very good at using these definitions to provide documentation generation, visualization, and more. It has two core offerings that set it aside as a documentation generation solution: SwaggerHub and Swagger Core. SwaggerHub is a development platform that allows for a design that automatically ports to documentation, allowing for close synchronicity between two often separate processes. On the other hand, Swagger Core takes the existing API code and automatically generates OpenAPI specifications, unlocking the core value offering for APIs not natively built in Swagger.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Swagger offers various integration options, making it very seamless for a huge swath of implementations. The offering of Swagger Core makes the inclusion of non-native APIs an option, making it a more complete offering.</li>
+<li>The automation behind Swagger is quite powerful. While many solutions require manual effort to trigger automated builds, Swagger does everything automatically, making for a quite easy and seamless experience in most cases.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>OpenAPI is powerful, but it’s not always simple to use in complex APIs. Swagger also has its quirks in design. This adds up to an offering with a learning curve. While this learning curve might differ for different users, it is something to consider.</li>
+<li>Swagger is focused on RESTful implementations, and as such, other options like SOAP don’t have core support outside of third-party libraries and builds to port to REST.</li>
+</ul>
+<h2 id="2-postman">2. Postman</h2>
+<p><a href="https://www.postman.com/" rel="noreferrer" target="_blank">Postman</a> is a platform for API collaboration. By leveraging collections and API schemas, Postman makes building, documenting, and sharing APIs easy, making it a strong option for teams working on complex APIs. It offers a wide variety of tools for what it internally refers to as an effort to “accelerate the API lifecycle,” promising to improve everything starting from the initial mocking phase.</p>
+<p>Postman utilizes the code imported into it to automatically generate rich documentation. Perhaps the most notable of its features is the inclusion of samples from live code: headers, code snippets, and more can automatically be grabbed from the codebase and inserted into the documentation, providing a huge level up from day one. The documentation is kept automatically updated with close synchronization between the live code in the collection and the documentation generated from it, meaning that <a href="https://nordicapis.com/crafting-an-excellent-developer-experience-for-api-versioning/" rel="noreferrer" target="_blank">documentation versioning</a> is made a much smaller issue. This is a huge benefit, especially for larger teams working on a collective API, where versioning is often a blocker for efficiency and seamless development.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Postman is very user-friendly and has a relatively lower learning curve compared to other solutions.</li>
+<li>This solution is known for its strong automation, and its product offering shows this benefit at scale. Postman works seamlessly with various use cases and integrations, offering extensible and scalable tooling.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Postman is, in many ways, akin to adopting a framework. All of its major benefits are locked behind the idea of importing code into or building natively from Postman, and as such, adopting their toolset is locking your code into that solution. This may not be an option for some teams, and even when it is, it might be something teams are unwilling to do.</li>
+</ul>
+<h2 id="3-dreamfactory">3. DreamFactory</h2>
+<p><a href="https://www.dreamfactory.com/" rel="noreferrer" target="_blank">DreamFactory</a> is a one-stop shop designed to integrate processes across the API lifecycle with automation and tooling. Because it utilizes OpenAPI for its specification format, a great deal of interconnectedness between compatible systems unlocks an API platform that can support various databases, automation suites, data manipulation systems, and more.</p>
+<p>Since DreamFactory supports OpenAPI for its specifications, it automatically documents systems through Swagger API documentation. This also means that documentation is connected to a live data source and underlying specification, meaning that changes are automatically reflected and tracked in the documentation. This helps significantly with <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/" rel="noreferrer" target="_blank">change management</a>, especially in complex multi-source systems.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>DreamFactory’s one-stop-shop solution is highly integrated with a low barrier of entry for most users.</li>
+<li>Being a purpose-built product solution, DreamFactory is perhaps the most feature-rich in its class, offering various code generation and testing solutions in addition to the documentation solution mentioned here.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>DreamFactory has positioned itself as being an on-premises solution for API documentation. Given that reality, it’s not a strong contender for public API documentation.</li>
+<li>As is the case with any singular-solution implementation, DreamFactory might be too heavy for most users. Not everyone will need every tool on offer, and that tooling does come with a cost for development and implementation that is passed on to users regardless of whether or not it’s ever utilized.</li>
+</ul>
+<h2 id="4-apiary-api-blueprint">4. Apiary / API Blueprint</h2>
+<p><a href="https://apiary.io/" rel="noreferrer" target="_blank">Apiary</a> is a holistic platform that positions itself as a strong solution for every stage of API development in a collaborative environment. By offering a feature-complete solution with design and implementation streamlined, Apiary promises a smooth and seamless experience, noting that you can “write an API in 30 minutes” and “iterate, rise, and repeat.”</p>
+<p>Apiary utilizes a solution called <a href="https://apiblueprint.org/" rel="noreferrer" target="_blank">API Blueprint</a>, an open-source approach that combines markdown with various additional tools such as validation, tests, proxies, and more. By building this functionality into the core definition language, API Blueprint allows Apiary to <a href="https://nordicapis.com/the-easiest-ways-to-generate-api-documentation/" rel="noreferrer" target="_blank">automatically generate documentation</a> as you develop the codebase. Apiary’s solution offers both human and machine-readable solutions, breaking out documentation into a navigable three-column documentation approach with a table of contents, a human-readable documentation window, and a machine-readable code panel.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Seamless documentation generation is a huge benefit of Apiary, offering generation alongside code creation for a seamless and unified experience.</li>
+<li>Apiary’s feature set means you have support from day one until sunset, offering a whole lifecycle solution.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>As with all solutions offering a suite of tools, not everyone will need every piece of Apiary, which can be a barrier to integration.</li>
+<li>Apiary has become an offering as part of Oracle Cloud, which brings its own pricing concerns to the table. For some, buying into Oracle Cloud for one piece of technology can be a bit too much.</li>
+</ul>
+<h2 id="5-read-the-docs">5. Read the Docs</h2>
+<p><a href="https://about.readthedocs.com/" rel="noreferrer" target="_blank">Read the Docs</a> is an open-source documentation generation platform that leverages a variety of documentation creation engines to provide automated documentation generation and hosting. It’s largely used by software development organizations, although APIs have also seen significant benefits in the solution.</p>
+<p>Read the Docs leverages Sphinx, MkDocs, and Jupyter Book, three core documentation technologies, to provide <a href="https://nordicapis.com/7-ways-to-improve-your-documentation-developer-experience/" rel="noreferrer" target="_blank">automated documentation generation</a>. While Sphinx and MkDocs are largely known for their support for Python development, all three options have some support for other language environments, offering decent support for various languages. Once the API is defined, MkDocs can build websites for documentation hosting with built-in support for GitHub Pages or external import.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Being open source, Read the Docs has a large collection of users and developers who have contributed to the code base. This has strengthened the product, with wide support for the most commonly desired use cases, formats, and functions.</li>
+<li>Read the Docs offers a free version for community and open source projects, allowing a lot of projects a free and easy documentation solution.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>Open-source software sometimes comes with its own negatives. One potential negative is that Read the Docs is trying to do a lot because of its wide support. This can mean that Read the Docs comes across as a bit more complicated than it really is, which can hamper adoption.</li>
+<li>While Read the Docs is free for community and open-source projects, it does not cost an insubstantial amount for commercial products. While larger organizations can easily eat this cost, smaller commercial startups might find these costs a bit heavy for what they get out of it.</li>
+</ul>
+<h2 id="6-theneo">6. Theneo</h2>
+<p><a href="https://www.theneo.io/" rel="noreferrer" target="_blank">Theneo</a> is an AI-powered documentation generation tool that uses LLMs to enrich documentation content and discovery. Theneo notably integrates ChatGPT while also using a proprietary AI engine, resulting in a system that is better than the sum of its parts.</p>
+<p>Many API documentation tools have chosen to either create a proprietary solution or adopt ChatGPT wholesale. Theneo has taken a hybrid approach, offering both a proprietary internal solution as well as one direct off the shelf. Theoretically, this provides a more efficient and effective automated solution leveraging improved search, auto-generation, discovery, and contextualization.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Theneo provides branding solutions for generated documentation, allowing for a more cohesive experience that feels bespoke without the cost of bespoke generation.</li>
+<li>Leveraging both an on-market solution like ChatGPT and a proprietary internal solution offers something more than the sum of its parts.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>ChatGPT, like most other AIs, is <a href="https://nordicapis.com/7-ways-to-test-llms/" rel="noreferrer" target="_blank">prone to hallucination</a>. Although this is not an insurmountable problem, documentation and code generation that depend on such systems can introduce issues that are hard to detect or remediate.</li>
+<li>The extensions offered by Theneo are good but limited in scope. Accordingly, more broad needs for control might find Theneo restrictive.</li>
+</ul>
+<h2 id="7-redocly">7. Redocly</h2>
+<p><a href="https://redocly.com/" rel="noreferrer" target="_blank">Redocly</a> takes the success story of Redoc to new heights, offering an OpenAPI-centered documentation solution as part of its feature set. Redocly is focused <a href="https://nordicapis.com/using-redocly-cli-for-api-management/" rel="noreferrer" target="_blank">entirely on documentation</a>, giving it a focus that other more feature-rich tool sets sorely miss.</p>
+<p>Redocly leverages its experience with the OpenAPI Specification to automatically generate documentation based on API definitions. While this is similar to other examples in this piece, Redocly benefits from focusing solely on this area. As such, it boasts more powerful styling, more complete control, and search optimization that puts it ahead of other OpenAPI-specific implementations. Redocly is highly customizable, allowing for automated documentation building that is still under the aegis of the developer, tying together quick start guides, developer toolsets, human and machine-readable documentation portals, and more.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Redocly is entirely focused on documentation, which gives it a particular focus, while other solutions focus on a larger picture. This makes for a more cohesive and generally more specifically useful implementation.</li>
+<li>Redocly provides the strongest customization and branding of the options in this list, giving greater control to organizations trying to make a truly branded documentation portal.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>The focus solely on documentation does mean that this is not a strong solution for APIs looking for a one-stop-shop solution.</li>
+<li>Redocly doesn’t have as large an adoption community as a solution like Swagger, and while it generally works out of the box, this does mean that it might not have as strong a third-party support network for every environment.</li>
+</ul>
+<div class="well">Also read: <a href="https://nordicapis.com/using-redoc-to-auto-generate-openapi-documentation/" rel="noreferrer" target="_blank">Using Redoc to Auto-Generate OpenAPI Documentation</a></div>
+<h2 id="8-readme">8. ReadMe</h2>
+<p><a href="https://readme.com/" rel="noreferrer" target="_blank">Readme</a> takes a different approach to documentation, opting to turn it into an interactive hub of data and context rather than a website or documentation repository. Accordingly, ReadMe bills itself as much as a developer dashboard and portal solution as a documentation one.</p>
+<p>ReadMe offers a variety of ways to document your API, but its core functionality is based on OpenAPI and in-ReadMe documentation. Synchronizing these definition files, you can automatically generate documentation. You can also directly edit the code and documentation in ReadMe proper, allowing for substantial control and customization of the end result. ReadMe also has substantial documentation editing features that focus on a no-code implementation, allowing non-technical project managers, marketing team members, and so forth to edit documentation and add context while removing a substantial technical bottleneck.</p>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>ReadMe is designed to get going quickly, and its no-code documentation editor means that large teams can more effectively and efficiently collaborate without the traditional engineering and technical bottlenecks inherent in automated generation.</li>
+<li>ReadMe is largely focused specifically on documentation, leading to a more focused toolset and use paradigm than other tooling options.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>While ReadMe does offer support for non-OpenAPI implementations, it has much less of a hurdle to adoption for OAS users. For this reason, custom APIs might have a more substantial learning curve than might be first expected.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>There are almost as many documentation solutions as there are APIs. The tools for automating API documentation generation continue to increase and cater to specific needs. For instance, <a href="https://scramble.dedoc.co/" rel="noreferrer" target="_blank">Scramble</a> is a package for Laravel that <a href="https://laravel-news.com/automated-api-documentation" rel="noreferrer" target="_blank">automatically generates API documentation</a> through static code analysis.</p>
+<p>For this reason, consider this list to be a starting point. Any of these tools is a strong value proposition for APIs looking to generate documentation automatically, but specific use cases will determine the best tool for the job at hand.</p>
+<p>Are there other API documentation generators that you’d recommend? Please let us know in the comments below.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/8-tools-to-automatically-generate-api-documentation/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

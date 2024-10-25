@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>OpenBSD 7.6 released</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">OpenBSD 7.6 released</h3>
+		<div><p>OpenBSD&nbsp;7.6 has been <a href="https://www.openbsd.org/76.html" rel="noreferrer" target="_blank">released</a>. Notable new
+features include work to improve suspend/resume on modern hardware,
+support for the arm64 Qualcomm Snapdragon X Elite laptops, as well as many
+improvements in hardware support and driver bug fixes.</p>
+
+<blockquote class="bq">
+With this release all files that existed in the first commit
+in the OpenBSD source repository have been updated,
+modified or replaced at some point in time, reaching OpenBSD of Theseus.
+</blockquote>
+
+<p>See the <a href="https://www.openbsd.org/plus76.html" rel="noreferrer" target="_blank">changelog</a>
+for all changes between OpenBSD&nbsp;7.5 and 7.6.</p></div>
+		<a target="_blank" href="https://lwn.net/Articles/993203/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

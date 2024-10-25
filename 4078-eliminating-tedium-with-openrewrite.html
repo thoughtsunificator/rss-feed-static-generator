@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Eliminating tedium with OpenRewrite</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Eliminating tedium with OpenRewrite</h3>
+		<div><p>I find some tasks so tedious that I tend to avoid them.
+For example, I’ve recently been working on a sample application for a new, soon to be released Eventuate saga framework (more on that later).
+I’d created the application by copying another sample that was still using JUnit 4.
+But I’d been putting off updating the tests to JUnit 5.
+That is, until today, when I got it done in a few minutes using OpenRewrite.</p>
+
+<h2 id="what-is-openrewrite">What is OpenRewrite?</h2>
+
+<p><a href="https://docs.openrewrite.org/" rel="noreferrer" target="_blank">OpenRewrite</a> is a tool for refactoring Java code.
+It runs <a href="https://docs.openrewrite.org/recipes" rel="noreferrer" target="_blank">recipes</a> that transform your source code.
+By running a single command, you can quickly and reliably make what would otherwise be very time-consuming changes to your code base.</p>
+
+<p>There is a comprehensive collection of recipes available.
+I’d previously used it to <a href="https://docs.openrewrite.org/running-recipes/popular-recipe-guides/migrate-to-spring-3" rel="noreferrer" target="_blank">migrate an application to Spring Boot 3</a>.
+There’s also a recipe for migrating a <a href="https://docs.openrewrite.org/recipes/java/spring/boot2/springboot2junit4to5migration" rel="noreferrer" target="_blank">Spring Boot application from JUnit 4 to JUnit 5</a>.</p>
+
+<h2 id="running-openrewrite">Running OpenRewrite</h2>
+
+<p>There are a few different ways to run OpenRewrite.
+Many examples modify your <code class="language-plaintext highlighter-rouge">pom.xml</code> or <code class="language-plaintext highlighter-rouge">build.gradle</code> files.
+But since you typically run a recipe once, my preferred approach is to use a <a href="https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build" rel="noreferrer" target="_blank">Gradle init script</a>.
+This allows me to run OpenRewrite from the command line without modifying my project.</p>
+
+<h2 id="the-gradle-init-script-for-running-openrewrite">The Gradle init script for running OpenRewrite</h2>
+
+<p>Here’s the Gradle init script (copied from the <a href="https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build#step-2-create-a-gradle-init-script" rel="noreferrer" target="_blank">OpenRewrite docs</a>) that I used to run the JUnit 4 to JUnit 5 migration recipe:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">initscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">"https://plugins.gradle.org/m2"</span> <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span><span class="o">(</span><span class="s2">"org.openrewrite:plugin:latest.release"</span><span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">rootProject</span> <span class="o">{</span>
+    <span class="n">plugins</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">org</span><span class="o">.</span><span class="na">openrewrite</span><span class="o">.</span><span class="na">gradle</span><span class="o">.</span><span class="na">RewritePlugin</span><span class="o">)</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">rewrite</span><span class="o">(</span><span class="s2">"org.openrewrite.recipe:rewrite-spring:latest.release"</span><span class="o">)</span>
+    <span class="o">}</span>
+
+    <span class="n">afterEvaluate</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">repositories</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">repositories</span> <span class="o">{</span>
+                <span class="n">mavenCentral</span><span class="o">()</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The script declares <code class="language-plaintext highlighter-rouge">org.openrewrite.recipe:rewrite-spring</code>, which contains the needed recipe, as a dependency.</p>
+
+<h2 id="running-the-recipe">Running the recipe</h2>
+
+<p>Here’s the shell command that I used to run OpenRewrite:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ./gradlew rewriteRun <span class="nt">--init-script</span> &lt;path to initscript&gt; <span class="se">\</span>
+    <span class="nt">-Drewrite</span>.activeRecipe<span class="o">=</span>org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration <span class="se">\</span>
+    <span class="nt">-Dorg</span>.gradle.jvmargs<span class="o">=</span><span class="nt">-Xmx8G</span>
+</code></pre></div></div>
+
+<p>This command runs the <code class="language-plaintext highlighter-rouge">rewriteRun</code> task, which is defined by the init script.
+The <code class="language-plaintext highlighter-rouge">rewrite.activeRecipe</code> property specifies the recipe to run.
+I needed to increase the heap size to prevent OpenRewrite from running out of memory.</p>
+
+<h2 id="the-results">The results</h2>
+
+<p>The recipe made numerous changes to the code base including:</p>
+
+<ul>
+  <li>Updating the <code class="language-plaintext highlighter-rouge">build.gradle</code> dependencies</li>
+  <li>Fixing the imports</li>
+  <li>Removing <code class="language-plaintext highlighter-rouge">@RunWith(SpringJUnit4ClassRunner.class)</code> annotations</li>
+  <li>Replacing <code class="language-plaintext highlighter-rouge">@RunWith(MockitoJUnitRunner.class)</code> with <code class="language-plaintext highlighter-rouge">@ExtendWith(MockitoExtension.class)</code></li>
+  <li>Replacing <code class="language-plaintext highlighter-rouge">@Before</code> with <code class="language-plaintext highlighter-rouge">@BeforeEach</code></li>
+</ul>
+
+<p>The only thing I needed to do was change some testing related plugins to use <code class="language-plaintext highlighter-rouge">useJUnitPlatform()</code>.</p>
+
+<p>Pretty awesome!
+OpenRewrite estimated that it saved me 55 minutes of work.</p>
+
+<h2 id="the-code">The code</h2>
+
+<p>Here’s a <a href="https://github.com/cer/openrewrite-recipes/blob/master/junit4-to-junit5.sh" rel="noreferrer" target="_blank">handy shell script</a> that migrates your project from JUnit 4 to JUnit 5.</p>
+
+<h2 id="need-help-with-accelerating-software-delivery">Need help with accelerating software delivery?</h2>
+
+<p>I’m available to help your organization improve agility and competitiveness through better software architecture: training workshops, architecture reviews, etc.</p>
+
+<p><a href="https://chrisrichardson.net" rel="noreferrer" target="_blank">Learn more about how I can help</a></p>
+
+</div>
+		<a target="_blank" href="http://microservices.io//post/architecture/2024/08/06/eliminating-tedium-with-openrewrite.html">Go to article URL</a>
+		<div>Feed URL: https://microservices.io/feed.xml</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

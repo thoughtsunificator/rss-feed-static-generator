@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How To Find And Protect Sensitive Data In APIs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">How To Find And Protect Sensitive Data In APIs</h3>
+		<div><p>Data is the primary fuel that powers the modern internet. APIs require data to communicate and deliver the fantastic benefits we have seen in the modern internet. However, this data is not just simple 1s and 0s. It often represents the identity of individuals and groups, reflecting their desires, qualities, and personal information.</p>
+<p>Securing sensitive data is, accordingly, as much a business imperative as a moral one. But how can organizations find and protect this sensitive data, especially in an API-driven environment where data is as good as gold?</p>
+<h2 id="what-is-pii-and-sensitive-data-">What is PII and Sensitive Data?</h2>
+<p>When we discuss finding and protecting sensitive data, this data falls into two broad categories: personally identifiable information (PII) and general sensitive data. What do these terms actually mean, and when are they applicable?</p>
+<p>PII has been defined differently by many organizations and <a href="https://nordicapis.com/watch-out-for-more-regulatory-focus-on-api-security/" rel="noreferrer" target="_blank">regulatory bodies</a>. In the United States, the National Institute of Standards and Technology (NIST) <a href="https://csrc.nist.gov/glossary/term/PII" rel="noreferrer" target="_blank">defines PII as follows</a>:</p>
+<blockquote><p>“Personally Identifiable Information: Any representation of information that permits the identity of an individual to whom the information applies to be reasonably inferred by either direct or indirect means. (NIST SP 800-79-2)”</p></blockquote>
+<p>In Europe, PII can be broadly defined under GDPR as “<a href="https://gdpr.eu/article-4-definitions/" rel="noreferrer" target="_blank">personal data</a>“:</p>
+<blockquote><p>“‘Personal data’ means any information relating to an identified or identifiable natural person (‘data subject’); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person…”</p></blockquote>
+<p>Sensitive data, on the other hand, is less well-defined. While there is a category of <a href="https://nordicapis.com/a-gdpr-compliant-method-to-identify-api-clients/" rel="noreferrer" target="_blank">sensitive personal data in GDPR</a>, sensitive data in the context of APIs is far less pointedly defined. Broadly speaking, sensitive data can be considered a wider range of items than PII, and as such, it certainly includes that data.</p>
+<p><a href="https://www.upguard.com/blog/sensitive-data" rel="noreferrer" target="_blank">UpGuard</a> provides a straightforward definition of sensitive data:</p>
+<blockquote><p>“Sensitive data is confidential information that must be kept safe and out of reach from all outsiders unless they have permission to access it.”</p></blockquote>
+<p>Accordingly, it may be easiest to think about these two terms as a balance of specificity. PII is a well-defined group of data points, whereas sensitive data is a catch-all term for all data that should be protected from external access (including PII itself). In essence, sensitive data is any piece we want to keep private. If an API owner is uncomfortable printing the data on a posterboard and posting it on their lawn, then it’s sensitive data.</p>
+<h3 id="regulatory-considerations">Regulatory Considerations</h3>
+<p>An important point is that protecting this data isn’t just a nice thing to do — in many cases, it’s the law. While some data points must obviously be protected, such as <a href="https://www.pcisecuritystandards.org/" rel="noreferrer" target="_blank">credit card payment information under PCI DSS</a>, other data, such as someone’s gender, identity, location, and so forth, fall under different regulations that may not be as transparent at first glance.</p>
+<p>In the European Union, the <a href="https://gdpr.eu/" rel="noreferrer" target="_blank">General Data Protection Regulation</a> (GDPR) is the regulatory document governing this data. Not only is it very specific about what constitutes PII and sensitive data, but it also comes with enforcement mechanisms that are quite stark. For severe violations, fines can be up to 4% of global turnover or up to 20 million euros, whichever is higher. For basic infractions, fines can be up to 2% of global turnover or 10 million euros – again, whichever is higher.</p>
+<p>The United States is markedly behind the curve regarding privacy regulations, but even it has some coverage and measures to enforce these standards. In California, the <a href="https://oag.ca.gov/privacy/ccpa" rel="noreferrer" target="_blank">California Consumer Privacy Act</a> ensures some coverage of PII data. Federally, sensitive data such as healthcare information is covered under the <a href="https://www.hhs.gov/hipaa/index.html" rel="noreferrer" target="_blank">Health Insurance Portability and Accountability Act</a>, with significant fines for breach of privacy.</p>
+<p>Simply put, poorly securing personal information and sensitive data can have enormous regulatory and fiscal impacts. But that’s not the only thing organizations should consider.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/top-3-global-standards-that-impact-personal-data-sharing-with-apis/" rel="noreferrer" target="_blank">Top 3 Global Standards That Impact Personal Data Sharing</a></div>
+<h3 id="brand-trust-and-safety">Brand Trust and Safety</h3>
+<p>Even where data is not protected by regulation, organizations should consider the impacts on their brand and the safety of their platform. APIs that collect data on the edge of personal information, such as inferred economic status or identity information, nonetheless collect data that, if leaked, could leave a mark on their corporate record.</p>
+<p>We’ve seen this before — stories of companies <a href="https://hbr.org/2023/05/the-devastating-business-impacts-of-a-cyber-breach" rel="noreferrer" target="_blank">going out of business following a data breach</a> are a dime a dozen. And even if they manage to stay in business, they often do so with a <a href="https://www.securitymagazine.com/articles/100296-66-of-consumers-would-not-trust-a-company-following-a-data-breach" rel="noreferrer" target="_blank">significant loss of customers and revenue</a>.</p>
+<p>If users can’t trust an organization to secure their data, they are less likely to give that data to the organization. This is a death knell for companies dealing with data selling. It could also hinder algorithmic content, internal advertising, or user support. After all, how do you support a user who refuses to give you their email, username, location, or any other information, all because they rightly don’t trust you to secure it?</p>
+<h2 id="finding-sensitive-data-in-apis-apis-are-leaky">Finding Sensitive Data in APIs: APIs are Leaky</h2>
+<p>With this in mind, it’s helpful to remember that APIs are verbose. Developers design APIs to connect systems and exchange information, and many of the most <a href="https://nordicapis.com/8-significant-api-breaches-of-recent-years/" rel="noreferrer" target="_blank">high-profile data breaches</a> came not from outright illicit internal activity, but from basic negligence or misunderstanding of configurations. Something as simple as a misconfigured data storage solution could result in <a href="https://www.trendmicro.com/vinfo/us/security/news/virtualization-and-cloud/data-on-123-million-us-households-exposed-due-to-misconfigured-aws-s3-bucket" rel="noreferrer" target="_blank">hundreds of millions of exposed records</a>, undermining the reputation of your organization and exposing the private information of users worldwide.</p>
+<p>Accordingly, half of the battle is actually <em>finding</em> what sensitive data is even being exposed in the first place.</p>
+<h3 id="automated-scanning-and-discovery">Automated Scanning and Discovery</h3>
+<p>With the broad adoption of <a href="https://nordicapis.com/10-ai-powered-api-security-tools/" rel="noreferrer" target="_blank">LLM-driven AI security offerings</a>, it has never been easier to scan and discover vulnerabilities. Solutions such as <a href="https://salt.security/" rel="noreferrer" target="_blank">Salt Security</a> offer automated solutions for detecting exposed endpoints and weaknesses in your security posture.</p>
+<p>It’s important to note that this process depends on open documentation from the developer and a willingness to find fault. Simply obfuscating an endpoint and considering it “secure” is not good enough. If your data exists, there’s a way to get to it, which may not be as clear as you think. Accordingly, <a href="https://nordicapis.com/6-ways-ai-can-enhance-api-testing/" rel="noreferrer" target="_blank">complete testing</a> is required to get a holistic view of the security posture.</p>
+<p><a href="https://nordicapis.com/beware-oauth-misconfigurations-to-protect-your-web-apis/" rel="noreferrer" target="_blank">Misconfiguration</a> is a huge cause of data exposure in the wild, so doing your due diligence with internal automated scanning and discovery is going to pay huge and immediate dividends.</p>
+<p>Once you have completed the internal review, you should look at what data is accessible externally. The best way to ensure proper security from this posture is to dive into the various endpoints on offer, enumerating all endpoints and scanning them for vulnerabilities.</p>
+<p>These vulnerabilities might be obvious, such as misconfigured or absent security. However, in some cases, they may be less obvious, such as simple broken access control or privilege escalation. Enumerating the endpoints and <a href="https://nordicapis.com/api-vulnerability-scanners/" rel="noreferrer" target="_blank">scanning them for common vulnerabilities</a> can help secure your posture, but it requires using a trusted partner.</p>
+<h3 id="data-classification">Data Classification</h3>
+<p>A big part of the <a href="https://nordicapis.com/what-does-api-security-mean-in-the-modern-threat-environment/" rel="noreferrer" target="_blank">privacy and security battle</a> is knowing what data you are collecting and classifying it appropriately. Developers should know from day one what data they are collecting, and if this process is being applied to an extant product, a full review and audit of data collection is worth doing.</p>
+<p>This data must then be classified and given consideration as to how it’s handled. Some data is not necessarily personally identifiable. For instance, you can’t reasonably infer something about a user based on a timestamp, except patterns of use that suggest a regional locale. However, this data may become PII in concert with other data. Accordingly, all data is worth securing with reasonable accommodation. Unless the data needs to be externally accessed, it’s better to treat it all as needing to be secured.</p>
+<p>That being said, some data, such as <a href="https://nordicapis.com/how-to-bring-financial-grade-security-to-apis/" rel="noreferrer" target="_blank">financial or healthcare data</a>, is clearly covered under more stringent security enforcement and should be segmented from other data and provided a higher level of scrutiny. In addition, it may require documentation that clarifies the security handling for regulatory purposes.</p>
+<p>Consider all data being collected and sort it into categories of privileged access. Ensure that only what is necessary for public consumption is actually made public, and secure the rest appropriately!</p>
+<h2 id="protecting-data">Protecting Data</h2>
+<h3 id="implementing-proper-authentication-and-authorization">Implementing Proper Authentication and Authorization</h3>
+<p>Proper <a href="https://nordicapis.com/what-is-the-difference-between-authentication-and-authorization/" rel="noreferrer" target="_blank">authentication and authorization</a> is a major factor for appropriate data security. In essence, authentication ensures that whoever is accessing the system is who they say they are, and authorization ensures they have the right to access what they want.</p>
+<p>It is important to note that authentication and authorization are only as good as the underlying data scheme. If you have not correctly set aside what roles can access what data, then a strong authentication and authorization schema is like a paper lock — the ultimate illusion of security.</p>
+<p>Once you have a proper security plan and the systems to implement it, you must ensure that this plan is adhered to in practice. So often, an admin account or privileged exploit is used to undermine core security. To avoid this, adhering to a security plan will require consistent security audits, rotating roles, role-based access control rooted in <a href="https://nordicapis.com/using-opa-to-achieve-zero-trust-apis/" rel="noreferrer" target="_blank">security-first principles</a>, and more.</p>
+<h3 id="utilize-adequate-encryption">Utilize Adequate Encryption</h3>
+<p>Even if you manage to secure the influx of requests coming into your system, you must still protect against simple data exfiltration. The reality is that data in transit can be seen any time it goes over visible transmission lines, such as across the internet. What’s more, data at rest could, in theory, be stolen should anyone get physical access to the hard drive or remote access to the server cluster.</p>
+<p>Accordingly, you need to ensure this can’t happen. The best way to do this is to deploy encryption. Encryption is, in its most basic form, a method for scrambling data so that it only makes sense if you have a specific piece of information (the “key”) to unscramble it.</p>
+<p>Organizations must be aware of two kinds of encryption. The first is encryption in transit. This kind of encryption allows senders and receivers of data to scramble and unscramble the data so that if anything is captured “in the middle,” it is rendered unusable. This helps to secure the data in transit, but once it’s stored, you must also encrypt it at rest. This ensures that, even if the data is exfiltrated, it will be useless to the thief due to the sheer economic and resource cost to crack the encryption (or at least useless long enough to cycle passwords and alternate data).</p>
+<div class="well">Also read: <a href="https://nordicapis.com/use-oauth-to-mitigate-top-of-the-top-api-risks/" rel="noreferrer" target="_blank">Use OAuth to Mitigate ‘Top of the Top’ API Risks</a></div>
+<h3 id="choose-not-to-collect">Choose <em>Not</em> to Collect</h3>
+<p>One major strategy for protecting data seems almost farcically simple: just don’t collect it in the first place. Organizations commonly collect massive amounts of data for potential use in the future, yet much of this data is not necessarily helpful, <a href="https://edgedelta.com/company/blog/what-percentage-of-data-is-unstructured" rel="noreferrer" target="_blank">well-structured</a>, or even potentially profitable.</p>
+<p>To that end, the best strategy is to not collect anything except when necessary. Reducing the amount of data collected minimizes the amount of data that is potentially exposed. It also decreases the processing and encryption that must be done in the first place.</p>
+<p>For years, the tech industry has viewed <a href="https://itif.org/publications/2022/04/01/your-data-isnt-gold-its-not-even-yours/" rel="noreferrer" target="_blank">data as good as gold</a>. The reality is that encryption and other security efforts come with a cost, and just holding onto data because it “might” be worth something, especially considering that the data in question belongs to the users, not the developer, is just eating cost and risk for a potential upside that may never be realized.</p>
+<h2 id="protecting-sensitive-data-in-apis">Protecting Sensitive Data in APIs</h2>
+<p>Finding and securing PII and sensitive data is an incredibly important part of developing an API. With a few simple considerations and processes, any organization can adopt a better security posture, resulting in better user experience, higher organizational trust, and better outcomes at scale and over time.</p>
+<p>What do you think of these considerations? What more can be done to find and protect sensitive data in APIs? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/how-to-find-and-protect-sensitive-data-in-apis/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

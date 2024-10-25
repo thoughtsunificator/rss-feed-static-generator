@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Toward safe transmutation in Rust</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">[$] Toward safe transmutation in Rust</h3>
+		<div><p>
+Currently in Rust, there is no efficient and safe way to turn an array of bytes
+into a structure that corresponds to the array. Changing that was the topic of
+Jack Wrenn's talk this year at
+<a href="https://rustconf.com" rel="noreferrer" target="_blank">
+RustConf</a>:
+<a href="https://jack.wrenn.fyi/blog/safety-goggles-for-alchemists/" rel="noreferrer" target="_blank">
+"Safety Goggles for Alchemists"</a>. The goal is to be able to "transmute" —
+Rust's name for this kind of conversion — values into arbitrary user-defined
+types in a safer way. Wrenn justified the approach that the project has taken to
+accomplish this, and spoke about the future work required to stabilize it.
+</p>
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/994334/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

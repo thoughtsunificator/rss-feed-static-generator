@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Security updates for Wednesday</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Security updates for Wednesday</h3>
+		<div>Security updates have been issued by <b>AlmaLinux</b> (buildah, gvisor-tap-vsock, nodejs:18, python-urllib3, and skopeo), <b>Debian</b> (firefox-esr and openssl), <b>Fedora</b> (apr and seamonkey), <b>Red Hat</b> (podman), <b>Slackware</b> (mozilla and seamonkey), <b>SUSE</b> (bubblewrap and flatpak, buildah, docker, dovecot23, ffmpeg, frr, go1.21-openssl, graphviz, java-1_8_0-openj9, kubernetes1.26, kubernetes1.27, kubernetes1.28, openssl-1_0_0, openssl-3, perl-DBI, python-aiohttp, python-Django, python-WebOb, thunderbird, tiff, ucode-intel, unbound, webkit2gtk3, and xen), and <b>Ubuntu</b> (drupal7 and twisted).
+</div>
+		<a target="_blank" href="https://lwn.net/Articles/988746/">Go to article URL</a>
+		<div>Feed URL: https://lwn.net/headlines/rss</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

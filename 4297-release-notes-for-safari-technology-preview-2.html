@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 203</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Release Notes for Safari Technology Preview 203</h3>
+		<div><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 203 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/01bcff3058440abda06beecdd2df3b7e3c3930f1...da72e62564fb6cd84c716a04605ac5f11c26bb45" rel="noreferrer" target="_blank">282390@main…283042@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>display: contents</code> on <code>tbody</code> elements preventing table rows from being properly exposed in the accessibility tree. (<a href="https://commits.webkit.org/282413@main" rel="noreferrer" target="_blank">282413@main</a>)  (129131780)  </li>
+<li>Fixed the handling of <code>ElementInternals.ariaValueNow</code> null values so the right value is exposed to assistive technologies. (<a href="https://commits.webkit.org/282422@main" rel="noreferrer" target="_blank">282422@main</a>)  (129218234)  </li>
+<li>Fixed updating the accessibility tree when text underneath an <code>aria-describedby</code> element changes. (<a href="https://commits.webkit.org/282430@main" rel="noreferrer" target="_blank">282430@main</a>)  (131877635)  </li>
+</ul>
+<h3>Canvas</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed CanvasRenderingContext2D <code>globalAlpha</code> property getting ignored for some values of <code>globalCompositeOperation</code>. (<a href="https://commits.webkit.org/282995@main" rel="noreferrer" target="_blank">282995@main</a>)  (134840885)  </li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>scrollbar-gutter</code>. (<a href="https://commits.webkit.org/282662@main" rel="noreferrer" target="_blank">282662@main</a>)  (111918434)  </li>
+<li>Added support for <code>cursor</code> in <code>::marker</code>. (<a href="https://commits.webkit.org/282642@main" rel="noreferrer" target="_blank">282642@main</a>)  (133256523)  </li>
+<li>Added support for <code>ruby-overhang</code>. (<a href="https://commits.webkit.org/283012@main" rel="noreferrer" target="_blank">283012@main</a>)  (135058411)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>text-underline-offset</code> to support percentages. (<a href="https://commits.webkit.org/282611@main" rel="noreferrer" target="_blank">282611@main</a>)  (117246233)  </li>
+<li>Fixed: Updated <code>calc()</code> to the most recent web standard, including support for dividing by numbers with additional units. (<a href="https://commits.webkit.org/282580@main" rel="noreferrer" target="_blank">282580@main</a>)  (134446246)  </li>
+</ul>
+<h3>Editing</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed aligning with the standardized version of the <code>autocorrect</code> attribute, which does not support Email, URL, and Password fields and does not treat the empty string value in a special way. (<a href="https://commits.webkit.org/282792@main" rel="noreferrer" target="_blank">282792@main</a>)  (101036922)  </li>
+<li>Fixed inserting text before a <code>&lt;picture&gt;</code> element inserting the text after the element instead. (<a href="https://commits.webkit.org/282825@main" rel="noreferrer" target="_blank">282825@main</a>)  (134378236)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>Iterator.prototype.constructor</code> and  <code>Iterator.prototype[@@toStringTag]</code>. (<a href="https://commits.webkit.org/282687@main" rel="noreferrer" target="_blank">282687@main</a>)  (134598491)  </li>
+<li>Added support for <code>Iterator.from</code> from Iterator Helpers Proposal. (<a href="https://commits.webkit.org/283016@main" rel="noreferrer" target="_blank">283016@main</a>)  (135065388)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Disallow <code>yield</code> and <code>await</code> expressions in class field initializers. (<a href="https://commits.webkit.org/282819@main" rel="noreferrer" target="_blank">282819@main</a>)  (132338331)  </li>
+<li>Fixed <code>Object.keys(global)</code> including non-enumerable properties unless deleted first. (<a href="https://commits.webkit.org/282554@main" rel="noreferrer" target="_blank">282554@main</a>)  (134121649)  </li>
+<li>Fixed the error message of <code>Temporal.Instant.fromEpochMilliseconds</code>. (<a href="https://commits.webkit.org/282587@main" rel="noreferrer" target="_blank">282587@main</a>)  (134454596)  </li>
+<li>Fixed duration format’s nanoseconds calculation ordering. (<a href="https://commits.webkit.org/282690@main" rel="noreferrer" target="_blank">282690@main</a>)  (134526619)  </li>
+<li>Fixed TimeZoneAnnotation to disallow sub-minute. (<a href="https://commits.webkit.org/282710@main" rel="noreferrer" target="_blank">282710@main</a>)  (134541964)  </li>
+<li>Fixed: <code>Temporal.Instant.prototype.epochMilliseconds</code> to return a floored value. (<a href="https://commits.webkit.org/282718@main" rel="noreferrer" target="_blank">282718@main</a>)  (134666158)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Remove obsoleted <code>Temporal.Instant</code> API. (<a href="https://commits.webkit.org/282400@main" rel="noreferrer" target="_blank">282400@main</a>)  (134195010)  </li>
+</ul>
+<h3>Media</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for allowing websites to override  the system-default accessibility caption styling. (<a href="https://commits.webkit.org/282568@main" rel="noreferrer" target="_blank">282568@main</a>)  (134265139)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a bug in WebCodecs where audio and video codecs with pending work could be prematurely garbage collected. (<a href="https://commits.webkit.org/282657@main" rel="noreferrer" target="_blank">282657@main</a>)  (134297589)  </li>
+</ul>
+<h3>Networking</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a bug where <code>Cross-Origin-Opener-Policy</code> header fields in the response of iframes were not ignored, resulting in <code>window.opener</code> being null after multiple cross-origin navigations of the main frame. (<a href="https://commits.webkit.org/282482@main" rel="noreferrer" target="_blank">282482@main</a>)  (132840366)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed items that span multiple tracks with optimizations. (<a href="https://commits.webkit.org/282464@main" rel="noreferrer" target="_blank">282464@main</a>)  (132435056)  </li>
+<li>Fixed rendering tick marks of the range input type when the page zoom is less than 1. (<a href="https://commits.webkit.org/282451@main" rel="noreferrer" target="_blank">282451@main</a>)  (134282707)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue for <code>getPointAtLength</code> to throw an exception when <code>path</code> is empty. (<a href="https://commits.webkit.org/282665@main" rel="noreferrer" target="_blank">282665@main</a>)  (122574451)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Changed <code>click</code>, <code>auxclick</code>, <code>contextmenu</code>,  and <code>click()</code> to use PointerEvent. (<a href="https://commits.webkit.org/282524@main" rel="noreferrer" target="_blank">282524@main</a>)  (71202646)  </li>
+<li>Fixed: Aligned <code>oncuechange</code> event handler handling with other event handlers. (<a href="https://commits.webkit.org/282977@main" rel="noreferrer" target="_blank">282977@main</a>)  (98254058)  </li>
+<li>Fixed <code>popovertarget</code> to work on buttons in a form. (<a href="https://commits.webkit.org/282801@main" rel="noreferrer" target="_blank">282801@main</a>)  (131042177)  </li>
+<li>Fixed <code>XMLSerializer.serializeToString()</code> not serializing the children of <code>&lt;img&gt;</code> and also not closing the <code>&lt;img&gt;</code> if it has children. (<a href="https://commits.webkit.org/282725@main" rel="noreferrer" target="_blank">282725@main</a>)  (133404338)  </li>
+<li>Fixed: Moved <code>onbeforeinput</code> to <code>GlobalEventHandlers</code>. (<a href="https://commits.webkit.org/282912@main" rel="noreferrer" target="_blank">282912@main</a>)  (134943272)  </li>
+</ul>
+<h3>Web Apps</h3>
+<h4>New Features</h4>
+<ul>
+<li>Parse <code>dir</code> member of Web Application Manifest. (<a href="https://commits.webkit.org/282761@main" rel="noreferrer" target="_blank">282761@main</a>)  (131900106)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Web Application Manifest parsing to trim all ASCII whitespace. (<a href="https://commits.webkit.org/282544@main" rel="noreferrer" target="_blank">282544@main</a>)  (134336817)  </li>
+</ul>
+<h3>Web Assembly</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>return_call_ref</code>. (<a href="https://commits.webkit.org/282853@main" rel="noreferrer" target="_blank">282853@main</a>)  (134442713)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Safari Web Extension ports to receive messages in content scripts when sent from the <code>onConnect</code> event listener. (<a href="https://commits.webkit.org/283006@main" rel="noreferrer" target="_blank">283006@main</a>)  (133501214) (FB14721836)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for sourcemaps to be blackboxed. (<a href="https://commits.webkit.org/282740@main" rel="noreferrer" target="_blank">282740@main</a>)  (133731737)  </li>
+<li>Added support for showing <code>boundThis</code> for arrow functions in the console. (<a href="https://commits.webkit.org/282553@main" rel="noreferrer" target="_blank">282553@main</a>)  (134268331)  </li>
+</ul>
+</div>
+		<a target="_blank" href="https://webkit.org/blog/15860/release-notes-for-safari-technology-preview-203/">Go to article URL</a>
+		<div>Feed URL: https://webkit.org/feed/rss/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

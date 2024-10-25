@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The State of GraphQL Security in 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">The State of GraphQL Security in 2024</h3>
+		<div><p>GraphQL is a very popular paradigm for APIs requiring complex interaction and variable surfacing, and for a good reason — it is perhaps the most powerful tool for complex syntactic interconnective APIs, powering everything from social media to next-generation banking.</p>
+<p>While GraphQL is very popular, it also has some significant drawbacks, many of which are poorly understood. A <a href="https://escape.tech/blog/the-state-of-graphql-security-2024/" rel="noreferrer" target="_blank">recent report from Escape</a> has laid these risks bare. Below, we’ll look at the key findings underpinning this report to gather an understanding of the state of <a href="https://nordicapis.com/securing-graphql-apis-with-identity-control/" rel="noreferrer" target="_blank">GraphQL security</a> in 2024.</p>
+<h2 id="escape-s-findings">Escape’s Findings</h2>
+<p>In their research, the Escape team enumerated 160 public GraphQL services, running over 3,800 operations across the corpus. They ran 116 proprietary tests across these queries, with 100 specifically targeted for GraphQL. The findings are broad, but Escape discovered over 13k issues, 4.4k exposed GraphQL secrets, and more than three times the detected issues than their research in 2023.</p>
+<p>This data points to a pretty stark conclusion: GraphQL has some severe issues in practical application. This needs to be addressed, especially since <a href="https://www.apollographql.com/resources/gartner-when-to-use-graphql-to-accelerate-api-delivery" rel="noreferrer" target="_blank">Gartner predicts</a> over 60% of enterprises will use <a href="https://nordicapis.com/6-examples-of-graphql-in-production-at-large-companies/" rel="noreferrer" target="_blank">GraphQL in production</a> by 2027.</p>
+<h3 id="unrestricted-resource-consumption">Unrestricted Resource Consumption</h3>
+<p>Although Escape found vulnerabilities across all the <a href="https://owasp.org/API-Security/editions/2023/en/0x11-t10/" rel="noreferrer" target="_blank">OWASP Top Ten</a> in their findings, many <a href="https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html" rel="noreferrer" target="_blank">GraphQL vulnerabilities</a> seem to be focused on a specific type of vulnerability: uncontrolled resource consumption. This vulnerability is a <a href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/" rel="noreferrer" target="_blank">fundamental risk present in the very nature of GraphQL</a>. Since GraphQL is meant to surface as much information as the user requests, it is very verbose. In practice, this is seldom addressed and, in fact, is a big concern for most production environments.</p>
+<p>In Escape’s testing, 69% of the API services tested had issues related to this category. Beyond issues of denial of service (or distributed denial of service), this also introduces fiscal considerations. Without resource control, an expensive compute bill can rack up, especially in the reality of the modern cloud. For many providers operating a lean stack, depending on cloud services without stringent controls over resource allocation could easily lead to a huge spike in cost that could undermine a business.</p>
+<h3 id="security-misconfiguration">Security Misconfiguration</h3>
+<p>Of course, one of the most common <a href="https://nordicapis.com/7-tips-for-graphql-security/" rel="noreferrer" target="_blank">risks with GraphQL services</a> is typical with any tech stack: misconfiguration. Default settings are meant to be a starting block by which developers and providers change and develop their posture. However, too often, they are implemented as-is, introducing a bare-bones and usually incomplete security posture. The dangerous part is that providers frequently get a false sense of security from this effort, thinking they are much more secure than they actually are.</p>
+<p>In Escape’s tests, 11% of the tested services had issues with configuration. GraphQL is very verbose and descriptive, and unfortunately, this means that even small gaps can be used to exfiltrate a large amount of data. When this data is improperly secured or encrypted, this can lead to scraping and a fundamental lapse of security. In fact, during their testing, more than 4,000 secrets were exposed in the GraphQL API responses. This exposure included passwords, credit card data, and even access tokens, which could potentially be misused in replay attacks.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/7-helpful-open-source-graphql-security-tools/" rel="noreferrer" target="_blank">7 Helpful Open-Source GraphQL Security Tools</a></div>
+<h3 id="graphql-specific-issues">GraphQL-Specific Issues</h3>
+<p>As noted above, GraphQL has some intrinsic faults that are part and parcel of the technology. Its verbosity, its strong user control over queries, its linked context, all of what GraphQL is — and what makes it possible — is also a potential landmine in poor security environments. In Escape’s research, 13% of tested APIs presented GraphQL-specific vulnerabilities in its language and framework.</p>
+<p>Given the rapid adoption of GraphQL, this is a clear signal that, despite its popularity, GraphQL is still seldom understood at its foundational level. Providers should take caution with GraphQL and understand that what they are leveraging is a racecar, not a bicycle. It’s incredibly powerful but also incredibly dangerous.</p>
+<p>Some of these GraphQL-specific issues include:</p>
+<ul>
+<li>Over-verbosity, which can expose information that is either private or useful in combination with other data for attacks.</li>
+<li>Timeout issues stemming from overly complex or detailed requests, whether on purpose or accidental.</li>
+<li>Depth limit and field limits issues, where users can force an error by taking advantage of the permissive nature of GraphQL querying to overload the system.</li>
+<li>Schema issues: everything from orphaned objects to type configuration errors can cause GraphQL queries to multiply the vulnerabilities in question, adding error to error until the system is filled with a veritable flood of errors.</li>
+<li>Exposure of underlying logic and systems can happen due to contextual inference, suggested types and meta contextual data, and other <a href="https://nordicapis.com/making-your-first-api-in-graphql/" rel="noreferrer" target="_blank">benefits of GraphQL</a> providing a greater overview of the system at-a-glance.</li>
+</ul>
+<h2 id="mitigating-security-issues-in-graphql">Mitigating Security Issues in GraphQL</h2>
+<p>Luckily, there are some solid tactics software providers can adopt to improve their GraphQL posture. Some of these were highlighted by Escape, while others <a href="https://nordicapis.com/protecting-graphql-against-owasp-top-ten-api-risks/" rel="noreferrer" target="_blank">have been discussed at length on Nordic APIs</a>.</p>
+<h3 id="validate-sanitize-and-throttle">Validate, Sanitize, and Throttle</h3>
+<p>As a solid first step, providers should seek to <a href="https://nordicapis.com/how-to-implement-input-validation-for-apis/" rel="noreferrer" target="_blank">validate and sanitize inputs</a>. Much of the issues noted with GraphQL come down to having overly permissive policies around querying. While GraphQL is designed to be permissive and powerful, there’s no reason someone should be requesting the same resource 50 times in a single query or repeatedly (as in thousands of times) over a one-minute span.</p>
+<p>Accordingly, validation and sanitation can make considerable inroads to securing your system. Ensuring each request is well-formed and reasonable will stop 90% of invalid request attacks. From here, throttling through <a href="https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/" rel="noreferrer" target="_blank">rate limiting</a> or other means will help protect your resources.</p>
+<p>The balance here is to be permissive enough that the core GraphQL functionality is preserved, but not so permissive that the system is exposed to damage. It’s a hard balance to hit, but it’s worth considering if you want a <a href="https://nordicapis.com/review-of-damn-vulnerable-graphql-application-dvga/" rel="noreferrer" target="_blank">truly secure GraphQL implementation</a>.</p>
+<h3 id="remove-dead-code-and-audit-often">Remove Dead Code and Audit Often</h3>
+<p>Another huge fix you can implement is to remove dead code and audit your existing code often. Using tools to control graphs and variants, in addition to detecting and remediating <a href="https://nordicapis.com/the-risks-of-zombie-apis-and-what-to-do-about-them/" rel="noreferrer" target="_blank">zombie</a> or <a href="https://nordicapis.com/proactive-tips-to-avoid-shadow-apis/" rel="noreferrer" target="_blank">shadow APIs</a>, can help remove potential attack vectors that you may be unaware of. For those endpoints you <em>are</em> aware of, constant scanning and auditing code for overly permissive or exposed data is a must. Even the best security posture will always have some sort of gap, and assuming you have a perfect posture is always the step right before a major security lapse.</p>
+<p>Note that this is not just relevant to the data itself. Function-level <a href="https://nordicapis.com/what-is-broken-object-level-authorization-and-how-to-fix-it/" rel="noreferrer" target="_blank">authorization</a>, access control, roles, and more should also be routinely reviewed and audited, as these can change with time, introducing new vulnerabilities that can topple even the most secure stronghold in minutes, Ensure proper authorization and authentication is in place, and review it often to make sure it stays in place!</p>
+<h3 id="operate-with-estimates">Operate With Estimates</h3>
+<p>GraphQL is not an all-or-nothing endeavour. In many cases, you can operate in a gray area by adopting some basic tools. <a href="https://github.com/Escape-Technologies/graphql-armor" rel="noreferrer" target="_blank">Graphql-armor</a> is a package suggested by Escape that can limit requests based on the resource cost and, with some proper cost estimates, can go a long way towards ensuring only proper requests are made. Network timing, token duration over an average useful timeline, and even heuristics based around the highest use during specific times of the day — all of these data points can help you make a more nuanced security posture based in reality instead of best-case scenarios.</p>
+<p>This also is true of <a href="https://nordicapis.com/api-rate-limiting-vs-api-throttling-how-are-they-different/" rel="noreferrer" target="_blank">depth limiting and throttling</a>. By testing what the core function looks like in regular practice and then blocking this in production, you can ensure that real users can use your services while preventing runaway costs, expensive queries, or even queries that go a bit too deep, suggesting some sort of introspection hunting or drive-by targeting. At the end of the day, the more info you have, the more secure you can be.</p>
+<h3 id="question-everything">Question Everything</h3>
+<p>We get it: you built the system, and you’re quite proud of it. But, look at every decision that has been made and every posture choice and question whether or not it makes sense. Do users really need this much control? Should you really be that permissive? How likely is it that a user will make 200 requests in a single minute?</p>
+<p>These questions should be asked because the assumptions made at the start of creating a security posture almost always result in major security issues. Question the posture, and assume that even your average user is a <a href="https://nordicapis.com/understanding-the-need-for-zero-trust-architecture/" rel="noreferrer" target="_blank">potential attack vector</a>. After all, not all damage to the API is intentional, and sometimes, the worst attacks are by people who mean well but don’t understand the system they are using. Assume that everyone is a threat, and consider the minutia of how you respond to every use case.</p>
+<div class="well">Also read: <a href="https://nordicapis.com/when-zero-is-better-than-one-zero-trust-architecture/" rel="noreferrer" target="_blank">When Zero Is Better Than One: Zero-Trust Architecture</a></div>
+<h2 id="final-thoughts-on-graphql-security-in-2024">Final Thoughts on GraphQL Security in 2024</h2>
+<p>Escape’s work here is invaluable, as it exposes the underlying issues inherent in GraphQL. Thankfully, there are some security best cases that anyone can deploy at scale to make their system more secure, even if that system is a complex GraphQL implementation.</p>
+<p>What do you think of Escape’s research? Are there other methods for securing GraphQL that we missed? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/the-state-of-graphql-security-in-2024/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What is API Drift, and What Can You Do About It?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">What is API Drift, and What Can You Do About It?</h3>
+		<div><p>According to a recent report from APIContext, <a href="https://apicontext.com/resources/api-drift-white-paper/" rel="noreferrer" target="_blank">75% of production APIs do not match their specifications</a>. That is an incredibly worrisome statistic. The majority of production APIs do not agree with their contract, which means many developers are ultimately left in the dark about how APIs function.</p>
+<p>This figure indicates API drift, a worrying trend in the industry. But what is API drift specifically, and how does it come about? More importantly, how can we mitigate it? In this piece, we’re going to dive into API drift and give you some best practices to ensure proper handling of this huge issue.</p>
+<h2 id="what-is-api-drift-">What is API Drift?</h2>
+<p>APIs are highly complex systems. Beyond the obvious code base that comprises the API itself, you must also consider the resources it acts upon, the environments it traverses, the <a href="https://nordicapis.com/how-api-gateways-are-evolving-lighter-smarter-and-cloud-native/" rel="noreferrer" target="_blank">gateways and routers</a> implemented to navigate multiple services, and much more. This complexity can easily overwhelm developers, and as such, APIs are as much about deploying a service as they are about planning the service <a href="https://nordicapis.com/how-to-manage-breaking-changes-throughout-an-apis-lifecycle/" rel="noreferrer" target="_blank">and its lifecycle</a>.</p>
+<p>This planning can help untangle the complexity of the service, helping to navigate the murky waters. However, the problem with this planning is the assumption that it is preemptive — that planning occurs at the beginning stages of development, and then the “real work” begins. The reality is that this planning is paramount to the continual health and iteration of the service, providing guardrails for future development to ensure the API is growing in an expected and supportable way.</p>
+<p>Unfortunately, APIs often drift away from this planning. When this occurs, the API implementation shifts away from its initial design, specification, or expected behaviors. Although it’s common for APIs to shift as business needs change, drift is the uncontrolled or poorly managed shifting away from the agreed-upon contract and understanding of the API.</p>
+<h3 id="api-drift-symptoms">API Drift Symptoms</h3>
+<p>API drift has some very clear side effects. For instance, drift results in a situation in which the documentation doesn’t accurately reflect the API or expectations of the API itself. Let’s dive into what these symptoms look like in the real world.</p>
+<p>Firstly, API drift introduces substantial inconsistency with internal and external <a href="https://nordicapis.com/a-new-approach-to-writing-api-documentation/" rel="noreferrer" target="_blank">documentation</a>. As the API shifts away from the <a href="https://nordicapis.com/10-tools-for-api-contract-testing/" rel="noreferrer" target="_blank">core contract</a>, the documentation built around the initial understanding will grow more and more distant from the reality of the code itself. Updates to the code can lead to outdated documentation, forming a substantial disagreement between expected form and function and the realities of the code in implementation.</p>
+<p>This incongruence can also introduce issues with developer and user frustration. When end users expect a specific function, they often turn to documentation to understand what went wrong. When the code and documentation do not match, this can cause frustration at best and dangerous utilization at worst.</p>
+<p>Arising from this frustration, it’s not uncommon to see high technical debt start to evolve. With developers scrambling to understand the API that has seemingly drifted so far from its <a href="https://nordicapis.com/what-is-specification-driven-api-development/" rel="noreferrer" target="_blank">specification and documentation</a>, they might start making “good enough” solutions that introduce excess cost. This can further impact ongoing development and future maintenance, making for an unhealthy API with a bad consumption pattern.</p>
+<p>The very core of the API can suffer from these effects as well. As developers make changes to the API interface, such as altering data formats, changing response forms and structures, or even implementing entirely new calls that are poorly documented, the ongoing use of the API can break, resulting in <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/" rel="noreferrer" target="_blank">broken backward compatibility</a>. This can cause existing clients to fail or behave in a way that feels fundamentally random.</p>
+<p>Ultimately, the worst symptom of API drift can best be summed up as being “unpredictable.” When the API has drifted from its core contract, it will behave in ways that seem unpredictable to the end user, resulting in significant issues of use and degradation of developer morale.</p>
+<h2 id="causes-of-api-drift">Causes of API Drift</h2>
+<p>API drift is fundamentally an issue of poor planning and lack of rigorous controls. Accordingly, the causes of the drift itself are relatively obvious once you start digging into the problem at scale.</p>
+<p>Firstly, poor testing and controls are a huge concern. Insufficient testing of the API and its interface against a well-documented stable contract can result in development that deviates from this core base. From this development, additional deviation can easily be introduced with minimal tracking to control it, resulting in unguided development which exacerbates the issue.</p>
+<p>Inadequate processes for <a href="https://nordicapis.com/8-tools-to-automatically-generate-api-documentation/" rel="noreferrer" target="_blank">documentation maintenance</a> also play a huge role in this issue. Changes to code should always be accompanied by updates to documentation, and when this rigorous control is not implemented, discrepancies can arise. Over time, these can compound, resulting in fundamentally divergent documentation.</p>
+<p>Poor planning for <a href="https://nordicapis.com/enhancing-api-stability-with-feature-flags/" rel="noreferrer" target="_blank">feature development</a> is also a major concern. While new features are welcome in any development process, this should be done with specific guardrails and processes. When this is poorly planned, and features are introduced in an ad hoc or per situ manner, this can result in new features that push the API away from its core contract without the documentation or planning necessary to integrate these shifts into the core business and operational precepts.</p>
+<h2 id="mitigating-api-drift">Mitigating API Drift</h2>
+<p>Thankfully, there are some actionable steps that any organization can implement to mitigate API drift quite effectively.</p>
+<p>First and foremost, employ consistent guardrails in your development lifecycle. Regularly reviewing your code against the <a href="https://nordicapis.com/10-tools-for-api-contract-testing/" rel="noreferrer" target="_blank">API contract</a>, either through automated testing or manual review, will help to ensure continual development aligns with the mission and the form factor of the API. Validating the specification against the API — and the specification against the business case — will go a long way towards ensuring that continual development effectively syncs against the core purpose of the service.</p>
+<p><a href="https://nordicapis.com/everything-you-need-to-know-about-api-versioning/" rel="noreferrer" target="_blank">Versioning</a> can also help this effort tremendously. Versioning sets apart <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/" rel="noreferrer" target="_blank">breaking changes</a> and new features from the core codebase, and as such, is a forcing function to ensure adequate coverage and documentation. When a version requires documentation and explanation, it’s harder to sidestep this process. That said, a culture of adequate documentation alongside this versioning effort is paramount.</p>
+<p>Documentation review and <a href="https://nordicapis.com/taking-a-product-perspective-to-api-lifecycle-management/" rel="noreferrer" target="_blank">change management</a> is also a huge step in the right direction. The concept of documentation review is to regularly review and update the API documentation itself throughout the API development, and this action will significantly improve outcomes by itself. When paired with effective change management, in which design reviews, impact assessments, and other approaches are taken to guide change, an effective control system will be created that can ensure you are developing against the contract rather than in competition with it.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>The good news is that API drift is easy to manage if you adopt some general guardrails and processes. The bad news is that it is infinitely easier to not do this, and accordingly, resolving these issues takes consistent and intentional effort. The best practices outlined herein can help significantly deal with these issues, but you must implement them now and be steadfast in this implementation.</p>
+<p>What do you think of these best practices? Have we missed any other solutions to the problem of API drift? Let us know in the comments below!</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/what-is-api-drift-and-what-can-you-do-about-it/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

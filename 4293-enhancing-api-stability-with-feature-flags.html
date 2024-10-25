@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Enhancing API Stability with Feature Flags</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+		</nav>
+		<main>
+		<h3 style="flex-grow: 1;">Enhancing API Stability with Feature Flags</h3>
+		<div><p>Feature flags are decision points in your code that enable or disable features during runtime without redeploying or restarting your application. While often associated with frontend toggles, feature flags offer powerful capabilities for backend API management as well.</p>
+<p>In addition to simple on/off switches, feature flags allow for targeted rollouts, percentage-based exposure, and fine-tuned experimentation —all crucial for managing API versions, ensuring smooth rollouts, and minimizing risk. In this post, we’ll explore practical ways to use feature flags to manage dependencies, control rate limiting, and enhance API stability.</p>
+<h2 id="using-feature-flags-to-manage-third-party-dependencies">Using Feature Flags to Manage Third-Party Dependencies</h2>
+<p>Certain APIs depend on <a href="https://nordicapis.com/6-potential-risks-of-using-third-party-apis/" rel="noreferrer" target="_blank">third-party services</a> for essential functions like payment processing, data enrichment, or messaging. However, these dependencies introduce points of failure that can disrupt your API’s functionality if they experience downtime.</p>
+<p>Traditionally, switching to a backup vendor involves making code changes and redeploying through your <a href="https://devops.com/how-to-implement-an-effective-ci-cd-pipeline/" rel="noreferrer" target="_blank">CI/CD pipeline</a> — a process that can be slow and prone to bottlenecks, especially in larger organizations with strict change control processes or complex, monolithic codebases. Merge conflicts and long review cycles can further delay the switchover, prolonging service disruption. I experienced this issue when working on a cryptocurrency recovery service that relied on an external endpoint to fetch transaction data from the blockchain. The service went down and caused several transaction delays for some key clients, and it took almost a week to get the backup service in place.</p>
+<p>Feature flags provide a more agile solution. Using a feature flag to gate the code path for a backup vendor allows you to dynamically switch from one API vendor to another almost in real time (the actual update speed depends on the feature flag vendor). If the primary service fails, simply toggle the feature flag from your management console to redirect traffic to the backup vendor, without requiring a new deployment. This flexibility allows your API to remain resilient and responsive, minimizing downtime and providing a <a href="https://nordicapis.com/5-rest-apis-with-great-developer-experience/" rel="noreferrer" target="_blank">better experience</a> for your customers.</p>
+<p>To implement this strategy, prepare the alternative API integration in your codebase in advance. Use a feature flag to switch between the primary and backup integration. The flag can then control which vendor is active based on your rules. You can even configure integrations with <a href="https://www.cncf.io/blog/2024/01/05/top-10-observability-resources-by-cncf-community-in-2023/" rel="noreferrer" target="_blank">observability tools</a> to automatically switch between the API endpoints based on certain performance metrics. However, the mileage might vary based on your feature flag vendor.</p>
+<h2 id="feature-flags-for-fine-grained-rate-limiting">Feature Flags for Fine-Grained Rate Limiting</h2>
+<p>Rate limiting is a crucial aspect of API management. The integration point of the rate limiter into the application stack may vary. However, this section will discuss strategies for more sophisticated <a href="https://nordicapis.com/3-steps-to-rate-limiting-success/" rel="noreferrer" target="_blank">rate limiting</a> at the middleware or application layer using feature flags. We will see how feature flags allow more fine-grained control and account for different usage patterns, routes, or the varying resource demands of different endpoints.</p>
+<p>For example, an internal admin endpoint may handle fewer requests than a public-facing API, and certain public APIs may be more resource-intensive than others. Using feature flags to specify rate limit policies for different endpoints lets you fine-tune rate limits based on real-time data and business logic, ensuring optimal performance and user experience. Below are just a few examples of rate limit policies you can create with a feature flag:</p>
+<ul>
+<li><strong>Account-specific rate limits</strong>: Set different rate limits for different types of users, such as free-tier versus premium-tier accounts.</li>
+<li><strong>Time-based rate limits</strong>: Apply stricter rate limits during peak usage hours to prevent overload, and relax them during off-peak times</li>
+<li><strong>Contextual rate limits</strong>: Rate limit based on custom business rules, such as geography, specific IP ranges, or usage history.</li>
+</ul>
+<p>One of the biggest advantages of using feature flags for rate limiting is the ability to dynamically adjust the limit in real time without redeploying your application. This is especially important when responding immediately to threats like malicious users <a href="https://www.securityweek.com/cyber-insights-2024-apis-a-clear-present-and-future-danger/" rel="noreferrer" target="_blank">attacking your API endpoints</a>. Instead of writing new rate-limiting code and going through the deployment pipeline — risking delays and merge conflicts — you can quickly enforce a more restrictive rate limit on specific users or IP addresses via a feature flag’s targeting rules. This agility reduces response time and helps mitigate the impact of the attack faster.</p>
+<p>However, integrating rate limiting at the application layer can introduce tight coupling between business logic and rate-limiting policies, potentially complicating your architecture. It’s also crucial to consider whether rate limiting should be managed at the middleware or network layer to avoid confusion and maintain clarity.</p>
+<h2 id="using-feature-flags-to-manage-backward-compatible-changes">Using Feature Flags to Manage Backward-Compatible Changes</h2>
+<p>Though backward-compatible changes to APIs are non-disruptive, these changes can still contain <a href="https://nordicapis.com/5-ways-to-detect-breaking-changes-in-your-apis/" rel="noreferrer" target="_blank">risky behavioral changes</a> “under the hood,” unbeknownst to the clients. Examples include optimizing database queries, modifying network calls, or adjusting validation logic. These changes can introduce risks and require careful testing before a full rollout. Feature flags provide a solution for teams to validate the change in production before rolling it out to end users.</p>
+<p>With feature flags, you can define targeting rules to expose the new version to a specific set of internal users based on certain user attributes, all managed directly in the feature flag platform UI — no need to hardcode user IDs. This setup allows teams to test changes in a production environment and iteratively refine them, ensuring stability and reliability.</p>
+<p>Feature flags also offer a controlled way to <a href="https://devops.com/maintaining-progressive-delivery-quality-with-feature-flags/" rel="noreferrer" target="_blank">release such changes progressively</a> without the risk of a big-bang deployment. You can customize rollout strategies based on user segments, risk profiles, or account tiers. You can even configure a percentage rollout to incrementally expose more users to this change. All such logic can be configured in the feature flag tool directly without making code changes. This also enables non-technical stakeholders to manage releases without engineering involvement.</p>
+<h2 id="using-feature-flags-to-manage-backward-incompatible-changes">Using Feature Flags to Manage Backward Incompatible Changes</h2>
+<p>Backward-incompatible changes pose significant risks in API management, as any non-additive change to the API contract can <a href="https://nordicapis.com/what-are-breaking-changes-and-how-do-you-avoid-them/" rel="noreferrer" target="_blank">break downstream clients</a>. Feature flags, combined with versioning, offer a safer path for such changes.</p>
+<p>Instead of a hard switch, feature flags allow you to manage multiple versions dynamically. Clients ready for the new API can opt-in via headers, while others remain on the old version. Some feature flag tools even offer telemetry on the call volumes of each version and the clients on each, giving you more insight into your version migration strategy. However, you can also instrument such metrics on your own.</p>
+<p>Additionally, feature flags enable more granular experimentation within new versions. For example, you could release experimental features only to beta users on the latest version who activated recently. Without feature flags, managing this kind of logic would quickly become a maintenance nightmare as conditions grow more complex.</p>
+<h2 id="avoid-common-pitfalls-of-feature-flags">Avoid Common Pitfalls of Feature Flags</h2>
+<p>Feature flags are powerful tools but can quickly turn into anti-patterns if not used thoughtfully. Let’s explore some of the most common pitfalls and best practices to avoid them.</p>
+<ol>
+<li><strong>Accumulating technical debt and flag bloat</strong>: Decide whether your feature flags are permanent or temporary. If they are meant to only temporarily de-risk a release, remove them as soon as their purpose is served. Left in the codebase indefinitely, they become sources of technical debt. To avoid this, establish a clear lifecycle for each feature flag and include feature flag removal as a part of your “definition of done.”</li>
+<li><strong>Increased testing complexity</strong>: Every feature flag effectively increases your testing surface, requiring validation for various flag states. This complexity grows if you have more than one feature flag in a feature. To effectively test your feature, separate the flag logic from the feature implementation. This allows you to focus tests on the core functionality of each feature code path without checking for every possible flag combination. Additionally, consider whether all flag combinations pose the same risk or impact. Prioritize testing the combinations most likely to be used or those that could lead to critical failures.</li>
+<li><strong>Instrument custom roles and an approval process around flag changes</strong>: Feature flags improve productivity by decoupling release from deployment and empowering non-technical users to own feature releases. However, feature flag changes should still be treated with the same level of scrutiny as code changes. Implement robust change control processes, including approvals and role-based access controls, to ensure flags are handled safely and consistently.</li>
+</ol>
+<h2 id="using-feature-flags-to-manage-api-changes">Using Feature Flags to Manage API Changes</h2>
+<p>In summary, feature flags can be a powerful tool for managing API changes, allowing teams to roll out updates gradually, target specific users, and maintain flexibility in releasing API changes. As with any powerful tool, their value lies in how thoughtfully they are applied. By embracing best practices — like rigorous testing, clear governance, and timely cleanup — you can take advantage of the full potential of feature flags while keeping your API strategy clean, scalable, and maintainable.</p>
+</div>
+		<a target="_blank" href="https://nordicapis.com/enhancing-api-stability-with-feature-flags/">Go to article URL</a>
+		<div>Feed URL: https://nordicapis.com/feed/</div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
