@@ -25,7 +25,8 @@ exports.render = function(data) {
 		document.body.textContent = rssItem.title
 		return `<entry>
 			<id>${rssItem.id}</id>
-			<link href="${data.site.url}/${rssItem.getSlug.call(this)}.html"/>
+			<link href="${rssItem.tags.includes("external") ? rssItem.articleURL : `${data.site.url}/${rssItem.getSlug.call(this)}.html`}"/>
+			<link href="${rssItem.articleURL}"/>
 			<title>${ document.body.innerHTML }</title>
 			<updated>${new Date(rssItem.pubDate * 1000).toISOString()}</updated>
 		</entry>`
