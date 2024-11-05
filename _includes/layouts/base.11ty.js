@@ -51,6 +51,7 @@ exports.render = function(data) {
 		<nav>
 			<a href="/">Home</a>
 			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
 		</nav>
 		<main>${data.content}</main>
 		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>

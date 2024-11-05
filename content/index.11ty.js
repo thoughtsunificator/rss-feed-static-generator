@@ -19,15 +19,15 @@ exports.data = {
 }
 
 
-const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
-function getRelativeTime(timestamp) {
-  const rtf = new Intl.RelativeTimeFormat('en', {
-		numeric: "auto", // other values: "auto"
-		style: "narrow", // other values: "short" or "narrow"
-  });
-  const daysDifference = Math.round((timestamp - new Date().getTime()) / DAY_MILLISECONDS);
-  return rtf.format(daysDifference, 'day');
-}
+// const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
+// function getRelativeTime(timestamp) {
+//   const rtf = new Intl.RelativeTimeFormat('en', {
+// 		numeric: "auto", // other values: "auto"
+// 		style: "narrow", // other values: "short" or "narrow"
+//   });
+//   const daysDifference = Math.round((timestamp - new Date().getTime()) / DAY_MILLISECONDS);
+//   return rtf.format(daysDifference, 'day');
+// }
 
 exports.render = function(data) {
 	const virtualDOM = new JSDOM()
@@ -44,16 +44,17 @@ exports.render = function(data) {
 			const anchor = document.createElement("a")
 			anchor.textContent = rssItem.title
 			if(rssItem.tags.includes("external")) {
-				anchor.href = rssItem.url
+				anchor.href = rssItem.articleURL
 				anchor.target = "_blank"
 			} else {
 				anchor.href = `/${rssItem.getSlug.call(this)}.html`
 			}
 			h3.appendChild(anchor)
+			const feedURL = new URL(rssItem.feedurl)
 			return `
 			<div class="feed-entry">
-			<div><span>${getRelativeTime(new Date(rssItem.pubDate * 1000).getTime())}</span></div>
-				<small>${new URL(rssItem.feedurl)}</small>
+			<div><span>${new Date(rssItem.pubDate * 1000)}</span></div>
+				<small>${rssItem.url ? `<a href="/urls/${rssItem.url.getSlug.call(this)}">${rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}</small>
 				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 				${h3.outerHTML}
 			</div><hr>`
