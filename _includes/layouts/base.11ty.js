@@ -54,7 +54,7 @@ exports.render = function(data) {
 			<a href="/urls">URLs</a>
 		</nav>
 		<main>${data.content}</main>
-		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Soure code</a></footer>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
 		<script src="/highlight.min.js"></script>
 		<script>hljs.highlightAll();</script>
 	</body>
