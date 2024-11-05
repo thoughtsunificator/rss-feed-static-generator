@@ -36,7 +36,7 @@ exports.render = function(data) {
 	return `
 		<h3 style="flex-grow: 1;">${data.rssItem.title}</h3>
 		<b>${new Date(data.rssItem.pubDate * 1000)}</b>
-		<p>${document.body.innerHTML}</p>
+		<p style="border: 1px solid black; border-left: 0; border-right: 0; padding: 20px 0px;">${document.body.innerHTML}</p>
 		<a target="_blank" rel="noreferrer" href="${data.rssItem.articleURL}">Go to article URL</a>
 		<div>Feed URL: ${new URL(data.rssItem.feedurl)}</div>
 	`
