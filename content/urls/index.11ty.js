@@ -15,7 +15,7 @@ exports.render = function(data) {
 	const { document } = virtualDOM.window
 	return `
 		<h3>${data.url.title}</h3>
-		Last update: ${new Date(data.url.lastPubDate * 1000).toISOString()}
+		Last update: <span class="date">${new Date(data.url.lastPubDate * 1000).toISOString()}</span>
 		${data.url.items.map((rssItem, index) => {
 			const h3 = document.createElement("h3")
 			const anchor = document.createElement("a")

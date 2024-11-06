@@ -35,7 +35,7 @@ exports.render = function(data) {
 	}
 	return `
 		<h1 style="flex-grow: 1;">${data.rssItem.title}</h1>
-		<div><b>${new Date(data.rssItem.pubDate * 1000).toISOString()}</b></div>
+		<div class="date"><b>${new Date(data.rssItem.pubDate * 1000).toISOString()}</b></div>
 		<small>${data.rssItem.url ? `<a href="/urls/${data.rssItem.url.getSlug.call(this)}">${data.rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}</small>
 		<div>${data.rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 		<br>
