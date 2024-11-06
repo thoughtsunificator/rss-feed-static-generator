@@ -40,6 +40,6 @@ exports.render = function(data) {
 		<div>${data.rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 		<br>
 		<a target="_blank" rel="noreferrer" href="${data.rssItem.articleURL}">Go to article URL</a>
-		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>${document.body.innerHTML}</div>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>${document.body.innerHTML}<p></p></div>
 	`
 }
