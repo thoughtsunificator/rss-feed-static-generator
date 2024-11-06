@@ -34,10 +34,12 @@ exports.render = function(data) {
 		nodesToRemove.remove()
 	}
 	return `
-		<h3 style="flex-grow: 1;">${data.rssItem.title}</h3>
-		<b>${new Date(data.rssItem.pubDate * 1000).toISOString()}</b>
-		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;">${document.body.innerHTML}</div>
+		<h1 style="flex-grow: 1;">${data.rssItem.title}</h1>
+		<div><b>${new Date(data.rssItem.pubDate * 1000).toISOString()}</b></div>
+		<small>${data.rssItem.url ? `<a href="/urls/${data.rssItem.url.getSlug.call(this)}">${data.rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}</small>
+		<div>${data.rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
+		<br>
 		<a target="_blank" rel="noreferrer" href="${data.rssItem.articleURL}">Go to article URL</a>
-		<div>Feed URL: ${new URL(data.rssItem.feedurl)}</div>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>${document.body.innerHTML}</div>
 	`
 }
