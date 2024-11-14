@@ -48,7 +48,7 @@ exports.render = function(data) {
 		</style>
 	</head>
 	<body>
-		<nav>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
 			<a href="/">Home</a>
 			<a href="/tags">Tags</a>
 			<a href="/urls">URLs</a>
