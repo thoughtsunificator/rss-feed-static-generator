@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 202</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">Release Notes for Safari Technology Preview 202</h1>
+		<div class="date"><b>2024-08-28T21:25:53.000Z</b></div>
+		<small><a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a></small>
+		<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/15798/release-notes-for-safari-technology-preview-202/">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 202 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/5ac0af5288fc6c1d80417db6ef1eae6c3d6a8e2f...3d749a5509536c23c63c35a8ee5e4fbf77035a34" rel="noreferrer" target="_blank">281465@main…282389@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>text-transform: full-size-kana</code> to not affect AT/speech output. (<a href="https://commits.webkit.org/282258@main" rel="noreferrer" target="_blank">282258@main</a>)  (115504070)</li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>background-clip: border-area</code>. (<a href="https://commits.webkit.org/282202@main" rel="noreferrer" target="_blank">282202@main</a>)  (133788384)</li>
+<li>Added support for <code>line-fit-edge</code> and updated <code>text-box-edge</code>. (<a href="https://commits.webkit.org/282228@main" rel="noreferrer" target="_blank">282228@main</a>)  (133834296)</li>
+<li>Added support for the <code>text-box</code> shorthand. (<a href="https://commits.webkit.org/282282@main" rel="noreferrer" target="_blank">282282@main</a>)  (133942602)</li>
+<li>Added support for <code>ruby-align</code>. (<a href="https://commits.webkit.org/282106@main" rel="noreferrer" target="_blank">282106@main</a>)  (133656625)</li>
+<li>Added support for unprefixed <code>ruby-position</code>. (<a href="https://commits.webkit.org/281804@main" rel="noreferrer" target="_blank">281804@main</a>)  (86128259)</li>
+<li>Added support for <code>scrollbar-width</code>. (<a href="https://commits.webkit.org/282068@main" rel="noreferrer" target="_blank">282068@main</a>)  (133019206)</li>
+<li>Added support for view transition classes. (<a href="https://commits.webkit.org/282383@main" rel="noreferrer" target="_blank">282383@main</a>)  (134020027)  </li>
+<li>Added support for view transition types. (<a href="https://commits.webkit.org/282344@main" rel="noreferrer" target="_blank">282344@main</a>)  (133610087)</li>
+<li>Added support for the <code>shape()</code> function. (<a href="https://commits.webkit.org/281924@main" rel="noreferrer" target="_blank">281924@main</a>)  (133322584)</li>
+<li>Added support for <code>closest-corner</code> and <code>farthest-corner</code> in circle and ellipse shapes. (<a href="https://commits.webkit.org/281808@main" rel="noreferrer" target="_blank">281808@main</a>)  (132936677)</li>
+<li>Added support for the <code>color-layers()</code> function. (<a href="https://commits.webkit.org/282334@main" rel="noreferrer" target="_blank">282334@main</a>)  (134013898)</li>
+<li>Added support for <code>@property</code> <code>&lt;string&gt;</code> syntax.  (<a href="https://commits.webkit.org/281872@main" rel="noreferrer" target="_blank">281872@main</a>)  (133250776)</li>
+<li>Added support for <code>::target-text</code>. (<a href="https://commits.webkit.org/282356@main" rel="noreferrer" target="_blank">282356@main</a>)  (134010063)</li>
+<li>Added support for <code>@page</code> margin descriptors. (<a href="https://commits.webkit.org/282048@main" rel="noreferrer" target="_blank">282048@main</a>)  (118773100)</li>
+<li>Added support for <code>jis-b4</code> and <code>jis-b5</code> sizes for <code>@page</code>. (<a href="https://commits.webkit.org/281814@main" rel="noreferrer" target="_blank">281814@main</a>)  (133138325)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>-webkit-line-clamp: none</code> to be parsable. (<a href="https://commits.webkit.org/281826@main" rel="noreferrer" target="_blank">281826@main</a>)  (103158259)</li>
+<li>Fixed serialization of <code>place-content</code>, <code>place-items</code>, and <code>place-self</code> properties. (<a href="https://commits.webkit.org/281476@main" rel="noreferrer" target="_blank">281476@main</a>)  (125415088)</li>
+<li>Fixed masonry intrinsic sizing with fixed size and <code>auto</code>.  (<a href="https://commits.webkit.org/281677@main" rel="noreferrer" target="_blank">281677@main</a>)  (132849745)</li>
+</ul>
+<h3>Editing</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed dictation UI no longer showing up when beginning dictation after focusing an empty text field. (<a href="https://commits.webkit.org/281474@main" rel="noreferrer" target="_blank">281474@main</a>)  (131534054) (FB14277296)</li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Implemented Float16Array. (<a href="https://commits.webkit.org/281870@main" rel="noreferrer" target="_blank">281870@main</a>)  (109883982)</li>
+<li>Added support for <code>firstDayOfWeek</code> for <code>Intl.Locale</code> info API. (<a href="https://commits.webkit.org/281510@main" rel="noreferrer" target="_blank">281510@main</a>)  (132731533)</li>
+<li>Enabled Base64 and Hex features. (<a href="https://commits.webkit.org/281910@main" rel="noreferrer" target="_blank">281910@main</a>)  (133312461)</li>
+<li>Added support for type reflection for <code>WebAssembly.Module.imports</code> and <code>WebAssembly.Module.exports</code>. (<a href="https://commits.webkit.org/281974@main" rel="noreferrer" target="_blank">281974@main</a>)  (133429946)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>roundingMode</code> for seconds, microseconds, and nanoseconds in <code>Intl.DurationFormat</code>. (<a href="https://commits.webkit.org/281955@main" rel="noreferrer" target="_blank">281955@main</a>)  (130771643)</li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed fullscreen error handling to include error messages. (<a href="https://commits.webkit.org/281853@main" rel="noreferrer" target="_blank">281853@main</a>)  (103073510)</li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed margins used for grid items on relayout. (<a href="https://commits.webkit.org/282092@main" rel="noreferrer" target="_blank">282092@main</a>)  (113984882)</li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed correctly applying <code>clip-path</code> to the SVG element. (<a href="https://commits.webkit.org/281893@main" rel="noreferrer" target="_blank">281893@main</a>)  (80516912)</li>
+<li>Fixed <code>fill</code> to not be considered a presentation attribute on animation elements. (<a href="https://commits.webkit.org/282100@main" rel="noreferrer" target="_blank">282100@main</a>)  (128896937)</li>
+</ul>
+<h3>Web Animations</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>alignment-baseline</code> and <code>buffered-rendering</code> to support discrete animation. (<a href="https://commits.webkit.org/281602@main" rel="noreferrer" target="_blank">281602@main</a>)  (94613679)</li>
+<li>Fixed <code>hanging-punctuation</code> to support discrete animation. (<a href="https://commits.webkit.org/281616@main" rel="noreferrer" target="_blank">281616@main</a>)  (94614108)</li>
+<li>Fixed <code>scroll-snap-*</code> properties to support discrete animation. (<a href="https://commits.webkit.org/281572@main" rel="noreferrer" target="_blank">281572@main</a>)  (94614257)</li>
+<li>Fixed <code>column-span</code> to support discrete animation. (<a href="https://commits.webkit.org/281505@main" rel="noreferrer" target="_blank">281505@main</a>)  (96082973)</li>
+<li>Fixed <code>appearance</code> to support discrete animation. (<a href="https://commits.webkit.org/281568@main" rel="noreferrer" target="_blank">281568@main</a>)  (96082999)</li>
+<li>Fixed <code>hyphenate-character</code> to support discrete animation. (<a href="https://commits.webkit.org/281484@main" rel="noreferrer" target="_blank">281484@main</a>)  (132698836)</li>
+<li>Fixed <code>font-optical-sizing</code> to support discrete animation. (<a href="https://commits.webkit.org/281489@main" rel="noreferrer" target="_blank">281489@main</a>)  (132699150)</li>
+<li>Fixed <code>image-rendering</code> to support discrete animation. (<a href="https://commits.webkit.org/281506@main" rel="noreferrer" target="_blank">281506@main</a>)  (132707652)</li>
+<li>Fixed the <code>mask-border-*</code> properties to be animatable. (<a href="https://commits.webkit.org/281569@main" rel="noreferrer" target="_blank">281569@main</a>)  (132783274)</li>
+<li>Fixed <code>stroke-color</code> to be animatable. (<a href="https://commits.webkit.org/281570@main" rel="noreferrer" target="_blank">281570@main</a>)  (132784589)</li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <code>getPredictedEvents</code> API to <code>PointerEvent</code>. (<a href="https://commits.webkit.org/281756@main" rel="noreferrer" target="_blank">281756@main</a>)  (117767174)</li>
+<li>Added support for Scroll To Text Fragment Generation. (<a href="https://commits.webkit.org/282379@main" rel="noreferrer" target="_blank">282379@main</a>)  (131712706)</li>
+<li>Added support for <code>altitudeAngle</code> and <code>azimuthAngle</code> to <code>PointerEvent</code>. (<a href="https://commits.webkit.org/282017@main" rel="noreferrer" target="_blank">282017@main</a>)  (131974392)</li>
+<li>Added support for the <code>getCoalescedEvents</code> API to <code>PointerEvent</code>. (<a href="https://commits.webkit.org/281520@main" rel="noreferrer" target="_blank">281520@main</a>)  (132210576)</li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed support for the non-standard “overflow” event. (<a href="https://commits.webkit.org/281672@main" rel="noreferrer" target="_blank">281672@main</a>)  (71129110)</li>
+</ul>
+<h3>Web Assembly</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for JIT-less Wasm. (<a href="https://commits.webkit.org/281726@main" rel="noreferrer" target="_blank">281726@main</a>)  (113768974)</li>
+<li>Added support for garbage collection. (<a href="https://commits.webkit.org/281975@main" rel="noreferrer" target="_blank">281975@main</a>)  (126103011)</li>
+<li>Added support for Wasm Tail Calls. (<a href="https://commits.webkit.org/281716@main" rel="noreferrer" target="_blank">281716@main</a>)  (131410516)</li>
+</ul>
+<h3>WebDriver</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed WebDriver sometimes taking screenshots with a transparent grey line at the top and no rounded corners. (<a href="https://commits.webkit.org/281887@main" rel="noreferrer" target="_blank">281887@main</a>)  (116020785)</li>
+</ul>
+<p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

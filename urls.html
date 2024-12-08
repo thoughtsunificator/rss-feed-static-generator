@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<div class="url"><h3><a href="/urls/lwn-net-headlines-rss.html">lwn.net/headlines/rss</a></h3></div><div class="url"><h3><a href="/urls/blog-nightly-mozilla-org-feed.html">blog.nightly.mozilla.org/feed/</a></h3></div><div class="url"><h3><a href="/urls/developer-chrome-com-blog-feed-xml.html">developer.chrome.com/blog/feed.xml</a></h3></div><div class="url"><h3><a href="/urls/webkit-org-feed-rss.html">webkit.org/feed/rss/</a></h3></div><div class="url"><h3><a href="/urls/hacks-mozilla-org-feed.html">hacks.mozilla.org/feed/</a></h3></div><div class="url"><h3><a href="/urls/nodejs-org-en-feed-blog-xml.html">nodejs.org/en/feed/blog.xml</a></h3></div><div class="url"><h3><a href="/urls/blog-opensource-org-feed.html">blog.opensource.org/feed/</a></h3></div><div class="url"><h3><a href="/urls/feeds-feedburner-com-googleopensourceblog.html">feeds.feedburner.com/GoogleOpenSourceBlog</a></h3></div><div class="url"><h3><a href="/urls/www-ietf-org-blog-feed.html">www.ietf.org/blog/feed/</a></h3></div><div class="url"><h3><a href="/urls/web-dev-feed-xml.html">web.dev/feed.xml</a></h3></div><div class="url"><h3><a href="/urls/spidermonkey-dev-feed-xml.html">spidermonkey.dev/feed.xml</a></h3></div><div class="url"><h3><a href="/urls/ecmascript-daily-github-io-atom-xml.html">ecmascript-daily.github.io/atom.xml</a></h3></div><div class="url"><h3><a href="/urls/www-endpointdev-com-blog-feed-xml.html">www.endpointdev.com/blog/feed.xml</a></h3></div><div class="url"><h3><a href="/urls/v8-dev-blog-atom.html">v8.dev/blog.atom</a></h3></div><div class="url"><h3><a href="/urls/www-cyberciti-com-feed.html">www.cyberciti.com/feed/</a></h3></div><div class="url"><h3><a href="/urls/feeds-feedburner-com-whencaniuse.html">feeds.feedburner.com/WhenCanIUse</a></h3></div><div class="url"><h3><a href="/urls/www-internethalloffame-org-rss-xml.html">www.internethalloffame.org/rss.xml</a></h3></div><div class="url"><h3><a href="/urls/blog-domenic-me-atom-xml.html">blog.domenic.me/atom.xml</a></h3></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

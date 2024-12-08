@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>A new release of Raspberry Pi OS</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">A new release of Raspberry Pi OS</h1>
+		<div class="date"><b>2024-10-30T16:41:09.000Z</b></div>
+		<small><a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a></small>
+		<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/996332/">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><p>The Raspberry Pi project has <a href="https://www.raspberrypi.com/news/a-new-release-of-raspberry-pi-os/" rel="noreferrer" target="_blank">announced</a>
+a new version of Raspberry Pi OS. It includes a number of
+significant changes, the most notable of which is that the Raspberry
+Pi Desktop now uses Wayland by default for all Pi models using the
+<a href="https://labwc.github.io/" rel="noreferrer" target="_blank">labwc</a> compositor:</p>
+
+<blockquote class="bq">
+For most of this year, we have been working on porting labwc to the
+Raspberry Pi Desktop. This has very much been a collaborative process
+with the developers of both labwc and wlroots: both have helped us
+immensely with their support as we contribute features and
+optimisations needed for our desktop.
+</blockquote>
+
+<p>This release also features Linux 6.6.51, improved touchscreen support, a new
+screen configuration tool called <tt>raindrop</tt>, and more. See the
+<a href="https://downloads.raspberrypi.com/raspios_armhf/release_notes.txt" rel="noreferrer" target="_blank">release
+notes</a> for a full list of changes.</p><p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

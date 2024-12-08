@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SpiderMonkey Newsletter (Firefox 130-131)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">SpiderMonkey Newsletter (Firefox 130-131)</h1>
+		<div class="date"><b>2024-09-12T20:33:08.000Z</b></div>
+		<small><a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a></small>
+		<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2024/09/12/newsletter-firefox-130-131.html">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><p>Hello everyone!</p>
+
+<p>I’m Bryan Thrall, just passing two and a half years on the SpiderMonkey team, and taking a try at newsletter writing.</p>
+
+<p>This is our opportunity to highlight what’s happened in the world of SpiderMonkey over Firefox releases 130 and 131.</p>
+
+<p>I’d love to hear any feedback on the newsletter you have, positive or negative (you won’t hurt my feelings). Send it to <a href="mailto:bthrall@mozilla.com" rel="noreferrer" target="_blank">my email</a>!</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<p>Though Speedometer 3 has shipped, we cannot allow that to let us get lax with our performance. It’s important that SpiderMonkey be fast so Firefox can be fast!</p>
+
+<ul>
+  <li>Contributor Andre Bargull (@anba) added JIT support for Float16Array (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1835034" rel="noreferrer" target="_blank">bug 1835034</a>)</li>
+</ul>
+
+<h3 id="-wasm">⚡ Wasm</h3>
+
+<ul>
+  <li>Ryan (@rhunt) implemented speculative inlining (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910194" rel="noreferrer" target="_blank">bug 1910194</a>)*. This allows us to inline calls based on profiling data in wasm</li>
+  <li>Julian (@jseward) added support for direct call inlining in Ion (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1868521" rel="noreferrer" target="_blank">bug 1868521</a>)*</li>
+  <li>Ryan (@rhunt) landed initial support for lazy tiering (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905716" rel="noreferrer" target="_blank">bug 1905716</a>)*</li>
+  <li>Ryan (@rhunt) shipped exnref support (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908375" rel="noreferrer" target="_blank">bug 1908375</a>)</li>
+  <li>Yury (@yury) added JS Promise Integration support for x86-32 and ARM (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896218" rel="noreferrer" target="_blank">bug 1896218</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897153" rel="noreferrer" target="_blank">bug 1897153</a>)*</li>
+</ul>
+
+<p>* Disabled by default while they are tested and refined.</p>
+
+<h3 id="️-web-features-work">🕸️ Web Features Work</h3>
+
+<ul>
+  <li>Andre Bargull (@anba), has dramatically improved our JIT support for BigInt operations (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913947" rel="noreferrer" target="_blank">bug 1913947</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913949" rel="noreferrer" target="_blank">bug 1913949</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913950" rel="noreferrer" target="_blank">bug 1913950</a>)</li>
+  <li>Andre Bargull (@anba) also implemented the RegExp.escape proposal (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1911097" rel="noreferrer" target="_blank">bug 1911097</a>)</li>
+  <li>Contributor Kiril K (@kirill.kuts.dev) implemented the Regular Expression Pattern Modifiers proposal (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899813" rel="noreferrer" target="_blank">bug 1899813</a>)</li>
+  <li>Dan (@dminor) shipped synchronous Iterator Helpers (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896390" rel="noreferrer" target="_blank">bug 1896390</a>)</li>
+</ul>
+
+<h3 id="️-spidermonkey-platform-improvements">👷🏽‍♀️ SpiderMonkey Platform Improvements</h3>
+
+<ul>
+  <li>Matt (@mgaudet) introduced JS_LOG, which connects to MOZ_LOG when building SpiderMonkey with Gecko (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904429" rel="noreferrer" target="_blank">bug 1904429</a>). This will eventually allow collecting SpiderMonkey logs from the profiler and about:logging.</li>
+</ul><p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

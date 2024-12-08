@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The 6.12 kernel has been released</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">The 6.12 kernel has been released</h1>
+		<div class="date"><b>2024-11-17T22:33:02.000Z</b></div>
+		<small><a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a></small>
+		<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/997958/">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>Linus has <a href="https://lwn.net/Articles/998490/" rel="noreferrer" target="_blank">released the 6.12 kernel</a>.
+"<q>No strange surprises this last week, so we're sticking to the regular
+release schedule, and that obviously means that the merge window opens
+tomorrow.</q>".
+<p>
+
+Headline features in this release include:
+
+support for the <a href="https://developer.arm.com/documentation/102376/0200/Permission-indirection-and-permission-overlay-extensions" rel="noreferrer" target="_blank">Arm
+permission overlay</a> extension,
+better compile-time control over which Spectre mitigations to employ,
+the <a href="https://lwn.net/Articles/990985/" rel="noreferrer" target="_blank">last pieces of realtime preemption support</a>,
+the realtime <a href="https://lwn.net/Articles/934415/" rel="noreferrer" target="_blank">deadline server</a> mechanism,
+more <a href="https://lwn.net/Articles/969062/" rel="noreferrer" target="_blank">EEVDF scheduler</a> development,
+the <a href="https://lwn.net/Articles/974387/" rel="noreferrer" target="_blank">extensible scheduler class</a>,
+the <a href="https://lwn.net/Articles/979549/" rel="noreferrer" target="_blank">device memory TCP</a> work,
+<a href="https://lwn.net/Articles/979683/" rel="noreferrer" target="_blank">use of static calls</a> in the security-module
+subsystem,
+the <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a430d95c5efa" rel="noreferrer" target="_blank">integrity
+policy enforcement</a> security module,
+the ability to handle devices with a block size larger than the system page
+size in the XFS filesystem,
+and more.
+See the LWN merge-window summaries 
+(<a href="https://lwn.net/Articles/990750/" rel="noreferrer" target="_blank">part&nbsp;1</a>, <a href="https://lwn.net/Articles/991301/" rel="noreferrer" target="_blank">part&nbsp;2</a>) and the <a href="https://kernelnewbies.org/Linux_6.12" rel="noreferrer" target="_blank">KernelNewbies 6.12 page</a> for
+more details.</p><p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

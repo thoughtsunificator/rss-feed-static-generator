@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>[$] Two approaches to tightening restrictions on loadable modules</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">[$] Two approaches to tightening restrictions on loadable modules</h1>
+		<div class="date"><b>2024-11-15T18:37:29.000Z</b></div>
+		<small><a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a></small>
+		<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/998221/">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>The kernel's loadable-module facility allows code to be loaded into (and
+sometimes removed from) a running kernel.  Among other things, loadable
+modules make it possible to run a kernel with only the subsystems needed
+for the system's hardware and workload.  Loadable modules can also make it
+easy for out-of-tree code to access parts of the kernel that developers
+would prefer to keep private; this has led to <a href="https://lwn.net/Kernel/Index/#Modules-Exported_symbols" rel="noreferrer" target="_blank">many discussions</a> in the
+past.  The topic has returned to the kernel's mailing lists with two
+different patch sets aimed at further tightening the restrictions applied
+to loadable modules.
+<p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

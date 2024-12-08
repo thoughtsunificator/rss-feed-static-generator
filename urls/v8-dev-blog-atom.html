@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h3>v8.dev/blog.atom</h3>
+		Last update: <span class="date">2024-07-01T00:00:00.000Z</span>
+		<h3><a href="/1761-introducing-the-webassembly-javascript-promis.html">Introducing the WebAssembly JavaScript Promise Integration API</a></h3><h3><a href="/1760-webassembly-jspi-has-a-new-api.html">WebAssembly JSPI has a new API</a></h3><h3><a href="/1759-the-v8-sandbox.html">The V8 Sandbox</a></h3><h3><a href="/1758-webassembly-jspi-is-going-to-origin-trial.html">WebAssembly JSPI is going to origin trial</a></h3><h3><a href="/1757-static-roots-objects-with-compile-time-consta.html">Static Roots: Objects with Compile-Time Constant Addresses</a></h3><h3><a href="/1756-v8-is-faster-and-safer-than-ever.html">V8 is Faster and Safer than Ever!</a></h3><h3><a href="/1755-maglev-v8-s-fastest-optimizing-jit.html">Maglev - V8’s Fastest Optimizing JIT</a></h3><h3><a href="/1754-a-new-way-to-bring-garbage-collected-programm.html">A new way to bring garbage collected programming languages efficiently to WebAssembly</a></h3><h3><a href="/1753-control-flow-integrity-in-v8.html">Control-flow Integrity in V8</a></h3><h3><a href="/1752-speeding-up-v8-heap-snapshots.html">Speeding up V8 heap snapshots</a></h3>
+
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

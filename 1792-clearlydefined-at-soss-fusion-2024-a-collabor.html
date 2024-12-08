@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ClearlyDefined at SOSS Fusion 2024: a collaborative solution to Open Source license compliance</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">ClearlyDefined at SOSS Fusion 2024: a collaborative solution to Open Source license compliance</h1>
+		<div class="date"><b>2024-11-06T17:30:48.000Z</b></div>
+		<small><a href="/urls/blog-opensource-org-feed">blog.opensource.org/feed/</a></small>
+		<div> <a href="/tags/internet-npo.html">internet-npo</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://opensource.org/blog/clearlydefined-at-soss-fusion-2024-a-collaborative-solution-to-open-source-license-compliance">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>
+<p>This past month, the Open Source Security Foundation (OpenSSF) hosted SOSS Fusion in Atlanta, an event that brought together a diverse community of leaders and innovators from across the digital security spectrum. The conference, held on October 22-23, explored themes central to today’s technological landscape: AI security, diversity in technology, and public policy for Open Source software. Industry thought leaders like Bruce Schneier, Marten Mickos, and Cory Doctorow delivered keynotes, setting the tone for a conference that emphasized collaboration and community in creating a secure digital future.</p>
+
+
+
+<p>Amidst these pressing topics, the Open Source Initiative in collaboration with GitHub and SAP presented ClearlyDefined—an innovative project aimed at simplifying software license compliance and metadata management. Presented by Nick Vidal of the Open Source Initiative, along with E. Lynette Rayle from GitHub and Qing Tomlinson from SAP, the session highlighted how ClearlyDefined is transforming the way organizations handle licensing compliance for Open Source components.</p>
+
+
+
+<h2 class="wp-block-heading">What is ClearlyDefined?</h2>
+
+
+
+<p>ClearlyDefined is a project with a powerful vision: to create a global crowdsourced database of license metadata for every software component ever published. This ambitious mission seeks to help organizations of all sizes easily manage compliance by providing accurate, up-to-date metadata for Open Source components. By offering a single, reliable source for license information, ClearlyDefined enables organizations to work together rather than in isolation, collectively contributing to the metadata that keeps Open Source software compliant and accessible.</p>
+
+
+
+<h2 class="wp-block-heading">The problem: redundant and inconsistent license management</h2>
+
+
+
+<p>In today’s Open Source ecosystem, managing software licenses has become a significant challenge. Many organizations face the repetitive task of identifying, correcting, and maintaining accurate licensing data. When one component has missing or incorrect metadata, dozens—or even hundreds—of organizations using that component may duplicate efforts to resolve the same issue. ClearlyDefined aims to eliminate redundancy by enabling a collaborative approach.&nbsp;</p>
+
+
+
+<h2 class="wp-block-heading">The solution: crowdsourcing compliance with ClearlyDefined</h2>
+
+
+
+<p>ClearlyDefined provides an API and user-friendly interface that make it easy to access and contribute license metadata. By aggregating and standardizing licensing data, ClearlyDefined offers a powerful solution for organizations to enhance SBOMs (Software Bill of Materials) and license information without the need for extensive re-scanning and data correction. At the conference, Nick demonstrated how developers can quickly retrieve license data for popular libraries using a simple API call, making license compliance seamless and scalable.</p>
+
+
+
+<p>In addition, organizations that encounter incomplete or incorrect metadata can easily update it through ClearlyDefined’s platform, creating a feedback loop that benefits the entire Open Source community. This crowdsourcing approach means that once an organization fixes a licensing issue, that data becomes available to all, fostering efficiency and accuracy.</p>
+
+
+
+<h2 class="wp-block-heading">Key components of ClearlyDefined’s platform</h2>
+
+
+
+<p>1. <strong>API and User Interface</strong>: Users can access ClearlyDefined data through an API or the website, making it simple for developers to integrate license checks directly into their workflows.</p>
+
+
+
+<p>2. <strong>Human curation and community collaboration</strong>: To ensure high data quality, ClearlyDefined employs a curation workflow. When metadata requires updates, community members can submit corrections that go through a human review process, ensuring accuracy and reliability.</p>
+
+
+
+<p>3. <strong>Integration with popular package managers</strong>: ClearlyDefined supports various package managers, including npm and pypi, and has recently expanded to support Conda, a popular choice among data science and AI developers.</p>
+
+
+
+<h2 class="wp-block-heading">Real-world use cases: GitHub and SAP’s adoption of ClearlyDefined</h2>
+
+
+
+<p>During the presentation, representatives from GitHub and SAP shared how ClearlyDefined has impacted their organizations.&nbsp;</p>
+
+
+
+<p>– <strong>GitHub</strong>: ClearlyDefined’s licensing data powers GitHub’s compliance solutions, allowing GitHub to manage millions of licenses with ease. Lynette shared how they initially onboarded over 17 million licenses through ClearlyDefined, a number that has since grown to over 40 million. This database enables GitHub to provide accurate compliance information to users, significantly reducing the resources required to maintain licensing accuracy. Lynette showcased the harvesting process and the curation process. More details about how GitHub is using ClearlyDefined is available <a href="https://opensource.org/blog/clearlydefined-at-the-ort-community-days" rel="noreferrer" target="_blank">here</a>.</p>
+
+
+
+<p>– <strong>SAP</strong>: Qing discussed how ClearlyDefined’s approach has streamlined SAP’s Open Source compliance efforts. By using ClearlyDefined’s data, SAP reduced the time spent on license reviews and improved the quality of metadata available for compliance checks. SAP’s internal harvesting service integrates with ClearlyDefined, ensuring that critical license metadata is consistently available and accurate. SAP has contributed to the ClearlyDefined project and most notably, together with Microsoft, has optimized the database schema and reduced the database operational cost by more than 90%. More details about how SAP is using ClearlyDefined is available <a target="_blank" href="https://opensource.net/clearlydefined-at-sap/" rel="noreferrer">here</a>.</p>
+
+
+
+<h2 class="wp-block-heading">Why ClearlyDefined matters</h2>
+
+
+
+<p>ClearlyDefined is a community-driven initiative with a vision to address one of Open Source’s biggest challenges: ensuring accurate and accessible licensing metadata. By centralizing and standardizing this data, ClearlyDefined not only reduces redundant work but also fosters a collaborative approach to license compliance.&nbsp;</p>
+
+
+
+<p>The platform’s Open Source nature and integration with existing package managers and APIs make it accessible and scalable for organizations of all sizes. As more contributors join the effort, ClearlyDefined continues to grow, strengthening the Open Source community’s commitment to compliance, security, and transparency.</p>
+
+
+
+<h2 class="wp-block-heading">Join the ClearlyDefined community</h2>
+
+
+
+<p><a target="_blank" href="https://clearlydefined.io/" rel="noreferrer">ClearlyDefined</a> is always open to new contributors. With weekly developer <a target="_blank" href="https://docs.clearlydefined.io/docs/community/meetings" rel="noreferrer">meetings</a>, an <a href="https://opensource.org/blog/clearlydefineds-steering-and-outreach-committees-defined" rel="noreferrer" target="_blank">open governance</a> model, and continuous collaboration with OpenSSF and other Open Source organizations, ClearlyDefined provides numerous ways to get involved. For anyone interested in shaping the future of license compliance and data quality in Open Source, ClearlyDefined offers an exciting opportunity to make a tangible impact.</p>
+
+
+
+<p>At <a target="_blank" href="https://events.linuxfoundation.org/soss-fusion/" rel="noreferrer">SOSS Fusion</a>, ClearlyDefined’s presentation showcased how an open, collaborative approach to license compliance can benefit the entire digital ecosystem, embodying the very spirit of the conference: working together toward a secure, inclusive, and sustainable digital future.</p>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+
+</div></figure>
+
+
+
+<p>Download <a href="https://opensource.org/wp-content/uploads/2024/11/ClearlyDefined-SOSS-Fusion-2024.pdf" data-type="link" data-id="https://opensource.org/wp-content/uploads/2024/11/ClearlyDefined-SOSS-Fusion-2024.pdf" rel="noreferrer" target="_blank">slides</a> and see summarized presentation transcript below.</p>
+
+
+
+<h2 class="wp-block-heading">ClearlyDefined presentation transcript</h2>
+
+
+
+<p>Hello, folks, good morning! Let’s start by introducing ClearlyDefined, an exciting project. My name is Nick Vidal, and I work with the Open Source Initiative. With me today are Lynette Rayle from GitHub and Qing Tomlinson from SAP, and we’re all very excited to be here.</p>
+
+
+
+<p><strong>Introduction to ClearlyDefined’s mission</strong></p>
+
+
+
+<p>So, what’s the mission of ClearlyDefined? Our mission is ambitious—we aim to crowdsource a global database of license metadata for every software component ever published. This would benefit everyone in the Open Source ecosystem.&nbsp;</p>
+
+
+
+<p><strong>The problem ClearlyDefined addresses</strong></p>
+
+
+
+<p>There’s a critical problem in the Open Source space: compliance and managing SBOMs (Software Bill of Materials) at scale. Many organizations struggle with missing or incorrect licensing metadata for software components. When multiple organizations use a component with incomplete or wrong license metadata, they each have to solve it individually. ClearlyDefined offers a solution where, instead of every organization doing redundant work, we can collectively work on fixing these issues once and make the corrected data available to all.</p>
+
+
+
+<p><strong>ClearlyDefined’s solution</strong></p>
+
+
+
+<p>ClearlyDefined enables organizations to access license metadata through a simple API. This reduces the need for repeated license scanning and helps with SBOM generation at scale. When issues arise with a component’s license metadata, organizations can contribute fixes that benefit the entire community.</p>
+
+
+
+<p><strong>Getting started with ClearlyDefined</strong></p>
+
+
+
+<p>To use ClearlyDefined, you can access its API directly from your terminal. For example, let’s say you’re working with a JavaScript library like Lodash. By calling the API, you can get all license metadata for a specific version of Lodash at your fingertips.</p>
+
+
+
+<p>Once you incorporate this licensing metadata into your workflow, you may notice some metadata that needs updating. You can curate that data and contribute it back, so everyone benefits. ClearlyDefined also provides a user-friendly interface for this, making it easier to contribute.</p>
+
+
+
+<p><strong>Open Source and community contributions</strong></p>
+
+
+
+<p>ClearlyDefined is an Open Source initiative, hosted on GitHub, supporting various package managers (e.g., npm, pypi). We work to promote best practices and integrate with other tools. Recently, we’ve expanded our scope to support non-SPDX licenses and Conda, a package manager often used in data science projects.</p>
+
+
+
+<p><strong>Integration with other tools</strong></p>
+
+
+
+<p>ClearlyDefined integrates with GUAC, an OpenSSF project that consumes ClearlyDefined data. This integration broadens the reach and utility of ClearlyDefined’s licensing information.</p>
+
+
+
+<p><strong>Case studies and community impact</strong></p>
+
+
+
+<p>I’d like to hand it over to Lynette from GitHub, who will talk about how GitHub uses ClearlyDefined and why it’s critical for license compliance.</p>
+
+
+
+<p><strong>GitHub’s use of ClearlyDefined</strong></p>
+
+
+
+<p>Hello, I’m Lynette, a developer at GitHub working on license compliance solutions. ClearlyDefined has become a key part of our workflows. Knowing the licenses of our dependencies is crucial, as legal compliance requires correct attributions. By using ClearlyDefined, we’ve streamlined our process and now manage over 40 million licenses. We also run our own harvester to contribute back to ClearlyDefined and scale our operations.</p>
+
+
+
+<p><strong>SAP’s adoption of ClearlyDefined</strong></p>
+
+
+
+<p>Hi, my name is Qing. At SAP, we co-innovate and collaborate with Open Source, ensuring a clean, well-maintained software pool. ClearlyDefined has streamlined our license review process, reducing time spent on scanning and enhancing data quality. SAP’s journey with ClearlyDefined began in 2018, and since then, we’ve implemented large-scale automation for our Open Source compliance and continuously contribute curated data back to the community.</p>
+
+
+
+<p><strong>Community and governance</strong></p>
+
+
+
+<p>ClearlyDefined thrives on community involvement. We recently elected members to our Steering and Outreach Committees to support the platform and encourage new contributors. Our weekly developer meetings and active Discord channel provide opportunities to engage, share knowledge, and collaborate.</p>
+
+
+
+<p><strong>Q&amp;A highlights</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>PURLs as Package Identifiers: We’re exploring support for PURLs as an internal coordinate system.</li>
+
+
+
+<li>Data Quality Issues: Data quality is our top priority. We plan to implement routines to scan for common issues, ensuring accurate metadata across the platform.</li>
+</ul>
+
+
+
+<p>Thank you all for joining us today. If you’re interested in contributing, please reach out and become part of this collaborative community.</p>
+<p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

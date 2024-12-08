@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h3>webkit.org/feed/rss/</h3>
+		Last update: <span class="date">2024-12-04T23:00:59.000Z</span>
+		<h3><a href="/2001-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 209</a></h3><h3><a href="/1955-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 208</a></h3><h3><a href="/1945-make-creative-borders-with-background-clip-bo.html">Make creative borders with background-clip border-area</a></h3><h3><a href="/1894-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 207</a></h3><h3><a href="/1572-webkit-features-in-safari-18-1.html">WebKit Features in Safari 18.1</a></h3><h3><a href="/1571-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 206</a></h3><h3><a href="/1570-help-us-choose-the-final-syntax-for-masonry-i.html">Help us choose the final syntax for Masonry in CSS</a></h3><h3><a href="/1569-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 205</a></h3><h3><a href="/1568-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 204</a></h3><h3><a href="/1567-get-ready-for-interop-2025-your-chance-to-sha.html">Get Ready for Interop 2025: Your Chance to Shape the Web</a></h3><h3><a href="/1566-webkit-features-in-safari-18-0.html">WebKit Features in Safari 18.0</a></h3><h3><a href="/1565-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 203</a></h3><h3><a href="/1564-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 202</a></h3><h3><a href="/1563-release-notes-for-safari-technology-preview-2.html">Release Notes for Safari Technology Preview 201</a></h3>
+
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

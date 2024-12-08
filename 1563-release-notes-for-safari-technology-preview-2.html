@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Release Notes for Safari Technology Preview 201</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">Release Notes for Safari Technology Preview 201</h1>
+		<div class="date"><b>2024-08-14T21:52:28.000Z</b></div>
+		<small><a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a></small>
+		<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/15790/release-notes-for-safari-technology-preview-201/">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 201 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/86ace25affbf1e5d9a3dc2487610b454a735cdbd...b44aca25e295bfa16359d394b0d2ab87d3b3e938" rel="noreferrer" target="_blank">281144@main…281464@main</a>.</p>
+<h3>CSS</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed defaults for text underline position and text emphasis marks in CJK languages. (<a href="https://commits.webkit.org/281445@main" rel="noreferrer" target="_blank">281445@main</a>)  (132444497)  </li>
+<li>Fixed some CSS properties causing quotes to be reset. (<a href="https://commits.webkit.org/281444@main" rel="noreferrer" target="_blank">281444@main</a>)  (132585704)  </li>
+</ul>
+<h3>DOM</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added <code>auxclick</code> event support for Pointer Events. (<a href="https://commits.webkit.org/281169@main" rel="noreferrer" target="_blank">281169@main</a>)  (25988904)  </li>
+<li>Implemented new dialog initial focus algorithm to match specification changes. (<a href="https://commits.webkit.org/281215@main" rel="noreferrer" target="_blank">281215@main</a>)  (104667732)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed pointer events generated from platform mouse events to use the platform event’s timestamp. (<a href="https://commits.webkit.org/281161@main" rel="noreferrer" target="_blank">281161@main</a>)  (132051812)  </li>
+<li>Fixed popover tab navigation. (<a href="https://commits.webkit.org/281167@main" rel="noreferrer" target="_blank">281167@main</a>)  (132129060)  </li>
+<li>Fixed two <code>mousemove</code> events dispatched when the mouse enters a web view window instead of a single one. (<a href="https://commits.webkit.org/281225@main" rel="noreferrer" target="_blank">281225@main</a>)  (132251320)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>Uint8Array#setFromBase64</code> to decode and write chunks which occur prior to bad data. (<a href="https://commits.webkit.org/281174@main" rel="noreferrer" target="_blank">281174@main</a>)  (132198988)  </li>
+</ul>
+<h3>Media</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed picture-in-picture when hiding the <code>&lt;video&gt;</code> element while in Viewer. (<a href="https://commits.webkit.org/281266@main" rel="noreferrer" target="_blank">281266@main</a>)  (131786564)  </li>
+<li>Fixed the return button not working after the video is paused and played in picture-in-picture. (<a href="https://commits.webkit.org/281145@main" rel="noreferrer" target="_blank">281145@main</a>)  (131791367)  </li>
+</ul>
+<h3>PDF</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed “Open with Preview” context menu item to work with locked PDF documents. (<a href="https://commits.webkit.org/281413@main" rel="noreferrer" target="_blank">281413@main</a>)  (132033502)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>text-underline-position: left</code> and  <code>text-underline-position: right</code>. (<a href="https://commits.webkit.org/281446@main" rel="noreferrer" target="_blank">281446@main</a>)  (130621143)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed zooming in or out of an SVG with <code>transform-origin</code>. (<a href="https://commits.webkit.org/281265@main" rel="noreferrer" target="_blank">281265@main</a>)  (96318505)  </li>
+</ul>
+<h3>Web Animations</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for discrete animations on <code>text-underline-position</code>. (<a href="https://commits.webkit.org/281245@main" rel="noreferrer" target="_blank">281245@main</a>)  (94615165)  </li>
+<li>Added support for discrete animations on <code>text-box-edge</code>. (<a href="https://commits.webkit.org/281252@main" rel="noreferrer" target="_blank">281252@main</a>)  (132303461)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed web extensions unable to start due to an issue parsing declarativeNetRequest rules.  (130861213) (FB14145801)  </li>
+<li>Fixed web extensions not able to display images defined in <code>web_accessible_resources</code>. (<a href="https://commits.webkit.org/281157@main" rel="noreferrer" target="_blank">281157@main</a>)  (131750151) (FB14319689)  </li>
+</ul>
+<p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h3>hacks.mozilla.org/feed/</h3>
+		Last update: <span class="date">2024-12-04T19:38:01.000Z</span>
+		<h3><a href="/2000-introducing-uniffi-for-react-native-rust-powe.html">Introducing Uniffi for React Native: Rust-Powered Turbo Modules</a></h3><h3><a href="/80-llamafile-v0-8-14-a-new-ui-performance-gains-an.html">Llamafile v0.8.14: a new UI, performance gains, and more</a></h3><h3><a href="/79-0din-a-genai-bug-bounty-program-securing-tomorr.html">0Din: A GenAI Bug Bounty Program – Securing Tomorrow’s AI Together</a></h3><h3><a href="/78-announcing-official-puppeteer-support-for-firef.html">Announcing Official Puppeteer Support for Firefox</a></h3><h3><a href="/77-snapshots-for-ipc-fuzzing.html">Snapshots for IPC Fuzzing</a></h3><h3><a href="/76-sponsoring-sqlite-vec-to-enable-more-powerful-l.html">Sponsoring sqlite-vec to enable more powerful Local AI applications</a></h3><h3><a href="/75-experimenting-with-local-alt-text-generation-in.html">Experimenting with local alt text generation in Firefox Nightly</a></h3><h3><a href="/74-llamafile-s-progress-four-months-in.html">Llamafile’s progress, four months in</a></h3><h3><a href="/73-porting-a-cross-platform-gui-application-to-rus.html">Porting a cross-platform GUI application to Rust</a></h3><h3><a href="/72-prototype-even-faster-with-the-gradio-ui-for-fi.html">Prototype even faster with the Gradio UI for Figma component library</a></h3><h3><a href="/71-improving-performance-in-firefox-and-across-the.html">Improving Performance in Firefox and Across the Web with Speedometer 3</a></h3><h3><a href="/70-announcing-interop-2024.html">Announcing Interop 2024</a></h3><h3><a href="/69-option-soup-the-subtle-pitfalls-of-combining-co.html">Option Soup: the subtle pitfalls of combining compiler flags</a></h3><h3><a href="/68-puppeteer-support-for-the-cross-browser-webdriv.html">Puppeteer Support for the Cross-Browser WebDriver BiDi Standard</a></h3><h3><a href="/67-firefox-developer-edition-and-beta-try-out-mozi.html">Firefox Developer Edition and Beta: Try out Mozilla’s .deb package!</a></h3><h3><a href="/66-introducing-llamafile.html">Introducing llamafile</a></h3><h3><a href="/65-mozilla-ai-guide-launch-with-summarization-code.html">Mozilla AI Guide Launch with Summarization Code Example</a></h3><h3><a href="/64-down-and-to-the-right-firefox-got-faster-for-re.html">Down and to the Right: Firefox Got Faster for Real Users in 2023</a></h3><h3><a href="/63-built-for-privacy-partnering-to-deploy-obliviou.html">Built for Privacy: Partnering to Deploy Oblivious HTTP and Prio in Firefox</a></h3><h3><a href="/62-faster-vue-js-execution-in-firefox.html">Faster Vue.js Execution in Firefox</a></h3><h3><a href="/61-autogenerating-rust-js-bindings-with-uniffi.html">Autogenerating Rust-JS bindings with UniFFI</a></h3>
+
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
