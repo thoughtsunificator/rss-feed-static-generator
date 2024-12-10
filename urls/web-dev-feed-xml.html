@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h3>web.dev/feed.xml</h3>
+		Last update: <span class="date">2024-12-06T08:00:00.000Z</span>
+		<h3><a href="/2022-what-do-the-state-of-css-and-html-surveys-tel.html">What do the State of CSS and HTML surveys tell us?</a></h3><h3><a href="/1997-new-to-the-web-platform-in-november.html">New to the web platform in November</a></h3><h3><a href="/1927-watch-the-web-ai-summit-2024-videos.html">Watch the Web AI Summit 2024 videos</a></h3><h3><a href="/1771-new-to-the-web-platform-in-october.html">New to the web platform in October</a></h3><h3><a href="/1770-show-baseline-status-on-your-blog-posts-and-p.html">Show Baseline status on your blog posts and presentations</a></h3><h3><a href="/1769-css-nesting-improves-with-cssnesteddeclaratio.html">CSS nesting improves with CSSNestedDeclarations</a></h3><h3><a href="/1768-benchmarking-the-performance-of-css-property.html">Benchmarking the performance of CSS @property</a></h3><h3><a href="/1767-new-to-the-web-platform-in-september.html">New to the web platform in September</a></h3><h3><a href="/1766-submit-your-proposals-for-interop-2025.html">Submit your proposals for Interop 2025</a></h3><h3><a href="/1765-build-responsible-web-experiences-with-genera.html">Build responsible web experiences with generative AI</a></h3><h3><a href="/1764-chrome-ends-support-for-first-input-delay.html">Chrome ends support for First Input Delay</a></h3><h3><a href="/1763-passkeys-hackathon-in-tokyo-passkeys-on-iot-d.html">Passkeys hackathon in Tokyo: Passkeys on IoT devices and more</a></h3><h3><a href="/1762-tell-us-how-you-use-css-with-the-state-of-css.html">Tell us how you use CSS with the State of CSS survey</a></h3>
+
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

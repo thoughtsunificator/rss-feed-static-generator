@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SpiderMonkey Newsletter (Firefox 126-127)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">SpiderMonkey Newsletter (Firefox 126-127)</h1>
+		<div class="date"><b>2024-05-15T17:00:00.000Z</b></div>
+		<small><a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a></small>
+		<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2024/05/15/newsletter-firefox-126-127.html">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><p>Hello and welcome to our newest newsletter. As the northern hemisphere warms and the southern hemisphere cools, we write to talk about what’s happened in the world of SpiderMonkey in the Firefox 126-127 timeline.</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<p>Though Speedometer 3 has shipped, we cannot allow ourselves get lax with our performance. It’s important that SpiderMonkey be fast so Firefox can be fast!</p>
+
+<ul>
+  <li>Arai added <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862273" rel="noreferrer" target="_blank">special bytecode for checking <code class="language-plaintext highlighter-rouge">typeof val == "type"</code></a></li>
+  <li>Justin analyzed our caches for atoms, which turn out to be a reasonably hot path, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1879143" rel="noreferrer" target="_blank">and discovered that he could improve them</a>. Our <a href="https://treeherder.mozilla.org/perfherder/alerts?id=41941" rel="noreferrer" target="_blank">perf-alerts noticed some interesting speedups up to 8% on some tests</a>!</li>
+  <li>Jan has been playing with <a href="https://en.wikipedia.org/wiki/Trampoline_(computing)" rel="noreferrer" target="_blank">trampolines</a>. Changing <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884360" rel="noreferrer" target="_blank">how we handle the comparator function to Array.prototype.sort</a> improved performance, particularly at lower tiers, up to 4x!</li>
+  <li>Alex <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881995" rel="noreferrer" target="_blank">added a new string type</a> which holds a pointer to a corresponding atom, allowing cheap atom lookup.</li>
+  <li>André has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889091" rel="noreferrer" target="_blank">worked on</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890513" rel="noreferrer" target="_blank">improving calls</a> to native functions with variadic parameters.</li>
+</ul>
+
+<h3 id="-contributor-spotlight">🔦 Contributor Spotlight</h3>
+
+<p>This newsletter, we’d like to Spotlight Jonatan Klemets. In his own words,</p>
+
+<blockquote>
+  <p>A full-stack web developer by day and a low-level enthusiast by night who likes tinkering with compilers, emulators, and other low-level projects</p>
+</blockquote>
+
+<p>Jonatan has been helping us for a few years now and has been the main force of late driving forwards our work on the <a href="https://github.com/tc39/proposal-import-attributes" rel="noreferrer" target="_blank">Import Attributes proposal</a>. Pushing this proposal forward has required jumping into many different parts of Firefox, and Jonatan has done really well, and we are very thankful for the effort he has put into working on the project.</p>
+
+<h3 id="-wasm">⚡ Wasm</h3>
+
+<ul>
+  <li>Yury has been working on the <a href="https://github.com/WebAssembly/js-promise-integration/blob/main/proposals/js-promise-integration/Overview.md" rel="noreferrer" target="_blank">JavaScript-Promise Integration Proposal</a>, which when it’s all finished, will allow easier interop between Wasm and JS Promises.</li>
+  <li>Ben has done some work on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863609" rel="noreferrer" target="_blank">optimizing out superfluous casts</a></li>
+  <li>Julien has shipped the<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1837683" rel="noreferrer" target="_blank"> Wasm branch hinting proposal</a>.</li>
+</ul>
+
+<h3 id="️-web-features-work">🕸️ Web Features Work</h3>
+
+<ul>
+  <li>Dan <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1805038" rel="noreferrer" target="_blank">has shipped</a> the <a href="https://github.com/tc39/proposal-set-methods" rel="noreferrer" target="_blank">new Set methods proposal</a></li>
+</ul>
+
+<h3 id="️--other-work">👷🏽‍♀️  Other Work</h3>
+
+<ul>
+  <li><a href="https://www.mozilla.org/en-US/security/advisories/mfsa2024-15/" rel="noreferrer" target="_blank">We were Pwned</a> by Manfred Paul at Pwn2Own 2024, but <a href="https://blog.mozilla.org/security/2024/04/04/rapidly-leveling-up-firefox-security/" rel="noreferrer" target="_blank">fixed builds shipped in 21 hours</a>, <a href="https://twitter.com/thezdi/status/1771296997787443370" rel="noreferrer" target="_blank">first of the vendors at the competition</a>.</li>
+</ul><p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

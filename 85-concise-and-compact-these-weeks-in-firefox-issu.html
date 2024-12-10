@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Concise and compact – These Weeks in Firefox: Issue 165</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">Concise and compact – These Weeks in Firefox: Issue 165</h1>
+		<div class="date"><b>2024-07-30T18:07:48.000Z</b></div>
+		<small><a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a></small>
+		<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/07/30/concise-and-compact-these-weeks-in-firefox-issue-165/">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><div>
+<h3 dir="ltr">Highlights</h3>
+<ul>
+<li role="presentation">Thanks to <a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D283262&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw2y1B9mlociEZ2ZmPRUiBvu">Alexandre Poirot</a> for the latest DevTools Toolbox JS tracer improvements. The tracer will likely evolve in the next few weeks, so stay tuned for more updates. You can check out <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908613" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1908613&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw1rlnD9F17soe3E-a56bGal">this meta bug</a> as well to see what’s planned.
+<ul>
+<li role="presentation">The tracer toggle icon was moved from the Debugger to the Toolbox for easier access (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873060" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1873060&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw2rivWMgM7icLUntZDW77n6">#1873060</a>)</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<ul>
+<li role="presentation">A new side panel was added in the Debugger to display JS Tracer data (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1885054" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1885054&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw11M69ZnRa5acowciYmI-gk">#1885054</a>). It is also <a href="https://firefox-source-docs.mozilla.org/devtools-user/javascript_tracer/index.html#logging-output" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://firefox-source-docs.mozilla.org/devtools-user/javascript_tracer/index.html%23logging-output&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3LQ-8tQxBMUMA7HxYuiPmF">documented on Firefox Source Docs</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908704" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1908704&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw2DpejZyO55RVEjPtIr0d4F">#1908704</a>)</li>
+</ul>
+<p></p>
+<ul>
+<li role="presentation">The Search and Navigation team recently landed some Address Bar bug fixes
+<ul>
+<li role="presentation">Marco improved handling of <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1903266" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1903266&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3oWJO_0hLfqDy3p1Co3LMX">copying</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904829" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1904829&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3IHWsSMheeSsn0LwPY0RBU">editing</a> the scheme parts of URLs</li>
+<li role="presentation">Yazan fixed an issue where omnibox keywords (add-on customized behaviour in the Address Bar) could be triggered <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1815819" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1815819&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3HPlJakfgamk82l333dikv">when in search mode</a></li>
+</ul>
+</li>
+</ul>
+<h3 dir="ltr">Friends of the Firefox team</h3>
+<h3 dir="ltr"><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1904802%2C1868788%2C1905081%2C1904108%2C1904110%2C1904113%2C1551580%2C1905864%2C1906037" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/buglist.cgi?title%3DResolved%2520bugs%2520(excluding%2520employees)%26quicksearch%3D1904802%252C1868788%252C1905081%252C1904108%252C1904110%252C1904113%252C1551580%252C1905864%252C1906037&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3NobU0UANAyntPQ62H3YU4">Resolved bugs (excluding employees)</a></h3>
+<p dir="ltr"><a href="https://github.com/niklasbaumgardner/NewContributorScraper" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://github.com/niklasbaumgardner/NewContributorScraper&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw2w9rc_PtBIUArI9Bdoz1LA">Script to find new contributors from bug list</a></p>
+<h4 dir="ltr">Volunteers that fixed more than one bug</h4>
+<ul>
+<li dir="ltr">
+<p dir="ltr" role="presentation">Sebastian Zartner [:sebo]</p>
+</li>
+</ul>
+<h4 dir="ltr">New contributors (🌟 =&nbsp; first patch)</h4>
+<ul>
+<li dir="ltr" role="presentation">Gaël <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905081" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905081&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw1CpB-pNvSA3HKhAgkxfgGu">removed a useless assignment to the variable ‘xz_rv’</a> in archivereader.cpp</li>
+<li dir="ltr" role="presentation">🌟&nbsp;Isaac Lee <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904113" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1904113&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3g6u3YlTgOwW8fZdMhrGZe">added space tokens to moz-message-bar.css</a></li>
+<li dir="ltr" role="presentation">🌟&nbsp;Louis Mascari <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904110" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1904110&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw2_GnZkoluaGLr2Ad8dnSM-">added space tokens to moz-page-nav-button.css</a></li>
+<li dir="ltr" role="presentation">🌟&nbsp;Tim Williams <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904108" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1904108&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw3lTmH72swlGTEZ6ObcdPv7">added space tokens to moz-toggle.css</a></li>
+</ul>
+<h3 dir="ltr">Project Updates</h3>
+<h4 dir="ltr">Add-ons / Web Extensions</h4>
+<h5 dir="ltr">Addon Manager &amp; about:addons</h5>
+<ul>
+<li dir="ltr">
+<p dir="ltr" role="presentation">Host permissions subsumed by optional host permissions and granted by the user on permissions.request() calls are now going to still be listed for the entire browsing session after the users have revoked them from the Desktop and Android add-ons manager UI – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899674" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1899674&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw2u3JhKO_yqMauw85RcxUtQ">Bug 1899674</a></p>
+</li>
+</ul>
+<h5 dir="ltr">WebExtensions Framework</h5>
+<ul>
+<li dir="ltr" role="presentation">MV3 host permissions:
+<ul>
+<li dir="ltr" role="presentation">The <a href="https://support.mozilla.org/kb/extensions-button" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://support.mozilla.org/kb/extensions-button&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw1q8-ALARA65o4BF3_Y6LHb">notification dot</a> (shown on the extensions button and/or on the extension browser action toolbar button) is not going to be shown anymore when the current tab url is matching only MV3 optional host permissions – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905931" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905931&amp;source=gmail&amp;ust=1722447524512000&amp;usg=AOvVaw1uMOLI-ePm3BsARBAHDB2v">Bug 1905931</a></li>
+<li dir="ltr" role="presentation">Fixed potential race between notification dot internals and extensions startup – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905392" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905392&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw3EUeZCwsUOwCBnVsw8kvcH">Bug 1905392</a></li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Fixed a browser desktop UI accessibility issue hit by users when an extension sidebar panel is opened (regressed in Firefox 127, fixed in Firefox &gt;= 128) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905771" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905771&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1Nt3VNfv-4WBR1ODoLLxEU">Bug 1905771</a></li>
+<li dir="ltr" role="presentation">Fixed race condition that could potentially lead to issues with event page respawning behaviours – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905153" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905153&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1kOKWZovb_a6FHTKbDVRv5">Bug 1905153</a></li>
+</ul>
+<h5 dir="ltr">WebExtension APIs</h5>
+<ul>
+<li dir="ltr" role="presentation">Align browser.runtime.getURL() result when called with a non-extension absolute urls as agreed with other vendors in the WebExtensions W3C Community Group – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1795082" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1795082&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0hTEWNUjDuQhJX7f3HkRsi">Bug 1795082</a></li>
+<li dir="ltr" role="presentation">Improved error messages logged on invalid application paths found in native messaging manifests – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908201" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1908201&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2ePsxD99UHaWhCKi-8w0yZ">Bug 1908201</a></li>
+</ul>
+<h4 dir="ltr">DevTools</h4>
+<h5 dir="ltr">DevTools Toolbox</h5>
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=34283" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D34283&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0Og6nDAXbYThY9j7V06IPO">Masayuki Nakano</a> fixed usage of setPointerCapture in a few places where we were passing an undefined pointerId (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907489" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907489&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2uC53OzBn6qYzBDbDpVj3t">#1907489</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907490" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907490&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0e3Fd6OKiYZXjCl8ERp9-9">#1907490</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907494" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907494&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1WzN_gjq_8CWLKzGxa8DBf">#1907494</a>)</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=500786" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D500786&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2_51tBxIilrd2ewRrtgsCx">Boris Chiou</a> fixed an issue that allowed us to re-enable showing @starting-style rules in the Inspector (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905035" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905035&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1gD9ycEapZ0kkH5U5UVbSI">#1905035</a>)</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D557153&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1SsiYMLNA6aYDgLcNHqhf7">Nicolas Chevobbe</a> made it simpler to add attributes in the markup view (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1173057" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1173057&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1_bOd1uisoTSYur4d2bail">#1173057</a>)</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D557153&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1SsiYMLNA6aYDgLcNHqhf7">Nicolas Chevobbe</a> prevented RDM UA/dpr/Touch simulation to be reset when resizing the viewport (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894949" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1894949&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0dVnIV-l8ruidwVDA2ZBDJ">#1894949</a>)</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=656417" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D656417&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1tSlMQOu7o30uNLXUKwj3x">Hubert Boma Manilla</a> is tackling the last bugs migrating the Debugger to CodeMirror 6 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893355" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1893355&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw3Laq79hXyx3f1cycxSM9bO">#1893355</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907259" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907259&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2OSKl9OmP7qRJOM1kx_i-e">#1907259</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1903700" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1903700&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0EumWXfeiXK5invRoFmB2t">#1903700</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907260" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907260&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw29tgXraZEzdplJAsSnOamJ">#1907260</a>)</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D557153&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1SsiYMLNA6aYDgLcNHqhf7">Nicolas Chevobbe</a> fixed the Debugger preview tooltip for bracket property access on this (e.g.&nbsp; this[x].y ) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1906587" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1906587&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0MK9L-wwYwwkMW7mhd9VvB">#1906587</a>)</li>
+</ul>
+<h5 dir="ltr">WebDriver BiDi</h5>
+<ul>
+<li dir="ltr" role="presentation">External:
+<ul>
+<li dir="ltr" role="presentation">Andrew Nicols fixed a bug where the SendElementKeys command in WebDriver classic (http) would unnecessarily scroll elements into view, even if they were already visible in the viewport. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1906095" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1906095&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2v3QAemiJek6DSte3lxZrT">#1906095</a>)</li>
+<li dir="ltr" role="presentation">Balarama Raju reviewed and updated all the error messages for WebDriver classic and BiDi to make sure they all used pretty printing when necessary, and that they all looked consistent. Those messages are displayed to clients when they use commands with invalid or unexpected arguments, so it’s important to make sure the error messages are clear and understandable. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1788437" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1788437&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2-ZVWatqXn5r0_Syo8WEhI">#1788437</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Updates:
+<ul>
+<li dir="ltr" role="presentation">Sasha removed a restriction for our initial implementation for the network.setCacheBehavior command, to allow clients to set the cache behavior both globally and for specific contexts. Previously, we only allowed clients to use one or the other. Now you can for instance disable the network cache for all contexts as a default setting, but still enable the cache in some of them. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905307" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905307&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw3yu5XoMgemlojJ8oN4rRHR">#1905307</a>)</li>
+<li dir="ltr" role="presentation">Sasha fixed a bug with the user prompt events on Android. When several user prompts were displayed simultaneously, we were always picking the first one to emit new events. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1902264" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1902264&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1I8kHsPk-T-NXPRz7-TxB_">#1902264</a>)</li>
+<li dir="ltr" role="presentation">Julian updated the vendored puppeteer version to 22.13.0, which is the first puppeteer release for which Firefox with WebDriver BiDi is passing 100% of the prioritized puppeteer unit tests.(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907533" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907533&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1vO2L3jBIbnk5DxQ13ZSKg">#1907533</a>)</li>
+<li dir="ltr" role="presentation">Henrik fixed a bug with the unsupportedPromptBehavior capability, which could only be used on WebDriver classic sessions (or classic + BiDi). It can now be used on BiDi-only sessions, such as the one used by puppeteer. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907935" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907935&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw0eOkgKLEv2C7avGuH0UXDg">#1907935</a>)</li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">Lint, Docs and Workflow</h4>
+<ul>
+<li dir="ltr" role="presentation">Transition to ESLint flat config
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907841" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907841&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2Oh5zTf3MTShlc_TRlZS-S">.eslintignore has now been replaced by .eslintrc-ignores.js</a> and changed to a common JS module. This makes it easier to work with flat config, since it’ll be an ES module there.</li>
+<li dir="ltr" role="presentation">Prepared <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907846" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907846&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1g0PoFWNaJjRPhgJszRatP">eslint-plugin-spidermonkey-js for flat config</a>.</li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">Picture-in-Picture</h4>
+<ul>
+<li dir="ltr">
+<p dir="ltr" role="presentation">Thanks to niklas for resolving uncaught exception: unknown (can’t convert to string) errors whenever we close the PiP window for sites using custom PiP wrappers (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1816756" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1816756&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw08KdVwwRiXOna-NIMSo3x3">Bug 1816756</a>)</p>
+</li>
+</ul>
+<h4 dir="ltr">Search and Navigation</h4>
+<ul>
+<li role="presentation">Search
+<ul>
+<li role="presentation">Cleanup of the previous search configuration after having switched to v2 is now under way.</li>
+<li role="presentation">Moritz has removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1906875" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1906875&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw3r97Y1NA0y-KVYByce7sXY">most of the old code</a>, including various add-on related support files for tests that are no longer required.</li>
+<li role="presentation">Standard8 has simplified most of the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907588" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907588&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw2WIuCjM8tYWttPzpbPX0AV">search service related tests</a> – we no longer need to start the add-on manager by default, and when we do, our test utils will do it for you.</li>
+</ul>
+</li>
+<li role="presentation">Places
+<ul>
+<li role="presentation">Marco improved <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907278" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1907278&amp;source=gmail&amp;ust=1722447524513000&amp;usg=AOvVaw1FIOnaists1uWDK4PA5phi">shutdown handling in PlacesFrecencyRecalculator</a>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

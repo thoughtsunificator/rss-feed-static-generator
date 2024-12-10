@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Introducing Jpegli: A New JPEG Coding Library</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h1 style="flex-grow: 1;">Introducing Jpegli: A New JPEG Coding Library</h1>
+		<div class="date"><b>2024-04-03T09:00:00.000Z</b></div>
+		<small><a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a></small>
+		<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		<br>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/04/introducing-jpegli-new-jpeg-coding-library.html">Go to article URL</a>
+		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiDa_aWprUuwxdb9QLGHWUyUy_kkJfNhH4uj-04R3BCpOBk4TcmDCRQLYyWFXu3VqVV9m41R63WlpeGTPzuu1rI6D6LmdTcSLY5mgpwXud-8S2G9b8_CFJvBCux3YZ0QJa7MwCZXIEyb1naPhbN8Mpx2xwMyKZuBK9pQYCizBO_Xf6FzYekhd34EvjWsjk/s1600/OS-New-Library-for-Network-Optimization-social%20%281%29%20%281%29.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhZqXT6XrEcBt5ZTrHKnKyi84ImsBnCFUWvVLRB5vE7t0hQlFcaBY2anBeyK34ABg6UyHkpYi-AZA3832Z4QBbSKbHQXV7cukNauqbdNwrceSO3tzDLIcrl6jiNwjdQbQT1NmPaPxmZsIK7tJO3Mzer4ZHFx72pchdvw_eHNeQUG25IY16uKhFXcuKhAk/s1600/OSS-Logo-Banner%20%281%29.png" rel="noreferrer" target="_blank"></a>
+
+<p>The internet has changed the way we live, work, and communicate. However, it can turn into a source of frustration when pages load slowly. At the heart of this issue lies the encoding of images. To improve on this, we are introducing <a href="https://github.com/libjxl/libjxl/tree/main/lib/jpegli" target="_blank" rel="noreferrer">Jpegli</a>, an advanced JPEG coding library that maintains high backward compatibility while offering enhanced capabilities and a 35% compression ratio improvement at high quality compression settings.</p>
+  
+<p><b>Jpegli is a new JPEG coding library</b> that is designed to be faster, more efficient, and more visually pleasing than traditional JPEG. It uses a number of new techniques to achieve these goals, including:</p>
+
+<ul>
+<li>It provides both a fully interoperable <b>encoder and decoder</b> complying with the original JPEG standard and its most conventional 8-bit formalism, and API/ABI compatibility with libjpeg-turbo and MozJPEG.</li></ul><ul>
+
+<li><b>High quality results</b>. When images are compressed or decompressed through Jpegli, more precise and psychovisually effective computations are performed and images will look clearer and have fewer observable artifacts.</li></ul><ul>
+  
+<li><b>Fast</b>. While improving on image quality/compression density ratio, Jpegli's coding speed is comparable to traditional approaches, such as libjpeg-turbo and MozJPEG. This means that web developers can effortlessly integrate Jpegli into their existing workflows without sacrificing coding speed performance or memory use.</li></ul><ul>
+ 
+<li><b>10+ bits</b>. Jpegli can be encoded with 10+ bits per component. Traditional JPEG coding solutions offer only 8 bit per component dynamics causing visible banding artifacts in slow gradients. Jpegli's 10+ bits coding happens in the original 8-bit formalism and the resulting images are fully interoperable with 8-bit viewers. 10+ bit dynamics are available as an API extension and application code changes are needed to benefit from it.</li></ul><ul>
+  
+<li><b>More dense:</b> Jpegli compresses images more efficiently than traditional JPEG codecs, which can save bandwidth and storage space, and <b>speed up web pages</b>.</li>
+  
+</ul><br>
+
+<h2><b>How Jpegli works</b></h2>
+  
+<p>Jpegli works by using a number of new techniques to reduce noise and improve image quality; mainly adaptive quantization heuristics from the <a href="https://github.com/libjxl/libjxl" target="_blank" rel="noreferrer">JPEG XL</a> reference implementation, improved quantization matrix selection, calculating intermediate results precisely, and having the possibility to use a more advanced <a href="https://en.wikipedia.org/wiki/ICC_profile" target="_blank" rel="noreferrer">colorspace</a>. All the new methods have been carefully crafted to use the traditional 8-bit JPEG formalism, so newly compressed images are compatible with existing JPEG viewers such as browsers, image processing software, and others.</p><div><br></div>
+
+<h4><span><b>Adaptive quantization heuristics</b></span></h4> 
+<p>Jpegli uses adaptive quantization to reduce noise and improve image quality. This is done by spatially modulating the dead zone in quantization based on <a href="https://github.com/google/butteraugli" target="_blank" rel="noreferrer">psychovisual modeling</a>. Using adaptive quantization heuristics that we originally developed for JPEG XL, the result is improved image quality and reduced file size. These heuristics are much faster than a similar approach originally used in <a href="https://github.com/google/guetzli" target="_blank" rel="noreferrer">guetzli</a>.<br>
+  
+  
+</p><div><br></div><h4><span><b>Improved quantization matrix selection</b></span></h4>
+<p>Jpegli also uses a set of quantization matrices that were selected by optimizing for a mix of psychovisual quality metrics. Precise intermediate results in Jpegli improve image quality, and both encoding and decoding produce higher quality results. Jpegli can use JPEG XL's XYB colorspace for further quality and density improvements.</p><br>
+
+<h2><b>Testing Jpegli</b></h2>
+  
+<p>In order to quantify Jpegli's image quality improvement we enlisted the help of crowdsourcing raters to compare pairs of images from <a href="https://cloudinary.com/labs/cid22" target="_blank" rel="noreferrer">Cloudinary Image Dataset '22</a>, encoded using three codecs: Jpegli, libjpeg-turbo and MozJPEG, at several bitrates.</p>
+  
+<p>In this comparison we limited ourselves to comparing the encoding only, decoding was always performed using libjpeg-turbo. We conducted the study with the XYB ICC color profile disabled since that is how we anticipate most users would initially use Jpegli. To simplify comparing the <a href="https://github.com/google-research/google-research/tree/master/mucped23" target="_blank" rel="noreferrer">results</a> across the codecs and settings, we aggregated all the rater decisions using chess rankings inspired <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noreferrer">ELO scoring</a>.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>A higher ELO score indicates a better aggregate performance in the rater study. We can observe that jpegli at 2.8 BPP received a higher ELO rating than libjpeg-turbo at 3.7 BPP, a bitrate 32 % higher than Jpegli's.</i></td></tr></tbody></table></div><br>
+
+
+<h2><b>Results</b></h2>
+  
+<p>Our results show that <b>Jpegli can compress high quality images 35% more than traditional JPEG codecs.</b> </p><br>
+  
+<p><a href="https://github.com/libjxl/libjxl/tree/main/lib/jpegli" target="_blank" rel="noreferrer">Jpegli</a> is a promising new technology that has the potential to make the internet faster and more beautiful.</p>
+
+<p><em>By Zoltan Szabadka, Martin Bruse and Jyrki Alakuijala – Paradigms of Intelligence, Google Research</em></p>
+<p></p></div>
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My RSS Feed</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<style>
+		body {
+			margin: 5px;
+			padding: 0;
+			display: grid;
+			height: 100vh;
+			grid-template-rows: auto 1fr auto;
+		}
+		main {
+			word-break: break-word;
+		}
+		main img, main video {
+			max-width: 100%;
+			height: auto;
+		}
+		code, pre {
+			white-space: break-spaces !important;
+		}
+		footer {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+		nav {
+			text-align: center;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #2d2d2d; color: white; }
+			a { color: #6eaec8; }
+			.feed-entry h3 a:visited { color: gray; }
+		}
+		</style>
+	</head>
+	<body>
+		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+			<a href="/">Home</a>
+			<a href="/tags">Tags</a>
+			<a href="/urls">URLs</a>
+		</nav>
+		<main>
+		<h3>feeds.feedburner.com/WhenCanIUse</h3>
+		Last update: <span class="date">2024-04-07T00:00:00.000Z</span>
+		<h3><a href="/1645-8-new-features.html">8 new features</a></h3><h3><a href="/1644-2-new-features.html">2 new features</a></h3><h3><a href="/1643-new-feature-selectlist-customizable-select-el.html">New feature: Selectlist - Customizable select element</a></h3><h3><a href="/1642-baseline-badges-now-on-can-i-use.html">Baseline badges now on Can I use</a></h3><h3><a href="/1641-ga4-import-now-available.html">GA4 import now available</a></h3><h3><a href="/1640-new-feature-zstd-zstandard-content-encoding.html">New feature: zstd (Zstandard) content-encoding</a></h3><h3><a href="/1639-new-feature-scoped-styles-the-scope-rule.html">New feature: Scoped Styles: the @scope rule</a></h3><h3><a href="/1638-new-feature-view-transitions-api-single-docum.html">New feature: View Transitions API (single-document)</a></h3><h3><a href="/1637-new-feature-passkeys.html">New feature: Passkeys</a></h3><h3><a href="/1636-new-feature-css-text-wrap-balance.html">New feature: CSS text-wrap: balance</a></h3>
+
+	</main>
+		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	</body>
+</html>
