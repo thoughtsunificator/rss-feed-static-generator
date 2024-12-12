@@ -14,10 +14,10 @@ exports.render = function(data) {
 	const virtualDOM = new JSDOM()
 	const { document } = virtualDOM.window
 	return `
-		<h3>${data.tag.title}</h3>
-		Last update: <span class="date">${new Date(data.tag.lastPubDate * 1000).toISOString()}</span>
+		<b>${data.tag.title}</b>
+		<div>Last update: <span class="date">${new Date(data.tag.lastPubDate * 1000).toISOString()}</span></div>
 		${data.tag.items.map((rssItem, index) => {
-			const h3 = document.createElement("h3")
+			const div = document.createElement("div")
 			const anchor = document.createElement("a")
 			anchor.textContent = rssItem.title
 			if(rssItem.tags.includes("external")) {
@@ -26,8 +26,8 @@ exports.render = function(data) {
 			} else {
 				anchor.href = `/${rssItem.getSlug.call(this)}.html`
 			}
-			h3.appendChild(anchor)
-			return `${h3.outerHTML}`
+			div.appendChild(anchor)
+			return `${div.outerHTML}`
 		}).join("")}
 
 	`

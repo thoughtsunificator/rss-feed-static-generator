@@ -18,15 +18,17 @@ exports.render = function(data) {
 		<link rel="stylesheet" href="/style.css">
 	</head>
 	<body>
-		<nav>
-			<a href="/">Home</a>
-			<a href="/tags">Tags</a>
-			<a href="/urls">URLs</a>
-		</nav>
 		<main>${data.content}</main>
-		<footer><a target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a></footer>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
 		<script src="/highlight.min.js"></script>
 		<script>hljs.highlightAll();</script>
-	</body>
+		</body>
 </html>`
 }

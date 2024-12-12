@@ -33,14 +33,9 @@ exports.render = function(data) {
 	const virtualDOM = new JSDOM()
 	const { document } = virtualDOM.window
 	return `
-		<style>
-
-			.feed-entry h3 {
-				flex-grow: 1;
-			}
-		</style>
+		<div id="feed-entries">
 		${data.feedItems.filter(rssItem => !rssItem.tags.find(tag => data.tagIndexBlacklist.includes(tag))).map(rssItem => {
-			const h3 = document.createElement("h3")
+			const div = document.createElement("div")
 			const anchor = document.createElement("a")
 			anchor.textContent = rssItem.title
 			if(rssItem.tags.includes("external")) {
@@ -49,17 +44,19 @@ exports.render = function(data) {
 			} else {
 				anchor.href = `/${rssItem.getSlug.call(this)}.html`
 			}
-			h3.appendChild(anchor)
+			div.appendChild(anchor)
 			const feedURL = new URL(rssItem.feedurl)
+			const pubDate = new Date(rssItem.pubDate * 1000)
 			return `
 			<div class="feed-entry">
-			<div><span class="date">${new Date(rssItem.pubDate * 1000).toISOString()}</span></div>
-				<small>${rssItem.url ? `<a href="/urls/${rssItem.url.getSlug.call(this)}">${rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}</small>
-				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' class="source-tag"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
-				${h3.outerHTML}
-			</div><hr>`
+			<div class="feed-meta">
+				<div><b><time datetime=${pubDate.toISOString()}>${new Intl.DateTimeFormat('en-GB', { month: "long", day: 'numeric' , year: 'numeric',}).format(pubDate)}</time></b></div>
+			</div>
+			${div.outerHTML}
+			</div>`
 
 		}).join("")}
+		</div>
 		<nav>
 			${[...Array(data.pagination.pages.length).keys()].map(function(item) {
 				if(data.pagination.pageNumber === item) {

@@ -6,7 +6,7 @@ exports.data = {
 exports.render = function(data) {
 	return `
 		${data.feed.tags.map((tag) => {
-			return `<div class="tag"><h3><a href="/tags/${tag.getSlug.call(this)}.html">${tag.title}</a></h3></div>`
+			return `<div class="tag"><a href="/tags/${tag.getSlug.call(this)}.html">${tag.title}</a></div>`
 		}).join("")}
 	`
 }

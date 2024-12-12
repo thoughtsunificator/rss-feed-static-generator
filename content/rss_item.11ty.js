@@ -33,16 +33,14 @@ exports.render = function(data) {
 	for(const nodesToRemove of nodesToRemoves.slice()) {
 		nodesToRemove.remove()
 	}
-	const h1 = document.createElement("h1")
-	h1.id = "title"
-	h1.textContent = data.rssItem.title
+	const pubDate = new Date(data.rssItem.pubDate * 1000)
 	return `
-		${h1.outerHTML}
-		<div class="date"><b>${new Date(data.rssItem.pubDate * 1000).toISOString()}</b></div>
-		<small>${data.rssItem.url ? `<a href="/urls/${data.rssItem.url.getSlug.call(this)}">${data.rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}</small>
-		<div>${data.rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
-		<br>
 		<a target="_blank" rel="noreferrer" href="${data.rssItem.articleURL}">Go to article URL</a>
 		<div id="content"><p></p>${document.body.innerHTML}<p></p></div>
+		<div class="content-meta">
+			<time datetime=${pubDate.toISOString()}>${new Intl.DateTimeFormat('en-GB', { month: "long", day: 'numeric' , year: 'numeric',}).format(pubDate)}</time>
+			${data.rssItem.url ? `<a href="/urls/${data.rssItem.url.getSlug.call(this)}">${data.rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}
+			<div>${data.rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
+		</div>
 	`
 }
