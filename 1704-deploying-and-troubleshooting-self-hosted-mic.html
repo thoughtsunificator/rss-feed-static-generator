@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Deploying and Troubleshooting Self-Hosted MicroBin</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/09/microbin-on-rocky-linux/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen -->
+<p><strong>Note</strong>: This write-up was based on the installation done on Rocky Linux 9. You may need to adjust this example for other distros with their package manager commands.</p>
+<p>In the world of collaboration between our team members and the public, secure and efficient ways to share text and files are essential. While there are many cloud-based options available, some might prefer to keep their data in their own hands. If you’re one of those individuals, MicroBin might be just the solution you’re looking for.</p>
+<h3 id="what-is-microbin">What is MicroBin?</h3>
+<p>MicroBin is a Rust-based software that acts as a self-hosted pastebin alternative. It allows users to share publicly accessible text or encrypted text files, putting you in control of your data sharing needs. Users can choose whether to share the data/text publicly or privately. MicroBin also has syntax highlighting capabilities.</p>
+<h3 id="installation">Installation</h3>
+<p>There are several ways to install MicroBin. In this case, we will install it directly on a Rocky Linux server. You might need to install <code>git</code>, Rust packages, and <code>cargo</code> before starting.</p>
+<h4 id="cargo">Cargo</h4>
+<p>For those comfortable with Rust and its package manager, Cargo, installing MicroBin is a breeze. Simply use the following command as mentioned <a href="https://microbin.eu/docs/installation-and-configuration/cargo/" rel="noreferrer" target="_blank">here</a>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>cargo install microbin
+</span></span></code></pre></div><h3 id="troubleshooting">Troubleshooting</h3>
+<p>If you encounter the following error:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Can't locate FindBin.pm in @INC (you may need to install the FindBin module) (@INC contains: /usr/local/lib64/perl5/5.32 /usr/local/share/perl5/5.32 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/lib64/perl5 /usr/share/perl5) at ./Configure line 15.
+</span></span><span><span>BEGIN failed--compilation aborted at ./Configure line 15.
+</span></span><span><span>thread 'main' panicked at /home/microbin/.cargo/registry/src/index.crates.io-6f17d22bba15001f/openssl-src-300.3.1+3.3.1/src/lib.rs:621:9:
+</span></span></code></pre></div><p>You can troubleshoot by installing the related Perl package:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dnf install perl-FindBin
+</span></span></code></pre></div><p>Another issue I encountered was:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Error configuring OpenSSL build:
+</span></span><span><span>    Command: cd "/tmp/cargo-installcFs6oN/release/build/openssl-sys-d3d75fe094af940b/out/openssl-build/build/src" &amp;&amp; env -u CROSS_COMPILE AR="ar" CC="cc" RANLIB="ranlib" "perl" "./Configure" "--prefix=/tmp/cargo-installcFs6oN/release/build/openssl-sys-d3d75fe094af940b/out/openssl-build/install" "--openssldir=/usr/local/ssl" "no-dso" "no-shared" "no-ssl3" "no-tests" "no-comp" "no-zlib" "no-zlib-dynamic" "--libdir=lib" "no-md2" "no-rc5" "no-weak-ssl-ciphers" "no-camellia" "no-idea" "no-seed" "linux-x86_64" "-O2" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64"
+</span></span><span><span>    Exit status: exit status: 2
+</span></span></code></pre></div><p>This build issue was resolved by installing the <code>perl-core</code> package:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dnf install perl-core
+</span></span></code></pre></div><p>Please note that these errors were encountered during the installation on Rocky Linux 9 using the minimal ISO. The complete installer ISO might already include these Perl dependencies.</p>
+<h3 id="installing-on-rocky-linux">Installing on Rocky Linux</h3>
+<p>Once you’ve chosen your installation method, you’ll want to get MicroBin up and running on your Linux machine. The process is similar regardless of your choice, but let’s assume you’ve gone with the Cargo installation for this example.</p>
+<h3 id="create-a-systemd-service">Create a systemd service</h3>
+<p>To ensure MicroBin starts upon system boot, create a systemd service unit file. In this case, we will run the MicroBin service under the local <code>microbin</code> user. Please refer to the <a href="https://microbin.eu/docs/installation-and-configuration/cargo/" rel="noreferrer" target="_blank">documentation</a> for assigning environment variables as needed.</p>
+<p>Let’s say the port that was chosen is port 2999. You can put the parameter:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Environment="MICROBIN_PORT=2999"
+</span></span></code></pre></div><p>inside the <code>/etc/systemd/system/microbin.service</code> file.</p>
+<p>The other important parameters are:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>User=microbin
+</span></span><span><span>Group=microbin
+</span></span><span><span>ExecStart=/home/microbin/.cargo/bin/microbin
+</span></span></code></pre></div><p>since we are using the <code>microbin</code> user account for this web application.</p>
+<p>We can quickly start the MicroBin service after we save the file with:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>systemctl enable microbin --now 
+</span></span></code></pre></div><h3 id="proxying-with-apache-httpd">Proxying with Apache httpd</h3>
+<p>To make MicroBin accessible over the standard HTTP and HTTPS ports (80 and 443), you can set up a reverse proxy. Here’s a brief guide on how to do that with Apache httpd:</p>
+<ul>
+<li>
+<p>Install Apache httpd:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dnf install httpd
+</span></span></code></pre></div></li>
+<li>
+<p>Create a Virtual Host Configuration:</p>
+<p>Create a new Apache configuration file for MicroBin, let’s say in <code>/etc/httpd/conf.d/microbin.conf</code>. Add the following lines to configure the reverse proxy:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>&lt;VirtualHost *:80&gt;
+</span></span><span><span>    ServerName microbin.example.com
+</span></span><span><span>    ProxyPass / http://127.0.0.1:2999/
+</span></span><span><span>    ProxyPassReverse / http://127.0.0.1:2999/
+</span></span><span><span>&lt;/VirtualHost&gt;
+</span></span></code></pre></div><p>Later, you can extend and adjust the virtual host configuration for port 443 to include the SSL cert path and cipher packs setting accordingly.</p>
+</li>
+<li>
+<p>Enable and Start Apache:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>systemctl enable httpd --now
+</span></span></code></pre></div></li>
+</ul>
+<p>Now, MicroBin should be accessible through your Rocky Linux VM via Apache httpd on ports 80 and 443. If you can’t see it yet, let’s go through Rocky Linux 9’s firewall settings.</p>
+<h3 id="adjust-firewall-settings">Adjust firewall settings</h3>
+<p>If you run <code>iptables -vL</code> as <code>root</code> and nothing seems to be blocking the port, you may need to consider going through the <code>firewall-cmd</code> rules.</p>
+<ul>
+<li>
+<p>Check first:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>firewall-cmd --list-all
+</span></span></code></pre></div></li>
+<li>
+<p>Then open the related ports:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>firewall-cmd --permanent --add-port=80/tcp
+</span></span><span><span>firewall-cmd --permanent --add-port=443/tcp
+</span></span><span><span>firewall-cmd --reload
+</span></span></code></pre></div></li>
+<li>
+<p>Verify the changes:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>firewall-cmd --list-all
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="selinux">SELinux</h3>
+<p>Just in case starting the <code>httpd</code> service doesn’t show the pages, you can parse the output of <code>/var/log/audit/audit.log</code>. To start, you may need to put SELinux into permissive mode with <code>setenforce 0</code>. Later, you can check the problematic lines with <code>grep AVC /var/log/audit/audit.log | audit2why</code>.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>The simple setup described is for public pastes and does not include secret/​encrypted file sharing. Please refer to the <a href="https://microbin.eu/docs/installation-and-configuration/configuration/#microbin_encryption_client_side" rel="noreferrer" target="_blank">official documentation</a> for more details.</p>
+<p>MicroBin is a powerful and flexible self-hosted pastebin alternative that can help you share text and files. With installation options for Cargo, Docker, and source code, it adapts to your preferences. By using Rocky Linux, a systemd service, and Apache httpd, you can create a robust, self-hosted data sharing solution. Enjoy the convenience of pastebin-like functionality with complete control over your data.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-09-13T00:00:00.000Z>13 September 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

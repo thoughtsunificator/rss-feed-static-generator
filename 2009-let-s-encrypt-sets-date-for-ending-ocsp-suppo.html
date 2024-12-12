@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Let's Encrypt sets date for ending OCSP support</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1000941/">Go to article URL</a>
+		<div id="content"><p></p><p>In July, Let's Encrypt <a href="https://lwn.net/Articles/982965/" rel="noreferrer" target="_blank">announced</a> it was ending
+support "<q>as soon as possible</q>" for the <a href="https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol" rel="noreferrer" target="_blank">Online
+Certificate Status Protocol</a> (OCSP) in favor of <a href="https://en.wikipedia.org/wiki/Certificate_revocation_list" rel="noreferrer" target="_blank">Certificate
+Revocation Lists</a> (CRLs) due to privacy concerns. The organization
+has now <a href="https://letsencrypt.org/2024/12/05/ending-ocsp/" rel="noreferrer" target="_blank">announced</a>
+that it has set a timeline, and will be turning off its OCSP
+responders on August&nbsp;6, 2025. There is additional action required
+for Let's Encrypt users who use the OCSP Must Staple Extension:</p>
+
+<blockquote class="bq">
+<p>As of January 30, 2025, issuance requests that include the OCSP
+Must Staple extension will fail, unless the requesting account has
+previously issued a certificate containing the OCSP Must Staple
+extension.</p>
+
+<p>As of May 7, all issuance requests that include the OCSP Must
+Staple extension will fail, including renewals. Please change your
+ACME client configuration to not request the extension.</p>
+</blockquote>
+<p></p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-05T19:22:44.000Z>5 December 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

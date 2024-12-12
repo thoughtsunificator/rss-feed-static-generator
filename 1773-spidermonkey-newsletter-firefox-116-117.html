@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>SpiderMonkey Newsletter (Firefox 116-117)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2023/08/07/newsletter-firefox-116-117.html">Go to article URL</a>
+		<div id="content"><p></p><p>SpiderMonkey is the JavaScript engine used in Mozilla Firefox. This newsletter gives an overview of the JavaScript and WebAssembly work we’ve done as part of the Firefox 116 and 117 Nightly release cycles.</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<p>We’re working on improving performance for popular web frameworks such as React. We continue to make good progress, as you can see on the Speedometer 2 graph in <a href="https://mozilla.social/@stevetex/110696689018983577" rel="noreferrer" target="_blank">this Mastodon post</a>.</p>
+
+<ul>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1837410" rel="noreferrer" target="_blank">added</a> a fast path for <code class="language-plaintext highlighter-rouge">JSON.stringify</code>.</li>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838629" rel="noreferrer" target="_blank">added</a> a fast path for allocating from the nursery in C++ code.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1839437" rel="noreferrer" target="_blank">added</a> an optimization for <code class="language-plaintext highlighter-rouge">Object.keys</code> to take advantage of cached for-in iterators if available.</li>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1837192" rel="noreferrer" target="_blank">extended</a> the compilation hints mechanism to also cover Warp compilations. This means we spend less time in Baseline JIT code.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829411" rel="noreferrer" target="_blank">added</a> a trampoline to optimize polymorphic calls.</li>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1837602" rel="noreferrer" target="_blank">disabled</a> Spectre mitigations in Fission content processes (Nightly-only for now).</li>
+  <li>We also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1835876" rel="noreferrer" target="_blank">disabled</a> the use of <code class="language-plaintext highlighter-rouge">mprotect</code> for JIT code because this added significant performance overhead even though bypasses have been commoditized and this didn’t significantly impact attackers.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1839078" rel="noreferrer" target="_blank">fixed</a> a performance cliff with Warp-compiled generators.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1837620" rel="noreferrer" target="_blank">changed</a> some GC pointers in IC stubs to be weak pointers to reclaim more memory and to discard dead stubs.</li>
+  <li>A contributor <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1828326" rel="noreferrer" target="_blank">rewrote</a> some of our date computations to be much faster by reducing the number of branches and floating point operations.</li>
+</ul>
+
+<h3 id="️-new-features">👷🏽‍♀️ New features</h3>
+
+<p>We shipped some new JS features! 🎉</p>
+
+<ul>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1826574" rel="noreferrer" target="_blank">implemented</a> the RegExp unicode sets <a href="https://github.com/tc39/proposal-regexp-v-flag" rel="noreferrer" target="_blank">proposal</a> (Firefox 116).</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1795756" rel="noreferrer" target="_blank">enabled</a> <code class="language-plaintext highlighter-rouge">Intl.NumberFormat</code> version 3 by default (Firefox 117).</li>
+</ul>
+
+<p>We also implemented features that are still disabled by default:</p>
+
+<ul>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1519167" rel="noreferrer" target="_blank">implemented</a> the <code class="language-plaintext highlighter-rouge">Temporal</code> <a href="https://tc39.es/proposal-temporal/docs/" rel="noreferrer" target="_blank">proposal</a>.</li>
+  <li>We’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841113" rel="noreferrer" target="_blank">implemented</a> the <code class="language-plaintext highlighter-rouge">ArrayBuffer</code> <code class="language-plaintext highlighter-rouge">transfer</code> <a href="https://github.com/tc39/proposal-arraybuffer-transfer" rel="noreferrer" target="_blank">proposal</a>.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1840644" rel="noreferrer" target="_blank">updated</a> our Iterator Helpers implementation to match the latest <a href="https://github.com/tc39/proposal-iterator-helpers" rel="noreferrer" target="_blank">proposal</a>.</li>
+  <li>We also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1782585" rel="noreferrer" target="_blank">added</a> support for the Wasm multi-memory <a href="https://github.com/WebAssembly/multi-memory" rel="noreferrer" target="_blank">proposal</a>.</li>
+</ul>
+
+<p>We want to give a big shout-out 📣 to André Bargull (anba) who volunteered to implement many of these features. Especially Temporal is a very large feature: André landed more than a hundred patches for it!</p>
+
+<h3 id="-wasm-gc">⚡ Wasm GC</h3>
+
+<p>High-level programming languages currently need to bring their own GC if they want to run on WebAssembly. This can result in memory leaks because it cannot collect cycles that form with the browser. The Wasm GC <a href="https://github.com/WebAssembly/gc/blob/main/proposals/gc/Overview.md" rel="noreferrer" target="_blank">proposal</a> adds struct and array types to Wasm so these languages can use the browser’s GC instead.</p>
+
+<ul>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1825088" rel="noreferrer" target="_blank">added</a> support for ‘final’ types.</li>
+  <li>We optimized allocation of <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1839598" rel="noreferrer" target="_blank">struct</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1841266" rel="noreferrer" target="_blank">array</a> objects more.</li>
+  <li>We also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1831920" rel="noreferrer" target="_blank">implemented</a> casting for the remaining Wasm types.</li>
+</ul>
+
+<h3 id="-miscellaneous">📚 Miscellaneous</h3>
+
+<ul>
+  <li>The final changes <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1759123" rel="noreferrer" target="_blank">landed</a> to remove the last uses of the <code class="language-plaintext highlighter-rouge">JSContext</code> type for helper threads. This is a large architectural improvement that unblocks <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1773339" rel="noreferrer" target="_blank">exciting</a> future <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1845074" rel="noreferrer" target="_blank">improvements</a>.</li>
+  <li>We tracked down and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833315" rel="noreferrer" target="_blank">worked around</a> a likely Samsung CPU bug.</li>
+  <li>We <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1843842" rel="noreferrer" target="_blank">removed</a> some code for older Windows versions because Firefox 116 will only support Windows 10+.</li>
+</ul><p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-08-07T17:00:00.000Z>7 August 2023</time>
+			<a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

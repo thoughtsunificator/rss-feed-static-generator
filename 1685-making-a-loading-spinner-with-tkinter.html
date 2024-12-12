@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Making a Loading Spinner with tkinter</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/03/making-a-loading-spinner-with-tkinter/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2023. -->
+<p>When you need a loading spinner, you really need a loading spinner. Interested in putting something on the screen without installing a pile of dependencies, I reached deep into the toolbox of the Python standard library, dug around a bit, and pulled out the <a href="https://docs.python.org/3/library/tkinter.html" rel="noreferrer" target="_blank">tkinter</a> module.</p>
+<p>The tkinter module is an interface to the venerable Tcl/Tk GUI toolkit, a cross-platform suite for creating user interfaces in the style of whatever operating system you run it on. It’s the only built-in GUI toolkit in Python, but there are many worthy alternatives available (see the end of the post for a list).</p>
+<p>Here I’ll demonstrate how to make a loading spinnner with tkinter on Ubuntu 22.04. It should work on any platform that runs Python, with some variations when setting up the system for it.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>My vision for the loading spinner is some spinning dots and a logo, since this is such a convenient branding opportunity. To accomplish this we’ll be extending tkinter with Pillow’s ImageTk capability, which can load a PNG with transparency.</p>
+<p>To produce that PNG with transparency, first we may need to rasterize an SVG file, because wise designers work in vectors. This is made trivial by <a href="https://inkscape.org/" rel="noreferrer" target="_blank">Inkscape</a>, a free and complete vector graphics tool:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ inkscape logo.svg -o logo.png
+</span></span></code></pre></div><p>With the logo in hand, we can move on to setting up our dependencies. Ubuntu’s python3 distribution doesn’t include tkinter by default, so we’ll need to install it explicitly, along with Pillow’s separate ImageTk support:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ sudo apt install python3-tk python3-pil.imagetk
+</span></span></code></pre></div><p>This may occupy up to 75MB, if Python was already installed. This was still the smallest apt footprint of all of the Python GUI libraries in consideration. Pygame was also a strong contender.</p>
+<h3 id="code">Code</h3>
+<p>Let’s start with something simple: putting the logo on the screen.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-python" data-lang="python"><span><span><span>#!/usr/bin/env python3</span>
+</span></span><span><span>
+</span></span><span><span><span>from</span> <span>PIL</span> <span>import</span> Image, ImageTk
+</span></span><span><span><span>from</span> <span>tkinter</span> <span>import</span> BOTH, Canvas, Tk
+</span></span><span><span>
+</span></span><span><span>
+</span></span><span><span><span># Desired dimensions of our window.</span>
+</span></span><span><span>WIDTH, HEIGHT = <span>500</span>, <span>500</span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> __name__ == <span>"__main__"</span>:
+</span></span><span><span>    <span># Create the root window object.</span>
+</span></span><span><span>    root = Tk()
+</span></span><span><span>    <span># Create a canvas for drawing our graphics.</span>
+</span></span><span><span>    canvas = Canvas(root, width=WIDTH, height=HEIGHT, background=<span>"black"</span>)
+</span></span><span><span>    <span># Fill the entire window with the canvas.</span>
+</span></span><span><span>    canvas.pack(fill=BOTH, expand=<span>1</span>)
+</span></span><span><span>
+</span></span><span><span>    <span># Load the logo PNG with regular PIL.</span>
+</span></span><span><span>    logo_img = Image.open(<span>"logo.png"</span>)
+</span></span><span><span>    <span># Convert the logo to an ImageTk PhotoImage.</span>
+</span></span><span><span>    logo_pi = ImageTk.PhotoImage(logo_img)
+</span></span><span><span>    <span># Add our logo image to the canvas.</span>
+</span></span><span><span>    canvas.create_image(
+</span></span><span><span>        WIDTH / <span>2</span>,
+</span></span><span><span>        HEIGHT / <span>2</span>,
+</span></span><span><span>        image=logo_pi,
+</span></span><span><span>    )
+</span></span><span><span>
+</span></span><span><span>    <span># Run the tkinter main loop.</span>
+</span></span><span><span>    root.mainloop()
+</span></span></code></pre></div><p>This puts the logo in the center of a window, but the logo may be too large or small. Let’s scale it according to the window dimensions, let’s say to about ⅔ of the width so we have some room for spinning dots:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-python" data-lang="python"><span><span><span>#!/usr/bin/env python3</span>
+</span></span><span><span>
+</span></span><span><span><span>from</span> <span>PIL</span> <span>import</span> Image, ImageTk
+</span></span><span><span><span>from</span> <span>tkinter</span> <span>import</span> BOTH, Canvas, Tk
+</span></span><span><span>
+</span></span><span><span>
+</span></span><span><span><span># Desired dimensions of our window.</span>
+</span></span><span><span>WIDTH, HEIGHT = <span>500</span>, <span>500</span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> __name__ == <span>"__main__"</span>:
+</span></span><span><span>    <span># Create the root window object.</span>
+</span></span><span><span>    root = Tk()
+</span></span><span><span>    <span># Create a canvas for drawing our graphics.</span>
+</span></span><span><span>    canvas = Canvas(root, width=WIDTH, height=HEIGHT, background=<span>"black"</span>)
+</span></span><span><span>    <span># Fill the entire window with the canvas.</span>
+</span></span><span><span>    canvas.pack(fill=BOTH, expand=<span>1</span>)
+</span></span><span><span>
+</span></span><span><span>    <span># Load the logo PNG with regular PIL.</span>
+</span></span><span><span>    logo_img = Image.open(<span>"logo.png"</span>)
+</span></span><span><span>    <span># Resize the logo to about 2/3 the window width.</span>
+</span></span><span><span>    scaled_w = <span>round</span>(WIDTH * <span>0.6</span>)
+</span></span><span><span>    scaled_h = <span>round</span>(scaled_w / (logo_img.width / logo_img.height))
+</span></span><span><span>    logo_img = logo_img.resize((scaled_w, scaled_h), Image.LANCZOS)
+</span></span><span><span>    <span># Convert the logo to an ImageTk PhotoImage.</span>
+</span></span><span><span>    logo_pi = ImageTk.PhotoImage(logo_img)
+</span></span><span><span>    <span># Add our logo image to the canvas.</span>
+</span></span><span><span>    canvas.create_image(
+</span></span><span><span>        WIDTH / <span>2</span>,
+</span></span><span><span>        HEIGHT / <span>2</span>,
+</span></span><span><span>        image=logo_pi,
+</span></span><span><span>    )
+</span></span><span><span>
+</span></span><span><span>    <span># Run the tkinter main loop.</span>
+</span></span><span><span>    root.mainloop()
+</span></span></code></pre></div><p>That’s better. Now let’s add the promised spinning dots. We’ll draw some ovals on the canvas and modify our main loop to animate them:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-python" data-lang="python"><span><span><span>#!/usr/bin/env python3</span>
+</span></span><span><span>
+</span></span><span><span><span>import</span> <span>math</span>
+</span></span><span><span><span>import</span> <span>time</span>
+</span></span><span><span>
+</span></span><span><span><span>from</span> <span>PIL</span> <span>import</span> Image, ImageTk
+</span></span><span><span><span>from</span> <span>tkinter</span> <span>import</span> BOTH, Canvas, Tk
+</span></span><span><span>
+</span></span><span><span>
+</span></span><span><span><span># Desired dimensions of our window.</span>
+</span></span><span><span>WIDTH, HEIGHT = <span>500</span>, <span>500</span>
+</span></span><span><span><span># Coordinates of the center.</span>
+</span></span><span><span>CENTER_X, CENTER_Y = WIDTH / <span>2</span>, HEIGHT / <span>2</span>
+</span></span><span><span><span># How many spinning dots we want.</span>
+</span></span><span><span>NUM_DOTS = <span>8</span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> __name__ == <span>"__main__"</span>:
+</span></span><span><span>    <span># Create the root window object.</span>
+</span></span><span><span>    root = Tk()
+</span></span><span><span>    <span># Create a canvas for drawing our graphics.</span>
+</span></span><span><span>    canvas = Canvas(root, width=WIDTH, height=HEIGHT, background=<span>"black"</span>)
+</span></span><span><span>    <span># Fill the entire window with the canvas.</span>
+</span></span><span><span>    canvas.pack(fill=BOTH, expand=<span>1</span>)
+</span></span><span><span>
+</span></span><span><span>    <span># Load the logo PNG with regular PIL.</span>
+</span></span><span><span>    logo_img = Image.open(<span>"logo.png"</span>)
+</span></span><span><span>    <span># Resize the logo to about 2/3 the window width.</span>
+</span></span><span><span>    scaled_w = <span>round</span>(WIDTH * <span>0.6</span>)
+</span></span><span><span>    scaled_h = <span>round</span>(scaled_w / (logo_img.width / logo_img.height))
+</span></span><span><span>    logo_img = logo_img.resize((scaled_w, scaled_h), Image.LANCZOS)
+</span></span><span><span>    <span># Convert the logo to an ImageTk PhotoImage.</span>
+</span></span><span><span>    logo_pi = ImageTk.PhotoImage(logo_img)
+</span></span><span><span>    <span># Add our logo image to the canvas.</span>
+</span></span><span><span>    canvas.create_image(
+</span></span><span><span>        CENTER_X,
+</span></span><span><span>        CENTER_Y,
+</span></span><span><span>        image=logo_pi,
+</span></span><span><span>    )
+</span></span><span><span>
+</span></span><span><span>    <span># Radius in pixels of a single dot.</span>
+</span></span><span><span>    dot_radius = WIDTH * <span>0.05</span>
+</span></span><span><span>    <span># Radius of the ring of dots from the center of the window.</span>
+</span></span><span><span>    dots_radius = WIDTH / <span>2</span> - dot_radius * <span>2</span>
+</span></span><span><span>
+</span></span><span><span>    <span># Helper function to calculate dot position on each update.</span>
+</span></span><span><span>    <span>def</span> <span>get_dot_coords</span>(n: <span>int</span>, t: <span>float</span>):
+</span></span><span><span>        <span>"""Get the x0, y0, x1, y1 coords of dot at index 'n' at time 't'."""</span>
+</span></span><span><span>        angle = (n / NUM_DOTS) * math.pi * <span>2</span> + t
+</span></span><span><span>        x = math.cos(angle) * dots_radius + CENTER_X
+</span></span><span><span>        y = math.sin(angle) * dots_radius + CENTER_Y
+</span></span><span><span>        <span>return</span> x - dot_radius, y - dot_radius, x + dot_radius, y + dot_radius
+</span></span><span><span>
+</span></span><span><span>    <span># Create all the dots.</span>
+</span></span><span><span>    t0 = time.monotonic()
+</span></span><span><span>    <span>for</span> n <span>in</span> <span>range</span>(NUM_DOTS):
+</span></span><span><span>        coords = get_dot_coords(n, t0)
+</span></span><span><span>        canvas.create_oval(
+</span></span><span><span>            *coords,
+</span></span><span><span>            fill=<span>"#888888"</span>,
+</span></span><span><span>            width=<span>0</span>,  <span># Border width.</span>
+</span></span><span><span>            tags=<span>f</span><span>"dot_</span><span>{</span>n<span>}</span><span>"</span>,
+</span></span><span><span>        )
+</span></span><span><span>
+</span></span><span><span>    <span># Set up a custom main loop to animate the moving dots.</span>
+</span></span><span><span>    <span>while</span> <span>True</span>:
+</span></span><span><span>        <span># Check the time of this update.</span>
+</span></span><span><span>        t = time.monotonic()
+</span></span><span><span>        <span>for</span> n <span>in</span> <span>range</span>(NUM_DOTS):
+</span></span><span><span>            <span># Get the desired coords for this dot at this time.</span>
+</span></span><span><span>            coords = get_dot_coords(n, t)
+</span></span><span><span>            <span># Move the dot on the canvas, finding it by its tag.</span>
+</span></span><span><span>            canvas.coords(
+</span></span><span><span>                <span>f</span><span>"dot_</span><span>{</span>n<span>}</span><span>"</span>,
+</span></span><span><span>                *coords,
+</span></span><span><span>            )
+</span></span><span><span>        <span># Call the required tkinter update function.</span>
+</span></span><span><span>        root.update()
+</span></span><span><span>        <span># Attempt to stabilize the timing of this loop by targeting 60Hz.</span>
+</span></span><span><span>        <span>while</span> t0 &lt; t:
+</span></span><span><span>            t0 += <span>1</span> / <span>60</span>
+</span></span><span><span>        time.sleep(t0 - t)
+</span></span></code></pre></div><p>You may notice that the dots don’t look all that great. There’s no anti-aliasing when drawing shape primitives in tkinter, so the edges look jagged compared to our well-scaled logo image. One hack is to layer slightly larger and dimmer shapes under each object, which you might do like so:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-python" data-lang="python"><span><span><span>#!/usr/bin/env python3</span>
+</span></span><span><span>
+</span></span><span><span><span>import</span> <span>math</span>
+</span></span><span><span><span>import</span> <span>time</span>
+</span></span><span><span>
+</span></span><span><span><span>from</span> <span>PIL</span> <span>import</span> Image, ImageTk
+</span></span><span><span><span>from</span> <span>tkinter</span> <span>import</span> BOTH, Canvas, Tk
+</span></span><span><span>
+</span></span><span><span>
+</span></span><span><span><span># Desired dimensions of our window.</span>
+</span></span><span><span>WIDTH, HEIGHT = <span>500</span>, <span>500</span>
+</span></span><span><span><span># Coordinates of the center.</span>
+</span></span><span><span>CENTER_X, CENTER_Y = WIDTH / <span>2</span>, HEIGHT / <span>2</span>
+</span></span><span><span><span># How many spinning dots we want.</span>
+</span></span><span><span>NUM_DOTS = <span>8</span>
+</span></span><span><span><span># Colors for each layer of fake anti-aliasing around each dot.</span>
+</span></span><span><span><span># Must be in order from back to front.</span>
+</span></span><span><span>COLORS = [<span>"#888888"</span>, <span>"#BBBBBB"</span>, <span>"#FFFFFF"</span>]
+</span></span><span><span>
+</span></span><span><span><span>if</span> __name__ == <span>"__main__"</span>:
+</span></span><span><span>    <span># Create the root window object.</span>
+</span></span><span><span>    root = Tk()
+</span></span><span><span>    <span># Create a canvas for drawing our graphics.</span>
+</span></span><span><span>    canvas = Canvas(root, width=WIDTH, height=HEIGHT, background=<span>"black"</span>)
+</span></span><span><span>    <span># Fill the entire window with the canvas.</span>
+</span></span><span><span>    canvas.pack(fill=BOTH, expand=<span>1</span>)
+</span></span><span><span>
+</span></span><span><span>    <span># Load the logo PNG with regular PIL.</span>
+</span></span><span><span>    logo_img = Image.open(<span>"logo.png"</span>)
+</span></span><span><span>    <span># Resize the logo to about 2/3 the window width.</span>
+</span></span><span><span>    scaled_w = <span>round</span>(WIDTH * <span>0.6</span>)
+</span></span><span><span>    scaled_h = <span>round</span>(scaled_w / (logo_img.width / logo_img.height))
+</span></span><span><span>    logo_img = logo_img.resize((scaled_w, scaled_h), Image.LANCZOS)
+</span></span><span><span>    <span># Convert the logo to an ImageTk PhotoImage.</span>
+</span></span><span><span>    logo_pi = ImageTk.PhotoImage(logo_img)
+</span></span><span><span>    <span># Add our logo image to the canvas.</span>
+</span></span><span><span>    canvas.create_image(
+</span></span><span><span>        CENTER_X,
+</span></span><span><span>        CENTER_Y,
+</span></span><span><span>        image=logo_pi,
+</span></span><span><span>    )
+</span></span><span><span>
+</span></span><span><span>    <span># Radius in pixels of a single dot.</span>
+</span></span><span><span>    dot_radius = WIDTH * <span>0.05</span>
+</span></span><span><span>    <span># Radius of the ring of dots from the center of the window.</span>
+</span></span><span><span>    dots_radius = WIDTH / <span>2</span> - dot_radius * <span>2</span>
+</span></span><span><span>
+</span></span><span><span>    <span># Helper function to calculate dot position on each update.</span>
+</span></span><span><span>    <span>def</span> <span>get_dot_coords</span>(n: <span>int</span>, t: <span>float</span>, c: <span>int</span>):
+</span></span><span><span>        <span>"""Get the x0, y0, x1, y1 coords of dot at index 'n' at time 't'.
+</span></span></span><span><span><span>        Inflate the radius by color index 'c'."""</span>
+</span></span><span><span>        angle = (n / NUM_DOTS) * math.pi * <span>2</span> + t
+</span></span><span><span>        x = math.cos(angle) * dots_radius + CENTER_X
+</span></span><span><span>        y = math.sin(angle) * dots_radius + CENTER_Y
+</span></span><span><span>        <span># Invert the color index and add to the radius.</span>
+</span></span><span><span>        radius = dot_radius + (<span>len</span>(COLORS) - c) * <span>0.75</span>
+</span></span><span><span>        <span>#radius = dot_radius + c</span>
+</span></span><span><span>        <span>return</span> x - radius, y - radius, x + radius, y + radius
+</span></span><span><span>
+</span></span><span><span>    <span># Create all the dots.</span>
+</span></span><span><span>    t0 = time.monotonic()
+</span></span><span><span>    <span>for</span> c, color <span>in</span> <span>enumerate</span>(COLORS):
+</span></span><span><span>        <span>for</span> n <span>in</span> <span>range</span>(NUM_DOTS):
+</span></span><span><span>            coords = get_dot_coords(n, t0, c)
+</span></span><span><span>            canvas.create_oval(
+</span></span><span><span>                *coords,
+</span></span><span><span>                fill=color,
+</span></span><span><span>                width=<span>0</span>,  <span># Border width.</span>
+</span></span><span><span>                tags=<span>f</span><span>"dot_</span><span>{</span>c<span>}</span><span>_</span><span>{</span>n<span>}</span><span>"</span>,
+</span></span><span><span>            )
+</span></span><span><span>
+</span></span><span><span>    <span># Set up a custom main loop to animate the moving dots.</span>
+</span></span><span><span>    <span>while</span> <span>True</span>:
+</span></span><span><span>        <span># Check the time of this update.</span>
+</span></span><span><span>        t = time.monotonic()
+</span></span><span><span>        <span>for</span> c, color <span>in</span> <span>enumerate</span>(COLORS):
+</span></span><span><span>            <span>for</span> n <span>in</span> <span>range</span>(NUM_DOTS):
+</span></span><span><span>                <span># Get the desired coords for this dot at this time.</span>
+</span></span><span><span>                coords = get_dot_coords(n, t, c)
+</span></span><span><span>                <span># Move the dot on the canvas, finding it by its tag.</span>
+</span></span><span><span>                canvas.coords(
+</span></span><span><span>                    <span>f</span><span>"dot_</span><span>{</span>c<span>}</span><span>_</span><span>{</span>n<span>}</span><span>"</span>,
+</span></span><span><span>                    *coords,
+</span></span><span><span>                )
+</span></span><span><span>        <span># Call the required tkinter update function.</span>
+</span></span><span><span>        root.update()
+</span></span><span><span>        <span># Attempt to stabilize the timing of this loop by targeting 60Hz.</span>
+</span></span><span><span>        <span>while</span> t0 &lt; t:
+</span></span><span><span>            t0 += <span>1</span> / <span>60</span>
+</span></span><span><span>        time.sleep(t0 - t)
+</span></span></code></pre></div><p>The fake anti-aliasing was a fun exercise, but for this use case you’ll probably get better-looking results out of scaling a PNG asset like we did the logo.</p>
+<p></p>
+<h3 id="resources">Resources</h3>
+<p>If you’re interested in learning more about tkinter, see also:</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/tkinter.html" rel="noreferrer" target="_blank">Python tkinter docs</a></li>
+<li><a href="https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/index.html" rel="noreferrer" target="_blank">The tkinter reference</a></li>
+</ul>
+<p>Other Python GUI/graphics toolkits you might consider:</p>
+<ul>
+<li><a href="https://www.pygame.org/news" rel="noreferrer" target="_blank">Pygame</a></li>
+<li><a href="https://pyglet.org/" rel="noreferrer" target="_blank">Pyglet</a></li>
+<li><a href="https://doc.qt.io/qtforpython-6/" rel="noreferrer" target="_blank">PySide6</a> (official Qt binding)</li>
+<li><a href="https://riverbankcomputing.com/software/pyqt/intro" rel="noreferrer" target="_blank">PyQt</a> (unofficial Qt binding)</li>
+<li><a href="https://wxpython.org/index.html" rel="noreferrer" target="_blank">wxPython</a></li>
+</ul>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-03-05T00:00:00.000Z>5 March 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

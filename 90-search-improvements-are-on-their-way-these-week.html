@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Search Improvements Are On Their Way – These Weeks in Firefox: Issue 169</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/10/09/search-improvements-are-on-their-way-these-weeks-in-firefox-issue-169/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1">The search team is planning on enabling a series of improvements to the search experience this week in Nightly! This project is called “Scotch Bonnet”.
+<ul>
+<li aria-level="2">We would love to hear your feedback via <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Firefox&amp;component=Address+Bar" rel="noreferrer" target="_blank">bug reports</a>! We will also create a <a href="https://connect.mozilla.org/" rel="noreferrer" target="_blank">Connect</a> page shortly.</li>
+<li aria-level="2">The pref is <code>browser.urlbar.scotchBonnet.enableOverride</code> for anyone who wants a sneak preview.</li>
+</ul>
+</li>
+<li aria-level="1">The New Tab team has added a new experimental widget which shows a vertical list of interesting stories across multiple cells of the story grid:
+<ul>
+<li aria-level="2">
+<p></p><div id="attachment_1748" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/10/image2.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1748" class="wp-caption-text">We’re testing out a vertical list of stories in regions where stories are enabled.</p></div></li>
+<li aria-level="2">You can test this out in Nightly by setting <code>browser.newtabpage.activity-stream.discoverystream.contextualContent.enabled</code> to true in <code>about:config</code></li>
+<li aria-level="2">We will be running a small experiment with this new widget, slated for Firefox 132, for regions where stories are enabled.</li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1909885%2C1919297%2C1899853%2C1902377%2C1919363%2C1917595%2C1634961%2C1907591%2C1921107%2C1917202%2C1921412%2C1838422" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Henry Wilkes (they/them) [:henry-x]</li>
+<li aria-level="1">Meera Murthy</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtensions Framework</h5>
+<ul>
+<li aria-level="1">Fixed mild performance regression in load times when the user browses websites that are registered as default/built-in search engines (fixed in Nightly 132, and uplifted to Beta 131) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916240" rel="noreferrer" target="_blank">Bug 1916240</a></li>
+<li aria-level="1">Fixed startup error hit by static themes using MV3 manifest.json files – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917613" rel="noreferrer" target="_blank">Bug 1917613</a></li>
+<li aria-level="1">The WebExtensions popup notification shown when an extension is hiding Firefox tabs (using the tabs.hide method) is now anchored to the extensions button – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920706" rel="noreferrer" target="_blank">Bug 1920706</a></li>
+<li aria-level="1">Fixed browser.search.get regression (initially introduced in ESR 128 through the migration to the search-config-v2) that made the faviconUrl be set to blob urls (not accessible to other extensions). This regression has been fixed in Nightly 132 and then uplifted to Firefox 131 and ESR 128
+<ul>
+<li aria-level="2">Thanks to Standard8 for fixing the regression!</li>
+</ul>
+</li>
+</ul>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">The storage.session API now logs a warning message to raise extension developer awareness that the storage.session quota is being exceeded on channels where it is not enforced yet (currently only enforced on nightly &gt;= 131) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916276" rel="noreferrer" target="_blank">Bug 1916276</a></li>
+</ul>
+<h4>DevTools</h4>
+<h5>DevTools Toolbox</h5>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=753926" rel="noreferrer" target="_blank">Sean Kim</a> fixed DevTools offline mode, making sure that cached resources can still be retrieved (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907304" rel="noreferrer" target="_blank">#1907304</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=753935" rel="noreferrer" target="_blank">Fatih Kilic</a> added the origin attributes of Workers in about:debugging , which can be useful for dynamic and non-dynamic first party isolation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1583891" rel="noreferrer" target="_blank">#1583891</a>)
+<ul>
+<li aria-level="2">
+<p></p><div id="attachment_1747" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/10/image1.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1747" class="wp-caption-text">This makes it easier to see where these workers came from.</p></div></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=753935" rel="noreferrer" target="_blank">Fatih Kilic</a> made it clear that light/dark mode simulation can’t work when privacy.resistFingerprinting is enabled by disabling the buttons (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861328" rel="noreferrer" target="_blank">#1861328</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=310076" rel="noreferrer" target="_blank">Arai</a> integrated the new SharedSubResourceCache into the Network Monitor (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916960" rel="noreferrer" target="_blank">#1916960</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=149052" rel="noreferrer" target="_blank">Florian Quèze</a> migrated devtools.main telemetry events to use Glean API (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921751" rel="noreferrer" target="_blank">#1921751</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> made the tracer significantly faster (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919713" rel="noreferrer" target="_blank">#1919713</a>) and removed the arbitrary callstack depth limit since we can now deal with infinite loop just fine (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919804" rel="noreferrer" target="_blank">#1919804</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> fixed the Fonts highlighter for iframes (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1572655" rel="noreferrer" target="_blank">#1572655</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> continues his work on supporting High Contrast Mode in the toolbox (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916614" rel="noreferrer" target="_blank">#1916614</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916333" rel="noreferrer" target="_blank">#1916333</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916341" rel="noreferrer" target="_blank">#1916341</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916328" rel="noreferrer" target="_blank">#1916328</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916712" rel="noreferrer" target="_blank">#1916712</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916344" rel="noreferrer" target="_blank">#1916344</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916363" rel="noreferrer" target="_blank">#1916363</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916355" rel="noreferrer" target="_blank">#1916355</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916329" rel="noreferrer" target="_blank">#1916329</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916354" rel="noreferrer" target="_blank">#1916354</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916394" rel="noreferrer" target="_blank">#1916394</a>), refactoring some CSS files when needed (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919452" rel="noreferrer" target="_blank">#1919452</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920689" rel="noreferrer" target="_blank">#1920689</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921427" rel="noreferrer" target="_blank">#1921427</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921428" rel="noreferrer" target="_blank">#1921428</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921434" rel="noreferrer" target="_blank">#1921434</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> made the Inspector search input clear button (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921001" rel="noreferrer" target="_blank">#1921001</a>) and the Netmonitor “Raw” toggles (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917296" rel="noreferrer" target="_blank">#1917296</a>) accessible with the keyboard</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">External:
+<ul>
+<li aria-level="2">Liam DeBeasi renamed the isRoot argument of getBrowsingContextInfo() to includeParentId to make the code easier to understand (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1902377" rel="noreferrer" target="_blank">bug</a>).</li>
+</ul>
+</li>
+<li aria-level="1">Updates:
+<ul>
+<li aria-level="2">Thanks to jmaher for splitting the marionette job in several chunks (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916456" rel="noreferrer" target="_blank">bug</a>).</li>
+<li aria-level="2">Julian fixed the timings for network events to be in milliseconds instead of microseconds (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916685" rel="noreferrer" target="_blank">bug</a>)</li>
+<li aria-level="2">Henrik and Julian improved the framework used by WebDriver BiDi to avoid failing commands when browsing contexts are loading (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918672" rel="noreferrer" target="_blank">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854942" rel="noreferrer" target="_blank">bug</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918287" rel="noreferrer" target="_blank">bug</a>)</li>
+<li aria-level="2">Sasha updated the WebDriver BiDi implementation for cookies to use the network.cookie.CHIPS.enabled preference. The related workarounds will be removed in the near future. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899978" rel="noreferrer" target="_blank">bug</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">hjones <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838298" rel="noreferrer" target="_blank">Introduced a CSS lint rule to prevent base design tokens from being used directly</a></li>
+<li aria-level="1">Standard8 updated the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919709" rel="noreferrer" target="_blank">ESLint builders to use Node 18</a></li>
+<li aria-level="1">Standard8 also worked on flat config:
+<ul>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920531" rel="noreferrer" target="_blank">Removed html, json and prettier plugin dependencies from eslint-plugin-mozilla</a></li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920802" rel="noreferrer" target="_blank">Updated node_modules related to ESLint as far as possible</a> to pull in fixes from third party modules for flat config</li>
+</ul>
+</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">mconley has patches up to add some <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908732" rel="noreferrer" target="_blank">additional</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908727" rel="noreferrer" target="_blank">telemetry</a> to our backup mechanism</li>
+<li aria-level="1">mconley is <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920799" rel="noreferrer" target="_blank">working on a new messaging surface in the AppMenu</a> that will allow us to try some message variations when the user is not signed into an account</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">We’re going to be doing a slow, controlled rollout to change the endpoints with which we fetch sponsored top sites and stories. This is part of a larger architectural change to unify the mechanism with which we fetch this sponsored content.</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Scotch Bonnet (search UI update) Related Changes
+<ul>
+<li aria-level="2">General
+<ul>
+<li aria-level="3">Daisuke connected Scotch Bonnet to Nimbus<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919813" rel="noreferrer" target="_blank"> 1919813</a></li>
+</ul>
+</li>
+<li aria-level="2">Intuitive Search Keywords
+<ul>
+<li aria-level="3">Mandy added telemetry for search restrict keywords<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917992" rel="noreferrer" target="_blank"> 1917992</a></li>
+</ul>
+</li>
+<li aria-level="2">Unified Search Button
+<ul>
+<li aria-level="3">Dale improved the UI of the Unified Search Button by aligning it closer to the design<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908922" rel="noreferrer" target="_blank"> 1908922</a></li>
+<li aria-level="3">Daisuke made the Unified Search Button more consistent depending on whether it was in an open/closed state<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913234" rel="noreferrer" target="_blank"> 1913234</a></li>
+</ul>
+</li>
+<li aria-level="2">Persisted Search
+<ul>
+<li aria-level="3">James changed Persisted Search to use a cleaner design in preparation for its use with the Unified Search Button. It now has a button on the right side to revert the address bar and show the URL. And the Persist feature works with non-default app provided engines <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919193" rel="noreferrer" target="_blank">&nbsp;1919193</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1915273" rel="noreferrer" target="_blank"> 1915273</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913312" rel="noreferrer" target="_blank"> 1913312</a></li>
+</ul>
+</li>
+<li aria-level="2">HTTPS Trimming
+<ul>
+<li aria-level="3">Marco changed it so keyboard focus immediately untrims an https address<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898155" rel="noreferrer" target="_blank"> 1898155</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li aria-level="1"></li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-10-09T20:57:22.000Z>9 October 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

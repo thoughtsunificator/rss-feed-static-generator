@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Bounds Checking Flexible Array Members</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/07/bounds-checking-flexible-array-members.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi1dkNGRyuYvzYEP6VJs9vWbB58VbIp4hNiBFsi9NkfSems18y5iEPxDQ4DlNUIvscpnKl6VV1E4j8kRO2FF-K7Pwq0Ue52RW2sJ3ky9SiKZpdDxilP9nSEuyML9jgFgchpYIGk4V7hB6nIfr1EGVPPW8jCCpO7G0qPUs2hK8OsiwebJ1hG59Yzrk-z2bE/s1600/Social%20-%20OSS%20-%20PJRT_%20Simplifying%20ML%20Hardware%20and%20Framework%20Integration%20%281%29.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5iMN1UwAYqIq-wUpO5_REWD6XRNOu9K9PlOfYI_Qqzoq7XVrBMTnfUkw-LwAvf5sbk76s2wIvMP6pPP5DORBdfwH2CeRIQ7Gqf2wffhz5lIWeSdKyOeNJjACV-I5TQraWPA7ZjCSYOvWymBj_kvW4wVDt4Sn6Jr3tL14Dwz0Mjg7diFZGKkaJTyTSYdo/s1600/Header%20-%20OSS%20-%20PJRT_%20Simplifying%20ML%20Hardware%20and%20Framework%20Integration%20%281%29.png" rel="noreferrer" target="_blank"></a>
+
+<p>Buffer overflows are the cause of many security issues, and are a persistent thorn in programmers' sides. C is particularly susceptible to them. The advent of sanitizers mitigates some security issues by automatically inserting bounds checking, but they're not able to do so in all situations—in particular for flexible array members, because their size is known only at runtime.</p>
+
+<p>The size of a flexible array member is typically opaque to the compiler. The <span>alloc_size</span> attribute on <span>malloc()</span> may be used for bounds checking flexible array members within the same function as the allocation. But the attribute's information isn't carried with the allocated object, making it impossible to perform bounds checking elsewhere.</p>
+
+<p>To mitigate this drawback, Clang and GCC are introducing<sup>1</sup> the <span>counted_by</span> attribute for flexible array members.</p><br>
+
+<h2>Specifying a flexible array member's element count</h2>
+
+<p>The number of elements allocated for a flexible array member is frequently stored in another field within the same structure. When applied to the flexible array member, the counted_by attribute is used by the sanitizer—enabled by <span>-fsanitize=array-bounds</span>—by explicitly referencing the field that stores the number of elements. The attribute creates an implicit relationship between the flexible array member and the count field enabling the array bounds sanitizer to verify flexible array operations.</p>
+
+<p>There are some rules to follow when using this feature. For this structure:</p>
+
+<div><pre><span><span>struct</span> foo {
+	<span>/* ... */</span>
+	<span>size_t</span> count; <span>/* Number of elements in array */</span>
+	<span>int</span> array[] __attribute__((counted_by(count)));
+};</span>
+</pre></div>
+
+<ul>
+<li>The <span>count</span> field <b><i>must be</i></b> within the same non-anonymous, enclosing struct as the flexible array member.</li></ul><ul>
+  <li>The <span>count</span> field <b><i>must be set</i></b> before any array access.</li></ul><ul>
+    <li>The <span>array</span> field <b><i>must have</i></b> at least <span>count</span> number of elements available at all times.</li></ul><ul>
+      <li>The <span>count</span> field may change, but <b><i>must never be</i></b> larger than the number of elements originally allocated.</li>
+</ul>
+
+<p>An example allocation of the above structure:</p>
+
+<div><pre><span><span>struct</span> foo <span>*</span><span>foo_alloc</span>(<span>size_t</span> count) {
+  <span>struct</span> foo <span>*</span>ptr <span>=</span> <span>NULL</span>;
+  <span>size_t</span> size <span>=</span> MAX(<span>sizeof</span>(<span>struct</span> foo),
+                    offsetof(<span>struct</span> foo, array[<span>0</span>]) <span>+</span>
+                        count <span>*</span> <span>sizeof</span>(p<span>-&gt;</span>array[<span>0</span>]));
+
+  ptr <span>=</span> calloc(<span>1</span>, size);
+  ptr<span>-&gt;</span>count <span>=</span> count;
+  <span>return</span> ptr;
+}</span>
+</pre></div><br>
+
+<h2>Uses for fortification</h2>
+
+<p><a href="https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3" target="_blank" rel="noreferrer">Fortification</a> (enabled by the <span>_FORTIFY_SOURCE</span> macro) is an ongoing project to make the Linux kernel more secure. Its main focus is preventing buffer overflows on memory and string operations.</p>
+
+<p>Fortification uses the <span>__builtin_object_size()</span> and <span>__builtin_dynamic_object_size()</span> builtins to try to determine if input passed into a function is valid (i.e. "safe"). A call to <span>__builtin_dynamic_object_size()</span> generally isn't able to take the size of a flexible array member into account. But with the <span>counted_by</span> attribute, we're able to calculate the size and improve safety.</p><br>
+
+<h2>Uses in the Linux kernel</h2>
+
+<p>The <span>counted_by</span> attribute is already in use in the Linux kernel, and will be instrumental in catching issues like integer overflows, which led to a heap buffer overflow. We want to expand its use to more flexible array members, and enforce its use in the future.</p><br>
+
+<h2>Conclusion</h2>
+
+<p>The <span>counted_by</span> attribute helps address a long-standing fortification road block where the memory bounds of a flexible array member couldn't be determined by the compiler, thus making Linux, and other hardened applications, less exploitable.</p>
+
+
+<p><small><sup>1</sup>In <a href="https://releases.llvm.org/18.1.0/tools/clang/docs/ReleaseNotes.html?1=#id11" target="_blank" rel="noreferrer">Clang v18.0.0</a> and <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896" target="_blank" rel="noreferrer">GCC v15.0.0</a>.</small></p>
+
+<p><em>By Bill Wendling, Staff Software Engineer</em></p>
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-07-09T09:00:00.000Z>9 July 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

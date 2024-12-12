@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Stable kernels 6.12.2, 6.11.11, and 4.19.325</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1000871/">Go to article URL</a>
+		<div id="content"><p></p>Greg Kroah-Hartman has released the <a href="https://lwn.net/Articles/1000872/" rel="noreferrer" target="_blank">6.12.2</a>, <a href="https://lwn.net/Articles/1000873/" rel="noreferrer" target="_blank">6.11.11</a>, and <a href="https://lwn.net/Articles/1000874/" rel="noreferrer" target="_blank">4.19.325</a> stable kernels.  Note that both
+6.11.11 and 4.19.325 are the last kernels in those series, "<q>please move
+off to a newer kernel version</q>".  In the 4.19.325 release notice, he has
+a rather longer-than-usual message, including:
+
+<blockquote class="bq">
+As a "fun" proof that this one is finished (and that any company saying
+they care about it really should have their statements validated with
+facts), I looked at the "unfixed" CVEs from this kernel release.
+Currently it is a list 983 CVEs long, too long to list here.
+<p>
+You can verify it yourself by cloning the vulns.git repo at
+git.kernel.org and running:
+</p><pre>	./scripts/strak v4.19.325
+</pre>
+Note, this does NOT count the hardware CVEs which kernel.org does not
+track, and many are sill unfixed in this kernel branch.
+</blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-05T14:20:58.000Z>5 December 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

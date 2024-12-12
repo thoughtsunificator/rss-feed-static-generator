@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Freezing out the page reference count</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1000654/">Go to article URL</a>
+		<div id="content"><p></p>The <a href="https://elixir.bootlin.com/linux/v6.12.1/source/include/linux/mm_types.h#L35" rel="noreferrer" target="_blank"><tt>page</tt>
+structure</a> sits at the core of the kernel's memory-management subsystem
+(for now), and a key part of that structure is its reference count, stored
+in <tt>refcount</tt>.  The page reference count tells the kernel how many
+users a given page has and when it can be freed.  That count is not needed
+for every page in the system, though.  Matthew Wilcox has recently <a href="https://lwn.net/ml/all/20241125210149.2976098-1-willy@infradead.org" rel="noreferrer" target="_blank">resurrected</a>
+an <a href="https://lwn.net/ml/linux-mm/20220809171854.3725722-1-willy@infradead.org/" rel="noreferrer" target="_blank">old
+patch set</a> that expands the concept of a "frozen" page — one that lacks a
+meaningful reference count — to the immediate benefit of the slab allocator
+but in the service of a longer-term goal as well.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-06T15:55:16.000Z>6 December 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

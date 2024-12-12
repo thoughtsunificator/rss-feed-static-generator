@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Pondering systemd-homed for Fedora</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/995915/">Go to article URL</a>
+		<div id="content"><p></p><p>Fedora Linux, as a rule, handles version upgrades reasonably
+well. However, there are times when users may want to do a fresh
+installation rather than an upgrade <em>but</em> preserve existing
+users and data under <tt>/home</tt>. This is a scenario that the
+Fedora installer, currently, does not address. Users can maintain a
+separate <tt>/home</tt> partition, of course, but the installer does
+not incorporate existing users into the new install—that is an
+exercise left to the user to handle. One solution might be to use <a href="https://systemd.io/HOME_DIRECTORY/" rel="noreferrer" target="_blank">systemd-homed</a>, a systemd
+service for managing users and home directories. However, a discussion
+proposing the use systemd-homed as part of Fedora installation
+uncovered some hurdles, such as trying to blend its approach to
+managing users with tools that centralize user management.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-08T16:05:11.000Z>8 November 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

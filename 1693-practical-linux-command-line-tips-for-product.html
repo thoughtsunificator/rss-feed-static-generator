@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Practical Linux Command Line Tips for Productivity and Efficiency</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/06/practical-linux-comandline-tips/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2024. -->
+<p>Feeling stuck with basic Linux commands? You’re not alone! Many people know some commands but don’t feel efficient. The good news is that with some know-how and common commands, you can transform your skills.</p>
+<p>In this post, you’ll learn to combine commands with pipes, master shell techniques, efficiently recall and edit past commands, and navigate the filesystem with speed. Let’s dive in!</p>
+<h3 id="1-combining-commands-with-pipes">1. Combining Commands with Pipes</h3>
+<h4 id="understanding-how-pipes-work">Understanding How Pipes Work</h4>
+<p>Ever wish your commands could work together? Pipes make it happen! They let one command pass its output to another, creating a smooth workflow.</p>
+<p>Commands take input (<code>stdin</code>) and give output (<code>stdout</code>). The pipe symbol (<code>|</code>) links them, making life easier.</p>
+<p>For example, <code>ls -l /bin</code> lists files in the <code>/bin</code> directory, but the amount of output is overwhelming. Try <code>ls -l /bin | less</code> to view one screen at a time—like having a personal organizer! This command pipes the output of the <code>ls</code> command into the pager <code>less</code>, which is very useful for reading large amounts of data.</p>
+<p>Let’s dive into pipes and practice them with commands like <code>wc</code>, <code>head</code>, <code>cut</code>, <code>grep</code>, <code>sort</code>, and <code>uniq</code> to handle data like a pro. If any of these commands are new to you, use <code>man</code> (short for “manual”) followed by the command name to learn more. For example:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>man grep
+</span></span></code></pre></div><h4 id="practical-examples-real-world-use-cases-for-combining-commands">Practical Examples: Real-World Use Cases for Combining Commands</h4>
+<h5 id="example-1-extracting-information-from-log-files">Example 1: Extracting Information from Log Files</h5>
+<p><strong>Task</strong>: Find all error messages in a log file and count them.</p>
+<p><strong>Sample Data (<code>application.log</code>)</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>INFO 2024-06-07 User login successful
+</span></span><span><span>ERROR 2024-06-07 Failed to connect to database
+</span></span><span><span>INFO 2024-06-07 User logout
+</span></span><span><span>ERROR 2024-06-07 Timeout while retrieving data
+</span></span><span><span>INFO 2024-06-07 Session expired
+</span></span><span><span>ERROR 2024-06-07 Null pointer exception
+</span></span></code></pre></div><p><strong>Command</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>grep 'ERROR' application.log | wc -l
+</span></span></code></pre></div><p><strong>Explanation</strong>:</p>
+<ul>
+<li><code>grep 'ERROR' application.log</code> searches for lines containing “ERROR” in <code>application.log</code>.</li>
+<li>The output is then passed to <code>wc -l</code>, which counts the number of lines, giving you the total number of error messages. <code>wc</code> is short for “word count”, while <code>-l</code> stands for lines.</li>
+</ul>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>3
+</span></span></code></pre></div><h5 id="example-2-processing-xml-files-for-public-health-data">Example 2: Processing XML Files for Public Health Data</h5>
+<p><strong>Task</strong>: Extract all patient IDs from multiple XML files and sort them uniquely.</p>
+<p><strong>Sample Data (<code>file1.xml</code>, <code>file2.xml</code>)</strong>:</p>
+<ul>
+<li>
+<p><code>file1.xml</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;patients&gt;</span>
+</span></span><span><span>    <span>&lt;patient&gt;</span>
+</span></span><span><span>        <span>&lt;patientId&gt;</span>123<span>&lt;/patientId&gt;</span>
+</span></span><span><span>        <span>&lt;name&gt;</span>John Doe<span>&lt;/name&gt;</span>
+</span></span><span><span>    <span>&lt;/patient&gt;</span>
+</span></span><span><span>    <span>&lt;patient&gt;</span>
+</span></span><span><span>        <span>&lt;patientId&gt;</span>124<span>&lt;/patientId&gt;</span>
+</span></span><span><span>        <span>&lt;name&gt;</span>Jane Smith<span>&lt;/name&gt;</span>
+</span></span><span><span>    <span>&lt;/patient&gt;</span>
+</span></span><span><span><span>&lt;/patients&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p><code>file2.xml</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;patients&gt;</span>
+</span></span><span><span>    <span>&lt;patient&gt;</span>
+</span></span><span><span>        <span>&lt;patientId&gt;</span>124<span>&lt;/patientId&gt;</span>
+</span></span><span><span>        <span>&lt;name&gt;</span>Jane Smith<span>&lt;/name&gt;</span>
+</span></span><span><span>    <span>&lt;/patient&gt;</span>
+</span></span><span><span>    <span>&lt;patient&gt;</span>
+</span></span><span><span>        <span>&lt;patientId&gt;</span>125<span>&lt;/patientId&gt;</span>
+</span></span><span><span>        <span>&lt;name&gt;</span>Mary Johnson<span>&lt;/name&gt;</span>
+</span></span><span><span>    <span>&lt;/patient&gt;</span>
+</span></span><span><span><span>&lt;/patients&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>grep '&lt;patientId&gt;' *.xml | cut -d '&gt;' -f 2 | cut -d '&lt;' -f 1 | sort | uniq
+</span></span></code></pre></div><p><strong>Explanation</strong>:</p>
+<ul>
+<li><code>grep '&lt;patientId&gt;' *.xml</code> searches for lines containing <code>&lt;patientId&gt;</code> in all XML files.</li>
+<li>The output is then piped to <code>cut -d'&gt;' -f2</code> to extract the content after the <code>&gt;</code> character.</li>
+<li><code>cut -d'&lt;' -f1</code> further extracts the content before the <code>&lt;</code> character.</li>
+<li><code>sort</code> sorts the IDs alphabetically.</li>
+<li><code>uniq</code> removes duplicate entries.</li>
+</ul>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>123
+</span></span><span><span>124
+</span></span><span><span>125
+</span></span></code></pre></div><h5 id="example-3-organizing-text-data-into-a-csv-file">Example 3: Organizing Text Data into a CSV File</h5>
+<p><strong>Task</strong>: Convert a space-separated file to a CSV file.</p>
+<p><strong>Sample Data (<code>data.txt</code>)</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Name Age Location
+</span></span><span><span>Alice 30 New_York
+</span></span><span><span>Bob 25 Los_Angeles
+</span></span><span><span>Charlie 35 Chicago
+</span></span></code></pre></div><p><strong>Command</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>cat data.txt | tr ' ' ',' &gt; data.csv
+</span></span></code></pre></div><p><strong>Explanation</strong>:</p>
+<ul>
+<li><code>cat data.txt</code> reads the content of <code>data.txt</code>.</li>
+<li>The output is then piped to <code>tr ' ' ','</code>, which translates spaces to commas.</li>
+<li><code>&gt; data.csv</code> redirects the final output to <code>data.csv</code>. We’ll cover redirection in more detail later.</li>
+</ul>
+<p><strong>Expected Output (<code>data.csv</code>)</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Name,Age,Location
+</span></span><span><span>Alice,30,New_York
+</span></span><span><span>Bob,25,Los_Angeles
+</span></span><span><span>Charlie,35,Chicago
+</span></span></code></pre></div><p>These examples demonstrate how simple commands can be combined to achieve powerful and useful results. Experiment with these commands and modify them to fit your specific needs!</p>
+<h3 id="2-mastering-shell-techniques">2. Mastering Shell Techniques</h3>
+<p>The shell is the heart of your command line, acting as the bridge between you and the operating system. It does more than just run commands; it helps you manage and streamline your tasks efficiently. Let’s dive into some essential shell techniques.</p>
+<h5 id="understanding-the-shell-with-ls">Understanding the Shell with <code>ls</code></h5>
+<p>To get a clear picture of what the shell does versus what a command does, let’s look at the <code>ls</code> command. When you run <code>ls</code>, the shell and the command work together to get things done:</p>
+<ul>
+<li><strong>Shell’s Job</strong>: The shell processes wildcards (like <code>*.py</code>), sets up input and output redirections, and manages environment variables.</li>
+<li><strong>Command’s Job</strong>: The <code>ls</code> command lists directory contents.</li>
+</ul>
+<p><strong>Example</strong>: List all Python files in a directory.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ls *.py
+</span></span></code></pre></div><p>In this example:</p>
+<ul>
+<li>The <strong>shell</strong> expands <code>*.py</code> to match all Python files (e.g., <code>data.py</code>, <code>main.py</code>).</li>
+<li>The <strong><code>ls</code> Command</strong> receives the list of Python files and displays them.</li>
+</ul>
+<h5 id="1-pattern-matching-for-filenames">1. Pattern Matching for Filenames</h5>
+<p>Pattern matching allows you to select multiple files with a single command using <a href="https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm" rel="noreferrer" target="_blank">wildcards</a>.</p>
+<p><strong>Example 1</strong>: List all text files.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ls *.txt
+</span></span></code></pre></div><p>This command lists all files ending with <code>.txt</code>, like <code>report.txt</code>, <code>notes.txt</code>, and <code>summary.txt</code>.</p>
+<p><strong>Example 2</strong>: List all files that start with “data”.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ls data*
+</span></span></code></pre></div><p>This command lists all files starting with “data”, like <code>data1.csv</code>, <code>data2.csv</code>, and <code>database.db</code>.</p>
+<p><strong>Example 3</strong>: List all files that have numbers in their names.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ls *[0-9]*
+</span></span></code></pre></div><p>This command lists files that contain any digit, like <code>file1.txt</code>, <code>report2.doc</code>, and <code>data2023.csv</code>.</p>
+<h5 id="2-variables-to-store-values">2. Variables to Store Values</h5>
+<p>Variables let you store data that can be reused in your commands.</p>
+<p><strong>Example 1</strong>: Create a variable to store your project directory path.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>PROJECT_DIR</span>=<span>"/home/user/myproject"</span>
+</span></span><span><span><span>cd</span> <span>$PROJECT_DIR</span>
+</span></span></code></pre></div><p>This command sets the <code>PROJECT_DIR</code> variable and then uses it to change to that directory.</p>
+<p><strong>Example 2</strong>: Store the result of a command in a variable.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>DATE</span>=<span>$(</span>date +%Y-%m-%d<span>)</span>
+</span></span><span><span><span>echo</span> <span>"Today's date is </span><span>$DATE</span><span>"</span>
+</span></span></code></pre></div><p>This command sets the <code>DATE</code> variable to the current date using <a href="https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html" rel="noreferrer" target="_blank">command substitution</a> and then prints the contents of the <code>DATE</code> variable.</p>
+<h5 id="3-redirection-of-input-and-output">3. Redirection of Input and Output</h5>
+<p>Redirection allows you to control where your command’s input and output go.</p>
+<p><strong>Example 1</strong>: Save the output of a command to a file.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ls -l &gt; filelist.txt
+</span></span></code></pre></div><p>This command lists all files in long format and saves the output to <code>filelist.txt</code>. Redirection with the single right bracket will replace the contents of the target file.</p>
+<p><strong>Example 2</strong>: Append the output of a command to a file.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>echo "New entry" &gt;&gt; filelist.txt
+</span></span></code></pre></div><p>This command adds “New entry” to the end of <code>filelist.txt</code>. Redirection with two right brackets will append to the contents of the target file.</p>
+<p><strong>Example 3</strong>: Use a file as input for a command.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>sort &lt; unsorted.txt
+</span></span></code></pre></div><p>This command sorts the contents of <code>unsorted.txt</code> and displays the result. The single left bracket reads the contents of the file on the right (<code>unsorted.txt</code> in this case) and uses them as input to the command on the left (<code>sort</code> in this case).</p>
+<h5 id="4-quoting-and-escaping-to-disable-shell-features">4. Quoting and Escaping to Disable Shell Features</h5>
+<p>Quoting and escaping are used to handle special characters in your commands. Double quotes won’t expand wildcards or break the string on spaces, but will still expand variables and substitute commands with <code>$()</code>. Content in single quotes isn’t processed by the shell at all; all characters are retained literally.</p>
+<p><strong>Example 1</strong>: Search for a phrase with spaces in a file.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>grep "my search phrase" file.txt
+</span></span></code></pre></div><p>This command searches for the exact phrase “my search phrase” in <code>file.txt</code>.</p>
+<p><strong>Example 2</strong>: Use a variable inside a double-quoted string.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>NAME</span>=<span>"Alice"</span>
+</span></span><span><span><span>echo</span> <span>"Hello, </span><span>$NAME</span><span>"</span>
+</span></span></code></pre></div><p>This command prints “Hello, Alice” using the <code>NAME</code> variable.</p>
+<p><strong>Example 3</strong>: Use single quotes to prevent variable expansion.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>'Hello, $NAME'</span>
+</span></span></code></pre></div><p>This command prints <code>Hello, $NAME</code> without expanding the variable.</p>
+<p><strong>Example 4</strong>: Use backslashes to escape special characters in a double-quoted string.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>"This path costs \$139: C:\\Windows\\System32"</span>
+</span></span></code></pre></div><p>This command prints <code>This path costs $139: C:\Windows\System32</code>. The dollar sign and backlashes must be escaped with a <code>\</code> so that they aren’t treated as special characters.</p>
+<p><strong>Example 5</strong>: Include a literal double quote in a string.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>"He said, \"Hello, World!\""</span>
+</span></span></code></pre></div><p>This command prints <code>He said, "Hello, World!"</code> by escaping the double quotes.</p>
+<p><strong>Example 6:</strong>: Include a literal single quote in a single-quoted string.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>'What'</span><span>\'</span><span>'s up?'</span>
+</span></span></code></pre></div><p>This command prints “What’s up?” using a more complex escape sequence—first, you close the single-quote string, then without a space you add a literal single-quote character with <code>\'</code>, then you start a single-quoted string again. In bash, when there are no spaces between two strings, the strings will be joined together.</p>
+<h5 id="5-the-search-path-for-locating-programs-to-run">5. The Search Path for Locating Programs to Run</h5>
+<p>The shell uses the PATH variable to find programs to execute.</p>
+<p><strong>Example 1</strong>: View your current PATH.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>$PATH</span>
+</span></span></code></pre></div><p>This command displays the directories in your current PATH.</p>
+<p><strong>Example 2</strong>: Add a directory to your PATH temporarily.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>PATH</span>=<span>$PATH</span>:/home/user/bin
+</span></span></code></pre></div><p>This command adds <code>/home/user/bin</code> to your PATH for the current session. It reads the PATH variable, then concatenates the string “:/home/user/bin” to the end, similarly to how we escaped a single quote.</p>
+<p><strong>Example 3</strong>: Add a directory to your PATH permanently.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>'export PATH=$PATH:/home/user/bin'</span> &gt;&gt; ~/.bashrc
+</span></span><span><span><span>source</span> ~/.bashrc
+</span></span></code></pre></div><p>This command appends the new PATH to your <code>.bashrc</code> file (using redirection!). <code>.bashrc</code> is run every time a new shell is started. <code>source</code> reloads <code>.bashrc</code> for the current shell, using the new PATH for the current session.</p>
+<h5 id="6-saving-changes-to-your-shell-environment">6. Saving Changes to Your Shell Environment</h5>
+<p>Save environment changes by adding them to your shell configuration file.</p>
+<p><strong>Example 1</strong>: Set an environment variable for the current session.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>EDITOR</span>=nano
+</span></span></code></pre></div><p>This command sets the default text editor to <code>nano</code> for the current session.</p>
+<p><strong>Example 2</strong>: Make an environment variable permanent.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>'export EDITOR=nano'</span> &gt;&gt; ~/.bashrc
+</span></span><span><span><span>source</span> ~/.bashrc
+</span></span></code></pre></div><p>This command sets the default text editor to <code>nano</code> by adding it to your <code>.bashrc</code> file.</p>
+<p><strong>Example 3</strong>: Create an alias for a command.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>'alias ll="ls -l"'</span> &gt;&gt; ~/.bashrc
+</span></span><span><span><span>source</span> ~/.bashrc
+</span></span></code></pre></div><p>This command creates an alias <code>ll</code> for <code>ls -l</code> and makes it permanent by adding it to your <code>.bashrc</code> file.</p>
+<hr>
+<p>Mastering these shell techniques will boost your productivity and make your command line experience more enjoyable. Dive in and start practicing these essential commands!</p>
+<h3 id="3-efficient-command-recall-and-editing">3. Efficient Command Recall and Editing</h3>
+<p>Tired of retyping long commands or fixing typos from scratch? The shell’s got you covered with command history and command-line editing, designed to save you time and effort.</p>
+<p>Imagine you just ran a complex command:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>md5sum *.jpg | cut -c 1-32 | sort | uniq -c | sort -nr
+</span></span></code></pre></div><p>Need to run it again? No need to retype it. The shell keeps a history of every command you run, so you can quickly recall and rerun them. This feature, known as <em>command history</em>, is a favorite among power users for speeding up their workflow and cutting down on repetitive typing.</p>
+<p>Accidentally typed <code>*.jg</code> instead of <code>*.jpg</code>?</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>md5sum *.jg | cut -c 1-32 | sort | uniq -c | sort -nr
+</span></span></code></pre></div><p>No problem! Instead of starting over, just edit the command directly. The shell’s <em>command-line editing</em> lets you fix typos on the fly, similar to using a text editor.</p>
+<p>In this section, you’ll discover how to leverage command history and command-line editing to enhance your efficiency and minimize errors.</p>
+<h4 id="command-history">Command History</h4>
+<p>The shell keeps a record of every command you execute, allowing you to recall and reuse them with ease.</p>
+<h5 id="viewing-the-command-history">Viewing the Command History</h5>
+<p>The <code>history</code> command lists all previously executed commands in your shell session. Each command is assigned an ID number for easy reference.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>history</span>
+</span></span></code></pre></div><p><strong>Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>1000  cd $HOME/Music
+</span></span><span><span>1001  ls
+</span></span><span><span>1002  mv jazz.mp3 jazzy-song.mp3
+</span></span><span><span>1003  play jazzy-song.mp3
+</span></span><span><span>...
+</span></span><span><span>1481  cd
+</span></span><span><span>1482  firefox https://google.com
+</span></span><span><span>1483  history
+</span></span></code></pre></div><p>To view the most recent commands, limit the output with a number.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>history</span> <span>3</span>
+</span></span></code></pre></div><p><strong>Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>1482  firefox https://google.com
+</span></span><span><span>1483  history
+</span></span><span><span>1484  history 3
+</span></span></code></pre></div><p>You can also filter the history to find specific commands by piping to <code>grep</code>.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>history</span> | grep <span>"cd"</span>
+</span></span></code></pre></div><p><strong>Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>1000  cd $HOME/Music
+</span></span><span><span>1092  cd ..
+</span></span><span><span>1123  cd Finances
+</span></span><span><span>1375  cd Checking
+</span></span><span><span>1481  cd
+</span></span></code></pre></div><h5 id="environment-variables-for-history">Environment Variables for History</h5>
+<p>Environment variables control how your shell handles command history. Key variables include <code>HISTSIZE</code>, <code>HISTFILESIZE</code>, and <code>HISTCONTROL</code>.</p>
+<p><strong>HISTSIZE</strong>: Determines the number of commands to remember in the current session.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>$HISTSIZE</span>
+</span></span></code></pre></div><p><strong>Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>500
+</span></span></code></pre></div><p>To change the size:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>HISTSIZE</span>=<span>1000</span>
+</span></span></code></pre></div><p><strong>HISTFILESIZE</strong>: Sets the number of commands to save in the history file.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>$HISTFILESIZE</span>
+</span></span></code></pre></div><p><strong>Output</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>1000
+</span></span></code></pre></div><p>To change the file size:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>HISTFILESIZE</span>=<span>2000</span>
+</span></span></code></pre></div><p><strong>HISTCONTROL</strong>: Controls what commands are saved. Common values include <code>ignorespace</code> (ignore commands starting with a space) and <code>ignoredups</code> (ignore duplicate commands).</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>HISTCONTROL</span>=ignoredups
+</span></span></code></pre></div><p>To combine options:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>HISTCONTROL</span>=ignoredups:ignorespace
+</span></span></code></pre></div><p><strong>HISTIGNORE</strong>: Excludes specific commands from being saved.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>HISTIGNORE</span>=<span>"ls:cd:pwd"</span>
+</span></span></code></pre></div><p>This setting prevents <code>ls</code>, <code>cd</code>, and <code>pwd</code> commands from being saved in the history.</p>
+<p>Note that you should add these <code>export</code> commands to your <code>.bashrc</code> for them to take effect outside the current shell.</p>
+<h4 id="history-expansion">History Expansion</h4>
+<p>History expansion is a powerful shell feature that lets you reuse and modify previous commands quickly. It uses special expressions, typically starting with an exclamation mark (<code>!</code>), to reference commands from your history.</p>
+<h5 id="basic-history-expansion">Basic History Expansion</h5>
+<p>You can repeat the last command with <code>!!</code>.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>"Hello, World!"</span>
+</span></span><span><span>!!
+</span></span></code></pre></div><p>This reruns <code>echo "Hello, World!"</code>.</p>
+<h5 id="referencing-specific-commands">Referencing Specific Commands</h5>
+<p>To repeat a specific command from your history, use its ID number.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>!1002
+</span></span></code></pre></div><p>This reruns the command with ID 1002 (<code>mv jazz.mp3 jazzy-song.mp3</code> in our example).</p>
+<h5 id="using-substring-matches">Using Substring Matches</h5>
+<p>You can recall the most recent command that starts with a specific string.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>!mv
+</span></span></code></pre></div><p>This reruns the most recent <code>mv</code> command.</p>
+<p>To recall a command containing a specific substring anywhere, use <code>!?string?</code>.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>!?cd?
+</span></span></code></pre></div><p>This reruns the most recent command containing <code>cd</code>.</p>
+<h5 id="modifying-previous-commands">Modifying Previous Commands</h5>
+<p>You can also modify the previous command before running it. For instance, use <code>^old^new</code> to replace the first occurrence of <code>old</code> with <code>new</code> in the last command.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>echo</span> <span>"Hello, Alice"</span>
+</span></span><span><span>^Alice^Bob
+</span></span></code></pre></div><p>This changes <code>Alice</code> to <code>Bob</code>, rerunning the command as <code>echo "Hello, Bob"</code>.</p>
+<h5 id="using--and-">Using <code>!$</code> and <code>!*</code></h5>
+<p><code>!$</code> refers to the last argument of the previous command.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>ls /some/directory
+</span></span><span><span><span>cd</span> !$
+</span></span></code></pre></div><p>This changes to <code>/some/directory</code>.</p>
+<p><code>!*</code> refers to all arguments of the previous command.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>cp file1.txt file2.txt /backup/
+</span></span><span><span>rm !*
+</span></span></code></pre></div><p>This removes both <code>file1.txt</code> and <code>file2.txt</code> from <code>/backup/</code>.</p>
+<h5 id="safety-with-p">Safety with <code>:p</code></h5>
+<p>To avoid mistakes, use <code>:p</code> to print the command without executing it.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>!1002:p
+</span></span></code></pre></div><p>This prints the command with ID 1002 without running it. You can then confirm it before rerunning it.</p>
+<h4 id="command-line-editing">Command-Line Editing</h4>
+<p>Command-line editing is essential for fixing mistakes, modifying commands, and creating new commands efficiently. Here are some key techniques to help you edit commands quickly and effectively.</p>
+<h5 id="cursoring-within-a-command">Cursoring Within a Command</h5>
+<p>Use the left and right arrow keys to move the cursor back and forth within a command line. This allows you to make changes without retyping the entire command.</p>
+<p><strong>Example</strong>:
+To correct a typo, press the left arrow key to move the cursor to the mistake, fix it, and then press Enter.</p>
+<p><strong>Useful Keystrokes</strong>:</p>
+<ul>
+<li><code>Left arrow</code>: Move left by one character</li>
+<li><code>Right arrow</code>: Move right by one character</li>
+<li><code>Ctrl + left arrow</code>: Move left by one word (on macOS, try <code>Option + left arrow</code>)</li>
+<li><code>Ctrl + right arrow</code>: Move right by one word (on macOS, try <code>Option + right arrow</code>)</li>
+<li><code>Ctrl + a</code>: Move to the beginning of the command line</li>
+<li><code>Ctrl + e</code>: Move to the end of the command line</li>
+</ul>
+<h5 id="incremental-search">Incremental Search</h5>
+<p>Press <code>Ctrl + r</code> to initiate an incremental search through your command history. This lets you search for a previously run command without scrolling through the entire history.</p>
+<p><strong>Example</strong>:
+Press <code>Ctrl + r</code> and start typing part of a previous command. The shell will display matching commands as you type. Press <code>Ctrl + r</code> again to cycle through other matches. Once you find the command, press Enter to run it or use the arrow keys to edit it.</p>
+<p><strong>Additional Tips</strong>:</p>
+<ul>
+<li>To recall the most recent search string, press <code>Ctrl + r</code> twice.</li>
+<li>To stop the search and continue editing the current command, press <code>Esc</code>, <code>Ctrl + j</code>, or any arrow key.</li>
+<li>To quit the search and clear the command line, press <code>Ctrl + g</code> or <code>Ctrl + c</code>.</li>
+</ul>
+<p>By mastering these command-line editing techniques, you can save time, reduce errors, and improve your efficiency when working in the shell.</p>
+<h3 id="4-navigating-the-filesystem-with-speed">4. Navigating the Filesystem with Speed</h3>
+<h4 id="efficient-directory-navigation">Efficient Directory Navigation</h4>
+<p>Navigating the filesystem efficiently can significantly boost productivity. Here are some techniques:</p>
+<h5 id="using-cd">Using <code>cd</code></h5>
+<p>The <code>cd</code> (change directory) command is fundamental for navigation. Here are some practical tips:</p>
+<ul>
+<li>
+<p>Jump to the Home Directory:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>cd</span>
+</span></span></code></pre></div><p>This command takes you directly to your home directory, regardless of your current location in the filesystem.</p>
+</li>
+<li>
+<p>Navigate Using Variables:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>cd</span> <span>$HOME</span>/Work
+</span></span><span><span><span>cd</span> ~/Work
+</span></span></code></pre></div><p>Both <code>$HOME</code> and <code>~</code> are shortcuts to your home directory, making it easy to navigate to subdirectories within it.</p>
+</li>
+<li>
+<p>Navigate to Another User’s Home Directory:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>cd</span> ~username
+</span></span></code></pre></div></li>
+</ul>
+<h5 id="cdpath">CDPATH</h5>
+<p>Set the CDPATH variable to define base directories for quick navigation.</p>
+<ul>
+<li>
+<p>Setting CDPATH:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>export</span> <span>CDPATH</span>=<span>$HOME</span>:<span>$HOME</span>/Work
+</span></span></code></pre></div></li>
+<li>
+<p>Using CDPATH:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>cd</span> Work
+</span></span></code></pre></div></li>
+</ul>
+<h4 id="organizing-your-home-directory">Organizing Your Home Directory</h4>
+<p>A well-organized home directory structure can streamline your workflow.</p>
+<h5 id="strategies-for-fast-navigation">Strategies for Fast Navigation</h5>
+<ul>
+<li>
+<p>Use Descriptive Names:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>mkdir -p <span>$HOME</span>/Projects/{Work,Personal,OpenSource}
+</span></span></code></pre></div></li>
+<li>
+<p>Create Aliases:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>alias</span> <span>work</span>=<span>"cd </span><span>$HOME</span><span>/Projects/Work"</span>
+</span></span><span><span><span>alias</span> <span>personal</span>=<span>"cd </span><span>$HOME</span><span>/Projects/Personal"</span>
+</span></span></code></pre></div></li>
+</ul>
+<h4 id="using-pushd-and-popd-for-directory-management">Using pushd and popd for Directory Management</h4>
+<p>The <code>pushd</code> and <code>popd</code> commands are used to manage a stack of directories, allowing for efficient navigation between them. Here’s how they work:</p>
+<ul>
+<li><code>pushd</code>: Adds a directory to the stack and changes to that directory.</li>
+<li><code>popd</code>: Removes the top directory from the stack and changes to the new top directory.</li>
+</ul>
+<h5 id="basic-usage">Basic Usage</h5>
+<ol>
+<li>
+<p>Pushing a Directory:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>pushd</span> /path/to/directory
+</span></span></code></pre></div><p>This command adds <code>/path/to/directory</code> to the stack and changes the current directory to it.</p>
+</li>
+<li>
+<p>Popping a Directory:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>popd</span>
+</span></span></code></pre></div><p>This command removes the top directory from the stack and changes the current directory to the new top directory.</p>
+</li>
+</ol>
+<h5 id="example-workflow">Example Workflow</h5>
+<p>Let’s say you start in your home directory (<code>~/</code>) and execute the following commands:</p>
+<ol>
+<li>
+<p>Pushing Directories:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>pushd</span> /var/www/html
+</span></span><span><span><span>pushd</span> /etc/apache2
+</span></span></code></pre></div><p>The stack now looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>~/           (top)
+</span></span><span><span>/etc/apache2
+</span></span><span><span>/var/www/html
+</span></span></code></pre></div></li>
+<li>
+<p>Popping Directories:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>popd</span>
+</span></span></code></pre></div><p>After this command, the stack looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>~/           (top)
+</span></span><span><span>/var/www/html
+</span></span></code></pre></div></li>
+<li>
+<p>Navigating with Aliases:</p>
+<p>You can create aliases for <code>pushd</code> and <code>popd</code> to make navigation easier:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span><span>alias</span> <span>pd</span>=<span>"popd"</span>
+</span></span><span><span><span>alias</span> <span>gd</span>=<span>"pushd"</span>
+</span></span></code></pre></div><p>Now you can use <code>gd</code> to push directories onto the stack and <code>pd</code> to pop directories off the stack.</p>
+</li>
+</ol>
+<p>These techniques will help you navigate your filesystem efficiently, allowing you to focus more on your tasks and less on typing long paths.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Mastering the command line can transform your productivity and efficiency. We’ve covered combining commands with pipes, mastering shell techniques, recalling and editing commands efficiently, and navigating the filesystem with speed. Dive in, experiment, and watch your skills grow!</p>
+<p>For further reading, I highly recommend the book <a href="https://www.oreilly.com/library/view/efficient-linux-at/9781098113391/" rel="noreferrer" target="_blank">“Efficient Linux at the Command Line”</a>. It took my command-line skills to the next level and inspired many of the tips and tricks shared in this blog.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-06-22T00:00:00.000Z>22 June 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

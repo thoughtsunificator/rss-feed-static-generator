@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] The trouble with struct sockaddr's fake flexible array</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/997094/">Go to article URL</a>
+		<div id="content"><p></p>Flexible arrays — arrays that are declared as the final member of a
+structure and which have a size determined at run time — have long drawn
+the attention of developers seeking to harden the kernel against
+buffer-overflow vulnerabilities.  These arrays have reliably been a source
+of bugs, so anything that can be done to ensure that operations on them
+stay within bounds is a welcome improvement.  While many improvements,
+including the recent <a href="https://lwn.net/Articles/936728/" rel="noreferrer" target="_blank">counted-by work</a>, have
+been made, one of the most difficult cases remains.  Now, however,
+developers who are interested in using recent compiler bounds-checking
+features are trying to get a handle on <tt>struct sockaddr</tt>.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-07T16:34:08.000Z>7 November 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

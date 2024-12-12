@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>WebKit Features in Safari 18.1</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/16188/webkit-features-in-safari-18-1/">Go to article URL</a>
+		<div id="content"><p></p><p>Today, Safari 18.1 is available for iOS 18.1, iPadOS 18.1, macOS Sequoia 15.1 and visionOS 2.1, as well as macOS Sonoma and macOS Ventura. Two features are newly available with <a href="https://www.apple.com/apple-intelligence/" rel="noreferrer" target="_blank">Apple Intelligence</a>, on devices and in languages where available.</p>
+<h2>Summaries in Reader</h2>
+<p>Since 2010, Safari Reader has provided an easy way to view articles on the web without navigation or other distractions — formatted for easy reading and presented all on one page. You can adjust the background color, font, and font size. Safari 18.0 brought a refreshed design to Reader, making it even easier to use.</p>
+<figure class="mattewhite"><picture><source srcset="https://webkit.org/wp-content/uploads/Safari-Reader-Summaries-dark.jpg" type="image/png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>Now in Safari Reader in Safari 18.1, you can tap Summarize to use Apple Intelligence to summarize the article. Longer pages include table of contents. Safari also offers summary highlights for some articles in the Page Menu on macOS, iOS and iPadOS.</p>
+<h2>Writing Tools</h2>
+<p>These days, we do a lot of writing on the web. With Apple Intelligence, Safari 18.1 can help you find just the right words. Writing Tools can proofread your text, or rewrite different versions until the tone and wording are just right. And it can summarize selected text with a tap.</p>
+<figure class="mattewhite"><picture><source srcset="https://webkit.org/wp-content/uploads/writing-tools-dark.png" type="image/png" media="(prefers-color-scheme: dark)"></picture></figure>
+<p>WebKit also adds support for the Writing Tools API in WKWebView for enabling and customizing the behavior of Writing Tools in apps built with web technology. Learn more watching <a href="https://developer.apple.com/videos/play/wwdc2024/10168/" rel="noreferrer" target="_blank"><em>Get started with Writing Tools</em></a>.</p>
+<p>For more information about the availability of Apple Intelligence, see <a href="https://www.apple.com/apple-intelligence/#footnote-1" rel="noreferrer" target="_blank">apple.com</a>.</p>
+<h2>Bug Fixes and more</h2>
+<p>In addition to all the new features, WebKit for Safari 18.1 includes work to polish existing features, including some that help Safari pass even more tests for <a href="https://wpt.fyi/interop-2024?stable" rel="noreferrer" target="_blank">Interop 2024</a>.</p>
+<h3>Accessibility</h3>
+<ul>
+<li>Fixed <code>display: contents</code> on tbody elements preventing table rows from being properly exposed in the accessibility tree.</li>
+<li>Fixed the handling of <code>ElementInternals</code>‘s <code>ariaValueNow</code> null values so the right value is exposed to assistive technologies.</li>
+<li>Fixed tables with hidden rows reporting wrong counts and blocking access to some rows in VoiceOver. </li>
+<li>Fixed <code>role="menu"</code> elements to allow child groups with <code>menuitem</code> children.</li>
+<li>Fixed updating the accessibility tree when text underneath an <code>aria-describedby</code> element changes. </li>
+<li>Fixed text exposed to assistive technologies when <code>display: contents</code> directly wraps a <code>display: block</code> text container.</li>
+<li>Fixed VoiceOver not finding any content in a table when <code>display: table</code> is applied to <code>tbody</code> elements.</li>
+</ul>
+<h3>Authentication</h3>
+<ul>
+<li>Fixed an issue using large credential lists with security keys. </li>
+</ul>
+<h3>CSS</h3>
+<ul>
+<li>Fixed style container queries querying the root element.</li>
+</ul>
+<h3>Editing</h3>
+<ul>
+<li>Fixed deleting content immediately before a <code>&lt;picture&gt;</code> element unexpectedly removing <code>&lt;source&gt;</code> elements.</li>
+<li>Fixed inserting text before a <code>&lt;picture&gt;</code> element inserting the text after the element instead. </li>
+</ul>
+<h3>JavaScript</h3>
+<ul>
+<li>Fixed incorrect optimization and random non-updated values. </li>
+</ul>
+<h3>Media</h3>
+<ul>
+<li>Fixed a bug in WebCodecs where audio and video codecs with pending work could be prematurely garbage collected.</li>
+</ul>
+<h3>Networking</h3>
+<ul>
+<li>Fixed a bug where <code>Cross-Origin-Opener-Policy</code> header fields in the response of <code>iframe</code> elements were not ignored, resulting in <code>window.opener</code> being null after multiple cross-origin navigations of the embedder document. </li>
+</ul>
+<h3>Rendering</h3>
+<ul>
+<li>Fixed <code>content-visibility</code> to not apply to elements with <code>display: contents</code> or <code>display: none</code>. </li>
+<li>Fixed float clearing in the WordPress Classic Editor sidebar layout. </li>
+</ul>
+<h3>Security</h3>
+<ul>
+<li>Fixed the <code>ping</code> attribute for <code>&lt;a&gt;</code> elements to be controlled by the <code>connect-src</code> CSP directive.</li>
+</ul>
+<h3>Web Extensions</h3>
+<ul>
+<li>Fixed <code>blob:</code> URL downloads failing to trigger from an extension. </li>
+</ul>
+<h3>WebRTC</h3>
+<ul>
+<li>Fixed blurry screen sharing for some sites. </li>
+</ul>
+<h3>WKWebView</h3>
+<ul>
+<li>Fixed AVIF in WKWebView on macOS. (FB14678252)</li>
+</ul>
+<h2>Updating to Safari 18.1</h2>
+<p>Safari 18.1 is available on <a href="https://www.apple.com/ios/ios-18/" rel="noreferrer" target="_blank">iOS 18.1</a>, <a href="https://www.apple.com/ipados/ipados-18/" rel="noreferrer" target="_blank">iPadOS 18.1</a>, <a href="https://www.apple.com/macos/" rel="noreferrer" target="_blank">macOS Sequoia</a>, macOS Sonoma, macOS Ventura, and in <a href="https://www.apple.com/visionos/" rel="noreferrer" target="_blank">visionOS 2.1</a>.</p>
+<p>If you are running macOS Sonoma or macOS Ventura, you can update Safari by itself, without updating macOS. Go to  &gt; System Settings &gt; General &gt; Software Update and click “More info…” under Updates Available.</p>
+<p>To get the latest version of Safari on iPhone, iPad or Apple Vision Pro, go to Settings &gt; General &gt; Software Update, and tap to update.</p>
+<h2>Feedback</h2>
+<p>We love hearing from you. To share your thoughts, find us on Mastodon at <a href="https://front-end.social/@jensimmons" rel="noreferrer" target="_blank">@jensimmons@front-end.social</a> and <a href="https://mastodon.social/@jondavis" rel="noreferrer" target="_blank">@jondavis@mastodon.social</a>. Or send a reply on X to <a href="https://twitter.com/webkit" rel="noreferrer" target="_blank">@webkit</a>. You can also <a href="https://www.linkedin.com/in/apple-webkit/" rel="noreferrer" target="_blank">follow WebKit on LinkedIn</a>. If you run into any issues, we welcome your <a href="https://feedbackassistant.apple.com/" rel="noreferrer" target="_blank">feedback</a> on Safari UI (learn more about <a href="https://developer.apple.com/bug-reporting/" rel="noreferrer" target="_blank">filing Feedback</a>), or your <a href="https://bugs.webkit.org/" rel="noreferrer" target="_blank">WebKit bug report</a> about web technologies or Web Inspector. If you run into a website that isn’t working as expected, please file a report at <a href="https://webcompat.com/" rel="noreferrer" target="_blank">webcompat.com</a>. Filing issues really does make a difference.</p>
+<p>Download the latest <a href="https://developer.apple.com/safari/technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> on macOS to stay at the forefront of the web platform and to use the latest Web Inspector features.</p>
+<p>You can also find this information in the <a href="https://developer.apple.com/documentation/safari-release-notes/" rel="noreferrer" target="_blank">Safari 18.1 release notes</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-10-28T16:30:39.000Z>28 October 2024</time>
+			<a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

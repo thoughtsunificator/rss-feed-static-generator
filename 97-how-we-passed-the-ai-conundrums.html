@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>How we passed the AI conundrums</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://opensource.org/blog/how-we-passed-the-ai-conundrums">Go to article URL</a>
+		<div id="content"><p></p>
+<p>Some people believe that full unfettered access to <strong>all</strong> training data is paramount. This group argues that anything less than all the data would compromise the Open Source principles, forever removing full reproducibility of AI systems, transparency, security and other outcomes. We’ve heard them and we’ve provided a solution rooted in decades of Open Source practice.</p>
+
+
+
+<p>To have the chance for powerful Open Source AI systems to exist in any domain, the OSI community has incorporated in the Definition this principle:&nbsp;</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p>An Open Source AI needs to make available three kinds of components: the <strong>software</strong> used to create the dataset and run the training, the model <strong>parameters</strong> and the code to run inference, and finally <strong>all the data</strong> that can be made available legally.</p>
+</blockquote>
+
+
+
+<p>Recognizing that there are four kinds of “data”, each with its own legal frameworks allowing different freedoms of distribution, we bypass what Stephen O’Grady called the “<a target="_blank" href="https://redmonk.com/sogrady/2024/07/03/ai-conundrums/" rel="noreferrer">AI conundrums</a>” and give Open Source AI builders a chance to build freedom-respecting alternatives to pretty much any proprietary AI.</p>
+
+
+
+<p>Limiting Open source AI only to systems trainable on freely distributable data would relegate Open Source AI to a niche. One of which is that the amount of freely and legally shareable data is a tiny fraction of what is necessary to train powerful systems. Additionally, it’d be excluding Open Source AI from areas where data cannot be shared, like medical or anything dealing with personal or private data. What remains for “Open Source AI” would be tiny. There are abundant motives to reject this limitation.</p>
+
+
+
+<p>The fact is, mixing openly distributable and non-distributable data is very similar to a reality we are very familiar with: Open Source software built with proprietary compilers and system libraries.</p>
+
+
+
+<h2 class="wp-block-heading">Is GNU Emacs Open Source software?</h2>
+
+
+
+<p>I’m sure you’d answer yes (and some of you will say “well, actually it’s free software”) and we’ll all agree. Below is a rough diagram of Emacs built for the GNOME desktop on a modern Linux distribution. Emacs depends on a few system libraries that GNOME provides with OSI-Approved Licenses. The whole stack is Open Source these days and one can distribute Emacs on a disk with all its dependencies without too much legal trouble. Imagine scientists who want to freeze the whole environment of an experiment they made; they could package all the pieces of a system like this without trouble and distribute it all with their paper. No problem here.</p>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<p>Now let’s go back to an age when Linux systems weren’t ready. When Stallman started writing Emacs, there was no GNOME and no Linux, no gcc and no glibc. He thought very early on that in order to have more freedom, he had to create a wedge to allow Emacs to run on proprietary software.</p>
+
+
+
+<p>Emacs on the latest Solaris versions would look something like this: some pieces like X11 and Gstreamer are Open Source. Others, like libc and others aren’t. The hypothetical scientists from before couldn’t really freeze their <strong>full </strong>scientific<strong> </strong>environment. All they could say in their paper was: “We used Emacs from this CVS version, built with gcc version X with these makefile; tar.gz attached” and make a list of the operating system’s version and libraries versions they used. That’s because they have the right only to distribute Emacs, X11, some libraries and not the rest of Solaris.</p>
+
+
+
+<p>Is Emacs on Solaris Open Source? Of course it is, even though the source code for the system libraries are not available.</p>
+
+
+
+<figure class="wp-block-image size-large"></figure>
+
+
+
+<p>One more question, Emacs on Mac OS: it can only be built with a proprietary compiler on proprietary GUI and other proprietary libraries. <strong></strong></p>
+
+
+
+<p>Is Emacs on Mac Open Source? Of course it is. Can you fully study Emacs on Mac OS? For Emacs, yes. For the MacOS components, no. There are many programs that run only on MacOS or Windows: for OSI, those are Open Source. Would someone argue that they’re not “really Open Source” because you can’t see “everything?” Some people might but we’ve learned to live with that, adding governance rules in addition to those of the Open Source Definition. Debian for example requires that programs are Open Source<strong> and </strong>support multiple hardware platforms; the ASF graduates only projects that are Open Source <strong>and</strong> have a diverse community of contributors. If you only want to use Open Source applications running on Open Source stacks, you can decide that! Just as you can decide that your company will only acquire Open Source software whose copyright is owned by multiple entities.&nbsp;</p>
+
+
+
+<p>These are all additional requirements built on top of the base floor set by the Open Source Definition.</p>
+
+
+
+<p>For AI, you can do the same: You can say “I will only use Open Source AI built with open data, because I don’t want to trust anything less than that.” A large organization could say “I will buy only Open Source AI that allows me to audit their full dataset, including unshareable data.” You can do all that. Open Source AI is the floor that you can build on, like the OSD.</p>
+
+
+
+<h2 class="wp-block-heading">Bypassing the conundrums</h2>
+
+
+
+<p>We’ve looked for a solution for almost three years and this is it: Require all the data that is legally shareable, and for the other data provide <strong>all the details</strong>. It’s exactly what we’ve been doing for Open Source software:&nbsp;</p>
+
+
+
+<p>You developed a text editor for Mac OS but you can’t share the system libraries? Fine, we’ll fork it: give us all the code you can legally share with an OSI-Approved License and we’ll rip the dependencies and “liberate” it to run on GNU. The editor will be slightly different, like code that runs on some ARM+Linux systems behaves differently on Intel+Windows for the different capabilities of the underlying hardware and OS, but it’s still Open Source.</p>
+
+
+
+<p>For Open Source AI it’s a similar dance: You can’t legally give us all the data? Fine, we’ll fork it. For example, you made an AI that recognizes bone cancer in humans but the data can’t be shared. We’ll fork it! Tell us exactly how you built the system, how you trained it, share the code you used, and an anonymized sample of the data you used so we can train on our X-ray images. The system will be slightly different but it’s still Open Source AI.</p>
+
+
+
+<p>If we want to have broad availability of powerful alternatives to proprietary AI systems that respect the freedoms of users and deployers, we must recognize conditions that make sense for the domain of AI. These examples of proprietary compilers and system libraries used to build Open Source software prove that there is room for similar conditions when talking about Code, Data and Parameters within the definition of Open Source AI.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-10-09T17:01:26.000Z>9 October 2024</time>
+			<a href="/urls/blog-opensource-org-feed">blog.opensource.org/feed/</a>
+			<div> <a href="/tags/internet-npo.html">internet-npo</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

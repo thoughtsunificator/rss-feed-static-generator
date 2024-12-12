@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>OSV and helping developers fix known vulnerabilities</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/04/osv-and-helping-developers-fix-known-vulnerabilities.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEikA5bPNdQbF57N41j3z1a1t3vrRYtX5D_D-cqhXUlgO0M5VKQem0KqGoDIIwwrZ3BqKh1WuDOsoT01Q9UctS3A0wakRUgI8NoXBuWBX7XBUoUcbwjEStl5k6-hcWBdw_cnZjbiuB48ioJDR8neUrCZhHSF-XjPQ-8UZr5MIdtLJeP4wKGseX3sspFvkb8/s1600/OSS-OSV-Blog-Social.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg6PUzUrP3tilDmf1ImsYz5ZtThxk5hWRnep4C10m41ug7qdkfdRWMUId22XsYQkjLGtmTI0LB3kUMNjglyn3po038pYZhVXvclfXX4Lk6Kgg0CY7tM9gI9f1-Rmy1evzykydFUEIorRMFMcRcS8Z6RDk0fa65NJzM0GKOsdVOa9FLaQkTTehIYUyEzLi8/s1600/OSS-Banner-OSV.png" rel="noreferrer" target="_blank"></a>
+
+
+<p>In 2021, we <a href="https://opensource.googleblog.com/2021/02/launching-osv-better-vulnerability.html" target="_blank" rel="noreferrer">launched the OSV project</a> with a goal of enabling easy management of known vulnerabilities in open source software dependencies. To achieve this, we started by building an open source, comprehensive database (<a href="https://osv.dev" target="_blank" rel="noreferrer">https://osv.dev</a>) that accurately describes all known OSS vulnerabilities in the easy-to-use OpenSSF OSV Schema.</p> 
+
+<p>Over time, we worked with numerous open source communities to adopt the OSV Schema (totalling over 24 ecosystems), and introduced open source tools like our <a href="https://google.github.io/osv.dev/" target="_blank" rel="noreferrer">API</a> and <a href="https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html" target="_blank" rel="noreferrer">OSV-Scanner</a> to directly make this database useful to developers.</p>
+
+<p>The OSV project takes a very developer-focused approach to vulnerability management, as we realize that day-to-day developers are often the ones who bear the burden of managing dependency updates and triaging vulnerabilities in their dependencies.</p>  
+
+<p>Today the <a href="https://osv.dev/" target="_blank" rel="noreferrer">OSV team</a> is excited to announce some exciting updates to the work we’ve been doing, and share how the OSV project as a whole helps developers with vulnerability management today.</p><br>
+
+
+<h2><b>Announcing guided remediation</b> </h2>
+
+<p>Developers are often faced with an overwhelming number of vulnerabilities reported against their dependencies. To tackle this, we’re announcing a tool as part of OSV-Scanner to enable developers to both interactively and automatically prioritize and fix the vulnerabilities that matter in an easy way.</p>
+
+<p>The basic usage of the tool provides a simple command for developers to run which will automatically fix as many vulnerabilities as possible by upgrading their project’s dependencies.</p>
+
+<p>For developers who need or want finer control over vulnerability remediation, the tool also provides the more advanced interactive mode. In the interactive mode, developers can preview and make informed decisions on which packages to upgrade or which vulnerabilities they want to prioritize based on metrics such as vulnerability severity, dependency depth, or dependency type.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div>
+
+<p>Filtering by all these advanced metrics are also available via CLI flags for running the tool non-interactively, which enables integration of guided remediation into automated workflows. For example, developers can connect the tool with their CI/test pipelines to determine the set of non-breaking dependency upgrades.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div>
+
+
+<p>Currently, the guided remediation tool supports npm package.json and package-lock.json dependencies, but we’ll be adding support for more ecosystems in the future.</p>
+
+<p>Check out our <a href="https://google.github.io/osv-scanner/experimental/guided-remediation/" target="_blank" rel="noreferrer">detailed documentation</a> for more information or if you would like to try it out for yourself! </p><br>
+
+<h2><b>OSV-Scanner GitHub action</b></h2>
+
+<p>We’ve also recently launched the <a href="https://google.github.io/osv-scanner/github-action/" target="_blank" rel="noreferrer">OSV-Scanner GitHub action</a>, which provides an easy way for developers to integrate vulnerability scanning using OSV.dev into their CI/CD pipelines. This is currently being used by Tensorflow and Flutter to provide continuous scanning of their dependencies.</p>
+
+<p>Our GitHub Action can be configured to do the following: </p>
+<ul>
+<li>Regular vulnerability scan workflow. A common use case is to set a schedule to regularly scan the repository, with the workflow failing if a new vulnerability is found. Another use case can be to block release workflows if a vulnerability is found.</li></ul><ul>
+
+<li>Trigger a differential vulnerability scan to run when a pull request is opened. This workflow can determine if your changes introduce new vulnerabilities and can be configured to block pull requests when the action fails. Enabling just this feature can allow you to stop new vulnerabilities from being introduced, while not breaking your existing workflows.</li>
+</ul>
+
+<p>Head over to <a href="https://google.github.io/osv-scanner/github-action/" target="_blank" rel="noreferrer">our documentation</a> to see a quick and easy guide on how to get started integrating the OSV-Scanner action into your GitHub repository.</p> <br>
+
+  
+<h2><b>Other OSV features</b></h2>
+
+<p>Guided remediation and the GitHub actions support form is one piece of enabling our goal of making vulnerability management easier.</p>
+
+<p>OSV also provides a broad suite of features:</p>
+<ul>
+<li>Support for <a href="https://google.github.io/osv-scanner/supported-languages-and-lockfiles/" target="_blank" rel="noreferrer">11 language ecosystems with 19 lockfile</a> formats</li></ul><ul>
+<li><a href="https://osv.dev/blog/posts/introducing-broad-c-c++-support/" target="_blank" rel="noreferrer">Support for C/C++ vulnerability management</a>. C/C++ brings with it a unique set of challenges for dealing with known vulnerabilities in dependencies</li></ul><ul>
+<li>Support for <a href="https://google.github.io/osv-scanner/experimental/license-scanning/" target="_blank" rel="noreferrer">license scanning</a> to detect license compliance issues</li></ul><ul>
+<li><a href="https://google.github.io/osv-scanner/experimental/#scanning-with-call-analysis" target="_blank" rel="noreferrer">Reachability analysis</a> to reduce false positives</li>
+<ul><li><a href="https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck" target="_blank" rel="noreferrer">Govulncheck</a> integration to enable reachability analysis of Go vulnerabilities</li>
+  <li><a href="https://google.github.io/osv-scanner/usage/#call-analysis-in-rust" target="_blank" rel="noreferrer">Experimental Rust call analysis</a> to enable reachability analysis of Rust vulnerabilities</li></ul>
+
+</ul><br>
+  
+<h2><b>What’s next?</b></h2>
+
+<p>We still have a lot more exciting work planned! A remaining challenge for dealing with known vulnerabilities in dependencies is remediation and dealing with false positives. Much of our work is focused on improving data quality and providing accurate and actionable results that lead to easy remediation.</p>
+
+<p>These include:</p>
+<ul>
+<li>Iterating on guided remediation: by addressing user feedback and adding support for additional ecosystems.</li></ul><ul> 
+<li>Improving container scanning. OSV-Scanner has so far focused on source repository scanning. One important gap we aim to fill is to provide better support for container scanning, in a way that provides actionable and useful remediation guidance, while minimizing false positives.</li></ul><ul>
+<li>Continue to improve matching and data quality. A continuing focus for OSV-Scanner is making sure that our scanning is comprehensive and accurate. Accuracy is especially important for us, as one of our core goals is to minimize false positives and vulnerability noise for developers at the receiving end of the scanners through things such as reachability analysis.</li>
+</ul>
+
+  
+<p>Interested in using OSV in your project? Check out our <a href="https://google.github.io/osv-scanner/" target="_blank" rel="noreferrer">OSV-Scanner</a> and <a href="https://google.github.io/osv.dev/" target="_blank" rel="noreferrer">OSV.dev</a> documentation for how to get started. Please share any feedback or bugs you encounter via our <a href="https://github.com/google/osv-scanner/issues/new" target="_blank" rel="noreferrer">GitHub issue tracker</a>.</p>
+
+<p><em>By Michael Kedar, Rex Pan, and Oliver Chang – Google Open Source Security Team</em></p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-04-02T09:00:00.000Z>2 April 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

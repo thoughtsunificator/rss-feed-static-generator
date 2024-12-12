@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Experimenting with local alt text generation in Firefox Nightly</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2024/05/experimenting-with-local-alt-text-generation-in-firefox-nightly/">Go to article URL</a>
+		<div id="content"><p></p><p><a href="https://connect.mozilla.org/t5/discussions/here-s-what-we-re-working-on-in-firefox/td-p/57694" rel="noreferrer" target="_blank"><i>As discussed on Mozilla Connect</i></a><i>, Firefox 130 will introduce an experimental new capability to automatically generate alt-text for images using a fully private on-device AI model. The feature will be available as part of Firefox’s built-in PDF editor, and our end goal is to make it available in general browsing for users with screen readers.</i></p>
+<h2>Why alt text?</h2>
+<p>Web pages have a fundamentally simple structure, with semantics that allow the browser to interpret the same content differently for different people based on their own needs and preferences. This is a big part of what we think <a href="https://www.mozilla.org/en-US/about/webvision/full/#agency" rel="noreferrer" target="_blank">makes the Web special</a>, and what enables the browser to act as a user agent, responsible for making the Web work for people.</p>
+<p>This is particularly useful for assistive technology such as screen readers, which are able to work alongside browser features to reduce obstacles for people to access and exchange information. For static web pages, this generally can be accomplished with very little interaction from the site, and this access has been enormously beneficial to many people.</p>
+<p>But even for a simple static page there are certain types of information, like <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt" rel="noreferrer" target="_blank">alternative text for images</a>, that must be provided by the author to provide an understandable experience for people using assistive technology (as <a href="https://html.spec.whatwg.org/multipage/images.html#alt" rel="noreferrer" target="_blank">required by the spec</a>). Unfortunately, many authors don’t do this: the Web Almanac <a href="https://almanac.httparchive.org/en/2022/seo#fig-27" rel="noreferrer" target="_blank">reported</a> in 2022 that nearly half of images were missing alt text.</p>
+<p>Until recently it’s not been feasible for the browser to infer reasonably high quality alt text for images, without sending potentially sensitive data to a remote server. However, latest developments in AI have enabled this type of image analysis to happen efficiently, even on a CPU.</p>
+<p>We are adding a feature within the PDF editor in Firefox Nightly to validate this approach. As we develop it further and learn from the deployment, our goal is to offer it for users who’d like to use it when browsing to help them better understand images which would otherwise be inaccessible.</p>
+<h2>Generating alt text with small open source models</h2>
+<p>We are using Transformer-based machine learning models to describe images. These models are getting good at describing the contents of the image, yet are compact enough to operate on devices with limited resources. While can’t outperform a large language model like <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/gpt-with-vision" rel="noreferrer" target="_blank">GPT-4 Turbo with Vision</a>, or <a href="https://llava-vl.github.io/" rel="noreferrer" target="_blank">LLaVA</a>, they are sufficiently accurate to provide valuable insights on-device across a diversity of hardware.</p>
+<p>Model architectures like <a href="https://huggingface.co/models?other=blip" rel="noreferrer" target="_blank">BLIP</a> or even <a href="https://en.wikipedia.org/wiki/Vision_transformer" rel="noreferrer" target="_blank">VIT</a> that were trained on datasets like <a href="https://cocodataset.org/#home" rel="noreferrer" target="_blank">COCO</a> (Common Object In Context) or <a href="https://shannon.cs.illinois.edu/DenotationGraph/" rel="noreferrer" target="_blank">Flickr30k</a> are good at identifying objects in an image. When combined with a text decoder like OpenAI’s <a href="https://en.wikipedia.org/wiki/GPT-2" rel="noreferrer" target="_blank">GPT-2</a>, they can produce alternative text with 200M or fewer parameters. Once quantized, these models can be under 200MB on disk, and run in a couple of seconds on a laptop – a big reduction compared to the gigabytes and resources an LLM requires.</p>
+<h3>Example Output</h3>
+<p>The image below (pulled from the COCO dataset) is described by:</p>
+<ul>
+<li aria-level="1"><b>FIREFOX</b> – our 182M parameters model using a Distilled version of GPT-2 alongside a Vision Transformer (ViT) image encoder.</li>
+<li aria-level="1"><b>BASELINE MODEL</b> – a slightly bigger ViT+GPT-2 model</li>
+<li aria-level="1"><b>HUMAN TEXT</b> – the description provided by the dataset annotator.</li>
+</ul>
+<p>&nbsp;</p>
+<p></p>
+<p>Both small models lose accuracy compared to the description provided by a person, and the baseline model is confused by the hands position. The Firefox model is doing slightly better in that case, and captures what is important.</p>
+<p>What matters can be suggestive in any case. Notice how the person did not write about the office settings or the cherries on the cake, and specified that the candles were long.</p>
+<p>If we run the same image on a model like <a href="https://openai.com/index/hello-gpt-4o/" rel="noreferrer" target="_blank">GPT-4o</a>, the results are extremely detailed:</p>
+<p><i>The image depicts a group of people gathered around a cake with lit candles. The focus is on the cake, which has a red jelly topping and a couple of cherries. There are several lit candles in the foreground. In the background, there is a woman smiling, wearing a gray turtleneck sweater, and a few other people can be seen, likely in an office or indoor setting. The image conveys a celebratory atmosphere, possibly a birthday or a special occasion.</i></p>
+<p>But such level of detail in alt text is overwhelming and doesn’t prioritize the most important information. Brevity is not the only goal, but it’s a helpful starting point, and pithy accuracy in a first draft allows content creators to focus their edits on missing context and details.</p>
+<p>So if we ask the LLM for a one-sentence description, we get:</p>
+<p><i>A group of people in an office celebrates with a lit birthday cake in the foreground and a smiling woman in the background.</i></p>
+<p>This has more detail than our small model, but can’t be run locally without sending your image to a server.</p>
+<h3>Small is beautiful</h3>
+<p>Running inference locally with small models offers many advantages:</p>
+<ol>
+<li aria-level="1"><b>Privacy</b>: All operations are contained within the device, ensuring data privacy. We won’t have access to your images, PDF content, generated captions, or final captions. Your data will not be used to train the model.</li>
+<li aria-level="1"><b>Resource Efficiency</b>: Small models eliminate the need for high-powered GPUs in the cloud, reducing resource consumption and making it more environmentally friendly.</li>
+<li aria-level="1"><b>Increased Transparency</b>: In-house management of models allows for direct oversight of the training datasets, offering more transparency compared to some large language models (LLMs).</li>
+<li aria-level="1"><b>Carbon Footprint Monitoring</b>: Training models in-house facilitates precise tracking of CO2 emissions using tools such as <a href="http://codecarbon.io/" rel="noreferrer" target="_blank">CodeCarbon</a>.</li>
+<li aria-level="1"><b>Ease of Improvement</b>: Since retraining can be completed in less than a day on a single piece of hardware, it allows for frequent updates and enhancements of the model.</li>
+</ol>
+<h2>Integrating Local Inference into Firefox</h2>
+<h2>Extending the Translations inference architecture</h2>
+<p>Firefox Translations uses the <a href="https://browser.mt/" rel="noreferrer" target="_blank">Bergamot</a> project powered by the <a href="https://aclanthology.org/P18-4020/" rel="noreferrer" target="_blank">Marian C++</a>&nbsp; inference runtime. The runtime is compiled into WASM, and there’s a model file for each translation task.</p>
+<p>For example, if you run Firefox in French and visit an English page, Firefox will ask if you want to translate it to French and download the English-to-French model (~20MiB) alongside the inference runtime. This is a one-shot download: translations will happen completely offline once those files are on disk.</p>
+<p>The WASM runtime and models are both stored in the <a href="https://remote-settings.readthedocs.io/en/latest/" rel="noreferrer" target="_blank">Firefox Remote Settings</a> service, which allows us to distribute them at scale and manage versions.</p>
+<p>The inference task runs in a separate process, which prevents the browser or one of its tabs from crashing if the inference runtime crashes.</p>
+<h3>ONNX and Transformers.js</h3>
+<p>We’ve decided to embed the <a href="https://onnxruntime.ai/" rel="noreferrer" target="_blank">ONNX runtime</a> in Firefox Nightly along with the <a href="https://huggingface.co/docs/transformers.js/index" rel="noreferrer" target="_blank">Transformers.js</a> library to extend the translation architecture to perform different inference work.</p>
+<p>Like Bergamot, the ONNX runtime has a WASM distribution and can run directly into the browser. The ONNX project has recently introduced WebGPU support, which will eventually be activated in Firefox Nightly for this feature.</p>
+<p>Transformers.js provides a Javascript layer on top of the ONNX inference runtime, making it easy to add inference for a huge list of model architectures. The API mimics the very popular <a href="https://huggingface.co/docs/transformers/en/index" rel="noreferrer" target="_blank">Python library</a>. It does all the tedious work of preparing the data that is passed to the runtime and converting the output back to a usable result. It also deals with downloading models from Hugging Face and caching them.</p>
+<p>From the project’s documentation, this is how you can run a sentiment analysis model on a text:</p>
+<pre>import { pipeline } from '@xenova/transformers';
+
+// Allocate a pipeline for sentiment-analysis
+let pipe = await pipeline('sentiment-analysis');
+let out = await pipe('I love transformers!');
+
+// [{'label': 'POSITIVE', 'score': 0.999817686}]</pre>
+<p>Using Transformers.js gives us confidence when trying out a new model with ONNX. If its architecture is listed in the Transformers.js documentation, that’s a good indication it will work for us.</p>
+<p>To vendor it into Firefox Nightly, we’ve slightly changed its release to distribute ONNX separately from Transformers.js, dropped Node.js-related pieces, and fixed those annoying eval() calls the ONNX library ships with. You can find the build script <a href="https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/ml/vendor/build.sh" rel="noreferrer" target="_blank">here</a> which was used to populate that vendor directory.</p>
+<p>From there, we reused the Translation architecture to run the ONNX runtime inside its own process, and have Transformers.js run with a custom model cache system.</p>
+<h3>Model caching</h3>
+<p>The Transformers.js project can use local and remote models and has a caching mechanism using the browser cache. Since we are running inference in an isolated web worker, we don’t want to provide access to the file system or store models inside the browser cache. We also don’t want to use Hugging Face as the model hub in Firefox, and want to serve model files from our own servers.</p>
+<p>Since Transformers.js provides a callback for a custom cache, we have implemented a <a href="https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/ml/content/ModelHub.sys.mjs" rel="noreferrer" target="_blank">specific model caching layer</a> that downloads files from our own servers and caches them in IndexedDB.</p>
+<p>As the project grows, we anticipate the browser will store more models, which can take up significant space on disk. We plan to add an interface in Firefox to manage downloaded models so our users can list them and remove some if needed.</p>
+<h3>Fine-tuning a ViT + GPT-2 model</h3>
+<p>Ankur Kumar released a<a href="https://huggingface.co/nlpconnect/vit-gpt2-image-captioning" rel="noreferrer" target="_blank"> popular model</a> on Hugging Face to generate alt text for images and<a href="https://ankur3107.github.io/blogs/the-illustrated-image-captioning-using-transformers/" rel="noreferrer" target="_blank"> blogged about it</a>. This model was also published as ONNX weights by Joshua Lochner so it could be used in Transformers.js, see<a href="https://huggingface.co/Xenova/vit-gpt2-image-captioning" rel="noreferrer" target="_blank"> https://huggingface.co/Xenova/vit-gpt2-image-captioning</a></p>
+<p>The model is doing a good job – even if in some cases we had better results with<a href="https://huggingface.co/microsoft/git-base-coco" rel="noreferrer" target="_blank"> https://huggingface.co/microsoft/git-base-coco</a> – But the GIT architecture is not yet supported in ONNX converters, and with less than 200M params, most of the accuracy is obtained by focusing on good training data. So we have picked ViT for our first model.</p>
+<p>Ankur used the <a href="https://huggingface.co/google/vit-base-patch16-224-in21k" rel="noreferrer" target="_blank">google/vit-base-patch16-224-in21k</a> image encoder and the GPT-2 text decoder and fine-tuned them using the COCO dataset, which is a dataset of over 120k labeled images.</p>
+<p>In order to reduce the model size and speed it up a little bit, we’ve decided to replace GPT-2 with <a href="https://huggingface.co/distilbert/distilgpt2" rel="noreferrer" target="_blank">DistilGPT-2</a> — which is 2 times faster and 33% smaller according to its documentation.</p>
+<p>Using that model in Transformers.js gave good results (see the training code at <a href="https://github.com/mozilla/distilvit" rel="noreferrer" target="_blank">GitHub – mozilla/distilvit: image-to-text model for PDF.js</a>).</p>
+<p>We further improved the model for our use case with an <a href="https://huggingface.co/datasets/Mozilla/flickr30k-transformed-captions" rel="noreferrer" target="_blank">updated training dataset</a> and some <a href="https://huggingface.co/datasets/Mozilla/alt-text-validation" rel="noreferrer" target="_blank">supervised learning</a> to simplify the output and mitigate some of the biases common in image to text models.</p>
+<h3>Alt text generation in PDF.js</h3>
+<p>Firefox is able to add an image in a PDF using our <a href="http://pdf.js" rel="noreferrer" target="_blank">popular open source pdf.js library</a>:</p>
+<p></p>
+<p>Starting in Firefox 130, we will automatically generate an alt text and let the user validate it. So every time an image is added, we get an array of pixels we pass to the ML engine and a few seconds after, we get a string corresponding to a description of this image (see the <a href="https://github.com/mozilla/pdf.js/blob/d79aaee62a27c25774100d545a420020b8769717/src/display/editor/stamp.js#L430-L464" rel="noreferrer" target="_blank">code</a>).</p>
+<p>The first time the user adds an image, they’ll have to wait a bit for downloading the model (which can take up to a few minutes depending on your connection) but the subsequent uses will be much faster since the model will be stored locally.</p>
+<p>In the future, we want to be able to provide an alt text for any existing image in PDFs, except images which just contain text (it’s usually the case for PDFs containing scanned books).</p>
+<h2>Next steps</h2>
+<p>Our alt text generator is far from perfect, but we want to take an iterative approach and improve it in the open. The inference engine has already landed in Firefox Nightly as a new <a href="https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/ml" rel="noreferrer" target="_blank">ml component</a> along with an<a href="https://firefox-source-docs.mozilla.org/toolkit/components/ml/" rel="noreferrer" target="_blank"> initial documentation page</a>.</p>
+<p>We are currently working on improving the image-to-text datasets and model with what we’ve described in this blog post, which will be continuously updated on our <a href="https://huggingface.co/Mozilla" rel="noreferrer" target="_blank">Hugging Face</a> page.</p>
+<p>The code that produces the model lives in Github <a href="https://github.com/mozilla/distilvit" rel="noreferrer" target="_blank">https://github.com/mozilla/distilvit</a> and the web application we’re building for our team to improve the model is located at <a href="https://github.com/mozilla/checkvite" rel="noreferrer" target="_blank">https://github.com/mozilla/checkvite</a>. We want to make sure the models and datasets we build, and all the code used, are made available to the community.</p>
+<p>Once the alt text feature in PDF.js has matured and proven to work well, we hope to make the feature available in general browsing for users with screen readers.</p>
+<p>The post <a href="https://hacks.mozilla.org/2024/05/experimenting-with-local-alt-text-generation-in-firefox-nightly/" rel="noreferrer" target="_blank">Experimenting with local alt text generation in Firefox Nightly</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-05-31T16:43:46.000Z>31 May 2024</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>
