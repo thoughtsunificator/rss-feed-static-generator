@@ -55,12 +55,12 @@ exports.render = function(data) {
 			<div class="feed-entry">
 			<div><span class="date">${new Date(rssItem.pubDate * 1000).toISOString()}</span></div>
 				<small>${rssItem.url ? `<a href="/urls/${rssItem.url.getSlug.call(this)}">${rssItem.url.title}</a>` : `${feedURL.hostname + feedURL.pathname}`}</small>
-				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
+				<div>${rssItem.tags.map(tag => ` <a${tag == "source" ? ' class="source-tag"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 				${h3.outerHTML}
 			</div><hr>`
 
 		}).join("")}
-		<nav style="display: flex; gap: 10px; flex-flow: wrap">
+		<nav>
 			${[...Array(data.pagination.pages.length).keys()].map(function(item) {
 				if(data.pagination.pageNumber === item) {
 					return `<b>Page ${item + 1}</b>`;

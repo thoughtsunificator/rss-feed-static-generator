@@ -10,45 +10,15 @@ exports.render = function(data) {
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
 		<title>${ pageTitle || data.metadata.title }</title>
 		<link rel="icon" href="favicon.png" />
 		<link rel="stylesheet" href="/a11y-dark.css">
-		<style>
-		body {
-			margin: 5px;
-			padding: 0;
-			display: grid;
-			height: 100vh;
-			grid-template-rows: auto 1fr auto;
-		}
-		main {
-			word-break: break-word;
-		}
-		main img, main video {
-			max-width: 100%;
-			height: auto;
-		}
-		code, pre {
-			white-space: break-spaces !important;
-		}
-		footer {
-			padding-top: 20px;
-			padding-bottom: 10px;
-			text-align: center;
-		}
-		nav {
-			text-align: center;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			body { background-color: #2d2d2d; color: white; }
-			a { color: #6eaec8; }
-			.feed-entry h3 a:visited { color: gray; }
-		}
-		</style>
+		<link rel="stylesheet" href="/style.css">
 	</head>
 	<body>
-		<nav style="display: flex; gap: 10px; margin-bottom: 20px; position: sticky; font-size: 1.5em;">
+		<nav>
 			<a href="/">Home</a>
 			<a href="/tags">Tags</a>
 			<a href="/urls">URLs</a>

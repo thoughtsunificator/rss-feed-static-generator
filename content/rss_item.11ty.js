@@ -34,7 +34,7 @@ exports.render = function(data) {
 		nodesToRemove.remove()
 	}
 	const h1 = document.createElement("h1")
-	h1.style = "flex-grow: 1"
+	h1.id = "title"
 	h1.textContent = data.rssItem.title
 	return `
 		${h1.outerHTML}
@@ -43,6 +43,6 @@ exports.render = function(data) {
 		<div>${data.rssItem.tags.map(tag => ` <a${tag == "source" ? ' style="font-weight: bold"' : ""} href="/tags/${this.slugify(tag)}.html">${tag}</a>`).join(" | ") }</div>
 		<br>
 		<a target="_blank" rel="noreferrer" href="${data.rssItem.articleURL}">Go to article URL</a>
-		<div style="border: 1px solid black; border-left: 0; border-right: 0; margin: 20px 0px;"><p></p>${document.body.innerHTML}<p></p></div>
+		<div id="content"><p></p>${document.body.innerHTML}<p></p></div>
 	`
 }
