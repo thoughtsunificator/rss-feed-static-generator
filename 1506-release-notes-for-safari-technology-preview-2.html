@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Release Notes for Safari Technology Preview 206</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/16186/release-notes-for-safari-technology-preview-206/">Go to article URL</a>
+		<div id="content"><p></p><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 206 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/de71d4602041131133097d9fe6dcf91c55a3a298...e7b4f98ae25b959bbb9c69f0cf14540794868a55" rel="noreferrer" target="_blank">284050@main…284743@main</a>.</p>
+<h3>CSS</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Dropped layout containment from <code>container-type</code>. (<a href="https://commits.webkit.org/284730@main" rel="noreferrer" target="_blank">284730@main</a>)  (132549134)  </li>
+<li>Fixed CSS nested declarations inside a <code>@scope</code> to behave like <code>:where(:scope)</code>. (<a href="https://commits.webkit.org/284635@main" rel="noreferrer" target="_blank">284635@main</a>)  (136856371)  </li>
+</ul>
+<h3>Editing</h3>
+<h4>New Features</h4>
+<ul>
+<li>Implemented <code>ClipboardItem.support()</code> which gives the page author the ability to understand which formats are <a href="https://w3c.github.io/clipboard-apis/#dom-clipboarditem-supports" rel="noreferrer" target="_blank">supported during Clipboard operations</a>. It also now returns a TypeError for a new <code>ClipboardItem()</code> with an empty Array. (<a href="https://commits.webkit.org/284593@main" rel="noreferrer" target="_blank">284593@main</a>)  (136008522)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed missing <code>SecureContext</code> in the <code>ClipboardItem</code> interface. (<a href="https://commits.webkit.org/284511@main" rel="noreferrer" target="_blank">284511@main</a>)  (137197266)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>New Features</h4>
+<ul>
+<li>Completed the <a href="https://github.com/tc39/proposal-iterator-helpers" rel="noreferrer" target="_blank">Iterator Helpers proposal</a> by implementing <code>map()</code>, <code>filter()</code>, <code>take()</code>, <code>drop()</code>, and <code>flatMap()</code> methods. (<a href="https://commits.webkit.org/284597@main" rel="noreferrer" target="_blank">284597@main</a>)  (103171739)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>Iterator.prototype.reduce()</code> not properly forwarding the <code>return()</code> call to the underlying iterator. (<a href="https://commits.webkit.org/284648@main" rel="noreferrer" target="_blank">284648@main</a>)  (137181340)  </li>
+</ul>
+<h3>Media</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the <a href="https://w3c.github.io/mediacapture-image/#imagecaptureapi" rel="noreferrer" target="_blank">Image Capture API</a>. (<a href="https://commits.webkit.org/284447@main" rel="noreferrer" target="_blank">284447@main</a>)  (136860809)  </li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed non-separable blend modes in <code>mix-blend-mode</code> to workon elements in compositing layers. (<a href="https://commits.webkit.org/284170@main" rel="noreferrer" target="_blank">284170@main</a>)  (49387130)  </li>
+<li>Fixed repeating <code>background-image</code> sized to the <code>content-box</code> failing to fill the viewport in an iframe. (<a href="https://commits.webkit.org/284165@main" rel="noreferrer" target="_blank">284165@main</a>)  (133952319)  </li>
+<li>Fixed floats not clearing in the WordPress Classic Editor sidebar layout. (<a href="https://commits.webkit.org/284247@main" rel="noreferrer" target="_blank">284247@main</a>)  (136362683)  </li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Updated <code>getTotalLength()</code> with the web specification to throw an exception when non-renderable and the path is empty. (<a href="https://commits.webkit.org/284311@main" rel="noreferrer" target="_blank">284311@main</a>)  (136719548)  </li>
+</ul>
+<h3>Tables</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Table Root to also account for <code>fill-available</code> in a fixed table layout. (<a href="https://commits.webkit.org/284712@main" rel="noreferrer" target="_blank">284712@main</a>)  (137297914)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>getKeys()</code> in storage areas. (<a href="https://commits.webkit.org/284602@main" rel="noreferrer" target="_blank">284602@main</a>)  (136595295)  </li>
+<li>Added support for <code>i18n.getSystemUILanguage</code> and <code>i18n.getPreferredSystemLanguages</code>. (<a href="https://commits.webkit.org/284637@main" rel="noreferrer" target="_blank">284637@main</a>)  (136929657)  </li>
+</ul>
+<h3>WebDriver</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a crash that could occur when simulating drag events with the right mouse button. (<a href="https://commits.webkit.org/284577@main" rel="noreferrer" target="_blank">284577@main</a>)  (137068514)  </li>
+</ul>
+<h3>WebRTC</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for enumerated visible network interfaces. (<a href="https://commits.webkit.org/284687@main" rel="noreferrer" target="_blank">284687@main</a>)  (137067672)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>
+<p>Fixed <code>MediaSession.setMicrophoneActive(true)</code> prompting repeatedly if the microphone was muted by the user-agent once. (<a href="https://commits.webkit.org/284399@main" rel="noreferrer" target="_blank">284399@main</a>)  (135941062)</p>
+</li>
+<li>
+<p>Fixed<code>setCameraActive</code> to not unmute microphone if the user-agent previously muted both camera and microphone. (<a href="https://commits.webkit.org/284069@main" rel="noreferrer" target="_blank">284069@main</a>)  (136221456)</p>
+</li>
+<li>Fixed AirPods unmuting to not unmute the camera if website muted the camera. (<a href="https://commits.webkit.org/284514@main" rel="noreferrer" target="_blank">284514@main</a>)  (137065964)  </li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-10-23T21:31:24.000Z>23 October 2024</time>
+			<a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

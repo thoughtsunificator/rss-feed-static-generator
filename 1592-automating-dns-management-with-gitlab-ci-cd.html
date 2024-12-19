@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Automating DNS Management with GitLab CI/CD</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/09/automating-dns-management-with-gitlab-ci-cd/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p><br>
+<a href="https://unsplash.com/photos/a-factory-filled-with-lots-of-orange-machines-8gr6bObQLOI" rel="noreferrer" target="_blank">Photo</a> by <a href="https://unsplash.com/@simonkadula" rel="noreferrer" target="_blank">Simon Kadula</a></p>
+<p>At End Point, managing DNS records across multiple domains has historically been a manual task. This blog post details our journey from manual processes to an automated workflow using GitLab CI/CD.</p>
+<h3 id="our-initial-approach">Our Initial Approach</h3>
+<p>With multiple domains and frequent updates necessary to manage the servers, manual handling of DNS changes became a bottleneck. Initially, our process looked like this:</p>
+<ul>
+<li>Make changes to the OpenTofu configuration files</li>
+<li>Create a merge request (MR) in GitLab</li>
+<li>They would run <code>tofu plan</code> manually and paste the plan output into the MR for review</li>
+<li>A coworker would review the MR and approve the changes</li>
+<li>Once merged, the engineer would manually run <code>tofu apply</code> to implement the changes</li>
+</ul>
+<p>While this process worked, automating it could enhance our productivity and minimize errors, integrating our DNS management directly into our CI/CD pipeline.</p>
+<h3 id="the-solution-automating-with-gitlab-cicd">The Solution: Automating with GitLab CI/CD</h3>
+<ul>
+<li>Change Submission: Engineers make changes to the OpenTofu files and submit a merge request</li>
+<li>Plan Creation: A GitLab CI/CD job automatically generates an OpenTofu plan when changes are proposed</li>
+<li>Review Process: A coworker reviews the automatically generated plan in the MR</li>
+<li>Applying Changes: Once approved and merged, another CI/CD job automatically runs <code>tofu apply</code> to implement the changes</li>
+</ul>
+<h3 id="implementation-details">Implementation Details:</h3>
+<h4 id="1-gitlab-ciyaml">1. <code>.gitlab-ci.yaml</code></h4>
+<p>If you are doing this on a self-hosted GitLab instance you would need to import the repo to your hosted GitLab workspace and use it there.</p>
+<p>We divided our GitLab CI/CD pipelines into three main stages:</p>
+<ol>
+<li>Validation: Where we check if everything looks right</li>
+<li>Planning: Where we create a plan to show the changes</li>
+<li>Deployment: Where the changes get applied once everything is approved</li>
+</ol>
+<p>It’s important to note that our CI/CD pipeline runs on a dedicated worker. This means only this worker has access to the secret keys needed for DNS management. By isolating these credentials to a single, controlled environment, we significantly reduce the risk of unauthorized access or accidental exposure of sensitive data.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span>include</span>:<span>
+</span></span></span><span><span><span>  </span>- <span>component</span>:<span> </span>gitlab.com/components/opentofu/job-templates@main<span>
+</span></span></span><span><span><span>    </span><span>inputs</span>:<span>
+</span></span></span><span><span><span>      </span><span>version</span>:<span> </span><span>0.24.0</span><span>
+</span></span></span><span><span><span>      </span><span>opentofu_version</span>:<span> </span><span>1.6.2</span><span>
+</span></span></span><span><span><span>      </span><span>auto_apply</span>:<span> </span><span>false</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>before_script</span>:<span>
+</span></span></span><span><span><span>  </span>- source /home/gitlab-runner/.tofu.env<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>stages</span>:<span> </span>[<span> </span>validate, build, deploy]<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>fmt-example.com</span>:<span>
+</span></span></span><span><span><span>  </span><span>extends</span>:<span> </span>[<span> </span>.opentofu:fmt ]<span>
+</span></span></span><span><span><span>  </span><span>variables</span>:<span>
+</span></span></span><span><span><span>    </span><span>TF_ROOT</span>:<span> </span><span>"example.com"</span><span>
+</span></span></span><span><span><span>    </span><span>TF_STATE_NAME</span>:<span> </span><span>"example_com"</span><span>
+</span></span></span><span><span><span>  </span><span>rules</span>:<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_PIPELINE_SOURCE == "merge_request_event"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_COMMIT_BRANCH == "main"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>validate-example.com</span>:<span>
+</span></span></span><span><span><span>  </span><span>extends</span>:<span> </span>[<span> </span>.opentofu:validate ]<span>
+</span></span></span><span><span><span>  </span><span>variables</span>:<span>
+</span></span></span><span><span><span>    </span><span>TF_ROOT</span>:<span> </span><span>"example.com"</span><span>
+</span></span></span><span><span><span>    </span><span>TF_STATE_NAME</span>:<span> </span><span>"example_com"</span><span>
+</span></span></span><span><span><span>  </span><span>rules</span>:<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_PIPELINE_SOURCE == "merge_request_event"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_COMMIT_BRANCH == "main"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>plan-example.com</span>:<span>
+</span></span></span><span><span><span>  </span><span>extends</span>:<span> </span>[<span> </span>.opentofu:plan ]<span>
+</span></span></span><span><span><span>  </span><span>variables</span>:<span>
+</span></span></span><span><span><span>    </span><span>TF_ROOT</span>:<span> </span><span>"example.com"</span><span>
+</span></span></span><span><span><span>    </span><span>TF_STATE_NAME</span>:<span> </span><span>"example_com"</span><span>
+</span></span></span><span><span><span>  </span><span>rules</span>:<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_PIPELINE_SOURCE == "merge_request_event"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_COMMIT_BRANCH == "main"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>  </span><span>after_script</span>:<span>
+</span></span></span><span><span><span>    </span>- source /home/gitlab-runner/.tofu.env<span>
+</span></span></span><span><span><span>    </span>- ./gitlab-comment-tofu-log.sh $TF_ROOT/plan_output.txt<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>apply-example.com</span>:<span>
+</span></span></span><span><span><span>  </span><span>extends</span>:<span> </span>[<span> </span>.opentofu:apply ]<span>
+</span></span></span><span><span><span>  </span><span>variables</span>:<span>
+</span></span></span><span><span><span>    </span><span>TF_ROOT</span>:<span> </span><span>"example.com"</span><span>
+</span></span></span><span><span><span>    </span><span>TF_STATE_NAME</span>:<span> </span><span>"example_com"</span><span>
+</span></span></span><span><span><span>  </span><span>rules</span>:<span>
+</span></span></span><span><span><span>    </span>- <span>if</span>:<span> </span><span>'$CI_COMMIT_BRANCH == "main"'</span><span>
+</span></span></span><span><span><span>      </span><span>changes</span>:<span>
+</span></span></span><span><span><span>        </span>- example.com/*<span>
+</span></span></span><span><span><span>  </span><span>after_script</span>:<span>
+</span></span></span><span><span><span>    </span>- source /home/gitlab-runner/.tofu.env<span>
+</span></span></span><span><span><span>    </span>- ./gitlab-comment-tofu-log.sh $TF_ROOT/apply_output.txt<span>
+</span></span></span></code></pre></div><h4 id="2-posting-opentofu-planapply-logs-as-merge-request-comments">2. Posting OpenTofu plan/apply logs as merge request comments</h4>
+<p>To facilitate code reviews, we created a script (<code>gitlab-comment-tofu-log.sh</code>) that automatically formats and posts the OpenTofu plan and apply logs as comments on merge requests. This ensures that reviewers can easily understand the changes before approving them.</p>
+<p>Here is the script:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-bash" data-lang="bash"><span><span><span>#!/bin/bash
+</span></span></span><span><span><span></span>
+</span></span><span><span><span>set</span> -e
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"GitLab MR Comment Script Starts"</span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> [ <span>$#</span> -eq <span>0</span> ]; <span>then</span>
+</span></span><span><span>    <span>echo</span> <span>"Error: No output file path provided"</span>
+</span></span><span><span>    <span>echo</span> <span>"Usage: </span><span>$0</span><span> &lt;path_to_output_file&gt;"</span>
+</span></span><span><span>    <span>exit</span> <span>1</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>output_file</span>=<span>"</span><span>$1</span><span>"</span>
+</span></span><span><span><span>echo</span> <span>"Using output file: </span><span>$output_file</span><span>"</span>
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"Checking environment variables"</span>
+</span></span><span><span><span>if</span> [ -z <span>"</span><span>$GITLAB_API_TOKEN</span><span>"</span> ]; <span>then</span>
+</span></span><span><span>    <span>echo</span> <span>"Error: GITLAB_API_TOKEN is not set"</span>
+</span></span><span><span>    <span>exit</span> <span>1</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> [ -z <span>"</span><span>$CI_PROJECT_ID</span><span>"</span> ]; <span>then</span>
+</span></span><span><span>    <span>echo</span> <span>"Error: CI_PROJECT_ID is not set"</span>
+</span></span><span><span>    <span>exit</span> <span>1</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> [ -n <span>"</span><span>$CI_MERGE_REQUEST_IID</span><span>"</span> ]; <span>then</span>
+</span></span><span><span>    <span>echo</span> <span>"Using CI_MERGE_REQUEST_IID: </span><span>$CI_MERGE_REQUEST_IID</span><span>"</span>
+</span></span><span><span><span>else</span>
+</span></span><span><span>    <span>echo</span> <span>"CI_MERGE_REQUEST_IID not set, fetching from API"</span>
+</span></span><span><span>    <span>CURRENT_COMMIT_SHA</span>=<span>$(</span>git rev-parse HEAD<span>)</span>
+</span></span><span><span>    <span>echo</span> <span>"Current commit SHA: </span><span>$CURRENT_COMMIT_SHA</span><span>"</span>
+</span></span><span><span>
+</span></span><span><span>    <span>MR_INFO</span>=<span>$(</span>curl --silent --header <span>"PRIVATE-TOKEN: </span><span>$GITLAB_API_TOKEN</span><span>"</span> <span>\
+</span></span></span><span><span><span></span>        <span>"https://&lt;link_to_self_hosted_gitlab&gt;/api/v4/projects/</span><span>$CI_PROJECT_ID</span><span>/repository/commits/</span><span>$CURRENT_COMMIT_SHA</span><span>/merge_requests"</span><span>)</span>
+</span></span><span><span>
+</span></span><span><span>    <span>if</span> [ <span>"</span><span>$(</span><span>echo</span> <span>$MR_INFO</span> | jq <span>'. | length'</span><span>)</span><span>"</span> -eq <span>0</span> ]; <span>then</span>
+</span></span><span><span>        <span>echo</span> <span>"Error: No merge request found for this commit"</span> &gt;&amp;<span>2</span>
+</span></span><span><span>        <span>exit</span> <span>1</span>
+</span></span><span><span>    <span>fi</span>
+</span></span><span><span>
+</span></span><span><span>    <span>CI_MERGE_REQUEST_IID</span>=<span>$(</span><span>echo</span> <span>$MR_INFO</span> | jq <span>'.[0].iid'</span><span>)</span>
+</span></span><span><span>    <span>echo</span> <span>"Found Merge Request IID: </span><span>$CI_MERGE_REQUEST_IID</span><span>"</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"Reading output file: </span><span>$output_file</span><span>"</span>
+</span></span><span><span><span>if</span> [ ! -f <span>"</span><span>$output_file</span><span>"</span> ]; <span>then</span>
+</span></span><span><span>    <span>echo</span> <span>"Error: File </span><span>$output_file</span><span> not found"</span>
+</span></span><span><span>    <span>exit</span> <span>1</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>file_name</span>=<span>$(</span>basename <span>"</span><span>$output_file</span><span>"</span><span>)</span>
+</span></span><span><span><span>if</span> [[ <span>"</span><span>$file_name</span><span>"</span> == plan_* ]]; <span>then</span>
+</span></span><span><span>    <span>heading</span>=<span>"&lt;br&gt;Plan log for </span><span>$TF_ROOT</span><span>"</span>
+</span></span><span><span>    <span>output</span>=<span>$(</span>awk <span>'/OpenTofu used the selected providers/,0'</span> <span>"</span><span>$output_file</span><span>"</span><span>)</span>
+</span></span><span><span><span>elif</span> [[ <span>"</span><span>$file_name</span><span>"</span> == apply_* ]]; <span>then</span>
+</span></span><span><span>    <span>heading</span>=<span>"&lt;br&gt;Apply log for </span><span>$TF_ROOT</span><span>"</span>
+</span></span><span><span>    <span>output</span>=<span>$(</span>awk <span>'/OpenTofu has been successfully initialized/,0'</span> <span>"</span><span>$output_file</span><span>"</span><span>)</span>
+</span></span><span><span><span>else</span>
+</span></span><span><span>    <span>heading</span>=<span>"&lt;br&gt;Tofu Output for </span><span>$TF_ROOT</span><span>"</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"Filtered output read. Length: </span><span>${#</span><span>output</span><span>}</span><span> characters"</span>
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"Cleaning and formatting output"</span>
+</span></span><span><span><span>cleaned_output</span>=<span>$(</span><span>echo</span> -e <span>"</span><span>$output</span><span>"</span> | sed -e <span>'s/\x1b\[[0-9;]*m//g'</span> <span>\
+</span></span></span><span><span><span></span>    -e <span>'s/\\u001b\[[0-9;]*m//g'</span> <span>\
+</span></span></span><span><span><span></span>    -e <span>'s/\\n/\n/g'</span> <span>\
+</span></span></span><span><span><span></span>    -e <span>'s/\\"//g'</span> <span>\
+</span></span></span><span><span><span></span>    -e <span>'s/^"//g'</span> <span>\
+</span></span></span><span><span><span></span>    -e <span>'s/"$//g'</span><span>)</span>
+</span></span><span><span><span>echo</span> <span>"Cleaned output. Length: </span><span>${#</span><span>cleaned_output</span><span>}</span><span> characters"</span>
+</span></span><span><span>
+</span></span><span><span><span># Format the output with heading and code block</span>
+</span></span><span><span><span>formatted_output</span>=<span>"</span><span>$(</span><span>printf</span> <span>'## %s\n\n```\n%s\n```'</span> <span>"</span><span>$heading</span><span>"</span> <span>"</span><span>$cleaned_output</span><span>"</span><span>)</span><span>"</span>
+</span></span><span><span><span>echo</span> <span>"Formatted output. Length: </span><span>${#</span><span>formatted_output</span><span>}</span><span> characters"</span>
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"Posting comment to GitLab MR"</span>
+</span></span><span><span><span>response</span>=<span>$(</span>curl --silent --show-error --fail <span>\
+</span></span></span><span><span><span></span>     --request POST <span>\
+</span></span></span><span><span><span></span>     --header <span>"PRIVATE-TOKEN: </span><span>$GITLAB_API_TOKEN</span><span>"</span> <span>\
+</span></span></span><span><span><span></span>     --header <span>"Content-Type: application/json"</span> <span>\
+</span></span></span><span><span><span></span>     --data <span>"</span><span>$(</span>jq -n --arg body <span>"</span><span>$formatted_output</span><span>"</span> <span>'{"body": $body}'</span><span>)</span><span>"</span> <span>\
+</span></span></span><span><span><span></span>     <span>"https://code.self_hosted_gitlab.com/api/v4/projects/</span><span>$CI_PROJECT_ID</span><span>/merge_requests/</span><span>$CI_MERGE_REQUEST_IID</span><span>/notes"</span><span>)</span>
+</span></span><span><span>
+</span></span><span><span>
+</span></span><span><span><span>if</span> [ <span>$?</span> -eq <span>0</span> ]; <span>then</span>
+</span></span><span><span>    <span>echo</span> <span>"Comment successfully posted to GitLab MR"</span>
+</span></span><span><span><span>else</span>
+</span></span><span><span>    <span>echo</span> <span>"Error: Failed to post comment to GitLab MR. Response: </span><span>$response</span><span>"</span>
+</span></span><span><span>    <span>exit</span> <span>1</span>
+</span></span><span><span><span>fi</span>
+</span></span><span><span>
+</span></span><span><span><span>echo</span> <span>"Script completed successfully"</span>
+</span></span></code></pre></div><p>Here is the <code>tofu plan</code> output comment:</p>
+<p></p>
+<p>Here is the <code>tofu apply</code> output comment:</p>
+<p></p>
+<h4 id="3-migrating-to-gitlabs-remote-http-backend">3. Migrating to GitLab’s Remote HTTP Backend</h4>
+<p>Transitioning your local Tofu state to a remote backend hosted by GitLab can streamline state management and enhance security. Follow these straightforward steps to achieve this.</p>
+<ol>
+<li>
+<p>First, set up the necessary environment variables with your specific details:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-bash" data-lang="bash"><span><span><span>export</span> <span>TF_STATE_NAME</span>=<span>"example_net"</span>
+</span></span><span><span><span>export</span> <span>TF_HTTP_ADDRESS</span>=<span>"https://&lt;link_to_GitLab_instance&gt;&gt;/api/v4/projects/460/terraform/state/</span><span>$TF_STATE_NAME</span><span>"</span>
+</span></span><span><span><span>export</span> <span>TF_HTTP_USERNAME</span>=<span>"&lt;create_a_user&gt;"</span>
+</span></span><span><span><span>export</span> <span>TF_HTTP_PASSWORD</span>=<span>"&lt;create_a_password&gt;"</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Initialize the remote backend with Tofu, specifying your new backend configuration:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-bash" data-lang="bash"><span><span>tofu init -migrate-state <span>\
+</span></span></span><span><span><span></span>  -backend-config=<span>"address=</span><span>$TF_HTTP_ADDRESS</span><span>"</span> <span>\
+</span></span></span><span><span><span></span>  -backend-config=<span>"username=</span><span>$TF_HTTP_USERNAME</span><span>"</span> <span>\
+</span></span></span><span><span><span></span>  -backend-config=<span>"password=</span><span>$TF_HTTP_PASSWORD</span><span>"</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Verify the migration by running:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>tofu plan
+</span></span></code></pre></div></li>
+</ol>
+<p>After these steps, your Tofu environment will be fully integrated with GitLab’s remote HTTP backend, with state management and enhanced collaboration and security.</p>
+<p>Automation of our DNS management with GitLab CI/CD and OpenTofu has transformed our operations, making them more efficient, error-resistant, and secure. We encourage other teams to explore similar automation strategies to enhance their infrastructure management processes.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-09-06T00:00:00.000Z>6 September 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

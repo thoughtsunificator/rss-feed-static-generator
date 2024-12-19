@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Option Soup: the subtle pitfalls of combining compiler flags</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2024/01/option-soup-the-subtle-pitfalls-of-combining-compiler-flags/">Go to article URL</a>
+		<div id="content"><p></p><p><i>Firefox development uncovers many cross-platform differences and unique features of its combination of dependencies. Engineers working on Firefox regularly overcome these challenges and while we can’t detail all of them, we think you’ll enjoy hearing about some so here’s a sample of a recent technical investigation.</i></p>
+<p>During the Firefox 120 beta cycle, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861365" rel="noreferrer" target="_blank">a new crash signature appeared on our radars with significant volume</a>.</p>
+<p>At that time, the distribution across operating systems revealed that more than 50% of the crash volume originates from Ubuntu 18.04 LTS users.</p>
+<p>The main process crashes in a <code>CanvasRenderer</code> thread, with the following call stack:</p>
+<pre>0&nbsp; firefox&nbsp; std::locale::operator=&nbsp;&nbsp;
+1&nbsp; firefox&nbsp; std::ios_base::imbue&nbsp;&nbsp;
+2&nbsp; firefox&nbsp; std::basic_ios&lt;char, std::char_traits&lt;char&gt; &gt;::imbue&nbsp;&nbsp;
+3&nbsp; libxul.so&nbsp; sh::InitializeStream&lt;std::__cxx11::basic_ostringstream&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/gfx/angle/checkout/src/compiler/translator/Common.h:238
+3&nbsp; libxul.so&nbsp; sh::TCompiler::setResourceString&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/gfx/angle/checkout/src/compiler/translator/Compiler.cpp:1294
+4&nbsp; libxul.so&nbsp; sh::TCompiler::Init&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/gfx/angle/checkout/src/compiler/translator/Compiler.cpp:407
+5&nbsp; libxul.so&nbsp; sh::ConstructCompiler&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/gfx/angle/checkout/src/compiler/translator/ShaderLang.cpp:368
+6&nbsp; libxul.so&nbsp; mozilla::webgl::ShaderValidator::Create&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/dom/canvas/WebGLShaderValidator.cpp:215
+6&nbsp; libxul.so&nbsp; mozilla::WebGLContext::CreateShaderValidator const&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/dom/canvas/WebGLShaderValidator.cpp:196
+7&nbsp; libxul.so&nbsp; mozilla::WebGLShader::CompileShader&nbsp; /build/firefox-ZwAdKm/firefox-120.0~b2+build1/dom/canvas/WebGLShader.cpp:98</pre>
+<p>At first glance, we want to blame WebGL. The C++ standard library functions cannot be at fault, right?</p>
+<p>But when looking at the WebGL code, the crash occurs in the perfectly valid lines of C++ summarized below:</p>
+<pre>std::ostringstream stream;
+stream.imbue(std::locale::classic());</pre>
+<p>This code should never crash, and yet it does. In fact, taking a closer look at the stack gives a first lead for investigation:<br>
+Although we crash into functions that belong to the C++ standard library, these functions appear to live in the firefox binary.</p>
+<p>This is an unusual situation that never occurs with official builds of Firefox.<br>
+It is however very common for distribution to change the configuration settings and apply downstream patches to an upstream source, no worries about that.<br>
+Moreover, there is only a single build of Firefox Beta that is causing this crash.</p>
+<p>We know this thanks to a unique identifier associated with any ELF binary.<br>
+Here, if we choose any specific version of Firefox 120 Beta (such as 120b9), the crashes all embed the same unique identifier for firefox.</p>
+<p>Now, how can we guess what build produces this weird binary?</p>
+<p>A useful user comment mentions that they regularly experience this crash since updating to <var>120.0~b2+build1-0ubuntu0.18.04.1</var>.<br>
+And by looking for this build identifier, we quickly reach <a href="https://launchpad.net/~mozillateam/+archive/ubuntu/firefox-next" rel="noreferrer" target="_blank">the Firefox Beta PPA</a>.<br>
+Then indeed, we are able to reproduce the crash by installing it in a Ubuntu 18.04 LTS virtual machine: it occurs when loading any WebGL page!<br>
+With the binary now at hand, running <code>nm -D ./firefox</code> confirms the presence of several symbols related to libstdc++ that live in the text section (<code>T</code> marker).</p>
+<p>Templated and inline symbols from libstdc++ usually appear as weak (<code>W</code> marker), so there is only one explanation for this situation: firefox has been statically linked with libstdc++, probably through <code>-static-libstdc++</code>.</p>
+<p>Fortunately, the build logs are available for all Ubuntu packages.<br>
+After some digging, we find <a href="https://launchpadlibrarian.net/697121043/buildlog_ubuntu-bionic-amd64.firefox_120.0~b9+build1-0ubuntu0.18.04.1_BUILDING.txt.gz" rel="noreferrer" target="_blank">the logs for the 120b9 build</a>, which indeed contain references to&nbsp;<code>-static-libstdc++</code>.</p>
+<p>But why?</p>
+<p>Again, everything is well documented, and thanks to well trained digging skills we reach <a href="https://bugs.launchpad.net/ubuntu/+source/firefox/+bug/1856861" rel="noreferrer" target="_blank">a bug report</a> that provides interesting insights.<br>
+Firefox requires a modern C++ compiler, and hence a modern libstdc++, which is unavailable on old systems like Ubuntu 18.04 LTS.<br>
+The build uses <code>-static-libstdc++</code> to close this gap.<br>
+This just explains the weird setup though.</p>
+<p>What about the crash?</p>
+<p>Since we can now reproduce it, we can launch Firefox in a debugger and continue our investigation.<br>
+When inspecting the crash site, we seem to crash because <code>std::locale::classic()</code> is not properly initialized.<br>
+Let’s take a peek at the implementation.</p>
+<pre>const locale&amp; locale::classic()
+{
+  _S_initialize();
+  return *(const locale*)c_locale;
+}</pre>
+<p><code>_S_initialize()</code> is in charge of making sure that <code>c_locale</code> will be properly initialized before we return a reference to it.<br>
+To achieve this, <code>_S_initialize()</code> calls another function, <code>_S_initialize_once()</code>.</p>
+<pre>void locale::_S_initialize()
+{
+#ifdef __GTHREADS
+  if (!__gnu_cxx::__is_single_threaded())
+&nbsp;&nbsp;  __gthread_once(&amp;_S_once, _S_initialize_once);
+#endif
+
+  if (__builtin_expect(!_S_classic, 0))
+&nbsp;&nbsp;  _S_initialize_once();
+}</pre>
+<p>In <code>_S_initialize()</code>, we first go through a wrapper for <code>pthread_once()</code>: the first thread that reaches this code consumes <code>_S_once</code> and calls <code>_S_initialize_once()</code>, whereas other threads (if any) are stuck waiting for <code>_S_initialize_once()</code> to complete.</p>
+<p>This looks rather fail-proof, right?</p>
+<p>There is even an extra direct call to <code>_S_initialize_once()</code> if <code>_S_classic</code> is still uninitialized after that.<br>
+Now, <code>_S_initialize_once()</code> itself is rather straightforward: it allocates <code>_S_classic</code> and puts it within <code>c_locale</code>.</p>
+<pre>void
+locale::_S_initialize_once() throw()
+{
+  // Need to check this because we could get called once from _S_initialize()
+  // when the program is single-threaded, and then again (via __gthread_once)
+  // when it's multi-threaded.
+  if (_S_classic)
+&nbsp;&nbsp;  return;
+
+  // 2 references.
+  // One reference for _S_classic, one for _S_global
+  _S_classic = new (&amp;c_locale_impl) _Impl(2);
+  _S_global = _S_classic;
+  new (&amp;c_locale) locale(_S_classic);
+}</pre>
+<p>The crash looks as if we never went through <code>_S_initialize_once()</code>, so let’s put a breakpoint there and see what happens.<br>
+And just by doing this, we already notice something suspicious.<br>
+We do reach <code>_S_initialize_once()</code>, but not within the firefox binary: instead, we only ever reach the version exported by liblgpllibs.so.<br>
+In fact, liblgpllibs.so is also statically linked with libstdc++, such that firefox and liblgpllibs.so both embed and export their own <code>_S_initialize_once()</code> function.</p>
+<p>By default, <i>symbol interposition</i> applies, and <code>_S_initialize_once()</code> should always be called through the procedure linkage table (PLT), so that every module ends up calling the same version of the function.<br>
+If symbol interposition were happening here, we would expect that liblgpllibs.so would reach the version of _S_initialize_once() exported by firefox rather than its own, because firefox was loaded first.</p>
+<p>So maybe there is no symbol interposition.</p>
+<p>This can occur when using <code>-fno-semantic-interposition</code>.</p>
+<p>Each version of the standard library would live on its own, independent from the other versions.<br>
+But neither the Firefox build system nor the Ubuntu maintainer seem to pass this flag to the compiler.<br>
+However, by looking at the disassembly for <code>_S_initialize()</code> and <code>_S_initialize_once()</code>, we can see that the exported global variables (<code>_S_once</code>, <code>_S_classic</code>, <code>_S_global</code>) <b>are</b> subject to symbol interposition:</p>
+<p>These accesses all go through the global offset table (GOT), so that every module ends up accessing the same version of the variable.<br>
+This seems strange given what we said earlier about <code>_S_initialize_once()</code>.<br>
+Non-exported global variables (<code>c_locale</code>, <code>c_locale_impl</code>), however, are accessed directly without symbol interposition, as expected.</p>
+<p>We now have enough information to explain the crash.</p>
+<p>When we reach <code>_S_initialize()</code> in liblgpllibs.so, we actually consume the <code>_S_once</code> that lives in firefox, and initialize the <code>_S_classic</code> and <code>_S_global</code> that live in firefox.<br>
+But we initialize them with pointers to well initialized variables <code>c_locale_impl</code> and <code>c_locale</code> that live in liblgpllibs.so!<br>
+The variables <code>c_locale_impl</code> and <code>c_locale</code> that live in firefox, however, remain uninitialized.</p>
+<p>So if we later reach <code>_S_initialize()</code> in firefox, everything looks as if initialization has happened.<br>
+But then we return a reference to the version of <code>c_locale</code> that lives in firefox, and this version has never been initialized.</p>
+<p>Boom!</p>
+<p>Now the main question is: why do we see interposition occur for <code>_S_once</code> but not for <code>_S_initialize_once()</code>?<br>
+If we step back for a minute, there is a fundamental distinction between these symbols: one is a function symbol, the other is a variable symbol.<br>
+And indeed, the Firefox build system uses the <code>-Bsymbolic-function</code> flag!</p>
+<p>The ld man page describes it as follows:</p>
+<blockquote>
+<pre>-Bsymbolic-functions
+
+When creating a shared library, bind references to global function symbols to the definition within the shared library, if any.&nbsp; This option is only meaningful on ELF platforms which support shared libraries.</pre>
+</blockquote>
+<p>As opposed to:</p>
+<blockquote>
+<pre>-Bsymbolic
+
+When creating a shared library, bind references to global symbols to the definition within the shared library, if any.&nbsp; Normally, it is possible for a program linked against a shared library to override the definition within the shared library. This option is only meaningful on ELF platforms which support shared libraries.</pre>
+</blockquote>
+<p>Nailed it!</p>
+<p>The crash occurs because this flag makes us use a weird variant of symbol interposition, where symbol interposition happens for variable symbols like <code>_S_once</code> and <code>_S_classic</code> but not for function symbols like <code>_S_initialize_once()</code>.</p>
+<p>This results in a mismatch regarding how we access global variables: exported global variables are unique thanks to interposition, whereas every non-interposed function will access its own version of any non-exported global variable.</p>
+<p>With all the knowledge that we have now gathered, it is easy to write a reproducer that does not involve any Firefox code:</p>
+<pre>/* main.cc */
+#include &lt;iostream&gt;
+extern void pain();
+int main() {
+pain();
+&nbsp;&nbsp; std::cout &lt;&lt; "[main] " &lt;&lt; std::locale::classic().name() &lt;&lt;"\n";
+&nbsp;&nbsp; return 0;
+}
+
+/* pain.cc */
+
+#include &lt;iostream&gt;
+void pain() {
+std::cout &lt;&lt; "[pain] " &lt;&lt; std::locale::classic().name() &lt;&lt;"\n";
+}
+
+# Makefile
+all:
+&nbsp;&nbsp; $(CXX) pain.cc -fPIC -shared -o libpain.so -static-libstdc++ -Wl,-Bsymbolic-functions
+&nbsp;&nbsp; $(CXX) main.cc -fPIC -c -o main.o
+&nbsp;&nbsp; $(CC) main.o -fPIC -o main /usr/lib/gcc/x86_64-redhat-linux/13/libstdc++.a -L. -Wl,-rpath=. -lpain -Wl,-Bsymbolic-functions
+&nbsp;&nbsp; ./main
+
+clean:
+&nbsp;&nbsp; $(RM) libpain.so main
+</pre>
+<p>Understanding the bug is one step, and solving it is yet another story.<br>
+Should it be considered a libstdc++ bug that the code for locales is not compatible with <code>-static-stdlibc++ -Bsymbolic-functions</code>?</p>
+<p>It feels like combining these flags is a very nice way to dig our own grave, and <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=112551" rel="noreferrer" target="_blank">that seems to be the opinion of the libstdc++ maintainers indeed</a>.</p>
+<p>Overall, perhaps the strangest part of this story is that this combination did not cause any trouble up until now.<br>
+Therefore, we suggested to the maintainer of the package to stop using <code>-static-libstdc++</code>.</p>
+<p>There are other ways to use a different libstdc++ than available on the system, such as using dynamic linking and setting an <code>RPATH</code> to link with a bundled version.</p>
+<p><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861365#c11" rel="noreferrer" target="_blank">Doing that</a> allowed them to successfully deploy a fixed version of the package.<br>
+A few days after that, with the official release of Firefox 120, we noticed a very significant bump in volume for the same crash signature. Not again!</p>
+<p>This time the volume was coming exclusively from users of NixOS 23.05, and it was huge!</p>
+<p>After we shared the conclusions from our beta investigation with them, the maintainers of NixOS were able to <a href="https://github.com/NixOS/nixpkgs/issues/269571#issuecomment-1825836670" rel="noreferrer" target="_blank">quickly associate</a> the crash with <a href="https://github.com/NixOS/nixpkgs/pull/192459" rel="noreferrer" target="_blank">an issue that had not yet been backported </a>for 23.05 and was causing the compiler to behave like <code>-static-libstdc++</code>.</p>
+<p>To avoid such mess in the future, <a href="https://phabricator.services.mozilla.com/rMOZILLACENTRAL0930954b46bbc315ffcb92658bde0efc2945b04b" rel="noreferrer" target="_blank">we added detection for this particular setup in Firefox’s configure</a>.</p>
+<p>We are grateful to the people who have helped fix this issue, in particular:</p>
+<ul>
+<li aria-level="1">Rico Tzschichholz (ricotz) who quickly fixed the Ubuntu 18.04 LTS package, and Amin Bandali (bandali) who provided help on the way;</li>
+<li aria-level="1">Martin Weinelt (hexa) and Artturin for their prompt fixes for the NixOS 23.05 package;</li>
+<li aria-level="1">Nicolas B. Pierron (nbp) for helping us get started with NixOS, which allowed us to quickly share useful information with the NixOS package maintainers.</li>
+</ul>
+<p>&nbsp;</p>
+<p>The post <a href="https://hacks.mozilla.org/2024/01/option-soup-the-subtle-pitfalls-of-combining-compiler-flags/" rel="noreferrer" target="_blank">Option Soup: the subtle pitfalls of combining compiler flags</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-01-29T18:18:33.000Z>29 January 2024</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

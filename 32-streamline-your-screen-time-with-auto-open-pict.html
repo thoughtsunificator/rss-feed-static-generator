@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Streamline your screen time with auto-open Picture-in-Picture and more – These Weeks in Firefox: Issue 166</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/08/26/streamline-your-screen-time-with-auto-open-picture-in-picture-and-more-these-weeks-in-firefox-issue-166/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1">Special shout-out to Daniele (egglessness) who <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1647800" rel="noreferrer" target="_blank">landed a new experimental Picture-in-Picture feature</a> that can be enabled in Firefox 130! This feature automatically triggers Picture-in-Picture mode for any playing video when the associated tab is backgrounded. This can be enabled in about:settings#experimental
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/08/image4.png" rel="noreferrer" target="_blank"></a></li>
+<li aria-level="2">Got feedback? You can leave it <a href="https://connect.mozilla.org/t5/ideas/auto-pip-when-tab-is-changed/idi-p/7917" rel="noreferrer" target="_blank">here on Connect</a>!</li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=39966" rel="noreferrer" target="_blank">Olli Pettay</a> fixed very long cycle collection times in workers which improved performance when Debugging large files in the DevTools Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907794" rel="noreferrer" target="_blank">#1907794</a>)</li>
+<li aria-level="1">You can now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1909926" rel="noreferrer" target="_blank">hover over elements in the shadow DOM</a>, allowing you to capture more snippets of a page for screenshots. Thanks to Niklas for this Screenshots improvement and making it work with <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910920" rel="noreferrer" target="_blank">openOrClosedShadowRoot</a>.
+<ul>
+<li aria-level="2">
+<p></p><div id="attachment_1716" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2024/08/image5.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1716" class="wp-caption-text">Want to highlight sample code from your favorite dev site? Now it’s possible with the latest Nightly version.</p></div></li>
+</ul>
+</li>
+<li aria-level="1">Mandy has added support for showing <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1902537" rel="noreferrer" target="_blank">search restriction keywords</a> when users type @ in the address bar. If you want to check it out, be sure to set browser.urlbar.searchRestrictKeywords.featureGate to true.
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/08/image3.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h3><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1804166%2C1904310%2C1909850%2C1909887%2C1826409%2C1647800%2C1851215%2C1792887%2C1830673%2C1903840%2C1910923%2C1850682" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h3>
+<p><a href="https://github.com/niklasbaumgardner/NewContributorScraper" rel="noreferrer" target="_blank">Script to find new contributors from bug list</a></p>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Louis Mascari</li>
+<li aria-level="1">Mathew Hodson</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 cauasene00 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904310" rel="noreferrer" target="_blank">disabled system add-on updates</a> and removed the update url</li>
+<li aria-level="1">🌟 Daniele Ferla <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1647800" rel="noreferrer" target="_blank">added auto-toggle on tab switch for Picture-in-Picture</a></li>
+<li aria-level="1">🌟 Liam DeBeasi <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1903840" rel="noreferrer" target="_blank">updated Sidebar checkbox and radio to use Acorn styling</a></li>
+<li aria-level="1">Louis Mascari <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851215" rel="noreferrer" target="_blank">updated about:studies to report inactive rollouts under “Completed Studies”</a> and fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910923" rel="noreferrer" target="_blank">intermittent failures in browser_about_studies.js</a></li>
+<li aria-level="1">Dan <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1850682" rel="noreferrer" target="_blank">added a base RootBiDiModule class</a></li>
+<li aria-level="1">Tim Williams <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1804166" rel="noreferrer" target="_blank">fixed an issue with the favicon not resetting</a> when changing tab to about:newtab with a blank new tab page configured</li>
+</ul>
+<h3>General triage</h3>
+<ul>
+<li aria-level="1"><a href="https://docs.google.com/document/d/1_r8lKtJg1FXeY9R3mufsQKI3ylXiIrrLgsb3DqC0EoA/edit" rel="noreferrer" target="_blank">hjones, emcminn, cmkm, and jteow are this month’s Firefox / Toolkit :: General triagers!</a></li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<p>Addon Manager &amp; about:addons</p>
+<ul>
+<li aria-level="1">Fixed origin control messages for MV3 extensions requesting access to all urls through two separate host permissions (e.g. “<a href="about:blank" rel="noreferrer" target="_blank">http://*/*</a>” and “<a href="about:blank" rel="noreferrer" target="_blank">https://*/*</a>”, instead of a single “&lt;all_urls&gt;” host permission) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856383" rel="noreferrer" target="_blank">Bug 1856383</a></li>
+</ul>
+<p>WebExtension APIs</p>
+<ul>
+<li aria-level="1">Fixed webRequest.getSecurityInfo to make sure the options parameter is optional – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1909474" rel="noreferrer" target="_blank">Bug 1909474</a></li>
+</ul>
+<h4>DevTools</h4>
+<h5>DevTools Toolbox</h5>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=750915" rel="noreferrer" target="_blank">Artem Manushenkov</a> added viewport dimensions overlay when resizing window (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1826409" rel="noreferrer" target="_blank">#1826409</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> Display tracer argument values as inline previews when opening frames from the console (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1871500" rel="noreferrer" target="_blank">#1871500</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/08/image6.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> enabled the JS Tracer for remote debugging (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866818" rel="noreferrer" target="_blank">#1866818</a>) and in the Browser Toolbox (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1909544" rel="noreferrer" target="_blank">#1909544</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=582499" rel="noreferrer" target="_blank">Alex Thayer</a> implemented a native backend for the JS tracer (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1906719" rel="noreferrer" target="_blank">#1906719</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> and <a href="https://bugzilla.mozilla.org/user_profile?user_id=559949" rel="noreferrer" target="_blank">Julian Descottes</a> fixed issues with local script override which should now work for SW (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876060" rel="noreferrer" target="_blank">#1876060</a>), CORS (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1834799" rel="noreferrer" target="_blank">#1834799</a>) and CSP (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904870" rel="noreferrer" target="_blank">#1904870</a>) requests</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=656417" rel="noreferrer" target="_blank">Hubert Boma Manilla</a> is finalizing the Debugger migration to CodeMirror 6, now focusing on making tests to pass (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1909594" rel="noreferrer" target="_blank">#1909594</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905840" rel="noreferrer" target="_blank">#1905840</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> fixed an issue where source text content of ESM worker loaded via ChromeUtils methods was not showing in the Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1907977" rel="noreferrer" target="_blank">#1907977</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> made flex and grid highlighters faster (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1909170" rel="noreferrer" target="_blank">#1909170</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> made the “unused” parameter in light-dark() function struck through (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1857006" rel="noreferrer" target="_blank">#1857006</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/08/image2.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+</ul>
+<h5>WebDriver BiDi</h5>
+<ul>
+<li aria-level="1">External:
+<ul>
+<li aria-level="2">Thanks to Cauã Sene (cauasene00) for updating our tests to fully avoid requests related to system add-on updates. Previously they would just be redirected to a dummy URL and as a result were polluting our test logs. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904310" rel="noreferrer" target="_blank">#1904310</a>)</li>
+</ul>
+</li>
+<li aria-level="1">Updates:
+<ul>
+<li aria-level="2">Sasha implemented a new event called browsingContext.navigationFailed, which is raised whenever a navigation fails (e.g. canceled, network error, etc.). In combination with other events such as browsingContext.load, this allows clients to monitor navigations from start to finish in all scenarios (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846601" rel="noreferrer" target="_blank">#1846601</a>)</li>
+<li aria-level="2">Sasha fixed a bug in the browsingContext.navigate command. If the client used the parameter wait=none, we now resolve the command even if the navigation triggered a “beforeunload” prompt. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1763134" rel="noreferrer" target="_blank">#1763134</a>)</li>
+<li aria-level="2">Sasha fixed a bug with the network.authRequired event, which was previously duplicated after each manual authentication attempt, leading to too many events. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899711" rel="noreferrer" target="_blank">#1899711</a>)</li>
+<li aria-level="2">Julian updated the data-channel-opened notification to also be emitted for data URL channels created in content processes. Thanks to this WebDriver BiDi will now raise network events for all data URL requests. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1904343" rel="noreferrer" target="_blank">#1904343</a>)</li>
+<li aria-level="2">Julian updated the logic for the network.responseCompleted and network.fetchError events in order to raise them at the right time, and ensure a correct ordering of events. For instance, per spec for a successful navigation network.responseCompleted should be raised before browsingContext.load. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1882803" rel="noreferrer" target="_blank">#1882803</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">We’re working with UX and PM on a wizard that will walk users through getting backup enabled and configured just how they like it. We’re still in the midst of breaking that down, but <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910458" rel="noreferrer" target="_blank">the metabug is here</a>.</li>
+<li aria-level="1">mconley landed patches to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908002" rel="noreferrer" target="_blank">make Web Locks available to privileged code in the parent process</a>, and to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910953" rel="noreferrer" target="_blank">use them in the Backup Service to avoid the interleaving of creating / deleting backups</a></li>
+<li aria-level="1">sthompson <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901308" rel="noreferrer" target="_blank">improved our error handling</a> in the backup management UI in about:settings</li>
+<li aria-level="1">fchasen <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908555" rel="noreferrer" target="_blank">has a patch up</a> that, after recovery, will make the recovered profile the default, and shutdown the browser that initiated recovery</li>
+<li aria-level="1">kpatenio <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1896772" rel="noreferrer" target="_blank">landed the password rules tooltip</a> to the backup management UI, and is working on efficiently checking user passwords against a local copy of the same “common password” list that FxA uses.</li>
+</ul>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li aria-level="1">Some strings were updated to use capitalised “Picture-in-Picture” rather than “picture-in-picture” per our <a href="https://acorn.firefox.com/latest/content/word-list/n-r-Z1EQFKD6#section-picture-in-picture-87" rel="noreferrer" target="_blank">word list</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910622" rel="noreferrer" target="_blank">bug</a>)</li>
+</ul>
+<h4>Screenshots</h4>
+<ul>
+<li aria-level="1">Niklas made the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894516" rel="noreferrer" target="_blank">screenshots preview face keyboard accessible</a>
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2024/08/image1.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+<li aria-level="1">Niklas fixed an issue where the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1897095" rel="noreferrer" target="_blank">RDM toolbar would overlap the dialog box</a></li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Search
+<ul>
+<li aria-level="2">Mortiz has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881739" rel="noreferrer" target="_blank">created a new test function</a>, SearchTestUtils.setRemoteSettingsConfig for setting the search configuration in xpcshell-tests, and improved SearchTestUtils.updateRemoteSettingsConfig.
+<ul>
+<li aria-level="3">Both will take a partial search configuration &amp; expand it into a full configuration. This simplifies test-setup, so that you only need to specify the bits that are important to the test.</li>
+<li aria-level="3">Some tests are already using these, we’ll be rolling it out to more soon.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Address Bar
+<ul>
+<li aria-level="2">Work on the dedicated search button continues, with improved <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1902052" rel="noreferrer" target="_blank">keyboard navigation</a> (Dale), better <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910826" rel="noreferrer" target="_blank">icons in dark mode</a> (daisuke)</li>
+<li aria-level="2">Karandeep and James have made the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1903633" rel="noreferrer" target="_blank">persistent search term feature more flexible</a> to make it easier to handle more situations in future.</li>
+</ul>
+</li>
+</ul>
+<h4>Storybook/Reusable Components</h4>
+<ul>
+<li aria-level="1">Thanks to Liam (ldebeasi) for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1903840" rel="noreferrer" target="_blank">updating the moz-checkbox and moz-radio elements to always use the Acorn styling</a>.</li>
+<li aria-level="1">When using the accordion moz-card, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908742" rel="noreferrer" target="_blank">it can now be expanded and show its content by default</a>.</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-26T19:42:47.000Z>26 August 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

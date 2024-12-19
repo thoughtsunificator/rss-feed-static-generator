@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Introducing llamafile</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2023/11/introducing-llamafile/">Go to article URL</a>
+		<div id="content"><p></p><p><em>A special thanks to Justine Tunney of the Mozilla Internet Ecosystem (MIECO), who co-authored this blog post.</em></p>
+<p><span>Today we’re announcing the first release of </span><a href="https://github.com/Mozilla-Ocho/llamafile" rel="noreferrer" target="_blank"><span>llamafile</span></a><span> and inviting the open source community to participate in this new project.</span></p>
+<p><span>llamafile lets you turn large language model (LLM) weights into executables.</span></p>
+<p><span>Say you have a set of LLM weights in the form of a 4GB file (in the commonly-used GGUF format). With llamafile you can transform that 4GB file into a binary that runs on six OSes without needing to be installed.</span></p>
+<p><span>This makes it dramatically easier to distribute and run LLMs. It also means that as models and their weights formats continue to evolve over time, llamafile gives you a way to ensure that a given set of weights will remain usable and perform consistently and reproducibly, forever.</span></p>
+<p><span>We achieved all this by combining two projects that we love:</span><a href="https://github.com/ggerganov/llama.cpp" rel="noreferrer" target="_blank"> <span>llama.cpp</span></a><span> (a leading open source LLM chatbot framework) with</span><a href="https://github.com/jart/cosmopolitan" rel="noreferrer" target="_blank"> <span>Cosmopolitan Libc</span></a><span> (an open source project that enables C programs to be compiled and run on a large number of platforms and architectures). It also required solving several interesting and juicy problems along the way, such as adding GPU and dlopen() support to Cosmopolitan; you can read more about it in </span><a href="https://github.com/Mozilla-Ocho/llamafile#readme" rel="noreferrer" target="_blank"><span>the project’s README</span></a><span>.</span></p>
+<p><span>This first release of llamafile is a product of Mozilla’s innovation group and developed by </span><a href="https://justine.lol" rel="noreferrer" target="_blank"><span>Justine Tunney</span></a><span>, the creator of Cosmopolitan. Justine has recently been collaborating with Mozilla via </span><a href="https://future.mozilla.org/mieco/" rel="noreferrer" target="_blank"><span>MIECO</span></a><span>, and through that program Mozilla funded her work on the </span><a href="https://justine.lol/cosmo3/" rel="noreferrer" target="_blank"><span>3.0 release</span></a><span>&nbsp; (</span><a href="https://news.ycombinator.com/item?id=38101613" rel="noreferrer" target="_blank"><span>Hacker News discussion</span></a><span>) of Cosmopolitan. With llamafile, Justine is excited to be contributing more directly to Mozilla projects, and we’re happy to have her involved.</span></p>
+<p><span>llamafile is licensed Apache 2.0, and we encourage contributions. Our changes to llama.cpp itself are licensed MIT (the same license used by llama.cpp itself) so as to facilitate any potential future upstreaming. We’re all big fans of llama.cpp around here; llamafile wouldn’t have been possible without it and Cosmopolitan.</span></p>
+<p><span>We hope llamafile is useful to you and look </span><a href="https://github.com/Mozilla-Ocho/llamafile" rel="noreferrer" target="_blank"><span>forward to your feedback</span></a><span>.</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://hacks.mozilla.org/2023/11/introducing-llamafile/" rel="noreferrer" target="_blank">Introducing llamafile</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-11-29T18:46:02.000Z>29 November 2023</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

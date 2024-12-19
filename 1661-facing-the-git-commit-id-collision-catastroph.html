@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Facing the Git commit-ID collision catastrophe</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1001526/">Go to article URL</a>
+		<div id="content"><p></p>Commits in the Git source-code management system are identified by the
+SHA-1 hash of their contents — though the specific hash <a href="https://lwn.net/Articles/898522/" rel="noreferrer" target="_blank">may change someday</a>.  The full hash is a
+160-bit quantity, normally written as a 40-character hexadecimal string.
+While those strings are convenient for computers to work with, humans find
+them to be a bit unwieldy, so it is common to abbreviate the hash values to
+shorter strings.  Geert Uytterhoeven recently <a href="https://lwn.net/ml/all/cover.1733421037.git.geert+renesas@glider.be" rel="noreferrer" target="_blank">proposed</a>
+increasing the length of those abbreviated hashes as used in the kernel
+community, but the problem he was working to solve may not be as urgent as
+it seems.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-13T18:22:41.000Z>13 December 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

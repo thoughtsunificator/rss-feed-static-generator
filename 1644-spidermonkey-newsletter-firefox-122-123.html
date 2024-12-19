@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>SpiderMonkey Newsletter (Firefox 122-123)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2024/01/30/newsletter-firefox-122-123.html">Go to article URL</a>
+		<div id="content"><p></p><p>Hello everyone!</p>
+
+<p><a href="https://www.mgaudet.ca/about" rel="noreferrer" target="_blank">Matthew Gaudet</a> here from the SpiderMonkey team, giving Jan a break from newsletter writing.</p>
+
+<p>Our newsletter is an opportunity to highlight some of the work that’s happened in SpiderMonkey land over the last couple of releases. Everyone is hard at work (though some of us are nicely rejuvenated from a winter break).</p>
+
+<p>Feel free to email feedback on the shape of the newsletter to <a href="mailto:mgaudet@mozilla.com" rel="noreferrer" target="_blank">me</a>, as I’d be interested in hearing what works for people and what doesn’t.</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<p>We’re continuing work on our performance story, with Speedometer 3 being the current main target. We like Speedometer 3 because it provides a set of workloads that we think better reflect the real web, driving <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867359" rel="noreferrer" target="_blank">improvements to real users too</a>.</p>
+
+<p>Here is a curated selection of just some of the performance related changes in this release:</p>
+
+<ul>
+  <li>Iain Ireland improved performance on React through <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867359" rel="noreferrer" target="_blank">eager atomization of property keys</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867359#c16" rel="noreferrer" target="_blank">13% improvement</a> on a <a href="https://firefox-source-docs.mozilla.org/devtools/tests/performance-tests-overview.html#damp" rel="noreferrer" target="_blank">devtools benchmark subtest</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867359#c17" rel="noreferrer" target="_blank"> 7% on Jetstream2-Offfline Assembler</a>).</li>
+  <li>Contributor André Bargull <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873042" rel="noreferrer" target="_blank">improved the performance of various String methods</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873042#c14" rel="noreferrer" target="_blank">Between 2 and 5% on various Jetstream2 Subtests</a>)</li>
+  <li>Jon fixed an <a href="https://accidentallyquadratic.tumblr.com/" rel="noreferrer" target="_blank">accidentally quadratic</a> traversal in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1867453" rel="noreferrer" target="_blank">Bug 1867453 - Nightly spends tons of time (2 minutes+) around GC on an online OCR tool. The time increases exponentially as the size of the image increases</a></li>
+  <li>I added a new optimization system called <a href="https://searchfox.org/mozilla-central/rev/c130c69b7b863d5e28ab9524b65c27c7a9507c48/js/src/vm/GuardFuse.h#21-61" rel="noreferrer" target="_blank">Fuses</a>, which will allow us to make optimizations that depend on assumptions about the state of the virtual machine. The first optimization to make use of this <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870396" rel="noreferrer" target="_blank">landed in 123</a>. While it wasn’t a noticeable improvement for Speedometer, it does provide about a 40% improvement on a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" rel="noreferrer" target="_blank">destructuring</a> microbenchmark. The hope is that this framework will be a foundation to build further improvement upon.</li>
+</ul>
+
+<h4 id="-contributor-spotlight-mayank-bansal">🔦 Contributor Spotlight: Mayank Bansal</h4>
+
+<p>Mayank Bansal has been a huge help to the Firefox project for years. Taking a special interest in performance, he is often one of the first to take note of a performance improvement or regression. He also frequently files performance bugs, some of which have identified fixable problems, along with comparative profiles which smooth the investigative process.</p>
+
+<p>In his own words:</p>
+
+<blockquote>
+  <p><a href="https://www.linkedin.com/in/mayankbansal01" rel="noreferrer" target="_blank">Mayank Bansal</a> has been using Firefox Nightly for more than a decade. He is passionate about browser performance and scours the internet for interesting javascript test-cases for the SM team to analyse. He closely monitors the performance improvement and regressions on <a href="https://arewefastyet.com" rel="noreferrer" target="_blank">AWFY</a>. You can check out some of the bugs he has filed by visiting the metabug <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=1808325" rel="noreferrer" target="_blank">here</a>.</p>
+</blockquote>
+
+<p>The SpiderMonkey team greatly appreciates all the help we get from Mayank. Thank you very much Mayank.</p>
+
+<h3 id="-wasm">⚡ Wasm</h3>
+
+<ul>
+  <li>Ben Visness enabled <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861261" rel="noreferrer" target="_blank">JIT Allocation of Structs</a>, which helps improve Wasm GC performance by 5-15% depending on workload.</li>
+  <li>Ryan Hunt implemented the <a href="https://github.com/WebAssembly/js-string-builtins" rel="noreferrer" target="_blank">js-string-builtin</a> proposal championed by Mozilla for fast access to strings from wasm in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863794" rel="noreferrer" target="_blank">Bug 1863794</a>.</li>
+  <li>Ryan also implemented the <a href="https://github.com/WebAssembly/exception-handling/issues/280" rel="noreferrer" target="_blank">exnref proposal</a> in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1853454" rel="noreferrer" target="_blank">Bug 1853454</a></li>
+</ul>
+
+<h3 id="️--other-work">👷🏽‍♀️  Other Work</h3>
+
+<ul>
+  <li>Contributor André Bargull has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1423593" rel="noreferrer" target="_blank">landed (nightly only)</a> support for <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter" rel="noreferrer" target="_blank"><code class="language-plaintext highlighter-rouge">Intl.Segmenter</code></a></li>
+  <li>I enabled <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865103" rel="noreferrer" target="_blank"><code class="language-plaintext highlighter-rouge">ArrayBuffer.prototype.transfer</code></a> by default (but André Bargull did all the real work in implementing this). This API provides ownership semantics to JS ArrayBuffers.</li>
+  <li>Contributor Jonatan Klemets has landed updates to our preliminary (disabled by default) support for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1835669" rel="noreferrer" target="_blank">Import Assertions</a>.</li>
+  <li>I fixed a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866385" rel="noreferrer" target="_blank">low volume crash related to synchronous events occurring while devtools is open on a page</a>; this should eventually avoid about 10 crashes a week for people debugging in Firefox. As of 121.0.1 this should no longer occur.  This was a fun investigation triggered by a seemingly impossible crash, and also an interesting case of a crash-report bug opened by a bot leading to an actionable fix.</li>
+</ul>
+
+<h3 id="-date-parsing-improvements">⏰ Date parsing improvements</h3>
+
+<p>Contributor Vinny Diehl has continued improving our date parsing story, aiming to improve compatibility and handling of peculiar cases.</p>
+
+<ul>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1862910" rel="noreferrer" target="_blank">Bug 1862910 - Make Date.parse only check first 3 characters of month name</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866811" rel="noreferrer" target="_blank">Bug 1866811 - the javascript-engine returns 943916400000 on Date.parse(“0000-00-00”) instead of NaN</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870434" rel="noreferrer" target="_blank">Bug 1870434 - Date.parse rejects single numbers &lt; 1000</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1872333" rel="noreferrer" target="_blank">Bug 1872333 - Day of month overflow should be parsed as an ISO style date</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870570" rel="noreferrer" target="_blank">Bug 1870570 - Date.parse accepts incomplete time zone abbreviations and AM/PM</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873186" rel="noreferrer" target="_blank">Bug 1873186 - Deprecate day of week late in the format for Date.parse</a></li>
+</ul>
+
+<h3 id="-fuzzing">🐇 Fuzzing</h3>
+
+<p>In order to find bugs, <a href="https://en.wikipedia.org/wiki/Fuzzing" rel="noreferrer" target="_blank">fuzzing</a> by generating and running random testcases to see if they crash turns out to be an unreasonably effective technique. The SpiderMonkey team works with a variety of fuzzers, both inside of Mozilla (👋 Hi <code class="language-plaintext highlighter-rouge">fuzzing@</code>!) and outside (Thank you all!).</p>
+
+<p>Fuzzing can find test cases which are both very benign but worth fixing, as well as extremely serious security bugs. Security sensitive fuzz bugs are eligible for the <a href="https://www.mozilla.org/en-US/security/bug-bounty/" rel="noreferrer" target="_blank">Mozilla Bug Bounty Program</a>.</p>
+
+<p>To show off the kind of fun we have with fuzzing, I thought I’d curate some fun, interesting (and not hidden for security reasons) fuzz bugs.</p>
+
+<ul>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870756" rel="noreferrer" target="_blank">A fun catch on weird ARM32 Hardware</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858678" rel="noreferrer" target="_blank">Finding overly strict assertions</a>in testing code.</li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1870747" rel="noreferrer" target="_blank">Discovering our <code class="language-plaintext highlighter-rouge">callWithABI</code> signatures couldn’t handle <code class="language-plaintext highlighter-rouge">int64_t</code> returns on 32-bit, which went subtly awry in the arm32 simulator build.</a></li>
+</ul><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-01-30T17:00:00.000Z>30 January 2024</time>
+			<a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

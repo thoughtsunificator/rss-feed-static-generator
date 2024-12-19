@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>ClearlyDefined v2.0 adds support for LicenseRefs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://opensource.org/blog/clearlydefined-v2-0-adds-support-for-licenserefs">Go to article URL</a>
+		<div id="content"><p></p>
+<p>One of the major focuses of the&nbsp;<a target="_blank" href="https://docs.clearlydefined.io/docs/resources/roadmap" rel="noreferrer">ClearlyDefined Technical Roadmap</a>&nbsp;is the improvement in the quality of license data. As such, we are excited to announce the release of&nbsp;<a target="_blank" href="https://github.com/clearlydefined/service/releases/tag/v2.0.0" rel="noreferrer">ClearlyDefined v2.0</a>&nbsp;which adds over 2,000 new well-known licenses it can identify. You can see the complete list of new non-SPDX licenses in&nbsp;<a target="_blank" href="https://scancode-licensedb.aboutcode.org/" rel="noreferrer">ScanCode LicenseDB</a>.</p>
+
+
+
+<p>A little historical background, when Clearly Defined was first created, it was initially decided to limit the reported licenses to only those on the&nbsp;<a target="_blank" href="https://spdx.org/licenses/" rel="noreferrer">SPDX License List</a>. As teams worked with the Clearly Defined data, it became clear that additional license discovery is important to give users a fuller picture of the projects they depend on. In previous releases of ClearlyDefined, licenses not on the&nbsp;<a target="_blank" href="https://spdx.org/licenses/" rel="noreferrer">SPDX License List</a>&nbsp;were represented in the definition as&nbsp;<em>NOASSERTION</em>&nbsp;or&nbsp;<em>OTHER</em>. (See the breakdown of licenses in&nbsp;<a href="https://opensource.org/blog/the-most-popular-licenses-for-each-language-2023" rel="noreferrer" target="_blank">The most popular licenses for each language in 2023</a>.)The&nbsp;<a target="_blank" href="https://github.com/clearlydefined/service/releases/tag/v2.0.0" rel="noreferrer">v2.0 release of ClearlyDefined</a>&nbsp;includes an update of&nbsp;<a target="_blank" href="https://github.com/aboutcode-org/scancode-toolkit/releases/tag/v32.3.0" rel="noreferrer">ScanCode to v32</a>&nbsp;and the support of LicenseRefs to identify non-SPDX licenses. The license in the definition will now be a LicenseRef with prefix&nbsp;<em>LicenseRef-scancode-</em>&nbsp;if ScanCode identifies a non-SPDX license. This improves the license coverage in the ClearlyDefined definitions and consumers ability to accurately construct license compliance policies.</p>
+
+
+
+<p>ClearlyDefined identifies licenses in definitions using SPDX expressions. The&nbsp;<a target="_blank" href="https://spdx.dev/use/specifications/" rel="noreferrer">SPDX specification</a>&nbsp;has a way to include non-SPDX licenses in license expressions.</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p>A license expression could be a single license identifier found on the&nbsp;<a target="_blank" href="https://spdx.org/licenses/" rel="noreferrer">SPDX License List</a>; a user defined license reference denoted by the LicenseRef-[idString]; a license identifier combined with an SPDX exception; or some combination of license identifiers, license references and exceptions constructed using a small set of defined operators (e.g., AND, OR, WITH and +)</p>
+</blockquote>
+
+
+
+<p>—&nbsp;<em>excerpt from&nbsp;<a target="_blank" href="https://spdx.github.io/spdx-spec/v3.0.1/annexes/spdx-license-expressions/" rel="noreferrer">SPDX Annexes: SPDX license expressions</a></em></p>
+
+
+
+<p>Example change of a definition:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tbody><tr><td><strong>Coordinates</strong></td><td><strong>License BEFORE</strong></td><td><strong>License AFTER</strong></td></tr><tr><td>npm/npmjs/@alexa-games/sfb-story-debugger/2.1.0</td><td>NOASSERTION</td><td>LicenseRef-.amazon.com.-AmznSL-1.0</td></tr></tbody></table></figure>
+
+
+
+<p><em>Note: ClearlyDefined v2.0 also includes an update to ScanCode v32.</em></p>
+
+
+
+<h2 class="wp-block-heading" id="what-does-this-mean-for-definitions">What does this mean for definitions?</h2>
+
+
+
+<p>This section includes a simplified description of what happens when you request a definition from ClearlyDefined. These examples only refer to the ScanCode tool. Other tools are run as well and are handled in similar ways.</p>
+
+
+
+<h3 class="wp-block-heading" id="when-the-definition-already-exists">When the definition already exists</h3>
+
+
+
+<p>Any request for a definition through the&nbsp;<em>/definitions</em>&nbsp;API makes a couple of checks before returning the definition:</p>
+
+
+
+<p>If the definition exists, it checks whether the definition was created using the latest version of the ClearlyDefined service.</p>
+
+
+
+<ul class="wp-block-list">
+<li>If yes, it returns the definition as is.</li>
+
+
+
+<li>If not, it recomputes the definition using the existing raw results from the tools run during the previous harvest for the existing definition. In this case, the tool version will be earlier than ScanCode v32.</li>
+</ul>
+
+
+
+<p><em>NOTE: ClearlyDefined does not support LicenseRefs from ScanCode prior to v32. For earlier versions of ScanCode, ClearlyDefined stores any LicenseRefs as&nbsp;NOASSERTION. In some cases, you may see&nbsp;OTHER&nbsp;when the definition was curated.</em></p>
+
+
+
+<h3 class="wp-block-heading" id="when-the-definition-does-not-exist">When the definition does not exist</h3>
+
+
+
+<p>If the definition does not exist:</p>
+
+
+
+<ul class="wp-block-list">
+<li>It will send a&nbsp;<em>harvest</em>&nbsp;request which will run the latest version of all the tools and produce raw results.</li>
+
+
+
+<li>From these raw results, it will compute a definition which might include a LicenseRef.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading" id="what-does-it-mean-if-i-still-see-noassertion">What does it mean if I still see&nbsp;<em>NOASSERTION</em>?</h3>
+
+
+
+<p>If you see&nbsp;<em>NOASSERTION</em>&nbsp;in the license expression, you can check the definition to determine the version of ScanCode in the&nbsp;<em>“described”: “tools”</em>&nbsp;section.</p>
+
+
+
+<p>If ScanCode is a version earlier than v32, you can submit a&nbsp;<em>harvest</em>&nbsp;API request. This will run any tools for which ClearlyDefined now supports a later version. Once the tools complete, the definition will be recomputed based on the new results.</p>
+
+
+
+<p>In some cases, even when the results are from ScanCode v32, you may still see&nbsp;<em>NOASSERTION</em>. Reharvesting when the ScanCode version is already v32 will not change the definition.</p>
+
+
+
+<h2 class="wp-block-heading" id="what-does-this-mean-for-tools">What does this mean for tools?</h2>
+
+
+
+<p><em>When adding ScanCode licenses to allow/deny lists, note the&nbsp;<a target="_blank" href="https://scancode-licensedb.aboutcode.org/" rel="noreferrer">ScanCode LicenseDB</a>&nbsp;lists licenses without the LicenseRef prefix. All LicenseRefs coming from ScanCode will start with&nbsp;LicenseRef-scancode-.</em></p>
+
+
+
+<h3 class="wp-block-heading" id="tools-using-an-allow-list">Tools using an Allow List</h3>
+
+
+
+<p>A recomputed definition may change the license to include a LicenseRef that you want to allow. All new LicenseRefs that are acceptable will need to be added to your allow list. We are taking the approach of adding them as they appear in flagged package-version licenses. An alternative is to review the&nbsp;<a target="_blank" href="https://scancode-licensedb.aboutcode.org/" rel="noreferrer">ScanCode LicenseDB</a>&nbsp;to proactively add LicenseRefs to your allow list.</p>
+
+
+
+<h3 class="wp-block-heading" id="tools-using-a-deny-list">Tools using a Deny List</h3>
+
+
+
+<p>Deny lists need to be exhaustive to prevent a new license from being allowed by default. It is recommended that you review the&nbsp;<a target="_blank" href="https://scancode-licensedb.aboutcode.org/" rel="noreferrer">ScanCode LicenseDB</a>&nbsp;to determine if there are LicenseRefs you want to add to the deny list.</p>
+
+
+
+<p><em>Note: The&nbsp;<a target="_blank" href="https://spdx.org/licenses/" rel="noreferrer">SPDX License List</a>&nbsp;also changes over time. A periodic review to maintain the Deny list is always a good idea.</em></p>
+
+
+
+<h2 class="wp-block-heading" id="providing-feedback">Providing Feedback</h2>
+
+
+
+<p>As with any major version change, there can be unexpected behavior. You can reach out with questions, feedback, or requests. Find how to get in touch with us in the&nbsp;<a target="_blank" href="https://docs.clearlydefined.io/docs/get-involved" rel="noreferrer">Get Involved</a>&nbsp;doc.</p>
+
+
+
+<p>If you have comments or questions on the actual LicenseRefs, you should reach out to ScanCode License DB maintainers.</p>
+
+
+
+<h2 class="wp-block-heading" id="acknowledgements">Acknowledgements</h2>
+
+
+
+<p>A huge thank you to the contributing developers and their organizations for supporting the work of ClearlyDefined.</p>
+
+
+
+<p>In alphabetical order, contributors were…</p>
+
+
+
+<ul class="wp-block-list">
+<li>ajhenry (GitHub)</li>
+
+
+
+<li>brifl (Microsoft)</li>
+
+
+
+<li>elrayle (GitHub)</li>
+
+
+
+<li>jeff-luszcz (GitHub)</li>
+
+
+
+<li>ljones140 (GitHub)</li>
+
+
+
+<li>lumaxis (GitHub)</li>
+
+
+
+<li>mpcen (Microsoft)</li>
+
+
+
+<li>nickvidal (Open Source Initiative)</li>
+
+
+
+<li>qtomlinson (SAP)</li>
+
+
+
+<li>RomanIakovlev (GitHub)</li>
+
+
+
+<li>yashkohli88 (SAP)</li>
+</ul>
+
+
+
+<p>See something you’d like ClearlyDefined to do or could do better? If you have resources to help out, we have work to be done to further improve data quality, performance, and sustainability. We’d love to hear from you.</p>
+
+
+
+<h2 class="wp-block-heading" id="references">References</h2>
+
+
+
+<ul class="wp-block-list">
+<li><a target="_blank" href="https://spdx.org/licenses/" rel="noreferrer">SPDX License List</a></li>
+
+
+
+<li><a target="_blank" href="https://spdx.dev/use/specifications/" rel="noreferrer">SPDX Specifications</a></li>
+
+
+
+<li><a target="_blank" href="https://spdx.github.io/spdx-spec/v3.0.1/annexes/spdx-license-expressions/" rel="noreferrer">SPDX Annexes: SPDX license expressions</a></li>
+
+
+
+<li><a target="_blank" href="https://scancode-licensedb.aboutcode.org/" rel="noreferrer">ScanCode LicenseDB</a></li>
+
+
+
+<li><a target="_blank" href="https://github.com/aboutcode-org/scancode-toolkit/releases/tag/v32.3.0" rel="noreferrer">ScanCode v32.3 release notes</a></li>
+
+
+
+<li><a target="_blank" href="https://github.com/clearlydefined/service/releases/tag/v2.0.0" rel="noreferrer">ClearlyDefined Service API v2.0 release notesI</a></li>
+
+
+
+<li><a target="_blank" href="https://github.com/clearlydefined/crawler/releases/tag/v2.0.0" rel="noreferrer">ClearlyDefined Crawler/Harvester v2.0 release notes</a></li>
+
+
+
+<li><a href="https://opensource.org/blog/beyond-spdx-expanding-licenses-identified-by-clearlydefined" rel="noreferrer" target="_blank">Beyond SPDX: expanding licenses identified by ClearlyDefined</a></li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-13T01:51:13.000Z>13 November 2024</time>
+			<a href="/urls/blog-opensource-org-feed">blog.opensource.org/feed/</a>
+			<div> <a href="/tags/internet-npo.html">internet-npo</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

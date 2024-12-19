@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>How to validate record uniqueness in ASP.NET</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/05/how-to-validate-record-uniqueness-in-asp.net/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<p>In ASP.NET, the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-8.0" rel="noreferrer" target="_blank"><code>System.ComponentModel.DataAnnotations</code> namespace</a> includes many <a href="https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/reflection-and-attributes/" rel="noreferrer" target="_blank">attributes</a> that can be used to instruct the framework to perform <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0" rel="noreferrer" target="_blank">basic validation tasks</a> for us. There are built-in validators for ensuring that certain fields <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.requiredattribute" rel="noreferrer" target="_blank">are present</a>, that they <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute" rel="noreferrer" target="_blank">meet character length limits</a>, that they <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.rangeattribute" rel="noreferrer" target="_blank">don’t exceed or fall short of certain amounts</a>, that they <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=net-8.0" rel="noreferrer" target="_blank">match certain formats</a>, and more.</p>
+<p>One omission however, is checking for record uniqueness: making sure that no other record in the entity’s underlying persistent data storage has the same “name”, or the same “code”, or the same “any other field”.</p>
+<p>In this article, we’re going to try to address this shortcoming by implementing this type of uniqueness validation ourselves. We will see two approaches: a simpler solution using a database index, and a more flexible one using a custom validation attribute. Let’s get started.</p>
+<blockquote>
+<p>Throughout this article, I will be using a demo Web API application for code examples. If you’d like to see what the final implementation looks like, <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo" rel="noreferrer" target="_blank">you can find all the code on GitHub</a>.</p>
+<p>The API is about calculating quotes for used vehicles based on their condition. It runs on .NET 8 and uses a <a href="https://www.postgresql.org/" rel="noreferrer" target="_blank">PostgreSQL</a> database, to which it connects using <a href="https://learn.microsoft.com/en-us/ef/core/" rel="noreferrer" target="_blank">Entity Framework Core</a>. As such it has various <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/tree/main/VehicleQuotes.WebApi/Controllers" rel="noreferrer" target="_blank">endpoints</a>, <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/tree/main/VehicleQuotes.WebApi/Models" rel="noreferrer" target="_blank">entities</a> and <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/tree/main/VehicleQuotes.WebApi/Migrations" rel="noreferrer" target="_blank">tables</a> related to vehicle information like makes, models, etc.</p>
+</blockquote>
+<h3 id="using-a-database-unique-index-to-enforce-uniqueness">Using a database unique index to enforce uniqueness</h3>
+<p>If your application uses a <a href="https://en.wikipedia.org/wiki/Relational_database" rel="noreferrer" target="_blank">relational database</a> to store its data, then the easiest solution to enforce record uniqueness is implementing a <a href="https://www.w3schools.com/sql/sql_ref_create_unique_index.asp" rel="noreferrer" target="_blank">unique index</a>. This way, we let the database itself enforce the rule.</p>
+<p>With Entity Framework Core, we can apply an attribute to an entity class to specify that its underlying database table should define an index.</p>
+<p>For example, imagine we have a <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Models/Make.cs" rel="noreferrer" target="_blank"><code>Make</code></a> entity class that looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>Make</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>int</span> ID { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> required <span>string</span> Name { <span>get</span>; <span>set</span>; }
+</span></span><span><span>}
+</span></span></code></pre></div><p>If we need every <code>Make</code> record to have a unique <code>Name</code>, we can do so by adding this attribute to the class:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-diff" data-lang="diff"><span><span><span>+ using Microsoft.EntityFrameworkCore;
+</span></span></span><span><span><span></span>
+</span></span><span><span>// ...
+</span></span><span><span>
+</span></span><span><span><span>+ [Index(nameof(Name), IsUnique = true)]
+</span></span></span><span><span><span></span>public class Make
+</span></span><span><span>{
+</span></span><span><span>    // ...
+</span></span><span><span>}
+</span></span></code></pre></div><p>The <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.indexattribute?view=efcore-8.0" rel="noreferrer" target="_blank"><code>Index</code></a> attribute from the <code>Microsoft.EntityFrameworkCore</code> namespace, with its <code>IsUnique</code> property set to <code>true</code> takes care of that.</p>
+<p>Now, if we were to <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Migrations/20210625224443_AddUniqueIndexesToLookupTables.cs" rel="noreferrer" target="_blank">create a migration</a> with a command like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dotnet ef migrations add AddUniqueIndexToMakes
+</span></span></code></pre></div><p>We’ll see something like this in the generated code:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// ...</span>
+</span></span><span><span>migrationBuilder.CreateIndex(
+</span></span><span><span>    name: <span>"ix_makes_name"</span>,
+</span></span><span><span>    table: <span>"makes"</span>,
+</span></span><span><span>    column: <span>"name"</span>,
+</span></span><span><span>    unique: <span>true</span>);
+</span></span><span><span><span>// ...</span>
+</span></span></code></pre></div><p>See how the framework takes notice of the <code>Index</code> attribute and produces some code to create an index in the database with the column and uniqueness constraint that we specified.</p>
+<p>After applying the migration with <code>dotnet ef database update</code>, any attempt at inserting or updating records that violate this constraint will result in an error.</p>
+<p>Suppose we have <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Controllers/MakesController.cs#L83" rel="noreferrer" target="_blank">an endpoint</a> for registering new makes that looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// ...</span>
+</span></span><span><span>
+</span></span><span><span><span>private</span> <span>readonly</span> VehicleQuotesContext _context;
+</span></span><span><span>
+</span></span><span><span><span>// ...</span>
+</span></span><span><span><span>
+</span></span></span><span><span><span>[HttpPost]</span>
+</span></span><span><span><span>public</span> <span>async</span> Task&lt;ActionResult&lt;Make&gt;&gt; PostMake(Make make)
+</span></span><span><span>{
+</span></span><span><span>    _context.Makes.Add(make);
+</span></span><span><span>
+</span></span><span><span>    <span>await</span> _context.SaveChangesAsync();
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> Created();
+</span></span><span><span>}
+</span></span></code></pre></div><p>If we <code>POST</code> to it, and give it a payload with a non-unique name…</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>$ curl -X <span>'POST'</span> <span>'http://localhost:5000/api/Makes'</span> <span>\
+</span></span></span><span><span><span></span>  -H <span>'Content-Type: application/json'</span> <span>\
+</span></span></span><span><span><span></span>  -d <span>'{
+</span></span></span><span><span><span>  "name": "Toyota"
+</span></span></span><span><span><span>}'</span>
+</span></span></code></pre></div><p>…here’s what we get back:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+</span></span><span><span> ---&gt; Npgsql.PostgresException (0x80004005): 23505: duplicate key value violates unique constraint "ix_makes_name"
+</span></span></code></pre></div><p>This is only a portion of the output, but sure enough, we see a <code>Microsoft.EntityFrameworkCore.DbUpdateException</code> being thrown with the message indicating that a unique constraint was not met. The request results in a <code>500 Internal Server Error</code> response.</p>
+<p>That gets the job done for sure: it prevents bad data from entering the system. But generally we don’t want to expose such verbose errors to our API clients. It’d be better, for example, to catch that exception and return a <code>400</code> series status code. A simple <code>400 Bad Request</code> seems appropriate in this case. We can make the endpoint behave this way with these tweaks:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-diff" data-lang="diff"><span><span>[HttpPost]
+</span></span><span><span>public async Task&lt;ActionResult&lt;Make&gt;&gt; PostMake(Make make)
+</span></span><span><span>{
+</span></span><span><span>    _context.Makes.Add(make);
+</span></span><span><span>
+</span></span><span><span><span>+    try
+</span></span></span><span><span><span>+    {
+</span></span></span><span><span><span></span>        await _context.SaveChangesAsync();
+</span></span><span><span><span>+    }
+</span></span></span><span><span><span>+    catch (DbUpdateException)
+</span></span></span><span><span><span>+    {
+</span></span></span><span><span><span>+        return BadRequest();
+</span></span></span><span><span><span>+    }
+</span></span></span><span><span><span></span>
+</span></span><span><span>    return Created();
+</span></span><span><span>}
+</span></span></code></pre></div><p>Simple enough: we use a try-catch to handle the <code>Microsoft.EntityFrameworkCore.DbUpdateException</code> and return a response of our choosing. Trying the same request again results in a <code>400 Bad Request</code> response with this body:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span><span>{
+</span></span><span><span>  <span>"type"</span>: <span>"https://tools.ietf.org/html/rfc9110#section-15.5.1"</span>,
+</span></span><span><span>  <span>"title"</span>: <span>"Bad Request"</span>,
+</span></span><span><span>  <span>"status"</span>: <span>400</span>,
+</span></span><span><span>  <span>"traceId"</span>: <span>"00-7ea5139de6f4ce471aa096dcf4a79ce5-dd308a30c4dd2b33-00"</span>
+</span></span><span><span>}
+</span></span></code></pre></div><h3 id="writing-a-custom-validation-attribute-to-enforce-uniqueness">Writing a custom validation attribute to enforce uniqueness</h3>
+<p>The database index solution will work in a lot of cases. However, there are some scenarios where it won’t. For example, the validation may need to be applied to input data that is not directly tied to a database table; or, maybe the app does not use a relational database at all. In cases where we can’t rely on unique indexes, a <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0#custom-attributes" rel="noreferrer" target="_blank">custom validation attribute</a> is the best option.</p>
+<p>The validation logic that the attribute would have to implement is simple. All it would have to do is query the underlying data store to see if a record with the given field value already exists, and if it does, trigger a validation error.</p>
+<p>We’ll start by implementing a first iteration that works specifically for <code>Make</code> names. Then, we’ll extract the generic parts and create a reusable base attribute that can be used in many situations, with any class and field.</p>
+<p>Before we can develop the attribute, consider the same Make class that we worked with before:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>Make</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>int</span> ID { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> required <span>string</span> Name { <span>get</span>; <span>set</span>; }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Also, we have a <a href="https://martinfowler.com/eaaCatalog/repository.html" rel="noreferrer" target="_blank">repository</a> class that we use to access the underlying storage. Its public interface looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>interface</span> <span>IMakeRepository</span>
+</span></span><span><span>{
+</span></span><span><span>    Make? FindByName(<span>string</span> name);
+</span></span><span><span>}
+</span></span></code></pre></div><p>The actual implementation is not important to us right now (although <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Repositories/MakeRepository.cs" rel="noreferrer" target="_blank">you can find it here</a>). It’s enough to know that we can use objects of this type to search for <code>Make</code> records by name.</p>
+<p>Suppose also that we’ve included an instance of this type as a service via <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-8.0" rel="noreferrer" target="_blank">Dependency Injection</a>. With something like this in the project’s <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Program.cs" rel="noreferrer" target="_blank"><code>Program.cs</code></a>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span>services.AddScoped&lt;IMakeRepository, MakeRepository&gt;();
+</span></span></code></pre></div><p>With those pieces in place, a custom validation attribute that prevents <code>Makes</code> with the same name could look <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/2017c2f45da7d839337e15c70b740be9d9ce5135" rel="noreferrer" target="_blank">like this</a>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// Annotating the class with the AttributeUsage attribute is our way of letting</span>
+</span></span><span><span><span>// the framework know that our UniqueMakeNameAttribute is meant to be applied to</span>
+</span></span><span><span><span>// classes. It's produce a build error if we try to apply it to anything else.</span>
+</span></span><span><span><span>[AttributeUsage(AttributeTargets.Class)]</span>
+</span></span><span><span><span>// In order for our attribute to integrate correctly with the framework's model</span>
+</span></span><span><span><span>// validation functionality, it needs to inherit from ValidationAttribute.</span>
+</span></span><span><span><span>public</span> <span>class</span> <span>UniqueMakeNameAttribute</span> : ValidationAttribute
+</span></span><span><span>{
+</span></span><span><span>    <span>// Inheriting from ValidationAttribute requires implementing this method.</span>
+</span></span><span><span>    <span>// This is the method that gets called by the framework during model</span>
+</span></span><span><span>    <span>// validation.</span>
+</span></span><span><span>    <span>// Here, we're using it only to prepare the validation algorithm to run,</span>
+</span></span><span><span>    <span>// which is defined in the private Validate method.</span>
+</span></span><span><span>    <span>protected</span> <span>override</span> ValidationResult? IsValid(
+</span></span><span><span>        <span>// The framework uses this "value" parameter to pass in the full Make</span>
+</span></span><span><span>        <span>// object that's being validated.</span>
+</span></span><span><span>        <span>object?</span> <span>value</span>,
+</span></span><span><span>        <span>// The "context" parameter will contain various objects related to the</span>
+</span></span><span><span>        <span>// execution environment. It is used to obtain instances made available</span>
+</span></span><span><span>        <span>// by Dependency Injection.</span>
+</span></span><span><span>        ValidationContext context
+</span></span><span><span>    ) {
+</span></span><span><span>        <span>if</span> (<span>value</span> == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        <span>// Here we use the validation context parameter to obtain an instance of</span>
+</span></span><span><span>        <span>// the repository</span>
+</span></span><span><span>        <span>var</span> repo = context.GetService&lt;IMakeRepository&gt;();
+</span></span><span><span>        <span>if</span> (repo == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> Validate((Make)<span>value</span>, repo);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This is where we actually run the custom validation logic.</span>
+</span></span><span><span>    <span>// Like I mentioned before, the logic is simple...</span>
+</span></span><span><span>    <span>private</span> <span>static</span> ValidationResult? Validate(Make input, IMakeRepository repo)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// ...first it calls on the repository to try and find an existing</span>
+</span></span><span><span>        <span>// record wiht the same name...</span>
+</span></span><span><span>        <span>var</span> existing = repo.FindByName(input.Name);
+</span></span><span><span>
+</span></span><span><span>        <span>// ...then, if another record with the same name exists, one which is</span>
+</span></span><span><span>        <span>// not its not the same being validated right now...</span>
+</span></span><span><span>        <span>if</span> (existing != <span>null</span> &amp;&amp; input.ID != existing.ID)
+</span></span><span><span>        {
+</span></span><span><span>            <span>// ...return a ValidationResult which contains an understandable</span>
+</span></span><span><span>            <span>// error message.</span>
+</span></span><span><span>            <span>return</span> <span>new</span> ValidationResult(
+</span></span><span><span>                <span>$"The Make name '{input.Name}' is already in use."</span>
+</span></span><span><span>            );
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>// If, on the other hand, no problem was found, return a successful</span>
+</span></span><span><span>        <span>// ValidationResult.</span>
+</span></span><span><span>        <span>return</span> ValidationResult.Success;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>In order to put this logic to work, we use the attribute to annotate our <code>Make</code> class, like so:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-diff" data-lang="diff"><span><span><span>+[UniqueMakeName]
+</span></span></span><span><span><span></span>public class Make
+</span></span><span><span>{
+</span></span><span><span>    public int ID { get; set; }
+</span></span><span><span>    public required string Name { get; set; }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Now, if we make a request to create a new <code>Make</code> and use an existing name, we get back a <code>400 Bad Request</code> response with this payload:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span><span>{
+</span></span><span><span>  <span>"type"</span>: <span>"https://tools.ietf.org/html/rfc9110#section-15.5.1"</span>,
+</span></span><span><span>  <span>"title"</span>: <span>"One or more validation errors occurred."</span>,
+</span></span><span><span>  <span>"status"</span>: <span>400</span>,
+</span></span><span><span>  <span>"errors"</span>: {
+</span></span><span><span>    <span>""</span>: [
+</span></span><span><span>      <span>"The Make name 'Toyota' is already in use."</span>
+</span></span><span><span>    ]
+</span></span><span><span>  },
+</span></span><span><span>  <span>"traceId"</span>: <span>"00-30bc11fbb22071998c05660fdc454f5b-1ef36a85ecfeaf9b-00"</span>
+</span></span><span><span>}
+</span></span></code></pre></div><p>OK, that’s maybe the best response we’ve had so far. It includes not only a proper HTTP status code but also a human readable message that a frontend app can display to its users. Also, with this approach, we don’t have to use a <code>try-catch</code> in the endpoint’s action method like we did before. This is because our attribute plugs right into ASP.NET’s <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0" rel="noreferrer" target="_blank">model validation functionality</a>, which triggers automatically at the beginning of every API request.</p>
+<h3 id="a-generic-custom-validation-attribute-to-enforce-uniqueness">A generic custom validation attribute to enforce uniqueness</h3>
+<p>The only disadvantage of our validation attribute is that it only works for one particular class and one particular property. I’m thinking we can make something a little bit more generic which we can reuse in many scenarios.</p>
+<p>We could implement an <a href="https://www.geeksforgeeks.org/c-sharp-abstract-classes/" rel="noreferrer" target="_blank">abstract base class</a> that defines the core validation logic as a <a href="https://en.wikipedia.org/wiki/Template_method_pattern" rel="noreferrer" target="_blank">template method</a>. The overall algorithm will be implemented in the abstract base class. Then, more concrete derived classes will provide the specializations to handle particular objects and fields.</p>
+<p>We can refactor our code to make that happen. We should identify the parts of the code that are generic and the ones that are specific. The generic ones won’t change, regardless of what’s being validated. So they will be part of the abstract base class. On the other hand, the specific ones will vary, so they are better defined in derived classes. The base class will provide <a href="https://en.wikipedia.org/wiki/Hooking" rel="noreferrer" target="_blank">hooks</a> for the derived ones to implement and supply specializations.</p>
+<p>Looking at our current code, here’s what I can identify:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>[AttributeUsage(AttributeTargets.Class)]</span>
+</span></span><span><span><span>public</span> <span>class</span> <span>UniqueMakeNameAttribute</span> : ValidationAttribute
+</span></span><span><span>{
+</span></span><span><span>    <span>protected</span> <span>override</span> ValidationResult? IsValid(
+</span></span><span><span>        <span>object?</span> <span>value</span>,
+</span></span><span><span>        ValidationContext context
+</span></span><span><span>    ) {
+</span></span><span><span>        <span>if</span> (<span>value</span> == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        <span>// Depending on the entity being validated, the repository to use to</span>
+</span></span><span><span>        <span>// try to find a would-be duplicated record in the database will be</span>
+</span></span><span><span>        <span>// different. So, this line for obtaining a reference to the repository</span>
+</span></span><span><span>        <span>// is better implemented in a derived class.</span>
+</span></span><span><span>        <span>var</span> repo = context.GetService&lt;IMakeRepository&gt;();
+</span></span><span><span>        <span>if</span> (repo == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        <span>// The type of "value" will be different depending on the class that</span>
+</span></span><span><span>        <span>// this attribute is applied to. That means that this casting to "Make"</span>
+</span></span><span><span>        <span>// belongs in a derived class.</span>
+</span></span><span><span>        <span>return</span> Validate((Make)<span>value</span>, repo);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>static</span> ValidationResult? Validate(Make input, IMakeRepository repo)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Each repository will have its own method for trying to find records.</span>
+</span></span><span><span>        <span>// What's more, each entity will have its own field through which its</span>
+</span></span><span><span>        <span>// uniqueness is established. This is the responsibility of derived</span>
+</span></span><span><span>        <span>// classes.</span>
+</span></span><span><span>        <span>var</span> existing = repo.FindByName(input.Name);
+</span></span><span><span>
+</span></span><span><span>        <span>// Every object being validated has its own method for determining if</span>
+</span></span><span><span>        <span>// they are equal to or different than what's found in the underlying</span>
+</span></span><span><span>        <span>// storage. That can't be part of the generic class.</span>
+</span></span><span><span>        <span>if</span> (existing != <span>null</span> &amp;&amp; input.ID != existing.ID)
+</span></span><span><span>        {
+</span></span><span><span>            <span>// Depending on the object being validated, the error message will</span>
+</span></span><span><span>            <span>// need to be adjusted. That message belongs in derived classes.</span>
+</span></span><span><span>            <span>return</span> <span>new</span> ValidationResult(
+</span></span><span><span>                <span>$"The Make name '{input.Name}' is already in use."</span>
+</span></span><span><span>            );
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> ValidationResult.Success;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>With that figured out, here’s an abstract, and generic, base class that can be used as a basis for implementing many concrete custom validation attributes:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>[AttributeUsage(AttributeTargets.Class)]</span>
+</span></span><span><span><span>// This class is generic. TEntity is the type of the object that derived classes</span>
+</span></span><span><span><span>// will validate. TRepo is the type of the repository that derived classes will</span>
+</span></span><span><span><span>// use to query the database.</span>
+</span></span><span><span><span>public</span> <span>abstract</span> <span>class</span> <span>BaseUniqueAttribute</span>&lt;TEntity, TRepo&gt; : ValidationAttribute
+</span></span><span><span>{
+</span></span><span><span>    <span>// These abstract methods are the hooks that derived classes will implement</span>
+</span></span><span><span>    <span>// in order to provide specializations for the core algorithm.</span>
+</span></span><span><span>    <span>// This one takes care of finding would-be repeated records.</span>
+</span></span><span><span>    <span>protected</span> <span>abstract</span> TEntity? FindRecord(TEntity input, TRepo repository);
+</span></span><span><span>    <span>// This one checks whether the existing record, if found, is the same being</span>
+</span></span><span><span>    <span>// validated.</span>
+</span></span><span><span>    <span>protected</span> <span>abstract</span> <span>bool</span> IsSameRecord(TEntity input, TEntity existing);
+</span></span><span><span>    <span>// This one produces the error message to return when validation fails.</span>
+</span></span><span><span>    <span>protected</span> <span>abstract</span> <span>string</span> GetErrorMessage(TEntity input);
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> ValidationResult? IsValid(
+</span></span><span><span>        <span>object?</span> input,
+</span></span><span><span>        ValidationContext context
+</span></span><span><span>    ) {
+</span></span><span><span>        <span>if</span> (input == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        <span>// Here we use TRepo as a type parameter instead of IMakeRepository.</span>
+</span></span><span><span>        <span>// Derived classes will be responsible of defining which type the repo</span>
+</span></span><span><span>        <span>// will be.</span>
+</span></span><span><span>        <span>var</span> repo = context.GetService&lt;TRepo&gt;();
+</span></span><span><span>        <span>if</span> (repo == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        <span>// Here we cast to TEntity instead of Make or any other concrete class.</span>
+</span></span><span><span>        <span>// The derived classes will specify the type.</span>
+</span></span><span><span>        <span>return</span> Validate((TEntity)input, repo);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// The overall algorithm in this method remains pretty much identical.</span>
+</span></span><span><span>    <span>// Only some of the particular pieces have been replaced by abstract hooks</span>
+</span></span><span><span>    <span>// that are to be implemented in derived classes.</span>
+</span></span><span><span>    <span>private</span> ValidationResult? Validate(TEntity input, TRepo repo)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> existing = FindRecord(input, repo);
+</span></span><span><span>
+</span></span><span><span>        <span>if</span> (existing != <span>null</span> &amp;&amp; !IsSameRecord(input, existing))
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> <span>new</span> ValidationResult(GetErrorMessage(input));
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> ValidationResult.Success;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>With that generic abstract class in place, we can develop new specific custom validation attributes very easily. For example, here’s a new version of our <code>UniqueMakeNameAttribute</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>UniqueMakeNameAttribute</span> : BaseUniqueAttribute&lt;Make, IMakeRepository&gt;
+</span></span><span><span>{
+</span></span><span><span>    <span>protected</span> <span>override</span> Make? FindRecord(Make input, IMakeRepository repo) =&gt;
+</span></span><span><span>        repo.FindByName(input.Name);
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>bool</span> IsSameRecord(Make input, Make existing) =&gt;
+</span></span><span><span>        input.ID == existing.ID;
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>string</span> GetErrorMessage(Make input) =&gt;
+</span></span><span><span>        <span>$"The Make name '{input.Name}' is already in use."</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><p>Very compact, huh? With this base class, new concrete validation attributes just need to inherit from <code>BaseUniqueAttribute</code>, provide it the proper type parameters (<code>Make</code> and <code>IMakeRepository</code> in this case), and implement the three abstract methods. All of which are simple one liners.</p>
+<p>You can test the endpoint again now and should see the same behavior as before. That means the refactoring was successful!</p>
+<h3 id="writing-a-unit-test-for-the-custom-validation-attribute">Writing a unit test for the custom validation attribute</h3>
+<p>Speaking of tests, let’s write a unit test for this. Testing custom validation attributes involves calling their <code>GetValidationResult</code> method and checking that it returns as expected. This is a public method defined in the <code>ValidationAttribute</code> base class. This method is defined by the framework, but it eventually calls our own custom logic that we wrote in the <code>IsValid</code> override.</p>
+<p>Since our validator depends on an <code>IMakeRepository</code>, we’re going to have to provide it as a <a href="https://en.wikipedia.org/wiki/Mock_object" rel="noreferrer" target="_blank">mock object</a>. The validator also needs a <code>ValidationContext</code> instance that it can use to fetch services from the Dependency Injection container. Our test will also have to provide that in some way.</p>
+<p>Here’s what such a test could look like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>[Fact]</span>
+</span></span><span><span><span>public</span> <span>void</span> GetValidationResult_ReturnsFailure_WhenAnotherMakeExistsWithTheSameName()
+</span></span><span><span>{
+</span></span><span><span>    <span>// Arrange</span>
+</span></span><span><span>
+</span></span><span><span>    <span>var</span> attribute = <span>new</span> UniqueMakeNameAttribute();
+</span></span><span><span>
+</span></span><span><span>    <span>var</span> existingMake = <span>new</span> Make() { ID = <span>10</span>, Name = <span>"test_name"</span> };
+</span></span><span><span>    <span>var</span> makeToValidate = <span>new</span> Make() { ID = <span>20</span>, Name = <span>"test_name"</span> };
+</span></span><span><span>
+</span></span><span><span>    <span>// We have to build a mock of type IMakeRepository for the service provider</span>
+</span></span><span><span>    <span>// to return. The attribute uses this class to query the database.</span>
+</span></span><span><span>    <span>// This test wants to trigger a validation failure. As such, this mock repo</span>
+</span></span><span><span>    <span>// is configured to return an object. This simulates that there is already</span>
+</span></span><span><span>    <span>// another record in the database that has the same name as the one being</span>
+</span></span><span><span>    <span>// validated.</span>
+</span></span><span><span>    <span>var</span> mockRepository = <span>new</span> Mock&lt;IMakeRepository&gt;();
+</span></span><span><span>    mockRepository
+</span></span><span><span>        .Setup(m =&gt; m.FindByName(It.IsAny&lt;<span>string</span>&gt;()))
+</span></span><span><span>        .Returns(existingMake);
+</span></span><span><span>
+</span></span><span><span>    <span>// We also have to build a IServiceProvider mock. This will be used to</span>
+</span></span><span><span>    <span>// create a ValidationContext instance that the attribute will use to obtain</span>
+</span></span><span><span>    <span>// services available via Dependency Injection. Specifically, the repo.</span>
+</span></span><span><span>    <span>// With this configuration, it will return the mock repository.</span>
+</span></span><span><span>    <span>var</span> mockServiceProvider = <span>new</span> Mock&lt;IServiceProvider&gt;();
+</span></span><span><span>    mockServiceProvider
+</span></span><span><span>        .Setup(m =&gt; m.GetService(<span>typeof</span>(IMakeRepository)))
+</span></span><span><span>        .Returns(mockRepository.Object);
+</span></span><span><span>
+</span></span><span><span>    <span>// The validation attribute needs a ValidationContext instance in order to</span>
+</span></span><span><span>    <span>// work. So we build this one, giving it the mock we've constructed.</span>
+</span></span><span><span>    <span>var</span> context = <span>new</span> ValidationContext(makeToValidate, mockServiceProvider.Object, <span>null</span>);
+</span></span><span><span>
+</span></span><span><span>    <span>// Act</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// Here we invoke the public method that's available for us to run the</span>
+</span></span><span><span>    <span>// validation logic. This test expects the validation to fail.</span>
+</span></span><span><span>    <span>var</span> result = attribute.GetValidationResult(makeToValidate, context);
+</span></span><span><span>
+</span></span><span><span>    <span>// Assert</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// Two simple assertions here. One checking that the result is not a success</span>
+</span></span><span><span>    <span>// and another checking that the expected error message is returned.</span>
+</span></span><span><span>    Assert.NotEqual(ValidationResult.Success, result);
+</span></span><span><span>    Assert.Equal(<span>"The Make name 'test_name' is already in use."</span>, result?.ErrorMessage);
+</span></span><span><span>}
+</span></span></code></pre></div><p>And that’s how you can test a custom validation attribute like the one we’ve built. This is very conventional as unit tests go. The only unusual things to keep in mind is the method we need to call in order to exercise the validation logic: <code>GetValidationResult</code>. And also how to construct and configure the <code>ValidationContext</code> object that the method needs as a parameter.</p>
+<p>And that’s all for now. We’ve seen two ways of implementing uniqueness validation in ASP.NET. One approach was leveraging an underlying relational database to create unique indexes. A more complicated — but also more flexible — approach leverages framework features to create custom validation attributes. And we even saw how we can test them!</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-05-28T00:00:00.000Z>28 May 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Kubernetes 1.30 is now available in GKE in record time</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/05/kubernetes-130-is-now-available-in-gke.html">Go to article URL</a>
+		<div id="content"><p></p><meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGkMcQkTcMxeWdrytLd_PeruB1foXQWiUfH7j10rXpIbtzXcCLXeca5wXlR9ueHIJnIAg7p3F3afB7kYslg-BYW4TxGx-BJssH2Ady1xPtZzl8CL5xzAjwEXyE8WR1WdTJbZi1lotF-1AscOc24UGDL9LXCu_6A_nlFZ2O59MhvTdtIdvJeaQ2-GmlYYU/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png" imageanchor="1" rel="noreferrer" target="_blank"></a>
+
+
+<p>Kubernetes 1.30 is now available in the Google Kubernetes Engine (GKE) Rapid Channel less than 20 days after the OSS release! For more information about the content of Kubernetes 1.30, read the <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md" target="_blank" rel="noreferrer">Kubernetes 1.30 Release Notes</a> and the specific <a href="https://cloud.google.com/kubernetes-engine/docs/release-notes-rapid#130_is_now_available_in_the_rapid_channel" target="_blank" rel="noreferrer">GKE 1.30 Release Notes</a>.</p><br>
+
+<h2><b>Control Plane Improvements</b></h2>
+
+<p>We're excited to announce that <a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/" target="_blank" rel="noreferrer">ValidatingAdmissionPolicy</a> graduates to GA in 1.30. This is an exciting feature that enables many admission webhooks to be replaced with policies defined using the Common Expression Language (CEL) and evaluated directly in the kube-apiserver. This feature benefits both extension authors and cluster administrators by dramatically simplifying the development and operation of admission extensions.  Many existing webhooks may be migrated to validating admission policies.  For webhooks not ready or able to migrate, <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions" target="_blank" rel="noreferrer">Match Conditions</a> may be added to webhook configurations using CEL rules to pre-filter requests to reduce webhooks invocations.</p>
+
+<p><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting" target="_blank" rel="noreferrer">Validation Ratcheting</a> makes CustomResourceDefinitions even safer and easier to manage.  Prior to Kubernetes 1.30, when updating a custom resource, validation was required to pass for all fields, even fields not changed by the update.  Now, with this feature, only fields changed in the custom resource by an update request must pass validation.  This limits validation failures on update to the changed portion of the object, and reduces the risk of controllers getting stuck when a CustomResourceDefinition schema is changed, either accidentally or as part of an effort to increase the strictness of validation.</p>
+
+<p><a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/#aggregated-discovery" target="_blank" rel="noreferrer">Aggregated Discovery</a> graduates to GA in 1.30, dramatically improving the performance of clients, particularly kubectl, when fetching the API information needed for many common operations. Aggregated discovery reduces the fetch to a single request and allows caches to be kept up-to-date by offering ETags that clients can use to efficiently poll the server for changes.</p><br>
+
+<h2><b>Data Plane Improvements</b></h2>
+
+<p><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/" target="_blank" rel="noreferrer">Dynamic Resource Allocation</a> (DRA) is an alpha Kubernetes feature added in 1.26 that enables flexibility in configuring, selecting, and allocating specialized devices for pods. Feedback from SIG Scheduling and SIG Autoscaling revealed that the design needed revisions to reduce scheduling latency and fragility, and to support cluster autoscaling. In 1.30, the community introduced a new alpha design, <a href="https://kubernetes.io/blog/2024/03/12/kubernetes-1-30-upcoming-changes/#structured-parameters-for-dynamic-resource-allocation-kep-4381-https-kep-k8s-io-4381" target="_blank" rel="noreferrer">DRA Structured Parameters</a>, which takes the first step towards these goals. This is still an alpha feature with a lot of changes expected in upcoming releases. The newly formed WG Device Management has a charter to improve device support in Kubernetes - with a focus on GPUs and similar hardware - and DRA is a key component of that support. Expect further enhancements to the design in another alpha in 1.31. The working group has a goal of releasing some aspects to beta in 1.32.</p><br>
+  
+
+  
+<p>Kubernetes continues the effort of eliminating perma-beta features: functionality that has long been used in production, but still wasn’t marked as generally available. With this release, AppArmor support got some attention and got closer to the final being marked as GA.</p>
+
+<p>There are also quality of life improvements in Kubernetes Data Plane. Many of them will be only noticeable for system administrators and not particularly helpful for GKE users. This release, however, a notable Sleep Action KEP entered beta stage and is available on GKE. It will now be easier to use slim images while allowing graceful connections draining, specifically for some flavors of nginx images.</p>
+
+<h2><b>Acknowledgements</b></h2>
+
+<p><em>We want to thank all the Googlers that provide their time, passion, talent and leadership to keep making Kubernetes the best container orchestration platform. From the features mentioned in this blog, we would like to mention especially: Googlers Cici Huang, Joe Betz, Jiahui Feng,  Alex Zielenski, Jeffrey Ying, John Belamaric, Tim Hockin, Aldo Culquicondor, Jordan Liggitt, Kuba Tużnik, Sergey Kanzhelev, and Tim Allclair.</em></p> 
+  
+<p><em>By Federico Bongiovanni – Google Kubernetes Engine</em></p>
+
+
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-05-10T09:00:00.000Z>10 May 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>
