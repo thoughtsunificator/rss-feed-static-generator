@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Llamafile v0.8.14: a new UI, performance gains, and more</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2024/10/llamafile-v0-8-14-a-new-ui-performance-gains-and-more/">Go to article URL</a>
+		<div id="content"><p></p><p><span>We’ve just released</span> <a href="https://github.com/Mozilla-Ocho/llamafile/releases/tag/0.8.14" rel="noreferrer" target="_blank"><b>Llamafile 0.8.14</b></a><span>, the latest version of our popular open source AI tool. A </span><a href="https://future.mozilla.org/builders/" rel="noreferrer" target="_blank"><span>Mozilla Builders project</span></a><span>, Llamafile turns model weights into fast, convenient executables that run on most computers, making it easy for anyone to get the most out of open LLMs using the hardware they already have.</span></p>
+<h2><span>New chat interface</span></h2>
+<p><span>The key feature of this new release is </span><b>our colorful new command line chat interface</b><span>. When you launch a Llamafile we now automatically open this new chat UI for you, right there in the terminal. This new interface is fast, easy to use, and an all around simpler experience than the Web-based interface we previously launched by default. (That interface, which our project inherits from the upstream llama.cpp project, is still available and supports a range of features, including image uploads. </span><span>Simply point your browser at port 8080 on localhost).</span></p>
+<p></p>
+<h2><span>Other recent improvements</span></h2>
+<p><span>This new chat UI is just the tip of the iceberg. In the months since our last blog post here, lead developer </span><a href="https://justine.lol/" rel="noreferrer" target="_blank"><span>Justine Tunney</span></a><span> has been busy shipping a slew of new releases, each of which have moved the project forward in important ways. Here are just a few of the highlights:</span></p>
+<p><b>Llamafiler</b><span>: We’re building our own clean sheet OpenAI-compatible API server, called </span><i><span>Llamafiler</span></i><span>. This new server will be more reliable, stable, and most of all </span><i><span>faster</span></i><span> than the one it replaces. We’ve already shipped the embeddings endpoint, which runs </span><i><span>three times as fast</span></i><span> as the one in llama.cpp. Justine is currently working on the completions endpoint, at which point Llamafiler will become the default API server for Llamafile.</span></p>
+<p><b>Performance improvements</b><span>: With the help of open source contributors like k-quant inventor </span><a href="https://github.com/Kawrakow" rel="noreferrer" target="_blank"><span>@Kawrakow</span></a><span> Llamafile has enjoyed a series of dramatic speed boosts over the last few months. In particular, pre-fill (prompt evaluation) speed has improved dramatically on a variety of architectures:</span></p>
+<ul>
+<li aria-level="1"><span>Intel Core i9 went from 100 tokens/second to 400 (4x).</span></li>
+<li aria-level="1"><span>AMD Threadripper went from 300 tokens/second to 2,400 (8x).</span></li>
+<li aria-level="1"><span>Even the modest Raspberry Pi 5 jumped from 8 tokens/second to 80 (10x!).</span></li>
+</ul>
+<p><span>When combined with the new high-speed embedding server described above, Llamafile has become one of the fastest ways to run complex local AI applications that use methods like retrieval augmented generation (RAG).</span></p>
+<p><b>Support for powerful new models</b><span>: Llamafile continues to keep pace with progress in open LLMs, adding support for dozens of new models and architectures, ranging in size from 405 billion parameters all the way down to 1 billion. Here are just a few of the new Llamafiles </span><a href="https://huggingface.co/Mozilla" rel="noreferrer" target="_blank"><span>available for download on Hugging Face</span></a><span>:</span></p>
+<ul>
+<li aria-level="1"><span>Llama 3.2 </span><a href="https://huggingface.co/Mozilla/Llama-3.2-1B-Instruct-llamafile" rel="noreferrer" target="_blank"><span>1B</span></a><span> and </span><a href="https://huggingface.co/Mozilla/Llama-3.2-3B-Instruct-llamafile" rel="noreferrer" target="_blank"><span>3B</span></a><span>: offering extremely impressive performance and quality for their small size. (Here’s </span><a href="https://www.youtube.com/watch?v=Lqh7egmfy4o" rel="noreferrer" target="_blank"><span>a video</span></a><span> from our own Mike Heavers showing it in action.)</span></li>
+<li aria-level="1"><span>Llama 3.1 </span><a href="https://huggingface.co/Mozilla/Meta-Llama-3.1-405B-llamafile" rel="noreferrer" target="_blank"><span>405B</span></a><span>: a true “frontier model” that’s possible to run </span><i><span>at home</span></i><span> with sufficient system RAM.</span></li>
+<li aria-level="1"><a href="https://huggingface.co/Mozilla/OLMo-7B-0424-llamafile" rel="noreferrer" target="_blank"><span>OLMo 7B</span></a><span>: from our friends at the </span><a href="https://alleninstitute.org/" rel="noreferrer" target="_blank"><span>Allen Institute</span></a><span>, OLMo is one of the first truly open and transparent models available.</span></li>
+<li aria-level="1"><a href="https://huggingface.co/Mozilla/TriLM-llamafile" rel="noreferrer" target="_blank"><span>TriLM</span></a><span>: a new “1.58 bit” tiny model that is optimized for CPU inference and points to a near future where matrix multiplication might no longer rule the day.</span></li>
+</ul>
+<p><b>Whisperfile, speech-to-text in a single file</b><span>: Thanks to contributions from community member </span><a href="https://github.com/cjpais" rel="noreferrer" target="_blank"><span>@cjpais</span></a><span>, we’ve created </span><a href="https://huggingface.co/Mozilla/whisperfile" rel="noreferrer" target="_blank"><span>Whisperfile</span></a><span>, which does for whisper.cpp what Llamafile did for llama.cpp: that is, turns it into a multi-platform executable that runs nearly everywhere. Whisperfile thus makes it easy to use OpenAI’s Whisper technology to efficiently convert speech into text, no matter which kind of hardware you have.</span></p>
+<h2><span>Get involved</span></h2>
+<p><span>Our goal is for Llamafile to become a rock-solid foundation for building sophisticated locally-running AI applications. Justine’s work on the new Llamafiler server is a big part of that equation, but so is the ongoing work of supporting new models and optimizing inference performance for as many users as possible. We’re proud and grateful that some of the project’s biggest breakthroughs in these areas, and others, have come from the community, with contributors like </span><a href="https://github.com/Kawrakow" rel="noreferrer" target="_blank"><span>@Kawrakow</span></a><span>, </span><a href="https://github.com/cjpais" rel="noreferrer" target="_blank"><span>@cjpais</span></a><span>, </span><a href="https://github.com/mofosyne" rel="noreferrer" target="_blank"><span>@mofosyne</span></a><span>, and </span><a href="https://github.com/djip007" rel="noreferrer" target="_blank"><span>@Djip007</span></a><span> routinely leaving their mark.</span></p>
+<p><span>We invite you to join them, and us. We welcome issues and PRs in </span><a href="https://github.com/Mozilla-Ocho/llamafile" rel="noreferrer" target="_blank"><span>our GitHub repo</span></a><span>. And we welcome you to become a member of Mozilla’s AI Discord server, which has </span><a href="https://discord.gg/gbR6vJH9gu" rel="noreferrer" target="_blank"><span>a dedicated channel just for Llamafile</span></a><span> where you can get direct access to the project team. Hope to see you there!</span></p>
+<p>&nbsp;</p>
+<p>The post <a href="https://hacks.mozilla.org/2024/10/llamafile-v0-8-14-a-new-ui-performance-gains-and-more/" rel="noreferrer" target="_blank">Llamafile v0.8.14: a new UI, performance gains, and more</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-10-16T13:32:30.000Z>16 October 2024</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

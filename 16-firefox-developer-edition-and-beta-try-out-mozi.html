@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Firefox Developer Edition and Beta: Try out Mozilla’s .deb package!</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2023/11/firefox-developer-edition-and-beta-try-out-mozillas-deb-package/">Go to article URL</a>
+		<div id="content"><p></p><p class="p-rich_text_section">A month ago,&nbsp;<a class="c-link" href="https://blog.nightly.mozilla.org/2023/10/30/introducing-mozillas-firefox-nightly-deb-packages-for-debian-based-linux-distributions/" target="_blank" rel="noreferrer" data-stringify-link="https://blog.nightly.mozilla.org/2023/10/30/introducing-mozillas-firefox-nightly-deb-packages-for-debian-based-linux-distributions/" data-sk="tooltip_parent">we introduced our Nightly package</a>&nbsp;for Debian-based Linux distributions. Today, we are proud to announce we made our&nbsp;<code class="c-mrkdwn__code" data-stringify-type="code">.deb</code> package available for Developer Edition and Beta!</p>
+<p class="p-rich_text_section">We’ve set up a new APT repository for you to install Firefox as a&nbsp;<code class="c-mrkdwn__code" data-stringify-type="code">.deb</code>&nbsp;package.&nbsp;<a class="c-link" href="https://www.mozilla.org/firefox/system-requirements" target="_blank" rel="noreferrer" data-stringify-link="https://www.mozilla.org/firefox/system-requirements" data-sk="tooltip_parent">These packages are compatible with the same Debian and Ubuntu versions as our traditional binaries.</a></p>
+<p class="p-rich_text_section">Your feedback is invaluable, so don’t hesitate to <a class="c-link" href="https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&amp;blocked=1799516&amp;product=Release%20Engineering&amp;component=General" target="_blank" rel="noreferrer" data-stringify-link="https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&amp;blocked=1799516&amp;product=Release%20Engineering&amp;component=General" data-sk="tooltip_parent">report any issues</a> you encounter to help us improve the overall experience.</p>
+<p class="p-rich_text_section">Adopting Mozilla’s Firefox&nbsp;<code class="c-mrkdwn__code" data-stringify-type="code">.deb</code>&nbsp;package offers multiple benefits:</p>
+<ul class="p-rich_text_list p-rich_text_list__bullet" data-stringify-type="unordered-list" data-indent="0" data-border="0">
+<li data-stringify-indent="0" data-stringify-border="0">you will get better performance thanks to our advanced compiler-based optimizations,</li>
+<li data-stringify-indent="0" data-stringify-border="0">you will receive the latest updates as fast as possible because the&nbsp;<code class="c-mrkdwn__code" data-stringify-type="code">.deb</code>&nbsp;is integrated into Firefox’s release process,</li>
+<li data-stringify-indent="0" data-stringify-border="0">you will get hardened binaries with all security flags enabled during compilation,</li>
+<li data-stringify-indent="0" data-stringify-border="0">you can continue browsing after upgrading the package, meaning you can restart Firefox at your convenience to get the latest version.</li>
+</ul>
+<div class="p-rich_text_section">To set up the APT repository and install the Firefox&nbsp;<code class="c-mrkdwn__code" data-stringify-type="code">.deb</code>&nbsp;package, simply follow these steps:</div>
+<div></div>
+<pre class="c-mrkdwn__pre" data-stringify-type="pre"><code>&lt;code&gt;# Create a directory to store APT repository keys if it doesn't exist:
+sudo install -d -m 0755 /etc/apt/keyrings
+
+# Import the Mozilla APT repository signing key:
+wget -q &lt;a class="c-link" href="https://packages.mozilla.org/apt/repo-signing-key.gpg" target="_blank" rel="noopener noreferrer" data-stringify-link="https://packages.mozilla.org/apt/repo-signing-key.gpg" data-sk="tooltip_parent"&gt;https://packages.mozilla.org/apt/repo-signing-key.gpg&lt;/a&gt; -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc &gt; /dev/null
+
+# The fingerprint should be 35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
+gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc | awk '/pub/{getline; gsub(/^ +| +$/,""); print "\n"$0"\n"}'
+
+# Next, add the Mozilla APT repository to your sources list:
+echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] &lt;a class="c-link" href="https://packages.mozilla.org/apt" target="_blank" rel="noopener noreferrer" data-stringify-link="https://packages.mozilla.org/apt" data-sk="tooltip_parent"&gt;https://packages.mozilla.org/apt&lt;/a&gt; mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list &gt; /dev/null
+
+# Update your package list and install the Firefox .deb package:
+sudo apt-get update &amp;&amp; sudo apt-get install firefox-beta  # Replace "beta" by "devedition" for Developer Edition</code></pre>
+<div class="p-rich_text_section">And that’s it! You have now installed the latest Firefox Beta/Developer Edition .deb package on your Linux.</div>
+<div></div>
+<div class="p-rich_text_section">Firefox supports more than a hundred different locales. The packages mentioned above are in American English, but we have also created .deb packages containing the Firefox language packs. To install a specific language pack, replace <span><code class="c-mrkdwn__code" data-stringify-type="code">fr</code></span>&nbsp;in the example below with the desired language code:</div>
+<pre class="c-mrkdwn__pre" data-stringify-type="pre"><code>sudo apt-get install firefox-beta-l10n-fr</code></pre>
+<div class="p-rich_text_section">To list all the available language packs, you can use this command&nbsp;<i data-stringify-type="italic">after</i>&nbsp;adding the Mozilla APT repository and running&nbsp;<code class="c-mrkdwn__code" data-stringify-type="code">sudo apt-get update</code>:</div>
+<pre class="c-mrkdwn__pre" data-stringify-type="pre">apt-cache search firefox-beta-l10n</pre>
+<p>The post <a href="https://hacks.mozilla.org/2023/11/firefox-developer-edition-and-beta-try-out-mozillas-deb-package/" rel="noreferrer" target="_blank">Firefox Developer Edition and Beta: Try out Mozilla’s .deb package!</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-11-30T19:55:38.000Z>30 November 2023</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

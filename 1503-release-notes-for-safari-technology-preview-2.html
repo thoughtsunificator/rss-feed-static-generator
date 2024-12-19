@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Release Notes for Safari Technology Preview 204</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/15978/release-notes-for-safari-technology-preview-204/">Go to article URL</a>
+		<div id="content"><p></p><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 204 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Sequoia beta and macOS Sonoma. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/e3fcc5543b97e63cdd7dab7c6accbed7cbb6991d...a7b93a6e823a114a02696a5380dc7956506f5070" rel="noreferrer" target="_blank">283043@main…283691@main</a>.</p>
+<h3>Accessibility</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed VoiceOver focus to activate PDF form fields when it lands on them. (<a href="https://commits.webkit.org/283281@main" rel="noreferrer" target="_blank">283281@main</a>)  (134522935)  </li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for cross-document view-transitions. (<a href="https://commits.webkit.org/283320@main" rel="noreferrer" target="_blank">283320@main</a>)  (133994557)  </li>
+<li>Added preview support for <code>line-clamp</code>. (<a href="https://commits.webkit.org/283233@main" rel="noreferrer" target="_blank">283233@main</a>)  (135369594)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>text-decoration-thickness</code> to work in buttons. (<a href="https://commits.webkit.org/283212@main" rel="noreferrer" target="_blank">283212@main</a>)  (118320835)  </li>
+<li>Fixed skipping view transitions on hidden pages. (<a href="https://commits.webkit.org/283084@main" rel="noreferrer" target="_blank">283084@main</a>)  (125017653)  </li>
+<li>Fixed contrast between <code>ButtonFace</code> and <code>ButtonText</code> system colors in dark mode. (<a href="https://commits.webkit.org/283284@main" rel="noreferrer" target="_blank">283284@main</a>)  (131996608)  </li>
+</ul>
+<h3>Forms</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>HTMLSelectElement.prototype.add</code> with <code>optgroup</code> elements. (<a href="https://commits.webkit.org/283080@main" rel="noreferrer" target="_blank">283080@main</a>)  (120553757)  </li>
+</ul>
+<h3>JavaScript</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Improved the TypeError message when a WeakMap constructor takes an iterable that yields invalid entry. (<a href="https://commits.webkit.org/283199@main" rel="noreferrer" target="_blank">283199@main</a>)  (135333331)  </li>
+<li>Fixed incorrect SyntaxError when destructuring <code>let</code>. (<a href="https://commits.webkit.org/283217@main" rel="noreferrer" target="_blank">283217@main</a>)  (135353378)  </li>
+</ul>
+<h4>Deprecations</h4>
+<ul>
+<li>Removed obsoleted methods for <code>Temporal.PlainTime</code> and <code>Temporal.PlainDateTime</code> to align with specification changes. (<a href="https://commits.webkit.org/283315@main" rel="noreferrer" target="_blank">283315@main</a>)  (135509670)  </li>
+</ul>
+<h3>Service Workers</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Service Workers to support focusing a page that is being loaded. (<a href="https://commits.webkit.org/283263@main" rel="noreferrer" target="_blank">283263@main</a>)  (135337772)  </li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the Cookie Store API. (<a href="https://commits.webkit.org/283654@main" rel="noreferrer" target="_blank">283654@main</a>)  (135969444)  </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>scrollIntoView(...)</code> for SVG elements. (<a href="https://commits.webkit.org/283157@main" rel="noreferrer" target="_blank">283157@main</a>)  (135265918)  </li>
+</ul>
+<h3>Web Driver</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed Web Driver to use pointer origin rather than viewport origin for state location resolution. (<a href="https://commits.webkit.org/283186@main" rel="noreferrer" target="_blank">283186@main</a>)  (128668986)  </li>
+</ul>
+<h3>Web Extensions</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>icon_variants</code> in Web Extensions. (<a href="https://commits.webkit.org/283118@main" rel="noreferrer" target="_blank">283118@main</a>, <a href="https://commits.webkit.org/283219@main" rel="noreferrer" target="_blank">283219@main</a>)  (134885372) </li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed blob URL downloads failing to trigger from an extension. (<a href="https://commits.webkit.org/283220@main" rel="noreferrer" target="_blank">283220@main</a>)  (78929424)  </li>
+<li>Fixed including the extension’s icon in the commands menu item and prevented customization using System Settings. (<a href="https://commits.webkit.org/283229@main" rel="noreferrer" target="_blank">283229@main</a>)  (135360504)  </li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue where multi-line content in the Console prompt was not scrollable. (<a href="https://commits.webkit.org/283412@main" rel="noreferrer" target="_blank">283412@main</a>)  (131756916)  </li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-09-30T22:04:24.000Z>1 October 2024</time>
+			<a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>
