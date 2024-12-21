@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Exploring Geodatabase Files</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/08/exploring-geodatabase-files/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Image by Jaxson Baerg -->
+<p>One of our clients recently provided us with a dataset of real estate properties that they manage, and asked us to generate content based off of the points and polygons in the dataset.</p>
+<p>We will walk through the process of extracting polygons, placemarks, and other info from a geodatabase file and converting them into separate KML files using the <code>ogr2ogr</code> command-line tool, adding some logic to the data selection to limit the subset of features. We will also explore the GDB file using the GDAL Python library to export the data as JSON for use in other scripts.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Basic understanding of geospatial data</li>
+<li>Installed versions of the <code>GDAL/OGR</code> library</li>
+<li>A geodatabase file (<code>.gdb</code>, <code>.gdb.zip</code>, or <code>.shp</code>)</li>
+</ul>
+<h3 id="a-first-look-into-the-contents-of-the-gdb-file">A first look into the contents of the GDB file</h3>
+<p></p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogrinfo example.gdb.zip
+</span></span></code></pre></div><p>This command will list all layers that are available in the dataset. Add a specific layer as a parameter to the same command, and it will output all the fields, their types, and values for every feature in the layer.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogrinfo example.gdb.zip a_layer_name
+</span></span></code></pre></div><p>The parameter <code>-so</code> can be used to omit the values from the output and get only the layer field names and types:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>#$&gt; ogrinfo example.gdb.zip Land_Points -so
+</span></span><span><span>INFO: Open of `example.gdb.zip'
+</span></span><span><span>      using driver `OpenFileGDB' successful.
+</span></span><span><span>
+</span></span><span><span>Layer name: Land_Points
+</span></span><span><span>Geometry: Point
+</span></span><span><span>Feature Count: 219
+</span></span><span><span>Extent: (-122.699891, -23.590280) - (139.763352, 59.622821)
+</span></span><span><span>Layer SRS WKT:
+</span></span><span><span>GEOGCRS["WGS 84",
+</span></span><span><span>    DATUM["World Geodetic System 1984",
+</span></span><span><span>        ELLIPSOID["WGS 84",6378137,298.257223563,
+</span></span><span><span>            LENGTHUNIT["metre",1]]],
+</span></span><span><span>    PRIMEM["Greenwich",0,
+</span></span><span><span>        ANGLEUNIT["degree",0.0174532925199433]],
+</span></span><span><span>    CS[ellipsoidal,2],
+</span></span><span><span>        AXIS["geodetic latitude (Lat)",north,
+</span></span><span><span>            ORDER[2],
+</span></span><span><span>        ANGLEUNIT["degree",0.0174532925199433]],
+</span></span><span><span>    USAGE[
+</span></span><span><span>        SCOPE["unknown"],
+</span></span><span><span>        AREA["World"],
+</span></span><span><span>        BBOX[-90,-180,90,180]],
+</span></span><span><span>    ID["EPSG",4326]]
+</span></span><span><span>Data axis to CRS axis mapping: 2,1
+</span></span><span><span>FID Column = OBJECTID
+</span></span><span><span>Geometry Column = Shape
+</span></span><span><span>asset_type: Integer (0.0)
+</span></span><span><span>asset_id: String (15.0)
+</span></span><span><span>property_code: String (255.0)
+</span></span><span><span>full_address_text: String (255.0)
+</span></span><span><span>land_name: String (255.0)
+</span></span><span><span>land_address1: String (255.0)
+</span></span><span><span>land_city: String (255.0)
+</span></span><span><span>land_sate_code: String (50.0)
+</span></span><span><span>land_postal_code: String (10.0)
+</span></span><span><span>land_country_code: String (50.0)
+</span></span><span><span>division_name: String (255.0)
+</span></span><span><span>region_name: String (255.0)
+</span></span><span><span>market_name: String (255.0)
+</span></span><span><span>submarket_name: String (255.0)
+</span></span><span><span>supplemental_portfolio_name: String (255.0)
+</span></span><span><span>ownership_name: String (255.0)
+</span></span><span><span>land_held_for_sale_acre: Real (0.0)
+</span></span><span><span>land_held_for_sale_hect: Real (0.0)
+</span></span><span><span>land_held_for_development_acre: Real (0.0)
+</span></span><span><span>land_held_for_development_hect: Real (0.0)
+</span></span><span><span>total_land_acre: Real (0.0)
+</span></span><span><span>total_land_hectare: Real (0.0)
+</span></span><span><span>buildable_area_sf: Real (0.0)
+</span></span><span><span>buildable_area_sm: Real (0.0)
+</span></span><span><span>buildable_area_tsubo: Real (0.0)
+</span></span><span><span>land_latitude: Real (0.0)
+</span></span><span><span>land_longitude: Real (0.0)
+</span></span><span><span>geocoded: Integer (0.0) DEFAULT 0
+</span></span><span><span>globalid: String (0.0) NOT NULL
+</span></span><span><span>created_user: String (255.0)
+</span></span><span><span>created_date: DateTime (0.0)
+</span></span><span><span>last_edited_user:  String (255.0)
+</span></span><span><span>last_edited_date: DateTime (0.0)
+</span></span></code></pre></div><p>This command shows you information for a single layer, which can be helpful if you are only looking for certain values. However, the geographic data is not much to look at in the terminal. To visualize it, we can convert the data to KML, which applications like Google Earth or Cesium can render while keeping the information as text that can be read:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" example_output.kml example.gdb.zip layer_name
+</span></span></code></pre></div><ul>
+<li><code>-f "KML"</code> specifies the output format</li>
+<li><code>example_output.kml</code> is the name of the output KML file</li>
+<li><code>example.gdb.zip</code> is the path to the geodatabase file</li>
+<li><code>layer_name</code> is the geodatabase layer to export</li>
+</ul>
+<p>This command will export into a KML file:</p>
+<ul>
+<li>All the geometries in the layer, be it placemarks or polygons in our case</li>
+<li>All the other fields of information as extended data, which will show up for each feature as a balloon table when visualized in Google Earth</li>
+</ul>
+<p></p>
+<h3 id="the-ogr2ogr--sql-option">The <code>ogr2ogr</code> <code>-sql</code> option</h3>
+<p>The default balloon popup was not the outcome we wanted for this KML file. We first used <code>sed</code> to remove all the extended data from the KML files, but after looking into it a bit further, we found an <code>ogr2ogr</code> option, <code>-sql</code>, that made the data filtering easier. This option lets us add a query to the command just like getting the data from a SQL database.</p>
+<h4 id="1-extract-property-names">1. Extract property names</h4>
+<p>To create a KML file with just the names of the properties, look up the layers and fields in them using <code>ogrinfo</code> and find the points layer that has the names—in this case, <code>Layer_Points</code>. Then, add the desired SQL query to the command.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" output_names.kml example.gdb.zip -sql "SELECT name FROM Layer_Points"
+</span></span></code></pre></div><h4 id="2-extract-polygons-only">2. Extract polygons only</h4>
+<p>The polygon geometries are stored in <code>Layer_Polygons</code>. They can be selected using the special OGR field <code>OGR_GEOMETRY</code> that refers to the geometry of the selected layer:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" output_polygons.kml example.gdb.zip -sql "SELECT OGR_GEOMETRY FROM Layer_Polygons"
+</span></span></code></pre></div><p></p>
+<h4 id="3-create-kml-with-pins-and-names">3. Create KML with pins and names</h4>
+<p>To create a KML file with property names as placemarks with pins, we just select the name. The point placemark seems to be included with all data:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" output_pins.kml input.gdb layer_name -sql "SELECT name FROM layer_name"
+</span></span></code></pre></div><h4 id="4-create-kml-with-pins-only-no-names">4. Create KML with pins only, no names</h4>
+<p>To get the points with nothing else, we use the SQLite <code>MakePoint</code> function, which selects a list of points from the KML.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" output_pins.kml input.gdb layer_name -dialect SQLite -sql "SELECT MakePoint(land_longitude, land_latitude) AS geom FROM Land_Points"
+</span></span></code></pre></div><h4 id="5-extract-limited-properties">5. Extract limited properties</h4>
+<p>For extracting a limited number of properties, we can add the <code>WHERE</code> clause to the SQL command:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" output_pins.kml input.gdb layer_name -sql "SELECT name FROM layer_name"
+</span></span></code></pre></div><p>We can also use the <code>ogr2ogr</code> <code>-where</code> flag to use that part of the query only:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>ogr2ogr -f "KML" limited_output_polygons.kml input.gdb layer_name -where "ID IN (1, 2, 3)"
+</span></span></code></pre></div><h4 id="6-run-it-all-in-a-python-script">6. Run it all in a Python script</h4>
+<p>There is a Python GDAL library, which I will cover the basics of later, but first, here is a simplified example using Python <code>subprocess</code> to run the ogr2ogr commands we tested in the terminal.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-python" data-lang="python"><span><span><span>import</span> <span>subprocess</span>
+</span></span><span><span>
+</span></span><span><span>gdb_file = <span>"example.gdb.zip"</span>
+</span></span><span><span>column_name = <span>"p_code"</span>
+</span></span><span><span>elem_str = <span>"'a1', 'a2', 'b1', 'b3'"</span>
+</span></span><span><span>
+</span></span><span><span>sql_land_labels = <span>f</span><span>"SELECT land_name FROM Land_Points WHERE </span><span>{</span>column_name<span>}</span><span> IN (</span><span>{</span>elem_str<span>}</span><span>)"</span>
+</span></span><span><span>subprocess.run([<span>'ogr2ogr'</span>, <span>'-f'</span>, <span>'KML'</span>, <span>'land_labels.kml'</span>, gdb_file, <span>'-sql'</span>, sql_land_labels])
+</span></span><span><span>
+</span></span><span><span>sql_land_points = <span>f</span><span>"SELECT MakePoint(land_longitude, land_latitude) AS geom FROM Land_Points WHERE </span><span>{</span>column_name<span>}</span><span> IN (</span><span>{</span>elem_str<span>}</span><span>)"</span>
+</span></span><span><span>subprocess.run([<span>'ogr2ogr'</span>, <span>'-f'</span>, <span>'KML'</span>, <span>'land_points.kml'</span>, gdb_file, <span>'-dialect'</span>, <span>'SQLite'</span>, <span>'-sql'</span>, sql_land_points])
+</span></span><span><span>
+</span></span><span><span>sql_land_polygons = <span>f</span><span>"SELECT OGR_GEOMETRY FROM Land_Polygons WHERE </span><span>{</span>column_name<span>}</span><span> IN (</span><span>{</span>elem_str<span>}</span><span>)"</span>
+</span></span><span><span>subprocess.run([<span>'ogr2ogr'</span>, <span>'-f'</span>, <span>'KML'</span>, <span>'land_pols.kml'</span>, gdb_file, <span>'-sql'</span>, sql_land_polygons])
+</span></span></code></pre></div><p>This script will create the three different KML files that we usually need for our presentations. We used variables for the <code>gdb_file</code>, <code>column_name</code>, and <code>elem_str</code> command line parameters to make the script easy to use for selecting other data. We also use them in other scripts to join, apply custom styling, and add regions to the KMLs, which will be covered in another blog post.</p>
+<h4 id="7-extract-all-data-as-json-from-one-layer-using-the-python-gdal-library">7. Extract all data as JSON from one layer using the Python GDAL library</h4>
+<p>I probably should have started here, but I only used the Python library later on in the process to join the <code>gdp.zip</code> file data with data from other sources (spreadsheets, emails, etc.).</p>
+<p>First, install the GDAL library:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>pip install gdal
+</span></span></code></pre></div><p>Then you can use the following Python script, changing as necessary the <code>gdb_file</code>, <code>layer_name</code>, and the unique field chosen to structure the data. The code is explained in the comments.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-python" data-lang="python"><span><span><span>#!/bin/python</span>
+</span></span><span><span>
+</span></span><span><span><span>import</span> <span>json</span>
+</span></span><span><span><span>from</span> <span>osgeo</span> <span>import</span> ogr
+</span></span><span><span>
+</span></span><span><span><span># Open the Geodatabase file</span>
+</span></span><span><span>driver = ogr.GetDriverByName(<span>'OpenFileGDB'</span>)
+</span></span><span><span>gdb_file = <span>'example.gdb.zip'</span>
+</span></span><span><span>data_source = driver.Open(gdb_file, <span>0</span>)
+</span></span><span><span>
+</span></span><span><span><span># Get the layer</span>
+</span></span><span><span>layer_name = <span>'Building_Points'</span>
+</span></span><span><span>layer = data_source.GetLayerByName(layer_name)
+</span></span><span><span><span>if</span> layer:
+</span></span><span><span>    <span># Get the layer definition</span>
+</span></span><span><span>    layer_defn = layer.GetLayerDefn()
+</span></span><span><span>
+</span></span><span><span>    <span># Get the number of fields in the layer</span>
+</span></span><span><span>    num_fields = layer_defn.GetFieldCount()
+</span></span><span><span>
+</span></span><span><span>    <span># Initialize an empty list to store field names</span>
+</span></span><span><span>    field_names = []
+</span></span><span><span>
+</span></span><span><span>    <span># Iterate over each field and add its name to the list</span>
+</span></span><span><span>    <span>for</span> i <span>in</span> <span>range</span>(num_fields):
+</span></span><span><span>        field_defn = layer_defn.GetFieldDefn(i)
+</span></span><span><span>        field_name = field_defn.GetName()
+</span></span><span><span>        field_names.append(field_name)
+</span></span><span><span>
+</span></span><span><span>    <span>print</span>(<span>"Field names:"</span>, field_names)
+</span></span><span><span><span>else</span>:
+</span></span><span><span>    <span>print</span>(<span>f</span><span>"Layer '</span><span>{</span>layer_name<span>}</span><span>' not found."</span>)
+</span></span><span><span>
+</span></span><span><span>all_info = {}
+</span></span><span><span>
+</span></span><span><span><span># Iterate over all features and organize all field names under a unique one for the dictionary structure</span>
+</span></span><span><span><span>for</span> feature <span>in</span> layer:
+</span></span><span><span>    <span>if</span> feature <span>is</span> <span>not</span> <span>None</span>:
+</span></span><span><span>        globalid = feature.GetField(<span>'globalid'</span>)
+</span></span><span><span>        all_info[globalid] = {}
+</span></span><span><span>        <span>for</span> fn <span>in</span> field_names:
+</span></span><span><span>            all_info[globalid][fn] = feature.GetField(fn)
+</span></span><span><span>
+</span></span><span><span><span># Close the data source</span>
+</span></span><span><span>data_source = <span>None</span>
+</span></span><span><span>
+</span></span><span><span><span># Save information to a JSON file</span>
+</span></span><span><span>output_file = <span>'info.json'</span>
+</span></span><span><span><span>with</span> <span>open</span>(output_file, <span>'w'</span>) <span>as</span> json_file:
+</span></span><span><span>    json.dump(all_info, json_file, indent=<span>4</span>)
+</span></span><span><span><span>print</span>(<span>f</span><span>"Information saved to </span><span>{</span>output_file<span>}</span><span>"</span>)
+</span></span></code></pre></div><p>The script will create a JSON file with all the information on the layer.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Following these steps, we can efficiently manage and visualize geospatial data using <code>ogr2ogr</code>, SQL, and KML, and in some cases, JSON. These methods allow for a high degree of customization and can be tailored to specific project requirements.</p>
+<h3 id="additional-resources">Additional Resources</h3>
+<ul>
+<li><a href="https://gdal.org" rel="noreferrer" target="_blank">GDAL/OGR Documentation</a></li>
+<li><a href="https://gdal.org/python/" rel="noreferrer" target="_blank">GDAL Python Bindings</a></li>
+<li><a href="https://developers.google.com/kml/documentation" rel="noreferrer" target="_blank">KML Documentation</a></li>
+<li><a href="https://www.sqlite.org/docs.html" rel="noreferrer" target="_blank">SQLite Documentation</a></li>
+</ul>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-14T00:00:00.000Z>14 August 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

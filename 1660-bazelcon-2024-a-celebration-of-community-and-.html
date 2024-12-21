@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>BazelCon 2024: A celebration of community and the launch of Bazel 8</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/12/bazelcon-2024-bazel-8-launch.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjlxTdeYvDhx6wpfmJMsUffM-IFwmoUwrH-aexYi_bsq4P0fE296FCvN69d-S7VCDMoYljMWgbA0KWN9a_VVoVnM0HBRa44HTNlfJg_aEKwp5gQN31N5CJMknk9fFeBePOW-KAUWF_vLSg8lV9oddvlZ63wre7xv4rEcjNChbeNbfeSAevICzEzXu7iB5o/s1600/Social-Bazel.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiihQQr2xUCZtgImhDDuR21PbB-u3E_bKQp0UjfBgsM6d8rxXsMGUViu7RnMaaUqnFyVa7V7uGyEN6FHWgatTDw4S9GaKLBM8OjYCQBRuqO2KTRKm54hTWEz3JPutBuwAWtg0oe1QFmm8mmoMS3MfXH1pybA1-e8OS2iIAb0V1d2DsdpjJP4EjaVSrmRU/s1600/Banner-Bazel.png" rel="noreferrer" target="_blank"></a>
+
+
+
+<div><br></div><p>The Bazel community celebrated a landmark year at BazelCon 2024. With a record-breaking 330+ attendees, 125+ talk proposal submissions, and a renewed focus on community-driven development, BazelCon marked a significant step forward for the build system and its users.</p><br>
+
+<h2><b>BazelCon 2024: Key highlights</b></h2>
+
+<div></div><br>
+
+<p>The 8th annual build conference was held at the Computer History Museum in Mountain View, CA, on October 14 - 15, 2024. This was the first BazelCon not solely organized by Google; instead, it was organized by The Linux Foundation together with sponsors Google, BuildBuddy, EngFlow, NativeLink, AspectBuild, Gradle, Modus Create, and VirtusLab. The conference welcomed build enthusiasts from around the world to explore the latest advancements in build technologies, share learnings, and connect with each other.</p>
+
+<p>The conference kicked off with an opening keynote delivered by Mícheál Ó Foghlú and Tobias Werth (Google), Alex Eagle (Aspect Build Systems), Helen Altshuler (EngFlow), and Chuck Grindel (Reveal Technology). The keynote highlighted the vital role of community contributions and charted a course for a future where Bazel thrives through shared stewardship.</p>
+
+<br>
+
+<p>Following the keynote, John Field and Tobias Werth (Engineering Managers at Google) delivered a state-of-the-union address, celebrating the year's top contributors and highlighting key achievements within the Bazel ecosystem.</p>
+
+<br>
+
+<p>Over the course of the conference, members of the Bazel community showcased their expertise and shared key insights through a series of live presentations. Some highlights include:</p>
+<ul>
+<li>Spotify's compelling Bazel adoption journey</li>
+<li>EngFlow's insightful post-mortems on remote execution</li>
+<li>Explorations of cutting-edge features like BuildBuddy's "Remote Bazel”</li>
+</ul>
+<p>Take a look at our <a href="https://www.youtube.com/playlist?list=PLbzoR-pLrL6ptKfAQNZ5RS4HMdmeilBcw" target="_blank" rel="noreferrer">playlist of BazelCon 2024 Talks</a> at your convenience.</p>
+
+<p>In addition to main stage talks, BazelCon provided ample opportunities for attendees to connect and collaborate. Birds of a Feather sessions fostered lively discussions on topics ranging from generating SBOM using Bazel, to IDE integrations, to external dependency management, allowing community members to provide direct feedback and shape the future of Bazel. Make sure to check out raw <a href="https://drive.google.com/drive/folders/1ytpSshMbw1MyX4u3m5KilcF9RjGoWwHe" target="_blank" rel="noreferrer">BazelCon '24 Birds of a Feather notes</a> from these sessions.</p>
+
+<p>BazelCon 2024 also served as the launchpad for Bazel 8, a long-term support (LTS) release that brings significant enhancements to modularity, performance, and dependency management.</p>
+
+
+<div></div><br>
+
+<h2><b>What’s new in Bazel 8?</b></h2>
+<ul>
+<li><b>Starlark-powered modularity:</b> Many core language rules traditionally shipped with Bazel are now Starlarkified and split into their own modules, including all Android, Java, Protocol Buffers, Python, and shell rules.</li>
+<li><b>WORKSPACE deprecation:</b> The legacy WORKSPACE mechanism for external dependency management is disabled by default in Bazel 8, and is slated for removal in Bazel 9. Bzlmod, the default since Bazel 7, is the recommended solution going forward.</li>
+<li><b>Symbolic macros:</b> Bazel 8 introduces a new way to write macros for build files, addressing many pitfalls and footguns of legacy macros. Symbolic macros offer better visibility encapsulation, type safety, and are amenable to lazy evaluation, coming in a future Bazel release.</li>
+</ul>
+
+<p>Read the <a href="https://github.com/bazelbuild/bazel/releases/tag/8.0.0" target="_blank" rel="noreferrer">full release notes for Bazel 8</a>.</p><br>
+
+<h3><b>Stay connected with the Bazel community</b></h3>
+
+<p>We extend our gratitude to everyone that contributed to the success of BazelCon 2024! We look forward to seeing you again next year.</p>
+
+<p>To stay informed about the latest developments in the Bazel world, connect with us through the following channels:</p>
+<ul>
+<li><a href="https://blog.bazel.build/" target="_blank" rel="noreferrer">Bazel blog</a></li>
+<li><a href="https://github.com/bazelbuild/bazel/discussions" target="_blank" rel="noreferrer">GitHub</a></li>
+<li><a href="https://slack.bazel.build" target="_blank" rel="noreferrer">Slack</a></li>
+<li><a href="bazel-discuss@googlegroups.com" target="_blank" rel="noreferrer">Mailing list</a></li>
+<li><a href="http://twitter.com/bazelbuild" target="_blank" rel="noreferrer">X (Twitter)</a></li>
+</ul>
+
+<p>We encourage you to share your Bazel projects and experiences with us at product@bazel.build. We're always excited to hear from you!</p>
+
+<p><i>By Keerthana Kumar and Xudong Yang, on behalf of the Google Bazel Team</i></p><p>
+
+
+
+
+
+</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-13T09:00:00.000Z>13 December 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

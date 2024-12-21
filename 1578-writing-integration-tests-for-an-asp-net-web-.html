@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Writing integration tests for an ASP.NET Web API</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/05/writing-integration-tests-for-an-asp.net-web-api/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2024. -->
+<p><a href="https://en.wikipedia.org/wiki/Integration_testing" rel="noreferrer" target="_blank">Integration tests</a> exercise a system by instantiating major components and making them interact with each other. They are great for validating important use case scenarios in an end-to-end or close to end-to-end manner.</p>
+<p>Full integration tests seldom use mocks or fake objects. Usually, the full stack is tested as if the entire system were running for real. For REST APIs, that generally means tests that involve issuing HTTP requests, validating HTTP responses, and asserting on changes made to a persistent data store, like a database.</p>
+<p>In this article, we’re going to discuss how to write such tests for a Web API built using ASP.NET.</p>
+<h3 id="introducing-the-project">Introducing the project</h3>
+<p>I’ll use an existing ASP.NET Web API project to demonstrate how to write these tests. The API is part of a system that calculates the value of used cars and offers quotes for them. As such, the API has an endpoint for calculating a vehicle quote, given its information and condition: <code>POST /api/Quotes</code>. It also has an endpoint for administration purposes that returns all the quotes that have been stored in the system’s database: <code>GET /api/Quotes</code>. These are the two endpoints that we’ll want to test.</p>
+<p>The source code <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo" rel="noreferrer" target="_blank">is on GitHub</a>, so feel free to browse. I’ve organized it so that the changes that we’ll make throughout this article are all contained in a single commit. <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/5f971115e871f9d60792b825b4b9f590600b529b" rel="noreferrer" target="_blank">You can see the diff here</a>.</p>
+<p>The code base is organized as a <a href="https://learn.microsoft.com/en-us/visualstudio/ide/solutions-and-projects-in-visual-studio?view=vs-2022" rel="noreferrer" target="_blank">.NET solution</a>, as evidenced by the <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/vehicle-quotes.sln" rel="noreferrer" target="_blank"><code>vehicle-quotes.sln</code></a> file at the root of the repository. The Web API project can be found inside the <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/tree/main/VehicleQuotes.WebApi" rel="noreferrer" target="_blank"><code>VehicleQuotes.WebApi</code></a> directory. The endpoints that we want to test are defined in the controller at <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Controllers/QuotesController.cs" rel="noreferrer" target="_blank"><code>VehicleQuotes.WebApi/Controllers/QuotesController.cs</code></a>.</p>
+<p>Our plan is to develop integration tests that exercise the entire stack. That is, the API’s HTTP request handling as well as its database interactions. These are the steps that we’ll take in order to do that:</p>
+<ol>
+<li>Create a new <a href="https://xunit.net/" rel="noreferrer" target="_blank">xUnit</a> project where we will put our integration tests.</li>
+<li>Define a <a href="https://xunit.net/docs/shared-context#class-fixture" rel="noreferrer" target="_blank">test class fixture</a> that will connect our tests to a test database.</li>
+<li>Write some logic to run the tests within their own database transactions. This makes sure they don’t affect one another, and that they encounter the database in a clean state and also leave it that way.</li>
+<li>Write some tests that interact with the API over HTTP.</li>
+</ol>
+<h3 id="setting-up-the-integration-tests-project">Setting up the integration tests project</h3>
+<p>The first step is to create a new xUnit project and add it to our solution. This can be done with this pair of commands:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dotnet new xunit -o VehicleQuotes.IntegrationTests
+</span></span><span><span>dotnet sln add ./VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj
+</span></span></code></pre></div><p>That will create a new xUnit project under the <code>VehicleQuotes.IntegrationTests</code> directory. It will have an empty test class file that can be deleted.</p>
+<p>The project needs the <code>Microsoft.AspNetCore.Mvc.Testing</code> <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing" rel="noreferrer" target="_blank">NuGet package</a>. If we move into the <code>VehicleQuotes.IntegrationTests</code> directory, the package can be installed with this command:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dotnet add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.4
+</span></span></code></pre></div><p>This package will allow our tests to issue HTTP requests to the Web API. We’ll see how that’s done soon.</p>
+<p>We also need to add a reference to the Web API project. Also from within the <code>VehicleQuotes.IntegrationTests</code> directory, we can do that with:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dotnet add reference ../VehicleQuotes.WebApi/VehicleQuotes.WebApi.csproj
+</span></span></code></pre></div><p>That way our testing project will have access to the classes defined in the Web API project. Specifically, we’ll need the <a href="https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx" rel="noreferrer" target="_blank">DB context</a> and some entities. We’ll see why soon.</p>
+<p>There’s one additional step that we need to do in the Web API project so that it is testable, and that’s explicitly defining its “Program” class. To do that, we add this line at the end of the <code>VehicleQuotes.WebApi/Program.cs</code> file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.WebApi/Program.cs</span>
+</span></span><span><span><span>// ...</span>
+</span></span><span><span><span>public</span> <span>partial</span> <span>class</span> <span>Program</span> { }
+</span></span></code></pre></div><p>I’ll admit: this is quite strange. But it is a requirement for integration testing. You’ll see how this comes into play when we start writing the tests. You can read more about it in <a href="https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0#basic-tests-with-the-default-webapplicationfactory" rel="noreferrer" target="_blank">the official docs</a>.</p>
+<p>With that, the project is set up. In the end, our <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj" rel="noreferrer" target="_blank"><code>VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj</code></a> should look like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;!-- VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj --&gt;</span>
+</span></span><span><span><span>&lt;Project</span> <span>Sdk=</span><span>"Microsoft.NET.Sdk"</span><span>&gt;</span>
+</span></span><span><span>
+</span></span><span><span>  <span>&lt;PropertyGroup&gt;</span>
+</span></span><span><span>    <span>&lt;TargetFramework&gt;</span>net8.0<span>&lt;/TargetFramework&gt;</span>
+</span></span><span><span>    <span>&lt;ImplicitUsings&gt;</span>enable<span>&lt;/ImplicitUsings&gt;</span>
+</span></span><span><span>    <span>&lt;Nullable&gt;</span>enable<span>&lt;/Nullable&gt;</span>
+</span></span><span><span>
+</span></span><span><span>    <span>&lt;IsPackable&gt;</span>false<span>&lt;/IsPackable&gt;</span>
+</span></span><span><span>    <span>&lt;IsTestProject&gt;</span>true<span>&lt;/IsTestProject&gt;</span>
+</span></span><span><span>  <span>&lt;/PropertyGroup&gt;</span>
+</span></span><span><span>
+</span></span><span><span>  <span>&lt;ItemGroup&gt;</span>
+</span></span><span><span>    <span>&lt;PackageReference</span> <span>Include=</span><span>"coverlet.collector"</span> <span>Version=</span><span>"6.0.0"</span> <span>/&gt;</span>
+</span></span><span><span>    <span>&lt;PackageReference</span> <span>Include=</span><span>"Microsoft.AspNetCore.Mvc.Testing"</span> <span>Version=</span><span>"8.0.4"</span> <span>/&gt;</span>
+</span></span><span><span>    <span>&lt;PackageReference</span> <span>Include=</span><span>"Microsoft.NET.Test.Sdk"</span> <span>Version=</span><span>"17.8.0"</span> <span>/&gt;</span>
+</span></span><span><span>    <span>&lt;PackageReference</span> <span>Include=</span><span>"xunit"</span> <span>Version=</span><span>"2.5.3"</span> <span>/&gt;</span>
+</span></span><span><span>    <span>&lt;PackageReference</span> <span>Include=</span><span>"xunit.runner.visualstudio"</span> <span>Version=</span><span>"2.5.3"</span> <span>/&gt;</span>
+</span></span><span><span>  <span>&lt;/ItemGroup&gt;</span>
+</span></span><span><span>
+</span></span><span><span>  <span>&lt;ItemGroup&gt;</span>
+</span></span><span><span>    <span>&lt;Using</span> <span>Include=</span><span>"Xunit"</span> <span>/&gt;</span>
+</span></span><span><span>  <span>&lt;/ItemGroup&gt;</span>
+</span></span><span><span>
+</span></span><span><span>  <span>&lt;ItemGroup&gt;</span>
+</span></span><span><span>    <span>&lt;ProjectReference</span> <span>Include=</span><span>"..\VehicleQuotes.WebApi\VehicleQuotes.WebApi.csproj"</span> <span>/&gt;</span>
+</span></span><span><span>  <span>&lt;/ItemGroup&gt;</span>
+</span></span><span><span>
+</span></span><span><span><span>&lt;/Project&gt;</span>
+</span></span></code></pre></div><h3 id="writing-a-database-fixture">Writing a database fixture</h3>
+<p>Now, we need to make it possible for our API to interact with a test instance of our database when running within the context of our tests. This can be done with a properly configured <a href="https://xunit.net/docs/shared-context#class-fixture" rel="noreferrer" target="_blank">test class fixture</a>. Let’s see what that looks like.</p>
+<p>First of all we need an <code>appsettings</code> file for our test project that contains the test database connection string. I created a <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.IntegrationTests/appsettings.Test.json" rel="noreferrer" target="_blank"><code>VehicleQuotes.IntegrationTests/appsettings.Test.json</code></a> file with these contents:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span><span>{
+</span></span><span><span>  <span>"ConnectionStrings"</span>: {
+</span></span><span><span>    <span>"VehicleQuotesContext"</span>: <span>"Host=db;Database=vehicle_quotes_test;Username=vehicle_quotes;Password=password;Include Error Detail=True"</span>
+</span></span><span><span>  },
+</span></span><span><span>  <span>"Jwt"</span>: {
+</span></span><span><span>    <span>"Key"</span>: <span>"this is the secret key for the jwt, it must be kept secure"</span>,
+</span></span><span><span>    <span>"Issuer"</span>: <span>"vehiclequotes.endpointdev.com"</span>,
+</span></span><span><span>    <span>"Audience"</span>: <span>"vehiclequotes.endpointdev.com"</span>,
+</span></span><span><span>    <span>"Subject"</span>: <span>"JWT for vehiclequotes.endpointdev.com"</span>
+</span></span><span><span>  },
+</span></span><span><span>  <span>"DefaultOffer"</span>: <span>77</span>
+</span></span><span><span>}
+</span></span></code></pre></div><p>We also have to tell .NET that it needs to include this file when building the project to run the tests. We do so by adding the following to the <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj#L13" rel="noreferrer" target="_blank"><code>VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj</code></a> file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;Project</span> <span>Sdk=</span><span>"Microsoft.NET.Sdk"</span><span>&gt;</span>
+</span></span><span><span>  <span>&lt;!-- ... --&gt;</span>
+</span></span><span><span>  <span>&lt;ItemGroup&gt;</span>
+</span></span><span><span>    <span>&lt;Content</span> <span>Include=</span><span>"appsettings.Test.json"</span> <span>CopyToOutputDirectory=</span><span>"PreserveNewest"</span> <span>/&gt;</span>
+</span></span><span><span>  <span>&lt;/ItemGroup&gt;</span>
+</span></span><span><span>  <span>&lt;!-- ... --&gt;</span>
+</span></span><span><span><span>&lt;/Project&gt;</span>
+</span></span></code></pre></div><p>The important thing in this <code>appsettings</code> file is the <code>ConnectionStrings.VehicleQuotesContext</code> setting, which contains the test database connection string. Notice the value for <code>Database</code> in the connection string is appended with <code>_test</code>. This is how we make sure the tests run against a different database. The rest of the settings are unrelated to the test database, but need to be defined for the Web API to work. These will obviously be different for every project. All in all, this file is meant to be a test version of the Web API’s own <code>appsettings.json</code> file. <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/appsettings.json" rel="noreferrer" target="_blank">You can find it here</a>.</p>
+<blockquote>
+<p>Our Web API supports <a href="https://swagger.io/docs/specification/authentication/bearer-authentication/" rel="noreferrer" target="_blank">authentication via Bearer Token</a>. If you want to learn more about how I implemented that, <a href="/blog/2022/06/implementing-authentication-in-asp.net-core-web-apis/" rel="noreferrer" target="_blank">here’s another blog post</a> describing the process.</p>
+</blockquote>
+<p>Next, we develop the <a href="https://xunit.net/docs/shared-context#class-fixture" rel="noreferrer" target="_blank">test class fixture</a> for enabling database access. We define a <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.IntegrationTests/Fixtures/DatabaseFixture.cs" rel="noreferrer" target="_blank"><code>VehicleQuotes.IntegrationTests/Fixtures/DatabaseFixture.cs</code></a> file that looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>Microsoft.EntityFrameworkCore</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.Extensions.Configuration</span>;
+</span></span><span><span><span>using</span> <span>VehicleQuotes.WebApi</span>;
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>VehicleQuotes.IntegrationTests.Fixtures</span>;
+</span></span><span><span>
+</span></span><span><span><span>// For more info about this class, check:</span>
+</span></span><span><span><span>// https://learn.microsoft.com/en-us/ef/core/testing/testing-with-the-database#creating-seeding-and-managing-a-test-database</span>
+</span></span><span><span><span>public</span> <span>class</span> <span>DatabaseFixture</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>private</span> <span>static</span> <span>readonly</span> <span>object</span> _lock = <span>new</span>();
+</span></span><span><span>    <span>private</span> <span>static</span> <span>bool</span> _databaseInitialized;
+</span></span><span><span>
+</span></span><span><span>    <span>// Initializes the database specified in the connection string defined in</span>
+</span></span><span><span>    <span>// the appsettings.Test.json file.</span>
+</span></span><span><span>    <span>public</span> DatabaseFixture()
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Tests can run in parallel. This lock is meant to make this code</span>
+</span></span><span><span>        <span>// thread safe.</span>
+</span></span><span><span>        <span>lock</span> (_lock)
+</span></span><span><span>        {
+</span></span><span><span>            <span>if</span> (!_databaseInitialized)
+</span></span><span><span>            {
+</span></span><span><span>                <span>using</span> (<span>var</span> dbContext = CreateDbContext())
+</span></span><span><span>                {
+</span></span><span><span>                    <span>// Delete the database and recreate it.</span>
+</span></span><span><span>                    dbContext.Database.EnsureDeleted();
+</span></span><span><span>                    dbContext.Database.EnsureCreated();
+</span></span><span><span>                }
+</span></span><span><span>
+</span></span><span><span>                _databaseInitialized = <span>true</span>;
+</span></span><span><span>            }
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Creates a new VehicleQuotesContext instance configured with the</span>
+</span></span><span><span>    <span>// connection string defined in the appsettings.Test.json file.</span>
+</span></span><span><span>    <span>public</span> VehicleQuotesContext CreateDbContext()
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Load up the appsettings.Test.json file</span>
+</span></span><span><span>        <span>var</span> config = <span>new</span> ConfigurationBuilder()
+</span></span><span><span>            .AddJsonFile(<span>"appsettings.Test.json"</span>)
+</span></span><span><span>            .Build();
+</span></span><span><span>
+</span></span><span><span>        <span>// Create an instance of DbContextOptions using the connection string</span>
+</span></span><span><span>        <span>// defined in the appsettings.Test.json file.</span>
+</span></span><span><span>        <span>var</span> options = <span>new</span> DbContextOptionsBuilder&lt;VehicleQuotesContext&gt;()
+</span></span><span><span>            .UseNpgsql(config.GetConnectionString(<span>"VehicleQuotesContext"</span>))
+</span></span><span><span>            .UseSnakeCaseNamingConvention()
+</span></span><span><span>            .Options;
+</span></span><span><span>
+</span></span><span><span>        <span>var</span> dbContext = <span>new</span> VehicleQuotesContext(options);
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> dbContext;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Runs the given "test" within a database transaction created using the</span>
+</span></span><span><span>    <span>// given "dbContext". It rolls back the transaction when the "test" is done.</span>
+</span></span><span><span>    <span>public</span> <span>async</span> Task WithTransaction(VehicleQuotesContext dbContext, Func&lt;Task&gt; test)
+</span></span><span><span>    {
+</span></span><span><span>        dbContext.Database.BeginTransaction();
+</span></span><span><span>
+</span></span><span><span>        <span>try</span>
+</span></span><span><span>        {
+</span></span><span><span>            <span>await</span> test.Invoke();
+</span></span><span><span>        }
+</span></span><span><span>        <span>catch</span>
+</span></span><span><span>        {
+</span></span><span><span>            <span>throw</span>;
+</span></span><span><span>        }
+</span></span><span><span>        <span>finally</span>
+</span></span><span><span>        {
+</span></span><span><span>            dbContext.Database.RollbackTransaction();
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>I’ve made sure to include some comments on that class trying to explain what it does, so feel free to review. Much of it was inspired by <a href="https://learn.microsoft.com/en-us/ef/core/testing/testing-with-the-database#creating-seeding-and-managing-a-test-database" rel="noreferrer" target="_blank">.NET’s official docs</a>.</p>
+<p>This class serves the purpose of allowing the tests suite to connect to and interact with the test database. It does so by performing three tasks:</p>
+<ol>
+<li>Resetting the database at the beginning of every test run. This happens in the constructor.</li>
+<li>Allowing the creation of new <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Data/VehicleQuotesContext.cs" rel="noreferrer" target="_blank"><code>VehicleQuotesContext</code></a> instances which connect to the test database. Tests will use that to interact with the database.</li>
+<li>Offering the capability for tests to be run within DB transactions. This makes sure they don’t affect one another, and that they encounter the database in a clean state and also leave it that way.</li>
+</ol>
+<h3 id="writing-some-integration-tests">Writing some integration tests</h3>
+<p>Now we can finally start writing some tests. Let’s start with a simple one that makes a GET request to the “fetch all quotes” endpoint that I mentioned at the beginning: <code>GET /api/Quotes</code>. The one defined in the <code>GetAll</code> method in the <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.WebApi/Controllers/QuotesController.cs" rel="noreferrer" target="_blank"><code>VehicleQuotes.WebApi/Controllers/QuotesController.cs</code></a> controller.</p>
+<p>We create a new <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/main/VehicleQuotes.IntegrationTests/Controllers/QuotesControllerTests.cs" rel="noreferrer" target="_blank"><code>VehicleQuotes.IntegrationTests/Controllers/QuotesControllerTests.cs</code></a> file and write our test in there. It looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>System.Net</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.AspNetCore.Mvc.Testing</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.AspNetCore.TestHost</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.Extensions.DependencyInjection</span>;
+</span></span><span><span><span>using</span> <span>VehicleQuotes.IntegrationTests.Fixtures</span>;
+</span></span><span><span><span>using</span> <span>VehicleQuotes.WebApi</span>;
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>GifBackend.IntegrationTests.WebApi.Controllers</span>;
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>OldQuotesControllerTests</span> : IClassFixture&lt;WebApplicationFactory&lt;Program&gt;&gt;, IClassFixture&lt;DatabaseFixture&gt;
+</span></span><span><span>{
+</span></span><span><span>    <span>private</span> <span>readonly</span> WebApplicationFactory&lt;Program&gt; _factory;
+</span></span><span><span>    <span>private</span> <span>readonly</span> VehicleQuotesContext _dbContext;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> OldQuotesControllerTests(WebApplicationFactory&lt;Program&gt; factory, DatabaseFixture database)
+</span></span><span><span>    {
+</span></span><span><span>        _factory = factory;
+</span></span><span><span>        _dbContext = database.CreateDbContext();
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> HttpClient CreateHttpClient()
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> _factory.WithWebHostBuilder(builder =&gt;
+</span></span><span><span>        {
+</span></span><span><span>            builder.ConfigureTestServices(services =&gt;
+</span></span><span><span>            {
+</span></span><span><span>                services.AddSingleton(_ =&gt; _dbContext);
+</span></span><span><span>            });
+</span></span><span><span>        })
+</span></span><span><span>        .CreateClient();
+</span></span><span><span>    }
+</span></span><span><span><span>
+</span></span></span><span><span><span>    [Fact]</span>
+</span></span><span><span>    <span>public</span> <span>async</span> Task GetQuotes_ReturnsOK()
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Arrange</span>
+</span></span><span><span>        <span>var</span> client = CreateHttpClient();
+</span></span><span><span>
+</span></span><span><span>        <span>// Act</span>
+</span></span><span><span>        <span>var</span> response = <span>await</span> client.GetAsync(<span>"/api/Quotes"</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>// Assert</span>
+</span></span><span><span>        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>First, turn your attention to the <code>GetQuotes_ReturnsOK</code> test case. Very simple as tests go, but there are a few interesting things taking place here.</p>
+<p>The test case itself is indeed simple. All it does is create an HTTP client, use it to send a GET request to the endpoint that we want to test (using the client’s <code>GetAsync</code> method), and finally validate that the response is a <code>200 OK</code>. How it does these things is the interesting part.</p>
+<p>The HTTP client is created using the <code>CreateHttpClient</code> method. This method leverages <code>_factory</code>, a <code>WebApplicationFactory&lt;Program&gt;</code> instance that’s injected by the framework into our test class. Here, the <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/generic-type-parameters" rel="noreferrer" target="_blank">generic type parameter</a> <code>Program</code> is referring to the “Program” class from the Web API project. The one we defined in the <code>Program.cs</code> file. Notice also how our test class implements the <code>IClassFixture&lt;WebApplicationFactory&lt;Program&gt;&gt;</code> interface. That’s what signals to the framework that a <code>WebApplicationFactory&lt;Program&gt;</code> instance needs to be passed/injected via the constructor. This is the way that the <code>Microsoft.AspNetCore.Mvc.Testing</code> package allows us to express that “this test class contains tests for this web application”.</p>
+<blockquote>
+<p>Full details in <a href="https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0" rel="noreferrer" target="_blank">the official docs</a>.</p>
+</blockquote>
+<p>Notice also how when creating the HTTP client, a <code>VehicleQuotesContext</code> instance is set up as a singleton service. This is key. This DB context is obtained thanks to our <code>DatabaseFixture</code>. That means that it connects to the test database. We configured it to do so. By setting it up as a service like this, we make sure that the Web API application uses that instance whenever it interacts with the database. And using that instance means that it will use the test database. Since this is the same instance that we will use within our tests, both the tests suite and the application (when running within the context of the tests) will share the same database.</p>
+<p>Long story short: This way of constructing the HTTP client and injecting our own DB context into the running application is the secret sauce that allows our tests to utilize the test instance of the database.</p>
+<p>Obtaining an instance of the <code>DatabaseFixture</code> is the same as obtaining an instance of the <code>WebApplicationFactory&lt;Program&gt;</code>: all we have to do is make our test class implement the <code>IClassFixture&lt;DatabaseFixture&gt;</code> interface and define the constructor parameter so that the framework passes it in.</p>
+<h3 id="writing-some-more-integration-tests">Writing some more integration tests</h3>
+<p>OK, now that we understand the basics, let’s write a few more test cases in order to demonstrate some other common scenarios.</p>
+<h4 id="a-test-that-writes-to-and-reads-from-the-database">A test that writes to and reads from the database</h4>
+<p>For example, here’s one that validates that the <code>GET /api/Quotes</code> endpoint actually returns the data that’s stored in the database.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>[Fact]</span>
+</span></span><span><span><span>public</span> <span>async</span> Task GetQuotes_ReturnsTheQuotesFromTheDatabase()
+</span></span><span><span>{
+</span></span><span><span>    <span>await</span> _database.WithTransaction(_dbContext, <span>async</span> () =&gt; {
+</span></span><span><span>        <span>// Arrange</span>
+</span></span><span><span>        <span>await</span> CreateNewQuote(<span>"2024"</span>, <span>"Toyota"</span>, <span>"Corolla"</span>);
+</span></span><span><span>        <span>await</span> CreateNewQuote(<span>"2024"</span>, <span>"Honda"</span>, <span>"Civic"</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>var</span> client = CreateHttpClient();
+</span></span><span><span>
+</span></span><span><span>        <span>// Act</span>
+</span></span><span><span>        <span>var</span> response = <span>await</span> client.GetAsync(<span>"/api/Quotes"</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>// Assert</span>
+</span></span><span><span>        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+</span></span><span><span>
+</span></span><span><span>        <span>var</span> quotes = <span>await</span> response.Content.ReadFromJsonAsync&lt;IEnumerable&lt;SubmittedQuoteRequest&gt;&gt;();
+</span></span><span><span>
+</span></span><span><span>        Assert.NotNull(quotes);
+</span></span><span><span>        Assert.Equal(<span>2</span>, quotes.Count());
+</span></span><span><span>
+</span></span><span><span>        Assert.Equal(<span>"2024"</span>, quotes.First().Year);
+</span></span><span><span>        Assert.Equal(<span>"Toyota"</span>, quotes.First().Make);
+</span></span><span><span>        Assert.Equal(<span>"Corolla"</span>, quotes.First().Model);
+</span></span><span><span>
+</span></span><span><span>        Assert.Equal(<span>"2024"</span>, quotes.Last().Year);
+</span></span><span><span>        Assert.Equal(<span>"Honda"</span>, quotes.Last().Make);
+</span></span><span><span>        Assert.Equal(<span>"Civic"</span>, quotes.Last().Model);
+</span></span><span><span>    });
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>private</span> <span>async</span> Task&lt;Quote&gt; CreateNewQuote(<span>string</span> year, <span>string</span> make, <span>string</span> model)
+</span></span><span><span>{
+</span></span><span><span>    <span>var</span> bodyType = <span>await</span> _dbContext.BodyTypes.SingleAsync(bt =&gt; bt.Name == <span>"Sedan"</span>);
+</span></span><span><span>    <span>var</span> size = <span>await</span> _dbContext.Sizes.SingleAsync(s =&gt; s.Name == <span>"Compact"</span>);
+</span></span><span><span>
+</span></span><span><span>    <span>var</span> quote = <span>new</span> Quote {
+</span></span><span><span>        Year = year,
+</span></span><span><span>        Make = make,
+</span></span><span><span>        Model = model,
+</span></span><span><span>        BodyTypeID = bodyType.ID,
+</span></span><span><span>        SizeID = size.ID,
+</span></span><span><span>        ItMoves = <span>true</span>,
+</span></span><span><span>        HasAllWheels = <span>true</span>,
+</span></span><span><span>        HasAlloyWheels = <span>false</span>,
+</span></span><span><span>        HasAllTires = <span>true</span>,
+</span></span><span><span>        HasKey = <span>true</span>,
+</span></span><span><span>        HasTitle = <span>true</span>,
+</span></span><span><span>        RequiresPickup = <span>true</span>,
+</span></span><span><span>        HasEngine = <span>true</span>,
+</span></span><span><span>        HasTransmission = <span>true</span>,
+</span></span><span><span>        HasCompleteInterior = <span>false</span>,
+</span></span><span><span>        OfferedQuote = <span>123</span>,
+</span></span><span><span>        Message = <span>"test_message"</span>,
+</span></span><span><span>        CreatedAt = DateTime.UtcNow
+</span></span><span><span>    };
+</span></span><span><span>
+</span></span><span><span>    _dbContext.Quotes.Add(quote);
+</span></span><span><span>
+</span></span><span><span>    _dbContext.SaveChanges();
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> quote;
+</span></span><span><span>}
+</span></span></code></pre></div><p>This method introduces a few more interesting features:</p>
+<ol>
+<li>It runs within a database transaction. Ensuring that any data changes are rolled back once the test is done.</li>
+<li>It uses the singleton DB context to interact with the database. Inserting new records before executing the application under test.</li>
+<li>It parses a JSON response body into a .NET object.</li>
+</ol>
+<p>In detail, here’s what it does: It uses our <code>DatabaseFixture</code>’s <code>WithTransaction</code> method to run within a database transaction. The test’s strategy is simple: it first inserts new records into the database, leveraging the <code>CreateNewQuote</code> helper method. Then it sends a request to the Web API’s <code>GET /api/Quotes</code> endpoint. Finally, in the assertion section, it validates that the response came back with the correct HTTP status code. Then it parses the JSON response body into an object, and inspects that object to make sure that it has the correct data in it — that is, it contains the database records that were inserted at the beginning of the test case.</p>
+<h4 id="a-test-that-makes-a-post-request">A test that makes a POST request</h4>
+<p>Using all these concepts, we can also write a test for the <code>POST /api/Quotes</code> endpoint. For example, here’s a test that validates that the endpoint stores new records in the database using the given payload:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>[Fact]</span>
+</span></span><span><span><span>public</span> <span>async</span> Task PostQuote_CreatesANewQuoteRecord()
+</span></span><span><span>{
+</span></span><span><span>    <span>await</span> _database.WithTransaction(_dbContext, <span>async</span> () =&gt; {
+</span></span><span><span>        <span>// Arrange</span>
+</span></span><span><span>        <span>var</span> client = CreateHttpClient();
+</span></span><span><span>
+</span></span><span><span>        Assert.Empty(_dbContext.Quotes);
+</span></span><span><span>
+</span></span><span><span>        <span>// Act</span>
+</span></span><span><span>        <span>var</span> response = <span>await</span> client.PostAsJsonAsync(
+</span></span><span><span>            <span>"/api/Quotes"</span>,
+</span></span><span><span>            <span>new</span>
+</span></span><span><span>            {
+</span></span><span><span>                Year = <span>"1990"</span>,
+</span></span><span><span>                Make = <span>"Toyota"</span>,
+</span></span><span><span>                Model = <span>"Corolla"</span>,
+</span></span><span><span>                BodyType = <span>"Sedan"</span>,
+</span></span><span><span>                Size = <span>"Compact"</span>,
+</span></span><span><span>                ItMoves = <span>true</span>,
+</span></span><span><span>                HasAllWheels = <span>true</span>,
+</span></span><span><span>                HasAlloyWheels = <span>false</span>,
+</span></span><span><span>                HasAllTires = <span>true</span>,
+</span></span><span><span>                HasKey = <span>true</span>,
+</span></span><span><span>                HasTitle = <span>true</span>,
+</span></span><span><span>                RequiresPickup = <span>false</span>,
+</span></span><span><span>                HasEngine = <span>true</span>,
+</span></span><span><span>                HasTransmission = <span>true</span>,
+</span></span><span><span>                HasCompleteInterior = <span>true</span>
+</span></span><span><span>            }
+</span></span><span><span>        );
+</span></span><span><span>
+</span></span><span><span>        <span>// Assert</span>
+</span></span><span><span>        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+</span></span><span><span>
+</span></span><span><span>        Assert.Single(_dbContext.Quotes);
+</span></span><span><span>
+</span></span><span><span>        <span>var</span> quote = _dbContext.Quotes.First();
+</span></span><span><span>        Assert.NotNull(quote);
+</span></span><span><span>        Assert.Equal(<span>"1990"</span>, quote.Year);
+</span></span><span><span>        Assert.Equal(<span>"Toyota"</span>, quote.Make);
+</span></span><span><span>        Assert.Equal(<span>"Corolla"</span>, quote.Model);
+</span></span><span><span>    });
+</span></span><span><span>}
+</span></span></code></pre></div><p>The only new concept that this test introduces is the use of the HTTP client’s <code>PostAsJsonAsync</code> method to send POST requests. Notice how we can send any payload we want using an <a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types" rel="noreferrer" target="_blank">anonymous object</a>. In the assertion phase, the test queries the database to check if the expected record was inserted.</p>
+<p>All of this is made possible by the singleton <code>VehicleQuotesContext</code> instance. Both test code and application code are talking to the test database. And thanks to the transactions, each test cleans up after it’s done so that the next test can run with a clean slate.</p>
+<h4 id="a-test-that-makes-many-requests">A test that makes many requests</h4>
+<p>We can also write tests that span multiple requests. Here’s one for example that registers a new user account and logs in, so that it can then be allowed access to a secure endpoint:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>System.Net.Http.Headers</span>;
+</span></span><span><span>
+</span></span><span><span><span>// ...</span>
+</span></span><span><span><span>
+</span></span></span><span><span><span>[Fact]</span>
+</span></span><span><span><span>public</span> <span>async</span> Task GetQuotesSecure_ReturnsOK_WhenTheUserHasLoggedIn()
+</span></span><span><span>{
+</span></span><span><span>    <span>await</span> _database.WithTransaction(_dbContext, <span>async</span> () =&gt; {
+</span></span><span><span>        <span>// Arrange</span>
+</span></span><span><span>        <span>var</span> client = CreateHttpClient();
+</span></span><span><span>
+</span></span><span><span>        <span>await</span> RegisterUser(client);
+</span></span><span><span>        <span>var</span> response = <span>await</span> Login(client);
+</span></span><span><span>        <span>var</span> authResponse = <span>await</span> response.Content.ReadFromJsonAsync&lt;AuthenticationResponse&gt;();
+</span></span><span><span>
+</span></span><span><span>        Assert.NotNull(authResponse);
+</span></span><span><span>
+</span></span><span><span>        <span>// Act</span>
+</span></span><span><span>        <span>using</span> <span>var</span> requestMessage = <span>new</span> HttpRequestMessage(HttpMethod.Get, <span>"/api/Quotes/Secure"</span>);
+</span></span><span><span>        requestMessage.Headers.Authorization = <span>new</span> AuthenticationHeaderValue(<span>"Bearer"</span>, authResponse.Token);
+</span></span><span><span>
+</span></span><span><span>        response = <span>await</span> client.SendAsync(requestMessage);
+</span></span><span><span>
+</span></span><span><span>        <span>// Assert</span>
+</span></span><span><span>        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+</span></span><span><span>    });
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>private</span> <span>async</span> Task&lt;HttpResponseMessage&gt; RegisterUser(HttpClient client)
+</span></span><span><span>{
+</span></span><span><span>    <span>var</span> response = <span>await</span> client.PostAsJsonAsync(
+</span></span><span><span>        <span>"/api/Users"</span>,
+</span></span><span><span>        <span>new</span>
+</span></span><span><span>        {
+</span></span><span><span>            UserName = <span>"test_user_name"</span>,
+</span></span><span><span>            Password = <span>"test_password"</span>,
+</span></span><span><span>            Email = <span>"test@email.com"</span>
+</span></span><span><span>        }
+</span></span><span><span>    );
+</span></span><span><span>
+</span></span><span><span>    Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> response;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>private</span> <span>async</span> Task&lt;HttpResponseMessage&gt; Login(HttpClient client)
+</span></span><span><span>{
+</span></span><span><span>    <span>var</span> response = <span>await</span> client.PostAsJsonAsync(
+</span></span><span><span>        <span>"/api/Users/BearerToken"</span>,
+</span></span><span><span>        <span>new</span>
+</span></span><span><span>        {
+</span></span><span><span>            UserName = <span>"test_user_name"</span>,
+</span></span><span><span>            Password = <span>"test_password"</span>
+</span></span><span><span>        }
+</span></span><span><span>    );
+</span></span><span><span>
+</span></span><span><span>    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> response;
+</span></span><span><span>}
+</span></span></code></pre></div><p>This test is a little more complicated and introduces a few new concepts. All within its own database transaction, this test:</p>
+<ol>
+<li>Uses the <code>RegisterUser</code> helper method to register a new user account. It calls the <code>POST /api/Users</code> endpoint for this.</li>
+<li>Uses the <code>Login</code> helper method to log in. In our demo Web API project, this means obtaining a token that can be used for <a href="https://swagger.io/docs/specification/authentication/bearer-authentication/" rel="noreferrer" target="_blank">Bearer Token authentication</a>. It calls the <code>POST /api/Users/BearerToken</code> endpoint for this.</li>
+<li>Extracts the generated token from the response, and prepares a new request for the <code>GET /api/Quotes/Secure</code> endpoint using that token as an authentication header.</li>
+<li>Sends the request and validates that it results in a successful HTTP status code.</li>
+</ol>
+<p>Notice that we had to use the HTTP client’s more verbose <code>SendAsync</code> method instead of the more convenient <code>GetAsync</code>. This is because <code>GetAsync</code> doesn’t support sending headers, which we needed.</p>
+<h4 id="disabling-some-application-services">Disabling some application services</h4>
+<p>Before we’re done here, something useful about this approach is that it is possible to disable some services on the application under test. We’ve been writing full integration tests where all system components are exercised. It could be the case, however, that we would like to exclude some components from testing. For example, if the app under test sends emails, we might want to disable that. Or if it invokes another third party service, we might want the tests to not do that.</p>
+<p>Because we’re able to inject services of our choosing to the running application (like we do with the DB context), it’s certainly possible for us to disable parts of the system. For example, imagine an application that sends emails using an <code>IMailer</code> derived class. One could inject a <a href="https://en.wikipedia.org/wiki/Null_object_pattern" rel="noreferrer" target="_blank">null object</a> in its place. We could do this when creating the test HTTP client. Something like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>private</span> HttpClient CreateHttpClient()
+</span></span><span><span>{
+</span></span><span><span>    <span>// Disable emails for integration tests</span>
+</span></span><span><span>    <span>var</span> mockMailer = <span>new</span> Mock&lt;IMailer&gt;();
+</span></span><span><span>    mockMailer.Setup(m =&gt; m.SendMailAsync()).ReturnsAsync(<span>true</span>);
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> _factory.WithWebHostBuilder(builder =&gt;
+</span></span><span><span>    {
+</span></span><span><span>        builder.ConfigureTestServices(services =&gt;
+</span></span><span><span>        {
+</span></span><span><span>            services.AddSingleton(_ =&gt; _dbContext);
+</span></span><span><span>            services.AddTransient(_ =&gt; mockMailer.Object);
+</span></span><span><span>        });
+</span></span><span><span>    })
+</span></span><span><span>    .CreateClient();
+</span></span><span><span>}
+</span></span></code></pre></div><p>Here, I created a <a href="https://en.wikipedia.org/wiki/Mock_object" rel="noreferrer" target="_blank">mock object</a> of the same type as the “Mailer” service that the application uses; then I added it to its <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection" rel="noreferrer" target="_blank">Dependency Injection container</a>. Now, every time the application calls for an <code>IMailer</code> instance, it will get the mock. A mock that does nothing.</p>
+<p>And that’s it! I think a good amount of integration tests will end up utilizing and remixing various combinations of these basic concepts. I invite you to look at <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/5f971115e871f9d60792b825b4b9f590600b529b" rel="noreferrer" target="_blank">the demo app’s source code on GitHub</a>, where I’ve added a few more tests. I also did some refactoring to make these features a little easier to reuse. Happy testing!</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-05-13T00:00:00.000Z>13 May 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

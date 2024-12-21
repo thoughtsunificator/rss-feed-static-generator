@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Experimental address bar deduplication, better auto-open Picture-in-Picture, and more – These Weeks in Firefox: Issue 170</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/11/19/experimental-address-bar-deduplication-better-auto-open-picture-in-picture-and-more-these-weeks-in-firefox-issue-170/">Go to article URL</a>
+		<div id="content"><p></p><h3 dir="ltr">Highlights</h3>
+<ul>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920799" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1920799&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw21iLJYLJeLMcNh7n-4XOkG">A new messaging surface</a> for the AppMenu and PXI menu is landing imminently so that we can experiment with some messages to help users understand the value of signing up for / signing into a Mozilla account</li>
+</ul>
+<p></p>
+<ul>
+<li role="presentation">mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920097" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1920097&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw22C21CBQjeASXgurPdUDhS">landed a patch</a> to make the heuristics for the automatic Picture-in-Picture feature a bit smarter. This should make it less likely to auto-pip silent or small videos.</li>
+<li role="presentation">Moritz fixed an older bug for the address bar where duplicate Google Docs results had been appearing in the address bar dropdown. This fix is currently behind a disabled pref – people are free to test the behavior flipping browser.urlbar.deduplication.<wbr>enabled to true, and feedback is welcome. We’re still investigating UI treatments to eventually show the duplicates. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1389229" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1389229&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3E2DPryHtp1ZqCdXusvfsD">1389229</a>)</li>
+</ul>
+<h3 dir="ltr">Friends of the Firefox team</h3>
+<h4 dir="ltr">Resolved bugs (excluding employees)</h4>
+<p dir="ltr"><a href="https://github.com/niklasbaumgardner/NewContributorScraper" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://github.com/niklasbaumgardner/NewContributorScraper&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1RwingDqKLG13IqHsoNZiJ">Script to find new contributors from bug list</a></p>
+<h4 dir="ltr">Volunteers that fixed more than one bug</h4>
+<ul>
+<li dir="ltr" role="presentation">Gregory Pappas [:gregp]</li>
+</ul>
+<h4 dir="ltr">New contributors (🌟 = first patch)</h4>
+<ul>
+<li dir="ltr" role="presentation">🌟&nbsp;bootleq <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905331" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1905331&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1N6IuqH-znFQ1HqiPnuLU6">moved findbar sound handling</a> to new JS module</li>
+<li dir="ltr" role="presentation">🌟&nbsp;Diego Ciudad Real <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878737" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1878737&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw2i5V-Qbrw6j6MVjWg4SdvU">replaced broken panel-list link</a> with working link</li>
+<li dir="ltr" role="presentation">🌟&nbsp;abhijeetchawla[:ff2400t] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1855165" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1855165&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1-msZ9IHOcJ3PHa3KPTr9B">used MermaidJS to replace ASCII based</a> Inspector Panel architecture diagram</li>
+<li dir="ltr" role="presentation">🌟&nbsp;Haoran Tang fixed a bug to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1838422" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1838422&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3E3iB-4Mm1s7xHJW1U1YlP">ensure target language persists</a> when reopening the translations panel</li>
+</ul>
+<h3 dir="ltr">Project Updates</h3>
+<h4 dir="ltr">Add-ons / Web Extensions</h4>
+<h5 dir="ltr">Addon Manager &amp; about:addons</h5>
+<ul>
+<li dir="ltr" role="presentation">Soft-blocks support re-introduced in the Add-ons Blocklist v3 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917845" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1917845&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw0MhpfiCtcx5941Y7__R5w6">Bug 1917845</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917846" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1917846&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw03ZOUjzEMyDX7Acufx0VSl">Bug 1917846</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921483" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921483&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3vkrsba699WMcxS08onB4T">Bug 1921483</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923268" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1923268&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1pLXpLh4J9tyQ3vRiFDv_G">Bug 1923268</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917852" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1917852&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3CyFqlw43pRbstqlfS6NZd">Bug 1917852</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917859" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1917859&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3I4mAMfI4yJ7WrqQ8yWHLj">Bug 1917859</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1922369" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1922369&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw2fhEEg3FcbqE_1OtZnS_Zw">Bug 1922369</a>)</li>
+<li dir="ltr" role="presentation">The add-ons Install and Optional Permissions dialogs list all the domains the extension has access to (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1911163" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1911163&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw0MieYpm0Tt70f9PM4kNmPE">Bug 1911163</a>)</li>
+</ul>
+<h5 dir="ltr">WebExtensions Framework</h5>
+<ul>
+<li dir="ltr" role="presentation">Thanks to Florian for moving WebExtensions and AddonsManager telemetry probes away from the legacy telemetry API (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920073" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1920073&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw08FtBoHRFt8AR5UAyuM9N_">Bug 1920073</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923015" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1923015&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3k4HIsb-HN3D0riJI-SjcG">Bug 1923015</a>)</li>
+</ul>
+<h5 dir="ltr">WebExtension APIs</h5>
+<ul>
+<li dir="ltr" role="presentation">The cookies API will be sorting cookies according to <a href="https://datatracker.ietf.org/doc/html/rfc6265#section-5.4" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://datatracker.ietf.org/doc/html/rfc6265%23section-5.4&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw2faur8UMJGp38xWZJvw93o">RFC 6265</a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1818968" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1818968&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1GFF830k0KksR11m-rZmHU">Bug 1818968</a>), fixing a small chrome incompatibility issue</li>
+</ul>
+<h4 dir="ltr">Migration Improvements</h4>
+<ul>
+<li dir="ltr" role="presentation">mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923125" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1923125&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1v9gNl08p8LZwHlhBFL3cg">landed a patch to fix backup regeneration</a> when cookies are purged due to expiry or space limitations</li>
+</ul>
+<h4 dir="ltr">New Tab Page</h4>
+<ul>
+<li role="presentation">We will be running an experiment in December featuring a Fakespot feed in the vertical list on newtab. This list will show products that have been identified as high-quality, and with reliable product reviews. They will link to more detailed Fakespot product pages that will give a breakdown of the product analysis. The test is not being monetized.
+<ul>
+<li role="presentation"><em>Note: A previous version of this post featured a mockup image that predated the feature being built.</em></li>
+</ul>
+</li>
+</ul>
+<p></p>
+<h4 dir="ltr">Picture-in-Picture</h4>
+<ul>
+<li dir="ltr" role="presentation">Special shout-out to volunteer contributor def00111 who has been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1865507" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1865507&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3F4BJLhBJL4R9io0jKJ_Ep">helping</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920314" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1920314&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw07bFiqvwnL5MwK5uQkq3fP">out</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1922860" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1922860&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw0YN_JF9EfznePnreBuVQCa">with</a> our site-specific wrappers!</li>
+</ul>
+<h4 dir="ltr">Search and Navigation</h4>
+<ul>
+<li dir="ltr" role="presentation">2024 Address Bar Updates (previously known as “Project Scotch Bonnet”)
+<ul>
+<li dir="ltr" role="presentation">Intuitive Search Keywords
+<ul>
+<li dir="ltr" role="presentation">Mandy added new telemetry related to intuitive search keywords (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919180" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1919180&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw01LtpZTxRU3z8LO4XvTjjp">1919180</a>)</li>
+<li dir="ltr" role="presentation">Mandy also landed a patch to list the keywords in the results panel when a user types `@` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921549" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921549&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw37PLHCut9dHJvdSjxpjlCk">1921549</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Unified Search Button
+<ul>
+<li dir="ltr" role="presentation">Daisuke refined our telemetry so that user interactions with the unified search button are differentiated from user interactions with the original one-off search button row (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919857" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1919857&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw3Hg6_eT1P7F7atQSCVrvLX">1919857</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Persisted Search
+<ul>
+<li dir="ltr" role="presentation">James fixed a bug related to persisting search terms for non-default search engines (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921092" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921092&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw2zH0sFwZ-roEFNSvM5hz-x">1921092</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Search Config v2
+<ul>
+<li dir="ltr" role="presentation">Moritz landed a patch that streamlines how we handle search parameter names for search engine URLs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895934" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1895934&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw26XR95d_mfk4_F1ywmP6r_">1895934</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Search &amp; Suggest
+<ul>
+<li dir="ltr" role="presentation">Nan landed a patch that allows us to integrate a user-interest-based relevance ranking into the address bar suggestions we receive from our Merino server (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923187" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1923187&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw10Irt8YvCr0eXOJ1boXBGW">1923187</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Places Database
+<ul>
+<li dir="ltr" role="presentation">Daisuke landed a series of patches so that the Places database no longer fetches any icons over the network. Now that icon fetching is delegated to consumers which have better knowledge about how to do it in a safer way. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1894633" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1894633&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw0OqUQkuIMyyAZVSs2rUWK2">1894633</a>)</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Favicons
+<ul>
+<li dir="ltr" role="presentation">Yazan landed several patches related to favicons which improve the way we pick a best favicon, avoiding excessive downscaling of large favicons that could make the favicon unrecognizable. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1494016" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1494016&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1iH3n_Znmo_cqHUPizm82Z">1494016</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1556396" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1556396&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw2yF7cBm0IhCgqR17OS9UR9">1556396</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923175" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1923175&amp;source=gmail&amp;ust=1732123770468000&amp;usg=AOvVaw1nnIe3CUcqnP3b-nO4-KDS">1923175</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-19T19:45:08.000Z>19 November 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>
