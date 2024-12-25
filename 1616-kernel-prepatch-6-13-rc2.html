@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Kernel prepatch 6.13-rc2</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1001435/">Go to article URL</a>
+		<div id="content"><p></p>The <a href="https://lwn.net/Articles/1001434/" rel="noreferrer" target="_blank">6.13-rc2</a> kernel prepatch is out for
+testing.  "<q>The diffstat looks a bit unusual with 80%+ drivers, and a lot of it
+one-liners, but that's actually just because of a couple of automated
+scripts that got run after -rc1 for some cleanups. Nothing
+particularly interesting, but it makes for a lot of noise in the diff.</q>"
+One of those scripts was the <tt>EXPORT_SYMBOL_NS()</tt> change (to make it
+use a quoted string for the namespace name) described in <a href="https://lwn.net/Articles/998221/" rel="noreferrer" target="_blank">this article</a>.<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-09T14:31:25.000Z>9 December 2024</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

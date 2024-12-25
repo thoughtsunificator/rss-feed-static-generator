@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>New Address Bar Updates are Here – These Weeks in Firefox: Issue 172</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/11/19/new-address-bar-updates-are-here-these-weeks-in-firefox-issue-172/">Go to article URL</a>
+		<div id="content"><p></p><h3 dir="ltr">Highlights</h3>
+<ul>
+<li dir="ltr" role="presentation">Our newly updated address bar, also known as “Scotch Bonnet”, is available in Nightly builds! 🎉
+<ul>
+<li dir="ltr" role="presentation">See this <a href="https://connect.mozilla.org/t5/discussions/address-bar-updates-now-live-in-firefox-nightly/m-p/76176" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://connect.mozilla.org/t5/discussions/address-bar-updates-now-live-in-firefox-nightly/m-p/76176&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw16WsWMptBiZJx7u0jvJ58o">Connect thread</a> to find more details and share your feedback.</li>
+<li dir="ltr" role="presentation">We are working towards a change where the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928132" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928132&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw2SseZ4w4_Z5NrZyTyNOgRI">dedicated search button won’t be shown permanently</a>.</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Weather suggestions have also been enabled in Nightly. The feature is US only at this time, as part of Firefox Suggest. </li>
+<li dir="ltr" role="presentation">robwu fixed a regression introduced in Firefox 132 that was triggering the default built-in theme to be re-enabled on every browser startup – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928082" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928082&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw04Rm5AF2aQn_hZGgHuZbSW">Bug 1928082</a></li>
+<li dir="ltr" role="presentation">Love Firefox Profiler and DevTools? Check out the latest DevTools updates and see how they can better help you track down issues.</li>
+</ul>
+<h3 dir="ltr">Friends of the Firefox team</h3>
+<h4 dir="ltr"><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1810462%2C1842166%2C1926435%2C1903498%2C1810437%2C1928655%2C1920315%2C1926767%2C1928811%2C1927201%2C1855025%2C1929581%2C1893458%2C1930226" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/buglist.cgi?title%3DResolved%2520bugs%2520(excluding%2520employees)%26quicksearch%3D1810462%252C1842166%252C1926435%252C1903498%252C1810437%252C1928655%252C1920315%252C1926767%252C1928811%252C1927201%252C1855025%252C1929581%252C1893458%252C1930226&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw1Ph_bIExz2NKa9M7VvNCWg">Resolved bugs (excluding employees)</a></h4>
+<p dir="ltr"><a href="https://github.com/niklasbaumgardner/NewContributorScraper" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://github.com/niklasbaumgardner/NewContributorScraper&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw0gNy0ns7ybpZd8-DbPtNN8">Script to find new contributors from bug list</a></p>
+<h4 dir="ltr">Volunteers that fixed more than one bug</h4>
+<ul>
+<li dir="ltr" role="presentation">abhijeetchawla[:ff2400t]</li>
+<li dir="ltr" role="presentation">Collin Richards</li>
+<li dir="ltr" role="presentation">John Bieling (:TbSync)</li>
+<li dir="ltr" role="presentation">kernp25</li>
+</ul>
+<h4 dir="ltr">New contributors (🌟 = first patch)</h4>
+<ul>
+<li dir="ltr" role="presentation">🌟&nbsp;Lucas Enoki <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926767" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926767&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw2p9ptLtxcqSvpaM0GTs5Xl">removed amIAddonManager interface registration</a> in amManager.sys.mjs</li>
+<li dir="ltr" role="presentation">abhijeetchawla[:ff2400t] <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810437" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1810437&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw1AnGe72wBgSua66fVhkfd3">removed using UNSAFE_componentWillMount</a> in devtools/client/shared/<wbr>components/Frame.js and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810462" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1810462&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw0UiNfVLAu5D0YMfi6KvC8V">removed using UNSAFE_<wbr>componentWillReceiveProps</a> in devtools/client/inspector/<wbr>animation/components/<wbr>keyframes-graph/ColorPath.js</li>
+<li dir="ltr" role="presentation">🌟&nbsp;Collin Richards <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926435" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926435&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw0uBtT3LzrX9kw9RXdh9oZ6">fixed pressing escape to revert address bar</a> after clear and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928655" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928655&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw2f3QIMd9wfJ-v2544cnkcM">amended focusContentDocumentEsc test</a> for trimHttps</li>
+<li dir="ltr" role="presentation">Robert Holdsworth made <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1842166" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1842166&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw0U4gfNcr_e_mtfBfm-EmFU">Reader mode not available on PDF files</a></li>
+</ul>
+<h3 dir="ltr">Project Updates</h3>
+<h4 dir="ltr">Add-ons / Web Extensions</h4>
+<h5 dir="ltr">Addon Manager &amp; about:addons</h5>
+<ul>
+<li dir="ltr" role="presentation">As a part of <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928082" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928082&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw04Rm5AF2aQn_hZGgHuZbSW">Bug 1928082</a>, a failure hit by the new test_default_theme.js xpcshell test will ensure the default theme manifest version is in sync in both the manifest and the XPIProvider startup call to maybeInstallBuiltinAddon</li>
+</ul>
+<h5 dir="ltr">WebExtensions Framework</h5>
+<ul>
+<li dir="ltr" role="presentation">Fixed a leak in ext-theme hit when an extension was setting a per-window theme using the theme WebExtensions API – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1579943" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1579943&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw1f217DscIHNXXZxZv1TjX6">Bug 1579943</a></li>
+<li dir="ltr" role="presentation">ExtensionPolicyService <span class="il">content</span> scripts helper methods has been tweaked to fix a low frequency crash hit by ExtensionPolicyService::<wbr>ExecuteContentScripts – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916569" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916569&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw30i_4cEG5ewtrR4M9maF2x">Bug 1916569</a></li>
+<li dir="ltr" role="presentation">Fixed an unexpected issue with loading moz-extension url as subframe of the background page for extensions loaded temporarily from a directory – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926106" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926106&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw1FVtod9l5TnS-ZOgkOQUXu">Bug 1926106</a></li>
+<li dir="ltr" role="presentation">Prevent window.close() calls originated from the WebExtensions registered devtools panel to close the browser chrome window (when there is only a single tab open) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926373" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926373&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw1cpk7VwmFvp2KtxQ5O7Svv">Bug 1926373</a>
+<ul>
+<li dir="ltr" role="presentation">Thanks to Becca King for contributing this fix 🎉</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Native messaging support for snap-packaged Firefox (default on Ubuntu):
+<ul>
+<li dir="ltr" role="presentation">Thanks to Alexandre Lissy for working on finalizing the patches from <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1661935" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1661935&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw2cySwg7SBpGTvj5BgKYsqk">Bug 1661935</a></li>
+<li dir="ltr" role="presentation">Fixed a regression hit by the snap-packaged Firefox 133 build – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930119" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1930119&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw0nsQACbPyPPmPRlJOMC3vy">Bug 1930119</a></li>
+</ul>
+</li>
+</ul>
+<h5 dir="ltr">WebExtension APIs</h5>
+<ul>
+<li dir="ltr" role="presentation">Fixed a bug preventing declarativeNetRequest API dynamic rules to work correctly after a browser restart for extensions not having any static rules registered – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921353" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921353&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw15FtxWMQNrOi20ayAdlX3f">Bug 1921353</a></li>
+</ul>
+<h4 dir="ltr">DevTools</h4>
+<h5 dir="ltr">DevTools Toolbox</h5>
+<ul>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=736950" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D736950&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw1N2zB8_k7lTCdH_bAiWKB1">Abhijeet Chawla</a> updated some of our code to avoid using deprecated React lifecycle methods (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810462" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1810462&amp;source=gmail&amp;ust=1732128717587000&amp;usg=AOvVaw0UiNfVLAu5D0YMfi6KvC8V">#1810462</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810437" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1810437&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0avKI_UKNzzGXvBcEciWrq">#1810437</a>)</li>
+<li>
+<p role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=309398" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D309398&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2gdhchzE2ehVfBmLu5TiBi">Jeff Muizelaar</a> added profiler markers for debugger log points (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928514" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928514&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0nzZGjv3C44X8R0yvdRKP3">#1928514</a>)</p>
+</li>
+</ul>
+<p></p>
+<ul>
+<li>
+<p role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D283262&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1YAxp_5--Yza600uQHIZiv">Alexandre Poirot</a> added the ability to record console API calls and DOM Mutations when tracing to the profiler (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929007" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1929007&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3jzjP-N0GwMXno45UzF1Fc">#1929007</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929004" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1929004&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3BDiaZrQ2Kmbau5sglbsQ-">#1929004</a>)</p>
+</li>
+</ul>
+<p></p>
+<p></p>
+<ul>
+<li>
+<p role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D283262&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1YAxp_5--Yza600uQHIZiv">Alexandre Poirot </a>made it possible to search for traces by function call argument values (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921020" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921020&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0_CE2iBbyToJeCnnlLfEEr">#1921020</a>)</p>
+</li>
+</ul>
+<p></p>
+<ul>
+<li><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D283262&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1YAxp_5--Yza600uQHIZiv">Alexandre Poirot</a> improved webextension debugging by automatically switching to the expected document on hover when inspecting webextension UI (e.g. sidebar, popup, …) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1754452" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1754452&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw00z5GUWPBsF8Y2-z7ZoTFl">#1754452</a>)</li>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D557153&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw00VbjNU12ra24W7F3RwM6m">Nicolas Chevobbe</a> is still working on adding support for High Contrast Mode in the most used panels (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916391" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916391&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2bwC_pZdqBCoOoYuHHx2Az">#1916391</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926878" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926878&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2t5ziD9DUioaJvvacG3IRo">#1926878</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917782" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1917782&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw221xFArhisnymaHIOJKG6I">#1917782</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926794" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926794&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3Gob7ZQrbw0RlXlUPgAThR">#1926794</a>), <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926851" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926851&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw28OvPyAl7yyj7xprSZIdw8">#1926851</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926852" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926852&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2m1Wl70uket8O31cfeBz3W">#1926852</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916698" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916698&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3HKklbTliBRTMx5hkOF4bh">#1916698</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920711" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1920711&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2uyhS51BN9Ib8lAb-CMwXd">#1920711</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1927063" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1927063&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0FctH_XIAW-JhgG-s9MhPF">#1927063</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1926983" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1926983&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1iQFYQ1516maqI2-ukJILj">#1926983</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916650" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916650&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3EVEP-P6VWE5yg-4NigfXM">#1916650</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916656" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916656&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2B4kZO-g5kUaq2DawYqGlU">#1916656</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921758" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921758&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0V5pU6o5GIgZ_bMD6XC3y7">#1921758</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916682" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916682&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1e1u9z5H1I1iixxXMiG5a9">#1916682</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916693" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916693&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2aQ2kazQrOX4w3NVMNygPH">#1916693</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916721" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916721&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0XI7yAnD7SRld2moEkrhVu">#1916721</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928108" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928108&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0AsrkitZ828GsM6etjGE7t">#1928108</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916722" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916722&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2jsqoZupt65eExa67qcGNR">#1916722</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916660" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916660&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0jDGoUtkD_045jcQrc8faN">#1916660</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929200" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1929200&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw02B8VzKqXLs_gFlAtodoFe">#1929200</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929594" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1929594&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1AzKwW5XapMNQQLZO3H3tW">#1929594</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916669" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916669&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2x373WmI2OagQ7yBLo0X_w">#1916669</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929508" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1929508&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2ien0QVPO_6PiTEsbMZSFH">#1929508</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930099" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1930099&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1BtwQz9rx4FUzDwZnU61nA">#1930099</a>)</li>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=656417" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/user_profile?user_id%3D656417&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1BMByXUp6eyNZVJVVRIoa5">Hubert Boma Manilla</a> fixed the “Go to line” palette + Cmd/Ctrl+B to add a breakpoint on the line the user jumped to (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1925974" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1925974&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3eL5rG4upOLM2TG41HSPaN">#1925974</a>)</li>
+</ul>
+<h4 dir="ltr">Lint, Docs and Workflow</h4>
+<ul>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929531" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1929531&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3h8hbh16b_jr1NjFPPTgIA">A change</a> to the mozilla/reject-addtask-only has just landed on Autoland.
+<ul>
+<li role="presentation">This makes it so that when the rule is raising an issue with .only() in tests, only the .only() is highlighted, not the whole test:</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<p></p>
+<ul>
+<li dir="ltr" role="presentation">This should make it easier to develop tests whilst using .only().</li>
+<li dir="ltr" role="presentation">The <a href="https://eslint.org/docs/rules/curly" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://eslint.org/docs/rules/curly&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3FXi-4r_I2YECVahnmLg8u">ESLint curly</a> rule has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1927798" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1927798&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2L28CeVrTUGk_Bq9PNsZ8y">now been re-enabled</a>, after it was accidentally disabled.</li>
+</ul>
+<h4 dir="ltr">Migration Improvements</h4>
+<ul>
+<li dir="ltr" role="presentation">mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1924095" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1924095&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw01svqyewl_hcyYqWtmTKj2">landed a patch that makes it so that automatic backups don’t get regenerated if a cookie expires “naturally”</a></li>
+<li dir="ltr" role="presentation">mconley also landed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908727" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1908727&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2CRoxxzfAOnQrTewFBPYvR">some</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908732" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1908732&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw3P2dG2wyKEEw7quQQwjkk1">probes</a> to get a sense of how the backup service is performing in the wild, and what errors it is hitting</li>
+</ul>
+<h4 dir="ltr">New Tab Page</h4>
+<ul>
+<li dir="ltr">
+<p dir="ltr" role="presentation">The team is working on some new section layout and organization variations – specifically, we’re testing whether or not recommended stories should be grouped into various configurable topic sections. Stay tuned!</p>
+</li>
+</ul>
+<h4 dir="ltr">Picture-in-Picture</h4>
+<ul>
+<li dir="ltr" role="presentation">Thanks to contributor kern25 for:
+<ul>
+<li dir="ltr" role="presentation">Updating our Dailymotion site-specific wrapper (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920315" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1920315&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2Sc_0gXtS8rIUzmb_RKnyd">bug</a>), which also happens to fix broken PiP captions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893737" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1893737&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw23_S8-wLWnkbTrl4dJexip">bug</a>).</li>
+<li dir="ltr" role="presentation">Updating our videojs site-specific wrapper (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1927201" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1927201&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0PMxl3-EuKmqqXFFsc-BtO">bug</a>) to recognize multiple cue elements. This fixes PiP captions rendering incorrectly on Windows for some sites.</li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">Search and Navigation</h4>
+<ul>
+<li dir="ltr" role="presentation">Scotch Bonnet
+<ul>
+<li dir="ltr" role="presentation">daisuke changed shift-tab so that after focusing the address bar (e.g. ctrl-L), the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921174" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1921174&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0aEZIRh-3ArBFOb6IH65hF">dedicated search button is focused</a>.</li>
+<li dir="ltr" role="presentation">jteow fixed an issue where search mode was <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1927113" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1927113&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2w-NLWM28y8EMNBfYx9FP9">transferred to other tabs</a>.</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Address Bar
+<ul>
+<li dir="ltr" role="presentation">Yazan fixed a regression where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1927173" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1927173&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw2ixHFE0mbJBQPazmky9R3t">favicons could take a while to appear on the address bar</a>.</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Search
+<ul>
+<li dir="ltr" role="presentation">Moritz has been working on re-enabling support for the search form to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916499" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916499&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw1x8e6NCqj5B-tqGysge43N">OpenSearch engines</a> &amp; adding it to the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916505" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1916505&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw0hy5zKNurLv3KHIKK85qkN">search configuration</a>. This is accessed by shift-clicking on one of the engines under the dedicated search button, or on the engines in the separate search bar.</li>
+<li dir="ltr" role="presentation">Moritz has also been working towards improving search engine support for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1655066" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1655066&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw04Mmfnw6DR3S7Cs4HKHUum">differently sized icons</a>.</li>
+<li dir="ltr" role="presentation">Standard8 fixed some <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1928473" target="_blank" rel="noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://bugzilla.mozilla.org/show_bug.cgi?id%3D1928473&amp;source=gmail&amp;ust=1732128717588000&amp;usg=AOvVaw13KvWUY4cqnjiBFX3l35AB">no-shadow ESLint warnings and test manifest ordering warnings</a> in search code.</li>
+</ul>
+</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-19T19:47:34.000Z>19 November 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

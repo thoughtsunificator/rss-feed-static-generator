@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>My review is stuck - what now?</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/11/what-to-do-when-my-review-is-stuck.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhw7-tLrN7f3Vo38obzpenpb_gLe_Ngn8vV3dVPF8cRRIzB2j8CF8munttF9NLkybKJd1dDCfvvEp1KV7QoUcdvgXBaZ04VswrdcnkoUHqgXPyG2xX8ajVozHw3K5J2yT0hIeFUQCWtD7vf3UYpJLvx0mv_kwff1Aq3L978KQPSd1bFW0FiUmTK59Rc1xo/s1600/social1.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizuKHbBriafpnCVl8A7gazsybuVNKqwyYE1n5-RfAYhu6i5bN55iTw0LE_S0KLGWBJU9ERHgsnd9lZ3J94PhlE5hpZ5YIeBHH8PjS2yuRciaN7VgqLUISB9Ofpqst0n6tawyH6etvfFro4lqZv2X8EomVGJUTL8CSaHp0XyK3LxbJIhwi6ENKX620R4ME/s1600/header1.png" rel="noreferrer" target="_blank"></a>
+
+<h2>Troubleshooting your code reviews</h2>
+
+
+<p>Google engineers contribute <a href="https://opensource.googleblog.com/2024/08/2023-open-source-contribution-report.html" target="_blank" rel="noreferrer">thousands</a> of open source pull requests every month! With that experience, we've learned that a stuck review isn't the end of the world. Here are a few techniques for moving a change along when the frustration starts to wear on you.</p>
+
+<p>You've been working on a pull request for weeks - it implements a feature you're excited about, and sure, you've hit a few roadbumps along the review path, but you've been dealing with them and making changes to your code, and surely all this hard work will pay off. But now, you're not sure what to do: your pull request hasn't moved forward in some time, you dread working on another revision just to be pushed back on, and you're not sure your reviewers are even on your side anymore. What happened? Your feature is so cool - how are you going to land it?</p>
+
+<p>Reviews can stall for a number of reasons:</p>
+<ul>
+<li>There may be multiple solutions to the problem you're trying to solve, but none of them are ideal - or, all of them are ideal, but it’s hard to tell which one is most ideal. Or, your reviewers don't agree on which solution is right.</li>
+<li>You may not be getting any response from reviewers whatsoever. Either your previously active reviewers have disappeared, or you have had trouble attracting any in the first place.</li>
+<li>The goalposts have moved; you thought you were just going to implement a feature, but then your reviewer pointed out that your tests are poor style, and in fact, the tests in that whole suite are poor style, and you need to refactor them all before moving forward. Or, you implemented it with one approach, and your reviewer asked for a different one; after a few rounds with that different approach, another reviewer suggests you try… the approach you started with in the first place!</li>
+<li>The reviewer is asking you to make a change that you think is a bad idea, and you aren't convinced by their arguments. Or maybe it's the second reviewer who isn't convinced, and you aren't sure which side to take in their disagreement - and which approach to implement in your PR.</li>
+<li>You think the reviewer's suggestion is a good one, but when you sit down to write the code, it's toilsome, or ugly, or downright impossible to make work.</li>
+<li>The reviewer is pointing out what's wrong, but <a href="https://jonathanbecher.com/2020/08/30/the-bring-me-a-rock-phenomenon/" target="_blank" rel="noreferrer">not explaining what they want</a> instead; the reviews you are receiving aren't <a href="https://sage.thesharps.us/2014/09/01/the-gentle-art-of-patch-review/" target="_blank" rel="noreferrer">actionable, clear, or consistent</a>.</li>
+</ul>
+
+<p>These things happen <i>all the time</i>, especially in large projects where review consensus is a bit muddy. But you can't change the project overnight - and anyway, you just want your code to land! What can you do to get past these obstacles?</p><br>
+
+<h3><span><b>Step Back and Summarize the Discussion</b></span></h3>
+
+<p>As the author of your change, it's likely that you're thinking about this change all the time. You spent hours working on it; you spent hours looking through reviewer comments; you were personally impacted by the lack of this change in the codebase, because you ran into a bug or needed some functionality that didn't exist. It's easy to assume that your reviewers have the same context that you do - but they probably don't!</p>
+
+<p>You can get a lot of mileage out of reminding your reviewers what the goal of your change is in the first place. It can be really helpful to take a step back and summarize the change and discussion so far for your reviewers. For the most impact, make sure you're covering these key points:</p><br>
+
+<h4><b><span>What is the goal of your pull request?</span></b></h4>
+
+<p>Avoid being too specific, as you can limit your options: the goal isn't to add a button that does X, the goal is to make users who <a href="https://en.wikipedia.org/wiki/XY_problem" target="_blank" rel="noreferrer">need X</a> feel less pain. If your goal is to solve a problem for your day job, make sure you explain that, too - don't just say "my company needs X," say "my company's employees use this project in this way with these scaling or resource constraints, and we need X in order to do this thing."</p>
+
+<p>There will also be some goals inherent to the project. Most of the time, there is an unstated goal to keep the codebase maintainable and clean. You may need to ensure your new feature is accessible to users with disabilities. Maybe your new feature needs to perform well on low-end devices, or compile on a platform that you don't use.</p>
+
+<p>Not all of these constraints will apply to every change - but some of them will be highly relevant to your work. Make sure you restate the constraints that need to be considered for this pull request.</p><br>
+
+<h4><b><span>What constraints have your reviewers stated?</span></b></h4>
+
+
+<p>During the life of the pull request until now, you've probably received feedback from at least one reviewer. What does it seem like the reviewer cares about? Beyond individual pieces of feedback, what are their core concerns? Is your reviewer asking whether your feature is at the appropriate level because they're in the middle of a long campaign to organize the project's architecture? Are they nitpicking your error messages because they care about translatability?</p>
+
+<p>Try to <a href="https://hbr.org/2024/01/what-is-active-listening" target="_blank" rel="noreferrer">summarize the root of the concerns</a> your reviewers are discussing. By summarizing them in one place, it becomes pretty clear when there's a conflict; you can lay out constraints which mutually exclude each other here, and ask for help determining whether any may be worth discarding - or whether there's a way to meet both constraints that you hadn't considered yet.</p><br>
+
+<h4><b><span>What alternative approaches have you considered?</span></b></h4>
+<p>Before you wrote the code in the first place, you may have considered a couple different ways of approaching the problem. You probably discarded the paths not taken for a reason, but your reviewers may have never seen that reasoning. You may also have received feedback suggesting you reimplement your change with a different approach; you may or may not think that approach is better.</p>
+
+<p>Summarize all the possible approaches that you considered, and some of their pros and cons. Even better, since you've already summarized the goals and constraints that have been uncovered so far during your review, you can weigh each approach against these criteria. Perhaps it turns out the approach you discarded early on is actually the most performant one, and performance is a higher priority than you had realized at first. The community may even chime in with an approach you hadn't considered at all, but which is much more architecturally acceptable to the project.</p><br>
+
+<h4><b><span>List assumptions and remaining open questions</span></b></h4>
+
+<p>Through the process of writing this recap, you may come to some conclusions. State those explicitly - don't rely on your reviewers to come to the same conclusions you did. Now you have all the reasoning out in the open to defend your point.</p>
+
+<p>You may also be left with some open questions - like that two reviewers are in disagreement without a clear solution, or that you aren't sure how to meet a given constraint. List those questions, too, and ask for your co-contributors' help answering them.</p>
+
+<p>Here's an <a href="https://lore.kernel.org/git/20200319213902.GB45325@google.com/" target="_blank" rel="noreferrer">example</a> of a time the author did this on the Git project - it's not in a pull request, but the same techniques are used. Sometimes these summaries are so comprehensive that it's worth <a href="https://git-scm.com/docs/unit-tests" target="_blank" rel="noreferrer">checking them into the project</a> to remind future contributors how we arrived at certain decisions.</p><br>
+
+<h3><span><b>Pushing Back</b></span></h3>
+
+<p>Contributors - especially ones who are new to the project, but even long-time members - often feel like the reviewer has all the power and authority. Surely the wise veteran reviewing my code is infallible; whatever she says must be true and the best approach. But it's not so! Your reviewers are human, and they want to work together with you to come to a good solution.</p>
+
+<p>Pushing back isn't always the answer. For example, if you disagree with the project's established style, or with a direction that's already been discussed and agreed upon (like avoiding adding new dependencies unless completely necessary), trying to push back against the will of the entire project is likely fruitless - especially if you're trying to get an exception for your PR. Or if the root of your disagreement is "it works on my machine, so who cares," you probably need to think a little more broadly before arguing with your reviewer who says the code isn't portable to another platform or maintainable in the long term. Reviewers and project maintainers have to live with your code for a long time; you may be only sending one patch before moving on to another project. So in matters of maintainability, it's often best to defer to the reviewer.</p><p>
+
+</p><p>However, there are times when it could be the right move:</p>
+
+<ul>
+<li>Your reviewer's top goal is avoiding code churn, but your top goal is a tidy end state.</li>
+<li>When you try out the approach your reviewer recommended, but it is difficult for a reason they may not have anticipated.</li>
+<li>When the reviewer's feedback truly doesn't have any improvements over your existing approach, and it's purely a matter of taste. (Use caution here - push back by asking for more justification, in case you missed something!)</li>
+</ul>
+
+<p>Sometimes, after hearing pushback, your reviewer may reply pointing out something that you hadn't considered which converts you over to their way of thinking. This isn't a loss - you understand their goals better, and the quality of your PR goes up as a result. But sometimes your reviewer comes over to your side instead, and agrees that their feedback isn't actually necessary.</p><br>
+
+<h3><span><b>Lean on Reviewers for Help</b></span></h3>
+
+<p>Code reviews can feel a little bit like homework. You send your draft in; you get feedback on it; you make a bunch of changes on your own; rinse and repeat. But they don't have to be this way - it's much better to think of reviews as a team effort, where you and the reviewers are all pitching in to produce a high-quality code change. You're not being graded!</p>
+
+<p>If implementing changes based on the feedback you received is difficult - like it seems that you'll need to do a large-scale refactor to make the function interface change you were asked for - or you're running into challenges that are hard to figure out on your own - like that one test failure doesn't make any sense - you can ask for more help! Just keep in mind the usual rules of <a href="https://madelinemiller.dev/blog/open-source-software-support/" target="_blank" rel="noreferrer">asking for help</a> online:</p>
+<ul>
+<li>Use a lot of detail to describe where you're having trouble - cite the exact test that's failing or error case you're seeing.</li>
+<li>Explain what you've tried so far, and what you think the issue is.</li>
+<li>Include your in-progress code so that your reviewers can see how far you've gotten.</li>
+<li>Be polite; you're asking for help, not demanding the author change their feedback or implement it for you.</li>
+</ul>
+
+<p>Remember that if you need to, you can also ask your reviewer to switch to a different medium. It might be easier to debug a failing test over half an hour of instant messaging instead of over a week of GitHub comments; it might be easier to reason through a difficult API change with a video conference and a whiteboard. Your reviewer may be busy, but they're still a human, and they're invested in the success of your patch, too. (And if you don't think they're invested - did you try summarizing the issue, as described above? Make sure they understand where you're coming from!) Don't be afraid to ask for a bit more bandwidth if you think it'd be valuable.</p><br>
+
+<h3><span><b>Get a Second Opinion</b></span></h3>
+
+<p>When you're really, truly stuck - nobody agrees and your pushback isn't working and you met with your reviewer and they're stumped too - remember that most of the time, you and your reviewer aren't the only people working on the project. It's often possible to ask for a second opinion.</p>
+
+<p>It may sound transactional, but it's okay to offer review-for-review: "Hi Alice, I know you're quite busy, but I see that you have a PR out now; I can make time to review it, but it'd help me out a lot if you can review mine, too. Bob and I are stuck because…." This can be a win for both you and Alice!</p>
+
+<p>If you're stuck and can't come to a decision, you can also escalate. Escalation sounds scary, but it is a healthy part of a well-run project. You can talk to the project or subsystem maintainer, share a link to the conversation, and mention that you need help coming to a decision. Or, if your disagreement is with the maintainer, you can raise it with another trusted and experienced contributor the same way.</p>
+
+<p>Sometimes you may also receive comments that feel particularly harsh or insulting, especially when they're coming from a contributor you've never spoken with face-to-face. In cases like this, it can be helpful to even just get someone else to read that comment and tell you if they find it rude, too. You can ask just about anybody - your friend, your teammate at your day job - but it's best if you ask someone who has some prior context with the project or with the person who made the comment. Or, if you'd rather dig, you can examine this same reviewer's comments on other contributions - you may find that there's a language barrier, or that they're incredibly active and are pressed for time to reply to your review, or that they're just an equal-opportunity <a href="https://www.cmu.edu/news/stories/archives/2022/july/study-finds-toxicity-in-the-open-source-community-varies-from-other-online-forums" target="_blank" rel="noreferrer">jerk</a> (or <a href="https://developers.googleblog.com/en/using-research-to-make-code-review-more-equitable/" target="_blank" rel="noreferrer">not-so-equal-opportunity</a>), and your review isn't the exception.</p>
+
+<p>If you can’t find another person to help, you can read through past closed and merged PRs to see the comments – do any of them apply to your PR, and perhaps the maintainer just hasn’t had time to give you the same feedback? Remember, this might be your first PR in the project but the maintainer might think “oh I’ve given this feedback a thousand times”.</p><br>
+
+<h3><span><b>When to Give Up</b></span></h3>
+
+<p>All these techniques help put more agency back in your hands as the author of a pull request, but they're not a sure thing. You might find that no matter how many of these techniques you use, you're still stuck - or that none of these techniques seem applicable. How do you know when to quit? And when you do want to, how can you do it without burning any bridges?</p><br>
+
+<h4><b><span>What did I want out of this PR, anyway?</span></b></h4>
+<p>There are many reasons to contribute to open source, and not all of us have the same motivations. Make sure you know why you sent this change. Were you personally or professionally affected by the bug or lack of feature? Did you want to learn what it's like to contribute to open source software? Do you love the community and just feel a need to give back to it?</p>
+
+<p>No matter what your goal is, there's usually a way to achieve it without landing your pull request. If you need the change, it's always an option to fork - more on that in a moment. If you're wanting to try out contribution for the first time, but this project just doesn't seem to be working for it, you can learn from the experience and try out a different project instead - most projects love new contributors! If you're trying to help the community, but they don't want this change, then continuing to push it through isn't actually all that helpful.</p>
+
+<p>Like when you re-summarized the review, or when you pushed back on your reviewer's opinions, think deeply about your own goals - and think whether this PR is the best way to meet them. Above all, if you're finding that you dread coming back to the project, and nothing is making that feeling go away, there's absolutely nothing wrong with moving on instead.</p><br>
+
+<h4><b><span>Taking a break</span></b></h4>
+
+<p>It's not necessary for you to definitively decide to stop working on your PR. You can take a break from it! Although you'll need to rebase your work when you come back to it, your idea won't go stale from a few weeks or months in timeout, and if any strong emotions (yours or the reviewers') were playing a role, they'll have calmed down by then. You may even come back to an email from your long-lost disappeared reviewer, saying they've been out on parental leave for the last two months and they're happy to get back to your change now. And once the idea has been seeded in the project, it's not unusual for community members to say weeks or months later, talking about a different problem, "Yeah, this would be a lot easier if we picked up something like &lt;your abandoned pr&gt;, actually. Maybe we should revive that effort."</p>
+
+<p>These breaks can be helpful for everyone - but it's best practice to make sure the project knows you're stepping away. Leave a comment saying that you'll be quiet for a while; this way, a reviewer who may not know you feel stuck isn't left hanging waiting for you to resume your work.</p><br>
+
+<h4><b><span>Forking</span></b></h4>
+
+<p>For smaller projects, you often have the option of forking - a huge benefit of using open source software! You can decide whether or not to share your forked change with the world (in accordance with the license); "forking" can even mean that you just compile the project from source and use it with your own modifications on your local machine.</p>
+
+<p>And if you were working on this PR for your day job, you can maintain a soft fork of the project with those changes applied. Google even has a tool for doing this efficiently with monorepos called <a href="https://github.com/google/copybara" target="_blank" rel="noreferrer">Copybara</a>.</p>
+
+<p><b>Bonus:</b> if you use your change yourself (or give it to your users) for a period of time, and come back to the PR after a bit of a break, you now have information about your code's proven stability in the wild; this can strengthen the case for your change when you resume work on it.</p><br>
+
+<h4><b><span>Giving up responsibly</span></b></h4>
+
+<p>If you do decide you're done with the effort, it's helpful to the project for you to say so explicitly. That way, if someone wants to take over your code change and finish pushing it through, they don't need to worry about stepping on your toes in the process. If you're comfortable doing so, it can be helpful to <a href="https://lore.kernel.org/git/pull.1574.v2.git.git.1695214968.gitgitgadget@gmail.com/" target="_blank" rel="noreferrer">say why</a>:</p>
+
+<blockquote>"After 15 iterations, I've decided to instead invest my spare time in something that is moving more quickly. If anybody wants to pick up this series and run with it, you have my blessing."</blockquote>
+
+<blockquote>"It seems like Alice and I have an intractable disagreement. Since we're not able to resolve it, I'm going to let this change drop for now."</blockquote>
+
+<blockquote>"My obligations at home are ramping up for the summer and I won't have time to continue working on this until at least September. If anybody wants to take over, feel free; I'll be available to provide review, but please don't block submission on my behalf, as I'll be quite busy."</blockquote>
+
+<p>Avoid the temptation to <a href="https://www.askamanager.org/2017/10/resigning-via-cod-a-glorious-out-of-office-message-and-other-quitting-stories.html" target="_blank" rel="noreferrer">flounce</a>, though. The above samples explain your circumstances and reasoning in a way that's easy to accept; it's less productive to say something like, "It's obvious that this project has no respect for its developers. Further work on this effort is a waste of my time!" Think about how you would react to reading such an email. You'd probably dismiss it as someone who's easily frustrated, maybe feel a little guilty, but ultimately, it's unlikely that you'd make any changes.</p><br>
+
+<h3><span><b>You Are the Main Driver of Your PR</b></span></h3>
+
+<p>In the end, it's important to remember that, ultimately, the author of a pull request is usually the one most invested in the success of that pull request. When you run into roadblocks, remember these techniques to overcome them, and know that you have power to help your code keep moving forward.</p>
+
+
+<p><i>By Emily Shaffer – Staff Software Engineer</i><br>
+
+
+</p><p><small>Emily Shaffer is a Staff Software Engineer at Google. They are the tech lead of Google's development efforts on the first-party <a href="https://git-scm.com/" target="_blank" rel="noreferrer">Git</a> client, and help advise Google on participation in other open source projects in the version control space, including <a href="https://github.com/martinvonz/jj" target="_blank" rel="noreferrer">jj</a>, <a href="https://www.eclipse.org/jgit/" target="_blank" rel="noreferrer">JGit</a>, and <a href="https://github.com/google/copybara" target="_blank" rel="noreferrer">Copybara</a>. They formerly worked as a subsystem maintainer within the OpenBMC project. You can recognize Emily on most social media under the handle <span>nasamuffin</span>.</small></p>
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-12T09:00:00.000Z>12 November 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

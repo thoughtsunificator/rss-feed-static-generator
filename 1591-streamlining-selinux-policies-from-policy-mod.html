@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Streamlining SELinux Policies: From Policy Modules to Modules and Silent SELinux Denials</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/08/streamlining-selinux-policies/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- photo by Bharathi Ponnusamy -->
+<h3 id="introduction">Introduction</h3>
+<p>SELinux (Security-Enhanced Linux) provides a robust security layer that enforces security policies to control system access. When dealing with SELinux, you often encounter the terms “policy_module” and “module”. Understanding the difference between these and knowing how to convert between them is crucial for efficient system administration.</p>
+<h3 id="what-is-a-policy_module">What is a policy_module?</h3>
+<p>A policy_module in SELinux is a type of module used to define additional policies. These modules encapsulate specific security rules that can be loaded into the SELinux policy to grant or restrict permissions. Policy modules are particularly useful for adding or modifying policies without changing the base SELinux policy.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>policy_module(my_policy, 1.0)
+</span></span><span><span>
+</span></span><span><span>require {
+</span></span><span><span>    type my_app_t;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span>#============= my_app_t ==============
+</span></span><span><span>allow my_app_t my_log_t:file read;
+</span></span></code></pre></div><h3 id="what-is-a-module">What is a module?</h3>
+<p>A module in SELinux is a compiled version of a policy module. The compilation process translates the high-level policy rules into a binary format that SELinux can enforce. Modules are loaded into the SELinux policy store to extend or modify the active policy.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>module my_module 1.0;
+</span></span><span><span>
+</span></span><span><span>require {
+</span></span><span><span>    type my_app_t;
+</span></span><span><span>    class file { read write };
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span>#============= my_app_t ===============
+</span></span><span><span>allow my_app_t my_log_t:file { read write };
+</span></span></code></pre></div><h3 id="converting-policy_module-to-module">Converting policy_module to module</h3>
+<p>In many scenarios, it’s necessary to convert a policy_module to a module. This conversion ensures compatibility and avoids the need for additional utilities such as selinux-polgenui.</p>
+<p>Here’s how you can do it:</p>
+<p>Create a <code>.te</code> file. This file contains the policy rules.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>policy_module(my_policy, 1.0)
+</span></span><span><span>
+</span></span><span><span>require {
+</span></span><span><span>    type my_app_t;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span>#============= my_app_t ==============
+</span></span><span><span>allow my_app_t my_log_t:file read;
+</span></span></code></pre></div><p>Compile the policy module. Use the <code>checkmodule</code> and <code>semodule_package</code> tools to compile the policy module into a module.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>checkmodule -M -m -o my_policy.mod my_policy.te
+</span></span><span><span>semodule_package -o my_policy.pp -m my_policy.mod
+</span></span></code></pre></div><p>Load the module. Use <code>semodule</code> to load the compiled module into SELinux (using <code>-i</code> for “install”).</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>semodule -i my_policy.pp
+</span></span></code></pre></div><h3 id="the-silent-blocks-of-selinux">The silent blocks of SELinux</h3>
+<p>Sometimes, SELinux can quietly block your software, leading to silent failures. This can be particularly tricky because SELinux usually logs issues in <code>/var/log/audit/auditd.log</code> or <code>/var/log/messages</code>. However, if a permission or property has the dontaudit setting applied, it won’t be logged, making it harder to troubleshoot.</p>
+<p>In many cases, system administrators expect SELinux to be vocal about problems. When SELinux doesn’t log an issue due to dontaudit, it can quietly block your software without any visible errors.</p>
+<h3 id="troubleshooting-silent-blocks">Troubleshooting silent blocks</h3>
+<p>To diagnose whether SELinux is causing a problem, you can temporarily set SELinux to “permissive” mode:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>setenforce 0
+</span></span></code></pre></div><p>If your script works in permissive mode and stops when you switch back to enforcing mode (with <code>setenforce 1</code>), SELinux is likely the culprit.</p>
+<p>The next step is to temporarily disable dontaudit settings by building all policy modules with the <code>-D</code>/<code>--disable_dontaudit</code> option.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>semodule -DB
+</span></span></code></pre></div><p>This command will allow you to collect all the failing rules related to your problem. You can then use these logs to create a custom SELinux module.</p>
+<p>After you’ve finished creating your module, re-enable the dontaudit silencing feature by rebuilding policy modules:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>semodule -B
+</span></span></code></pre></div><p>This prevents your logs from becoming cluttered with too many messages.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-26T00:00:00.000Z>26 August 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

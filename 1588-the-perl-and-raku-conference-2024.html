@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>The Perl and Raku Conference 2024</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/08/the-perl-and-raku-conference-2024/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p>
+Next Generation of Perl</p>
+<!--Photo by Andrew Baerg, 2024.--->
+<p>I attended <a href="https://tprc.us/tprc-2024-las/" rel="noreferrer" target="_blank">The Perl and Raku Conference</a> in Las Vegas, NV, which took place June 25–28, 2024. It was HOT outside (over 40 °C/110 °F) but we stayed cool inside at the Alexis Park Resort.</p>
+<p><a href="https://curtispoe.org/" rel="noreferrer" target="_blank">Curtis Poe (Ovid)</a> got things started with the keynote encouraging us to <a href="https://www.youtube.com/watch?v=22-7yP0inu8" rel="noreferrer" target="_blank">Party Like It’s 19100+e^iπ</a>, and reminded us that Vegas is lexically scoped (what happens in Vegas stays in Vegas)! More importantly he reminded us that Perl is about people, not just the technology. The Perl community has been <a href="https://bit.ly/perl-events" rel="noreferrer" target="_blank">meeting all over the world</a> since 1999, with this being the 25th anniversary of the first The Perl Conference (aka YAPC::NA).</p>
+<p>
+Ovid Keynote</p>
+<!--Photo by Andrew Baerg, 2024.--->
+<p>Meeting in person with people who you interact with primarily through digital channels, code commits, and <a href="https://metacpan.org" rel="noreferrer" target="_blank">MetaCPAN</a> documentation really highlighted the importance of the community. On the first day, I messed up timezones, showed up an hour before registration opened, and witnessed the conference organizers and core members arrive and greet each other with hugs. I also enjoyed visiting with one of the very welcoming board members of <a href="https://www.perlfoundation.org/" rel="noreferrer" target="_blank">The Perl and Raku Foundation</a> (TPRF).</p>
+<p>Many of the speakers and attendees put a “Hallway++” sticker on their badge which simply meant “talk to me, I’m here to meet and get to know people”. At breakfast one morning, I had the privilege of sitting with <a href="https://cromedome.net/" rel="noreferrer" target="_blank">Jason Crome</a>, the core maintainer of <a href="https://perldancer.org" rel="noreferrer" target="_blank">Dancer</a>, a framework that I have used extensively. It was amazing to be able to pick the brain of one of the people who has intimate knowledge of the software.</p>
+<p>
+Dancing with Cromedome</p>
+<!--Photo by Andrew Baerg, 2024.--->
+<p>The Perl community is large and diverse, which is reflected in the <a href="https://perlcommunity.org/science/" rel="noreferrer" target="_blank">Science Perl Committee</a> and the all-Perl <a href="https://koha-community.org/" rel="noreferrer" target="_blank">Koha Library Software</a> in use at over 4,000 libraries and with its own annual conference. It was cool to hear about the <a href="https://leejo.github.io/acme-glue-talk/presentation.html#1" rel="noreferrer" target="_blank">Glue Photo Project</a>, making <a href="https://github.com/ology/Perl-Algorithmic-Music-2024" rel="noreferrer" target="_blank">algorithmic music</a>, and gaming with the <a href="https://youtu.be/7wTmA4xm6i4" rel="noreferrer" target="_blank">TinyNES</a>.</p>
+<p>Every community will experience conflict and this one is no different. The impact of <a href="https://youtu.be/Q1H9yKf8BI0" rel="noreferrer" target="_blank">Sawyer’s resignation at TPRC 2023</a> could be felt at this conference, and in response the community is focused on making things better with a <a href="https://news.perlfoundation.org/post/new-standaards-of-conduct" rel="noreferrer" target="_blank">new standards of conduct</a>.</p>
+<p>It wouldn’t be a conference in 2024 without talk of AI. We had some <a href="https://youtu.be/y3llSkCJnWk" rel="noreferrer" target="_blank">Musings on Generative AI</a> and an introduction to <a href="https://youtu.be/Agw6E1omIvY" rel="noreferrer" target="_blank">PerlGPT, A Code Llama LLM Fine-Tuned For Perl</a>.</p>
+<p>There were, of course, a lot of talks about actual Perl code!</p>
+<p>One of the things I enjoy about attending conferences is discovering things that I wasn’t looking for. <a href="https://blogs.perl.org/users/chad_exodist_granum/" rel="noreferrer" target="_blank">Chad Granum</a> gave a lightning talk on <a href="https://metacpan.org/pod/goto::file" rel="noreferrer" target="_blank">goto::file</a> and I noticed the use of <a href="https://perldoc.perl.org/perlsyn#Plain-Old-Comments-%28Not!%29" rel="noreferrer" target="_blank">line directives</a> which can be extremely helpful in debugging <code>eval</code>ed code. For example, let’s say you are <code>eval</code>ing subs into a hashref and then calling them like so:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-perl" data-lang="perl"><span><span><span>my</span> <span>$sub1</span> = <span>"sub {\n  print 'foo';\n  print 'bar';\n print 'baz';\n}"</span>;
+</span></span><span><span><span>my</span> <span>$sub2</span> = <span>"sub {\n  print 'foo';\n  print 'bar';\n warn 'baz';\n}"</span>;
+</span></span><span><span><span>my</span> <span>$Sub</span> = {
+</span></span><span><span>  sub1 =&gt; <span>eval</span> <span>$sub1</span>,
+</span></span><span><span>  sub2 =&gt; <span>eval</span> <span>$sub2</span>,
+</span></span><span><span>};
+</span></span><span><span><span>$Sub</span>-&gt;{sub1}-&gt;();
+</span></span><span><span><span>$Sub</span>-&gt;{sub2}-&gt;();
+</span></span></code></pre></div><p>Any warn or die output will give you a line number, but no context as to which sub it originated from:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sh" data-lang="sh"><span><span>baz at (<span>eval</span> 2) line 4.
+</span></span></code></pre></div><p>Making use of a line directive when <code>eval</code>ing the subs like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-perl" data-lang="perl"><span><span><span>my</span> <span>$sub1</span> = <span>"sub {\n  print 'foo';\n  print 'bar';\n print 'baz';\n}"</span>;
+</span></span><span><span><span>my</span> <span>$sub2</span> = <span>"sub {\n  print 'foo';\n  print 'bar';\n warn 'baz';\n}"</span>;
+</span></span><span><span><span>my</span> <span>$Sub</span> = {
+</span></span><span><span>  sub1 =&gt; <span>eval</span> <span>qq(#line 1 "sub1"\n$sub1)</span>,
+</span></span><span><span>  sub2 =&gt; <span>eval</span> <span>qq(#line 1 "sub2"\n$sub2)</span>,
+</span></span><span><span>};
+</span></span><span><span><span>$Sub</span>-&gt;{sub1}-&gt;();
+</span></span><span><span><span>$Sub</span>-&gt;{sub2}-&gt;();
+</span></span></code></pre></div><p>Will now result in a much more friendly:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>baz at sub2 line 4.
+</span></span></code></pre></div><p>And in true open source fashion, this has been turned into a <a href="https://github.com/interchange/interchange/pull/150" rel="noreferrer" target="_blank">pull request for Interchange</a>!</p>
+<p>
+The Las Vegas Sphere</p>
+<!--Photo by Andrew Baerg, 2024.--->
+<p>I always enjoy hearing from others in the community about <a href="https://metacpan.org" rel="noreferrer" target="_blank">CPAN modules</a> that are in their toolbox. I learned about <a href="https://metacpan.org/pod/DBIx::QuickDB" rel="noreferrer" target="_blank">DBIx::QuickDB</a>, which you can use to spin up a database server on the fly, which removes the need for a running database server for tests, and also enables running concurrent tests which require a database server that would otherwise conflict. Combine this with a <a href="https://metacpan.org/pod/DBIx::Class" rel="noreferrer" target="_blank">DBIx::Class</a> schema and <a href="https://metacpan.org/pod/DBIx::Class::Fixtures" rel="noreferrer" target="_blank">DBIx::Class::Fixtures</a> and you have a very nice way to run some tests against fixed data:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-perl" data-lang="perl"><span><span><span>use</span> <span>DBIx::QuickDB</span> PSQL_DB  =&gt; {driver =&gt; <span>'PostgreSQL'</span>};
+</span></span><span><span><span>my</span> <span>$dbh</span> = <span>PSQL_DB</span>-&gt;<span>connect</span>;
+</span></span><span><span><span>$schema</span> = <span>Some::Schema</span>-&gt;<span>connect</span>( <span>sub</span> { <span>$dbh</span> }, { on_connect_do =&gt; [<span>"..."</span>] } );
+</span></span><span><span><span>$schema</span>-&gt;deploy();
+</span></span><span><span><span>my</span> <span>$fixtures</span> = <span>DBIx::Class::Fixtures</span>-&gt;<span>new</span>({ config_dir =&gt; <span>'...'</span> });
+</span></span><span><span><span>$fixtures</span>-&gt;populate({ no_deploy =&gt; <span>1</span>, schema =&gt; <span>$schema</span>, directory =&gt; <span>'...'</span> });
+</span></span><span><span>
+</span></span><span><span>ok(<span>$schema</span>-&gt;resultset(<span>'Foo'</span>)-&gt;count &gt;= <span>1</span>, <span>'database populated'</span>);
+</span></span></code></pre></div><p><a href="http://damian.conway.org" rel="noreferrer" target="_blank">Damian Conway</a> gave a keynote on <a href="https://youtu.be/0x9LD8oOmv0" rel="noreferrer" target="_blank">The Once and Future Perl</a>, showing how far Perl has come as a language and how its rich history can be leveraged into the future: “if you can envisage what you could have done better in the past, then you can probably think of ways to make the future brighter!”.</p>
+<p>He showed off his new <a href="https://metacpan.org/pod/Multi::Dispatch" rel="noreferrer" target="_blank">Multi::Dispatch</a> module which you can use now to write incredibly extensible (and beautiful) code. Here it is in action with a simple Data::Dumper clone in 5 lines of code:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-perl" data-lang="perl"><span><span><span>use</span> <span>v5</span><span>.26</span>;
+</span></span><span><span><span>use</span> <span>Multi::Dispatch</span>;
+</span></span><span><span>
+</span></span><span><span>multi dd :before :where(VOID) (<span>@data</span>)   { say &amp;<span>next</span>::variant }
+</span></span><span><span>multi dd (<span>$k</span>, <span>$v</span>)                       { dd(<span>$k</span>) . <span>' =&gt; '</span> . dd(<span>$v</span>) }
+</span></span><span><span>multi dd (<span>$data</span> :where(ARRAY))          { <span>'['</span> . <span>join</span>(<span>', '</span>, <span>map</span> {dd(<span>$_</span>)}                 <span>@$data</span>) . <span>']'</span> }
+</span></span><span><span>multi dd (<span>$data</span> :where(HASH))           { <span>'{'</span> . <span>join</span>(<span>', '</span>, <span>map</span> {dd(<span>$_</span>, <span>$data</span>-&gt;{<span>$_</span>})} <span>keys</span> <span>%$data</span>) . <span>'}'</span> }
+</span></span><span><span>multi dd (<span>$data</span>)                        { <span>'"'</span> . <span>quotemeta</span>(<span>$data</span>) . <span>'"'</span> }
+</span></span><span><span>
+</span></span><span><span>say dd [<span>'foo'</span>, { bar =&gt; <span>"baz"</span> }];
+</span></span></code></pre></div><p>With Smartmatch (<code>given</code>/<code>when</code>) <a href="https://perldoc.perl.org/5.40.0/perldeprecation#Smartmatch" rel="noreferrer" target="_blank">scheduled for deprecation in 5.42</a> he has written a drop-in replacement that uses Multi::Dispatch: <a href="https://metacpan.org/pod/Switch::Right" rel="noreferrer" target="_blank">Switch::Right</a>, which addresses the issues with the original implementation that was in core.</p>
+<p>Also on display was the new <a href="https://perldoc.perl.org/5.40.0/perlclass" rel="noreferrer" target="_blank">class syntax</a> introduced into core in 5.38 with <code>use feature 'class'</code>. Here’s an example of how it looks:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-perl" data-lang="perl"><span><span><span>use</span> <span>v5</span><span>.40</span>;
+</span></span><span><span><span>use</span> <span>feature</span> <span>'class'</span>;
+</span></span><span><span>
+</span></span><span><span>class Point {
+</span></span><span><span>  field <span>$x</span> :param = <span>0</span>;
+</span></span><span><span>  field <span>$y</span> :param = <span>0</span>;
+</span></span><span><span>
+</span></span><span><span>  method describe () {
+</span></span><span><span>      say <span>"A point at ($x, $y)\n"</span>;
+</span></span><span><span>   }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>Point</span>-&gt;<span>new</span>(x =&gt; <span>5</span>, y =&gt; <span>10</span>)-&gt;describe;
+</span></span></code></pre></div><p>If you are waiting for Perl 7, Damian is here to tell you that the future is now; you don’t have to wait for Perl 7 (or 17), it’s Perl 5 with Multi::Dispatch and <code>use feature 'class'</code>!</p>
+<p>The last day of the conference provided an opportunity to go deeper into learning the new class syntax with a workshop on building a <a href="https://github.com/perigrin/going-rogue-class" rel="noreferrer" target="_blank">roguelike adventure game</a> from scratch.</p>
+<p>So what’s next? The <a href="https://act.yapc.eu/lpw2024/" rel="noreferrer" target="_blank">London Perl &amp; Raku Workshop</a> is taking place on October 26, 2024 and Perl 5.42 is just around the corner!</p>
+<p>—JAPH (Just Another Perl Hacker)</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-02T00:00:00.000Z>2 August 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

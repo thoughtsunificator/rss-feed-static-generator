@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Building a real-time application with SignalR, .NET, and three.js</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/01/building-real-time-app-signalr-dotnet-threejs/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p><br>
+Image by Pixabay on Pexels</p>
+<p>When data in a web application is changing in real time, users want to see those updates reflected in real time without refreshing the application. Adding real-time functionality to a .NET application is easy with the <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/signalr" rel="noreferrer" target="_blank">SignalR</a> library.</p>
+<p>Depending on the capabilities of the client and server, SignalR can use WebSockets, server-sent events, or long polling to establish a persistent connection between the client and the server. From the server side, SignalR pushes code to connected clients. SignalR is good for applications that require high-frequency updates from the server, such as real-time gaming.</p>
+<p>C# code can be used to write SignalR hubs, which easily integrate with other ASP.NET features like dependency injection, authentication, authorization, and scalability.</p>
+<h3 id="what-well-build">What we’ll build</h3>
+<p>We will learn how to use SignalR for real-time communication to send the camera position of a cube, built using <a href="https://threejs.org/" rel="noreferrer" target="_blank">three.js</a>, to all users on the page.</p>
+<p></p>
+<p>You can see the <a href="https://nifty.azurewebsites.net/" rel="noreferrer" target="_blank">demo here</a>.</p>
+<p>Here is the description of our testing app:</p>
+<ul>
+<li>A user can request control of a cube for 2 minutes</li>
+<li>Control can be released manually, or it will be automatically released after 2 minutes</li>
+<li>A user can control the camera position of cube, which will be seen by all users viewing the page</li>
+<li>When one user is controlling the cube, other users requesting control will be added to a queue</li>
+<li>Queued users will be granted control automatically when the controlling user’s time is over</li>
+</ul>
+<p>First we will create a web application and create a SignalR communication between the client and server. After that, we can implement the above features.</p>
+<h3 id="creating-the-web-application">Creating the web application</h3>
+<p>Create a new .NET application.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>&gt; dotnet new webapp -o EPSignalRControl
+</span></span></code></pre></div><p>I edited the app using VS Code:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>&gt; code .\EPSignalRControl\
+</span></span></code></pre></div><h4 id="installing-and-configuring-signalr">Installing and configuring SignalR</h4>
+<p>The SignalR server library is included in the ASP.NET Core shared framework. However, the JavaScript client library isn’t automatically included in the project. You can use Library Manager (LibMan) to get the client library from unpkg. unpkg is a fast global content delivery network for everything on npm.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>&gt; dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+</span></span><span><span>&gt; libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js
+</span></span></code></pre></div><h4 id="creating-a-signalr-hub">Creating a SignalR hub</h4>
+<p>We’ll create a <code>CameraData</code> model class for passing data between the SignalR server and client.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>CameraData</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>double</span> x { <span>get</span>; <span>set</span>; } = <span>0</span>;
+</span></span><span><span>    <span>public</span> <span>double</span> y { <span>get</span>; <span>set</span>; } = <span>0</span>;
+</span></span><span><span>    <span>public</span> <span>double</span> z { <span>get</span>; <span>set</span>; } = <span>5</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><p>We’ll also create a <code>ControlHub</code> class which inherits from <code>Hub</code>.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>Microsoft.AspNetCore.SignalR</span>;
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>EPSignalRControl.Hubs</span>;
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>ControlHub</span> : Hub
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>async</span> Task SendData(CameraData data)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Broadcast the data to all clients</span>
+</span></span><span><span>        <span>await</span> Clients.All.SendAsync(<span>"ReceiveData"</span>, data);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>The <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.signalr.hub?view=aspnetcore-8.0" rel="noreferrer" target="_blank">Hub</a> class has Clients, Context, and Groups properties:</p>
+<ul>
+<li><strong><a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.signalr.hub.clients?view=aspnetcore-8.0" rel="noreferrer" target="_blank">Clients</a></strong> can be used to invoke methods on the clients connected to this hub.</li>
+<li><strong><a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.signalr.hub.context?view=aspnetcore-8.0" rel="noreferrer" target="_blank">Context</a></strong> is the hub caller context for accessing information about the hub caller connection.</li>
+<li><strong><a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.signalr.hub.groups?view=aspnetcore-8.0" rel="noreferrer" target="_blank">Groups</a></strong> is the group manager to manage connections in groups.</li>
+</ul>
+<blockquote>
+<p>One thing to note is that hubs are transient, so we cannot store state in a property of the Hub class. Each hub method call is executed on a new Hub instance.</p>
+</blockquote>
+<p><code>Clients.All</code> calls a method on all connected clients. As a result, the control hub sends the data received from one client back to all connected clients. Similarly, we can use <code>Clients.Caller</code> to send back data to the client that invoked the hub method.</p>
+<p>Then, we need to register the services using <code>AddSignalR()</code> and configure the endpoints using <code>MapHub()</code> required by SignalR in <code>Program.cs</code></p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>EPSignalRControl.Hubs</span>;
+</span></span><span><span>
+</span></span><span><span><span>var</span> builder = WebApplication.CreateBuilder(args);
+</span></span><span><span>
+</span></span><span><span>builder.Services.AddRazorPages(); <span>// Add services to the container</span>
+</span></span><span><span>builder.Services.AddSignalR(); <span>// Register SignalR service</span>
+</span></span><span><span>
+</span></span><span><span><span>var</span> app = builder.Build();
+</span></span><span><span><span>if</span> (!app.Environment.IsDevelopment())
+</span></span><span><span>{
+</span></span><span><span>    app.UseExceptionHandler(<span>"/Error"</span>);
+</span></span><span><span>    app.UseHsts();
+</span></span><span><span>}
+</span></span><span><span>app.UseHttpsRedirection();
+</span></span><span><span>app.UseStaticFiles();
+</span></span><span><span>app.UseRouting();
+</span></span><span><span>app.UseAuthorization();
+</span></span><span><span>app.MapRazorPages();
+</span></span><span><span>
+</span></span><span><span>app.MapHub&lt;ControlHub&gt;(<span>"/controlHub"</span>); <span>// Map ControlHub to the '/controlHub' endpoint</span>
+</span></span><span><span>
+</span></span><span><span>app.Run();
+</span></span></code></pre></div><h4 id="connecting-to-signalr-hub-using-the-signalr-javascript-client-library">Connecting to SignalR Hub using the SignalR JavaScript client library</h4>
+<p>We’ll reference the SignalR JavaScript library as well as create a <code>site.js</code> file and reference it in <code>Index.cshtml</code>.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span>&lt;<span>script</span> <span>src</span>=<span>"~/js/signalr/dist/browser/signalr.js"</span>&gt;&lt;/<span>script</span>&gt;
+</span></span><span><span>&lt;<span>script</span> <span>type</span>=<span>"module"</span> <span>src</span>=<span>"~/js/site.js"</span> <span>asp-append-version</span>=<span>"true"</span>&gt;&lt;/<span>script</span>&gt;
+</span></span></code></pre></div><p>In the <code>site.js</code> file, we will:</p>
+<ul>
+<li>Connect to the control hub using the endpoint <code>/connecthub</code></li>
+<li>Start the connection with our control hub</li>
+<li>Send data to the server by invoking the <code>SendData</code> method of ControlHub</li>
+<li>Add a listener for <code>ReceiveData</code> to receive the data sent from SignalR Hub</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span><span>const</span> controlHubConnection = <span>new</span> signalR.HubConnectionBuilder()
+</span></span><span><span>    .withUrl(<span>"/controlhub"</span>)
+</span></span><span><span>    .build();
+</span></span><span><span>
+</span></span><span><span>controlHubConnection.on(<span>"ReceiveData"</span>, <span>function</span> (cameraData) {
+</span></span><span><span>    console.log(<span>`position.x = </span><span>${</span>cameraData.x<span>}</span><span>`</span>);
+</span></span><span><span>    console.log(<span>`position.y = </span><span>${</span>cameraData.y<span>}</span><span>`</span>);
+</span></span><span><span>    console.log(<span>`position.z = </span><span>${</span>cameraData.z<span>}</span><span>`</span>);
+</span></span><span><span>});
+</span></span><span><span>
+</span></span><span><span>controlHubConnection.start()
+</span></span><span><span>    .then(<span>function</span> () {
+</span></span><span><span>        console.log(<span>"Connected to ControlHub"</span>);
+</span></span><span><span>        console.log(<span>"Invoking SendData"</span>);
+</span></span><span><span>        controlHubConnection.invoke(<span>"SendData"</span>, {
+</span></span><span><span>            x: <span>100</span>,
+</span></span><span><span>            y: <span>100</span>,
+</span></span><span><span>            z: <span>100</span>
+</span></span><span><span>    })
+</span></span><span><span>    .<span>catch</span>(<span>function</span> (err) {
+</span></span><span><span>        <span>return</span> console.error(err.toString());
+</span></span><span><span>    });
+</span></span><span><span>}).<span>catch</span>(<span>function</span> (err) {
+</span></span><span><span>    console.error(<span>"Error connecting to ControlHub: "</span>, err);
+</span></span><span><span>});
+</span></span></code></pre></div><p>At this point if we run the web application, open the browser, and look at the developer tools console, we will see:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Connected to ControlHub
+</span></span><span><span>Invoking SendData
+</span></span><span><span>position.x = 100
+</span></span><span><span>position.y = 100
+</span></span><span><span>position.z = 100
+</span></span></code></pre></div><p>If we open the web application in a different tab, then in the first tab’s dev tools console we will see the position values are appended. This is because the new tab invoked <code>SendData</code> and the server received and sent back data to all connected clients.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Connected to ControlHub
+</span></span><span><span>Invoking SendData
+</span></span><span><span>position.x = 100
+</span></span><span><span>position.y = 100
+</span></span><span><span>position.z = 100
+</span></span><span><span>position.x = 100
+</span></span><span><span>position.y = 100
+</span></span><span><span>position.z = 100
+</span></span></code></pre></div><p>This is the basic way of implementing SignalR in the project to achieve real-time functionality. Now, we’ll dive deep into creating more features to extend the app to more practical usage.</p>
+<h3 id="adding-features">Adding features</h3>
+<h4 id="backend">Backend</h4>
+<p>Add a <code>ControlRequest.cs</code> model to hold the SignalR connection ID and the time of the request.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>ControlRequest</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>string</span> ConnectionId { <span>get</span>; <span>set</span>; } = <span>string</span>.Empty;
+</span></span><span><span>    <span>public</span> DateTime RequestTime { <span>get</span>; <span>set</span>; }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add two variables in <code>ControlHub.cs</code>: <code>currentControl</code> to hold the details of the current active request, and <code>controlQueue</code> to hold the requests in queue.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>private</span> <span>static</span> ControlRequest? currentControl;
+</span></span><span><span><span>private</span> <span>static</span> Queue&lt;ControlRequest&gt; controlQueue = <span>new</span> Queue&lt;ControlRequest&gt;();
+</span></span></code></pre></div><p>Add a <code>ControlTimer.cs</code> class with properties for a ConcurrentDictionary mapping of the connection ID, the ControlHub clients, the ControlHub context, and the ControlTimer object.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>System.Collections.Concurrent</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.AspNetCore.SignalR</span>;
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>ControlTimer</span> : System.Timers.Timer
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>static</span> ConcurrentDictionary&lt;<span>string</span>, ControlTimer&gt; ControlTimers = <span>new</span>();
+</span></span><span><span>    <span>public</span> HubCallerContext hubContext { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> IHubCallerClients hubCallerClients { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> ControlTimer(<span>double</span> interval) : <span>base</span>(interval) { }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add two more variables in <code>ControlHub.cs</code>:</p>
+<ul>
+<li><code>controlTimer</code> to store control timer dictionary, control hub context, and control hub clients that can be accessed during the interval of the timer that runs for the active request.</li>
+<li><code>CONTROL_TIME</code> holds the time in seconds for which the active request has control.</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>private</span> ControlTimer? controlTimer;
+</span></span><span><span><span>private</span> <span>const</span> <span>int</span> CONTROL_TIME = <span>120</span>; <span>//seconds</span>
+</span></span></code></pre></div><p>Add a <code>RequestControl</code> method to <code>ControlHub</code> that is invoked by the client to request the control. The method adds the connection ID of the invoked request to the queue, and creates and adds the control timer for the currently invoked request. If the queue has only one request, it gives control to the current request, starts the timer and sends a message to the requesting client notifying that access is granted. If the queue has more than one request, the requesting client is notified that their request is queued.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>async</span> Task RequestControl()
+</span></span><span><span>{
+</span></span><span><span>    <span>var</span> controlRequest = <span>new</span> ControlRequest
+</span></span><span><span>    {
+</span></span><span><span>        ConnectionId = Context.ConnectionId,
+</span></span><span><span>        RequestTime = DateTime.Now
+</span></span><span><span>    };
+</span></span><span><span>
+</span></span><span><span>    <span>// Add the control request to the queue</span>
+</span></span><span><span>    controlQueue.Enqueue(controlRequest);
+</span></span><span><span>
+</span></span><span><span>    <span>// Add timer to dictionary for request</span>
+</span></span><span><span>    controlTimer = <span>new</span> ControlTimer(<span>500</span>)
+</span></span><span><span>    {
+</span></span><span><span>        hubContext = Context,
+</span></span><span><span>        hubCallerClients = Clients
+</span></span><span><span>    };
+</span></span><span><span>    controlTimer = ControlTimer.ControlTimers.GetOrAdd(controlRequest.ConnectionId, controlTimer);
+</span></span><span><span>
+</span></span><span><span>    <span>// Grant control if the queue is empty or it's the first request</span>
+</span></span><span><span>    <span>if</span> (controlQueue.Count == <span>1</span> || controlQueue.Peek() == controlRequest)
+</span></span><span><span>    {
+</span></span><span><span>        currentControl = controlRequest;
+</span></span><span><span>
+</span></span><span><span>        SetupTimerForRelease(controlRequest);
+</span></span><span><span>
+</span></span><span><span>        <span>await</span> Clients.Client(controlRequest.ConnectionId).SendAsync(<span>"ControlGranted"</span>);
+</span></span><span><span>    }
+</span></span><span><span>    <span>else</span>
+</span></span><span><span>    {
+</span></span><span><span>        <span>await</span> Clients.Client(controlRequest.ConnectionId).SendAsync(<span>"ControlQueued"</span>);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add a <code>SetupTimerForRelease</code> method to add calls to the <code>ReleaseControlMiddleware</code> method on a regular interval from the running timer.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>void</span> SetupTimerForRelease(ControlRequest controlRequest)
+</span></span><span><span>{
+</span></span><span><span>    <span>if</span> (controlRequest != <span>null</span> &amp;&amp; controlTimer == <span>null</span>)
+</span></span><span><span>    {
+</span></span><span><span>        controlTimer = ControlTimer.ControlTimers.GetOrAdd(controlRequest.ConnectionId, controlTimer);
+</span></span><span><span>    }
+</span></span><span><span>    controlTimer.Elapsed += <span>new</span> ElapsedEventHandler(ReleaseControlMiddleware);
+</span></span><span><span>    controlTimer.Enabled = <span>true</span>;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>void</span> ReleaseControlMiddleware(<span>object</span> source, ElapsedEventArgs e)
+</span></span><span><span>{
+</span></span><span><span>    _ = AutoReleaseControl(source, e);
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add an <code>AutoReleaseControl</code> method, to be called by a running timer, which checks if the time for the current control has elapsed. The method sends the time remaining message to the user with control. If the time has elapsed, it calls <code>ClearTimerAndControl</code> to clear the timer and release control.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>async</span> Task AutoReleaseControl(<span>object</span> source, ElapsedEventArgs e)
+</span></span><span><span>{
+</span></span><span><span>    <span>var</span> controlTimer = (ControlTimer)source;
+</span></span><span><span>    HubCallerContext hcallerContext = controlTimer.hubContext;
+</span></span><span><span>    IHubCallerClients hubClients = controlTimer.hubCallerClients;
+</span></span><span><span>
+</span></span><span><span>    <span>if</span> (currentControl != <span>null</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> elapsedSeconds = Math.Ceiling(DateTime.Now.Subtract(currentControl.RequestTime).TotalSeconds);
+</span></span><span><span>        <span>await</span> hubClients.Client(currentControl.ConnectionId).SendAsync(<span>"ControlRemaining"</span>, CONTROL_TIME - elapsedSeconds);
+</span></span><span><span>        <span>if</span> (elapsedSeconds &gt;= CONTROL_TIME)
+</span></span><span><span>        {
+</span></span><span><span>            <span>await</span> ClearTimerAndControl(hubClients, hcallerContext);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add <code>ClearTimerAndControl</code> method which:</p>
+<ul>
+<li>Clears the timer for a given connection ID</li>
+<li>Sends a message to the controlling client informing that their control time is released</li>
+<li>Sends default camera position data to all the clients to reset the cube camera position</li>
+<li>Dequeues the current control from the queue, which is the first item</li>
+<li>Gives control to the next request in the queue</li>
+<li>Sends a message to the client who is granted the control</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>private</span> <span>async</span> Task ClearTimerAndControl(IHubCallerClients hubClients, HubCallerContext context)
+</span></span><span><span>{
+</span></span><span><span>    <span>try</span>
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Clear the timer when control is explicitly released</span>
+</span></span><span><span>        ClearControlTimer(context.ConnectionId);
+</span></span><span><span>
+</span></span><span><span>        <span>await</span> hubClients.Client(context.ConnectionId).SendAsync(<span>"ControlReleased"</span>);
+</span></span><span><span>        <span>await</span> hubClients.All.SendAsync(<span>"ReceiveData"</span>, <span>new</span> CameraData());
+</span></span><span><span>        <span>// Release control</span>
+</span></span><span><span>        currentControl = <span>null</span>;
+</span></span><span><span>
+</span></span><span><span>        <span>// Remove the first request from the queue</span>
+</span></span><span><span>        <span>if</span> (controlQueue.Count &gt; <span>0</span>)
+</span></span><span><span>            controlQueue.Dequeue();
+</span></span><span><span>
+</span></span><span><span>        <span>// Grant control to the next in the queue</span>
+</span></span><span><span>        <span>if</span> (controlQueue.Count &gt; <span>0</span>)
+</span></span><span><span>        {
+</span></span><span><span>            currentControl = controlQueue.Peek();
+</span></span><span><span>            currentControl.RequestTime = DateTime.Now;
+</span></span><span><span>            SetupTimerForRelease(currentControl);
+</span></span><span><span>            <span>await</span> hubClients.Client(currentControl.ConnectionId).SendAsync(<span>"ControlGranted"</span>, currentControl.RequestTime.ToString());
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>    <span>catch</span> (Exception ex)
+</span></span><span><span>    {
+</span></span><span><span>        <span>await</span> Clients.All.SendAsync(ex.ToString());
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add a <code>ClearControlTimer</code> method which gets the control timer of the given connection ID. Removes the <code>ReleaseControlMiddleware</code> from the control timer and disables the control timer.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>private</span> <span>void</span> ClearControlTimer(<span>string</span> connectionId)
+</span></span><span><span>{
+</span></span><span><span>    controlTimer = ControlTimer.ControlTimers.GetOrAdd(connectionId, <span>new</span> ControlTimer(<span>500</span>));
+</span></span><span><span>    <span>if</span> (controlTimer != <span>null</span>)
+</span></span><span><span>    {
+</span></span><span><span>        controlTimer.Elapsed -= <span>new</span> ElapsedEventHandler(ReleaseControlMiddleware);
+</span></span><span><span>        controlTimer.Enabled = <span>false</span>;
+</span></span><span><span>        controlTimer = <span>null</span>;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add a <code>ReleaseControl</code> method to <code>ControlHub</code>, that is invoked manually by the controlling client to release the control. It checks if the requesting client has the current control access and calls the method to clear timer.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>async</span> Task ReleaseControl()
+</span></span><span><span>{
+</span></span><span><span>    <span>if</span> (currentControl != <span>null</span> &amp;&amp; currentControl.ConnectionId == Context.ConnectionId)
+</span></span><span><span>    {
+</span></span><span><span>        <span>await</span> ClearTimerAndControl(Clients, Context);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Add a <code>SendData</code> method, which receives the data from the controlling user and then sends the received data to all the clients.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>async</span> Task SendData(CameraData cameraData)
+</span></span><span><span>{
+</span></span><span><span>    controlTimer = ControlTimer.ControlTimers.GetOrAdd(Context.ConnectionId, <span>new</span> ControlTimer(<span>500</span>));
+</span></span><span><span>    <span>if</span> (controlTimer != <span>null</span> &amp;&amp; controlTimer.hubContext != <span>null</span> &amp;&amp; Context.ConnectionId == controlTimer.hubContext.ConnectionId)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Broadcast the received sensor data to all clients</span>
+</span></span><span><span>        <span>await</span> controlTimer.hubCallerClients.All.SendAsync(<span>"ReceiveData"</span>, cameraData);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>That’s all the code required for the backend. Now let’s add to the frontend.</p>
+<h4 id="frontend">Frontend</h4>
+<p>In <code>Index.cshtml</code>, we’ll include:</p>
+<ul>
+<li>A receiver section to show the three.js cube and update the camera position using the received data from SignalR connection.</li>
+<li>A section to show the message from backend.</li>
+<li>A controller section with button to request the control using SignalR connection and show the three.js cube. The cube can be rotated with the mouse which sends the data to the backend using the SignalR connection. The backend then sends the data back to all the clients to update the cube camera position in receiver section.</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span>@page
+</span></span><span><span>@model IndexModel
+</span></span><span><span>@{
+</span></span><span><span>    ViewData["Title"] = "Home page";
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span>&lt;<span>div</span> <span>id</span>=<span>"wrapper"</span>&gt;
+</span></span><span><span>    &lt;<span>h3</span>&gt;Receiver&lt;/<span>h3</span>&gt;
+</span></span><span><span>    &lt;<span>div</span> <span>id</span>=<span>"receiver-wrapper"</span>&gt;&lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>    &lt;<span>hr</span> /&gt;
+</span></span><span><span>    &lt;<span>h3</span>&gt;Controller&lt;/<span>h3</span>&gt;
+</span></span><span><span>
+</span></span><span><span>    &lt;<span>button</span> <span>class</span>=<span>"btn btn-primary"</span> <span>id</span>=<span>"requestCtrlBtn"</span> <span>disabled</span>&gt;&lt;/<span>button</span>&gt;
+</span></span><span><span>    &lt;<span>div</span> <span>class</span>=<span>"alert alert-info d-none"</span> <span>role</span>=<span>"alert"</span> <span>id</span>=<span>"message"</span>&gt;&lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>    &lt;<span>div</span> <span>id</span>=<span>"controller-wrapper"</span>&gt;&lt;/<span>div</span>&gt;
+</span></span><span><span>&lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>&lt;<span>script</span> <span>src</span>=<span>"~/js/signalr/dist/browser/signalr.js"</span>&gt;&lt;/<span>script</span>&gt;
+</span></span><span><span>&lt;<span>script</span> <span>type</span>=<span>"module"</span> <span>src</span>=<span>"~/js/site.js"</span> <span>asp-append-version</span>=<span>"true"</span>&gt;&lt;/<span>script</span>&gt;
+</span></span></code></pre></div><p>Then we can add JavaScript code to implement the app functionality in the template. We’ll add:</p>
+<ul>
+<li>A click handler to invoke the <code>RequestControl</code> method using the SignalR connection.</li>
+<li>Listeners for the <code>ControlGranted</code>, <code>ControlQueued</code>, <code>ControlReleased</code>, and <code>ControlRemaining</code> events to update the UI based on the message included in the corresponding event.</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-js" data-lang="js"><span><span><span>let</span> controlRequested = <span>false</span>;
+</span></span><span><span><span>let</span> controlGranted = <span>false</span>;
+</span></span><span><span><span>let</span> destroyController = <span>false</span>;
+</span></span><span><span>
+</span></span><span><span><span>const</span> requestCtrlBtn = <span>document</span>.getElementById(<span>'requestCtrlBtn'</span>)
+</span></span><span><span>requestCtrlBtn.disabled = <span>true</span>;
+</span></span><span><span>requestCtrlBtn.innerText = <span>"Request Control"</span>;
+</span></span><span><span>
+</span></span><span><span><span>const</span> messageCtrl = <span>document</span>.getElementById(<span>'message'</span>)
+</span></span><span><span>
+</span></span><span><span>requestCtrlBtn.addEventListener(<span>'click'</span>, () =&gt; {
+</span></span><span><span>    <span>let</span> action = <span>'RequestControl'</span>;
+</span></span><span><span>    <span>if</span> (controlGranted) {
+</span></span><span><span>        action = <span>'ReleaseControl'</span>;
+</span></span><span><span>    }
+</span></span><span><span>    controlHubConnection.invoke(action).<span>catch</span>(<span>function</span> (err) {
+</span></span><span><span>        <span>return</span> console.error(err.toString());
+</span></span><span><span>    });
+</span></span><span><span>})
+</span></span><span><span>
+</span></span><span><span>controlHubConnection.on(<span>"ControlGranted"</span>, <span>function</span> () {
+</span></span><span><span>    controlGranted = <span>true</span>;
+</span></span><span><span>    controlRequested = <span>false</span>;
+</span></span><span><span>    requestCtrlBtn.disabled = <span>false</span>;
+</span></span><span><span>    requestCtrlBtn.classList.remove(...[<span>'btn-primary'</span>, <span>'btn-warning'</span>]);
+</span></span><span><span>    requestCtrlBtn.classList.add(<span>'btn-success'</span>);
+</span></span><span><span>    requestCtrlBtn.innerText = <span>"Release Control"</span>;
+</span></span><span><span>    destroyController = createController();
+</span></span><span><span>});
+</span></span><span><span>
+</span></span><span><span>controlHubConnection.on(<span>"ControlQueued"</span>, <span>function</span> () {
+</span></span><span><span>    controlRequested = <span>true</span>;
+</span></span><span><span>    controlGranted = <span>false</span>;
+</span></span><span><span>    requestCtrlBtn.disabled = <span>true</span>;
+</span></span><span><span>    requestCtrlBtn.classList.remove(<span>'btn-primary'</span>);
+</span></span><span><span>    requestCtrlBtn.classList.add(<span>'btn-warning'</span>);
+</span></span><span><span>    requestCtrlBtn.innerText = <span>"Waiting in Queue"</span>;
+</span></span><span><span>});
+</span></span><span><span>
+</span></span><span><span>controlHubConnection.on(<span>"ControlReleased"</span>, <span>function</span> () {
+</span></span><span><span>    controlRequested = <span>false</span>;
+</span></span><span><span>    controlGranted = <span>false</span>;
+</span></span><span><span>    requestCtrlBtn.disabled = <span>false</span>;
+</span></span><span><span>    requestCtrlBtn.innerText = <span>"Request Control"</span>;
+</span></span><span><span>    requestCtrlBtn.classList.remove(...[<span>'btn-success'</span>, <span>'btn-warning'</span>]);
+</span></span><span><span>    requestCtrlBtn.classList.add(<span>'btn-primary'</span>);
+</span></span><span><span>    messageCtrl.innerText = <span>''</span>;
+</span></span><span><span>    messageCtrl.classList.add(<span>'d-none'</span>);
+</span></span><span><span>
+</span></span><span><span>    <span>if</span> (destroyController != <span>null</span>) {
+</span></span><span><span>        destroyController();
+</span></span><span><span>        destroyController = <span>null</span>;
+</span></span><span><span>    }
+</span></span><span><span>});
+</span></span><span><span>
+</span></span><span><span>controlHubConnection.on(<span>"ControlRemaining"</span>, <span>function</span> (seconds) {
+</span></span><span><span>    messageCtrl.classList.remove(<span>'d-none'</span>);
+</span></span><span><span>    messageCtrl.innerText = <span>`Control Granted: </span><span>${</span>seconds<span>}</span><span> seconds remaining`</span>;
+</span></span><span><span>});
+</span></span></code></pre></div><p>At the top of the file, import the <code>three.js</code> library along with the <code>OrbitalControl</code> add-on to control the cube camera position.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span><span>import</span> * as THREE from <span>'three'</span>;
+</span></span><span><span><span>import</span> { OrbitControls } from <span>'three/addons/controls/OrbitControls.js'</span>;
+</span></span></code></pre></div><p>Add <code>createRenderer</code>, <code>createScene</code>, <code>createCamera</code>, and <code>createCube</code> helper methods that are required for creating cube and attaching it to the receiver as well as the controller section to show a cube.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span><span>function</span> createRenderer(canvasDOMId) {
+</span></span><span><span>    <span>// Load a Renderer
+</span></span></span><span><span><span></span>    <span>let</span> renderer = <span>new</span> THREE.WebGLRenderer({ alpha: <span>false</span>, antialias: <span>true</span> });
+</span></span><span><span>    renderer.setClearColor(<span>0xC5C5C3</span>);
+</span></span><span><span>    renderer.setPixelRatio(<span>window</span>.devicePixelRatio);
+</span></span><span><span>    renderer.setSize(<span>250</span>, <span>250</span>);
+</span></span><span><span>    <span>document</span>.getElementById(canvasDOMId).appendChild(renderer.domElement);
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> renderer;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>function</span> createScene() {
+</span></span><span><span>    <span>// Load 3D Scene
+</span></span></span><span><span><span></span>    <span>let</span> scene = <span>new</span> THREE.Scene();
+</span></span><span><span>
+</span></span><span><span>    <span>// Load Light
+</span></span></span><span><span><span></span>    <span>var</span> ambientLight = <span>new</span> THREE.AmbientLight(<span>0xcccccc</span>);
+</span></span><span><span>    scene.add(ambientLight);
+</span></span><span><span>
+</span></span><span><span>    <span>var</span> directionalLight = <span>new</span> THREE.DirectionalLight(<span>0xffffff</span>);
+</span></span><span><span>    directionalLight.position.set(<span>0</span>, <span>0</span>, <span>1</span>).normalize();
+</span></span><span><span>    scene.add(directionalLight);
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> scene;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>function</span> createCamera(cameraZPosition = <span>10</span>) {
+</span></span><span><span>
+</span></span><span><span>    <span>// Load Camera Perspective
+</span></span></span><span><span><span></span>    <span>let</span> camera = <span>new</span> THREE.PerspectiveCamera(<span>50</span>, <span>250</span> / <span>250</span>, <span>1</span>, <span>200</span>);
+</span></span><span><span>    camera.position.z = <span>5</span>;
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> camera;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>function</span> createCube() {
+</span></span><span><span>    <span>const</span> geometry = <span>new</span> THREE.BoxGeometry(<span>2</span>, <span>2</span>, <span>2</span>).toNonIndexed();;
+</span></span><span><span>
+</span></span><span><span>    <span>const</span> positionAttribute = geometry.getAttribute(<span>'position'</span>);
+</span></span><span><span>    <span>const</span> colors = [];
+</span></span><span><span>    <span>const</span> color = <span>new</span> THREE.Color();
+</span></span><span><span>    <span>for</span> (<span>let</span> i = <span>0</span>; i &lt; positionAttribute.count; i += <span>3</span>) {
+</span></span><span><span>
+</span></span><span><span>        <span>if</span> (i &gt;= <span>0</span> &amp;&amp; i &lt;= <span>11</span>) {
+</span></span><span><span>            color.set(<span>0xffff00</span>); <span>// x facing yellow
+</span></span></span><span><span><span></span>        }
+</span></span><span><span>        <span>else</span> <span>if</span> (i &gt;= <span>12</span> &amp;&amp; i &lt;= <span>23</span>) {
+</span></span><span><span>            color.set(<span>0xff0000</span>); <span>// y facing red
+</span></span></span><span><span><span></span>        }
+</span></span><span><span>        <span>else</span> {
+</span></span><span><span>            color.set(<span>0x0000ff</span>); <span>// z facing blue
+</span></span></span><span><span><span></span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>// define the same color for each vertex of a triangle
+</span></span></span><span><span><span></span>        colors.push(color.r, color.g, color.b);
+</span></span><span><span>        colors.push(color.r, color.g, color.b);
+</span></span><span><span>        colors.push(color.r, color.g, color.b);
+</span></span><span><span>
+</span></span><span><span>    }
+</span></span><span><span>    geometry.setAttribute(<span>'color'</span>, <span>new</span> THREE.Float32BufferAttribute(colors, <span>3</span>));
+</span></span><span><span>    <span>const</span> material = <span>new</span> THREE.MeshBasicMaterial({ vertexColors: <span>true</span> });
+</span></span><span><span>    <span>let</span> cube = <span>new</span> THREE.Mesh(geometry, material);
+</span></span><span><span>
+</span></span><span><span>    <span>// wireframe
+</span></span></span><span><span><span></span>    <span>var</span> geo = <span>new</span> THREE.EdgesGeometry(cube.geometry); <span>// or WireframeGeometry
+</span></span></span><span><span><span></span>    <span>var</span> mat = <span>new</span> THREE.LineBasicMaterial({ color: <span>0xffffff</span> });
+</span></span><span><span>    <span>var</span> wireframe = <span>new</span> THREE.LineSegments(geo, mat);
+</span></span><span><span>    cube.add(wireframe);
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> cube;
+</span></span><span><span>}
+</span></span></code></pre></div><p>Use the helper methods in the receiver section to create the cube and display it.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span><span>// Define variables
+</span></span></span><span><span><span></span><span>const</span> receiverRenderer = createRenderer(<span>'receiver-wrapper'</span>);
+</span></span><span><span><span>const</span> receiverScene = createScene();
+</span></span><span><span><span>const</span> receiverCamera = createCamera();
+</span></span><span><span><span>const</span> receiverCube = createCube();
+</span></span><span><span>receiverScene.add(receiverCube);
+</span></span><span><span>
+</span></span><span><span><span>let</span> receiverControls = <span>new</span> OrbitControls(receiverCamera, receiverRenderer.domElement);
+</span></span><span><span>receiverControls.enabled = <span>false</span>;
+</span></span><span><span><span>function</span> animate() {
+</span></span><span><span>    requestAnimationFrame(animate);
+</span></span><span><span>    receiverControls.update();
+</span></span><span><span>    receiverRenderer.render(receiverScene, receiverCamera);
+</span></span><span><span>}
+</span></span><span><span>animate();
+</span></span></code></pre></div><p>Listen to the <code>ReceiveData</code> event to update the receiver section cube with updated camera position data.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span>controlHubConnection.on(<span>"ReceiveData"</span>, <span>function</span> (cameraData) {
+</span></span><span><span>    receiverCamera.position.x = cameraData.x;
+</span></span><span><span>    receiverCamera.position.y = cameraData.y;
+</span></span><span><span>    receiverCamera.position.z = cameraData.z;
+</span></span><span><span>});
+</span></span></code></pre></div><p>Add a <code>createController</code> method which is called when a user is granted control of the cube. It creates a cube and renders on the controller section and listens to the camera position change.</p>
+<p>When the cube is rotated, it calls the server method <code>SendData</code> using the SignalR connection. It also returns a method that cancels the cube renderer and removes the listener from the controller cube. This returned method is called when the <code>ControlReleased</code> event is called from server.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span><span>function</span> createController() {
+</span></span><span><span>    <span>const</span> controllerRenderer = createRenderer(<span>'controller-wrapper'</span>);
+</span></span><span><span>    <span>const</span> controllerScene = createScene();
+</span></span><span><span>    <span>const</span> controllerCamera = createCamera();
+</span></span><span><span>    <span>const</span> controllerCube = createCube();
+</span></span><span><span>    controllerScene.add(controllerCube);
+</span></span><span><span>
+</span></span><span><span>    <span>let</span> controls = <span>new</span> OrbitControls(controllerCamera, controllerRenderer.domElement);
+</span></span><span><span>    <span>function</span> onPositionChange(o) {
+</span></span><span><span>        controlHubConnection.invoke(<span>"SendData"</span>, controllerCamera.position).<span>catch</span>(<span>function</span> (err) {
+</span></span><span><span>            <span>return</span> console.error(err.toString());
+</span></span><span><span>        });
+</span></span><span><span>    }
+</span></span><span><span>    controls.addEventListener(<span>'change'</span>, onPositionChange);
+</span></span><span><span>
+</span></span><span><span>    <span>let</span> request;
+</span></span><span><span>    <span>function</span> controllerAnimate() {
+</span></span><span><span>        request = requestAnimationFrame(controllerAnimate);
+</span></span><span><span>        controls.update();
+</span></span><span><span>        controllerRenderer.render(controllerScene, controllerCamera);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    controllerAnimate();
+</span></span><span><span>
+</span></span><span><span>    <span>return</span> <span>function</span> () {
+</span></span><span><span>        <span>document</span>.getElementById(<span>'controller-wrapper'</span>).innerHTML = <span>''</span>;
+</span></span><span><span>        cancelAnimationFrame(request);
+</span></span><span><span>        controls.removeEventListener(<span>'change'</span>, onPositionChange);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><h3 id="wrapping-up">Wrapping Up</h3>
+<p>We learned the basics of SignalR and how to build a simple application to communicate between the backend and frontend using a SignalR connection. We also looked into a practical implementation on how can we use SignalR to control a graphical object built with three.js. We can extend the application to build apps like a multi-player game, or to send messages to the frontend from long-running backend background jobs.</p>
+<p>You can get the code at <a href="https://github.com/bimalghartimagar/EPSignalRControl" rel="noreferrer" target="_blank">GitHub</a>.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-01-13T00:00:00.000Z>13 January 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

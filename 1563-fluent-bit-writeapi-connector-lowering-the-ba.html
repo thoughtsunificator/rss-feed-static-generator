@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Fluent Bit WriteAPI Connector: Lowering the barrier to streaming data</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/08/fluent-bit-writeapi-connector-lowering-the-barrier-to-streaming-data.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBzBlZClHuEppjQwXIvpNXufG7zK7-kCiKW6qKw3d_bcAnvoOmiBMbeWBb-e3pTYbIbrihXZGgR9IS9zZLj8SGD_9AbfNgqiiPlyXCcBytHEb2H6Is3IQgPYT2rjTI6lmgmUp2jywceS7XaxXHhoVxPSp31w3bExqaVvGGKu3uZFtcTSNAmd2_EhYDAJA/s1600/Social%20-%20OSS%20-%20Introducing%20Service%20Weaver%20%282%29.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgR19xz3XDMYhY1q9ijoq1fItz0lEiyhBme2TqOQxutyBK4HBI5azLDkJPQoKgY-LktRrRpeH4ToJ8XKZsS9vLGkJI16UiOC5JE2wfZEqLX49ik22q3mLFDf2-8ak3y4eX2VXT7hISNiJNQYvOBPoulFrJUHOdIu1t3sbHPm3CICRZyZMN02Yg83nuxVAg/s1600/Header%20-%20OSS%20-%20Introducing%20Service%20Weaver.png" rel="noreferrer" target="_blank"></a>
+
+<p>Automating ingestion processes is crucial for modern businesses that handle vast amounts of data daily. In today's fast-paced digital landscape, the ability to seamlessly collect, process, and analyze data can make the difference between staying ahead of the competition and falling behind. To simplify ingestion, tools such as <a href="https://docs.fluentbit.io/manual/about/what-is-fluent-bit" target="_blank" rel="noreferrer">Fluent Bit</a> enable customers to route data between pluggable sources and sinks without needing to write a single line of code. Instead, data routing is managed via a config file. The Fluent Bit <a href="https://github.com/GoogleCloudPlatform/fluentbit-bigquery-writeapi-sink" target="_blank" rel="noreferrer">WriteAPI Connector</a> is a pluggable sink built on top of the BigQuery Storage Write API that enables organizations to rapidly develop a data ingestion pipeline.</p><br>
+
+<h2><b>What are the BigQuery Storage Write API and Fluent Bit?</b></h2>
+
+<p>The BigQuery Storage <b><a href="https://cloud.google.com/bigquery/docs/write-api" target="_blank" rel="noreferrer">Write API</a></b> is a high-performance data-ingestion API for BigQuery. It leverages both batching and streaming methods to ingest records into BigQuery in real-time. The WriteAPI offers features such as ability to scale and provides exactly-once delivery to guarantee that data is not duplicated. Using the Write API directly typically requires technical expertise, as users must navigate one of the client SDKs. This can create a high barrier to entry for some customers to stream data into BigQuery.</p>
+
+<p><b><a href="https://docs.fluentbit.io/manual/about/what-is-fluent-bit" target="_blank" rel="noreferrer">Fluent Bit</a></b> is a widely-used open-source observability agent known for its lightweight design, speed, and flexibility. It operates by collecting logs, traces and metrics through various inputs such as local or network files, filtering and buffering them, and then routing them to designated outputs. Fluent Bit's high-performance parsing capabilities allow for data to be processed according to user specifications. The output component is a configurable plugin that directs data to different destinations, such as various tables in BigQuery. There can be multiple WriteAPI outputs and each output can be independently configured to use a specific write mode, enabling seamless data streaming into BigQuery based on tag/match pairs.</p><br>
+
+<h2><b>Why Use the Fluent Bit WriteAPI Connector?</b></h2>
+
+<p>Our solution to the technical challenges posed by using the WriteAPI is the <b><a href="https://github.com/GoogleCloudPlatform/fluentbit-bigquery-writeapi-sink" target="_blank" rel="noreferrer">Fluent Bit WriteAPI Connector</a></b>. This connector automates the data ingestion process, eliminating the need for customers to write any code. The entire pipeline is managed through a single configuration file, making it easy to use. The flow of data is depicted in the diagram below.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div><br>
+
+<h2><b>Example Use Case</b></h2>
+
+<p>Say we wish to monitor a log file containing JSON data, and we would like to ingest this data into a BigQuery table that has a single column titled “Text” of type String. A line from the log file looks like this:</p>
+
+<span>{"Text": "Hello, World"}</span>
+
+<div><br></div>
+
+<h3>Setup Process</h3>
+<ul>
+1. <b>Setting Up Fluent Bit:</b> The first step is to <a href="https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit" target="_blank" rel="noreferrer">install</a> and configure Fluent Bit. Once installed, Fluent Bit must be configured to collect data from your desired sources. This involves defining inputs, such as log files or system metrics, that Fluent Bit will monitor. This is explained below.</ul>
+
+<ul>
+2. <b>Cloning the Google Git Repository:</b> Next, clone the <a href="https://github.com/GoogleCloudPlatform/fluentbit-bigquery-writeapi-sink" target="_blank" rel="noreferrer">Google Git Repository</a> that contains the Fluent Bit WriteAPI Connector. This repository includes all the necessary files to set up the connector, along with an example configuration file to help you get started. Let’s say the git repo is cloned at <span>/usr/local/fluentbit-bigquery-writeapi-sink</span>. Edit the file in the git repo named <span>plugins.conf</span> to provide the full path to the <span>writeapi</span> plugin. For example, the contents of the file can now look like this:&nbsp;</ul>
+  
+ <ul><span>[PLUGINS]</span></ul>
+<ul><span><div><ul><span>Path<span>&nbsp;&nbsp; &nbsp;</span>/usr/local/fluentbit-bigquery-writeapi-sink/out_writeapi.so</span>&nbsp;</ul></div></span></ul>
+
+<ul>
+3. <b>Setting Up BigQuery Tables:</b> Ensure that your <a href="https://cloud.google.com/bigquery/docs/tables" target="_blank" rel="noreferrer">BigQuery tables</a> are set up and ready to receive data. This might involve creating new tables or configuring existing ones to match the data schema you intend to use. For example, create the BigQuery table with a schema containing the column <span>Text</span> of type <span>STRING</span>. Let’s say the table is created at <span>myProject.myDataset.myTable.</span></ul>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgxQSWba0JjD4yXgaOFi7bI62hDadXp2AYU7-F9PJwxS7xac4Uk4HOvkq3rFoagLMNz4_RR_BJ18Z601c-tV16OhT7SFOfkmThi2DYHOaO2DM7TV_Rkgf7I_XTrnWsvdlRWSI6EPhfZkOOnyLyCpWpR0Vu_ZFyTM7Em-86_nXpLV8MY65WzVbUVEUrNMoU/s1600/image3.png" rel="noreferrer" target="_blank"></a></center></td></tr><tr><td class="tr-caption"><i>click to enlarge</i></td></tr></tbody></table></div><br>
+
+<ul>
+4. <b>Prepare the input file:</b> We will be reading data from a log file at <span>/usr/local/logfile.log</span>. Let’s start with an empty log file. Create the log file as follows:&nbsp;</ul>
+<ul><span>touch /usr/local/logfile.log</span></ul>
+
+<ul>
+5. <b>Configuring the Plugin:</b> The most critical step is setting up the configuration file for the Fluent Bit WriteAPI Connector. This singular file controls the entire data pipeline, from input collection to data filtering and routing. The configuration file is straightforward and highly intuitive. It allows you to define various parameters, such as input sources, data filters, and output destinations. Create a configuration file in, say <span>/usr/local</span>, and call it <span>demo.conf</span>. See details on how to <a href="https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/format-schema" target="_blank" rel="noreferrer">format</a> a configuration file. It looks like this:
+
+<ul><div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div></ul>
+
+</ul>
+
+<p>This routes the data from <span>/usr/local/logfile.log</span> to the BigQuery table at <span>myProject.myDataset.myTable</span>. There are additional configurable fields that control the stream, such as chunking, asynchronous response queue, and also the type of stream. These fields let you control how your data is streamed.</p>
+
+<p>To run the pipeline, use the command:</p>
+
+<p><span>fluent-bit -c /usr/local/demo.conf</span></p>
+
+<p>As the log file is updated new lines will automatically appear in the BigQuery table. For example, to populate the log file you can run the following command:</p>
+
+<p><span>echo "{\"Text\": \"Hello, world\"}" &gt;&gt; /usr/local/logfile.log</span></p>
+
+<p>Note that the default flush interval in Fluent Bit is 1 minute, so it might take a minute before the log file is flushed. The BigQuery table will now be updated as follows:</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjoJ0J8d33Qgc5q_BaK-RCyQTYWzX01dmyvdB7dzx1luweJ4TWQghNyRZmGxgy4zUWRyFh8Ug0_IXO4M60mCOrAMIVX46-v0c5JgzkZ6cLB7N7tC6EIc7U6hlwmnliy6R26TkfWwl1fEReZKXs0Ab9lOJWbGuwf_W1sryyvRU8bsXRux_9AO1nsHsXqRYk/s1600/image5.png" rel="noreferrer" target="_blank"></a></center></td></tr><tr><td class="tr-caption"><i>click to enlarge</i></td></tr></tbody></table></div>
+
+
+<h2><b>Key Features</b></h2>
+
+<p>The connector supports a wide variety of features including multi-instancing, dynamic scaling, exactly-once delivery, and automatic retry.</p>
+
+<ul>
+  <h3>1. <b>Multi-Instancing</b></h3>
+<ul><li>The multi-instancing feature of the Fluent Bit WriteAPI Connector is designed to offer flexibility in routing data. Specifically, users can configure the connector to handle multiple data inputs and outputs in various combinations. This feature also supports more complex configurations, such as multiple inputs feeding into multiple outputs, allowing data to be aggregated or distributed as needed. An input connector is labeled with a <span>tag</span> field. In our example, this has value <span>log1</span>. Data is routed to an output connector based on the value of its <span>match</span> field. In our example, this also has value <span>log1</span>, meaning there is a 1-to-1 correspondence between the input and output connector. The <span>match</span> field is a regex so it can be used to connect with multiple inputs. For example, if this was set to <span>*</span> then data from all inputs would flow to this output.</li></ul><br>
+  
+  
+  <h3>2. <b>Dynamic Scaling</b></h3>
+  
+<ul><li>Handling large volumes of data efficiently is crucial for modern pipelines. The dynamic scaling feature addresses the issue of potential overloads in the Write API. As data is streamed into BigQuery, there may be times when the API queue becomes full—by default, it can hold up to 1000 pending responses. When this limit is reached, no new data can be appended until some of the pending responses are processed, which can create back pressure in the system. To manage this, the connector automatically scales up its capacity by creating an additional network connection when it detects that the number of pending responses has reached the threshold.</li></ul><br>
+  
+  <h3>3. <b>Exactly-Once</b></h3>
+
+<ul><li>The "exactly-once" feature ensures that each piece of data is sent and recorded in BigQuery exactly once. This feature ensures no data is duplicated. If the connector encounters an intermittent issue while sending a specific piece of data, it will synchronously retry sending it until it is successful. This ensures data is delivered correctly.</li></ul><br>
+
+<h3>4. <b>Retry Functionality</b></h3>
+<ul><li>The retry functionality allows the connector to handle temporary failures gracefully. The retry mechanism is configurable, meaning users can set how many times the system should attempt to resend the data before giving up. By default, the connector will retry sending failed data up to four times. In the default stream mode, if a row of data fails to send, it is retried while other rows continue to be processed. However, in the "exactly once" mode, the retry process is synchronous, meaning the system will wait for the failed row to be successfully sent before moving on to subsequent rows.</li></ul><br>
+  
+<h3>5. <b>Error Handling</b></h3>
+<ul><li>Error handling in the connector is designed to catch and manage issues that may arise during data transmission. The connector will continue processing incoming data even if earlier data had a failure. Any permanent issues that are encountered are logged to the console.</li></ul><br></ul>
+
+
+<h2><b>Conclusion</b></h2>
+
+<p>The ability to efficiently collect, process, and analyze data is a critical factor for business success. The Fluent Bit WriteAPI Connector stands out as a powerful solution that simplifies and automates the data ingestion process, bridging the gap between Fluent Bit's versatile data collection capabilities and Google BigQuery's robust analytics platform.</p>
+
+<p>By eliminating the need for complex coding and manual data management, the Fluent Bit WriteAPI Connector lowers the barrier to entry for businesses of all sizes. Whether you're a small startup or a large enterprise, this tool allows you to effortlessly set up and manage your data pipelines with a single configuration file. Its features like multi-instancing, dynamic scaling, exactly-once delivery, and error handling ensure that your data is ingested accurately, reliably, and in real-time.</p>
+
+<p>The straightforward setup process, combined with the flexibility and scalability of the connector, make it a valuable asset for any organization looking to harness the power of their data. By automating the ingestion process, businesses can focus on what truly matters: deriving actionable insights from their data to drive growth and innovation.</p>
+
+<p><em>By Tanishqa Puhan, BigQuery WriteAPI</em></p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-21T09:00:00.000Z>21 August 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

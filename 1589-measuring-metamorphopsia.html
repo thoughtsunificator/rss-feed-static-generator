@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Measuring Metamorphopsia</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/08/measuring-metamorphopsia/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p><br>
+<a href="https://www.flickr.com/photos/internetarchivebookimages/14770211305" rel="noreferrer" target="_blank">Photo</a> in public domain.</p>
+<p>Metamorphopsia is an abnormal condition of vision that can cause deformation of the visual field. This condition, aside from having a wonderful name, has a real effect on my vision: Even after a successful operation to correct the macular hole which causes this, I still see circles as ellipses. Faces are elongated vertically like in a funhouse mirror, so I have an “ugly face” eye and a “normal face” eye.</p>
+<p>My ophthalmologist assured me that with time — 6 weeks to 6 months — my vision should become normal and this distortion and visual alignment problem should disappear, or at least improve drastically. It occurred to me it would be nice to have an application to measure any progress in the restoration of my vision.</p>
+<h3 id="what-causes-metamorphopsia">What Causes Metamorphopsia?</h3>
+<p>The most common cause of metamorphopsia is an irregularity in the retinal surface of the eye. A typical irregularity of the retinal surface that can produce a noticeable distortion in the center of the visual field is referred to as a “macular” anomaly. Macular anomalies come in different varieties. One such anomaly, a macular hole, arises when the retina in the area of the fovea in the center of the eye is pulled off of its normal hyperbolic depression. The cause of the detachment or displacement can be the vitreous humour — the clear jelly-like filling of the eye — becoming viscous with age, attaching to the retina, and pulling on it. A term for this used by ophthalmologists is “friction”.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<p>Images © 2006–2024 Macula Retina Vitreous Center, Dr. Mehran Taban, Inc.</p>
+<p>While there are operations to “repair” macular holes, the beautiful hyperbolic or parabolic shape of the original macular depression may not be physically reconstructed; it may be almost flat across. That means the light sensing elements rods and cones are all “bunched” together and the deformation of the image is what results. Instead of having increased information (think of this as higher density of “pixels”) for the same angle of view, now the rods and cones are fed image info from farther afield, resulting in distortion.</p>
+<p></p>
+<p>Macular Holes at different stages, with E being a postoperative repaired macular hole. <a href="https://www.reviewofophthalmology.com/article/revisiting-macular-holes" rel="noreferrer" target="_blank">Image source</a>.</p>
+<h3 id="the-measuring-metamorphopsia-application">The Measuring Metamorphopsia Application</h3>
+<p>I decided to design and implement an application that had two features:</p>
+<ol>
+<li>Correct the distortion where it is perceived so that the visual field would be much closer to normal.</li>
+<li>In doing so, measure the subjectively experienced distortion, save it for future reference and for communicating it to others.</li>
+</ol>
+<p>Although there may be other applications for this measuring technique, my personal motivation was to measure the progress of the restoration of normal vision in the affected eye by saving the correction parameters and comparing them later as they may change. In my case they haven’t changed much in 9 months.</p>
+<p></p>
+<p>Here is the link to access my application, Measuring Metamorphopsia: <a href="https://darius.endpointdev.com/examples/measuring_metamorphopsia.html" rel="noreferrer" target="_blank">https://darius.endpointdev.com/examples/measuring_metamorphopsia.html</a></p>
+<h4 id="how-to-use-the-application">How to Use the Application</h4>
+<ol>
+<li>Look at the center of the blue circle with the eye needing correction. Close the other eye or wear an eyepatch.</li>
+<li>Adjust any distortions by selecting and dragging the blue boxes in the appropriate direction to correct the distortion until the blue circle is perfectly round again. Repeat for any distortions you notice until you are satisfied.</li>
+<li>Press save to keep your corrections.</li>
+<li>You may load an image of your choice — a face you know well would be a good choice — to see the corrections in effect. Please be sure it is a square image; the width and height of the image should be equal.</li>
+<li>You may reload your saved corrections at any time.</li>
+<li>You may also invert your corrections to impose your measured distortions on an image to simulate what you see. With this, you can communicate to someone how your distortions affect your vision.</li>
+</ol>
+<h3 id="applications-of-the-saved-distortions-parameters">Applications of the Saved Distortions Parameters</h3>
+<p>The saved deformation values can be used for a variety of purposes:</p>
+<ul>
+<li>
+<p>Improving vision via digital image processing, by adjusting an image with the parameters to restore stereoscopic alignment and thereby merging vision from both eyes.</p>
+<p>For example, this can be done in VR sets where images can be processed separately for each eye. It could also be used by stereo displays like Samsung 3D televisions with synchronized polarized glasses, where separate images are given to each eye. The separate images could use the distortion parameters to correct differently for the right and left images.</p>
+</li>
+<li>
+<p>Contact lenses may be able to be made to correct some local anomalies using the distortion parameters.</p>
+</li>
+<li>
+<p>Measure and record the restoration progress or the deterioration of the perceived visual field in:</p>
+<ul>
+<li>visual field measurements for preoperative subjective deterioration</li>
+<li>visual field measurements for postoperative subjective restoration progress</li>
+<li>self-healing or spontaneous macular hole repair (see references below).</li>
+</ul>
+</li>
+</ul>
+<p>In the following image, my normal face is on the left with the correct “undistorted” proportions. On the right is a corrected version using the saved distortion parameters to adjust my vision so the left eye can see things more “normally”. In my case, the image is compressed to account for the loss of acuity in the center.</p>
+<p></p>
+<p>By crossing my eyes, as if using a stereoscope, I can create a third image in the center that merges the two images and properly aligns my facial features again.</p>
+<p>As seen below, we can also invert the saved distortion parameters to communicate to others how my uncorrected left eye now views the world.</p>
+<p></p>
+<h3 id="additional-information">Additional Information</h3>
+<ul>
+<li><a href="https://macularetinavitreouscenter.com/macular-hole/" rel="noreferrer" target="_blank">What is a macular hole?</a></li>
+<li><a href="https://www.garciadeoteyza.es/en/metamorphopsia-test-amsler-grid" rel="noreferrer" target="_blank">Metamorphopsia and the typical Amsler grid</a></li>
+<li><a href="https://www.scottpautlermd.com/metamorphopsia-visual-distortion/" rel="noreferrer" target="_blank">More about Metamorphopsia</a></li>
+<li><a href="https://www.researchgate.net/figure/Spontaneous-closure-of-macular-holes-in-four-patients-A-Development-and-closure-of-a_fig1_336829530" rel="noreferrer" target="_blank">Spontaneous Closure of Macular Holes</a></li>
+<li><a href="https://www.thelancet.com/article/S0140-6736(24)00136-3/abstract" rel="noreferrer" target="_blank">Prosopometamorphopsia</a>. Note that this is usually a cortical abnormality and not usually caused by retinal anomalies. It is also extra exciting to say: prosopometamorphopsia!</li>
+</ul>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>I would like to thank the following people for their advice and support:</p>
+<ul>
+<li><a href="/team/benjamin-goldstein/" rel="noreferrer" target="_blank">Ben Goldstein</a> for encouraging me to pursue this blog.</li>
+<li><a href="/team/bimal-gharti-magar/" rel="noreferrer" target="_blank">Bimal Gharti Magar</a> for streamlining the presentation and JavaScript.</li>
+<li>Dr. Andy Burrows, retinal surgeon practicing in New Jersey, for his encouragement and enthusiastic support, including how it could help in his work.</li>
+<li>Dr. Fanny Nerinckx, retinal surgeon who operated on my left eye in October 2023 to repair my macular hole.</li>
+<li>Dr, Thierry Vandorselaer, the ophthalmologist who discovered my macular hole.</li>
+</ul>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-07T00:00:00.000Z>7 August 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Kubernetes 1.32 is now available on GKE</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/12/kubernetes-132-is-now-available-on-gke.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGkMcQkTcMxeWdrytLd_PeruB1foXQWiUfH7j10rXpIbtzXcCLXeca5wXlR9ueHIJnIAg7p3F3afB7kYslg-BYW4TxGx-BJssH2Ady1xPtZzl8CL5xzAjwEXyE8WR1WdTJbZi1lotF-1AscOc24UGDL9LXCu_6A_nlFZ2O59MhvTdtIdvJeaQ2-GmlYYU/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png" rel="noreferrer" target="_blank"></a>
+
+<div><br></div>
+
+
+<p><a href="https://kubernetes.io/blog/2024/12/11/kubernetes-v1-32-release/" target="_blank" rel="noreferrer">Kubernetes 1.32</a> is now available in the Google Kubernetes Engine (GKE) Rapid Channel, just one week after the OSS release! For more information about the content of Kubernetes 1.32, read the official <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#changelog-since-v1310" target="_blank" rel="noreferrer">Kubernetes 1.32 Release Notes</a> and the specific <a href="https://cloud.google.com/kubernetes-engine/docs/release-notes#December_17_2024" target="_blank" rel="noreferrer">GKE 1.32 Release Notes</a>.</p>
+
+<p>This release consists of 44 enhancements. Of those enhancements, 13 have graduated to Stable, 12 are entering Beta, and 19 have graduated to Alpha.</p><br>
+
+<h2><b>Kubernetes 1.32: Key Features</b></h2>
+
+<h3><br></h3><h3>Dynamic Resource Allocation graduated to beta</h3>
+
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/" target="_blank" rel="noreferrer">Dynamic Resource Allocation</a> graduated to beta, enabling advanced selection, configuration, scheduling and sharing of accelerators and other devices. As a beta API, using it in GKE clusters requires <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/use-beta-apis" target="_blank" rel="noreferrer">opt-in</a>. You must also deploy a DRA-compatible kubelet plugin for your devices and use the DRA API instead of the traditional extended resource API used for the existing Device Plugin.</li></ul>
+
+<h3>Support for more efficient API streaming</h3>
+
+<ul>
+<li>The <a href="https://kubernetes.io/docs/reference/using-api/api-concepts/#streaming-lists" target="_blank" rel="noreferrer">Streaming lists</a> operation has graduated to beta and is enabled by default; the new operation supplies the initial list needed by the list + watch data access pattern over a watch stream and improves kube-apiserver stability and resource usage by enabling informers to receive a continuous data stream. <a href="https://kubernetes.io/blog/2024/12/17/kube-apiserver-api-streaming/#enabling-api-streaming-for-your-component" target="_blank" rel="noreferrer">See k8s blog for more information</a>.</li></ul>
+
+<h3>Recovery from volume expansion failure</h3>
+
+<ul>
+<li>Support for <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes" target="_blank" rel="noreferrer">recovery from volume expansion failure</a> graduated to beta and is enabled by default. If a user initiates an invalid volume resize, for example by specifying a new size that is too big to be satisfied by the underlying storage system, expansion of PVC will continuously be retried and fail. With this new feature, such a PVC can now be edited to request a smaller size to unblock the PVC. The PVC can  be monitored by watching <span>.status.allocatedResourceStatuses</span> and events on the PVC.</li></ul>
+ 
+<h3>Job API for management by external controllers</h3>
+
+<ul>
+<li>Support in the Job API for the <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/#delegation-of-managing-a-job-object-to-external-controller" target="_blank" rel="noreferrer">managed-by mechanism</a> graduated to beta and is enabled by default. This enables integration with external controllers like <a href="https://kueue.sigs.k8s.io/docs/concepts/multikueue/" target="_blank" rel="noreferrer">MultiKueue</a>.</li></ul><h3>Improved scheduling performance</h3>
+
+<ul>
+<li>The Kubernetes <span><a href="https://kubernetes.io/blog/2024/12/12/scheduler-queueinghint/" target="_blank" rel="noreferrer">QueueingHint</a></span> feature enhances scheduling throughput by preventing unnecessary scheduling retries. It’s achieved by allowing scheduler plugins to provide per-plugin callback functions that make efficient requeuing decisions.</li></ul><br>
+  
+<h4><span><b>Acknowledgements</b></span></h4>
+<p><i>As always, we want to thank all the Googlers that provide their time, passion, talent and leadership to keep making Kubernetes the best container orchestration platform. We would like to mention especially Googlers who helped drive the features mentioned in this blog [John Belamaric, Wojciech Tyczyński, Michelle Au, Matthew Cary, Aldo Culquicondor, Tim Hockin Maciej Skoczeń Michał Woźniak] and the Googlers who helped bring 1.32 to GKE in record time.</i></p>
+
+<p><i>By Federico Bongiovanni, Benjamin Elder, and Sen Lu – Google Kubernetes Engine</i></p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-20T09:00:00.000Z>20 December 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

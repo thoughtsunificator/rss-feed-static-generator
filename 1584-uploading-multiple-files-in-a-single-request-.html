@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Uploading multiple files in a single request in an ASP.NET Core application</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/07/uploading-multiple-files-asp.net-core-application/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2024. -->
+<p>We recently developed a web application for maintaining an ecommerce site’s product catalog. Unsurprisingly, one of the features involved the management of product images. Specifically, we wanted to create a page where all the images of a given product were displayed and new ones could be uploaded.</p>
+<p>In addition to that, this wasn’t a single-page application. We weren’t using a JavaScript framework and instead were relying on regular server-rendered views with <a href="https://learn.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-8.0&amp;tabs=visual-studio" rel="noreferrer" target="_blank">ASP.NET Razor Pages</a>. Even so, we wanted to create a user experience with a good balance of usability and development complexity. So, we decided to create the capability of uploading several image files at once within a single request — that is, within a single HTML form submission.</p>
+<p>In this article, I’m going to describe the solution that we came up with in order to make this happen.</p>
+<p>To demonstrate the approach, I’ll use a <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo" rel="noreferrer" target="_blank">sample ASP.NET Core solution</a> that I’ve been building out throughout several blog posts. Its main feature is calculating the value of used cars and offering quotes for them. The system stores all generated quotes as database records. Given this context, we’ll add the functionality to upload image files for a given quote.</p>
+<p>Let’s get started.</p>
+<blockquote>
+<p>Each section is accompanied by a given commit that includes all the changes discussed within them. Feel free to check those as well to see how the finished product takes shape step by step.</p>
+</blockquote>
+<h3 id="where-to-store-the-images">Where to store the images</h3>
+<blockquote>
+<p>Commit: <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/d65fd8fa7f1b836c1245fb657aad5d11e667164e" rel="noreferrer" target="_blank">d65fd8</a>.</p>
+</blockquote>
+<p>The first decision that we have to make is where to store the image files. There are various options afforded to us by ASP.NET and our underlying PostgreSQL database, but here’s how we’re going to do it: we’ll store records in the database that represent the images associated with each quote. These records won’t actually contain image binary data, however, only references to them in the form of their file names. The files themselves will be stored in the project’s <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-8.0" rel="noreferrer" target="_blank"><code>wwwroot</code></a> directory. That way they can be easily served to browsers, as everything inside that directory is accessible to clients.</p>
+<p>Starting off with a fresh ASP.NET Core Web App (with Razor Pages) project, here’s how that’s done.</p>
+<p>First we have to make sure that the app has static file serving enabled. This is done with this function call in the <code>Program.cs</code> file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Program.cs</span>
+</span></span><span><span>
+</span></span><span><span>app.UseStaticFiles();
+</span></span></code></pre></div><p>Next, we need to create the new database structure that will store the image records. In our app, we already have a <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/multiple-file-upload/VehicleQuotes.WebApi/Models/Quote.cs" rel="noreferrer" target="_blank"><code>Quote</code></a> entity, backed by a corresponding <code>quotes</code> table in the database. The plan is to create a new <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/blob/multiple-file-upload/VehicleQuotes.WebApi/Models/QuoteImage.cs" rel="noreferrer" target="_blank"><code>QuoteImage</code></a> entity and update <code>Quote</code> to “have many” of them.</p>
+<p>Here’s what the new class looks like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.WebApi/Models/QuoteImage.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>VehicleQuotes.WebApi.Models</span>;
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>QuoteImage</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>int</span> ID { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>string</span> FileName { <span>get</span>; <span>set</span>; } = <span>default</span>!;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>int</span> QuoteId { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> Quote Quote { <span>get</span>; <span>set</span>; } = <span>default</span>!;
+</span></span><span><span>}
+</span></span></code></pre></div><p>We also have to add this navigation property to the <code>Quote</code> entity’s class:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.WebApi/Models/Quote.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>Quote</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>    <span>public</span> ICollection&lt;QuoteImage&gt; QuoteImages { <span>get</span>; <span>set</span>; } = [];
+</span></span><span><span>}
+</span></span></code></pre></div><p>And finally declare its corresponding <code>DbSet</code> in our <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext?view=efcore-8.0" rel="noreferrer" target="_blank"><code>VehicleQuotesContext</code></a> class:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.WebApi/Data/VehicleQuotesContext.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>VehicleQuotesContext</span> : IdentityUserContext&lt;IdentityUser&gt;
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>    <span>public</span> DbSet&lt;QuoteImage&gt; QuoteImages { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>}
+</span></span></code></pre></div><p>Now all that’s left is to create and run the migration with these commands:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>dotnet ef migrations add AddQuoteImages
+</span></span><span><span>dotnet ef database update
+</span></span></code></pre></div><p>With that, our model and database are ready to store references to image files for the quotes on record.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>vehicle_quotes=# \d quote_images;
+</span></span><span><span>                          Table "public.quote_images"
+</span></span><span><span>  Column   |  Type   | Collation | Nullable |             Default
+</span></span><span><span>-----------+---------+-----------+----------+----------------------------------
+</span></span><span><span> id        | integer |           | not null | generated by default as identity
+</span></span><span><span> file_name | text    |           | not null |
+</span></span><span><span> quote_id  | integer |           | not null |
+</span></span><span><span>Indexes:
+</span></span><span><span>    "pk_quote_images" PRIMARY KEY, btree (id)
+</span></span><span><span>    "ix_quote_images_quote_id" btree (quote_id)
+</span></span><span><span>Foreign-key constraints:
+</span></span><span><span>    "fk_quote_images_quotes_quote_id" FOREIGN KEY (quote_id) REFERENCES quotes(id) ON DELETE CASCADE
+</span></span></code></pre></div><blockquote>
+<p>Check out <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/79bc161d0e58ae9afb4a07ce1ac8f9ad1779518d" rel="noreferrer" target="_blank">this commit</a> to see the migration.</p>
+</blockquote>
+<h3 id="a-razor-page-for-uploading-many-files">A Razor Page for uploading many files</h3>
+<blockquote>
+<p>Commit: <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/feaa57ea3becd058a40ae85a2f8ead1ecbf54161" rel="noreferrer" target="_blank">feaa57</a>.</p>
+</blockquote>
+<p>Now we need to create a new Razor Page for uploading the image files. The new page will be reachable at this route: <code>quotes/edit/{id}</code>. <code>{id}</code> is the identifier of the quote record for which images will be uploaded. To that end, we’ll create the usual pair of files that make up a Razor Page: The <code>PageModel</code> at <code>VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.cs</code> and the View (i.e. template) at <code>VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml</code>.</p>
+<p>We’ll start with the <code>PageModel</code>. Let’s create the new file with these contents:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>using</span> <span>Microsoft.AspNetCore.Mvc</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.AspNetCore.Mvc.RazorPages</span>;
+</span></span><span><span><span>using</span> <span>Microsoft.EntityFrameworkCore</span>;
+</span></span><span><span><span>using</span> <span>VehicleQuotes.WebApi</span>;
+</span></span><span><span><span>using</span> <span>VehicleQuotes.WebApi.Models</span>;
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>VehicleQuotes.AdminPortal.Pages.Quotes</span>;
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>EditModel</span> : PageModel
+</span></span><span><span>{
+</span></span><span><span>    <span>// This page will interact with the database so we need an instance of the</span>
+</span></span><span><span>    <span>// DbContext.</span>
+</span></span><span><span>    <span>private</span> <span>readonly</span> VehicleQuotesContext _context;
+</span></span><span><span>    <span>private</span> <span>readonly</span> <span>string</span> _imagesPath;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> EditModel(VehicleQuotesContext context)
+</span></span><span><span>    {
+</span></span><span><span>        _context = context;
+</span></span><span><span>        <span>// Like we discussed, we will store the image files in the app's wwwroot</span>
+</span></span><span><span>        <span>// directory. Specifically, ~/wwwroot/uploads. It'd be better to</span>
+</span></span><span><span>        <span>// substitute this hard coded string with a config value from</span>
+</span></span><span><span>        <span>// appsettings.json.</span>
+</span></span><span><span>        _imagesPath = <span>"/path/to/wwwroot/uploads"</span>;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// The BindProperty attribute in this property makes it so that when a form</span>
+</span></span><span><span>    <span>// in this page is submitted, the framework takes the request payload and</span>
+</span></span><span><span>    <span>// uses it to populate this property. In our case, the form will submit a</span>
+</span></span><span><span>    <span>// set of files. We'll see how a little bit later.</span>
+</span></span><span><span><span>    [BindProperty]</span>
+</span></span><span><span>    <span>public</span> IEnumerable&lt;IFormFile&gt;? ImageFiles { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// This GET handler method does little else than render the corresponding</span>
+</span></span><span><span>    <span>// template when a browser requests the quotes/edit/{id} URL.</span>
+</span></span><span><span>    <span>// That is, the one defined in</span>
+</span></span><span><span>    <span>// VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.</span>
+</span></span><span><span>    <span>public</span> IActionResult OnGet(<span>int</span> id) =&gt; Page();
+</span></span><span><span>
+</span></span><span><span>    <span>// This is the method that handles POST requests on this page. It inspects</span>
+</span></span><span><span>    <span>// the incoming request payload and uses it to produce new quote image</span>
+</span></span><span><span>    <span>// records as well as save the uploaded files under ~/wwwroot/uploads.</span>
+</span></span><span><span>    <span>public</span> <span>async</span> Task&lt;IActionResult&gt; OnPostSaveAsync(<span>int</span> id)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// First, try to find the quote record by the given id and...</span>
+</span></span><span><span>        <span>var</span> quote = <span>await</span> FindQuote(id);
+</span></span><span><span>
+</span></span><span><span>        <span>// ...if it's not found, return a proper 404 response.</span>
+</span></span><span><span>        <span>if</span> (quote == <span>null</span>)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> NotFound();
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>// If images were uploaded...</span>
+</span></span><span><span>        <span>if</span> (ImageFiles <span>is</span> not <span>null</span>)
+</span></span><span><span>        {
+</span></span><span><span>            <span>// ...iterate over each one of them...</span>
+</span></span><span><span>            <span>foreach</span> (<span>var</span> imageFile <span>in</span> ImageFiles)
+</span></span><span><span>            {
+</span></span><span><span>                <span>// ...store them in the file system...</span>
+</span></span><span><span>                <span>var</span> imageFileName = <span>await</span> SaveImageFile(imageFile);
+</span></span><span><span>                <span>// ...and add a new corresponding record to the quote's related</span>
+</span></span><span><span>                <span>// image records.</span>
+</span></span><span><span>                quote.QuoteImages.Add(<span>new</span>() { FileName = imageFileName });
+</span></span><span><span>            }
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>// Finally, submit the database changes...</span>
+</span></span><span><span>        <span>await</span> _context.SaveChangesAsync();
+</span></span><span><span>
+</span></span><span><span>        <span>// ...and effectively reload the page.</span>
+</span></span><span><span>        <span>return</span> RedirectToPage(<span>"./Edit"</span>, <span>new</span> { Id = id });
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This method queries the database to find quote records by id.</span>
+</span></span><span><span>    <span>private</span> <span>async</span> Task&lt;Quote?&gt; FindQuote(<span>int</span> id) =&gt;
+</span></span><span><span>        <span>await</span> _context.Quotes
+</span></span><span><span>            .FirstOrDefaultAsync(m =&gt; m.ID == id);
+</span></span><span><span>
+</span></span><span><span>    <span>// This method has some mostly straightforward code to save the files from</span>
+</span></span><span><span>    <span>// the incoming HTTP request into the file system.</span>
+</span></span><span><span>    <span>private</span> <span>async</span> Task&lt;<span>string</span>&gt; SaveImageFile(IFormFile fileToSave)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> extension = Path.GetExtension(fileToSave.FileName).ToLowerInvariant();
+</span></span><span><span>        <span>// The only interesting thing that we have to keep in mind is that we</span>
+</span></span><span><span>        <span>// need to come up with a naming scheme that won't produce conflicts.</span>
+</span></span><span><span>        <span>// Here, we've taken the naive approach of just using</span>
+</span></span><span><span>        <span>// Path.GetRandomFileName to create randomized names.</span>
+</span></span><span><span>        <span>var</span> fileName = <span>$"{Path.GetRandomFileName()}{extension}"</span>;
+</span></span><span><span>        <span>var</span> filePath = Path.Combine(_imagesPath, fileName);
+</span></span><span><span>
+</span></span><span><span>        <span>using</span> <span>var</span> stream = System.IO.File.Create(filePath);
+</span></span><span><span>        <span>await</span> fileToSave.CopyToAsync(stream);
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> fileName;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Next we need to create the View. The job of this View is to define an HTML form that supports uploading many files. We have two options for this. The first option involves creating a form with a single file input element that uses the <a href="https://www.w3schools.com/tags/att_input_multiple.asp" rel="noreferrer" target="_blank"><code>multiple</code> attribute</a>. That will allow the user to pick many files at the same time using their operating system’s file picker dialog box, looking something like this:</p>
+<p></p>
+<p>Option number two involves defining a form with multiple file input elements with each accepting one file. The number of <code>&lt;input&gt;</code> elements cannot be static however. We want to allow users to upload as many images as they want. So, we’d also need some JavaScript to dynamically add new <code>&lt;input&gt;</code> elements as the user picks more and more files.</p>
+<p>Both options are valid, and deciding on one over the other will depend on the user experience you’re interested in creating and the amount of effort you can devote to it. For us, we went with option #2: A dynamic set of individual file input elements.</p>
+<p>Before making it fully dynamic, though, let’s go through the exercise of building it with a static number of <code>&lt;input&gt;</code> elements as a first step. I think that’ll help clarify the process better.</p>
+<p>So here’s the <code>cshtml</code> file with three <code>&lt;input type="file"&gt;</code> elements:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span><span>&lt;!-- VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml --&gt;</span>
+</span></span><span><span>
+</span></span><span><span>@page "{id}"
+</span></span><span><span>@model VehicleQuotes.AdminPortal.Pages.Quotes.EditModel
+</span></span><span><span>
+</span></span><span><span>@{
+</span></span><span><span>    ViewData["Title"] = "Details";
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span>&lt;<span>h1</span>&gt;Edit&lt;/<span>h1</span>&gt;
+</span></span><span><span>
+</span></span><span><span>&lt;<span>h4</span>&gt;Add Images&lt;/<span>h4</span>&gt;
+</span></span><span><span>&lt;<span>hr</span> /&gt;
+</span></span><span><span>
+</span></span><span><span>&lt;<span>div</span> <span>class</span>=<span>"row"</span>&gt;
+</span></span><span><span>    <span>&lt;!--
+</span></span></span><span><span><span>    The form doesn't need too many details. We do have to make sure to set its
+</span></span></span><span><span><span>    enctype attribute to multipart/form-data to allow it to include files.
+</span></span></span><span><span><span>    --&gt;</span>
+</span></span><span><span>    &lt;<span>form</span> <span>method</span>=<span>"post"</span> <span>enctype</span>=<span>"multipart/form-data"</span>&gt;
+</span></span><span><span>        &lt;<span>div</span> <span>id</span>=<span>"quote-images-container"</span> <span>class</span>=<span>"row"</span>&gt;
+</span></span><span><span>            &lt;<span>div</span> <span>class</span>=<span>"col-3 mb-3"</span>&gt;
+</span></span><span><span>                <span>&lt;!--
+</span></span></span><span><span><span>                These are regular old HTML file input elements. They all have
+</span></span></span><span><span><span>                the same name, which matches that of the property in the
+</span></span></span><span><span><span>                PageModel that we want the framework to populate.
+</span></span></span><span><span><span>                That is, "ImageFiles".
+</span></span></span><span><span><span>                --&gt;</span>
+</span></span><span><span>                &lt;<span>input</span>
+</span></span><span><span>                    <span>type</span>=<span>"file"</span> <span>accept</span>=<span>"image/*"</span>
+</span></span><span><span>                    <span>id</span>=<span>"ImageFiles_0"</span> <span>name</span>=<span>"ImageFiles"</span> <span>class</span>=<span>"form-control"</span>
+</span></span><span><span>                &gt;
+</span></span><span><span>            &lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>            &lt;<span>div</span> <span>class</span>=<span>"col-3 mb-3"</span>&gt;
+</span></span><span><span>                &lt;<span>input</span>
+</span></span><span><span>                    <span>type</span>=<span>"file"</span> <span>accept</span>=<span>"image/*"</span>
+</span></span><span><span>                    <span>id</span>=<span>"ImageFiles_1"</span> <span>name</span>=<span>"ImageFiles"</span> <span>class</span>=<span>"form-control"</span>
+</span></span><span><span>                &gt;
+</span></span><span><span>            &lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>            &lt;<span>div</span> <span>class</span>=<span>"col-3 mb-3"</span>&gt;
+</span></span><span><span>                &lt;<span>input</span>
+</span></span><span><span>                    <span>type</span>=<span>"file"</span> <span>accept</span>=<span>"image/*"</span>
+</span></span><span><span>                    <span>id</span>=<span>"ImageFiles_2"</span> <span>name</span>=<span>"ImageFiles"</span> <span>class</span>=<span>"form-control"</span>
+</span></span><span><span>                &gt;
+</span></span><span><span>            &lt;/<span>div</span>&gt;
+</span></span><span><span>        &lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>        &lt;<span>div</span> <span>class</span>=<span>"form-group mb-3"</span>&gt;
+</span></span><span><span>            <span>&lt;!-- This button submits the form. --&gt;</span>
+</span></span><span><span>            &lt;<span>button</span>
+</span></span><span><span>                <span>type</span>=<span>"submit"</span>
+</span></span><span><span>                <span>asp-page-handler</span>=<span>"Save"</span>
+</span></span><span><span>                <span>class</span>=<span>"btn btn-primary"</span>
+</span></span><span><span>            &gt;
+</span></span><span><span>                Save
+</span></span><span><span>            &lt;/<span>button</span>&gt;
+</span></span><span><span>        &lt;/<span>div</span>&gt;
+</span></span><span><span>    &lt;/<span>form</span>&gt;
+</span></span><span><span>&lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>&lt;<span>div</span> <span>class</span>=<span>"row"</span>&gt;
+</span></span><span><span>    &lt;<span>a</span> <span>asp-page</span>=<span>"./Index"</span>&gt;Back to List&lt;/<span>a</span>&gt;
+</span></span><span><span>&lt;/<span>div</span>&gt;
+</span></span></code></pre></div><p>This is how we design our form so that when submitted, ASP.NET knows that it has to populate <code>ImageFiles</code> (the collection of <code>IFormFile</code>s that we have defined in the <code>PageModel</code>) with the uploaded files. All we have to do is make sure that all the input elements share the same <code>name</code> attribute, and that said <code>name</code> is the same as the target property. <code>ImageFiles</code> in this case. The elements’ <code>id</code> attribute is actually superfluous.</p>
+<blockquote>
+<p>If you’re following along and want to run this next part on your environment, you’ll need a quote record to be able to bring it up in the page we’ve been building and add images to it. You could do so by running the <code>VehicleQuotes.WebApi</code> project with <code>dotnet run</code> and POST to it using <code>curl</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>curl --location 'http://localhost:8001/api/Quotes' \
+</span></span><span><span>--header 'Content-Type: application/json' \
+</span></span><span><span>--data '{
+</span></span><span><span> "year": "2020",
+</span></span><span><span> "make": "Mazda",
+</span></span><span><span> "model": "Mazda 3",
+</span></span><span><span> "bodyType": "Sedan",
+</span></span><span><span> "size": "Compact",
+</span></span><span><span> "itMoves": true,
+</span></span><span><span> "hasAllWheels": true,
+</span></span><span><span> "hasAlloyWheels": true,
+</span></span><span><span> "hasAllTires": true,
+</span></span><span><span> "hasKey": true,
+</span></span><span><span> "hasTitle": true,
+</span></span><span><span> "requiresPickup": true,
+</span></span><span><span> "hasEngine": true,
+</span></span><span><span> "hasTransmission": true,
+</span></span><span><span> "hasCompleteInterior": true
+</span></span><span><span>}'
+</span></span></code></pre></div><p>Then connect to the database however you like to and run the following query to learn its <code>id</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-sql" data-lang="sql"><span><span><span>select</span><span> </span>*<span> </span><span>from</span><span> </span>quotes;<span>
+</span></span></span></code></pre></div><p>Use that <code>id</code> in the URL to the page.</p>
+</blockquote>
+<p>At this point, the feature should work. If you run the app with <code>dotnet run</code>, and navigate to the page we’ve been building at <code>http://localhost:{YOUR_PORT}/Quotes/Edit/{QUOTE_ID}</code>, you should see something like this:</p>
+<p></p>
+<p>Pick three image files, hit the blue “Save” button and the files should be uploaded into the <code>wwwroot/uploads</code> diretory…</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ ls wwwroot/uploads
+</span></span><span><span>sqyjb1ui.qnv.png  x1c4s4fj.rqb.png  zjaym20f.wcx.png
+</span></span></code></pre></div><p>…and three new records should be created on the <code>quote_images</code> table:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>vehicle_quotes=# select * from quote_images;
+</span></span><span><span> id |    file_name     | quote_id
+</span></span><span><span>----+------------------+----------
+</span></span><span><span>  1 | sqyjb1ui.qnv.png |        1
+</span></span><span><span>  2 | zjaym20f.wcx.png |        1
+</span></span><span><span>  3 | x1c4s4fj.rqb.png |        1
+</span></span><span><span>(3 rows)
+</span></span></code></pre></div><h3 id="uploading-any-number-of-files">Uploading any number of files</h3>
+<blockquote>
+<p>Commit: <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/5aaff60c0a44173f97220ac0f287338ad6783bb6" rel="noreferrer" target="_blank">5aaff6</a>.</p>
+</blockquote>
+<p>Now that we’ve seen the general approach and key details of working with the framework to upload multiple files, it’s more clear what we need to do to support any number of files. Like I said, what we need is “some JavaScript to dynamically add new <code>&lt;input&gt;</code> elements as the user picks more and more files”.</p>
+<p>Let’s start by removing the three file input elements (that is, the whole <code>&lt;div id="quote-images-container"&gt;</code> element) and replacing them with this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span><span>&lt;!-- VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml --&gt;</span>
+</span></span><span><span>
+</span></span><span><span><span>&lt;!-- ... --&gt;</span>
+</span></span><span><span>
+</span></span><span><span>&lt;<span>div</span> <span>id</span>=<span>"quote-images-container"</span> <span>class</span>=<span>"row"</span>&gt;
+</span></span><span><span>    &lt;<span>div</span> <span>class</span>=<span>"col-3 mb-3"</span>&gt;
+</span></span><span><span>        &lt;<span>input</span> <span>type</span>=<span>"file"</span> <span>accept</span>=<span>"image/*"</span> <span>id</span>=<span>"new-quote-image-file"</span> <span>class</span>=<span>"form-control"</span> /&gt;
+</span></span><span><span>    &lt;/<span>div</span>&gt;
+</span></span><span><span>&lt;/<span>div</span>&gt;
+</span></span><span><span>
+</span></span><span><span>&lt;<span>template</span> <span>id</span>=<span>"quote-image-template"</span>&gt;
+</span></span><span><span>    &lt;<span>div</span> <span>class</span>=<span>"col-3 mb-3"</span>&gt;
+</span></span><span><span>        &lt;<span>input</span> <span>type</span>=<span>"file"</span> <span>accept</span>=<span>"image/*"</span> <span>name</span>=<span>""</span> <span>id</span>=<span>""</span> <span>class</span>=<span>"form-control"</span> /&gt;
+</span></span><span><span>    &lt;/<span>div</span>&gt;
+</span></span><span><span>&lt;/<span>template</span>&gt;
+</span></span></code></pre></div><p>We’ve reduced the three file input elements to just one and, most importantly, we’ve added a <code>template</code> that we’ll use to add new ones. If you’re not familiar, you can read more about templates <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template" rel="noreferrer" target="_blank">in MDN</a>. But the basic idea is that this element will not actually be visible in the page as it is. Instead, we will write some JavaScript that uses it to create new file inputs as the user fills out the currently present ones.</p>
+<p>We will create a new JavaScript file that will contain that logic. Let’s first add a reference to it in the View:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span><span>&lt;!-- VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml --&gt;</span>
+</span></span><span><span>
+</span></span><span><span><span>&lt;!-- ... --&gt;</span>
+</span></span><span><span>
+</span></span><span><span>@section scripts {
+</span></span><span><span>    &lt;<span>script</span> <span>src</span>=<span>"~/js/quotes.new-images.js"</span> <span>asp-append-version</span>=<span>"true"</span>&gt;&lt;/<span>script</span>&gt;
+</span></span><span><span>}
+</span></span></code></pre></div><p>And here’s what that JavaScript file looks like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-javascript" data-lang="javascript"><span><span><span>// VehicleQuotes.AdminPortal/wwwroot/js/quotes.new-images.js
+</span></span></span><span><span><span></span>
+</span></span><span><span><span>window</span>.addEventListener(<span>'DOMContentLoaded'</span>, _event =&gt; {
+</span></span><span><span>    <span>// First of all we attach the "addNewFileInput" function to the change event
+</span></span></span><span><span><span></span>    <span>// of the default file input element.
+</span></span></span><span><span><span></span>    <span>const</span> newFileInput = <span>document</span>.querySelector(<span>"#new-quote-image-file"</span>);
+</span></span><span><span>    newFileInput.addEventListener(<span>"change"</span>, addNewFileInput);
+</span></span><span><span>
+</span></span><span><span>    <span>// We use this counter to set the ids of the file input elements as they get
+</span></span></span><span><span><span></span>    <span>// added.
+</span></span></span><span><span><span></span>    <span>let</span> imageInputCount = <span>0</span>;
+</span></span><span><span>
+</span></span><span><span>    <span>// This function, which handles the file input's change event, updates the
+</span></span></span><span><span><span></span>    <span>// input element that triggered the event so that it can be submitted with
+</span></span></span><span><span><span></span>    <span>// the form and also creates a new empty file input ready to accept a new
+</span></span></span><span><span><span></span>    <span>// file. See the comments on the "convertToSubmittable" and
+</span></span></span><span><span><span></span>    <span>// "createNewFileInput" functions to learn how.
+</span></span></span><span><span><span></span>    <span>function</span> addNewFileInput(event) {
+</span></span><span><span>        convertToSubmittable(event.target)
+</span></span><span><span>        createNewFileInput();
+</span></span><span><span>
+</span></span><span><span>        imageInputCount++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This function takes the file input element that the user interacted with
+</span></span></span><span><span><span></span>    <span>// and changes its name to "ImageFiles". That way, when the form is
+</span></span></span><span><span><span></span>    <span>// submitted, ASP.NET knows that it needs include the file from this
+</span></span></span><span><span><span></span>    <span>// element when populating the "ImageFiles" property.
+</span></span></span><span><span><span></span>    <span>// We also detach the change event handler, because once a file
+</span></span></span><span><span><span></span>    <span>// is selected on it, we don't want new inputs being created if the user
+</span></span></span><span><span><span></span>    <span>// changes the file. It is only the new empty file input that will be
+</span></span></span><span><span><span></span>    <span>// responsible of creating another new empty one once it is filled.
+</span></span></span><span><span><span></span>    <span>function</span> convertToSubmittable(fileInput) {
+</span></span><span><span>        fileInput.setAttribute(<span>"name"</span>, <span>"ImageFiles"</span>);
+</span></span><span><span>        fileInput.setAttribute(<span>"id"</span>, <span>`ImageFiles_</span><span>${</span>imageInputCount<span>}</span><span>`</span>);
+</span></span><span><span>
+</span></span><span><span>        fileInput.removeEventListener(<span>"change"</span>, addNewFileInput);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Here we leverage the template to create and attach a new empty file input
+</span></span></span><span><span><span></span>    <span>// element. Importantly, we set the addNewFileInput to handle its change
+</span></span></span><span><span><span></span>    <span>// event. That way, when the user picks a file to put in the newly created
+</span></span></span><span><span><span></span>    <span>// file input, the whole process runs again to get the element ready for
+</span></span></span><span><span><span></span>    <span>// submission and create a new empty one.
+</span></span></span><span><span><span></span>    <span>function</span> createNewFileInput() {
+</span></span><span><span>        <span>const</span> template = <span>document</span>.querySelector(<span>"#quote-image-template"</span>);
+</span></span><span><span>        <span>const</span> clone = template.content.cloneNode(<span>true</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>let</span> fileInput = clone.querySelector(<span>"input"</span>);
+</span></span><span><span>        fileInput.setAttribute(<span>"id"</span>, <span>"new-quote-image-file"</span>);
+</span></span><span><span>
+</span></span><span><span>        appendToContainer(clone);
+</span></span><span><span>
+</span></span><span><span>        fileInput.addEventListener(<span>"change"</span>, addNewFileInput);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>function</span> appendToContainer(element) {
+</span></span><span><span>        <span>const</span> container = <span>document</span>.querySelector(<span>"#quote-images-container"</span>);
+</span></span><span><span>        container.appendChild(element);
+</span></span><span><span>    }
+</span></span><span><span>});
+</span></span></code></pre></div><p>So the overall strategy is something like this: At page load, we start with an empty file input. Once a file is selected for it, the input gets updated so that it is ready for submission. Then a new empty file input is created which will serve the same purpose as the initial one. This creates a “cycle” where a single new empty file input is always created as a result of users picking files, allowing them to keep adding files one by one.</p>
+<p>So the page starts looking like this:</p>
+<p></p>
+<p>If we pick a file, the page turns into this:</p>
+<p></p>
+<p>Pick another, and now it looks like this:</p>
+<p></p>
+<p>And so on.</p>
+<p>Now users can pick as many files as they want, hit the “Save” button, and everything just works.</p>
+<p>And with that, the initial promise of this blog post is fulfilled. However, there are a few more improvements and features that we can add.</p>
+<h3 id="validating-the-uploaded-images">Validating the uploaded images</h3>
+<blockquote>
+<p>Commit: <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/06b547478cb2d45ffd9ad2e4aee8b102a8911ac8" rel="noreferrer" target="_blank">06b547</a>.</p>
+</blockquote>
+<p>Something obvious that’s missing is validation. Right now, our app allows users to upload anything they want. We can limit that a bit with a couple of <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0#custom-attributes" rel="noreferrer" target="_blank">validation attributes</a>.</p>
+<p>For example, here’s one that only allows files with the most common image extensions:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Validation/AllFilesHaveImageFileExtensionAttribute.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>using</span> <span>System.ComponentModel.DataAnnotations</span>;
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>VehicleQuotes.AdminPortal.Validation</span>;
+</span></span><span><span><span>
+</span></span></span><span><span><span>[AttributeUsage(AttributeTargets.Property)]</span>
+</span></span><span><span><span>public</span> <span>class</span> <span>AllFilesHaveImageFileExtensionAttribute</span> : ValidationAttribute
+</span></span><span><span>{
+</span></span><span><span>    <span>// These are the file extensions that we accept.</span>
+</span></span><span><span>    <span>private</span> <span>static</span> <span>readonly</span> <span>string</span>[] imageExtensions =
+</span></span><span><span><span>        [".png", ".jpg", ".jpeg", ".gif", ".bmp"]</span>;
+</span></span><span><span>
+</span></span><span><span>    <span>// This method is called by the framework when processing the request to</span>
+</span></span><span><span>    <span>// validate the incoming payload.</span>
+</span></span><span><span>    <span>protected</span> <span>override</span> ValidationResult? IsValid(
+</span></span><span><span>        <span>object?</span> <span>value</span>, ValidationContext context
+</span></span><span><span>    ){
+</span></span><span><span>        <span>if</span> (<span>value</span> == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        ThrowIfTypeIsNotSupported(<span>value</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>if</span> (!CheckIfIsValid(<span>value</span>))
+</span></span><span><span>            <span>return</span> <span>new</span> ValidationResult(GetErrorMessage());
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> ValidationResult.Success;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// In this method we make sure that the attribute is only applied to</span>
+</span></span><span><span>    <span>// properties of type IEnumerable&lt;IFormFile&gt;. It only works with those.</span>
+</span></span><span><span>    <span>private</span> <span>void</span> ThrowIfTypeIsNotSupported(<span>object</span> <span>value</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>if</span> (<span>value</span> <span>is</span> not IEnumerable&lt;IFormFile&gt;)
+</span></span><span><span>        {
+</span></span><span><span>            <span>throw</span> <span>new</span> ArgumentException(<span>$"{GetType().Name} only works with properties of type IEnumerable&lt;IFormFile&gt;."</span>);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Here we check that all the files in the collection meet the criteria</span>
+</span></span><span><span>    <span>// defined in "HasImageExtension".</span>
+</span></span><span><span>    <span>private</span> <span>static</span> <span>bool</span> CheckIfIsValid(<span>object</span> <span>value</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> files = (IEnumerable&lt;IFormFile&gt;)<span>value</span>;
+</span></span><span><span>        <span>return</span> files.All(HasImageExtension);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This is the core of our validation logic. This method checks that each</span>
+</span></span><span><span>    <span>// given file has one of the extensions from the "imageExtensions" array.</span>
+</span></span><span><span>    <span>private</span> <span>static</span> <span>bool</span> HasImageExtension(IFormFile file)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+</span></span><span><span>
+</span></span><span><span>        <span>if</span> (<span>string</span>.IsNullOrEmpty(extension) || !imageExtensions.Contains(extension))
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> <span>false</span>;
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> <span>true</span>;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Here we produce an error message that's easily understandable for users.</span>
+</span></span><span><span>    <span>// Letting them know which extensions our app supports.</span>
+</span></span><span><span>    <span>private</span> <span>static</span> <span>string</span> GetErrorMessage()
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> allowedExtensions = <span>string</span>.Join(<span>", "</span>, imageExtensions);
+</span></span><span><span>        <span>return</span> <span>$"Only the following file extensions are allowed: {allowedExtensions}."</span>;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>The attribute can be applied to the <code>ImageFiles</code> property in the <code>PageModel</code> like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.cs</span>
+</span></span><span><span><span>
+</span></span></span><span><span><span>[BindProperty]</span>
+</span></span><span><span><span>[AllFilesHaveImageFileExtension]</span> <span>// &lt;- Here's the new attribute.</span>
+</span></span><span><span><span>public</span> IEnumerable&lt;IFormFile&gt;? ImageFiles { <span>get</span>; <span>set</span>; }
+</span></span></code></pre></div><p>And here’s another one that checks that none of the incoming files are empty:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Validation/AllFilesAreNotEmptyAttribute.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>using</span> <span>System.ComponentModel.DataAnnotations</span>;
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>VehicleQuotes.AdminPortal.Validation</span>;
+</span></span><span><span><span>
+</span></span></span><span><span><span>[AttributeUsage(AttributeTargets.Property)]</span>
+</span></span><span><span><span>public</span> <span>class</span> <span>AllFilesAreNotEmptyAttribute</span> : ValidationAttribute
+</span></span><span><span>{
+</span></span><span><span>    <span>protected</span> <span>override</span> ValidationResult? IsValid(<span>object?</span> <span>value</span>, ValidationContext context)
+</span></span><span><span>    {
+</span></span><span><span>        <span>if</span> (<span>value</span> == <span>null</span>) <span>return</span> ValidationResult.Success;
+</span></span><span><span>
+</span></span><span><span>        ThrowIfTypeIsNotSupported(<span>value</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>if</span> (!CheckIfIsValid(<span>value</span>)) <span>return</span> <span>new</span> ValidationResult(GetErrorMessage());
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> ValidationResult.Success;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>void</span> ThrowIfTypeIsNotSupported(<span>object</span> <span>value</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>if</span> (<span>value</span> <span>is</span> not IEnumerable&lt;IFormFile&gt;)
+</span></span><span><span>        {
+</span></span><span><span>            <span>throw</span> <span>new</span> ArgumentException(<span>$"{GetType().Name} only works with properties of type IEnumerable&lt;IFormFile&gt;."</span>);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This is the only part that's meaningfully different from the other</span>
+</span></span><span><span>    <span>// validation attribute we just wrote. Here, we simply check that the</span>
+</span></span><span><span>    <span>// uploaded file's length attribute is greater than zero. In other words:</span>
+</span></span><span><span>    <span>// we check that the file isn't empty.</span>
+</span></span><span><span>    <span>private</span> <span>static</span> <span>bool</span> CheckIfIsValid(<span>object</span> <span>value</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> files = (IEnumerable&lt;IFormFile&gt;)<span>value</span>;
+</span></span><span><span>        <span>return</span> files.All(file =&gt; file.Length &gt; <span>0</span>);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>static</span> <span>string</span> GetErrorMessage() =&gt; <span>"Some of the selected files appear to be empty."</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><p>It can be applied similarly:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.cs</span>
+</span></span><span><span><span>
+</span></span></span><span><span><span>[BindProperty]</span>
+</span></span><span><span><span>[AllFilesHaveImageFileExtension]</span>
+</span></span><span><span><span>[AllFilesAreNotEmpty]</span> <span>// &lt;- Here it is.</span>
+</span></span><span><span><span>public</span> IEnumerable&lt;IFormFile&gt;? ImageFiles { <span>get</span>; <span>set</span>; }
+</span></span></code></pre></div><p>The last step is to actually trigger the input validation when the request is received. This can be done with this update to the <code>OnPostSaveAsync</code> handler:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-diff" data-lang="diff"><span><span>public async Task&lt;IActionResult&gt; OnPostSaveAsync(int id)
+</span></span><span><span>{
+</span></span><span><span>    var quote = await FindQuote(id);
+</span></span><span><span>
+</span></span><span><span>    if (quote == null)
+</span></span><span><span>    {
+</span></span><span><span>        return NotFound();
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span><span>+    if (!ModelState.IsValid)
+</span></span></span><span><span><span>+    {
+</span></span></span><span><span><span>+        return Page();
+</span></span></span><span><span><span>+    }
+</span></span></span><span><span><span></span>
+</span></span><span><span>    if (ImageFiles is not null)
+</span></span><span><span>    {
+</span></span><span><span>        foreach (var imageFile in ImageFiles)
+</span></span><span><span>        {
+</span></span><span><span>            var imageFileName = await SaveImageFile(imageFile);
+</span></span><span><span>            quote.QuoteImages.Add(new() { FileName = imageFileName });
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    await _context.SaveChangesAsync();
+</span></span><span><span>
+</span></span><span><span>    return RedirectToPage("./Edit", new { Id = id });
+</span></span><span><span>}
+</span></span></code></pre></div><p>Oh! And don’t forget the necessary <code>using</code> statement near the top of the file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>using</span> <span>VehicleQuotes.AdminPortal.Validation</span>;
+</span></span></code></pre></div><p>We probably also want to add a validation summary in the View so that an error message is shown whenever the validation fails. We put it inside the <code>&lt;form&gt;</code> element:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-diff" data-lang="diff"><span><span>&lt;form method="post" enctype="multipart/form-data"&gt;
+</span></span><span><span><span>+    &lt;div asp-validation-summary="All" class="text-danger"&gt;&lt;/div&gt;
+</span></span></span><span><span><span></span>
+</span></span><span><span>    &lt;!-- ... --&gt;
+</span></span><span><span>&lt;/form&gt;
+</span></span></code></pre></div><p>Attempting to upload invalid files produces something like this:</p>
+<p></p>
+<p>There are more complex validations that can be done. Check out <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0#validation" rel="noreferrer" target="_blank">ASP.NET’s official docs</a> to learn more.</p>
+<h3 id="displaying-the-images">Displaying the images</h3>
+<blockquote>
+<p>Commit: <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/d15d35f24baee75fd65f28b20733089d6671822e" rel="noreferrer" target="_blank">d15d35</a></p>
+</blockquote>
+<p>So far we’ve added support for uploading images. We should have a way of displaying the ones that are already in the system as well. Luckily this is quite a straightforward problem to solve. To do that, we need to update our <code>PageModel</code>’s GET request handler so that it fetches the corresponding quote record from the database. Also, we need to create a new property to store this quote, so that it is accessible in the View.</p>
+<p>All in all, the <code>PageModel</code> has to be updated to look like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>// ...</span>
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>EditModel</span> : PageModel
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// Here's the property we talked about. We need it so that the View can</span>
+</span></span><span><span>    <span>// access the quote record fetched in the handler.</span>
+</span></span><span><span>    <span>public</span> Quote Quote { <span>get</span>; <span>set</span>; } = <span>default</span>!;
+</span></span><span><span>
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// public IActionResult OnGet(int id) =&gt; Page(); &lt;- This gets removed.</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// This is our new GET request handler.</span>
+</span></span><span><span>    <span>public</span> <span>async</span> Task&lt;IActionResult&gt; OnGetAsync(<span>int</span> id)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> quote = <span>await</span> FindQuote(id);
+</span></span><span><span>
+</span></span><span><span>        <span>// Return a 404 if the quote doesn't exist.</span>
+</span></span><span><span>        <span>if</span> (quote == <span>null</span>)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> NotFound();
+</span></span><span><span>        }
+</span></span><span><span>
+</span></span><span><span>        <span>// Don't forget to store the quote in the property.</span>
+</span></span><span><span>        Quote = quote;
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> Page();
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// We also need to update the query so that the image records are also</span>
+</span></span><span><span>    <span>// fetched, along with the particular quote we're interested in.</span>
+</span></span><span><span>    <span>private</span> <span>async</span> Task&lt;Quote?&gt; FindQuote(<span>int</span> id) =&gt;
+</span></span><span><span>        <span>await</span> _context.Quotes
+</span></span><span><span>            .Include(m =&gt; m.QuoteImages) <span>// &lt;- We need to add this.</span>
+</span></span><span><span>            .FirstOrDefaultAsync(m =&gt; m.ID == id);
+</span></span><span><span>}
+</span></span></code></pre></div><p>The View will need a way to calculate the images’ URLs. We could put that logic in the <code>.cshtml</code> template itself, but a simple property on <code>QuoteImage</code> would be a bit cleaner. Here’s what it would look like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.WebApi/Models/QuoteImage.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>namespace</span> <span>VehicleQuotes.WebApi.Models</span>;
+</span></span><span><span>
+</span></span><span><span><span>public</span> <span>class</span> <span>QuoteImage</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// Taking advantage of the fact that we know that the image files are stored</span>
+</span></span><span><span>    <span>// in the wwwroot/uploads directory, we can construct a URL that can be used</span>
+</span></span><span><span>    <span>// in the src attribute of &lt;img&gt; elements.</span>
+</span></span><span><span>    <span>public</span> <span>string</span> Url =&gt; <span>$"~/uploads/{FileName}"</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><p>Finally, in the View, we update the HTML template to iterate over the loaded quote’s <code>QuoteImages</code> and render them. Let’s add this code right above the “Add Images” header:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span><span>&lt;!-- VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml --&gt;</span>
+</span></span><span><span>
+</span></span><span><span>&lt;<span>h4</span>&gt;Existing Images&lt;/<span>h4</span>&gt;
+</span></span><span><span>&lt;<span>hr</span> /&gt;
+</span></span><span><span>
+</span></span><span><span>&lt;<span>div</span> <span>class</span>=<span>"row mb-4"</span>&gt;
+</span></span><span><span>    @foreach (var image in Model.Quote.QuoteImages)
+</span></span><span><span>    {
+</span></span><span><span>        &lt;<span>div</span> <span>class</span>=<span>"col-3"</span>&gt;
+</span></span><span><span>            &lt;<span>img</span>
+</span></span><span><span>                <span>src</span>=<span>"@image.Url"</span>
+</span></span><span><span>                <span>asp-append-version</span>=<span>"true"</span>
+</span></span><span><span>                <span>alt</span>=<span>"Quote image"</span>
+</span></span><span><span>                <span>class</span>=<span>"mx-auto d-block w-75"</span>
+</span></span><span><span>            /&gt;
+</span></span><span><span>        &lt;/<span>div</span>&gt;
+</span></span><span><span>    }
+</span></span><span><span>&lt;/<span>div</span>&gt;
+</span></span></code></pre></div><p>The page should now look something like this:</p>
+<p></p>
+<h3 id="deleting-the-images">Deleting the images</h3>
+<blockquote>
+<p>Commit: <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo/commit/2526f25608ea54a831e6290736d4cd05f6e11fba" rel="noreferrer" target="_blank">2526f2</a>.</p>
+</blockquote>
+<p>The last piece of the puzzle that’s missing from our image file management screen is the ability to delete them. The Razor Pages way of doing this is with a new button that submits a form to a <a href="https://learn.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-8.0&amp;tabs=visual-studio#multiple-handlers-per-page" rel="noreferrer" target="_blank">named page handler</a>.</p>
+<p>The form and button combo looks like this and can be added right below the <code>&lt;img&gt;</code> element that we added inside the <code>foreach</code> loop in the previous section:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-html" data-lang="html"><span><span><span>&lt;!-- VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml --&gt;</span>
+</span></span><span><span>
+</span></span><span><span>&lt;<span>form</span> <span>method</span>=<span>"post"</span>&gt;
+</span></span><span><span>    &lt;<span>button</span>
+</span></span><span><span>        <span>type</span>=<span>"submit"</span>
+</span></span><span><span>        <span>asp-page-handler</span>=<span>"DeleteImage"</span>
+</span></span><span><span>        <span>asp-route-imageId</span>=<span>"@image.ID"</span>
+</span></span><span><span>        <span>class</span>=<span>"btn btn-outline-danger mx-auto d-block"</span>
+</span></span><span><span>    &gt;
+</span></span><span><span>        Delete
+</span></span><span><span>    &lt;/<span>button</span>&gt;
+</span></span><span><span>&lt;/<span>form</span>&gt;
+</span></span></code></pre></div><p>The <code>asp-page-handler</code> attribute tells the framework which handler to call when this form gets submitted. We will write that handler shortly! The <code>asp-route-imageId</code> on the other hand, defines a parameter to pass to the handler.</p>
+<p>Now for the handler, here’s the code that we need to add to our <code>PageModel</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// VehicleQuotes.AdminPortal/Pages/Quotes/Edit.cshtml.cs</span>
+</span></span><span><span>
+</span></span><span><span><span>// This is the handler method. Its name matches the asp-page-handler attribute</span>
+</span></span><span><span><span>// on the button that triggers the form submission. The id parameter comes from</span>
+</span></span><span><span><span>// the URL route (i.e. quotes/edit/{id}). The imageId parameter comes from the</span>
+</span></span><span><span><span>// asp-route-imageId attribute in the form's submit button.</span>
+</span></span><span><span><span>public</span> <span>async</span> Task&lt;IActionResult&gt; OnPostDeleteImageAsync(<span>int</span> id, <span>int</span> imageId)
+</span></span><span><span>{
+</span></span><span><span>    <span>// Find the quote record by id...</span>
+</span></span><span><span>    <span>var</span> quote = <span>await</span> FindQuote(id);
+</span></span><span><span>
+</span></span><span><span>    <span>// ...and return a 404 if no quote is found.</span>
+</span></span><span><span>    <span>if</span> (quote == <span>null</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> NotFound();
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Get the image referenced by imageId. That is, the one for which the</span>
+</span></span><span><span>    <span>// delete button was pressed.</span>
+</span></span><span><span>    <span>var</span> imageToDelete = quote.QuoteImages.FirstOrDefault(i =&gt; i.ID == imageId);
+</span></span><span><span>
+</span></span><span><span>    <span>// Again, return a 404 if no such image record exists.</span>
+</span></span><span><span>    <span>if</span> (imageToDelete == <span>null</span>)
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> NotFound();
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// If all goes well, we delete the image file...</span>
+</span></span><span><span>    DeleteImageFile(imageToDelete.FileName);
+</span></span><span><span>    <span>// ...and also delete the corresponding database record.</span>
+</span></span><span><span>    _context.QuoteImages.Remove(imageToDelete);
+</span></span><span><span>    <span>await</span> _context.SaveChangesAsync();
+</span></span><span><span>
+</span></span><span><span>    <span>// And finally reload the page.</span>
+</span></span><span><span>    <span>return</span> RedirectToPage(<span>"./Edit"</span>, <span>new</span> { Id = id });
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// This method uses the typical .NET library features for deleting a file.</span>
+</span></span><span><span><span>private</span> <span>void</span> DeleteImageFile(<span>string</span> fileName)
+</span></span><span><span>{
+</span></span><span><span>    <span>var</span> filePath = Path.Combine(_imagesPath, fileName);
+</span></span><span><span>    System.IO.File.Delete(filePath);
+</span></span><span><span>}
+</span></span></code></pre></div><p>With that, each image rendered in the page should now have a working “Delete” button that looks like this:</p>
+<p></p>
+<p>Alright! Now we have a fully functional image handling page where we can view, add and remove images associated with a particular entity in our system. The neat part is that users can select as many files as they want and upload them all at the same time within a single form submission. We did all this with Razor Pages, using framework features, and a little bit of JavaScript.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-07-04T00:00:00.000Z>4 July 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

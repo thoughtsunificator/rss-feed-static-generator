@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Common Expressions For Portable Policy and Beyond</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/06/common-expressions-for-portable-policy.html">Go to article URL</a>
+		<div id="content"><p></p><meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGkMcQkTcMxeWdrytLd_PeruB1foXQWiUfH7j10rXpIbtzXcCLXeca5wXlR9ueHIJnIAg7p3F3afB7kYslg-BYW4TxGx-BJssH2Ady1xPtZzl8CL5xzAjwEXyE8WR1WdTJbZi1lotF-1AscOc24UGDL9LXCu_6A_nlFZ2O59MhvTdtIdvJeaQ2-GmlYYU/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png" imageanchor="1" rel="noreferrer" target="_blank"></a>
+
+<div><br></div>
+
+<p>I am thrilled to introduce Common Expression Language, a simple expression language that's great for writing small snippets of logic which can be run anywhere with the same semantics in nanoseconds to microseconds evaluation speed. The launch of <a href="https://cel.dev" target="_blank" rel="noreferrer">cel.dev</a> marks a major milestone in the growth and stability of the language.</p>
+
+<p>It powers several well known products such as Kubernetes where it's used to protect against costly production misconfigurations:</p>
+
+<ul><span>object.spec.replicas &lt;= 5</span></ul>
+
+<p>Cloud IAM uses CEL to enable fine-grained authorization:</p>
+
+<ul><span>request.path.startsWith("/finance")</span></ul><br>
+
+
+<h2>Versatility</h2>
+
+<p>CEL is both open source and openly governed, making it well adopted both inside and outside Google. CEL is used by a number of large tech companies, either internally or as part of their public product offering.  As a reflection of this open governance, <a href="https://cel.dev" target="_blank" rel="noreferrer">cel.dev</a> has been launched to share more about the language and the community around it.</p> 
+
+<p>So, what makes CEL a good choice for these applications? Why is CEL unique or different from Amazon's Cedar Policy or Open Policy Agent's Rego? These are great questions, and common ones (no pun intended): </p>
+<ul>
+<li><b>Highly optimized evaluation</b> O(ns) - O(μs)</li>
+<li>Portable with stacks <b>supported in C++, Java, and Go</b></li>
+<li><b>Thousands of conformance tests</b> ensure consistent behavior across stacks</li>
+<li>Supports <b>extension and subsetting</b></li>
+</ul>
+
+<p>Subsetting is crucial for preserving predictable compute / memory impacts, and it only exists in CEL. As any latency-critical service maintainer will tell you, it's vital to have a clear understanding of compute and memory implications of any new feature. Imagine you've chosen an expression language, validated its functionality meets your security, serving, and scaling goals, but after launching an update to the library introduces new functionality which can't be disabled and leaves your product vulnerable to attack. Your alternatives are to fork the library and accept the maintenance costs, introduce custom validation logic which is likely to be insufficient to prevent abuse, or to redesign your service. CEL supported subsetting allows you to ensure that what was true at the initial product launch will remain true until you decide when to expose more of its functionality to customers. </p>
+
+<p>Cedar Policy language was developed by Amazon. It is open source, implemented in Rust, and offers formal verification. Formal verification allows Cedar to validate policy correctness at authoring time. CEL is not just a policy language, but a broader expression language. It is used within larger policy projects in a way that allows users to augment their existing systems rather than adopt an entirely new one. </p>
+
+<p>Formal verification often has challenges scaling to large amounts of data and is based on the belief that a formal proof of behavior is sufficient evidence of compliance. However, regulations and policies in natural language are often ambiguous. This means that logical translations of these policies are inherently ambiguous as well. CEL's approach to this challenge of compliance and reasoning about potentially ambiguous behaviors is to support evaluation over partial data at a very high speed and with minimal resources.</p> 
+
+<p>CEL is fast enough to be used in networking policies and expressive enough to be used in detailed application policies. Having a greater coverage of use cases improves your ability to reason about behavior holistically. But, what if you don't have all the data yet to know exactly how the policy will behave? CEL supports partial evaluation using four-valued logic which makes it possible to determine cases which are definitely allowed, denied, or where policy behavior is conditional on additional inputs. This allows for what-if analysis against historical data as well as against speculative data from new use cases or proposed policy changes.</p>
+
+
+<p>Open Policy Agent's Rego is also open source, implemented in Golang and based on Datalog, which makes it possible to offer similar proofs as Cedar.  However, the language is much more powerful than Cedar, and more powerful than CEL. This expressiveness means that OPA Rego is fantastic for non-latency critical, single-tenant solutions, but difficult to safely embed in existing offerings.</p> <br>
+
+<h2>Four-valued Logic</h2>
+
+<p>CEL uses commutative logical operators that can render a true, false, error, or unknown status. This is a scalable alternative to formal verification and the expressiveness of Datalog. Four-valued logic allows CEL to evaluate over a partial set of inputs to deliver either a definitive result or communicate that more information is necessary to complete the evaluation.</p>
+
+<h3>What is four-valued logic? </h3>
+
+<p>True, false, and error outcomes are considered definitive: no additional information will change the outcome of the expression. Consider the following case:</p>
+
+<ul><span>1/0 != 0 &amp;&amp; false</span></ul>
+
+<p>In traditional programming languages, this expression would be an error; however, in CEL the outcome is <span>false</span>.
+
+</p><p>Now consider the following case where an input variable, called unknown_var is marked as unknown:</p>
+
+<ul><span>unknown_var &amp;&amp; true</span></ul>
+
+<p>The outcome of this expression is UNKNOWN{unknown_var} indicating that once the variable is known, the evaluation can be safely completed. An unknown indicates what was missing, and alerts the user to fix the outcome with more information.  This technique both borrows from and extends SQL three-valued predicate logic which uses TRUE, FALSE, and NULL with commutative logical operators. From a CEL perspective, the error state is akin to SQL NULL that arises when there is an absence of information. </p><br>
+
+<h2>CEL compatibility with SQL</h2>
+  
+<p>CEL leverages SQL semantics to ensure that it can be seamlessly translated to SQL. SQL optimizers perform significantly better over large data sets, making it possible to evaluate over data at rest. Imagine trying to scale a single expression evaluation over tens of millions of records. Even if the expression evaluates within a single microsecond, the evaluation would still take tens of seconds. The more complex the expression, the greater the latency. SQL excels at this use case, so translation from CEL to SQL was an important factor in the design in order to unlock the possibility of performant policy checks both online with CEL and offline with SQL.</p><br>
+
+
+<h2>Thank you CEL Community!</h2>
+
+<p>We’re proud to announce <a href="https://cel.dev" target="_blank" rel="noreferrer">cel.dev</a> as a major milestone in the maturity and adoption of the language, and we look forward to working with you to make CEL the best building block for writing latency-critical, portable logic. Feel free to contact us at <a href="mailto:cel-lang-discuss@googlegroups.com" target="_blank" rel="noreferrer">cel-lang-discuss@googlegroups.com</a></p>
+
+<p><em>By Tristan Swadell – Senior Staff Software Engineer </em></p>
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-06-18T09:00:00.000Z>18 June 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

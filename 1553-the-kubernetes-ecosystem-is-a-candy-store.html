@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>The Kubernetes ecosystem is a candy store</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/06/the-kubernetes-ecosystem-is-candy-store.html">Go to article URL</a>
+		<div id="content"><p></p><meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGkMcQkTcMxeWdrytLd_PeruB1foXQWiUfH7j10rXpIbtzXcCLXeca5wXlR9ueHIJnIAg7p3F3afB7kYslg-BYW4TxGx-BJssH2Ady1xPtZzl8CL5xzAjwEXyE8WR1WdTJbZi1lotF-1AscOc24UGDL9LXCu_6A_nlFZ2O59MhvTdtIdvJeaQ2-GmlYYU/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png" imageanchor="1" rel="noreferrer" target="_blank"></a>
+
+<div><br></div>
+
+<p>For the 10th anniversary of Kubernetes, I wanted to look at the ecosystem we created together.</p>
+
+<p>I <a href="https://medium.com/@bgrant0607/is-the-kubernetes-cncf-ecosystem-too-big-complex-and-fragmented-350d52f37e31" target="_blank" rel="noreferrer">recently wrote</a> about the pervasiveness and magnitude of the Kubernetes and CNCF ecosystem. This was the result of a deliberate flywheel. This is a diagram I used several years ago:</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div>
+
+
+<p>Because Kubernetes runs on public clouds, private clouds, on the edge, etc., it is attractive to developers and vendors to build solutions targeting its users. Most tools built for Kubernetes or integrated with Kubernetes can work across all those environments, whereas integrating directly with cloud providers directly entails individual work for each one. Thus, Kubernetes created a large addressable market with a comparatively lower cost to build.</p>
+
+<p>We also deliberately encouraged open source contribution, to Kubernetes and to other projects. Many tools in the ecosystem, not just those in CNCF, are open source. This includes many tools built by Kubernetes users and tools built by vendors but were too small to be products, as well as those intended to be the cores of products. Developers built and/or wrote about solutions to problems they experienced or saw, and shared them with the community. This made Kubernetes more usable and more visible, which likely attracted more users.</p>
+
+<p>Today, the result is that if you need a tool, extension, or off-the-shelf component for pretty much anything, you can probably find one compatible with Kubernetes rather than having to build it yourself, and it’s more likely that you can find one that works out of the box with Kubernetes than for your cloud provider. And often there are several options to choose from. I’ll just mention a few. Also, I want to give a shout out to <a href="https://twitter.com/kubetools" target="_blank" rel="noreferrer">Kubetools</a>, which has a <a href="https://collabnix.github.io/kubetools/" target="_blank" rel="noreferrer">great list</a> of Kubernetes tools that helped me discover a few new ones.</p>
+
+<p>For example, if you’re an application developer whose application runs on Kubernetes, you can build and deploy with <a href="http://skaffold.dev" target="_blank" rel="noreferrer">Skaffold</a>, test it on Kubernetes locally with <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noreferrer">Minikube</a>, or connect to Kubernetes remotely with <a href="https://www.telepresence.io/" target="_blank" rel="noreferrer">Telepresence</a>, or sync to a preview environment with <a href="https://www.gitpod.io/" target="_blank" rel="noreferrer">Gitpod</a> or <a href="https://www.okteto.com/" target="_blank" rel="noreferrer">Okteto</a>. When you need to debug multiple instances, you can use <a href="https://github.com/kubetail-org/kubetail" target="_blank" rel="noreferrer">kubetail</a> to view the logs in real time.</p>
+
+<p>To deploy to production, you can use <a href="https://medium.com/@bgrant0607/is-gitops-actually-useful-a1c851ba99d8" target="_blank" rel="noreferrer">GitOps</a> tools like <a href="https://fluxcd.io/" target="_blank" rel="noreferrer">FluxCD</a>, <a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noreferrer">ArgoCD</a>, or Google Cloud’s <a href="https://cloud.google.com/anthos-config-management/docs/config-sync-overview" target="_blank" rel="noreferrer">Config Sync</a>. You can perform database migrations with <a href="https://schemahero.io/" target="_blank" rel="noreferrer">Schemahero</a>. To aggregate logs from your production deployments, you can use <a href="https://fluentbit.io/" target="_blank" rel="noreferrer">fluentbit</a>. To monitor them, you have your pick of observability tools, including <a href="https://prometheus.io/" target="_blank" rel="noreferrer">Prometheus</a>, which was inspired by Google’s Borgmon tool similar to how <a href="https://research.google/pubs/borg-omega-and-kubernetes/" target="_blank" rel="noreferrer">Kubernetes was inspired by Borg</a>, and which was the <a href="https://www.cncf.io/announcements/2016/05/09/cloud-native-computing-foundation-accepts-prometheus-as-second-hosted-project/" target="_blank" rel="noreferrer">2nd project accepted into the CNCF</a>.</p>
+
+<p>If your application needs to receive traffic from the Internet, you can use one of the many <a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/" target="_blank" rel="noreferrer">Ingress controllers</a> or <a href="https://kubernetes.io/docs/concepts/services-networking/gateway/" target="_blank" rel="noreferrer">Gateway</a> implementations to configure HTTPS routing, and <a href="https://cert-manager.io/" target="_blank" rel="noreferrer">cert-manager</a> to obtain and renew the certificates. For mutual TLS and advanced routing, you can use a service mesh like <a href="https://istio.io/" target="_blank" rel="noreferrer">Istio</a>, and take advantage of it for progressive delivery using tools like <a href="https://flagger.app/" target="_blank" rel="noreferrer">Flagger</a>.</p>
+
+<p>If you have a more specialized type of workload to run, you can run event-driven workloads using <a href="https://knative.dev/docs/" target="_blank" rel="noreferrer">Knative</a>, batch workloads using <a href="https://kueue.sigs.k8s.io/" target="_blank" rel="noreferrer">Kueue</a>, ML workflows using <a href="https://www.kubeflow.org/" target="_blank" rel="noreferrer">Kubeflow</a>, and Kafka using <a href="https://strimzi.io/" target="_blank" rel="noreferrer">Strimzi</a>.</p>
+
+<p>If you’re responsible for operating Kubernetes workloads, to monitor costs, there’s <a href="https://www.kubecost.com/" target="_blank" rel="noreferrer">kubecost</a>. To enforce policy constraints, there’s <a href="https://github.com/open-policy-agent/gatekeeper" target="_blank" rel="noreferrer">OPA Gatekeeper</a> and <a href="https://kyverno.io/" target="_blank" rel="noreferrer">Kyverno</a>. For disaster recovery, you can use <a href="https://velero.io/" target="_blank" rel="noreferrer">Velero</a>. To debug permissions issues, there are <a href="https://github.com/alcideio/rbac-tool" target="_blank" rel="noreferrer">RBAC tools</a>. And, of course, there are<a href="https://k8sgpt.ai/" target="_blank" rel="noreferrer"> AI-powered assistants</a>.</p> 
+
+<p>You can manage infrastructure using Kubernetes, such as using <a href="https://cloud.google.com/config-connector/docs/overview" target="_blank" rel="noreferrer">Config Connector</a> or <a href="https://crossplane.io/" target="_blank" rel="noreferrer">Crossplane</a>, so you don’t need to learn a different syntax and toolchain to do that.</p>
+
+<p>There are tools with a retro experience like <a href="https://k9scli.io/" target="_blank" rel="noreferrer">K9s</a> and <a href="https://github.com/vladimirvivien/ktop" target="_blank" rel="noreferrer">Ktop</a>, fun tools like <a href="https://github.com/learnk8s/xlskubectl" target="_blank" rel="noreferrer">xlskubectl</a>, and tools that are both retro and fun like <a href="https://github.com/lucky-sideburn/kubeinvaders" target="_blank" rel="noreferrer">Kubeinvaders</a>.</p>
+
+<p>If this makes you interested in migrating to Kubernetes, you can use a tool like <a href="https://github.com/konveyor/move2kube" target="_blank" rel="noreferrer">move2kube</a> or <a href="https://kompose.io/" target="_blank" rel="noreferrer">kompose</a>.</p>
+
+<p>This just scratched the surface of the great tools available for Kubernetes. I view the ecosystem as more of a candy store than as a hellscape. It can take time to discover, learn, and test these tools, but overall I believe they make the Kubernetes ecosystem more productive. To develop any one of these tools yourself would require a significant time investment.</p>
+
+<p>I expect new tools to continue to emerge as the use cases for Kubernetes evolve and expand. I can’t wait to see what people come up with.</p>
+
+
+<p><em>By Brian Grant, Distinguished Engineer, Google Cloud Developer Experience</em></p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-06-03T16:30:00.000Z>3 June 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

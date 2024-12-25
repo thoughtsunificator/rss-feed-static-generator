@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Snapshots for IPC Fuzzing</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2024/06/snapshots-for-ipc-fuzzing/">Go to article URL</a>
+		<div id="content"><p></p><p><span>Process separation</span><span> is one of the cornerstones of the Firefox security model. Instead of running Firefox as a single process, multiple processes with different privileges communicate with each other via </span><span>Inter-Process Communication</span><span> (IPC). For example: loading a website, processing its resources, and rendering it is done by an isolated </span><span>Content Process</span><span> with a very restrictive sandbox, whereas critical operations such as file system access are only allowed to be executed in the </span><span>Parent Process</span><span>. </span></p>
+<p><span>By running potentially harmful code with lower privileges, the impact of a potential code execution vulnerability is mitigated. In order to gain full control, the attacker now needs to find a second vulnerability that allows bypassing these privilege restrictions – which is colloquially known as a “</span><span>sandbox escape</span><span>”.</span></p>
+<p><span>In order to achieve a sandbox escape, an attacker essentially has two options: The first one is to directly attack the underlying operating system from within the compromised content process. Since every process needs to interact with the operating system for various tasks, an attacker can focus on finding bugs in these interfaces to elevate privileges. </span></p>
+<p><span>Since we have </span><a href="https://hacks.mozilla.org/2022/05/improved-process-isolation-in-firefox-100/" rel="noreferrer" target="_blank"><span>already deployed</span></a><span> changes to Firefox that severely limit the OS interfaces exposed to low-privilege processes, the second attack option becomes more interesting: Exploiting bugs in privileged IPC endpoints. Since low privilege content processes need to interact with the privileged parent process, the parent needs to expose certain interfaces.</span></p>
+<p><span> If these interfaces do not perform the necessary security checks or contain memory safety errors, the content process might be able to exploit them and perform actions with higher privileges, possibly leading to an entire parent process takeover.</span></p>
+<p><span>Traditionally , fuzzing has had multiple success stories in the history of Mozilla and allowed us to find all sorts of problems including security vulnerabilities in our code. However, applying fuzzing to our critical IPC interfaces </span><a href="https://blog.mozilla.org/attack-and-defense/2021/01/27/effectively-fuzzing-the-ipc-layer-in-firefox/" rel="noreferrer" target="_blank"><span>has historically always been difficult</span></a><span>. This is primarily because IPC interfaces cannot be tested in isolation, i.e. require the full browser for testing, and because incorrect usage of IPC interfaces can force browser restarts which introduce a prohibitive amount of latency between iterations. </span></p>
+<p><span>To find a solution to this challenge, we engaged with the research community to apply a new method of rewinding application state during fuzzing. We saw our first results with this approach in 2021 using an experimental prototype that would later become </span><a href="https://nyx-fuzz.com/" rel="noreferrer" target="_blank"><span>the open source snapshot fuzzing tool called “Nyx”</span></a><span>.</span></p>
+<p><span>As of 2024, we are happy to announce that we are now running various </span><span>snapshot fuzzing</span><span> targets for IPC in production. Snapshot fuzzing is a new technology that has become more popular in recent years and we are proud of our role in bringing it from concept to practicality. </span></p>
+<p><span>Using this technology we have already been able to identify and fix </span><a href="https://mzl.la/43JSNts" rel="noreferrer" target="_blank"><span>a number of potential problems</span></a><span> in our IPC layer and we will continue to improve our testing to provide you with the most secure version of Firefox.</span></p>
+<p><span>If you’d like to know more, or even consider contributing to Mozilla, check out </span><a href="https://blog.mozilla.org/attack-and-defense/2024/06/24/ipc-fuzzing-with-snapshots/" rel="noreferrer" target="_blank"><span>our post on the security blog</span></a><span> explaining the technical architecture behind this new tool.</span></p>
+<p>The post <a href="https://hacks.mozilla.org/2024/06/snapshots-for-ipc-fuzzing/" rel="noreferrer" target="_blank">Snapshots for IPC Fuzzing</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-06-27T16:18:49.000Z>27 June 2024</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

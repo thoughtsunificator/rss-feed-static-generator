@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Puppeteer Support for the Cross-Browser WebDriver BiDi Standard</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2023/12/puppeteer-webdriver-bidi/">Go to article URL</a>
+		<div id="content"><p></p><p>We are pleased to share that <a href="https://pptr.dev/" rel="noreferrer" target="_blank">Puppeteer</a> now supports the next-generation, cross-browser <a href="https://w3c.github.io/webdriver-bidi/" rel="noreferrer" target="_blank">WebDriver BiDi standard</a>. This new protocol makes it easy for web developers to write automated tests that work across multiple browser engines.</p>
+<h2>How Do I Use Puppeteer With Firefox?</h2>
+<p>The WebDriver BiDi protocol is supported starting with <a href="https://pptr.dev/webdriver-bidi" rel="noreferrer" target="_blank">Puppeteer v21.6.0</a>. When calling <code>puppeteer.launch</code> pass in <code>"firefox"</code> as the product option, and <code>"webDriverBiDi"</code> as the protocol option:</p>
+<pre><code class="hljs javascript">const browser = await puppeteer.launch({
+&nbsp;&nbsp;product: 'firefox',
+&nbsp;&nbsp;protocol: 'webDriverBiDi',
+})</code></pre>
+<p>You can also use the <code>"webDriverBiDi"</code> protocol when testing in Chrome, reflecting the fact that WebDriver BiDi offers a single standard for modern cross-browser automation.</p>
+<p>In the future we expect <code>"webDriverBiDi"</code> to become the default protocol when using Firefox in Puppeteer.</p>
+<h2>Doesn’t Puppeteer Already Support Firefox?</h2>
+<p>Puppeteer has had experimental support for Firefox based on a partial re-implementation of the proprietary <a href="https://chromedevtools.github.io/devtools-protocol/" rel="noreferrer" target="_blank">Chrome DevTools Protocol</a> (CDP). This approach had the advantage that it worked without significant changes to the existing Puppeteer code. However the CDP implementation in Firefox is incomplete and has significant technical limitations. In addition, the CDP protocol itself is not designed to be cross browser, and undergoes frequent breaking changes, making it unsuitable as a long-term solution for cross-browser automation.</p>
+<p>To overcome these problems, we’ve worked with the WebDriver Working Group at the W3C to create a standard automation protocol that meets the needs of modern browser automation clients: this is WebDriver BiDi. For more details on the protocol design and how it compares to the classic HTTP-based WebDriver protocol, see our <a href="https://hacks.mozilla.org/2020/12/cross-browser-testing-part-1-web-app-testing-today/" rel="noreferrer" target="_blank">earlier</a> <a href="https://hacks.mozilla.org/2021/01/improving-cross-browser-testing-part-2-new-automation-features-in-firefox-nightly/" rel="noreferrer" target="_blank">posts</a>.</p>
+<p>As the standardization process has progressed, the Puppeteer team has added a WebDriver BiDi backend in Puppeteer, and provided feedback on the specification to ensure that it meets the needs of Puppeteer users, and that the protocol design enables existing CDP-based tooling to easily transition to WebDriver BiDi. The result is a single protocol based on open standards that can drive both Chrome and Firefox in Puppeteer.</p>
+<h2>Are All Puppeteer Features Supported?</h2>
+<p>Not <a href="https://puppeteer.github.io/ispuppeteerwebdriverbidiready/" rel="noreferrer" target="_blank">yet</a>; WebDriver BiDi is still a work in progress, and doesn’t yet cover the full feature set of Puppeteer.</p>
+<p>Compared to the Chrome+CDP implementation, there are some feature gaps, including support for accessing the cookie store, network request interception, some emulation features, and permissions. These features are actively being standardized and will be integrated as soon as they become available. For Firefox, the only missing feature compared to the Firefox+CDP implementation is cookie access. In addition, WebDriver BiDi already offers improvements, including better support for multi-process Firefox, which is essential for testing some websites. More information on the complete set of supported APIs can be found in the <a href="https://pptr.dev/webdriver-bidi" rel="noreferrer" target="_blank">Puppeteer documentation</a>, and as new WebDriver-BiDi features are enabled in Gecko we’ll publish details on the <a href="https://fxdx.dev/" rel="noreferrer" target="_blank">Firefox Developer Experience blog</a>.</p>
+<p>Nevertheless, we believe that the WebDriver-based Firefox support in Puppeteer has reached a level of quality which makes it suitable for many real automation scenarios. For example at Mozilla we have successfully <a href="https://github.com/mozilla/pdf.js/pull/17172" rel="noreferrer" target="_blank">ported</a> our Puppeteer tests for <a href="https://mozilla.github.io/pdf.js/" rel="noreferrer" target="_blank">pdf.js</a> from Firefox+CDP to Firefox+WebDriver BiDi.</p>
+<h2>Is Firefox’s CDP Support Going Away?</h2>
+<p>We currently don’t have a specific timeline for removing CDP support. However, maintaining multiple protocols is not a good use of our resources, and we expect WebDriver BiDi to be the future of remote automation in Firefox. If you are using the CDP support outside of the context of Puppeteer, we’d love to hear from you (see below), so that we can understand your use cases, and help transition to WebDriver BiDi.</p>
+<h2>Where Can I Provide Feedback?</h2>
+<p>For any issues you experience when porting Puppeteer tests to BiDi, please open issues in the <a href="https://github.com/puppeteer/puppeteer/issues/new/choose" rel="noreferrer" target="_blank">Puppeteer issue tracker</a>, unless you can verify the bug is in the Firefox implementation, in which case please <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Remote%20Protocol&amp;component=WebDriver%20BiDi" rel="noreferrer" target="_blank">file a bug on Bugzilla</a>.</p>
+<p>If you are currently using CDP with Firefox, please join the <a href="https://matrix.to/#/#webdriver:mozilla.org" rel="noreferrer" target="_blank">#webdriver matrix channel</a> so that we can discuss your use case and requirements, and help you solve any problems you encounter porting your code to WebDriver BiDi.</p>
+<p><strong>Update</strong>: The Puppeteer team have published “<a href="https://developer.chrome.com/blog/puppeteer-webdriver-bidi-2023" rel="noreferrer" target="_blank">Harness the Power of WebDriver BiDi: Chrome and Firefox Automation with Puppeteer</a>“.</p>
+<p>The post <a href="https://hacks.mozilla.org/2023/12/puppeteer-webdriver-bidi/" rel="noreferrer" target="_blank">Puppeteer Support for the Cross-Browser WebDriver BiDi Standard</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-12-12T16:14:03.000Z>12 December 2023</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

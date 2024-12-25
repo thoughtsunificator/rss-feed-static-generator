@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Announcing Faster, Lighter Firefox Downloads for Linux with .tar.xz Packaging!</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/11/28/announcing-faster-lighter-firefox-downloads-for-linux-with-tar-xz-packaging/">Go to article URL</a>
+		<div id="content"><p></p><p>We’re excited to announce an improvement for our Linux users that enhances both performance and compatibility with various Linux distributions.</p>
+<h2><b>Switching to <em>.tar.xz</em> Packaging for Linux Builds</b></h2>
+<p>In our ongoing effort to optimize Firefox for all users, we are transitioning the packaging format of Firefox for Linux from <em>.tar.bz2</em> to <em>.tar.xz</em> (utilizing the LZMA compression algorithm). This change results in smaller download sizes and faster decompression times, making your experience smoother and more efficient.</p>
+<h3><b>What This Means for You</b></h3>
+<ul>
+<li aria-level="1"><b>Smaller Downloads</b>: The Firefox <em>.tar.xz</em> packages are, on average, 25% smaller than their <em>.tar.bz2</em> counterparts. This means quicker downloads, saving you time and bandwidth.</li>
+<li aria-level="1"><b>Faster Installation</b>: With improved decompression speeds, installing Firefox on Linux will be faster than ever. The <em>.tar.xz</em> format decompresses more than twice as fast as <em>.tar.bz2</em>, allowing you to get up and running in no time.</li>
+<li aria-level="1"><b>Enhanced Compatibility</b>: Modern Linux distributions support the <em>.tar.xz</em> format. This switch aligns Firefox with the standards of the Linux community, ensuring better integration and compatibility.</li>
+<li aria-level="1"><b>No Action Required for Current Users: </b>If you already have Firefox installed on your computer, there’s nothing you need to do. Firefox will continue to operate and update as usual.</li>
+</ul>
+<h2><b>Accessing the New Packages</b></h2>
+<h3>(Re)installing Firefox? Just curious about testing out the compression?</h3>
+<p>Starting today, November 27th, 2024 you can find the new <em>.tar.xz</em> archives on our<a href="https://www.mozilla.org/firefox/nightly/all/" rel="noreferrer" target="_blank"> downloads page</a>. Simply select the Firefox Nightly for Linux that you desire, and you’ll receive the new packaging format.</p>
+<h3>Maintaining Firefox on your favorite Linux distribution?</h3>
+<p>For package maintainers or scripts that reference our download links, please note that this packaging change is currently implemented in Firefox Nightly and will eventually roll out to the Beta and Release channels in the weeks to come.</p>
+<p>To maintain uninterrupted updates now and in the future, we recommend updating your scripts to handle both <em>.tar.bz2</em> and <em>.tar.xz</em> extensions, or switching to <em>.tar.xz</em> format when it becomes available in your preferred channel.</p>
+<h2>Why does Firefox use .tar.xz instead of Zstandard (.zst) for Linux releases?</h2>
+<p>While Zstandard is slightly faster to decompress, we chose <em>.tar.xz</em> because it offers better compression, reducing download sizes and saving bandwidth. Additionally, <em>.tar.xz</em> is widely supported across Linux systems, ensuring compatibility without extra dependencies.</p>
+<p>For more details on how the decision was made, please refer to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1710599" rel="noreferrer" target="_blank">bug 1710599</a>.</p>
+<h2><b>We Value Your Feedback</b></h2>
+<p>Your input is crucial to us. We encourage you to download the new <em>.tar.xz</em> packaged builds, try them out, and let us know about your experience.</p>
+<ul>
+<li aria-level="1"><b>Report Issues</b>: If you encounter any bugs or problems, please report them through<a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&amp;component=Release%20Automation%3A%20Packaging&amp;blocked=1710599" rel="noreferrer" target="_blank"> Bugzilla</a>.</li>
+<li aria-level="1"><b>Stay Connected</b>: Join the discussion and share your thoughts with the <a href="https://discourse.mozilla.org/c/nightly" rel="noreferrer" target="_blank">Firefox Nightly community</a>. Your feedback helps us improve and tailor Firefox to better meet your needs.</li>
+</ul>
+<h2><b>Thank You for Your Support</b></h2>
+<p>We appreciate your continued participation in the Firefox Nightly community. Together, we’re making Firefox better every day. Stay tuned for more updates, and happy browsing!</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-28T08:23:29.000Z>28 November 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

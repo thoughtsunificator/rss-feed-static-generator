@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>SpiderMonkey Newsletter (Firefox 128-129)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2024/07/16/newsletter-firefox-128-129.html">Go to article URL</a>
+		<div id="content"><p></p><p>Hello Everyone,</p>
+
+<p>It’s Matt here from the SpiderMonkey team, with another newsletter for you. I hope you’re enjoying summer/winter. The last heatwave where I am broke on Thursday evening, with <a href="https://mozilla.social/@mgaudet/112773671354596833" rel="noreferrer" target="_blank">a dramatic drop in temperatures driven by the arrival of a thunderstorm</a>. Unfortunately for me, it seems to be back for round two this week.</p>
+
+<p>In SpiderMonkey land we’ve been hard at work on a number of things, but you’ll see from this abbreviated blog that we do tend to slow down a bit in the middle of the year as vacations build up.</p>
+
+<p>In June of this year Mozilla, in collaboration with <a href="https://www.aalto.fi/en" rel="noreferrer" target="_blank">Aalto University</a> hosted the 102nd meeting of <a href="https://tc39.es/" rel="noreferrer" target="_blank">TC39</a> in Helsinki, Finland. I was actually able to attend this meeting in person, which was really interesting to me. On the one hand, seeing how JavaScript is standardized from such an intimate viewpoint was extremely eye-opening. On the other hand, <a href="https://www.mgaudet.ca/blog/2024/6/26/helsinki" rel="noreferrer" target="_blank">Helsinki was also just wonderful</a>.</p>
+
+<h3 id="-spidermonkey-platform-improvements">🚉 SpiderMonkey Platform Improvements</h3>
+
+<ul>
+  <li>Work is underway to smooth the sharing of string contents across Gecko and SpiderMonkey, tracked under <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1892253" rel="noreferrer" target="_blank">Bug 1892253 - Use a shared string buffer type for JS and DOM strings</a>. The intention of this work is to reduce the overhead and copying required when strings cross from SpiderMonkey into Gecko and back.</li>
+</ul>
+
+<h3 id="-contributor-spotlight">🔦 Contributor Spotlight</h3>
+
+<p>This Newsletter’s Contributor Spotlight focuses on Debadree Chatterjee! In his own words,</p>
+
+<blockquote>
+  <p>A fully stack js dev mostly working with react and nodejs with a newfound interest in learning about JS runtimes and JIT compilers, Initially exposed to workings of jit compilers when studying nodejs internals and from there still going down the rabbit hole of exploring js engines :-)</p>
+</blockquote>
+
+<p>He is on an ongoing quest to implement <a href="https://github.com/tc39/proposal-explicit-resource-management" rel="noreferrer" target="_blank">Explicit Resource Management</a>, and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1569081" rel="noreferrer" target="_blank">has made great progress</a>.  Thank you so much for all your work Debadree, and I hope to keep hearing from you as a contributor over time!</p>
+
+<h3 id="-mentored-bugs">🧑🏾‍🏫 Mentored Bugs</h3>
+
+<p>Are you curious about what it would be like to contribute to SpiderMonkey, but not sure what kind of work is hanging around? This section, new for this newsletter, highlights a few of our <a href="https://bugzilla.mozilla.org/buglist.cgi?emailtype1=regexp&amp;email1=.%2B&amp;query_format=advanced&amp;emailbug_mentor1=1&amp;resolution=---&amp;product=Core&amp;component=JavaScript%20Engine&amp;component=JavaScript%20Engine%3A%20JIT&amp;component=JavaScript%3A%20GC&amp;component=JavaScript%3A%20Internationalization%20API&amp;component=JavaScript%3A%20Standard%20Library&amp;classification=Client%20Software&amp;classification=Developer%20Infrastructure&amp;classification=Components&amp;classification=Server%20Software&amp;classification=Other&amp;list_id=17120074" rel="noreferrer" target="_blank">bugs which have mentors assigned</a> that we think would be interesting for newish contributors to tackle. Not all our Mentored bugs are in equally good shape to have new contributors jump on, but the following are pretty safe bets</p>
+
+<ul>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899303" rel="noreferrer" target="_blank">Bug 1899303 - Implement Redeclarable global eval-introduced vars proposal</a></li>
+  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899413" rel="noreferrer" target="_blank">Bug 1899413 - Support v flag in RegExp.prototype[@@matchAll]</a></li>
+</ul>
+
+<p>Before jumping on any of these, be sure to stop in at #spidermonkey on Matrix to get the current lay of the land.</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<ul>
+  <li>Jon landed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900778" rel="noreferrer" target="_blank">Bug 1900778 - JitHits can prevent pretenuring allocations</a>, which ensures that our <code class="language-plaintext highlighter-rouge">JitHints</code> machinery doesn’t interfere with our allocation site tracking machinery; this lead to a 9% improvement on one of our tests.</li>
+  <li>Iain landed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895957" rel="noreferrer" target="_blank">Bug 1895957 - Use emitCalleeGuard in GetPropIRGenerator::tryAttachScriptedProxy</a> , which handles proxies where the handler uses function literals by checking the Script (our representation of code, which is shared here) rather than Functions, which will not be shared. This was a 5% improvement on the Speedometer 3 ChartJS test.</li>
+  <li>Alex <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1878158" rel="noreferrer" target="_blank">added support for getters in megamorphic GetElem / GetProp ICs</a>.</li>
+  <li>Not <em>Firefox</em> performance, but <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900847" rel="noreferrer" target="_blank">Jan fixed an issue where the runtime of one of our test suites wasn’t scaling with increased CPU cores</a>.</li>
+  <li>Jon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1900466" rel="noreferrer" target="_blank">made it possible for us to nursery allocate built-in proxy types in the nursery</a>, leading to performance improvements of up to 30% on some SP3 subtests.</li>
+</ul>
+
+<h3 id="️-features">🕸️ Features</h3>
+<ul>
+  <li>Dan added support for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1826573" rel="noreferrer" target="_blank">Duplicate Named Capture groups</a></li>
+  <li>Dan worked on shipping <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1884150" rel="noreferrer" target="_blank">Resizable and Growable ArrayBuffers</a>, originally implemented by André Bargull.</li>
+</ul><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-07-16T10:00:00.000Z>16 July 2024</time>
+			<a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

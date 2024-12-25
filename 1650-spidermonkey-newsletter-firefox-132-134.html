@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>SpiderMonkey Newsletter (Firefox 132-134)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2024/11/27/newsletter-firefox-132-134.html">Go to article URL</a>
+		<div id="content"><p></p><p>Hello! Welcome to another episode of the SpiderMonkey Newsletter. I’m your host,
+Matthew Gaudet.</p>
+
+<p>In the spirit of the <a href="https://en.wikipedia.org/wiki/Thanksgiving_\(United_States\)" rel="noreferrer" target="_blank">upcoming
+season</a>, let’s <a href="https://en.wiktionary.org/wiki/talk_turkey" rel="noreferrer" target="_blank">talk
+turkey</a>. I mean, monkeys. I mean
+SpiderMonkey.</p>
+
+<p>Today we’ll cover a little more ground than the normal newsletter.</p>
+
+<p>If you haven’t already read Jan’s wonderful blog about how he managed to improve Wasm
+compilation speed by 75x on large modules, <a href="https://spidermonkey.dev/blog/2024/10/16/75x-faster-optimizing-the-ion-compiler-backend.html" rel="noreferrer" target="_blank">please take a
+peek</a>.
+It’s a great story of how O(n^2) is the worst complexity – fast enough to seem OK in
+small cases, and slow enough to blow up horrendously when things get big.</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<ul>
+  <li>
+    <p>Awesome contributor Debadree <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1490441" rel="noreferrer" target="_blank">has added IC support for addition and subtraction on
+Date Objects</a></p>
+  </li>
+  <li>
+    <p>Jan <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919217" rel="noreferrer" target="_blank">worked on saving fewer registers when calling out to C++
+code</a>, providing a 5%
+improvement on some speedometer subtests.</p>
+  </li>
+  <li>
+    <p>Jon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920761" rel="noreferrer" target="_blank">improved the performance of store buffer
+iteration</a> by avoiding
+linked-list traversal where possible.</p>
+  </li>
+  <li>
+    <p>Jon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1925581" rel="noreferrer" target="_blank">improved the performance of
+sweeping</a> by doing more work
+without holding a lock</p>
+  </li>
+  <li>
+    <p>Jan <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=1920430" rel="noreferrer" target="_blank">continued improving register allocation by choosing a better representation
+for sparse bitsets</a>, improving
+compilation time on a wasm module by 40%, and improving some PDF test cases by 5%.</p>
+  </li>
+  <li>
+    <p>Jan worked on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851662" rel="noreferrer" target="_blank">Map and Set
+Optimizations,</a> with
+improvements across a number of benchmarks.</p>
+  </li>
+</ul>
+
+<h3 id="️-new-features--in-progress-standards-work">👷🏽‍♀️ New features &amp; In Progress Standards Work</h3>
+
+<ul>
+  <li>
+    <p>The WebAssembly Memory64 proposal has reached stage 4 and is enabled by default in
+Firefox 134. This proposal finally adds 64-bit pointers to WebAssembly—although
+this comes with some downsides, so stay tuned for a blog post exploring this
+subject further.</p>
+  </li>
+  <li>
+    <p>Prolific contributor André has worked on over 30 (‼) bugs in this newsletter time
+frame. Feature wise he’s continued his incredible stewardship of the Temporal
+proposal, as well as <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1648139" rel="noreferrer" target="_blank">implementing Int.Duration
+format</a>, providing <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930952" rel="noreferrer" target="_blank">initial
+implementation of
+Atomics.pause</a>.</p>
+  </li>
+  <li>
+    <p>Speaking of great contributors: Debadree has continued work on the <a href="https://github.com/tc39/proposal-explicit-resource-management" rel="noreferrer" target="_blank">Explicit
+Resource Management
+proposal</a>, with <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1569081" rel="noreferrer" target="_blank">the
+implementation looking like it’s in great
+shape</a>.</p>
+  </li>
+  <li>
+    <p>Dan has been on a roll shipping proposals:
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918235" rel="noreferrer" target="_blank">Promise.try</a>,
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918235" rel="noreferrer" target="_blank">Regexp.escape</a>, and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913752" rel="noreferrer" target="_blank">Regular
+Expression Pattern
+Modifiers</a>.</p>
+  </li>
+</ul>
+
+<h3 id="-spidermonkey-platform-improvements"><strong>🚉</strong> SpiderMonkey Platform Improvements</h3>
+
+<ul>
+  <li>
+    <p>Jan has killed a whole class of errors that have <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=552007" rel="noreferrer" target="_blank">bedevilled SpiderMonkey
+developers for at least 15
+years.</a> The root cause of the
+issue is the overloading of error checking inside of SpiderMonkey. The general case
+is “Report an Exception” and return false.</p>
+
+    <p>The problem is that, returning false without setting an exception -also- has a
+meaning: It’s throwing an uncatchable exception, which is used for things like
+unwinding when you stop a script due to the slow script dialog.</p>
+
+    <p>So what happens if you were to accidentally return false without setting an
+exception: Did you mean to do that? Or did you forget? In <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921215" rel="noreferrer" target="_blank">Bug
+1921215</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921780" rel="noreferrer" target="_blank">bug
+1921780</a>, and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921963" rel="noreferrer" target="_blank">bug
+1921963</a> Jan has tidied this
+whole story up with a new helper <code class="language-plaintext highlighter-rouge">JS::ReportUncatchableException</code> and assertions
+that validate you’ve used this correctly!</p>
+  </li>
+  <li>
+    <p>Debadree <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916359" rel="noreferrer" target="_blank">added support for generating LIR ops where they are pretty
+straightforward boilerplate</a>.
+This will reduce the amount of work we have to do when improving the JITs. Previous
+work like this has been appreciated hugely, and I expect we’ll find lots of value
+in this quickly.</p>
+  </li>
+  <li>
+    <p>Denis <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918139" rel="noreferrer" target="_blank">has made <code class="language-plaintext highlighter-rouge">--enable-perf</code> the default for nightly
+builds</a>, which will make
+profiling Firefox more effective.</p>
+  </li>
+  <li>
+    <p>A few years ago our OS integration team deployed a neat trick on Windows to reduce
+out of memory errors in Firefox, <a href="https://hacks.mozilla.org/2022/11/improving-firefox-stability-with-this-one-weird-trick/" rel="noreferrer" target="_blank">written up in this wonderful blog
+post</a>.
+Recently <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1786451" rel="noreferrer" target="_blank">Jon went through the effort to apply this same weird trick to our own
+memory allocation</a>. Our hope
+is that this will reduce the amount of out-of-memory failures.</p>
+  </li>
+</ul><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-11-27T17:00:00.000Z>27 November 2024</time>
+			<a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

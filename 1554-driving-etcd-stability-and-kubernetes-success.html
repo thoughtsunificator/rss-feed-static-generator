@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Driving etcd Stability and Kubernetes Success</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/06/driving-etcd-stability-and-kubernetes-success.html">Go to article URL</a>
+		<div id="content"><p></p><meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGkMcQkTcMxeWdrytLd_PeruB1foXQWiUfH7j10rXpIbtzXcCLXeca5wXlR9ueHIJnIAg7p3F3afB7kYslg-BYW4TxGx-BJssH2Ady1xPtZzl8CL5xzAjwEXyE8WR1WdTJbZi1lotF-1AscOc24UGDL9LXCu_6A_nlFZ2O59MhvTdtIdvJeaQ2-GmlYYU/s1600/Social%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png" imageanchor="1" rel="noreferrer" target="_blank"></a>
+
+<div><br></div>
+
+<h3><b>Introduction: The Critical Role of etcd in Cloud-Native Infrastructure</b></h3>
+
+<p>Imagine a cloud-native world without Kubernetes. It's hard, right? But have you ever considered the unsung hero that makes Kubernetes tick? Enter etcd, the distributed key-value store that serves as the central nervous system for Kubernetes. Etcd's ability to consistently store and replicate critical cluster state data is essential for maintaining the health and harmony of distributed systems.</p><br>
+
+<h3><b>etcd: The Backbone of Kubernetes</b></h3>
+
+<p>Think of Kubernetes as a magnificent vertebrate animal, capable of complex movements and adaptations. In this analogy, etcd is the animal's backbone – a strong, flexible structure that supports the entire system. Just as a backbone protects the spinal cord (which carries vital information), etcd safeguards the critical data that defines the Kubernetes environment. And just as a backbone connects to every other part of the body, etcd facilitates communication and coordination between all the components of Kubernetes, allowing it to move, adapt, and thrive in the dynamic world of distributed systems.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Credit: Original image <a href="http://xkcd.com/2347" target="_blank" rel="noreferrer">xkcd.com/2347</a>, alterations by Josh Berkus.</i></td></tr></tbody></table></div><br>
+
+<h3><b>Google's Deep-Rooted Commitment to Open Source</b></h3>
+
+<p>Google has a long history of contributing to open source projects, and our commitment to etcd is no exception. As the initiator of Kubernetes, Google understands the critical role that etcd plays in its success. Google engineers consistently invest in etcd to enhance its functionality and reliability, driven by their extensive use of etcd for their own internal systems.</p><br>
+
+<h3><b>Google's Collaborative Impact on etcd Reliability</b></h3>
+
+<p>Google engineers have actively contributed to the stability and resilience of etcd, working alongside the wider community to address challenges and improve the project. Here are some key areas where their impact has been felt:</p>
+
+<p><b>Post-Release Support:</b> Following the release of etcd v3.5.0, Google engineers quickly identified and addressed several critical issues, demonstrating their commitment to maintaining a stable and production-ready etcd for Kubernetes and other systems.</p>
+
+<p><b>Data Consistency: Early Detection and Swift Action:</b> Google engineers led efforts to identify and resolve data inconsistency issues in etcd, advocating for public awareness and mitigation strategies. Drawing from their Site Reliability Engineering (SRE) expertise, they fostered a culture of "blameless postmortems" within the etcd community—a practice where the focus is on learning from incidents rather than assigning blame. Their detailed <a href="https://github.com/etcd-io/etcd/blob/main/Documentation/postmortems/v3.5-data-inconsistency.md" target="_blank" rel="noreferrer">postmortem of the v3.5 data inconsistency issue</a> and a <a href="https://www.youtube.com/watch?v=_nSJ_vozyqk" target="_blank" rel="noreferrer">co-presented KubeCon talk</a> served to share these valuable lessons with the broader cloud-native community.</p>
+
+<p><b>Refocusing on Stability and Testing:</b> The v3.5 incident highlighted the need for more comprehensive testing and documentation. Google engineers took action on multiple fronts:</p>
+<ul>
+<li><b>Improving Documentation:</b> They contributed to creating "<a href="https://docs.google.com/document/d/1NUZDiJeiIH5vo_FMaTWf0JtrQKCx0kpEaIIuPoj9P6A/edit?usp=sharing" target="_blank" rel="noreferrer">The Implicit Kubernetes-ETCD Contract</a>," which formalizes the interactions between the two systems, guiding development and troubleshooting.</li></ul><ul>
+
+<li><b>Automating Detection:</b> They spearheaded the development of a <a href="https://github.com/etcd-io/etcd/issues/14039" target="_blank" rel="noreferrer">more efficient data corruption detection mechanism for etcd v3.5</a>, significantly reducing detection latency.</li></ul><ul>
+
+
+<li><b>Prioritizing Stability and Testing:</b> They developed the "<a href="https://github.com/etcd-io/etcd/blob/main/tests/robustness/README.md" target="_blank" rel="noreferrer">etcd Robustness Tests</a>," a rigorous framework simulating extreme scenarios to proactively identify inconsistency and correctness issues.</li></ul>
+
+
+<p>These contributions have fostered a collaborative environment where the entire community can learn from incidents and work together to improve etcd's stability and resilience. The etcd Robustness Tests have been particularly impactful, not only reproducing all the data inconsistencies found in v3.5 but also uncovering other bugs introduced in that version. Furthermore, they've found previously unnoticed bugs that existed in earlier etcd versions, some dating back to the original v3 implementation. These results demonstrate the effectiveness of the robustness tests and highlight how they've made etcd the most reliable it has ever been in the history of the project.</p><br>
+
+<h3><b>etcd Robustness Tests: Making etcd the Most Reliable It's Ever Been</b></h3>
+
+<p>The "<a href="https://github.com/etcd-io/etcd/blob/main/tests/robustness/README.md" target="_blank" rel="noreferrer">etcd Robustness Tests</a>," inspired by the <a href="https://jepsen.io/" target="_blank" rel="noreferrer">Jepsen</a> methodology, subject etcd to rigorous simulations of network partitions, node failures, and other real-world disruptions. This ensures etcd's data consistency and correctness even under extreme conditions. These tests have proven remarkably effective, identifying and addressing a variety of issues:</p>
+<ul>
+<li><a href="https://github.com/etcd-io/etcd/pull/14685" target="_blank" rel="noreferrer">Crash during defrag causes revision inconsistency</a></li>
+<li><a href="https://github.com/etcd-io/etcd/issues/15271" target="_blank" rel="noreferrer">Network partition causes watch traveling back in time</a> </li>
+<li><a href="https://github.com/etcd-io/etcd/issues/17780" target="_blank" rel="noreferrer">Crash during compaction causes revision to decrease</a></li>
+<li><a href="https://github.com/etcd-io/etcd/issues/18089" target="_blank" rel="noreferrer">Watch dropping an event when compacting on delete</a></li>
+</ul>
+
+<p>For deeper insights into ensuring etcd's data consistency, Marek Siarkowicz's talk, "<a href="https://www.youtube.com/watch?v=IIMs0EjQZHg" target="_blank" rel="noreferrer">On the Hunt for Etcd Data Inconsistencies</a>," offers valuable information about distributed systems testing and the innovative approaches used to build these tests. To foster transparency and collaboration, the etcd community holds bi-weekly meetings to discuss test results, open to engineers, researchers, and other interested parties.</p><br>
+
+<h3><b>The Kubernetes-etcd Contract: A Partnership Forged in Rigorous Testing</b></h3>
+
+<p>To solidify the Kubernetes-etcd partnership, Google engineers formally defined the implicit contract between the two systems. This shared understanding guided development and troubleshooting, leading to improved testing strategies and ensuring etcd meets Kubernetes' demanding requirements.
+
+</p><p>When subtle <a href="https://github.com/kubernetes/kubernetes/issues/110210" target="_blank" rel="noreferrer">issues were discovered in how Kubernetes utilized etcd watch</a>, the value of this formal contract became clear. These issues could lead to missed events under specific conditions, potentially impacting Kubernetes' operation. In response, Google engineers are actively working to <a href="https://github.com/etcd-io/etcd/issues/15820" target="_blank" rel="noreferrer">integrate the contract directly into the etcd Robustness Tests</a> to proactively identify and prevent such compatibility issues.</p><br>
+
+
+<h3><b>Conclusion: Google's Continued Commitment to etcd and the Cloud-Native Community</b></h3>
+
+<p>Google's ongoing investment in etcd underscores their commitment to the stability and success of the cloud-native ecosystem. Their contributions, along with the wider community's efforts, have made etcd a more reliable and performant foundation for Kubernetes and other critical systems. As the ecosystem evolves, etcd remains a critical linchpin, empowering organizations to build and deploy distributed applications with confidence. We encourage all etcd and Kubernetes contributors to continue their active participation and contribute to the project's ongoing success.</p>
+
+<p><i>By Marek Siarkowicz – GKE etcd</i></p>
+
+
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-06-13T09:00:00.000Z>13 June 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

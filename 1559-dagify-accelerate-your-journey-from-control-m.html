@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>DAGify: Accelerate Your Journey from Control-M to Apache Airflow</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/07/dagify-accelerate-your-journey-from-control-m-to-apache-airflow.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNcqxMuHtJdOA2eJRn5ZjJ6qCJPY5qN86wD0b5B6vybR6P79XNsGEZHNzzyyrvF-0JCARCW4OJFGHyVpw-l8ATlceIRrMnFopWBry742_LXn6LfQjb84aejezh6Sewy66nY6pc8LlegrItwFskDYbPmQ7-wdVOQzKhLHMgVNC2scLqcDwYW1bBFQA415g/s1600/Social%20-%20OSS%20-%20Project%20Open%20Se%20Cura%20Open%20Source.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjjjUFVkI7XdyYfHD-O0mrS4RpV5YYIW1iZGbG6Jl3rR0z516uwDpMXVzf7Rz3Xh6WFhG_T-bqDeV89USYtD9q8VN9Du4KFRw4SjbCks_5dpeUiT8jhweFuiMhI0coiXZSJMk-ZpKz0TfpUMJYFUNkxIhEk8m_Q2MjqBoR0j5Qhfweau8VI_6kSnKTf3gA/s1600/Header%20-%20OSS%20-%20Project%20Open%20Se%20Cura%20Open%20Source.png" rel="noreferrer" target="_blank"></a>
+
+<div><br></div>
+<p>In the dynamic world of data engineering and workflow orchestration, organizations are increasingly migrating from legacy enterprise schedulers like Control-M to the open-source powerhouse, Apache Airflow. However, this transition often involves a complex and time-consuming process of converting existing job definitions. <a href="https://github.com/GoogleCloudPlatform/dagify/tree/main" target="_blank" rel="noreferrer">DAGify</a> emerges as a beacon of efficiency in this scenario, offering an open-source solution to automate the conversion of Control-M XML files into Airflow's native DAG format.</p>
+
+<p>DAGify isn't just a simple conversion tool; it's a migration accelerator, designed to significantly reduce the manual effort and potential errors associated with transitioning to Airflow. While it might not provide a perfect 1:1 migration in every case, its primary goal is to expedite the process, allowing developers to focus on optimizing their workflows in the new environment.</p><br>
+
+<h2><b>Introduction</b></h2>
+
+<p>Control-M has served as a reliable workhorse for many organizations, but its proprietary nature and limitations can become roadblocks in today's cloud-centric and agile data landscape. Apache Airflow, with its flexibility, scalability, and thriving community, presents a compelling alternative. However, the migration journey can be daunting, especially when dealing with intricate Control-M job definitions.</p>
+
+<p>DAGify steps in to bridge this gap, offering an intuitive and extensible solution. By automating the conversion process, it empowers organizations to embrace Airflow's capabilities without the burden of manual translation. This translates to faster migrations, reduced errors, and a smoother transition overall.</p><br>
+
+<h2><b>Technical Details</b></h2>
+
+<p>Under the hood, DAGify employs a template-driven approach, making it adaptable to various Control-M configurations and Airflow requirements. It parses Control-M XML files, extracting crucial information about jobs, dependencies, and schedules. This data is then intelligently mapped to Airflow's operators, tasks, and dependencies, preserving the essence of the original workflow.
+While still under active development, DAGify already supports key Control-M features like job and dependency mapping. The project roadmap includes further enhancements, such as handling custom calendars and expanding support for other enterprise schedulers.</p><br>
+
+<h3>Template-driven conversion</h3>
+
+<p>DAGify employs a flexible template system that empowers you to define the mapping between Control-M jobs and Airflow operators. These user-defined YAML templates specify how Control-M attributes translate into Airflow operator parameters. For instance, the <span><a href="https://github.com/GoogleCloudPlatform/dagify/blob/main/dagify/templates/control-m-command-to-airflow-ssh-gce.yaml" target="_blank" rel="noreferrer">control-m-command-to-airflow-ssh</a></span> template maps Control-M's "Command" task type to Airflow's <span><a href="https://airflow.apache.org/docs/apache-airflow-providers-ssh/stable/_api/airflow/providers/ssh/operators/ssh/index.html" target="_blank" rel="noreferrer">SSHOperator</a></span>, outlining how attributes like <span>JOBNAME</span> and <span>CMDLINE</span> are incorporated into the generated DAG.</p>
+
+<p>The template's <span>structure</span> field utilizes Jinja2 templating to dynamically construct the Airflow operator code, seamlessly integrating Control-M job attributes.</p>
+
+<p><b>Example:</b></p>
+<p>A Control-M task like:</p>
+
+<div><pre><span><span>&lt;JOB</span> 
+  <span>APPLICATION=</span><span>"my_application"</span> 
+  <span>SUB_APPLICATION=</span><span>"my_sub_application"</span> 
+  <span>JOBNAME=</span><span>"job_1"</span> 
+  <span>DESCRIPTION=</span><span>"job_1_reports"</span>  
+  <span>TASKTYPE=</span><span>"Command"</span> 
+  <span>CMDLINE=</span><span>"./hello_world.sh"</span> 
+  <span>PARENT_FOLDER=</span><span>"my_folder"</span><span>&gt;</span>
+  <span>&lt;OUTCOND</span> <span>NAME=</span><span>"job_1_completed"</span> <span>ODATE=</span><span>"ODAT"</span> <span>SIGN=</span><span>"+"</span> <span>/&gt;</span>
+<span>&lt;/JOB&gt;</span></span>
+</pre></div>
+
+<p>is converted to an Airflow operator using the <span>control-m-command-to-airflow-ssh-gce</span> template:</p>
+
+<div><pre><span>job_1 = SSHOperator(
+    task_id="x_job_1",
+    command="./hello_world.sh",
+    dag=dag,
+)</span>
+</pre></div>
+
+<p>The repository includes several pre-defined templates for common Control-M task types. The <span>config.yaml</span> file at the project's root allows you to customize which templates are applied during the conversion process.</p><br>
+
+<h3>Leveraging Google Cloud Composer</h3>
+
+<p>For organizations seeking a fully managed Airflow experience, Google Cloud Composer provides a compelling solution. It eliminates the complexities of managing Airflow infrastructure, allowing you to focus on building and orchestrating your data pipelines. DAGify seamlessly integrates with Google Cloud Composer, making it even easier to migrate your Control-M workflows to a cloud-native environment.</p><br>
+
+<h2><b>Try it yourself</b></h2>
+
+<p>Eager to experience the power of DAGify? It's readily available as an open-source project on GitHub: <a href="https://github.com/GoogleCloudPlatform/dagify" target="_blank" rel="noreferrer">https://github.com/GoogleCloudPlatform/dagify</a>. The repository provides detailed instructions on setting up and running DAGify locally or within a Docker container.</p>
+
+<b>Key steps to get started:</b>
+<ol>
+<li><b>Clone the repository:</b> <span>git clone https://github.com/GoogleCloudPlatform/dagify.git</span></li>
+  <li><b>Install dependencies:</b> <span>make clean</span> (This sets up a virtual environment and installs required packages)</li>
+<li><b>Run DAGify:</b> <span>python3 DAGify.py --source-path=[YOUR-SOURCE-XML-FILE]</span></li>
+</ol>
+  
+<p>Remember, DAGify is an ongoing project, and community contributions are welcome! If you encounter any issues or have feature requests, feel free to open an issue on GitHub.</p><br>
+  
+<h2><b>Conclusion</b></h2>
+
+<p>DAGify represents a significant leap forward in simplifying enterprise scheduler migrations to Apache Airflow. By automating the conversion process and seamlessly integrating with Google Cloud Composer, it empowers organizations to embrace the benefits of Airflow more rapidly and efficiently. Whether you're a seasoned Airflow developer or just starting your migration journey, DAGify is a valuable tool to explore.</p>
+  
+<p><b>Remember:</b></p>
+<ul>
+<li><b>Thorough testing is crucial:</b> Always test your converted DAGs in a staging environment before deploying them to production.</li>
+<li><b>Leverage Airflow's ecosystem:</b> Explore the vast array of Airflow plugins and integrations to further enhance your workflows.</li>
+<li><b>Stay engaged with the community:</b> Keep an eye on DAGify's development and contribute to its growth if you can!</li>
+</ul>
+  
+<p>Happy migrating!</p>
+
+
+<p><em>By Konrad Schieban and Tim Hiatt – Google Cloud</em></p><br>
+
+<h4><b>Acknowledgments</b></h4>
+<p><em>Thank you to the following team members who made this solution possible: Shreya Prabhu, Harish S, Slava Guzanov and Joanna Rajaseharan from Google Cloud.</em></p>
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-07-26T09:00:00.000Z>26 July 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

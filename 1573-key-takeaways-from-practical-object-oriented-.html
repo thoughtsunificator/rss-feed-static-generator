@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Key Takeaways from Practical Object-Oriented Design by Sandi Metz</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/02/key-takeaways-from-poodr/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2022 -->
+<p><a href="https://www.poodr.com/" rel="noreferrer" target="_blank">Practical Object-Oriented Design: An Agile Primer Using Ruby</a> by <a href="https://sandimetz.com/" rel="noreferrer" target="_blank">Sandi Metz</a> is one of those books that everybody who writes or aspires to write object-oriented code should read. Indeed, reading through this book will be valuable for seasoned practitioners and inexperienced novices alike. Whether it be to discover new concepts, remember why they are important, or articulate the reasons behind that warm fuzzy feeling you get in your stomach when you read well designed code, POODR can help.</p>
+<p>I personally really like this book, and here at End Point it does have quite a following as well; it was the subject of a <a href="/blog/2016/08/ruby-fight-club/" rel="noreferrer" target="_blank">study group that we ran back in 2016</a>. I like to dust it off every now and then to give it a re-read. To help with that, I’ve come up with a list of key takeaways from the book, with some of my own interpretations sprinkled in. For me, it serves as a sort of summary to help commit the book’s contents to memory. I thought I’d share it with you today.</p>
+<blockquote>
+<p>While this book uses the Ruby language for its examples and discussions, the concepts it describes are equally applicable to any classical object-oriented language. Dynamically typed language users do get a little more mileage than users of statically typed ones. But still, something like 90% of the content is relevant to both. For this summary, I’ve taken care not to tie the discussion to Ruby too much and be as language agnostic as possible. I’ve chosen to write the code examples in C#.</p>
+</blockquote>
+<blockquote>
+<p>Images taken from the book. Code taken from the book’s examples in Ruby and translated to C#.</p>
+</blockquote>
+<h3 id="chapter-1-object-oriented-design">Chapter 1: Object-Oriented Design</h3>
+<h4 id="about-design">About design</h4>
+<ol>
+<li>Following the principles and patterns of object-oriented design produces code that is both cost-effective and a joy to work with. “Cost effective” means that it doesn’t take more effort than necessary to evolve, to change.</li>
+<li>The reason design is important is because software changes. A good design is one that makes software easy to change.</li>
+<li>Object-oriented design sees the world as a collection of parts that interact with each other. The parts we call “objects”, and the interactions we call “messages”.</li>
+<li>In order to send messages to each other, objects need to have some knowledge about one another. This knowledge produces “dependencies” between them.</li>
+<li>Managing these dependencies is a big part of object-oriented design. OOD aims to create dependencies in such a way that they don’t make the process of changing objects too difficult.</li>
+<li>Design is important no matter the size of the application. Because both small and large applications change. And change is what design allows. A badly designed small application will eventually become a badly designed large one.</li>
+<li>Design is the way in which code is arranged. Good design is an arrangement of code that makes change easy.</li>
+<li>Our job as developers is to take our application’s requirements and our knowledge of design principles and use them to produce code that is cost effective today and tomorrow: code that is easy to change.</li>
+<li>The idea is not to predict future changes. Instead, we have to accept that change will come and prepare for it. We prepare for it by writing code that leaves our options open for the future.</li>
+<li>“The purpose of design is to allow you to design later, and its primary goal is to reduce the cost of change.”</li>
+</ol>
+<h4 id="failures-of-design">Failures of design</h4>
+<ol start="11">
+<li><strong>Design fails when you don’t do it.</strong> Code bases that lack in design will eventually evolve into unmaintainable messes, where change becomes increasingly hard even for the most minor new requirements. “Throwing everything away and beginning from scratch” becomes a viable alternative.</li>
+<li><strong>Design fails when you overdesign.</strong> Armed with basic design skills, it’s easy to fall into the trap of developing wrong abstractions, applying principles incorrectly, seeing the wrong pattern in the wrong context. Applications that suffer from overdesign become gigantic castles of code full of indirection that become hard to change.</li>
+<li><strong>Design fails when you separate it from programming.</strong> Design is best executed as an iterative and incremental process with a quick feedback loop. The design needs to be adjusted frequently, as understanding of the domain changes. Design that is dictated to programmers from on high as part of a “<a href="https://en.wikipedia.org/wiki/Big_design_up_front" rel="noreferrer" target="_blank">Big Up Front Design</a>” is doomed to failure. Such arrangements are not agile enough to be resilient to requirement changes.</li>
+</ol>
+<h4 id="agile-and-design">Agile and design</h4>
+<ol start="14">
+<li>Agile development says: “Avoid Big Up Front Design because you can’t know what the application will end up being because requirements always change and they do so often.”</li>
+<li>Agile also says: “Good design is essential. Because change comes often, your code needs to be ready to accommodate those changes in an efficient and cost effective way.”</li>
+<li>Design is not a “one time at the beginning of the project” type of task. It is an ongoing, iterative and incremental task that happens as requirements change, and as our domain knowledge and skills increase.</li>
+</ol>
+<h4 id="metrics">Metrics</h4>
+<ol start="17">
+<li>Bad object-oriented design metrics are an indicator of a bad design. But good metrics are not an indicator of good design. A code base with bad metrics will most likely be hard to change.</li>
+<li>The ideal software metric would be “<strong>cost per feature per time interval</strong>”. But this is nigh on impossible to calculate because “cost”, “feature”, and “time interval” are in most cases nebulous concepts.</li>
+<li>Still, “cost per feature per time interval” tells us that our goal should always be to write code with a low cost per feature. Making sure that it is also low cost to evolve in the future.</li>
+</ol>
+<h4 id="technical-debt">Technical debt</h4>
+<ol start="20">
+<li><strong>Technical debt</strong> is borrowing time from the future. That is, putting out a bad design today in order to release a feature quickly. Tomorrow, when change comes, the bad design will prevent cost effective change. So time will have to be spent refactoring, turning the bad design into a good one. If refactoring doesn’t happen, the debt increases, making future changes more and more expensive.</li>
+<li>How much design you do depends on your skill and your time frame. You can’t do so much design that it prevents you from delivering on time. Design is an investment, and for an investment to be good, it needs to return some profit. Good design’s returns are quick and plentiful.</li>
+<li>“The trick to getting the most bang for your design buck is to acquire an understanding of the theories of design and to apply them appropriately, at the right time, and in the right amounts.”</li>
+</ol>
+<h3 id="chapter-2-designing-classes-with-a-single-responsibility">Chapter 2: Designing Classes with a Single Responsibility</h3>
+<h4 id="about-classes">About classes</h4>
+<ol>
+<li><strong>Classes</strong> are the most basic organizational structure of object-oriented systems written with class-based object-oriented languages. As such, that’s the first thing that we focus on when designing such systems.</li>
+<li>Your first instinct should be to keep things simple. Use classes to model only the features that your application needs today and make sure that they are easy to change tomorrow.</li>
+<li>“Design is more the art of preserving changeability than it is the act of achieving perfection.”</li>
+</ol>
+<h4 id="write-code-that-is-true">Write code that is TRUE</h4>
+<ol start="4">
+<li>In order to be easy to change, code should be <strong>TRUE</strong>:</li>
+<li><strong>Code should be “Transparent”.</strong> It should be easy to tell what will be the consequences of changing the code.</li>
+<li><strong>Code should be “Reasonable”.</strong> The cost of a change should be proportional to the size of the requirement that provoked the change.</li>
+<li><strong>Code should be “Usable”.</strong> The code should be easy to reuse in situations other than the one it’s currently being used in.</li>
+<li><strong>Code should be “Exemplary”.</strong> The code should exhibit qualities that guide and/or encourage those who change it to keep and replicate those qualities.</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle" rel="noreferrer" target="_blank">Single Responsibility Principle</a> is a prerequisite to creating code that is TRUE.</li>
+</ol>
+<h4 id="single-responsibility">Single Responsibility</h4>
+<ol start="10">
+<li>A class should have one single responsibility. That means that it needs to do one thing and do it well. It needs to be as small as possible and fulfill a single purpose. It needs to have only one reason to change.</li>
+<li>A good way to identify what classes your system needs is to read through your user stories or problem descriptions and identify <strong>nouns</strong>. Those nouns are good candidates for classes.</li>
+<li>If there are <strong>verbs</strong> and <strong>properties</strong> associated with those nouns, then it is most likely a class. Because classes represent bundles of both data (attributes) and behavior (methods).</li>
+<li>Classes that have many responsibilities are hard to reuse. And because they are not “Usable”, they are not easy to change.</li>
+<li>A class that has many responsibilities usually has unrelated code tangled together within it. This makes the class hard to reason about, and hard to reuse.</li>
+<li>In order to reuse the behavior defined within a class with multiple tangled responsibilities, you either need to duplicate code or use the entire class, even the parts that you don’t need.</li>
+<li>If you use a class that has many reasons to change, when something unrelated to your use case changes, you will still have to change your code. This is unexpected and surprising. This is not “Transparent”.</li>
+<li>Depending on classes that have many responsibilities increases the chances of your application breaking.</li>
+<li>A good way to determine whether a class has a single responsibility is to try to enunciate what it does in a single sentence. That sentence should be simple, because classes should be simple. Look out for the words “and” and “or” in this sentence, as they point to it having more than one responsibility.</li>
+<li>Another good way to determine whether a class has a single responsibility is thinking about every one of its methods as a question that the class would be able to respond to if it were a sentient being. For example: “Array, what is your length?” If the question doesn’t make sense, then maybe the method does not belong in the class.</li>
+<li><strong>Cohesion</strong> is the measure of how related to their core purpose the elements of a component are. Classes that have a single responsibility are highly cohesive because all of their parts work towards a single goal.</li>
+</ol>
+<h4 id="when-to-make-design-decisions">When to make design decisions</h4>
+<ol start="21">
+<li>Only design as much as you need to for right now. Don’t make design decisions prematurely. Sometimes waiting for more information before committing to a design is the way to go. More information in the future will often reveal a better design.</li>
+<li>Consider postponing design decisions when the information available to you today does not point clearly to a good design. Also, when the cost of not doing it now does not considerably make tomorrow’s change more expensive.</li>
+<li>On the other hand, consider that a class that’s left in a “bad state” may be reused by others, making their code depend on badly designed code. The application will suffer as a result.</li>
+<li>The structure of a class is supposed to reveal your design’s intention to other developers. When it doesn’t, when it is not “Exemplary”, then future maintenance costs increase.</li>
+<li>The tension between “improve it now” and “improve it later” is always present. Our job as designers is to strike a good balance “between the needs of the present and the possibilities of the future” so that the costs of change are kept low.</li>
+</ol>
+<h4 id="techniques-for-writing-code-thats-easy-to-change">Techniques for writing code that’s easy to change</h4>
+<ol start="26">
+<li><strong>Depend on behavior, not data: hide instance variables.</strong> Instead of accessing instance variables directly, use accessor methods. Even from within the class that owns them. “Always send messages to access data.”</li>
+<li>That way you consolidate the knowledge of what the data represents in a single place. That’s the Single Responsibility Principle in action. Changing it becomes easy as a result because instead of changing references to a variable in potentially multiple places; you only need to change the definition of a method, in a single location.</li>
+<li><strong>Depend on behavior, not data: hide data structures.</strong> When code depends on or receives as input a complex data structure like a big array or hash, encapsulate the data structure in a class with a clear interface, instead of accessing and manipulating the structure directly.</li>
+<li>Directly manipulating complex data structures is a style of coding that tends to propagate. If the incoming data structure changes, even slightly, then a lot of your code also needs to change because it depends on its very particular structure.</li>
+<li>Handling complex raw data structures through classes and messages with clear, intention-revealing names demystifies the structure and gives it meaning within the context of the application domain.</li>
+</ol>
+<blockquote>
+<p>For example, instead of this…</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>ObscuringReferences</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>int</span>[][] data;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> ObscuringReferences(<span>int</span>[][] data)
+</span></span><span><span>    {
+</span></span><span><span>        <span>this</span>.data = data;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> IEnumerable&lt;<span>int</span>&gt; GetDiameters()
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> data.Select(cell =&gt; cell[<span>0</span>] + (cell[<span>1</span>] * <span>2</span>));
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>…do this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>RevealingReferences</span>
+</span></span><span><span>{
+</span></span><span><span>    IEnumerable&lt;Wheel&gt; Wheels { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> RevealingReferences(<span>int</span>[][] data)
+</span></span><span><span>    {
+</span></span><span><span>        Wheels = Wheelify(data);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This method is now more readable.</span>
+</span></span><span><span>    <span>public</span> IEnumerable&lt;<span>int</span>&gt; GetDiameters()
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> Wheels.Select(wheel =&gt; wheel.Rim + (wheel.Tire * <span>2</span>));
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Now everyone can send rim/tire to wheel.</span>
+</span></span><span><span>    <span>record</span> <span>Wheel</span>(<span>int</span> Rim, <span>int</span> Tire);
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> IEnumerable&lt;Wheel&gt; Wheelify(<span>int</span>[][] data)
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> data.Select(cell =&gt; <span>new</span> Wheel(cell[<span>0</span>], cell[<span>1</span>]));
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<ol start="31">
+<li><strong>Enforce single responsibility everywhere: extract extra responsibilities from methods.</strong> Methods should also have a single responsibility. Just like classes, that makes them easy to reuse, change, and understand.</li>
+<li>To determine if a method has a single responsibility, the same techniques that work for classes apply. Try to enunciate their purpose in a single sentence, and ask them what they do.</li>
+<li>Methods that iterate on items and act upon them too are a common case of multiple responsibilities. Separating iteration and action into two methods is a common refactoring to correct it.</li>
+<li>Complex calculations embedded within methods are also good candidates to be separated into other methods. It gives them a name and makes them reusable.</li>
+</ol>
+<blockquote>
+<p>For example, instead of this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span>IEnumerable&lt;<span>int</span>&gt; GetDiameters()
+</span></span><span><span>{
+</span></span><span><span>    <span>return</span> Wheels.Select(wheel =&gt; wheel.Rim + (wheel.Tire * <span>2</span>));
+</span></span><span><span>}
+</span></span></code></pre></div><p>…do this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// First - iterate over the collection.</span>
+</span></span><span><span>IEnumerable&lt;<span>int</span>&gt; _GetDiameters()
+</span></span><span><span>{
+</span></span><span><span>    <span>return</span> Wheels.Select(wheel =&gt; GetDiameter(wheel));
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// Second - calculate diameter of ONE wheel.</span>
+</span></span><span><span><span>int</span> GetDiameter(Wheel wheel)
+</span></span><span><span>{
+</span></span><span><span>    <span>return</span> wheel.Rim + (wheel.Tire * <span>2</span>);
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<ol start="35">
+<li>These refactorings are useful and necessary even when you don’t know what the final design will look like. In fact, these refactorings (and good practices like these) will often reveal the final design.</li>
+<li>Small methods with a single responsibility have many benefits. They make a class’s details, features, and components more obvious, they are self-documenting, encourage reuse, establish a style of programming that is self-perpetuating, become easy to move to another class when and if that time comes.</li>
+<li><strong>Enforce single responsibility everywhere: isolate extra responsibilities in classes.</strong> Move the responsibilities that are extraneous to a class into another class. If you can afford it, create a separate class to hold them. If not, at least encapsulate them in an embedded class so that they are contained and don’t leak.</li>
+<li>Embedded classes say: This class only has meaning and value when thought about within the context of this other class.</li>
+<li>Embedded classes can be easily promoted to independent classes later if the need arises.</li>
+<li>Once all methods inside a class have a single responsibility and are each doing the smallest useful thing, it becomes easier to identify the features that may belong to another class.</li>
+<li>The purpose of design is not to produce “perfect” code but instead to produce code that’s “good enough”.</li>
+<li>The Single Responsibility Principle “allows change without consequence and reuse without duplication”.</li>
+</ol>
+<h3 id="chapter-3-managing-dependencies">Chapter 3: Managing Dependencies</h3>
+<h4 id="about-dependencies">About dependencies</h4>
+<ol>
+<li>Objects should have a single responsibility and do the smallest useful thing. This means that, in order to fulfill complex application requirements, objects need to collaborate with one another.</li>
+<li>Objects collaborate by knowing things about and sending messages to each other. That creates <strong>dependencies</strong>. A good design manages these dependencies, making sure they don’t couple objects so much that change becomes painful.</li>
+<li><strong>Coupling</strong> measures how much interdependency exists between software components. High coupling makes things hard to change.</li>
+<li>An object has a dependency when it knows <strong>the name of another class</strong>.</li>
+<li>An object has a dependency when it knows <strong>the name of a method from another class</strong>.</li>
+<li>An object has a dependency when it knows <strong>the arguments of that method</strong>.</li>
+<li>An object has a dependency when it knows <strong>the order of those arguments</strong>.</li>
+<li>Dependencies create a situation where if an object changes, then other objects that depend on it may be forced to change as well.</li>
+<li>Dependencies couple objects to each other. Highly coupled objects behave as if they were a unit. It becomes hard to reuse one without the other. If not managed properly, dependencies will disseminate and entangle the entire code base.</li>
+<li>Some dependencies are unavoidable. So the purpose of design is to reduce and contain dependencies. Ensure objects only have the minimum number of dependencies that they need to do their jobs. Keep the essential ones, remove the rest.</li>
+</ol>
+<h4 id="techniques-for-writing-loosely-coupled-code">Techniques for writing loosely coupled code</h4>
+<ol start="11">
+<li><a href="https://en.wikipedia.org/wiki/Dependency_injection" rel="noreferrer" target="_blank"><strong>Dependency injection</strong></a>. It can help eliminate dependencies on concrete classes. Instead of instantiating new objects of another class inside your object, let the object receive it as a constructor or method parameter. The object’s users can do the instantiation.</li>
+<li>An object that knows less can often times do more. The knowledge of how to instantiate a particular object limits its potential. Object creation and utilization don’t need to be contained within the same unit of code.</li>
+<li>When an object hard-codes the reference to a class, it advertises that it can’t work with any other type. Replace the reference to the concrete class with an abstraction (e.g. an <a href="https://en.wikipedia.org/wiki/Interface_(object-oriented_programming)" rel="noreferrer" target="_blank">interface</a> or <a href="https://en.wikipedia.org/wiki/Duck_typing" rel="noreferrer" target="_blank">duck type</a>). That gives it the flexibility to be able to collaborate with other objects that respond to the same messages.</li>
+</ol>
+<blockquote>
+<p>With dependency injection you can turn this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Gear</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>float</span> Ratio { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>int</span> Rim { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>int</span> Tire { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Gear(<span>float</span> ratio, <span>int</span> rim, <span>int</span> tire)
+</span></span><span><span>    {
+</span></span><span><span>        Ratio = ratio;
+</span></span><span><span>        Rim = rim;
+</span></span><span><span>        Tire = tire;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>float</span> GetGearInches()
+</span></span><span><span>    {
+</span></span><span><span>        <span>return</span> Ratio * <span>new</span> Wheel(Rim, Tire).GetDiameter();
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Into this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Gear</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>float</span> Ratio { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    Wheel Wheel { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// Instead of rim and tire, Gear's constructor now receives a wheel.</span>
+</span></span><span><span>    <span>public</span> Gear(<span>float</span> ratio, Wheel wheel)
+</span></span><span><span>    {
+</span></span><span><span>        Ratio = ratio;
+</span></span><span><span>        Wheel = wheel;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>float</span> GetGearInches()
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Instead of creating a new wheel, it uses the one that's been injected.</span>
+</span></span><span><span>        <span>return</span> Ratio * Wheel.GetDiameter();
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<ol start="14">
+<li>Sometimes it is not possible to remove a dependency from an object. In those cases, your best bet is to isolate it.</li>
+<li><strong>Isolate dependencies: isolate instance creation</strong>. Sometimes it is not possible to apply dependency injection. In those cases, the next best thing is to encapsulate instantiation of external classes into their own methods.</li>
+<li>An instantiation encapsulated in a method allows the code to clearly and explicitly communicate that there’s an extraneous dependency here. One that we’d like to remove but for now cannot. We also protect the class from that dependency propagating through it.</li>
+<li><strong>Isolate dependencies: isolate vulnerable external messages</strong>. The same technique can be applied to invocations of methods on external classes. Encapsulate such calls into their own methods in order to contain the dependency.</li>
+</ol>
+<blockquote>
+<p>Here’s what isolating some dependencies could look like. From this…</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>float</span> GetGearInches()
+</span></span><span><span>{
+</span></span><span><span>    <span>return</span> Ratio * <span>new</span> Wheel(Rim, Tire).GetDiameter();
+</span></span><span><span>}
+</span></span></code></pre></div><p>…to this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>float</span> GetGearInches()
+</span></span><span><span>{
+</span></span><span><span>    <span>return</span> Ratio * GetWheelDiameter();
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// The dependency on the Wheel class is isolated in this method.</span>
+</span></span><span><span><span>int</span> GetWheelDiameter()
+</span></span><span><span>{
+</span></span><span><span>    <span>return</span> <span>new</span> Wheel(Rim, Tire).GetDiameter();
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<ol start="18">
+<li>
+<p><strong>Reduce argument dependencies: use keyword arguments</strong>. If your language supports them, keyword arguments are a great way of reducing the dependency incurred via method invocations. They allow the parameters to be sent in any order, which means that changes to the method’s definition and signature are less likely to cause the callers to have to also change. Also, they have a self-documenting property on both caller and callee. (See <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments" rel="noreferrer" target="_blank">named arguments in C#</a> and <a href="https://thoughtbot.com/blog/ruby-2-keyword-arguments" rel="noreferrer" target="_blank">keyword arguments in Ruby</a>).</p>
+</li>
+<li>
+<p><strong>Reduce argument dependencies: explicitly define defaults</strong>. If your language has the feature, parameter defaults are a great way of reducing dependencies to method parameters, as establishing a default for a parameter makes it optional.</p>
+</li>
+<li>
+<p><strong>Reduce argument dependencies: isolate multiparameter initialization</strong>. If you don’t own the code for a complex object initialization or method invocation, you can always encapsulate it in an object or method of your own. It can be done with a thin wrapper that exposes an interface that follows the techniques we’ve discussed and that uses the language of your application.</p>
+</li>
+<li>
+<p>Classes should depend on things that change less often than they do.</p>
+</li>
+<li>
+<p>There are three truths about code related to change and dependencies:</p>
+<ol>
+<li>“Some classes are more likely to change than others”.</li>
+<li>“Concrete classes are more likely to change than abstract classes”.</li>
+<li>“Changing a class that has many dependents will have many consequences”.</li>
+</ol>
+</li>
+<li>
+<p>It’s OK to depend on classes with a low likelihood of change. For example, classes in the built-in library of your language generally will change less than your own custom classes. Framework classes commonly change less often too, but that may not always be the case if you framework is new or rapidly evolving.</p>
+</li>
+<li>
+<p>Abstractions are generally much more stable than concretions. Because of this, <strong>it is safer to depend on abstract classes</strong> (e.g. interfaces and duck types) than on concrete ones.</p>
+</li>
+<li>
+<p>Avoid classes that have lots of dependencies. Any changes done to them produce a ripple effect of changes throughout the code base. Also, because of that, people will go through great lengths to try to avoid changing them.</p>
+</li>
+<li>
+<p>When thinking about dependents and likelihood of change, <strong>the following are harmless</strong>:</p>
+<ol>
+<li>Classes with few dependents and low likelihood of change (e.g. specialized infrastructure interaction classes).</li>
+<li>Classes with few dependents and high likelihood of change (e.g. concrete classes that implement your app’s domain logic).</li>
+<li>Classes with many dependents and low likelihood of change (e.g. interfaces and other abstractions).</li>
+</ol>
+</li>
+<li>
+<p>When thinking about dependents and likelihood of change, <strong>the following is harmful</strong>: Classes with many dependents and high likelihood of change (e.g. concrete classes that are used throughout the code base).</p>
+</li>
+</ol>
+<p></p>
+<h3 id="chapter-4-creating-flexible-interfaces">Chapter 4: Creating Flexible Interfaces</h3>
+<h4 id="about-interfaces">About interfaces</h4>
+<ol>
+<li>The messages that objects pass between each other are a big concern for design. In addition to what objects know (responsibilities), and who they know (dependencies), design cares about how they talk to one another. Messages pass between objects through their interfaces.</li>
+<li>In a well designed application, the messages that pass between objects follow a pattern that’s closer to the diagram on the right than that of the diagram on the left:</li>
+</ol>
+<p></p>
+<ol start="3">
+<li>
+<p>Objects that expose too much of themselves and know too much about others are hard to reuse and make systems hard to change.</p>
+</li>
+<li>
+<p>Objects that minimize what they expose of themselves and know little about others are easily reusable and changeable.</p>
+</li>
+<li>
+<p>An object’s <strong>public interface</strong> is the set of messages that it responds to. That is, the set of methods that other objects are welcome to invoke. Good design calls for objects with clear and concise public interfaces.</p>
+</li>
+<li>
+<p>Classes should have one responsibility, but they will likely have many methods. Some methods are more general and expose the main features of a class; they are the services that the class offers its callers. These should make up the class’s public interface. Other methods are more specific, serve to support those features, and contain implementation details internal to the class and uninteresting to callers. These make up the class’s private interface.</p>
+</li>
+<li>
+<p><strong>The methods in a class’s public interface</strong>:</p>
+<ol>
+<li>“Reveal its primary responsibility”</li>
+<li>“Are expected to be invoked by others”</li>
+<li>“Are not likely to change”</li>
+<li>“Are safe for others to depend on”</li>
+<li>“Are directly covered by tests”</li>
+</ol>
+</li>
+<li>
+<p><strong>The methods in a class’s private interface</strong>:</p>
+<ol>
+<li>“Handle implementation details”</li>
+<li>“Are not expected to be invoked by other objects”</li>
+<li>“Are likely to change”</li>
+<li>“Are unsafe for others to depend on”</li>
+<li>“May not even be referenced in the tests”</li>
+</ol>
+</li>
+<li>
+<p>Public methods list the specific features of a class that allow it to fulfill its responsibility. They advertise to the world what the purpose of the class they belong to is.</p>
+</li>
+<li>
+<p>Public methods are stable and are expected to not change often, so others are welcome to depend on them.</p>
+</li>
+<li>
+<p>Private methods are not stable at all. They are hidden from others so nobody should depend on them.</p>
+</li>
+</ol>
+<h4 id="discovering-less-obvious-objects-and-messages">Discovering less obvious objects and messages</h4>
+<ol start="12">
+<li>When analyzing a problem domain, the nouns in the narrative usually become your first classes. These are called “<strong>domain objects</strong>”.</li>
+<li>Don’t let domain objects be your only classes, though. Shift your focus toward messages and away from classes to discover new, less obvious objects that will implement key functionality. Not doing so will risk overloading your domain objects with more responsibility than what they can handle.</li>
+<li><a href="https://en.wikipedia.org/wiki/Sequence_diagram" rel="noreferrer" target="_blank">UML sequence diagrams</a> are an excellent way to explore design alternatives. You can use them to draft objects and their interactions, i.e. the messages they send each other. They are quick, low cost, and allow easy communication of ideas between team members. Here’s an online tool that generates them based on plain text: <a href="https://sequencediagram.org/" rel="noreferrer" target="_blank">sequencediagram.org</a>.</li>
+<li>The transition from class-based design to message-based design is one that yields more flexible applications. It means asking “I need to send this message, who should respond to it?” instead of “I know I need this class, what should it do?”.</li>
+</ol>
+<h4 id="focusing-on-what-instead-of-how">Focusing on “what” instead of “how”</h4>
+<ol start="16">
+<li>Public methods should focus on “what” instead of “how”. That is, they should express what the caller wants instead of how the callee must behave.</li>
+<li>If you’re in a situation where an object calls many methods on another in succession, try to refactor so that all the logic is executed as a result of a single message. This consolidation reduces the size of the second object’s public interface, which reduces what callers need to know about it, which reduces dependency, which makes change easier. The caller only knows “what” it needs, not “how” to make the callee deliver.</li>
+</ol>
+<blockquote>
+<p>When focusing on “what” instead of “how”, code like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Trip</span>
+</span></span><span><span>{
+</span></span><span><span>    IEnumerable&lt;Bicycle&gt; Bicycles { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    Mechanic Mechanic { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Prepare()
+</span></span><span><span>    {
+</span></span><span><span>        <span>foreach</span> (<span>var</span> bike <span>in</span> Bicycles)
+</span></span><span><span>        {
+</span></span><span><span>            Mechanic.CleanBicyble(bike);
+</span></span><span><span>            Mechanic.PumpTires(bike);
+</span></span><span><span>            Mechanic.LubeChain(bike);
+</span></span><span><span>            Mechanic.CheckBrakes(bike);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Mechanic</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> CheckBrakes(Bicycle bike) { }
+</span></span><span><span>    <span>public</span> <span>void</span> CleanBicyble(Bicycle bike) { }
+</span></span><span><span>    <span>public</span> <span>void</span> LubeChain(Bicycle bike) { }
+</span></span><span><span>    <span>public</span> <span>void</span> PumpTires(Bicycle bike) { }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Can be transformed into code like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Trip</span>
+</span></span><span><span>{
+</span></span><span><span>    IEnumerable&lt;Bicycle&gt; Bicycles { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    Mechanic Mechanic { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// This method was greatly simplified and its dependencies were reduced.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> Prepare()
+</span></span><span><span>    {
+</span></span><span><span>        <span>foreach</span> (<span>var</span> bike <span>in</span> Bicycles)
+</span></span><span><span>        {
+</span></span><span><span>            Mechanic.PrepareBicycle(bike);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Mechanic</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> PrepareBicycle(Bicycle bike)
+</span></span><span><span>    {
+</span></span><span><span>        CleanBicyble(bike);
+</span></span><span><span>        PumpTires(bike);
+</span></span><span><span>        LubeChain(bike);
+</span></span><span><span>        CheckBrakes(bike);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Notice how Mechanic's public interface was reduced considerably.</span>
+</span></span><span><span>    <span>// All of these methods are private now.</span>
+</span></span><span><span>    <span>private</span> <span>void</span> CheckBrakes(Bicycle bike) { }
+</span></span><span><span>    <span>private</span> <span>void</span> CleanBicyble(Bicycle bike) { }
+</span></span><span><span>    <span>private</span> <span>void</span> LubeChain(Bicycle bike) { }
+</span></span><span><span>    <span>private</span> <span>void</span> PumpTires(Bicycle bike) { }
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<h4 id="liberate-objects-from-their-context">Liberate objects from their context</h4>
+<ol start="18">
+<li>An object’s context is made up of the things that an object knows about others. What other objects it calls and how. What it needs in order to be able to work.</li>
+<li>A good design tries to allow objects to work with minimal context. “Objects that have a simple context are easy to use and easy to test; they expect few things from their surroundings. Objects that have a complicated context are hard to use and hard to test; they require complicated setup before they can do anything”.</li>
+<li>In order to reduce context, we need to reduce the knowledge that callers have about the other components they call. A simple public interface helps with that. In practical terms that means fewer and less verbose methods, fewer parameters, fewer dependencies.</li>
+<li><strong>Objects need to trust their collaborators to do their part</strong>. Focusing on what the caller wants instead of what the callee does is a way of keeping context in check. This allows objects to collaborate with others regardless of what type they are and what they do.</li>
+<li>Dependency injection is a mechanism through which objects can collaborate with others when they don’t know their type. A dependency injected via parameter (declared as an interface or duck type) hides its identity from its user.</li>
+<li>Naming the methods of this injected dependency from the perspective of the caller reveals a generic interface that offers the features that the caller wants in the vocabulary that it understands. The caller does not need to know what the injected dependency does, only what it needs it to do.</li>
+<li>Highly coupled objects with verbose public interfaces say to their collaborators: “I know what I want, and I know how you do it”.</li>
+<li>More decoupled objects with concise public interfaces say to their collaborators: “I know what I want, and I know what you do”.</li>
+<li>Highly decoupled objects with concise public interface and minimal required context say to their collaborators: “I know what I want, and I trust you to do your part”.</li>
+</ol>
+<blockquote>
+<p>When objects trust their collaborators, and focus on what they want instead of what others do, the previous Trip/​Mechanic example can become like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Trip</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> IEnumerable&lt;Bicycle&gt; Bicycles { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    Mechanic Mechanic { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Prepare()
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Trip now fully trusts Mechanic, and doesn't even know what it does.</span>
+</span></span><span><span>        Mechanic.PrepareTrip(<span>this</span>);
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Mechanic</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// The knowledge of "how a mechanic prepares a trip" now completely lives</span>
+</span></span><span><span>    <span>// within Mechanic.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> PrepareTrip(Trip trip)
+</span></span><span><span>    {
+</span></span><span><span>        <span>foreach</span> (<span>var</span> bike <span>in</span> trip.Bicycles)
+</span></span><span><span>        {
+</span></span><span><span>            PrepareBicycle(bike);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>void</span> PrepareBicycle(Bicycle bike)
+</span></span><span><span>    {
+</span></span><span><span>        CleanBicyble(bike);
+</span></span><span><span>        PumpTires(bike);
+</span></span><span><span>        LubeChain(bike);
+</span></span><span><span>        CheckBrakes(bike);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>void</span> CheckBrakes(Bicycle bike) { }
+</span></span><span><span>    <span>private</span> <span>void</span> CleanBicyble(Bicycle bike) { }
+</span></span><span><span>    <span>private</span> <span>void</span> LubeChain(Bicycle bike) { }
+</span></span><span><span>    <span>private</span> <span>void</span> PumpTires(Bicycle bike) { }
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<h4 id="rules-of-thumb-for-writing-code-with-good-interfaces">Rules of thumb for writing code with good interfaces</h4>
+<ol start="27">
+<li>
+<p><strong>Create explicit interfaces</strong>. Be intentional and obvious when defining public and private methods. Use your language access modifiers (i.e. public, private, protected, etc). Your public methods should:</p>
+<ol>
+<li>Be explicitly identified as such</li>
+<li>Be more about what than how</li>
+<li>Have names that are unlikely to change</li>
+<li>Use keyword arguments</li>
+</ol>
+</li>
+<li>
+<p><strong>Respect the public interface of others</strong>. Invoke only public methods on the classes that you use. Avoid circumventing their public interfaces and directly calling private members. Depending on the private interface of framework and library classes is like a ticking time bomb. The reason they are private is because they are expected to change or disappear entirely.</p>
+</li>
+<li>
+<p><strong>Minimize context</strong>. Focus on “what” instead of “how” when designing public interfaces. Favor public methods that allow callers to access your classes’ functionality without having to know how they do it. Use interface and duck types to name methods from the perspective of and with the vocabulary of the callers.</p>
+</li>
+<li>
+<p>If you have to interact with a class that does not have a clean interface, and you don’t own it or otherwise can’t refactor it so that it does, isolate it. Use the same techniques for dependency isolation mentioned in Chapter 3. Wrap the invocation in a new class or method to contain it and give that wrapper a clean public interface.</p>
+</li>
+<li>
+<p><strong>Follow the law of Demeter</strong>. The law of Demeter states that you shouldn’t chain multiple method calls that navigate across many different types of objects. In other words “talk only to your close neighbors” or “use only one dot”.</p>
+</li>
+</ol>
+<blockquote>
+<p>Violations ot the law of Demeter look like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span>customer.GetBicycle().Wheel.Rotate();
+</span></span></code></pre></div></blockquote>
+<ol start="32">
+<li>Violations of the law of Demeter make for code that’s not TRUE. Changes in the object at the end of the chain ripple through the entire chain. This is unexpected and laborious, making the code neither Transparent nor Reasonable. The class that uses the chain depends on all the objects in the chain, making it non-Usable. These chains are easy to replicate and harm changeability, making the code not Exemplary.</li>
+<li>Always evaluate the cost of violating the law of Demeter versus the cost of abiding by it. Method chains that ultimately read an attribute are generally less harmful. Also, method chains on really stable classes like those of your language library or framework have low impact.</li>
+<li>Delegation can appear to be a solution to law of Demeter violations. Unfortunately, all it does is remove the evidence that it’s there.</li>
+<li>In reality, a violation to the law of Demeter indicates that there’s an object missing or that the public interface of an object is lacking. Find the object, and its interface, by thinking more about messages and less about classes. Define the interface by thinking about what the object needs of its collaborators, and not about how it can get it by itself.</li>
+</ol>
+<h3 id="chapter-5-reducing-costs-with-duck-typing">Chapter 5: Reducing Costs with Duck Typing</h3>
+<h4 id="about-duck-types">About duck types</h4>
+<ol>
+<li><strong>Duck types</strong> are public interfaces that manifest themselves across classes. When multiple classes accept the same messages (i.e. define methods with the same signature), they are said to be of the same duck type.</li>
+<li>“Duck type” is a dynamic language concept. Static languages offer equivalent features via “<a href="https://en.wikipedia.org/wiki/Interface_(object-oriented_programming)" rel="noreferrer" target="_blank">interfaces</a>”.</li>
+<li>The difference is that, in statically typed languages, interfaces need to be explicitly defined in code and concrete classes need to explicitly implement them. On the other hand, duck types in dynamically typed languages need only be acknowledged in an abstract sense. They don’t have to be explicitly defined in code.</li>
+<li>Duck types and interfaces establish a contract. A set of messages that a given object is expected to be able to receive. A protocol that users of these objects can be confident that they will adhere to.</li>
+<li>Just as a class can implement multiple interfaces, an object can be of many duck types. That’s because interfaces and duck types materialize depending on the situation in which objects that implement them are used. The same object can be used in different places for different things. Each user will see the object from their own perspective, and each can expect it conform to a different interface. See the <a href="https://en.wikipedia.org/wiki/Interface_segregation_principle" rel="noreferrer" target="_blank">interface segregation principle</a>.</li>
+<li>Moreover, code that depends on an interface or duck type is flexible enough to collaborate with any concrete class that implements that interface or duck type. See the <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle" rel="noreferrer" target="_blank">Liskov substitution principle</a>.</li>
+<li>As we’ve established, it’s better to depend on abstractions than to depend on concretions. So, users of an object should not care what its type is, only what it does. Behavior over identity. In other words, they should focus on messages and public interfaces, instead of specific classes. Duck types and interfaces bring to the forefront what an object does and abstracts away what it is.</li>
+<li>Applying duck types to a situation makes the code more abstract and less concrete. Concrete code is easier to understand but harder to extend. Abstract code is harder to understand at the beginning but easier to change. In the long run, abstract code tends to reduce maintenance costs.</li>
+<li>When an object invokes methods on multiple objects in order to achieve a single purpose, that’s a situation where a duck type may be helpful. Think from the perspective of the caller and what it needs to come up with a message that makes sense for it to send its many collaborators. That method should be part of the public interface of each of its collaborators. To the caller’s eyes, each of its collaborators belong in the same duck type.</li>
+</ol>
+<h4 id="writing-code-that-leverages-duck-types">Writing code that leverages duck types</h4>
+<ol start="10">
+<li>Whenever you see conditional logic that sends a different message depending on the concrete class of a given object, that’s the code telling you that it needs a duck type or interface.</li>
+<li>Come up with a message that makes sense from the perspective of the caller and add it to each of the classes expected by your code in the conditional. These classes now share the same public interface, they are of the same duck type. Then remove the conditional and just call that method. Replace conditional logic with <a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)" rel="noreferrer" target="_blank">polymorphism</a>.</li>
+<li>In general, try to avoid code that explicitly mentions concrete classes or checks for the existence of particular methods in order to determine further behavior. Instead, come up with a shared interface and send those messages to the collaborators regardless of their actual type.</li>
+</ol>
+<blockquote>
+<p>Higly conditional and concrete logic like this…</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Trip</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> IEnumerable&lt;Bicycle&gt; Bicycles { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> IEnumerable&lt;Customer&gt; Customers { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> Vehicle Vehicle { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Prepare(IEnumerable preparers)
+</span></span><span><span>    {
+</span></span><span><span>        <span>foreach</span> (<span>var</span> preparer <span>in</span> preparers)
+</span></span><span><span>        {
+</span></span><span><span>            <span>if</span> (preparer <span>is</span> Mechanic)
+</span></span><span><span>            {
+</span></span><span><span>                ((Mechanic)preparer).PrepareBicycles(Bicycles);
+</span></span><span><span>            }
+</span></span><span><span>            <span>else</span> <span>if</span> (preparer <span>is</span> TripCoordinator)
+</span></span><span><span>            {
+</span></span><span><span>                ((TripCoordinator)preparer).BuyFood(Customers);
+</span></span><span><span>            }
+</span></span><span><span>            <span>else</span> <span>if</span> (preparer <span>is</span> Driver)
+</span></span><span><span>            {
+</span></span><span><span>                ((Driver)preparer).GasUp(Vehicle);
+</span></span><span><span>                ((Driver)preparer).FillWaterTank(Vehicle);
+</span></span><span><span>            }
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Mechanic</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> PrepareBicycles(IEnumerable&lt;Bicycle&gt; bicycles) { }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>TripCoordinator</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> BuyFood(IEnumerable&lt;Customer&gt; customers) { }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Driver</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> FillWaterTank(Vehicle vehicle) { }
+</span></span><span><span>    <span>public</span> <span>void</span> GasUp(Vehicle vehicle) { }
+</span></span><span><span>}
+</span></span></code></pre></div><p>…can be rewritten to be more abstract if we leverage polymorphism. Like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Trip</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> IEnumerable&lt;Bicycle&gt; Bicycles { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> IEnumerable&lt;Customer&gt; Customers { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> Vehicle Vehicle { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// This method can be much simpler now, and abstract.</span>
+</span></span><span><span>    <span>// Ready to collaborate with any "TripPreparer".</span>
+</span></span><span><span>    <span>// The conditional logic has been replaced with polymorphism.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> Prepare(IEnumerable&lt;ITripPreparer&gt; preparers)
+</span></span><span><span>    {
+</span></span><span><span>        <span>foreach</span> (<span>var</span> preparer <span>in</span> preparers)
+</span></span><span><span>        {
+</span></span><span><span>            preparer.PrepareTrip(<span>this</span>);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// New interface that all preparers implement. It has a single method.</span>
+</span></span><span><span><span>// It greatly simplifies the communication between Trip and its many</span>
+</span></span><span><span><span>// possible preparers.</span>
+</span></span><span><span><span>interface</span> <span>ITripPreparer</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>void</span> PrepareTrip(Trip trip);
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Mechanic</span> : ITripPreparer
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> PrepareTrip(Trip trip)
+</span></span><span><span>    {
+</span></span><span><span>        PrepareBicycles(trip.Bicycles);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>void</span> PrepareBicycles(IEnumerable&lt;Bicycle&gt; bicycles) { }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>TripCoordinator</span> : ITripPreparer
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> PrepareTrip(Trip trip)
+</span></span><span><span>    {
+</span></span><span><span>        BuyFood(trip.Customers);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>void</span> BuyFood(IEnumerable&lt;Customer&gt; customers) { }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Driver</span> : ITripPreparer
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>void</span> PrepareTrip(Trip trip)
+</span></span><span><span>    {
+</span></span><span><span>        FillWaterTank(trip.Vehicle);
+</span></span><span><span>        GasUp(trip.Vehicle);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> <span>void</span> FillWaterTank(Vehicle vehicle) { }
+</span></span><span><span>    <span>private</span> <span>void</span> GasUp(Vehicle vehicle) { }
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<ol start="13">
+<li>The one exception to this rule is when dealing with exceptionally stable classes. Like those in your language libraries, where the introduction of duck types would mean modifying core language libraries. Explicit type checks against these classes are usually low cost.</li>
+<li>Duck types are abstract and less obvious in the code. That’s why they need to be well documented and tested.</li>
+</ol>
+<h3 id="chapter-6-acquiring-behavior-through-inheritance">Chapter 6: Acquiring Behavior through Inheritance</h3>
+<h4 id="about-inheritance">About inheritance</h4>
+<ol>
+<li><strong>Inheritance</strong> establishes a relationship between two classes where it is said that a subclass B “is a” superclass A. Subclass and superclass are also referred to as derived class and base class, respectively.</li>
+<li>Inheritance can be more technically defined as an “automatic message forwarding mechanism”. That is, when a subclass receives a message that it cannot respond to directly (i.e. a method that it does not implement), the language runtime takes care of automatically sending the message to the superclass.</li>
+<li>That is, inheritance establishes a hierarchy where superclasses share their code with their subclasses.</li>
+<li>Subclasses are meant to be specialized versions of their superclass. Subclasses should be “the same, plus more” when compared to their superclass. They should offer the same public interface.</li>
+<li>Inheritance is ideal to solve the problem where you need a series of slightly different classes that share a lot of behavior.</li>
+<li>A telltale sign that inheritance needs to be applied is when code contains an “if” statement checking an attribute that contains the “category” of the object, and based on that determines what code to execute. Watch out for this anti-pattern and for variables with names like “type”, “category”, “style” that control branches in behavior.</li>
+<li>This is an anti-pattern that reveals that the object knows too much and needs to be broken down into smaller pieces. It increases the costs of change.</li>
+</ol>
+<blockquote>
+<p>Here’s what the anti-pattern looks like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Bicycle</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>string</span> Style { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>string</span> TapeColor { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>string</span> FrontShock { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Bicycle(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options)
+</span></span><span><span>    {
+</span></span><span><span>        Style = options[<span>"style"</span>];
+</span></span><span><span>        TapeColor  = options[<span>"tape_color"</span>];
+</span></span><span><span>        FrontShock = options[<span>"front_shock"</span>];
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Checking 'style' starts down a slippery slope.</span>
+</span></span><span><span>    <span>public</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; GetSpares()
+</span></span><span><span>    {
+</span></span><span><span>        <span>if</span> (Style == <span>"road"</span>)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> <span>new</span>() {
+</span></span><span><span><span>                ["chain"]</span> = <span>"11-speed"</span>,
+</span></span><span><span><span>                ["tire_size"]</span> = <span>"23"</span>,
+</span></span><span><span><span>                ["tape_color"]</span> = TapeColor
+</span></span><span><span>            };
+</span></span><span><span>        }
+</span></span><span><span>        <span>else</span> <span>if</span> (Style == <span>"mountain"</span>)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> <span>new</span>() {
+</span></span><span><span><span>                ["chain"]</span> = <span>"11-speed"</span>,
+</span></span><span><span><span>                ["tire_size"]</span> = <span>"2.1"</span>,
+</span></span><span><span><span>                ["front_shock"]</span> = FrontShock
+</span></span><span><span>            };
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<h4 id="applying-inheritance">Applying inheritance</h4>
+<ol start="8">
+<li>Be on the lookout for existing classes that may lead you down the wrong path when it comes to inheritance. More often than not, classes that already exist in the code base are not good candidates for extension via inheritance. They are not good candidates to be superclasses.</li>
+<li>The path forward is likely to be a new class to serve as the base, and then update your existing class to be a subclass. Then add other subclasses as peers of it.</li>
+<li>For inheritance to work, the objects being modeled need to truly share a generalization-specialization relationship.</li>
+<li>The superclass needs to define the common behavior that is shared among subclasses. The subclasses define the specializations.</li>
+<li>In many cases, the superclass should be <strong>abstract</strong>, meaning that they are not supposed to be instantiated. They represent an incomplete object which only becomes whole when looked at in the context of each of its subclasses.</li>
+<li>It almost never makes sense to create a superclass with only a single subclass. In fact, creating an inheritance hierarchy with two subclasses is often risky. You risk coming up with the wrong abstraction.</li>
+<li>Three subclasses is the sweet spot to commit to inheritance. Put off the decision to implement inheritance until that point, if you can. That’s the point when there’s enough information available to confidently determine an abstraction that will be useful and cost effective.</li>
+<li>If you put off implementing an inheritance hierarchy, then you won’t be able to share code between the highly related classes. That will likely lead to code repetition, which is also costly. Consider what costs more: having the repetition for the time being; or doing nothing and waiting for more information to avoid making the wrong decision.</li>
+<li>“Every decision you make includes two costs: one to implement it and another to change it when you discover that you were wrong”.</li>
+<li>When refactoring towards an inheritance hierarchy, consider that “promoting” code from the concrete subclass up into the abstract superclass is often easier and less error prone.</li>
+<li>Errors in promoting are easy to identify and fix. All that can happen if you miss a promotion is that a subclass that was meant to inherit some behavior won’t have it.</li>
+<li>Going in the opposite direction and missing a “demotion” will produce design errors that are harder to spot and have dire consequences if left alone.</li>
+<li>That would mean that concrete behavior, which does not apply to all subclasses, stays incorrectly in the abstract base class. That’ll throw a wrench in the works and the whole inheritance hierarchy will be on shaky grounds. The abstract base class won’t be generic enough and subclasses will be tempted to circumvent it.</li>
+<li>“The general rule for refactoring into a new inheritance hierarchy is to arrange code so that you can promote abstractions rather than demote concretions”.</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Template_method_pattern" rel="noreferrer" target="_blank">template method pattern</a> provides a clean way of defining a common basic algorithm in the superclass and allowing subclasses to supply specializations for it. Superclasses can define an algorithm, and call certain methods in key points within it. These are extension points. These methods can then be implemented by subclasses, letting them control part of the overall logic.</li>
+<li>When promoting concrete code to the more abstract superclass, consider using the template method when methods cannot be promoted wholesale, and have to be broken up instead. The parts that can be promoted become the template method; the parts that can’t be become the specialization methods that each concrete subclass implements.</li>
+<li>To avoid future bugs, superclasses should provide default implementations for the specialization methods that it expects its subclasses to implement. These can be no-ops or, even better, raise errors. These errors let developers know that extending this inheritance hierarchy requires these methods to be implemented.</li>
+<li><a href="https://www.geeksforgeeks.org/ruby-hook-methods/" rel="noreferrer" target="_blank">Hook methods</a> are a slightly lighter iteration of the template method concept that helps alleviate superclass-subclass coupling. Same principle: let the superclass send a message that the subclass implements in order to provide a specialization.</li>
+<li>A hook method need not be a part of a common abstract algorithm, hence the slight distinction from the full fledged template method design pattern.</li>
+<li>Beware of subclasses explicitly invoking functionality on their superclasses. Languages often offer keywords such as “<a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/base" rel="noreferrer" target="_blank">base</a>” or “<a href="https://www.rubyguides.com/2018/09/ruby-super-keyword/" rel="noreferrer" target="_blank">super</a>” that allow easily sending messages to superclasses. These are dangerous because they couple subclasses with their superclasses. They reveal that subclasses know the general algorithm.</li>
+<li>The template method pattern and hook methods invert this dependency, allowing the superclass to call the subclass. Allowing the subclass to provide specializations without knowing too much about the superclass.</li>
+</ol>
+<blockquote>
+<p>Here’s an example of a properly factored inheritance hierarchy:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// The main purpose of the base class is to establish a basic functionality</span>
+</span></span><span><span><span>// that can be easily extended by subclasses.</span>
+</span></span><span><span><span>// This class cannot be instantiated, as given by the "abstract" modifier.</span>
+</span></span><span><span><span>// This means that our application has no need of holding onto pure Bicycle</span>
+</span></span><span><span><span>// instances, only the concrete subclasses are to be used.</span>
+</span></span><span><span><span>// This abstract class is just a vehicle for sharing code between other classes.</span>
+</span></span><span><span><span>abstract</span> <span>class</span> <span>Bicycle</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>string</span> Size { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>string</span> Chain { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>string</span> TireSize { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// Notice how this constructor implements the template method pattern</span>
+</span></span><span><span>    <span>// in order to allow subclasses to make changes to the overall algorithm.</span>
+</span></span><span><span>    <span>// Specifically, it allows them to provide default values for the Chain and</span>
+</span></span><span><span>    <span>// TireSize attributes as well as run any additional logic after</span>
+</span></span><span><span>    <span>// initialization.</span>
+</span></span><span><span>    <span>public</span> Bicycle(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options)
+</span></span><span><span>    {
+</span></span><span><span>        Size = options.GetValueOrDefault(<span>"size"</span>);
+</span></span><span><span>        Chain  = options.GetValueOrDefault(<span>"chain"</span>) ?? GetDefaultChain();
+</span></span><span><span>        TireSize = options.GetValueOrDefault(<span>"tire_size"</span>) ?? GetDefaultTireSize();
+</span></span><span><span>
+</span></span><span><span>        AfterInitialize(options);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This method establishes the basic spares information and allows</span>
+</span></span><span><span>    <span>// subclasses to supply more by calling the GetLocalSpares hook method.</span>
+</span></span><span><span>    <span>public</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; GetSpares()
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> defaultSpares = <span>new</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; {
+</span></span><span><span><span>            ["tire_size"]</span> = <span>"23"</span>,
+</span></span><span><span><span>            ["chain"]</span> = <span>"11-speed"</span>
+</span></span><span><span>        };
+</span></span><span><span>
+</span></span><span><span>        <span>return</span> <span>new</span>(defaultSpares.Concat(GetLocalSpares()));
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// This method, which is marked as abstract, has to be implemented by</span>
+</span></span><span><span>    <span>// subclasses. It allows subclasses to contribute specializations.</span>
+</span></span><span><span>    <span>protected</span> <span>abstract</span> <span>string</span> GetDefaultTireSize();
+</span></span><span><span>
+</span></span><span><span>    <span>// These methods, marked as virtual, all have default implementations of</span>
+</span></span><span><span>    <span>// varying complexity but the important aspect is that they can be</span>
+</span></span><span><span>    <span>// overridden by subclasses. They also allow subclasses to contribute</span>
+</span></span><span><span>    <span>// specializations.</span>
+</span></span><span><span>    <span>protected</span> <span>virtual</span> <span>void</span> AfterInitialize(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options) { }
+</span></span><span><span>    <span>protected</span> <span>virtual</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; GetLocalSpares() =&gt; <span>new</span>();
+</span></span><span><span>    <span>protected</span> <span>virtual</span> <span>string</span> GetDefaultChain() =&gt; <span>"11-speed"</span>;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// Notice how the following concrete subclasses are very simple.</span>
+</span></span><span><span><span>// Extending this kind of code is easy, because creating new subclasses is easy.</span>
+</span></span><span><span><span>// They leverage their abstract base class to implement most of their features.</span>
+</span></span><span><span><span>// Their job is to supply specializations on the core logic defined in the base</span>
+</span></span><span><span><span>// class. To do so, they override the hook methods defined by the base class.</span>
+</span></span><span><span><span>class</span> <span>RoadBike</span> : Bicycle
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>string</span> TapeColor { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> RoadBike(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options) : <span>base</span>(options) { }
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>void</span> AfterInitialize(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options) =&gt;
+</span></span><span><span>        TapeColor = options.GetValueOrDefault(<span>"tape_color"</span>);
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; GetLocalSpares() =&gt;
+</span></span><span><span>        <span>new</span>() { [<span>"tape_color"</span>] = TapeColor };
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>string</span> GetDefaultTireSize() =&gt; <span>"23"</span>;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>MountainBike</span> : Bicycle
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>string</span> FrontShock { <span>get</span>; <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>string</span> RearShock { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> MountainBike(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options) : <span>base</span>(options) { }
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>void</span> AfterInitialize(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options)
+</span></span><span><span>    {
+</span></span><span><span>        FrontShock = options.GetValueOrDefault(<span>"front_shock"</span>);
+</span></span><span><span>        RearShock = options.GetValueOrDefault(<span>"rear_shock"</span>);
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; GetLocalSpares() =&gt;
+</span></span><span><span>        <span>new</span>() { [<span>"front_shock"</span>] = FrontShock };
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>string</span> GetDefaultTireSize() =&gt; <span>"2.1"</span>;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>RecumbentBike</span> : Bicycle
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>string</span> Flag { <span>get</span>; <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> RecumbentBike(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options) : <span>base</span>(options) { }
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>void</span> AfterInitialize(Dictionary&lt;<span>string</span>, <span>string</span>&gt; options) =&gt;
+</span></span><span><span>        Flag = options.GetValueOrDefault(<span>"flag"</span>);
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> Dictionary&lt;<span>string</span>, <span>string</span>&gt; GetLocalSpares() =&gt;
+</span></span><span><span>        <span>new</span>() { [<span>"flag"</span>] = Flag };
+</span></span><span><span>
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>string</span> GetDefaultChain() =&gt; <span>"10-speed"</span>;
+</span></span><span><span>    <span>protected</span> <span>override</span> <span>string</span> GetDefaultTireSize() =&gt; <span>"28"</span>;
+</span></span><span><span>}
+</span></span></code></pre></div></blockquote>
+<h3 id="chapter-7-sharing-role-behavior-with-modules">Chapter 7: Sharing Role Behavior with Modules</h3>
+<h4 id="about-roles">About roles</h4>
+<ol>
+<li>Using classical inheritance is always optional. Every situation that calls for inheritance could be solved using another technique that allows for sharing code between otherwise unrelated classes.</li>
+<li>The concept of “<strong>roles</strong>” is an alternative to classical inheritance. This concept emerges from the need of multiple classes to be used in a particular context to do the same thing. So they themselves need to share behavior.</li>
+<li>Think of a role as an augmented form of a duck type. A group of classes are said to play the same role when they belong in the same duck type or implement the same interface. In addition to exposing the same public interface, roles allow them to share internal behavior.</li>
+<li>Roles are ideal for storing responsibilities that are orthogonal to classes. It allows classes that are otherwise unrelated to share behavior. They establish a “behaves like” type of relationship between objects, as opposed to the “is a” relationship that is established with inheritance.</li>
+<li>When you include a module into an existing class, all the methods defined in the module become available to the class. This is the same thing that happens when a subclass inherits from a superclass.</li>
+<li>Many languages offer native features to allow for this kind of relationship between objects. In Ruby, we use <a href="http://ruby-for-beginners.rubymonstas.org/advanced/modules.html" rel="noreferrer" target="_blank">Modules</a>. Other languages use <a href="https://www.pythontutorial.net/python-oop/python-mixin/" rel="noreferrer" target="_blank">Mixins</a>, <a href="https://www.php.net/manual/en/language.oop5.traits.php" rel="noreferrer" target="_blank">Traits</a>, <a href="https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html" rel="noreferrer" target="_blank">Default Methods</a>. Simply put, all these are ways of bundling together a group of methods that can be easily plugged into existing classes.</li>
+</ol>
+<h4 id="writing-inheritable-code">Writing inheritable code</h4>
+<ol start="7">
+<li>The same principles, techniques, and anti patterns that apply to the design of duck types and inheritance hierarchies also apply to roles.</li>
+<li>Beware of objects that use a variable with a name like “type”, “category” or “kind” to determine what code to execute. The object is likely concealing (and acting like) two or more types. These would be subclasses or module includers.</li>
+<li>When code is checking the type of an object to decide which message to send it, that’s a signal that there’s a missing abstraction. There’s a duck type or role in there that needs to be explicitly brought to light. A public interface needs to be defined for it. If there is a need to share behavior, put it in a module, mixin, etc.</li>
+<li>“All of the code in the abstract superclass should apply to every class that inherits it”.</li>
+<li>Beware of subclasses or module includers that override a superclass/​module method just to raise a “not implemented” error. Chances are that if only part of the superclass applies to it, then it doesn’t belong in the hierarchy. Or maybe the whole hierarchy needs a redesign.</li>
+<li>Subclasses agree to the contract specified by their superclasses. They must respond to every message in the superclass’s public interface, accept the same types of inputs and return the same types outputs.</li>
+<li>Put in other words, “subtypes must be substitutable for their supertype”. That is, all subclasses should act like their superclass. This means that any code that expects a superclass should be able to work, without change, with all its subclasses as well. That’s the Liskov substitution principle.</li>
+<li>Through the concept of <a href="https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)" rel="noreferrer" target="_blank">variance</a>, subclasses have a slightly higher degree of freedom. Subclasses can accept inputs of more abstract types and can return outputs of more concrete types than those specified in the superclass’s public interface while still being substitutable for their superclass.</li>
+<li>For example, given a class “Object” that is a superclass of a class “String”; if a method in a superclass “MyClass” accepts a String parameter, a subclass of MyClass could override that same method and accept Object and still be compliant. Likewise, if a method in a superclass returns an Object result, the subclass could return a String for that same method, and still be compliant. Still be substitutable.</li>
+<li>In other words, some code that sends a message with a String parameter can send the same message to a receiver that accepts Object. Likewise, some code that expects an Object as a result of sending a message can send the same message to a receiver that returns a String. Because a String “is an” Object, any code that works with an Object can work with a String, it’ll just treat it like an Object and only access Object’s public interface, which String fully supports.</li>
+</ol>
+<blockquote>
+<p>This is what variance allows:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Superclass</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>virtual</span> Object DoSomething(String parameter) =&gt; <span>new</span> Object();
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Subclass</span> : Superclass
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> <span>override</span> String DoSomething(Object parameter) =&gt; <span>"the result"</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><p>Be aware that C# currently does not support variance in parameters, only in return types. So this code would not actually work as it is, since the parameter types are different.</p>
+</blockquote>
+<ol start="17">
+<li>The template method pattern is the ideal technique for creating superclasses that are easy to inherit from. It allows clean separation of an abstract algorithm from the concrete specializations.</li>
+<li>Be on the lookout for code that directly invokes superclass behavior with keywords like “super” or “base” etc. Instead, use hook methods to allow subclasses to contribute to parts of the common algorithm.</li>
+<li>Favor shallow hierarchies instead of deep ones. Narrow is also preferable to wide. Wide ones are easier to live with as long as they are shallow. But deep and wide ones are a maintenance nightmare. That is, keep the vertical levels of inheritance as low as you can. Hierarchies with many layers of superclasses are hard to understand and maintain.</li>
+</ol>
+<p></p>
+<h3 id="chapter-8-combining-objects-with-composition">Chapter 8: Combining Objects with Composition</h3>
+<h4 id="about-composition">About composition</h4>
+<ol>
+<li><strong>Composition</strong> establishes a “has a” relationship between objects. It is a technique where you combine simple, independent objects to turn them into larger, more complex ones. Composition combines distinct parts so that the resulting entity is more than the sum of its parts.</li>
+<li>In composition, the container object (or composed object) “has a” contained component (or part). Mechanically, this usually means that the container’s class has an attribute which holds a reference to the part object. It’s a dependency that’s usually injected via constructor parameter.</li>
+<li>The container communicates with the part via its public interface. The part plays a role, and the container collaborates with it. This means that containers generally interact with their parts through interfaces or duck types.</li>
+<li>Composition is generally a cheaper alternative to code sharing when compared to inheritance.</li>
+<li>When refactoring from inheritance into composition, the parts sometimes need to share some code, in addition to sharing the same public interface. This is because all possible parts play the same role for the container. In these cases, an inheritance hierarchy of parts may be what’s needed. Or, they could share behavior via modules or mixins.</li>
+<li>In technical terms, the technique of composition takes two forms: <strong>aggregation</strong> and, well, <strong>composition</strong>. Under composition, parts don’t have any use or value outside of their container objects. Under aggregation, on the other hand, parts can live on their own.</li>
+</ol>
+<h4 id="factories">Factories</h4>
+<ol start="7">
+<li>When creating certain objects becomes complex, encapsulate that complexity into a factory. That way the knowledge is stored in a single place in the code base. In principle, factories are simple: They are objects that create other objects.</li>
+<li>An advantage of factories is that they make the process of turning complex data structures into objects easy. You can have a “specification”, stored as pure data in a file or database. The factory can then implement the logic that understands the meaning of the data structure and how to create living objects based on it.</li>
+</ol>
+<h4 id="deciding-between-inheritance-and-composition">Deciding between inheritance and composition</h4>
+<ol start="9">
+<li>Inheritance and composition are fundamentally code arrangement techniques where logic is distributed among various objects. With inheritance, objects are organized into a strict hierarchical structure and get automatic message delegation. With composition, objects are independent from each other but messages need to be manually delegated.</li>
+<li>In general, “<a href="https://en.wikipedia.org/wiki/Composition_over_inheritance" rel="noreferrer" target="_blank">favor composition over inheritance</a>”. Composition is lower cost (i.e. fewer dependencies) than inheritance in most circumstances where both could be used to solve a problem.</li>
+</ol>
+<h4 id="pros-and-cons-of-inheritance">Pros and cons of inheritance</h4>
+<ol start="11">
+<li>When properly applied, inheritance is excellent at producing code that is Reasonable, Usable and Exemplary.</li>
+<li><strong>Inheritable code is Reasonable</strong> because small changes in code can produce great changes in behavior. This is because code near the top of the hierarchy is defined once but used by all subclasses. Changing such code allows to alter the behavior of many subclasses.</li>
+<li><strong>Inheritable code is Usable</strong> because superclasses are literally designed to be easy to reuse. Inheritance hierarchies adhere to the <a href="https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle" rel="noreferrer" target="_blank">open-closed principle</a>. It’s easy to extend the hierarchy by creating new subclasses without having to touch existing code, thus, reusing it.</li>
+<li><strong>Inheritable code is Exemplary</strong> because it intrinsically provides a clear path to extend it. Even novice programmers won’t have a hard time creating new subclasses when the superclasses implement template methods and hooks which guide any extension efforts.</li>
+<li>One important disadvantage of inheritance is that the cost of mistakes is considerably high. Incorrect applications of inheritance are costly, whether it be that the wrong abstraction was created or that inheritance was just the wrong tool for the job altogether.</li>
+<li>Another disadvantage is that, for other contexts outside of the hierarchy, the ways in which it’s possible to interact with the hierarchy are limited. If the behavior defined within the hierarchy needs to be used, a subclass needs to be created. Other use cases may be incapable of tolerating that dependency.</li>
+<li>If you’re writing a framework or a library, this aspect becomes even more important. You can’t know all the scenarios in which your library will be used, and forcing users to create subclasses in order to reuse the logic defined in the hierarchy may be more than what they can afford.</li>
+</ol>
+<h4 id="pros-and-cons-of-composition">Pros and cons of composition</h4>
+<ol start="18">
+<li>“When using composition, the natural tendency is to create many small objects that contain straightforward responsibilities that are accessible through clearly defined interfaces”. “Composition results in applications built of simple, pluggable objects that are easy to extend and have a high tolerance for change”.</li>
+<li>When properly applied, composition is excellent at producing code that is Transparent, Reasonable and Usable.</li>
+<li><strong>Composable code is Transparent</strong> because small objects are easy to understand and changes have obvious effects. These objects also don’t necessarily form part of hierarchies, which means they are not susceptible to changes in superclasses.</li>
+<li><strong>Composable code is Reasonable</strong> because its behavior is easy to extend by just implementing new objects that play the role of parts. All new parts need to do is implement the public interface that the container object already expects.</li>
+<li><strong>Composable code is Usable</strong> because it’s made up of small independent objects. They don’t have any structural dependencies preventing them from being reused in different contexts, completely unrelated to the container or even the part role.</li>
+<li>One disadvantage of composition is the fact that it may be more difficult to understand how the whole application works. While the individual objects may be small and simple, how they come together to solve problems may not be.</li>
+<li>Another disadvantage is that objects need to delegate messages to each other manually, as opposed to inheritance where this happens automatically. This means that there is the explicit dependency of the container object having to know which messages to call on its parts.</li>
+<li>Composition excels at separating containers from parts and assembling such objects. However, it doesn’t have an answer for the scenario where it is necessary to handle a collection of types of parts that are very similar to each other. That’s where inheritance comes in.</li>
+<li>Use inheritance for “is a” relationships. Use duck types, interfaces, and behavior sharing via modules or mixins for “behaves like a” relationships. Use composition for “has a” relationships.</li>
+</ol>
+<h3 id="chapter-9-designing-cost-effective-tests">Chapter 9: Designing Cost-Effective Tests</h3>
+<h4 id="the-benefits-of-testing">The benefits of testing</h4>
+<ol>
+<li>The goal of design is to write code that is easy to change. In order to do that, we need good object-oriented design skills, good refactoring skills and good testing skills.</li>
+<li>Good object-oriented design skills are needed because badly designed code, by definition, is hard to change.</li>
+<li>Good refactoring skills are needed because design needs to be evolving constantly. As new requirements and new information about the domain become available, the code needs to adapt.</li>
+<li>Good testing skills are needed because high value, solid tests enable continuous refactoring without fear of breaking the code.</li>
+<li>Just like design, the true purpose of testing is to reduce costs. Tests do help reduce bugs, provide documentation, and improve the design; but those are only the means through which tests achieve their ultimate goal of reducing the cost of change.</li>
+<li><strong>Tests help by finding bugs</strong>: Test help expose bugs early in the process. Bugs are easier to find and cheaper to correct the closer in time we are to their introduction. Testing at the same time a feature is being implemented catches bugs before they go out the door. Bugs caught early are not given the chance to cause problems or have code depend on them.</li>
+<li><strong>Tests help by supplying documentation</strong>: Tests represent the best and most reliable documentation of the design. When static documents and memories get outdated and/or disappear, tests remain. Write tests that tell the story of how the code works.</li>
+<li><strong>Tests help by deferring design decisions</strong>: As a code base evolves, there will be spots in the code that are less than stellar. Spots which we’re not confident enough in to commit to a particular design. So we postpone making a decision and hack together a solution that works today. However, we know that it will need to be refactored to handle the requirements of tomorrow. These spots represent a lack of knowledge. Knowledge that the design is waiting for in order to improve. While waiting for that knowledge to come, we put the hack behind a clear, stable public interface and write our tests against that. In doing so, we’ll be free to refactor into a good design when the missing information arrives. Knowing that the tests have our backs.</li>
+<li><strong>Tests help by supporting abstractions</strong>: “Good design naturally progresses toward small independent objects that rely on abstractions”. One disadvantage to this is that, while small independent objects are easy to understand by themselves, the behavior of the whole application, with all the little objects working together, becomes obscured. Tests solve that problem by highlighting the abstractions, their interfaces, how to work with them, and how they work together.</li>
+<li><strong>Tests help by exposing design flaws</strong>: If tests are hard to write, that’s the perfect indicator that the code under test is hard to reuse. Which indicates high coupling, which indicates increased costs of change. If testing an object requires a lot of setup and a lot of other objects, then it requires too much context and has too many dependencies.</li>
+</ol>
+<h4 id="what-when-and-how-to-test">What, when and how to test</h4>
+<p></p>
+<ol start="11">
+<li>“One simple way to get better value from tests is to write fewer of them. The safest way to accomplish this is to test everything just once and in the proper place”.</li>
+<li><strong>Tests should focus only on the incoming messages</strong> that are defined in each object’s public interface (“A” in the picture above). That is, the public methods. Public interfaces expose the services that a class offers its users. They are also stable, so depending on them is safe. Tests that cover public methods are resilient to refactorings and add value because they exercise objects in the same way that their users in application code do.</li>
+<li><strong>Never test private methods</strong> (“B” in the picture above). They are meant to be used by the object internally. They change often and other objects should not depend on them because they will have to change with them. The same applies to tests. Tests that exercise private code break on every refactoring.</li>
+<li>An object’s test suite should <strong>never assert the return value of outgoing messages</strong> that it sends to other objects (“C” in the picture above). These messages are part of the public interface of the receiver object, so the receiver’s test suite should be the one testing it.</li>
+<li>On the other hand, an object’s test suite should <strong>always assert that necessary outgoing messages are sent</strong>, and with the correct parameters (“C” in the picture above).</li>
+<li>A “test of state” is a test that asserts the return value of a method.</li>
+<li>A “test of behavior” is a test that asserts whether the object under test calls a particular method on another object, how many times, and with what parameters.</li>
+<li>A “query” is a method call with no side effects that is only made to get some value back.</li>
+<li>A “command” is a method call that has side effects that are important to the overall application.</li>
+<li><strong>All public methods should be covered by tests of state</strong>. A test suite should only cover the public methods of its own object under test.</li>
+<li><strong>Queries should not be tested for state or behavior</strong>.</li>
+<li><strong>Commands should be tested for behavior</strong>.</li>
+<li>Write tests first when it makes sense to do so. Writing tests before implementing the feature establishes an intention for the design from the beginning. Since tests are reused, they make sure the code to be written will have the bare minimum of reusability.</li>
+<li>Testing first is no silver bullet, though. Even though it helps steer the design in the right direction, by itself it won’t produce a well-designed application. Fundamental object-oriented design techniques still need to be applied.</li>
+<li>Well-designed applications are easy to change. Well-designed tests may never have to change. This is because they depend on abstractions and public interfaces, which are stable.</li>
+<li>Two major styles of testing exist: Behavior Driven Development and Test Driven Development.</li>
+<li>“BDD takes an outside-in approach, creating objects at the boundary of an application and working its way inward, mocking as necessary to supply as-yet-unwritten objects”.</li>
+<li>“TDD takes an inside-out approach, usually starting with tests of domain objects and then reusing these newly created domain objects in the tests of adjacent layers of code”.</li>
+<li><strong>Both styles can be followed to produce valuable tests</strong>.</li>
+</ol>
+<p></p>
+<h4 id="writing-valuable-tests">Writing valuable tests</h4>
+<ol start="30">
+<li><strong>Incoming messages (i.e. public methods) need to be covered by tests of state</strong>. That is, the values that they return must be validated.</li>
+<li>Be on the lookout for public methods that don’t receive any calls. These are good candidates for deletion. If no other object calls it, then it needs to be private.</li>
+<li><strong>Objects should be tested in isolation</strong>. When that’s not possible, there’s a problem with the design. It means that the object is too coupled to its collaborators and can’t be reused on its own. It needs to be refactored.</li>
+<li>It’s important that objects are tested in isolation because a test suite should care only about the one object that its testing. The other objects will be tested by their own test suites. Changes in an object should affect its own test suite, not that of other objects.</li>
+<li>When the object under test depends on another object in order to work properly, refactor into dependency injection and have the test provide the dependency that way.</li>
+<li>When using dependency injection, don’t pass in a concrete, “real” object in your tests. Instead, inject a <strong>test double</strong> or <strong>mock</strong> into the object under test.</li>
+<li>Dependency injection also hints at the emergence of a role, interface, or duck type. Instead of depending on a concrete class, refactor the object under test to depend on a role. The double or mock in the test suite will be one of the objects that play the collaborator role that the object under test expects.</li>
+<li><strong>Private methods and query method calls need not be tested at all</strong>.</li>
+<li>Testing private methods is redundant because they are internal to the object under test and invoked by public methods, which already have tests.</li>
+<li>Private methods are also unstable. Not meant to be depended on because they change often. That will make for brittle tests.</li>
+<li>Private methods covered by tests may mislead others in thinking that the method is stable and, thus, dependable.</li>
+<li>Query method call results are not relevant to the overall application, only to the object under test. They are hidden within it. Also, the receiver of the query already includes tests for it, given that it is part of its public interface. So, they should be ignored by the test suite.</li>
+<li><strong>Command method calls do need to be covered by tests</strong> in order to prove that they were called with the correct parameters. In other words, it is the responsibility of the object under test to send that message, so its test suite needs to prove it.</li>
+<li>Mocks are the way to test that command messages get sent. They help with tests of behavior. Using mocks injected into the object under test, a test case can validate that the method is called properly.</li>
+<li>Commands should be tested for behavior, not state. So, mocks should not be used for tests of state. That is, tests should not be concerned with asserting what they return. However, they can be configured to return some value, if the operation requires it.</li>
+<li>In dynamically typed languages that don’t have a compiler to do type checks, it is important to test objects for conformance with the public interfaces of their roles, and for proper integration with their inheritance hierarchies.</li>
+<li>“<strong>Tests should document the existence of roles, prove that each of their players behave correctly, and show that dependents interact with them appropriately</strong>”.</li>
+<li>Pragmatically, this means writing test cases that assert whether objects implement the specific messages defined in their roles’ public interface and those that their superclasses expect from them.</li>
+<li>Multiple subclasses will undoubtedly share many of the same tests. In those cases, try to encapsulate the test cases into reusable components that every subclass’s test suite can invoke. Just like in application code, it’s better to avoid repetition.</li>
+<li>Testing abstract base classes can sometimes be challenging because they are not supposed to be instantiated. In some languages, it is downright impossible to instantiate classes marked as abstract. For these scenarios, a test-specific subclass can be created with minimal implementation that allows tests to exercise the base class.</li>
+<li>To avoid test brittleness, test doubles that play certain roles and inherit from superclasses should also be tested for conformance.</li>
+</ol>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-02-27T00:00:00.000Z>27 February 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

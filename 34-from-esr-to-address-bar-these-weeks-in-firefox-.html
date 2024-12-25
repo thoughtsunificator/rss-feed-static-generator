@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>From ESR to Address Bar – These Weeks in Firefox: Issue 168</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/09/24/from-esr-to-address-bar-these-weeks-in-firefox-issue-168/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1">ESR115 EOL was extended for Win 7-8.1 and macOS 10.12-10.14 to March 2025. See the <a href="https://groups.google.com/a/mozilla.org/g/firefox-dev/c/bofYvrfH9vY/m/GrKuzixzAAAJ" rel="noreferrer" target="_blank">firefox-dev post</a> for more details. This doesn’t impact next month’s planned migration to ESR128 for other OSes, however.</li>
+<li aria-level="1">The topic selection experiment is running! Firefox users in the treatment branch will see a dialog asking if they want to choose specific topics to appear in their story recommendations:</li>
+</ul>
+<p></p>
+<ul>
+<li aria-level="1">There has been a lot of work on various parts of ScotchBonnet for the Address Bar. We will be looking to enable this in Nightly soon, so anyone wanting a sneak peek can toggle <code>browser.urlbar.scotchBonnet.enableOverride</code> to <code>true</code>. <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Firefox&amp;component=Address%20Bar" rel="noreferrer" target="_blank">Bug reports and feedback are welcome!</a></li>
+<li aria-level="1">mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1912672" rel="noreferrer" target="_blank">fixed a bug</a> with the experimental automatic Picture-in-Picture feature that caused a perma-spinner to appear when tearing a tab out.</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h3><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1910488%2C1916034%2C1910807%2C1905214%2C1910087%2C1915451%2C1879933%2C1436462%2C1917468%2C1918606%2C1918942%2C1919071%2C1918921&amp;list_id=17225663" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h3>
+<p><a href="https://github.com/niklasbaumgardner/NewContributorScraper" rel="noreferrer" target="_blank">Script to find new contributors from bug list</a></p>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Jonas Jenwald [:Snuffleupagus]</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Accessibility</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=291675" rel="noreferrer" target="_blank">:eeejay</a> has landed <a href="https://groups.google.com/a/mozilla.org/g/dev-platform/c/uWjLctFTlxo" rel="noreferrer" target="_blank">ARIA Element reflection</a> that allows ARIA relationship attributes to be set in JavaScript by directly referencing target elements. In particular, it will allow setting ARIA relationship attributes to work across Shadow DOM boundaries (with limitations). It is now available behind the pref <code>accessibility.ARIAElementReflection.enabled</code> and is getting ready to be shipped (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919102" rel="noreferrer" target="_blank">bug</a>).</li>
+</ul>
+<h4>DevTools</h4>
+<h5>DevTools Toolbox</h5>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=559949" rel="noreferrer" target="_blank">Julian Descottes</a> fixed an issue where your plugged-in phone might not be detected in <code>about:debugging</code> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1899330" rel="noreferrer" target="_blank">#1899330</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> added a new panel in the Tracer sidebar where we display the DOM event types that were emitted and let you filter them out (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1908615" rel="noreferrer" target="_blank">#1908615</a>)</li>
+</ul>
+<p></p>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> made the tracing to the profiler output much faster by using the native backend written by Alex Thayer (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916533" rel="noreferrer" target="_blank">#1916533</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> fixed an issue with Inactive CSS hints in the pseudo-element section (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1583641" rel="noreferrer" target="_blank">#1583641</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> started working on High Contrast Mode support in DevTools (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916366" rel="noreferrer" target="_blank">#1916366</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916605" rel="noreferrer" target="_blank">#1916605</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916603" rel="noreferrer" target="_blank">#1916603</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918415" rel="noreferrer" target="_blank">#1918415</a>)</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">:flod moved the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916932" rel="noreferrer" target="_blank">rstcheck linter configuration to a file</a> and fixed various linter issues in code blocks.</li>
+<li aria-level="1">:flod also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917163" rel="noreferrer" target="_blank">updated our rstcheck linter and fixed various issues that it raised</a>.
+<ul>
+<li aria-level="2">The update also fixed an issue on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1761563" rel="noreferrer" target="_blank">Windows machines with 64-threads</a>.</li>
+</ul>
+</li>
+<li aria-level="1">:nalexander fixed an issue where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918249" rel="noreferrer" target="_blank">`mach lint` fails to lint prefs JS files on Windows due to charmap encoding issues</a></li>
+<li aria-level="1">ESLint v9 – a few changes to make it simpler for changing the configurations in eslint-plugin-mozilla to be compatible with the flat configuration:
+<ul>
+<li aria-level="2">For ES modules, we <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1575506" rel="noreferrer" target="_blank">turned on</a> the <a href="https://eslint.org/docs/latest/rules/no-redeclare#builtinglobals" rel="noreferrer" target="_blank">builtinGlobals option for ESLint’s no-redeclare rule</a>.</li>
+<li aria-level="2">The ESLint rule no-shadow is now <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917530" rel="noreferrer" target="_blank">turned on by default</a>. It is set to warning for system modules where it currently fails, and off for other code areas where it fails. The failing code areas are listed in the .eslintrc-rollouts.js file and we’ll work on rolling it out over time.</li>
+</ul>
+</li>
+</ul>
+<h4>Migration Improvements (read-only)</h4>
+<ul>
+<li aria-level="1">fchasen launched the experiment to encourage Firefox users without a Mozilla account to create one and sync, in order to have a safeguard against sudden hardware failure. We’re already seeing an uptick in accounts being created, and we’re eager for the experiment to conclude to determine which messaging variant had the most impact!</li>
+<li aria-level="1">For backup, mconley <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1914940" rel="noreferrer" target="_blank">landed</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1914926" rel="noreferrer" target="_blank">some</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1914936" rel="noreferrer" target="_blank">patches</a> to disable backing up various history-related data stores if Firefox is configured to clear history on shutdown. There are also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890427" rel="noreferrer" target="_blank">a series of patches in review</a> to regenerate backups when users intentionally delete certain data.</li>
+<li aria-level="1">mconley is working with the OMC team to develop a new simple messaging surface inside of the AppMenu panel to try some different variants of the “signed out” state for the accounts item at the top of the menu</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">The thumbs up / thumbs down experiment is also running to let users in the treatment branch express which stories have value for them, and which don’t:</li>
+</ul>
+<p></p>
+<ul>
+<li aria-level="1">The layout variant experiments we mentioned during the last meeting are slated to start running in early October once Firefox 131 goes out the door!</li>
+<li aria-level="1">Scott and Max are currently working on migrating us from our legacy endpoints for Top Sites and sponsored stories to a more centralized endpoint.</li>
+<li aria-level="1">Amy and Nathan are working on the “big rectangle” – a new tall card group type that we’ll be experimenting with in a few months once this capability hits release</li>
+</ul>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li aria-level="1">evilpie <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910807" rel="noreferrer" target="_blank">fixed PiP captions</a> for arte.tv</li>
+<li aria-level="1">florian landed a patch that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918758" rel="noreferrer" target="_blank">removes Firefox Desktop’s PiP from toolkit/components/moz.build for Fenix/Android builds</a>, since PiP on Android is implemented separately</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li>ScotchBonnet updates
+<ul>
+<li>Contextual Search will now enter a persistent search mode session when you search on a site that provides opensearch<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1893071" rel="noreferrer" target="_blank"> 1893071</a></li>
+<li>Daisuke added the ability to access search pages directly with shift click, this behaviour was introduced after lot of user feedback on the current one off bar @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1915250" rel="noreferrer" target="_blank"> 1915250</a></li>
+<li>We can and will only show persisted search terms on built in engines, to make sure 3rd party search engines cant trick users @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1918176" rel="noreferrer" target="_blank"> 1918176</a></li>
+<li>As well as a large number of more general improvements and bug fixes @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913205" rel="noreferrer" target="_blank"> 1913205</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1913200" rel="noreferrer" target="_blank"> 1913200</a>, 1914604,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917186" rel="noreferrer" target="_blank"> 1917186</a></li>
+</ul>
+</li>
+<li>Drew has made a lot of improvements to Firefox Suggest
+<ul>
+<li>Integrating Rust exposure suggestions as part of new experiment framework @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1915317" rel="noreferrer" target="_blank"> 1915317</a></li>
+<li>Allowed suggest to be enabled in non suggest locales @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916873" rel="noreferrer" target="_blank"> 1916873</a></li>
+<li>Fixed issue with few results being shown when suggest is enabled @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916458" rel="noreferrer" target="_blank"> 1916458</a></li>
+<li>And various other improvements</li>
+</ul>
+</li>
+<li>Mark has landed large refactorings of search search tests @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1912051" rel="noreferrer" target="_blank"> 1912051</a>, 1917955&nbsp; along with preparations to implement the search engine selector in Rust to share with mobile @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1914145" rel="noreferrer" target="_blank"> 1914145</a></li>
+<li>Mandy also cleaned up some of the stale code left from the search configuration update @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1916847" rel="noreferrer" target="_blank"> 1916847</a></li>
+<li>Marco landed a bug to fix issues caused by the urlbar moving on mouse focus that caused issues with double click @<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1909189" rel="noreferrer" target="_blank"> https://bugzilla.mozilla.org/show_bug.cgi?id=1909189</a></li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-09-24T18:38:52.000Z>24 September 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

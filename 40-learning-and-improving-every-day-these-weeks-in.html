@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Learning and Improving Every Day – These Weeks in Firefox: Issue 173</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2024/12/06/learning-and-improving-every-day-these-weeks-in-firefox-issue-173/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1"><a href="https://www.mozilla.org/en-US/firefox/133.0/releasenotes/" rel="noreferrer" target="_blank">Firefox 133</a> releases today! Lots of goodies in there, including <a href="https://firefox-source-docs.mozilla.org/toolkit/components/antitracking/anti-tracking/bounce-tracking-protection/index.html" rel="noreferrer" target="_blank">Bounce Tracking Protection</a>, GPU-accelerated canvas on Windows and more!</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe</a> Enabled High Contrast Theme support (devtools.high-contrast-mode-support) on Nightly (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1932642" rel="noreferrer" target="_blank">#1932642</a>)
+<ul>
+<li aria-level="1"></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1929640" rel="noreferrer" target="_blank">Some</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1924444" rel="noreferrer" target="_blank">recent</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1488780" rel="noreferrer" target="_blank">changes</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1768921" rel="noreferrer" target="_blank">in</a> the platform have resulted in <a href="https://treeherder.mozilla.org/perfherder/graphs?highlightAlerts=1&amp;highlightChangelogData=1&amp;highlightCommonAlerts=0&amp;replicates=0&amp;series=mozilla-central,89279,1,13&amp;timerange=2592000" rel="noreferrer" target="_blank">really nice wins on the Speedometer 3</a> benchmark! Keep up the good work, gang!</li>
+<li aria-level="1">The Search team continues to innovate and improve on the default search experience in the AwesomeBar. <a href="https://connect.mozilla.org/t5/discussions/address-bar-updates-now-live-in-firefox-nightly/td-p/76176" rel="noreferrer" target="_blank">Learn more here, and give feedback if you have any!</a></li>
+<li aria-level="1">A small portion of our release population might get enrolled in an experiment to try our new sidebar and vertical tabs experiment. If you get enrolled, <a href="https://connect.mozilla.org/t5/discussions/sidebar-and-vertical-tabs-release-channel-experimentation/td-p/78966" rel="noreferrer" target="_blank">this is the Connect page to let us know what you think</a>!</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1851327%2C1814195%2C655445%2C1889914%2C1920145%2C1921426%2C1465026%2C1810438%2C1810439%2C1810481" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Abhijeet Chawla[:ff2400t]</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">AAR <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1465026" rel="noreferrer" target="_blank">rounded the font properties</a> in the inspector</li>
+<li aria-level="1">🌟 defaude <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1889914" rel="noreferrer" target="_blank">styled “deleted” rows to be more recognizable</a> in about:config</li>
+<li aria-level="1">Abhijeet Chawla[:ff2400t] removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810438" rel="noreferrer" target="_blank">UNSAFE_componentWillReceiveProps in devtools/client/responsive/components/ViewportDimension.js</a> and removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810439" rel="noreferrer" target="_blank">UNSAFE_componentWillReceiveProps in devtools/client/responsive/components/UserAgentInput.js</a> and removed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810481" rel="noreferrer" target="_blank">UNSAFE_componentWillMount in devtools/client/accessibility/components/AuditController.js</a></li>
+<li aria-level="1">Haoran Tang <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1814195" rel="noreferrer" target="_blank">added telemetry to about:translations</a></li>
+<li aria-level="1">🌟 Neri Marschik <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=655445" rel="noreferrer" target="_blank">added setting to control position of tabs opened from pinned tabs</a></li>
+<li aria-level="1">🌟 Sergei Smagin made <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1851327" rel="noreferrer" target="_blank">Reader Mode respect Firefox font settings</a></li>
+<li aria-level="1">🌟 Spencer made <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1920145" rel="noreferrer" target="_blank">moz-message-bar fluent properties set to true by default</a></li>
+</ul>
+<p>&nbsp;</p>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">Initial implementation of the MV3 userScripts API has landed behind a pref in Nightly 134 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1911833" rel="noreferrer" target="_blank">Bug 1911833</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1911834" rel="noreferrer" target="_blank">Bug 1911834</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1911835" rel="noreferrer" target="_blank">Bug 1911835</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1911836" rel="noreferrer" target="_blank">Bug 1911836</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917000" rel="noreferrer" target="_blank">Bug 1917000</a>)</li>
+<li aria-level="1">Fixed missing port.onDisconnect API event on port disconnected before the port.onConnect API event was dispatched – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931902" rel="noreferrer" target="_blank">Bug 1931902</a></li>
+</ul>
+<h5>WebExtensions Framework</h5>
+<ul>
+<li>
+<ul>
+<li aria-level="1">Fixed a tabs events regression on extensions-created tabs with a tab url that uses an unknown protocol (e.g. extension-registered protocol handler) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1921426" rel="noreferrer" target="_blank">Bug 1921426</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li aria-level="2"><b>Thanks to John Bieling for reporting and fixing this regression</b></li>
+</ul>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li aria-level="1">In the extensions panel, a new messagebar has been introduced to let users know when an extension has been disabled through the blocklist (for add-ons of type extensions disabled by either a hard or soft block) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1917848" rel="noreferrer" target="_blank">Bug 1917848</a></li>
+</ul>
+<h3>DevTools</h3>
+<h4>DevTools Toolbox</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=736950" rel="noreferrer" target="_blank">Abhijeet Chawla</a> is continuing their quest to move away from deprecated React lifecycle methods in our codebase (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810438" rel="noreferrer" target="_blank">#1810438</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810439" rel="noreferrer" target="_blank">#1810439</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1810481" rel="noreferrer" target="_blank">#1810481</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=738995" rel="noreferrer" target="_blank">AAR</a> made sure values in Font editor are rounded (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1465026" rel="noreferrer" target="_blank">#1465026</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot</a> fixed an issue where “Pause on caught exception” setting wasn’t applied on DevTools startup (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930687" rel="noreferrer" target="_blank">#1930687</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=656417" rel="noreferrer" target="_blank">Hubert Boma Manilla</a> made the Netmonitor show when a request has 103 Early Hints Information (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1811455" rel="noreferrer" target="_blank">#1811455</a>)
+<ul>
+<li aria-level="1"></li>
+</ul>
+</li>
+<li aria-level="1">Workweek in Paris to plan 2025</li>
+</ul>
+<h4>Fluent</h4>
+<ul>
+<li aria-level="1"><a href="https://www.arewefluentyet.com/" rel="noreferrer" target="_blank">Over 67% of Firefox’s strings are now Fluent!</a></li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">The test-manifest-toml linter has <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931575" rel="noreferrer" target="_blank">now been added to CI</a>. This may show up in code reviews, and typically reports issues like not using double quotes, separating skip-if conditions to multiple lines, ordering of tests in a file.</li>
+</ul>
+<h4>Migration Improvements</h4>
+<ul>
+<li aria-level="1">We have an upcoming experiment where we’re going to be trying some new variants to the signed-out state of the accounts toolbar button to make it clearer that signing in is a thing that you can do.
+<ul>
+<li aria-level="1"></li>
+</ul>
+</li>
+<li aria-level="1">Thanks to Emily McMinn who is <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1927207" rel="noreferrer" target="_blank">working on improving the accessibility of the migration wizard in high-contrast mode</a>!</li>
+</ul>
+<p>&nbsp;</p>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li aria-level="1">Thanks to florian for removing an unused call to Services.telemetry.keyedScalarAdd (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1932090" rel="noreferrer" target="_blank">bug 1932090</a>), as a part of the effort to remove legacy telemetry scalar APIs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931901" rel="noreferrer" target="_blank">bug 1931901</a>)</li>
+<li aria-level="1">Also thanks to emilio for updating the PiP window to use outerHeight and outerWidth (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931747" rel="noreferrer" target="_blank">bug 1931747</a>), providing better compatibility for rounded PiP window corners and shadows on Windows</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Address bar revamp (aka Scotch Bonnet project)
+<ul>
+<li aria-level="2">Dale disabled “interventions” results in address bar when new Quick Actions are enabled <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1794092" rel="noreferrer" target="_blank">Bug 1794092</a></li>
+<li aria-level="2">Dale re-enabled the Contextual Search feature <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930547" rel="noreferrer" target="_blank">Bug 1930547</a></li>
+<li aria-level="2">Yazan changed Search Mode to not stick unless search terms are persisted, to avoid accidentally searching for URLs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923686" rel="noreferrer" target="_blank">Bug 1923686</a></li>
+<li aria-level="2">Daisuke fixed a problem where confirming an autofilled search keyword did not enable Search Mode <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1925532" rel="noreferrer" target="_blank">Bug 1925532&nbsp;</a></li>
+<li aria-level="2">Daisuke made the Unified Search Button panel pick theme colors <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930190" rel="noreferrer" target="_blank">Bug 1930190</a></li>
+<li aria-level="2">Daisuke improved keyboard navigation in and out of the Unified Search Button <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930492" rel="noreferrer" target="_blank">Bug 1930492</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931765" rel="noreferrer" target="_blank">Bug 1931765</a></li>
+<li aria-level="2">Emilio fixed regressions in the Address Bar alignment when the browser is full-screen <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930499" rel="noreferrer" target="_blank">Bug 1930499</a>, and when the window is not focused <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1932652" rel="noreferrer" target="_blank">Bug 1932652&nbsp;</a></li>
+</ul>
+</li>
+<li aria-level="1">Search Service
+<ul>
+<li aria-level="2">Moritz improved how the Search Service manages engines icons <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1655070" rel="noreferrer" target="_blank">Bug 1655070</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1655076" rel="noreferrer" target="_blank">Bug 1655076</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930488" rel="noreferrer" target="_blank">Bug 1930488</a></li>
+<li aria-level="2">Mark is working on a new cross-platform SearchEngineSelector component (picking engines list depending on user locale and region) in Rust <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919540" rel="noreferrer" target="_blank">Bug 1919540</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1923689" rel="noreferrer" target="_blank">Bug 1923689</a></li>
+</ul>
+</li>
+<li aria-level="1">Suggest
+<ul>
+<li aria-level="2">Drew improved Yelp and weather results <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930640" rel="noreferrer" target="_blank">Bug 1930640</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1930646" rel="noreferrer" target="_blank">Bug 1930646</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931220" rel="noreferrer" target="_blank">Bug 1931220</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1931221" rel="noreferrer" target="_blank">Bug 1931221</a></li>
+</ul>
+</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-06T15:43:04.000Z>6 December 2024</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

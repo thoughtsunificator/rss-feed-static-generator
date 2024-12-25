@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>How To Set Up SSH Keys With YubiKey as two-factor authentication (U2F/FIDO2)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/">Go to article URL</a>
+		<div id="content"><p></p><div class="note"><a href="https://www.patreon.com/posts/pdf-archive-of-60228562" rel="noreferrer" target="_blank">Patreon users download the PDF version</a>.</div>
+<p><span class="drop_cap">A</span>ll Linux and Unix servers are managed manually or by automation tools such as Ansible using ssh. For example, say you have a server at Linode or AWS. Then you copy your public ssh key to a remote cloud server. Once copied, you can now login to those servers without a password as long as ssh keys are matched. It is the best practice. Unfortunately, you are not protecting ssh keys stored on a local desktop or dev machine at $HOME/.ssh/ directory. If your keys are stolen, an attacker can get access to all of your cloud servers, including backup servers. To avoid this mess, we can protect our ssh keys stored on local dev/desktop machines using physical security keys such as YubiKey.<br>
+<a href="https://www.cyberciti.biz/media/new/cms/2023/01/How-to-configure-SSH-with-YubiKey.png" rel="noreferrer" target="_blank"></a><br>
+In both cases, you need to insert your YubiKey (or any FIDO2 compatible hardware key) into a USB port and complete the authentication. In other words, ssh login will not work when malware or attacker has stolen your passphrase and ssh keys as they can not insert YubiKey and press the button on it to complete OTP for ssh keys.</p>
+<p>In the corporate environment, we have a <a href="https://en.wikipedia.org/wiki/Bastion_host" rel="noreferrer" target="_blank">bastion host</a> that allows ssh access with Yubikey. It is a special-purpose server on a network specifically designed and configured to withstand attacks. The server generally hosts an sshd process, and all other services are removed. Once logged into bastion host, you can access all other cloud servers easily.</p>
+<p>Love this? sudo share_on: <strong><a href="https://twitter.com/intent/tweet?url=https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/&amp;text=How To Set Up SSH Keys With YubiKey as two-factor authentication (U2F/FIDO2)&amp;via=nixcraft" rel="noreferrer" target="_blank">Twitter</a></strong> - <strong><a href="https://www.facebook.com/sharer/sharer.php?u=https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/" rel="noreferrer" target="_blank">Facebook</a></strong> - <strong><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/" rel="noreferrer" target="_blank">LinkedIn</a></strong> - <strong><a href="https://wa.me/?text=How To Set Up SSH Keys With YubiKey as two-factor authentication (U2F/FIDO2) https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/" rel="noreferrer" target="_blank">Whatsapp</a></strong> - <strong><a href="https://reddit.com/submit?url=https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/&amp;title=How To Set Up SSH Keys With YubiKey as two-factor authentication (U2F/FIDO2)" rel="noreferrer" target="_blank">Reddit</a></strong></p>
+<p>The post <a href="https://www.cyberciti.biz/security/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/" rel="noreferrer" target="_blank">How To Set Up SSH Keys With YubiKey as two-factor authentication (U2F/FIDO2)</a> appeared first on <a href="https://www.cyberciti.biz" rel="noreferrer" target="_blank">nixCraft</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-01-17T21:08:37.000Z>17 January 2023</time>
+			<a href="/urls/www-cyberciti-com-feed">www.cyberciti.com/feed/</a>
+			<div> <a href="/tags/cyber.html">cyber</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Mozilla AI Guide Launch with Summarization Code Example</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2023/11/mozilla-ai-guide-launch-with-summarization-code-example/">Go to article URL</a>
+		<div id="content"><p></p><p>The Mozilla AI Guide has launched and we welcome you to read through and get acquainted with it. You can access it <a href="https://ai-guide.future.mozilla.org/" rel="noreferrer" target="_blank">here</a></p>
+<p>Our vision is for the AI Guide to be the starting point for every new developer to the space and a place to revisit for clarity and inspiration, ensuring that AI innovations enrich everyday life. The AI Guide’s initial focus begins with language models and the aim is to become a collaborative community-driven resource covering other types of models.</p>
+<p>To start the first few sections in the Mozilla AI Guide go in-depth on the most asked questions about Large Language Models (LLMs). <a href="https://ai-guide.future.mozilla.org/content/ai-basics/" rel="noreferrer" target="_blank">AI Basics</a> covers the concepts of AI, ML, LLMs, what these concepts mean and how they are related. This section also breaks down the pros and cons of using an LLM. <a href="https://ai-guide.future.mozilla.org/content/llms-101/" rel="noreferrer" target="_blank">Language Models 101</a> continues to build on the shared knowledge of AI basics and dives deeper into the next level with language models. It will answer questions such as “What does ‘training’ an ML model mean” or “What is ‘human in the loop’ approach?”</p>
+<p>We will jump to the last section on <a href="https://ai-guide.future.mozilla.org/content/choosing-ml-models/" rel="noreferrer" target="_blank">Choosing ML Models</a> and demonstrate in code below what can be done using open source models to summarize certain text. You can access the Colab Notebook <a href="https://ai-guide.future.mozilla.org/content/choosing-ml-models/" rel="noreferrer" target="_blank">here</a>&nbsp;or continue reading:</p>
+<h2>First Steps with Language Models</h2>
+<p>Unlike other guides, this one is designed to help pick the right model for whatever it is you’re trying to do, by:</p>
+<ul>
+<li>teaching you how to always remain on the bleeding edge of published AI research</li>
+<li>broadening your perspective on current open options for any given task</li>
+<li>not be tied to a closed-source / closed-data large language model (ex OpenAI, Anthropic)</li>
+<li>creating a data-led system for always identifying and using the state-of-the-art (SOTA) model for any particular task.</li>
+</ul>
+<p>We’re going to hone in on “text summarization” as our first task.</p>
+<h2>So… why are we not using one of the popular large language models?</h2>
+<p>Great question. Most available LLMs worth their salt can do many tasks, including summarization, but not all of them may be good at what specifically you want them to do. We should figure out how to evaluate whether they actually can or not.</p>
+<p>Also, many of the current popular LLMs are not open, are trained on undisclosed data and exhibit biases. Responsible AI use requires careful choices, and we’re here to help you make them.</p>
+<p>Finally, most large LLMs require powerful GPU compute to use. While there are many models that you can use as a service, most of them cost money per API call. Unnecessary when some of the more common tasks can be done at good quality with already available open models and off-the-shelf hardware.</p>
+<h2>Why do using open models matter?</h2>
+<p>Over the last few decades, engineers have been blessed with being able to onboard by starting with open source projects, and eventually shipping open source to production. This default state is now at risk.</p>
+<p>Yes, there are many open models available that do a great job. However, most guides don’t discuss how to get started with them using simple steps and instead bias towards existing closed APIs.</p>
+<p>Funding is flowing to commercial AI projects, who have larger budgets than open source contributors to market their work, which inevitably leads to engineers starting with closed source projects and shipping expensive closed projects to production.</p>
+<h2>Our First Project – Summarization</h2>
+<p>We’re going to:</p>
+<ul>
+<li>Find text to summarize.</li>
+<li>Figure out how to summarize them using the current state-of-the-art open source models.</li>
+<li>Write some code to do so.</li>
+<li>Evaluate quality of results using relevant metrics</li>
+</ul>
+<p>For simplicity’s sake, let’s grab <strong>Mozilla’s Trustworthy AI Guidelines</strong> in string form</p>
+<p>Note that in the real world, you will likely have to use other libraries to extract content for any particular file type.</p>
+<pre><code>import textwrap
+
+content = """Mozilla's "Trustworthy AI" Thinking Points:
+
+PRIVACY: How is data collected, stored, and shared? Our personal data powers everything from traffic maps to targeted advertising. Trustworthy AI should enable people to decide how their data is used and what decisions are made with it.
+
+FAIRNESS: We’ve seen time and again how bias shows up in computational models, data, and frameworks behind automated decision making. The values and goals of a system should be power aware and seek to minimize harm. Further, AI systems that depend on human workers should protect people from exploitation and overwork.
+
+TRUST: People should have agency and control over their data and algorithmic outputs, especially considering the high stakes for individuals and societies. For instance, when online recommendation systems push people towards extreme, misleading content, potentially misinforming or radicalizing them.
+
+SAFETY: AI systems can carry high risk for exploitation by bad actors. Developers need to implement strong measures to protect our data and personal security. Further, excessive energy consumption and extraction of natural resources for computing and machine learning accelerates the climate crisis.
+
+TRANSPARENCY: Automated decisions can have huge personal impacts, yet the reasons for decisions are often opaque. We need to mandate transparency so that we can fully understand these systems and their potential for harm."""</code></pre>
+<p>Great. Now we’re ready to start summarizing.</p>
+<h2>A brief pause for context</h2>
+<p>The AI space is moving so fast that it requires a tremendous amount of catching up on scientific papers each week to understand the lay of the land and the state of the art.</p>
+<p>It’s some effort for an engineer who is brand new to AI to:</p>
+<ul>
+<li>discover which open models are even out there</li>
+<li>which models are appropriate for any particular task</li>
+<li>which benchmarks are used to evaluate those models</li>
+<li>which models are performing well based on evaluations</li>
+<li>which models can actually run on available hardware</li>
+</ul>
+<p>For the working engineer on a deadline, this is problematic. There’s not much centralized discourse on working with open source AI models. Instead there are fragmented X (formerly Twitter) threads, random private groups and lots of word-of-mouth transfer.</p>
+<p>However, once we have a workflow to address all of the above, you will have the means to forever be on the bleeding age of published AI research</p>
+<h2>How do I get a list of available open summarization models?</h2>
+<p>For now, we recommend <a href="https://huggingface.co/models?pipeline_tag=summarization" rel="noreferrer" target="_blank">Huggingface</a> and their large directory of open models broken down by task. This is a great starting point. Note that larger LLMs are also included in these lists, so we will have to filter.</p>
+<p>In this huge list of summarization models, which ones do we choose?</p>
+<p>We don’t know what any of these models are trained on. For example, a summarizer trained on news articles vs Reddit posts will perform better on news articles.</p>
+<p>What we need is a set of metrics and benchmarks that we can use to do apples-to-apples comparisons of these models.</p>
+<h2>How do I evaluate summarization models?</h2>
+<p>The steps below can be used to evaluate any available model for any task. It requires hopping between a few sources of data for now, but we will be making this a lot easier moving forward.</p>
+<p>Steps:</p>
+<ol>
+<li>Find the most common datasets used to train models for summarization.</li>
+<li>Find the most common metrics used to evaluate models for summarization across those datasets.</li>
+<li>Do a quick audit on training data provenance, quality and any exhibited biases, to keep in line with Responsible AI usage.</li>
+</ol>
+<h2>Finding datasets</h2>
+<p>The easiest way to do this is using <a href="https://paperswithcode.com/methods" rel="noreferrer" target="_blank">Papers With Code</a>, an excellent resource for finding the latest scientific papers by task that also have code repositories attached.</p>
+<p>First, filter Papers With Code’s “Text Summarization” datasets by <a href="https://paperswithcode.com/datasets?q=&amp;v=lst&amp;o=cited&amp;lang=english&amp;mod=texts&amp;task=text-summarization&amp;page=1" rel="noreferrer" target="_blank">most cited text-based English datasets.</a></p>
+<p>Let’s pick (as of this writing) the most cited dataset — the <a href="https://paperswithcode.com/dataset/cnn-daily-mail-1" rel="noreferrer" target="_blank">“CNN/DailyMail”</a> dataset. Usually most cited is one marker of popularity.</p>
+<p>Now, you don’t need to download this dataset. But we’re going to review the info Papers With Code have provided to learn more about it for the next step. This dataset is also available on <a href="https://huggingface.co/datasets/cnn_dailymail" rel="noreferrer" target="_blank">Huggingface</a>.</p>
+<p>You want to check 3 things:</p>
+<ul>
+<li>license</li>
+<li>recent papers</li>
+<li>whether the data is traceable and the methods are transparent</li>
+</ul>
+<p>First, check the license. In this case, it’s MIT licensed, which means it can be used for both commercial and personal projects.</p>
+<p>Next, see if the papers using this dataset are recent. You can do this by sorting Papers in descending order. This particular dataset has many papers from 2023 – great!</p>
+<p>Finally, let’s check whether the data is from a credible source. In this case, the dataset was generated by IBM in partnership with the University of Montréal. Great.</p>
+<p>Now, let’s dig into how we can evaluate models that use this dataset.</p>
+<h2>Evaluating models</h2>
+<p>Next, we look for measured metrics that are common across datasets for the summarization task. BUT, if you’re not familiar with the literature on summarization, you have no idea what those are.</p>
+<p>To find out, pick a “Subtask” that’s close to what you’d like to see. We’d like to summarize the CNN article we pulled down above, so let’s choose <a href="https://paperswithcode.com/sota/abstractive-text-summarization-on-cnn-daily" rel="noreferrer" target="_blank">“Abstractive Text Summarization”.</a></p>
+<p>Now we’re in business! This page contains a significant amount of new information.</p>
+<p>There are mentions of three new terms: ROUGE-1, ROUGE-2 and ROUGE-L. These are the metrics that are used to <a href="https://en.wikipedia.org/wiki/ROUGE_(metric)" rel="noreferrer" target="_blank">measure summarization performance</a>.</p>
+<p>There is also a list of models and their scores on these three metrics – this is exactly what we’re looking for.</p>
+<p>Assuming we’re looking at ROUGE-1 as our metric, we now have the top 3 models that we can evaluate in more detail. All 3 are close to 50, which is a promising ROUGE score (read up on ROUGE).</p>
+<h2>Testing out a model</h2>
+<p>OK, we have a few candidates, so let’s pick a model that will run on our local machines. Many models get their best performance when running on GPUs, but there are many that also generate summaries fast on CPUs. Let’s pick one of those to start – <strong>Google’s Pegasus.</strong></p>
+<pre><code># first we install huggingface's transformers library
+%pip install transformers sentencepiece</code></pre>
+<p>Then we <a href="https://huggingface.co/google/pegasus-cnn_dailymail" rel="noreferrer" target="_blank">find Pegasus</a> on Huggingface. Note that part of the datasets Pegasus was trained on includes CNN/DailyMail which bodes well for our article summarization. Interestingly, there’s a variant of Pegasus from google that’s only trained on our dataset of choice, we should use that.</p>
+<pre><code>from transformers import PegasusForConditionalGeneration, PegasusTokenizer 
+import torch 
+
+# Set the seed, this will help reproduce results. Changing the seed will 
+# generate new results 
+from transformers import set_seed 
+set_seed(248602) 
+
+# We're using the version of Pegasus specifically trained for summarization 
+# using the CNN/DailyMail dataset 
+model_name = "google/pegasus-cnn_dailymail"
+
+# If you're following along in Colab, switch your runtime to a
+# T4 GPU or other CUDA-compliant device for a speedup
+device = "cuda" if torch.cuda.is_available() else "cpu" 
+
+# Load the tokenizer
+tokenizer = PegasusTokenizer.from_pretrained(model_name) 
+
+# Load the model 
+model = PegasusForConditionalGeneration.from_pretrained(model_name).to(device)
+
+# Tokenize the entire content
+batch = tokenizer(content, padding="longest", return_tensors="pt").to(device)
+
+# Generate the summary as tokens
+summarized = model.generate(**batch)
+
+# Decode the tokens back into text
+summarized_decoded = tokenizer.batch_decode(summarized, skip_special_tokens=True)
+summarized_text = summarized_decoded[0]
+
+# Compare
+def compare(original, summarized_text):
+  print(f"Article text length: {len(original)}\n")
+  print(textwrap.fill(summarized_text, 100))
+  print()
+  print(f"Summarized length: {len(summarized_text)}")
+
+compare(content, summarized_text)</code></pre>
+<pre>Article text length: 1427
+
+Trustworthy AI should enable people to decide how their data is used.&lt;n&gt;values and goals of a system
+should be power aware and seek to minimize harm.&lt;n&gt;People should have agency and control over their
+data and algorithmic outputs.&lt;n&gt;Developers need to implement strong measures to protect our data and
+personal security.
+
+Summarized length: 320</pre>
+<p>Alright, we got something! Kind of short though. Let’s see if we can make the summary longer…</p>
+<pre><code>
+set_seed(860912)
+
+# Generate the summary as tokens, with a max_new_tokens
+summarized = model.generate(**batch, max_new_tokens=800)
+summarized_decoded = tokenizer.batch_decode(summarized, skip_special_tokens=True)
+summarized_text = summarized_decoded[0]
+
+compare(content, summarized_text)
+</code></pre>
+<pre>Article text length: 1427
+
+Trustworthy AI should enable people to decide how their data is used.&lt;n&gt;values and goals of a system
+should be power aware and seek to minimize harm.&lt;n&gt;People should have agency and control over their
+data and algorithmic outputs.&lt;n&gt;Developers need to implement strong measures to protect our data and
+personal security.
+
+Summarized length: 320</pre>
+<p>Well, that didn’t really work. Let’s try a different approach called <strong>‘sampling’</strong>. This allows the model to pick the next word according to its conditional probability distribution (specifically, the probability that said word follows the word before).</p>
+<p>We’ll also be setting the<strong> ‘temperature’</strong>. This variable works to control the levels of randomness and creativity in the generated output.</p>
+<pre><code>set_seed(118511)
+summarized = model.generate(**batch, do_sample=True, temperature=0.8, top_k=0)
+summarized_decoded = tokenizer.batch_decode(summarized, skip_special_tokens=True)
+summarized_text = summarized_decoded[0]
+compare(content, summarized_text)</code></pre>
+<pre>Article text length: 1427
+
+Mozilla's "Trustworthy AI" Thinking Points:.&lt;n&gt;People should have agency and control over their data
+and algorithmic outputs.&lt;n&gt;Developers need to implement strong measures to protect our data.
+
+Summarized length: 193</pre>
+<p>Shorter, but the quality is higher. Adjusting the temperature up will likely help.</p>
+<pre><code>set_seed(108814)
+summarized = model.generate(**batch, do_sample=True, temperature=1.0, top_k=0)
+summarized_decoded = tokenizer.batch_decode(summarized, skip_special_tokens=True)
+summarized_text = summarized_decoded[0]
+compare(content, summarized_text)</code></pre>
+<pre>Article text length: 1427
+
+Mozilla's "Trustworthy AI" Thinking Points:.&lt;n&gt;People should have agency and control over their data
+and algorithmic outputs.&lt;n&gt;Developers need to implement strong measures to protect our data and
+personal security.&lt;n&gt;We need to mandate transparency so that we can fully understand these systems
+and their potential for harm.
+
+Summarized length: 325</pre>
+<p>Now let’s play with one other generation approach called <strong>top_k</strong> sampling — instead of considering all possible next words in the vocabulary, the model only considers the top ‘k’ most probable next words.</p>
+<p>This technique helps to focus the model on likely continuations and reduces the chances of generating irrelevant or nonsensical text.</p>
+<p>It strikes a balance between creativity and coherence by limiting the pool of next-word choices, but not so much that the output becomes deterministic.</p>
+<pre><code>set_seed(226012)
+summarized = model.generate(**batch, do_sample=True, top_k=50)
+summarized_decoded = tokenizer.batch_decode(summarized, skip_special_tokens=True)
+summarized_text = summarized_decoded[0]
+compare(content, summarized_text)</code></pre>
+<pre>Article text length: 1427
+
+Mozilla's "Trustworthy AI" Thinking Points look at ethical issues surrounding automated decision
+making.&lt;n&gt;values and goals of a system should be power aware and seek to minimize harm.People
+should have agency and control over their data and algorithmic outputs.&lt;n&gt;Developers need to
+implement strong measures to protect our data and personal security.
+
+Summarized length: 355</pre>
+<p>Finally, let’s try <strong>top_p</strong> sampling — also known as nucleus sampling, is a strategy where the model considers only the smallest set of top words whose cumulative probability exceeds a threshold ‘p’.</p>
+<p>Unlike <strong>top_k</strong> which considers a fixed number of words, <strong>top_p</strong> adapts based on the distribution of probabilities for the next word. This makes it more dynamic and flexible. It helps create diverse and sensible text by allowing less probable words to be selected when the most probable ones don’t add up to ‘p’.</p>
+<pre><code>set_seed(21420041)
+summarized = model.generate(**batch, do_sample=True, top_p=0.9, top_k=50)
+summarized_decoded = tokenizer.batch_decode(summarized, skip_special_tokens=True)
+summarized_text = summarized_decoded[0]
+compare(content, summarized_text)
+
+# saving this for later.
+pegasus_summarized_text = summarized_text</code></pre>
+<pre>Article text length: 1427
+
+Mozilla's "Trustworthy AI" Thinking Points:.&lt;n&gt;People should have agency and control over their data
+and algorithmic outputs.&lt;n&gt;Developers need to implement strong measures to protect our data and
+personal security.&lt;n&gt;We need to mandate transparency so that we can fully understand these systems
+and their potential for harm.
+
+Summarized length: 325</pre>
+<p>To continue with the code example and see a test with another model, and to learn how to <a href="https://ai-guide.future.mozilla.org/content/choosing-ml-models/#evaluating-ml-model-results" rel="noreferrer" target="_blank">evaluate ML model results</a> (a whole another section), click here to view the Python Notebook and click “Open in Colab” to experiment with your <a href="https://ai-guide.future.mozilla.org/content/choosing-ml-models/" rel="noreferrer" target="_blank">own custom code</a>.</p>
+<p>Note this guide will be constantly updated and new sections on Data Retrieval, Image Generation, and Fine Tuning will be coming next.</p>
+<h2>Developer Contributions Are Vital</h2>
+<p>Shortly after today’s launch of the Mozilla AI Guide, we will be publishing our community contribution guidelines. It will provide guidance on the type of content developers can contribute and how it can be shared. Get ready to share any great open source AI projects, implementations, video and audio models.</p>
+<p>Together, we can bring together a cohesive, collaborative and responsible AI community.</p>
+<p><em>A special thanks to Kevin Li and Pradeep Elankumaran who pulled this great blog post together.</em></p>
+<p>The post <a href="https://hacks.mozilla.org/2023/11/mozilla-ai-guide-launch-with-summarization-code-example/" rel="noreferrer" target="_blank">Mozilla AI Guide Launch with Summarization Code Example</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-11-16T16:20:15.000Z>16 November 2023</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

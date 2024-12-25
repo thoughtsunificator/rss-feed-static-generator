@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>SpiderMonkey Newsletter (Firefox 124-125)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2024/03/20/newletter-firefox-124-125.html">Go to article URL</a>
+		<div id="content"><p></p><p>Hello and Welcome to the SpiderMonkey Newsletter for Firefox 124-125. It’s Matthew Gaudet back again. This newsletter is a way in which we can share what we have been working on as a team, and highlight some interesting changes when they happen.</p>
+
+<h3 id="-performance">🚀 Performance</h3>
+
+<p>We have been hard at work making sure that Firefox’s performance on Speedometer 3 was excellent. With the <a href="https://browserbench.org/announcements/speedometer3/" rel="noreferrer" target="_blank">official release of Speedometer 3</a> we are very happy the <a href="https://hacks.mozilla.org/2024/03/improving-performance-in-firefox-and-across-the-web-with-speedometer-3/" rel="noreferrer" target="_blank">fruits of our labour</a>.</p>
+
+<p>Even though Speedometer3 will ship while Firefox release is version 123, that doesn’t mean that we have stopped working on performance!</p>
+
+<ul>
+  <li>Jon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875117" rel="noreferrer" target="_blank">shipped Parallel Marking</a>! 🎉 To quote the bug:
+    <ul>
+      <li>“20-30% reduction in GC time across desktop platforms”</li>
+      <li>“10% reduction in GC max pause time”</li>
+      <li>“10% fewer GC slices”</li>
+      <li>“Telemetry indicates this is working well. Mark rate increased by 50-60%, median total GC time decreased by 35% (and by more for longer collections) and median max pause time decreased by 20%.”</li>
+    </ul>
+  </li>
+  <li>Ben <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863435" rel="noreferrer" target="_blank">improved the performance of small Wasm GC Arrays through inline data storage and JIT allocation</a>.</li>
+  <li>I <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1825722" rel="noreferrer" target="_blank">made it possible for functions that only use <code class="language-plaintext highlighter-rouge">arguments.length</code> to avoid allocating the <code class="language-plaintext highlighter-rouge">arguments</code> object</a>.</li>
+  <li>Jan <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863543" rel="noreferrer" target="_blank">optimized the CacheIR for DOM Proxies</a>, leading to some <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1863543#c7" rel="noreferrer" target="_blank">performance improvements on splay</a>.</li>
+  <li>I <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1866158" rel="noreferrer" target="_blank">added support for invalidating Ion code in response to a fuse being popped, and used this to avoid checking for the odd case of <code class="language-plaintext highlighter-rouge">document.all</code></a> on every single equality comparison involving an object. In this case the actual optimization is far less important than the machinery that drives it.</li>
+  <li>Alex added an <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873964" rel="noreferrer" target="_blank">optimization for <code class="language-plaintext highlighter-rouge">HasOwn</code></a> which for small numbers of atoms just unrolls the loop.</li>
+  <li>Jon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1875030" rel="noreferrer" target="_blank">fixed the potential for some marking to go quadratic</a>.</li>
+  <li>Andre <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876227" rel="noreferrer" target="_blank">added CacheIR support for non-number inputs when assigning to TypedArray elements</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876227#c5" rel="noreferrer" target="_blank">tripling our performance on a test page</a>.</li>
+</ul>
+
+<h3 id="contributor-spotlight">Contributor Spotlight</h3>
+
+<p>Sometimes a contributor comes along who decides that one of the ways they can help is by taking ownership of an area, and making steady improvement forwards. This was the case with Vinny Diehl who has come in and become an expert on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse" rel="noreferrer" target="_blank"><code class="language-plaintext highlighter-rouge">Date.parse</code></a>. This is a challenging method, because it is simultaneously commonly used while extremely underspecified, leading to lots of implementation defined behaviour. This kind of implementation defined behaviour can be bad for Firefox, as dates that are parsed correctly by Chrome or Safari might not be parsed correctly by Firefox, leading to web interoperability problems.</p>
+
+<p>Vinny has been working on improving this, and has made enormous strides in helping to push this challenging area forward. In his own words:</p>
+
+<blockquote>
+  <p><a href="https://github.com/vinnydiehl" rel="noreferrer" target="_blank">Vinny Diehl</a> is a helicopter pilot who dabbles in software development and reverse engineering in his spare time. He has worked on flight simulators, game engines, and Nintendo decompilation projects, among other things. With a growing interest in browser work, he has made it his mission to perfect SpiderMonkey’s date parsing compatibility. You can view some of his work in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1274354" rel="noreferrer" target="_blank">the meta bug</a>.</p>
+</blockquote>
+
+<p>Huge amounts of gratitude to Vinny for tackling this and making Firefox more compatible for everyone.</p>
+
+<h3 id="-wasm">⚡ Wasm</h3>
+<ul>
+  <li>Ben <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860816" rel="noreferrer" target="_blank">shipped Wasm Multi-memory</a>! 🎉</li>
+  <li>Ryan<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876148" rel="noreferrer" target="_blank"> landed a bunch of improvements to the js-string-builtins proposal</a>, which enables efficient access to JS Strings from wasm code.</li>
+  <li>Yury <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1873776" rel="noreferrer" target="_blank">has updated the wasm exception handling proposal</a>, which now in Nightly and early-beta.</li>
+</ul>
+
+<h3 id="️-web-features-work">🕸️ Web Features Work</h3>
+<ul>
+  <li>André Bargull <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1842773" rel="noreferrer" target="_blank">landed support for resizable and growable ArrayBuffers</a>. 🎉</li>
+  <li>André also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1883914" rel="noreferrer" target="_blank">enabled <code class="language-plaintext highlighter-rouge">Intl.Segmenter</code> by default</a>! 🎉</li>
+</ul>
+
+<h3 id="️--other-work">👷🏽‍♀️  Other Work</h3>
+<ul>
+  <li>Jan has made <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1877193" rel="noreferrer" target="_blank">it possible to use the Firefox Pref system inside of SpiderMonkey</a>. This is going to make it dramatically easier to make code activate conditionally with far less boilerplate than currently exists, and naturally cooperates directly with the current Firefox Preferences system!</li>
+  <li>Arai <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1783397" rel="noreferrer" target="_blank">added a whole bunch of dumping code for various internal data structures</a>; this sort of work makes it easier to debug issues when they occur.</li>
+  <li>Arai <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1858803" rel="noreferrer" target="_blank">created a SAX like JSON parse API</a> to avoid some JSON parse consumers having to create a whole global simply to parse some JSON.</li>
+  <li>Jon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1881310" rel="noreferrer" target="_blank">fixed a papercut with <code class="language-plaintext highlighter-rouge">oomTest</code> that I have personally run into many times</a>. Thank you Jon!</li>
+</ul><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-03-20T17:00:00.000Z>20 March 2024</time>
+			<a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

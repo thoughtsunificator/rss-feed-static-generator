@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Introducing the Pigweed SDK: A modern embedded development suite</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/08/introducing-pigweed-sdk.html">Go to article URL</a>
+		<div id="content"><p></p><meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAkutqQUet_g1ZbGhdN45n50a3ibqdDis-eCj58xxvUsY8Yeeu2tYz4fUOJZWk2HyIWF8uNjicBmrS8lUDFicxSNMQM-AKFQB6pfZqKzFANTQv3CSeRs-tpups4mSnSyvv1sGypaABYB_3K4mTQNccj8M1xFL7lc0jOFsjv7dj_jVh1q9OW_ljnMiuMAI/s1600/OSS-Pigweed-Social.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyfMbSemENcegEJP0Qvh9dctSMx_XZva0Lh8XA-bzTSUqtx0t74IptNR5TcnYoFNr_J3ps2o9RZZzbR5kkpn8tsO8mZYDAIEHTO6IX6B2NY09hem5gPl6ctTV-8kmdHlXmD2LGHVvNbHPLwB0GTgNnmGez4PZTXwI69icJk17Z2e5ADSh5kg9Ol4PhLiQ/s1600/OSS-Pigweed-header.png" imageanchor="1" rel="noreferrer" target="_blank"></a>
+
+<p>Back in 2020, Google <a href="https://opensource.googleblog.com/2020/03/pigweed-collection-of-embedded-libraries.html" target="_blank" rel="noreferrer">announced</a> Pigweed, an open-source collection of embedded libraries to enable a faster and more reliable development experience for 32-bit microcontrollers. Since then, Pigweed’s extensive collection of <a href="https://pigweed.dev/modules.html" target="_blank" rel="noreferrer">middleware libraries</a> has continuously evolved and now includes <a href="https://pigweed.dev/third_party/freertos/" target="_blank" rel="noreferrer">RTOS abstractions</a> and a <a href="https://pigweed.dev/pw_rpc" target="_blank" rel="noreferrer">powerful RPC interface</a>. These components have shipped in millions of devices, including Google’s own Pixel suite of devices, Nest thermostats, DeepMind <a href="https://github.com/google-deepmind/barkour_robot" target="_blank" rel="noreferrer">robots</a>, as well as <a href="https://www.spinlaunch.com/" target="_blank" rel="noreferrer">satellites</a> and <a href="https://www.flyzipline.com/" target="_blank" rel="noreferrer">autonomous aerial drones</a>.</p>
+
+<p>Today, we introduce the first developer preview of the Pigweed SDK, making it even easier to leverage Pigweed’s libraries to develop, debug, test, and deploy embedded C++ applications. Using the included sample applications and comprehensive <a href="https://pigweed.dev/docs/showcases/sense/" target="_blank" rel="noreferrer">tutorial</a>, you can easily get started prototyping simple programs and build up to more complex applications that leverage advanced Pigweed functionalities. Pigweed’s modern and modular approach makes it easy to design applications with significantly reduced debugging and maintenance overhead, thus making it a perfect choice for medium to large product teams.</p>
+
+<p>We are also thrilled to contribute to the Raspberry Pi Pico 2 and <a href="https://www.raspberrypi.com/news/raspberry-pi-pico-2-our-new-5-microcontroller-board-on-sale-now" target="_blank" rel="noreferrer">RP2350 launch</a>, providing official support in Pigweed for RP2350 and its predecessor, the RP2040.  Building on the success of the Pico 1 and RP2040, the Pico 2 introduces the RP2350 microcontroller, bringing more performance and an exciting set of new capabilities in a much lower power profile. We’ve worked closely with the Raspberry Pi team to not only provide a great experience on Pigweed, but also upstreamed a new Bazel-based build system for Raspberry Pi’s own <a href="https://github.com/raspberrypi/pico-sdk" target="_blank" rel="noreferrer">Pico SDK</a>.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Raspberry Pi Pico 2 (RP2350) with Enviro+ pack hat.</i></td></tr></tbody></table></div>
+
+<h2><b>What's in the SDK</b></h2>
+
+<p>The Pigweed SDK aims to be the best way to develop for the Pico family of devices. The SDK includes the <a href="https://pigweed.dev/docs/showcases/sense/" target="_blank" rel="noreferrer">Sense</a> showcase project, which demonstrates a lot of <a href="https://pigweed.dev/docs/mission.html" target="_blank" rel="noreferrer">our vision</a> for the future of sustainable, robust, and rapid embedded system development, such as:</p>
+<ul>
+<li>Hermetic building, flashing, testing, and cross-platform <a href="https://pigweed.dev/pw_toolchain_bazel/" target="_blank" rel="noreferrer">toolchain</a> integration through <a href="https://pigweed.dev/seed/0111-build-systems.html" target="_blank" rel="noreferrer">Bazel.</a></li></ul><ul>
+<li>Fully open-source Clang/LLVM toolchain for embedded that includes a compiler, linker, and C/C++ libraries with modern performance, features, and standards compliance</li></ul><ul>
+<li>Efficient and robust device communication over <a href="https://pigweed.dev/pw_rpc/" target="_blank" rel="noreferrer">RPC</a></li></ul><ul>
+<li>An <a href="https://pigweed.dev/pw_console/" target="_blank" rel="noreferrer">interactive REPL</a> for viewing device logs and sending commands via command-line and web interfaces</li></ul><ul>
+<li>Visual Studio Code <a href="https://pigweed.dev/pw_ide/" target="_blank" rel="noreferrer">integration</a> with full C++ code intelligence</li></ul><ul>
+<li>GitHub Actions <a href="https://pigweed.dev/docs/get_started/github_actions.html" target="_blank" rel="noreferrer">support</a> for continuous building and testing</li></ul><ul>
+<li>Access to <a href="https://github.com/raspberrypi/pico-sdk" target="_blank" rel="noreferrer">pico-sdk</a> APIs when you need to drop down to hardware-specific functionality</li>
+</ul>
+
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Utilize the Pigweed CLI console to communicate with your device through interactive Remote Procedure Calls (RPCs).</i></td></tr></tbody></table></div>
+
+
+
+<p>By building your project with the Pigweed SDK (using the <a href="https://pigweed.dev/docs/showcases/sense/" target="_blank" rel="noreferrer">Sense</a> showcase as your guide), you can start on readily available hardware like the Pico 1 or 2 today. Then when you’re ready to start prototyping your own custom hardware, you can target your Pigweed SDK project to your custom hardware without the need for a major rewrite.</p>
+
+<center><a href="https://pigweed.dev/docs/showcases/sense/tutorial/" target="_blank" rel="noreferrer">Try Sense now</a></center><br>
+
+<h3>Bazel for embedded</h3>
+
+<p>Pigweed is <a href="https://pigweed.dev/seed/0111-build-systems.html" target="_blank" rel="noreferrer">all-in</a> on Bazel for embedded development. We believe Bazel has great potential to improve the productivity (and mental wellbeing) of embedded development teams. We made the "all-in" decision last September and the Raspberry Pi collaboration was a great motivator to really flesh out our Bazel strategy:</p>
+<ul>
+<li>We contributed to an entirely new Bazel-based build for the Pico SDK to make it easy for the RP2 ecosystem to use Bazel and demonstrate how Bazel takes care of complex toolchains and dependencies for you.</li></ul><ul>
+<li>The new Sense showcase demonstrates Bazel-based building, testing, and flashing.</li></ul><ul>
+<li>Our <a href="https://pigweed.dev/docs/get_started/github_actions.html" target="_blank" rel="noreferrer">GitHub Actions guide</a> shows you how to build and test your Bazel-based repo when pull requests are opened, updated, or merged.</li></ul><ul>
+</ul>
+
+<p>Head over to <a href="https://blog.bazel.build/2024/08/08/bazel-for-embedded.html" target="_blank" rel="noreferrer">Bazel's launch blog post</a> to learn more about the benefits of Bazel for embedded.</p><br>
+
+<h3>Clang/LLVM for embedded</h3>
+
+<p>Pigweed SDK fully leverages the modern Clang/LLVM toolchain. We are especially excited to include <a href="https://libc.llvm.org/" target="_blank" rel="noreferrer">LLVM libc</a>, a fully compliant libc implementation that can easily be decomposed and scaled down for smaller systems. The team spent many months developing and contributing patches to the upstream project. Their collaboration with teams across Google and the upstream LLVM team was instrumental in making this new version of libc available for embedded use cases.</p>
+
+<p>The sample applications, Pigweed modules, host-side unit tests, and showcase examples already use Clang, LLD, LLVM libc and libc++. Thus, developers can take advantage of Clang’s diagnostics and large tooling ecosystem, LLD’s fast linking times, and modern C and C++ standard library implementations which support features such as <a href="https://clang.llvm.org/docs/ThreadSafetyAnalysis.html" target="_blank" rel="noreferrer">Thread Safety Analysis</a> and <a href="https://libcxx.llvm.org/Hardening.html" target="_blank" rel="noreferrer">Hardening</a>.</p><br>
+
+<h3>IDE integration</h3>
+
+<p>With full Visual Studio Code support through <span><a href="http://pigweed.dev/pw_ide/" target="_blank" rel="noreferrer">pw_ide</a></span>, you can build and test the <a href="https://pigweed.dev/docs/showcases/sense/" target="_blank" rel="noreferrer">Sense showcase</a> from the comfort of a modern IDE and extend the IDE integration to meet your needs. Full target-aware code intelligence makes the experience smooth even for complicated embedded products. Automatic linting, formatting, and code quality analysis integrations are coming soon.</p><br>
+
+<h3>Parallel on-device testing with PicoPico</h3>
+
+<p>As you would expect from a team with the <a href="https://pigweed.dev/docs/mission.html" target="_blank" rel="noreferrer">mission</a> to make embedded development more sustainable, robust, and rapid for large teams, we are of course obsessed with testing. We have hundreds of on-device unit tests running all the time on Picos. The existing options were a bit slow so we whipped up <a href="https://pigweed.googlesource.com/pigweed/hardware/picopico/" target="_blank" rel="noreferrer">PicoPico</a> in a week (literally) to make it easier to run all these tests in parallel.</p>
+
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>One “PicoPico” node for running parallel on-device tests</i></td></tr></tbody></table></div>
+
+<h3>RP2 support</h3>
+
+<p>The goal behind our extensive catalog of <a href="https://pigweed.dev/modules.html" target="_blank" rel="noreferrer">modules</a> is to make it easy to fully leverage C++ in your embedded system codebases. We aim to provide sensible, reusable, hardware-agnostic abstractions that you can build entire systems on top of. Most of our modules work with any hardware, and we have RP2 drivers for <a href="https://pigweed.dev/pw_i2c_rp2040/" target="_blank" rel="noreferrer">I2C</a>, <a href="https://pigweed.dev/pw_spi_rp2040/" target="_blank" rel="noreferrer">SPI</a>, <a href="https://pigweed.dev/pw_digital_io_rp2040/" target="_blank" rel="noreferrer">GPIO</a>, <a href="https://pigweed.dev/pw_cpu_exception_cortex_m/" target="_blank" rel="noreferrer">exception handling</a>, and <a href="https://pigweed.dev/pw_chrono_rp2040/" target="_blank" rel="noreferrer">chrono</a>. When Pigweed's modules don't meet your needs, you can still fallback to using <span><a href="https://github.com/raspberrypi/pico-sdk" target="_blank" rel="noreferrer">pico-sdk</a></span> APIs directly.</p><br>
+
+<h2><b>Get started</b></h2>
+<p>Clone our <a href="https://cs.opensource.google/pigweed/showcase/sense/" target="_blank" rel="noreferrer">Sense showcase repo</a> and follow along with our <a href="https://pigweed.dev/docs/showcases/sense/tutorial/" target="_blank" rel="noreferrer">tutorial</a>. The showcase is a suitable starting point for learning what a fully featured embedded system built on top of the Pigweed SDK looks like.</p><br>
+
+<h2><b>What’s next</b></h2>
+<p>The Pigweed team will continue to have regular and on-going preview releases, with new features, bug fixes, and improvements based on your feedback. The team is working on a comms stack for all your end-to-end networking needs, factory-at-your-desk scripting, and much, much more. Stay tuned on the <a href="https://pigweed.dev/docs/blog/" target="_blank" rel="noreferrer">Pigweed blog</a> for updates!</p><br>
+
+<h2><b>Learn more</b></h2>
+
+<p>Questions? Feedback? Talk to us on <a href="https://discord.gg/M9NSeTA" target="_blank" rel="noreferrer">Discord</a> or email us at <a href="mailto: pigweed-team@googlegroups.com" rel="noreferrer" target="_blank">pigweed-team@googlegroups.com</a>.
+
+</p><p>We have a Pigweed Live session scheduled on <b>August 26th, 13:00 PST</b> where the Pigweed team will talk more about the Pigweed SDK and answer any questions you have. Join <a href="https://groups.google.com/g/pigweed" target="_blank" rel="noreferrer">pigweed@googlegroups.com</a> to get an invite to the meetings.</p><br>
+
+<h3><b>Acknowledgements</b></h3>
+<p>We are profoundly grateful for our passionate community of customers, partners, and contributors. We honor all the time and energy you've given us over the years. Thank you!</p>
+
+<p><em>By Amit Uttamchandani – Product Manager, Keir Mierle – Software Engineer, and the Pigweed team.</em></p>
+
+
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-08-08T08:00:00.000Z>8 August 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

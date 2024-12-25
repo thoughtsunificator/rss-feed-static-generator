@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Migration from Struts 1 to Struts 2</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/10/migration-from-struts1-to-struts2/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Alfredinix: https://www.pexels.com/photo/flock-of-birds-flying-under-blue-sky-6894704/ -->
+<p><a href="https://struts.apache.org/" rel="noreferrer" target="_blank">Apache Struts</a> is an open source web framework. Struts 1 was first released in 2000 and its latest version (1.3.10) was released in December 2008, marking the <a href="https://struts.apache.org/struts1eol-announcement.html" rel="noreferrer" target="_blank">EOL of Struts 1</a>. So Struts 1 is an ancient, dead version. Organizations still using it need to move away from Struts 1.</p>
+<p>Apache adapted the WebWork framework as Struts 2. Its architecture significantly differs from that of Struts 1. There are key points and obvious differences <a href="https://struts.staged.apache.org/migration/" rel="noreferrer" target="_blank">provided by Apache</a> to cover a migration plan from Struts 1 to Struts 2.</p>
+<p>The market share of Apache Struts is around <a href="https://enlyft.com/tech/products/apache-struts" rel="noreferrer" target="_blank">0.01%</a>, which gives relatively lower relevance to Apache Struts. However, there are companies still using Apache Struts 1 in their legacy applications, which may not be counted in market share statistics.</p>
+<h3 id="a-comparison-of-struts-1-and-struts-2">A Comparison of Struts 1 and Struts 2</h3>
+<p>Struts 1 and Struts 2 <a href="https://struts.staged.apache.org/migration/#PAGE_14048" rel="noreferrer" target="_blank">differ significantly</a> in their approach to handling web requests. Struts 1 follows a more rigid structure where <code>Action</code> classes must extend an abstract base class, limiting flexibility. In contrast, Struts 2 is more dynamic, allowing Action classes to implement interfaces or even function as simple POJOs, enhancing adaptability. Struts 2 also includes the <code>ActionSupport</code> class, which implements commonly used interfaces, making development easier and more versatile.</p>
+<p>The threading model in Struts 1 is based on a singleton pattern, meaning only one instance of an Action class exists to handle all requests, which requires careful management of thread safety. Struts 2, on the other hand, creates a new Action object for every request, which eliminates concerns about thread safety.</p>
+<p>When it comes to servlet dependency, Struts 1 is tightly coupled with the servlet API, requiring Actions to work directly with <code>HttpServletRequest</code> and <code>HttpServletResponse</code>. Struts 2 decouples the Action from the servlet container, using simple maps to represent the context. This allows for easier testing and more modular code. Struts 2 still offers the flexibility to access the request and response objects when necessary, but often through other architectural patterns that minimize the need for direct servlet interaction.</p>
+<p>Testing Struts 1 applications is challenging due to its tight coupling with the servlet API. External libraries like Struts <code>TestCase</code> are often required to mock servlet objects for testing purposes. Struts 2 makes testing far more straightforward by supporting dependency injection and allowing Action classes to be tested in isolation, without needing complex mocks.</p>
+<p>Input handling in Struts 1 revolves around <code>ActionForm</code> objects, which must extend a base class which often leads to redundancy. Struts 2 simplifies this by using Action properties directly, eliminating the need for separate <code>ActionForm</code> objects. Additionally, Struts 2 supports complex object types for input and output, allowing domain specific objects to be used.</p>
+<p>In terms of expression languages, Struts 1 integrates with <code>JSTL</code>, which provides basic object graph traversal but lacks robust support for collections. Struts 2 uses <code>OGNL</code> (Object Graph Notation Language), offering more advanced and flexible expression capabilities, giving developers more control over data handling in views.</p>
+<p>Binding values into views is handled differently as well. Struts 1 uses standard JSP mechanisms, while Struts 2 introduces the <code>ValueStack</code>, a system that decouples the view from the object being rendered. This allows for a greater degree of reuse and flexibility, especially when dealing with varying property types across different objects.</p>
+<p>Type conversion in Struts 1 is handled by Commons-Beanutils, which operates on a per-class basis. This can be limiting as it doesn’t allow for instance-level customization. Struts 2 improves on this by utilizing OGNL for type conversion, offering built-in converters for common types while also providing a flexible system for adding custom converters.</p>
+<p>Lastly, the control over action execution is much more granular in Struts 2. While Struts 1 uses a single request processor per module, Struts 2 introduces Interceptor Stacks, allowing developers to define different lifecycles for individual Actions. This customization helps tailor the flow of execution to fit specific application requirements.</p>
+<p>Actions&nbsp;are central components in both Struts 1 and 2 and play a major role in the architectures of both Struts versions. Struts 2 offers a more modern, flexible, and test-friendly framework, improving upon Struts 1’s limitations by embracing POJO actions, better type conversion, enhanced validation, and a decoupled threading model. These changes make Struts 2 more adaptable and easier to maintain, particularly for complex web applications.</p>
+<blockquote>
+<p>You can see more about request processing flow in Struts 2 in <a href="https://www.infoq.com/articles/converting-struts-2-part1/" rel="noreferrer" target="_blank">this InfoQ article</a>.</p>
+</blockquote>
+<h3 id="migration">Migration</h3>
+<h4 id="dependencies">Dependencies</h4>
+<p>Add the Struts 2.0 Jars to the existing Struts 1.3 application.  The latest Jar files can be downloaded from the <a href="https://struts.apache.org/download.cgi" rel="noreferrer" target="_blank">Apache Struts download page</a>. Alternatively, you can download the Jar files for any of the previous versions from the <a href="https://archive.apache.org/dist/struts/" rel="noreferrer" target="_blank">archive</a>.</p>
+<h4 id="request-handling">Request handling</h4>
+<p>Configure Struts 2 to handle requests with the <code>*.action</code> extension, differently from Struts 1, which uses the <code>*.do</code> extension.</p>
+<h4 id="configure-web-application">Configure web application</h4>
+<p>The web application is enabled in the <code>web.xml</code> configuration file. There are a few changes to this file needed for Struts 2. Dispatcher configuration is done by simply renaming the configuration tags from <code>&lt;servlet&gt;</code> and <code>&lt;servlet-mapping&gt;</code> to <code>&lt;filter&gt;</code> and <code>&lt;filter-mapping&gt;</code>.</p>
+<p>A very basic <code>web.xml</code> configuration for Struts 1 would look like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;servlet&gt;</span>
+</span></span><span><span>    <span>&lt;servlet-name&gt;</span>action<span>&lt;/servlet-name&gt;</span>
+</span></span><span><span>    <span>&lt;servlet-class&gt;</span>org.apache.struts.action.ActionServlet<span>&lt;/servlet-class&gt;</span>
+</span></span><span><span>    <span>&lt;init-param&gt;</span>
+</span></span><span><span>        <span>&lt;param-name&gt;</span>config<span>&lt;/param-name&gt;</span>
+</span></span><span><span>        <span>&lt;param-value&gt;</span>/WEB-INF/struts-config.xml<span>&lt;/param-value&gt;</span>
+</span></span><span><span>    <span>&lt;/init-param&gt;</span>
+</span></span><span><span>    <span>&lt;load-on-startup&gt;</span>2<span>&lt;/load-on-startup&gt;</span>
+</span></span><span><span><span>&lt;/servlet&gt;</span>
+</span></span><span><span>
+</span></span><span><span><span>&lt;servlet-mapping&gt;</span>
+</span></span><span><span>    <span>&lt;servlet-name&gt;</span>action<span>&lt;/servlet-name&gt;</span>
+</span></span><span><span>    <span>&lt;url-pattern&gt;</span>*.do<span>&lt;/url-pattern&gt;</span>
+</span></span><span><span><span>&lt;/servlet-mapping&gt;</span>
+</span></span></code></pre></div><p>The corresponding conversion to Struts 2 would look like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;filter&gt;</span>
+</span></span><span><span>    <span>&lt;filter-name&gt;</span>webwork<span>&lt;/filter-name&gt;</span>
+</span></span><span><span>    <span>&lt;filter-class&gt;</span>org.apache.struts.action2.dispatcher.FilterDispatcher<span>&lt;/filter-class&gt;</span>
+</span></span><span><span><span>&lt;/filter&gt;</span>
+</span></span><span><span>
+</span></span><span><span><span>&lt;filter-mapping&gt;</span>
+</span></span><span><span>    <span>&lt;filter-name&gt;</span>webwork<span>&lt;/filter-name&gt;</span>
+</span></span><span><span>    <span>&lt;url-pattern&gt;</span>/*<span>&lt;/url-pattern&gt;</span>
+</span></span><span><span><span>&lt;/filter-mapping&gt;</span>
+</span></span></code></pre></div><h4 id="migrating-actions">Migrating actions</h4>
+<p>A general structure of a Struts 1 action class is below.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-java" data-lang="java"><span><span><span>public</span><span> </span><span>class</span> <span>CustomAction</span><span> </span><span>extends</span><span> </span>Action<span> </span>{<span>
+</span></span></span><span><span><span>    </span><span>public</span><span> </span>ActionForward<span> </span><span>execute</span>(<span>
+</span></span></span><span><span><span>        </span>ActionMapping<span> </span>mapping,<span>
+</span></span></span><span><span><span>        </span>ActionForm<span> </span>form,<span>
+</span></span></span><span><span><span>        </span>HttpServletRequest<span> </span>request,<span>
+</span></span></span><span><span><span>        </span>HttpServletResponse<span> </span>response)<span> </span><span>throws</span><span> </span>Exception<span> </span>{<span>
+</span></span></span><span><span><span>        </span><span>// add logic</span><span>
+</span></span></span><span><span><span>        </span><span>return</span><span> </span>(mapping.<span>findForward</span>(<span>"success"</span>));<span>
+</span></span></span><span><span><span>    </span>}<span>
+</span></span></span><span><span><span></span>}<span>
+</span></span></span></code></pre></div><p>Struts 1 actions are singletons and extend the base <code>Action</code> class. Alternatively, <code>DispatchAction</code> can be used instead of the base class. In either case, the <code>execute</code> method is the entry point to an Action class. Actions have to be thread-safe and hence all the necessary variables should be handled in method scope. Finally, the <code>execute</code> method returns an <code>ActionForward</code> response.</p>
+<p>On the other hand, in Struts 2 a basic action class structure would look like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-java" data-lang="java"><span><span><span>public</span><span> </span><span>class</span> <span>MyAction</span><span> </span><span>extends</span><span> </span>ActionSupport<span> </span>{<span>
+</span></span></span><span><span><span>   </span><span>public</span><span> </span>String<span> </span><span>execute</span>()<span> </span><span>throws</span><span> </span>Exception<span> </span>{<span>
+</span></span></span><span><span><span>        </span><span>// add logic</span><span>
+</span></span></span><span><span><span>        </span><span>return</span><span> </span><span>"success"</span>;<span>
+</span></span></span><span><span><span>   </span>}<span>
+</span></span></span><span><span><span></span>}<span>
+</span></span></span></code></pre></div><p>A Struts 2 action class will usually (but not necessarily) extend&nbsp;<code>ActionSupport</code>. The usual entry point is again the&nbsp;<code>execute</code>&nbsp;method—however, this method has no parameters. In Struts 2 action classes are not singletons. Instead an instance of the action class is created for each request, so class scope variables can be used safely, alleviating many thread-safety concerns in Struts 1 actions. Struts 2 will inject a&nbsp;<code>HttpServletRequest</code>&nbsp;for the current request into actions implementing the&nbsp;<code>ServletRequestAware</code>&nbsp;interface, allowing you access to the underlying request object.</p>
+<h4 id="action-configuration">Action Configuration</h4>
+<p>In Struts 1 applications, action configurations are made in&nbsp;<code>struts-config.xml</code>&nbsp;located in the&nbsp;<code>WEB-INF</code>&nbsp;directory. Struts 1 applications need to configure actions and action form beans in this configuration file.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;struts-config&gt;</span>
+</span></span><span><span>
+</span></span><span><span>     <span>&lt;form-beans&gt;</span>
+</span></span><span><span>         <span>&lt;form-bean</span> <span>name=</span><span>"myForm"</span> <span>type=</span><span>"com.endpoint.blog.struts.MyForm"</span><span>/&gt;</span>
+</span></span><span><span>         ...
+</span></span><span><span>     <span>&lt;/form-beans&gt;</span>
+</span></span><span><span>
+</span></span><span><span>    <span>&lt;global-forwards&gt;</span>
+</span></span><span><span>       <span>&lt;forward</span> <span>name=</span><span>"home"</span> <span>path=</span><span>"/home.do"</span> <span>redirect=</span><span>"true"</span> <span>/&gt;</span>
+</span></span><span><span>       <span>&lt;forward</span> <span>name=</span><span>"projects"</span> <span>path=</span><span>"/myactionProcess.do?dispatch=myDispatch"</span> <span>redirect=</span><span>"true"</span><span>/&gt;</span>
+</span></span><span><span>       ...
+</span></span><span><span>   <span>&lt;/global-forwards&gt;</span>
+</span></span><span><span>
+</span></span><span><span>   <span>&lt;action-mappings&gt;</span>
+</span></span><span><span>       <span>&lt;action</span> <span>path=</span><span>"/myPackage/add"</span> <span>type=</span><span>"org.apache.struts.actions.ForwardAction"</span> <span>/&gt;</span>
+</span></span><span><span>       ...
+</span></span><span><span>   <span>&lt;/action-mappings&gt;</span>
+</span></span><span><span>
+</span></span><span><span> <span>&lt;/struts-config&gt;</span> 
+</span></span></code></pre></div><p>Struts 2 configuration involves a package wrapper around the action definitions.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;struts&gt;</span>
+</span></span><span><span>  <span>&lt;package</span> <span>name=</span><span>"myPackage"</span> <span>extends=</span><span>"struts-default"</span><span>&gt;</span>
+</span></span><span><span>      <span>&lt;action</span> <span>name=</span><span>"add"</span> <span>&gt;</span>
+</span></span><span><span>          <span>&lt;result&gt;</span>/myPackage/add.jsp<span>&lt;/result&gt;</span>
+</span></span><span><span>        <span>&lt;/action&gt;</span>
+</span></span><span><span>        ...
+</span></span><span><span>    <span>&lt;/package&gt;</span>
+</span></span><span><span> <span>&lt;/struts&gt;</span> 
+</span></span></code></pre></div><p>However, in Struts 2, actions can be defined in a more general way using Struts conventions:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-xml" data-lang="xml"><span><span><span>&lt;struts&gt;</span>
+</span></span><span><span>  <span>&lt;constant</span> <span>name=</span><span>"struts.action.extension"</span> <span>value=</span><span>"ep"</span><span>/&gt;</span>
+</span></span><span><span>    <span>&lt;constant</span> <span>name=</span><span>"struts.convention.action.packages"</span> <span>value=</span><span>"com.endpoint.blog.actions.*"</span><span>/&gt;</span>
+</span></span><span><span>    ...
+</span></span><span><span><span>&lt;/struts&gt;</span>
+</span></span></code></pre></div><p>In this article we covered migrating the most basic components from Struts 1 to Struts 2 and compared several features between each version. Complete configuration and code migration from Struts 1 to Struts 2 can be done gradually, involving actions, interceptors, tags, and many other details. Not completely straightforward, but the patterns and convention changes adopted in Struts 2 become clearer as you dive in.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-10-04T00:00:00.000Z>4 October 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

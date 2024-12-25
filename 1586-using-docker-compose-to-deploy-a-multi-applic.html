@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Using Docker Compose to Deploy a Multi-Application .NET System</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/07/using-docker-compose-to-deploy-a-multi-application-dotnet-system/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2024. -->
+<p><em>This post was co-authored by <a href="/team/juan-pablo-ventoso/" rel="noreferrer" target="_blank">Juan Pablo Ventoso</a></em></p>
+<p>We recently developed a system that involved several runtime components. It was an ecommerce site that included a database, a web API, an admin control panel web app, and a frontend <a href="https://developer.mozilla.org/en-US/docs/Glossary/SPA" rel="noreferrer" target="_blank">SPA</a>.</p>
+<p>There are many ways to deploy such a system. For us, we wanted the infrastructure to be easily replicable for multiple environments with slightly different configurations. We wanted to be able to have, for example, a production and a staging version that could be deployed easily, with minimal configuration changes. We also wanted the infrastructure to be captured in files and version controlled, to further help replicability and maintainability.</p>
+<p>With all that in mind, <a href="https://docs.docker.com/compose/" rel="noreferrer" target="_blank">Docker Compose</a> seemed like an ideal option. We could author a series of configuration files, parameterize environment-specific changes and, with a single command, we could spin up a whole environment to run the various applications within the system.</p>
+<p>In this blog post, I’ll explain how we did that using a demo <a href="https://dotnet.microsoft.com/en-us/" rel="noreferrer" target="_blank">.NET</a> code base that has a similar set of components. Let’s get started.</p>
+<h3 id="getting-familiar-with-the-demo-project">Getting familiar with the demo project</h3>
+<p>In .NET terms, our demo code base is organized as <a href="https://learn.microsoft.com/en-us/visualstudio/ide/solutions-and-projects-in-visual-studio?view=vs-2022" rel="noreferrer" target="_blank">a solution with multiple projects</a>. Two of those projects are <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps" rel="noreferrer" target="_blank">ASP.NET web applications</a>: a <a href="https://learn.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-8.0&amp;tabs=visual-studio" rel="noreferrer" target="_blank">Razor Pages</a> web app (the admin portal), and an <a href="https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&amp;tabs=visual-studio" rel="noreferrer" target="_blank">MVC Web API</a>. The rest are <a href="https://learn.microsoft.com/en-us/dotnet/standard/class-libraries" rel="noreferrer" target="_blank">class libraries</a> that define the core domain logic, tests, and other utilities. For deployment purposes, the web application projects are the interesting ones, as they produce executables that actually need to run as processes in the server. So, including the database, our demo system has three runtime components:</p>
+<ol>
+<li>The database.</li>
+<li>The admin portal.</li>
+<li>The web API.</li>
+</ol>
+<p>In the world of <a href="https://www.docker.com/" rel="noreferrer" target="_blank">Docker</a>, that would translate into three separate <a href="https://www.docker.com/resources/what-container/" rel="noreferrer" target="_blank">containers</a>. Considering Docker Compose, that means three separate <a href="https://docs.docker.com/compose/compose-file/05-services/" rel="noreferrer" target="_blank">services</a>.</p>
+<p>Throughout this post, we will, step by step, build a <a href="https://docs.docker.com/compose/compose-application-model/" rel="noreferrer" target="_blank"><code>compose.yaml</code></a>, a set of <a href="https://docs.docker.com/reference/dockerfile/" rel="noreferrer" target="_blank"><code>Dockerfiles</code></a>, and other configuration files which can be used with Docker Compose to deploy our system.</p>
+<blockquote>
+<p>You can find the system’s source code <a href="https://github.com/megakevin/end-point-blog-dotnet-8-demo" rel="noreferrer" target="_blank">on GitHub</a>. The final version of the deployment files we’ll build in this article are also <a href="https://github.com/megakevin/end-point-blog-dotnet-docker-deploy" rel="noreferrer" target="_blank">on GitHub</a>.</p>
+</blockquote>
+<h3 id="including-the-code-base-repository-as-a-git-submodule">Including the code base repository as a Git submodule</h3>
+<p>Considering the separation of our components, the reasons for the organization of our deployment configuration files and our code base starts to become apparent. The deployment files will live in their own repository. They do need access to the system’s source code, though, in order to build and run the apps. And that source code lives in its own repo. So, the deployment repository will include a <code>source</code> subdirectory, which will be a Git <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" rel="noreferrer" target="_blank">submodule</a> that points to the repository where the system’s source code is stored.</p>
+<p>Here’s the file structure that we’re aiming for:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>.
+</span></span><span><span>├── compose.yaml
+</span></span><span><span>├── the various dockerfiles...
+</span></span><span><span>├── source
+</span></span><span><span>│&nbsp;&nbsp; ├── vehicle-quotes.sln
+</span></span><span><span>│&nbsp;&nbsp; └── the varous projects...
+</span></span><span><span>└── any other files and directories...
+</span></span></code></pre></div><p>Including a Git repository inside another Git repository as a submodule is easy. In our case, we already have the parent Git repo, which is the one where the deployment config files live. To add the source code repo to it, we run a command like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>git submodule add git@github.com:megakevin/end-point-blog-dotnet-8-demo.git source
+</span></span></code></pre></div><p>Pretty straightforward. The command is calling <code>git submodule add</code> and passing it the location of the repo on GitHub and the directory in which to <a href="https://git-scm.com/docs/git-clone" rel="noreferrer" target="_blank">clone</a> it. That’s it. As a result of that command, Git will have created a new <code>source</code> directory with the contents of the <code>end-point-blog-dotnet-8-demo</code> repository, and a <code>.gitmodules</code> file with contents like these:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-toml" data-lang="toml"><span><span>[submodule <span>"source"</span>]
+</span></span><span><span>  path = source
+</span></span><span><span>  url = git<span>@</span>github.com<span>:</span>megakevin<span>/</span>end-point-blog-dotnet-8-demo.git
+</span></span></code></pre></div><p>As you can see, this file contains the information Git needs to know that this repo has a submodule, where it is, and where it comes from.</p>
+<h3 id="deploying-the-database">Deploying the database</h3>
+<p>Let’s begin actually building out our system components with the database. Our apps use a PostgreSQL database to store information. Luckily for us, getting a PostgreSQL database up and running with Docker Compose is easy. All it takes is a <code>compose.yaml</code> file like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span># This is the name of the service: "db". Other containers will use that as a</span><span>
+</span></span></span><span><span><span>  </span><span># hostname when they need to interact with it.</span><span>
+</span></span></span><span><span><span>  </span><span>db</span>:<span>
+</span></span></span><span><span><span>    </span><span># The container will be based in the "16.3-bookworm" release of the public</span><span>
+</span></span></span><span><span><span>    </span><span># PostgreSQL image that's available in Docker Hub</span><span>
+</span></span></span><span><span><span>    </span><span>image</span>:<span> </span>postgres:16.3-bookworm<span>
+</span></span></span><span><span><span>    </span><span># Always restart the container automatically if it ever closes for whatever</span><span>
+</span></span></span><span><span><span>    </span><span># reason.</span><span>
+</span></span></span><span><span><span>    </span><span>restart</span>:<span> </span>always<span>
+</span></span></span><span><span><span>    </span><span># Makes the database accessible at port 5432.</span><span>
+</span></span></span><span><span><span>    </span><span>ports</span>:<span>
+</span></span></span><span><span><span>      </span>- <span>5432</span>:<span>5432</span><span>
+</span></span></span><span><span><span>    </span><span># Stores the PostgreSQL data files in a docker volume so that they are not</span><span>
+</span></span></span><span><span><span>    </span><span># lost when the container stops or restarts.</span><span>
+</span></span></span><span><span><span>    </span><span>volumes</span>:<span>
+</span></span></span><span><span><span>      </span>- db-postgres-data:/var/lib/postgresql/data<span>
+</span></span></span><span><span><span>    </span><span># Sets some basic configuration for the initial database in the PostgreSQL</span><span>
+</span></span></span><span><span><span>    </span><span># instance: its name, and a pair of credentials to access it.</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- POSTGRES_DB=vehicle_quotes<span>
+</span></span></span><span><span><span>      </span>- POSTGRES_USER=vehicle_quotes<span>
+</span></span></span><span><span><span>      </span>- POSTGRES_PASSWORD=password<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Defines the Docker volume that the db service uses to store its data files.</span><span>
+</span></span></span><span><span><span></span><span>volumes</span>:<span>
+</span></span></span><span><span><span>  </span><span>db-postgres-data</span>:<span>
+</span></span></span></code></pre></div><p>This is a very standard definition of a Docker Compose service. We called it <code>db</code>, made it available via the standard PostgreSQL port (<code>5432</code>), and set some basic configurations for it. Check out the <a href="https://hub.docker.com/_/postgres" rel="noreferrer" target="_blank">PostgreSQL image’s page in Docker Hub</a> to see more complicated use cases.</p>
+<p>To bring it to life, we can run <code>docker compose up -d</code> in the directory where we’ve located the <code>compose.yaml</code> file. Running that command will prompt Docker to download the PostgreSQL image, build a container with it, and run it. It’ll also create the <code>db-postgres-data</code> <a href="https://docs.docker.com/storage/volumes/" rel="noreferrer" target="_blank">volume</a> we configured and a “network” that all the services we put in the <code>compose.yaml</code> file will be part of. Thanks to the <code>-d</code> option, it will run in daemon mode; that is, as a background process. So as soon as it’s done, it gives us control of our terminal back:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose up -d
+</span></span><span><span>
+</span></span><span><span>...
+</span></span><span><span>
+</span></span><span><span>[+] Running 3/3
+</span></span><span><span> ✔ Network end-point-blog-dotnet-docker-deploy_default            Created  0.0s
+</span></span><span><span> ✔ Volume "end-point-blog-dotnet-docker-deploy_db-postgres-data"  Created  0.0s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-db-1             Created  0.1s
+</span></span></code></pre></div><p>Now that we have a database up and running, we have a couple of options for connecting to it. If we have the <code>psql</code> command line client installed in our machine, we can connect to it directly:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ psql -h localhost -d vehicle_quotes -U vehicle_quotes -W
+</span></span><span><span>Password:
+</span></span><span><span>psql (16.3 (Ubuntu 16.3-0ubuntu0.24.04.1))
+</span></span><span><span>Type "help" for help.
+</span></span><span><span>
+</span></span><span><span>vehicle_quotes=#
+</span></span></code></pre></div><p>If not, we could first connect to the container, and then open <code>psql</code> from there:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose exec db bash
+</span></span><span><span>root@edc038da3aa4:/# psql -h localhost -d vehicle_quotes -U vehicle_quotes -W
+</span></span><span><span>Password:
+</span></span><span><span>psql (16.3 (Debian 16.3-1.pgdg120+1))
+</span></span><span><span>Type "help" for help.
+</span></span><span><span>
+</span></span><span><span>vehicle_quotes=#
+</span></span></code></pre></div><p>Notice how we pass <code>db</code> and <code>bash</code> as parameters to the <code>docker compose exec</code> command. <code>db</code> is the name of our service, and <code>bash</code> is the command that we wish to execute within it. In this case we just want to open a shell, so we use <code>bash</code>.</p>
+<p>Nice. That’s all it takes to set up the database. Now on to the applications.</p>
+<h3 id="deploying-the-admin-portal-web-app">Deploying the admin portal web app</h3>
+<p>Like I mentioned before, our code base contains an admin portal web application. In order to deploy it, we need first to define an <a href="https://docs.docker.com/guides/docker-concepts/the-basics/what-is-an-image/" rel="noreferrer" target="_blank">image</a>, which we’ll do with a Dockerfile, and then add the configuration to run a <a href="https://docs.docker.com/guides/docker-concepts/the-basics/what-is-a-container/" rel="noreferrer" target="_blank">container</a> based on that image using Docker Compose.</p>
+<p>The image is a self-contained package that includes all the software that the application needs to run. It’s like an executable program. One that can be run by Docker, instead of directly by the operating system. In order to build images, we use Dockerfiles. For this ASP.NET app, the Dockerfile will perform two main tasks: Specify how to build the app and how to run it. Here’s what a Dockerfile for the admin portal project could look like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-dockerfile" data-lang="dockerfile"><span><span><span># ./Dockerfile.AdminPortal</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Pull the .NET SDK image from Microsoft's repository. We will use it to build</span><span>
+</span></span></span><span><span><span></span><span># our app. We also give it a name of "build" so that we can reference it later.</span><span>
+</span></span></span><span><span><span></span><span>FROM</span><span> mcr.microsoft.com/dotnet/sdk:8.0 AS build</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Now we copy all *.csproj files from the code base into the image and run</span><span>
+</span></span></span><span><span><span></span><span># dotnet restore. This will download and install all the NuGet packages that the</span><span>
+</span></span></span><span><span><span></span><span># various projects require.</span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /source</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>COPY</span> source/vehicle-quotes.sln .<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.AdminPortal/VehicleQuotes.AdminPortal.csproj ./VehicleQuotes.AdminPortal/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.Core/VehicleQuotes.Core.csproj ./VehicleQuotes.Core/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.CreateUser/VehicleQuotes.CreateUser.csproj ./VehicleQuotes.CreateUser/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj ./VehicleQuotes.IntegrationTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.RazorTemplates/VehicleQuotes.RazorTemplates.csproj ./VehicleQuotes.RazorTemplates/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.UnitTests/VehicleQuotes.UnitTests.csproj ./VehicleQuotes.UnitTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.WebApi/VehicleQuotes.WebApi.csproj ./VehicleQuotes.WebApi/<span>
+</span></span></span><span><span><span></span><span>RUN</span> dotnet restore<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Next we copy all of the source code for all of the projects.</span><span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.AdminPortal/. ./VehicleQuotes.AdminPortal/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.Core/. ./VehicleQuotes.Core/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.CreateUser/. ./VehicleQuotes.CreateUser/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.IntegrationTests/. ./VehicleQuotes.IntegrationTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.RazorTemplates/. ./VehicleQuotes.RazorTemplates/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.UnitTests/. ./VehicleQuotes.UnitTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.WebApi/. ./VehicleQuotes.WebApi/<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Now that we have everything in place, we use the dotnet publish command to</span><span>
+</span></span></span><span><span><span></span><span># build the VehicleQuotes.AdminPortal project.</span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /source/VehicleQuotes.AdminPortal</span><span>
+</span></span></span><span><span><span></span><span>RUN</span> dotnet publish -c release -o /app --no-restore<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># In this last step, notice how we pull a different image here, this is the</span><span>
+</span></span></span><span><span><span></span><span># image that Microsoft recommends to use for running ASP.NET apps.</span><span>
+</span></span></span><span><span><span></span><span>#</span><span>
+</span></span></span><span><span><span></span><span># Since by this point we already built the app, and have the executable binary</span><span>
+</span></span></span><span><span><span></span><span># for it, we don't need the full SDK anymore. dotnet/aspnet is a lighter weight</span><span>
+</span></span></span><span><span><span></span><span># image designed exclusively for running apps. In other words, it has the .NET</span><span>
+</span></span></span><span><span><span></span><span># runtime redistributable, not the full SDK.</span><span>
+</span></span></span><span><span><span></span><span>#</span><span>
+</span></span></span><span><span><span></span><span># So here, all we do is copy the build assets from the "build" image into this</span><span>
+</span></span></span><span><span><span></span><span># new runtime-only one and put them in a /app directory. Then we call the .NET</span><span>
+</span></span></span><span><span><span></span><span># CLI to run the web app's DDL.</span><span>
+</span></span></span><span><span><span></span><span>FROM</span><span> mcr.microsoft.com/dotnet/aspnet:8.0</span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /app</span><span>
+</span></span></span><span><span><span></span><span>COPY</span> --from=build /app ./<span>
+</span></span></span><span><span><span></span><span>ENTRYPOINT</span> [<span>"dotnet"</span>, <span>"VehicleQuotes.AdminPortal.dll"</span>]<span>
+</span></span></span></code></pre></div><p>With a Dockerfile like this, we could run the app as a stand-alone container. However, we don’t want to run it like that. Instead, we want it to be a service that’s deployable via Docker Compose, as part of a bigger ecosystem. In order to do that, we add the following to our <code>compose.yaml</code> file.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span># The service is called "admin-portal" because that's the application that it</span><span>
+</span></span></span><span><span><span>  </span><span># contains.</span><span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>    </span><span># This is slightly more complex than the "db" service. Instead of using the</span><span>
+</span></span></span><span><span><span>    </span><span># "image" option to download an off-the-shelf PostgreSQL image from</span><span>
+</span></span></span><span><span><span>    </span><span># dockerhub, we use "build" and point to the Dockerfile we created in the</span><span>
+</span></span></span><span><span><span>    </span><span># previous step. We also specify the current directory (i.e. the ".") as the</span><span>
+</span></span></span><span><span><span>    </span><span># context in which the build will be performed.</span><span>
+</span></span></span><span><span><span>    </span><span>build</span>:<span>
+</span></span></span><span><span><span>      </span><span>context</span>:<span> </span>.<span>
+</span></span></span><span><span><span>      </span><span>dockerfile</span>:<span> </span>Dockerfile.AdminPortal<span>
+</span></span></span><span><span><span>    </span><span># We also configure this service to restart automatically if for whatever</span><span>
+</span></span></span><span><span><span>    </span><span># reason it stops.</span><span>
+</span></span></span><span><span><span>    </span><span>restart</span>:<span> </span>always<span>
+</span></span></span><span><span><span>    </span><span># "8080" is the default port that ASP.NET Core 8 web applications listen to.</span><span>
+</span></span></span><span><span><span>    </span><span># So here, we set it up so that all requests coming to the host machine to</span><span>
+</span></span></span><span><span><span>    </span><span># port 8001 get sent to this container's port 8080. That way, reaching the</span><span>
+</span></span></span><span><span><span>    </span><span># ASP.NET app that's running within.</span><span>
+</span></span></span><span><span><span>    </span><span>ports</span>:<span>
+</span></span></span><span><span><span>      </span>- <span>8001</span>:<span>8080</span><span>
+</span></span></span><span><span><span>    </span><span># This part is particular to our app. The admin portal offers the capability</span><span>
+</span></span></span><span><span><span>    </span><span># of uploading files. Here, we're defining a Docker volume to ensure that</span><span>
+</span></span></span><span><span><span>    </span><span># the uploaded files persist across container restarts. In this case, we are</span><span>
+</span></span></span><span><span><span>    </span><span># linking the host machine's ./uploads directory to the container's</span><span>
+</span></span></span><span><span><span>    </span><span># /app/wwwroot/uploads directory, which is where the uploaded files are</span><span>
+</span></span></span><span><span><span>    </span><span># saved.</span><span>
+</span></span></span><span><span><span>    </span><span>volumes</span>:<span>
+</span></span></span><span><span><span>      </span>- ./uploads:/app/wwwroot/uploads<span>
+</span></span></span><span><span><span>    </span><span># We can use this section so set any environment variables that our app may</span><span>
+</span></span></span><span><span><span>    </span><span># need. In the case of our admin portal here, we set the running environment</span><span>
+</span></span></span><span><span><span>    </span><span># to Development, specify a database connection string, and the location to</span><span>
+</span></span></span><span><span><span>    </span><span># save the uploaded files.</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- ASPNETCORE_ENVIRONMENT=Development<span>
+</span></span></span><span><span><span>      </span>- ConnectionStrings__VehicleQuotesContext=Host=db;Database=vehicle_quotes;Username=vehicle_quotes;Password=password<span>
+</span></span></span><span><span><span>      </span>- QuoteImagesPath=/app/wwwroot/uploads<span>
+</span></span></span><span><span><span>    </span><span># Finally, "entrypoint" specifies the command that should be used when</span><span>
+</span></span></span><span><span><span>    </span><span># running the container. In this case, this is essentially the same as the</span><span>
+</span></span></span><span><span><span>    </span><span># last line of the Dockerfile we saw above.</span><span>
+</span></span></span><span><span><span>    </span><span>entrypoint</span>:<span> </span>[<span>"sh"</span>,<span> </span><span>"-c"</span>,<span> </span><span>"dotnet VehicleQuotes.AdminPortal.dll"</span>]<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># ...</span><span>
+</span></span></span></code></pre></div><p>With this, we’re ready to see the application running. Run <code>docker compose up -d</code> again to update the infrastructure and include the new service:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose up -d
+</span></span><span><span>
+</span></span><span><span>...
+</span></span><span><span>
+</span></span><span><span>[+] Running 2/2
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-db-1            Running   0.0s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-admin-portal-1  Started   0.3s
+</span></span></code></pre></div><p>After a while of downloading and building, navigating to <code>http://localhost:8001</code> should show this:</p>
+<p></p>
+<h3 id="adding-a-maintenance-container">Adding a maintenance container</h3>
+<p>At this point, we have a problem though. If we try clicking on the “Quotes” link in the top navigation bar, we see this:</p>
+<p></p>
+<p>We need to run the <a href="https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli" rel="noreferrer" target="_blank">database migrations</a>. In order to do that, we need an environment that has all of our source code and the full .NET SDK with the <a href="https://learn.microsoft.com/en-us/ef/core/" rel="noreferrer" target="_blank">Entity Framework Core</a> <a href="https://learn.microsoft.com/en-us/ef/core/cli/dotnet" rel="noreferrer" target="_blank">command line tool</a>. That is, an environment that can build the app and run the .NET CLI. While we could install that in the host machine and run our migrations that way; we could also encapsulate it in a container. That way we get the benefits of portability, etc.</p>
+<p>Of course, that maintenance container needs an image. And images are defined in Dockerfiles. Here’s a Dockerfile that would serve our purpose:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-dockerfile" data-lang="dockerfile"><span><span><span># ./Dockerfile.Maintenance</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Same as before, we pull the official image that contains the full .NET SDK.</span><span>
+</span></span></span><span><span><span></span><span>FROM</span><span> mcr.microsoft.com/dotnet/sdk:8.0 AS build</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Here we install the psql command line client. A useful tool to have in a</span><span>
+</span></span></span><span><span><span></span><span># container meant for system maintenance.</span><span>
+</span></span></span><span><span><span></span><span>RUN</span> apt-get update &amp;&amp; <span>export</span> <span>DEBIAN_FRONTEND</span>=noninteractive <span>\
+</span></span></span><span><span><span></span>    &amp;&amp; apt-get -y install --no-install-recommends postgresql-client<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># We also install the dotnet-ef tool which allows us access to commands for</span><span>
+</span></span></span><span><span><span></span><span># managing the database and migrations.</span><span>
+</span></span></span><span><span><span></span><span>RUN</span> dotnet tool install dotnet-ef --global<span>
+</span></span></span><span><span><span></span><span>ENV</span> <span>PATH</span>=<span>"</span><span>$PATH</span><span>:/root/.dotnet/tools"</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># Finally, we copy all of our source code.</span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /source</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>COPY</span> source/vehicle-quotes.sln .<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.AdminPortal/VehicleQuotes.AdminPortal.csproj ./VehicleQuotes.AdminPortal/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.Core/VehicleQuotes.Core.csproj ./VehicleQuotes.Core/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.CreateUser/VehicleQuotes.CreateUser.csproj ./VehicleQuotes.CreateUser/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj ./VehicleQuotes.IntegrationTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.RazorTemplates/VehicleQuotes.RazorTemplates.csproj ./VehicleQuotes.RazorTemplates/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.UnitTests/VehicleQuotes.UnitTests.csproj ./VehicleQuotes.UnitTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.WebApi/VehicleQuotes.WebApi.csproj ./VehicleQuotes.WebApi/<span>
+</span></span></span><span><span><span></span><span>RUN</span> dotnet restore<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.AdminPortal/. ./VehicleQuotes.AdminPortal/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.Core/. ./VehicleQuotes.Core/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.CreateUser/. ./VehicleQuotes.CreateUser/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.IntegrationTests/. ./VehicleQuotes.IntegrationTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.RazorTemplates/. ./VehicleQuotes.RazorTemplates/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.UnitTests/. ./VehicleQuotes.UnitTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.WebApi/. ./VehicleQuotes.WebApi/<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># No ENTRYPOINT here because there's no specific command to run.</span><span>
+</span></span></span></code></pre></div><p>This Dockerfile is very similar to the first portion of the one for the admin portal. It essentially creates a .NET development environment. Notice how it doesn’t include an <code>ENTRYPOINT</code> command. This is expected, as this container’s purpose is to allow us to connect to it to run any number of maintenance tasks on demand. There isn’t really any process that it needs to run upon start.</p>
+<p>Now, we want to deploy the maintenance container when we do <code>docker compose up -d</code>. To that end, we add the following to the services section in our <code>compose.yaml</code> file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span># ...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>maintenance</span>:<span>
+</span></span></span><span><span><span>    </span><span># Similar to the admin-portal, we specify the context and Dockerfile to</span><span>
+</span></span></span><span><span><span>    </span><span># build the image.</span><span>
+</span></span></span><span><span><span>    </span><span>build</span>:<span>
+</span></span></span><span><span><span>      </span><span>context</span>:<span> </span>.<span>
+</span></span></span><span><span><span>      </span><span>dockerfile</span>:<span> </span>Dockerfile.Maintenance<span>
+</span></span></span><span><span><span>    </span><span># The maintenance tasks will need to know where to find the database. So we</span><span>
+</span></span></span><span><span><span>    </span><span># set the connection string environment variable.</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- ConnectionStrings__VehicleQuotesContext=Host=db;Database=vehicle_quotes;Username=vehicle_quotes;Password=password<span>
+</span></span></span><span><span><span>    </span><span># "sleep infinity" here makes sure the container doesn't close immediately</span><span>
+</span></span></span><span><span><span>    </span><span># after starting up, which is the expected behavior when a container has no</span><span>
+</span></span></span><span><span><span>    </span><span># start up command or has a command that just runs and ends. That is, as</span><span>
+</span></span></span><span><span><span>    </span><span># opposed to a long running service, like a web app.</span><span>
+</span></span></span><span><span><span>    </span><span>command</span>:<span> </span>sleep infinity<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># ...</span><span>
+</span></span></span></code></pre></div><p>With these additions, running <code>docker compose up -d</code> again will result in the new maintenance container being created:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose up -d
+</span></span><span><span>
+</span></span><span><span>...
+</span></span><span><span>
+</span></span><span><span>[+] Running 3/3
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-admin-portal-1  Running   0.0s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-db-1            Running   0.0s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-maintenance-1   Started   0.4s
+</span></span></code></pre></div><p>Now we can finally connect to the brand new maintenance container:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose exec maintenance bash
+</span></span><span><span>root@14613bcf1756:/source#
+</span></span></code></pre></div><p>Then inspect the status of the migrations:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>root@14613bcf1756:/source# dotnet ef migrations list -s ./VehicleQuotes.AdminPortal -p ./VehicleQuotes.Core
+</span></span><span><span>Build started...
+</span></span><span><span>Build succeeded.
+</span></span><span><span>
+</span></span><span><span>...
+</span></span><span><span>
+</span></span><span><span>20210625212939_AddLookupTables (Pending)
+</span></span><span><span>20210625224443_AddUniqueIndexesToLookupTables (Pending)
+</span></span><span><span>20210625232816_AddVehicleModelTables (Pending)
+</span></span><span><span>20210625234824_AddUniqueIndexesForVehicleModelTables (Pending)
+</span></span><span><span>20210627204444_AddQuoteRulesAndOverridesTables (Pending)
+</span></span><span><span>20210627213029_AddQuotesTable (Pending)
+</span></span><span><span>20210627230039_AddSeedDataForSizesAndBodyTypes (Pending)
+</span></span><span><span>20220530192346_FixDatetimeColumn (Pending)
+</span></span><span><span>20220605003253_AddIdentityTables (Pending)
+</span></span><span><span>20220609233914_AddUserApiKeysTable (Pending)
+</span></span><span><span>20240504211307_VariousNullabilityChanges (Pending)
+</span></span><span><span>20240606222539_AddQuoteImages (Pending)
+</span></span><span><span>root@14613bcf1756:/source#
+</span></span></code></pre></div><p>And run them:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>root@14613bcf1756:/source# dotnet ef database update -s ./VehicleQuotes.AdminPortal -p ./VehicleQuotes.Core
+</span></span><span><span>Build started...
+</span></span><span><span>Build succeeded.
+</span></span><span><span>
+</span></span><span><span>...
+</span></span><span><span>
+</span></span><span><span>Done.
+</span></span><span><span>root@14613bcf1756:/source#
+</span></span></code></pre></div><p>With that done, we can now go to the browser again and bring up the <code>http://localhost:8001/Quotes</code> page. Which now looks like this:</p>
+<p></p>
+<p>An empty—but working—page for listing database records!</p>
+<h3 id="deploying-the-web-api">Deploying the web API</h3>
+<p>Now let’s look at how to deploy another of our system’s runtime components: the web API. The process of setting this up is nearly identical to the admin portal’s. After all, both are ASP.NET Core web applications. Really, the only difference is that one serves HTML and the other serves JSON. To the runtime, they are the same type of thing. And sure enough, here’s the web API’s Dockerfile:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-dockerfile" data-lang="dockerfile"><span><span><span># ./Dockerfile.WebApi</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>FROM</span><span> mcr.microsoft.com/dotnet/sdk:8.0 AS build</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /source</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># copy sln and csproj files and restore</span><span>
+</span></span></span><span><span><span></span><span>COPY</span> source/vehicle-quotes.sln .<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.AdminPortal/VehicleQuotes.AdminPortal.csproj ./VehicleQuotes.AdminPortal/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.Core/VehicleQuotes.Core.csproj ./VehicleQuotes.Core/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.CreateUser/VehicleQuotes.CreateUser.csproj ./VehicleQuotes.CreateUser/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.IntegrationTests/VehicleQuotes.IntegrationTests.csproj ./VehicleQuotes.IntegrationTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.RazorTemplates/VehicleQuotes.RazorTemplates.csproj ./VehicleQuotes.RazorTemplates/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.UnitTests/VehicleQuotes.UnitTests.csproj ./VehicleQuotes.UnitTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.WebApi/VehicleQuotes.WebApi.csproj ./VehicleQuotes.WebApi/<span>
+</span></span></span><span><span><span></span><span>RUN</span> dotnet restore<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># copy everything else</span><span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.AdminPortal/. ./VehicleQuotes.AdminPortal/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.Core/. ./VehicleQuotes.Core/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.CreateUser/. ./VehicleQuotes.CreateUser/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.IntegrationTests/. ./VehicleQuotes.IntegrationTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.RazorTemplates/. ./VehicleQuotes.RazorTemplates/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.UnitTests/. ./VehicleQuotes.UnitTests/<span>
+</span></span></span><span><span><span></span><span>COPY</span> source/VehicleQuotes.WebApi/. ./VehicleQuotes.WebApi/<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># build app</span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /source/VehicleQuotes.WebApi</span><span>
+</span></span></span><span><span><span></span><span>RUN</span> dotnet publish -c release -o /app --no-restore<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span># final image</span><span>
+</span></span></span><span><span><span></span><span>FROM</span><span> mcr.microsoft.com/dotnet/aspnet:8.0</span><span>
+</span></span></span><span><span><span></span><span>WORKDIR</span><span> /app</span><span>
+</span></span></span><span><span><span></span><span>COPY</span> --from=build /app ./<span>
+</span></span></span><span><span><span></span><span>ENTRYPOINT</span> [<span>"dotnet"</span>, <span>"VehicleQuotes.WebApi.dll"</span>]<span>
+</span></span></span></code></pre></div><p>Very similar to the admin portal’s Dockerfile. The only differences are the sections for building and running the app towards the end of the file, on account of the directories and resulting DDL name being different. Other than that, they are pretty much identical.</p>
+<p>Same story on the Docker Compose side of things:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>web-api</span>:<span>
+</span></span></span><span><span><span>    </span><span>build</span>:<span>
+</span></span></span><span><span><span>      </span><span>context</span>:<span> </span>.<span>
+</span></span></span><span><span><span>      </span><span>dockerfile</span>:<span> </span>Dockerfile.WebApi<span>
+</span></span></span><span><span><span>    </span><span>restart</span>:<span> </span>always<span>
+</span></span></span><span><span><span>    </span><span># We want to expose this service in a different port than the admin portal,</span><span>
+</span></span></span><span><span><span>    </span><span># we chose 8002.</span><span>
+</span></span></span><span><span><span>    </span><span>ports</span>:<span>
+</span></span></span><span><span><span>      </span>- <span>8002</span>:<span>8080</span><span>
+</span></span></span><span><span><span>    </span><span># A different set of environment variables, but the structure is the same.</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- ASPNETCORE_ENVIRONMENT=Development<span>
+</span></span></span><span><span><span>      </span>- ConnectionStrings__VehicleQuotesContext=Host=db;Database=vehicle_quotes;Username=vehicle_quotes;Password=password<span>
+</span></span></span><span><span><span>      </span>- MailSettings__Server=SMTP_SERVER_URL<span>
+</span></span></span><span><span><span>      </span>- MailSettings__Port=2525<span>
+</span></span></span><span><span><span>      </span>- MailSettings__SenderName=Vehicle Quotes<span>
+</span></span></span><span><span><span>      </span>- MailSettings__SenderEmail=info@vehiclequotes.com<span>
+</span></span></span><span><span><span>      </span>- MailSettings__UserName=SMTP_SERVER_USER_NAME<span>
+</span></span></span><span><span><span>      </span>- MailSettings__Password=SMTP_SERVER_PASSWORD<span>
+</span></span></span><span><span><span>    </span><span># The entrypoint command is different because the DLL has a different file</span><span>
+</span></span></span><span><span><span>    </span><span># name.</span><span>
+</span></span></span><span><span><span>    </span><span>entrypoint</span>:<span> </span>[<span>"sh"</span>,<span> </span><span>"-c"</span>,<span> </span><span>"dotnet VehicleQuotes.WebApi.dll"</span>]<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>It has the same overall setup as the admin portal. This time we’ve chosen a different port, configured a different set of <a href="https://en.wikipedia.org/wiki/Environment_variable" rel="noreferrer" target="_blank">environment variables</a>, and run the web API’s DLL. Other than that, it’s the same. Now <code>docker compose up -d</code> can be run again, and after a while you should see:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose up -d
+</span></span><span><span>
+</span></span><span><span>...
+</span></span><span><span>
+</span></span><span><span>[+] Running 4/4
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-web-api-1       Started   0.4s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-maintenance-1   Running   0.0s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-db-1            Running   0.0s
+</span></span><span><span> ✔ Container end-point-blog-dotnet-docker-deploy-admin-portal-1  Running   0.0s
+</span></span></code></pre></div><p>The web API has a <a href="https://swagger.io/tools/swagger-ui/" rel="noreferrer" target="_blank">Swagger UI</a> that should now be accessible at <code>http://localhost:8002/swagger</code>:</p>
+<p></p>
+<p>Excellent. We now have a very basic implementation of our deployment strategy. We have managed to build and run all the apps we need. We also have a special container with a full development environment that we can use to perform a number of maintenance tasks. However, there are various issues that we still need to address. Let’s do that next.</p>
+<h3 id="looking-at-the-logs">Looking at the logs</h3>
+<p>Before that, though, let’s look at the logs being produced by the applications that have been deployed. You can see the logs for the entire system with:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>docker compose logs -f
+</span></span></code></pre></div><p>That command produces a single log stream with messages from all the services. To look at the logs of a particular service, all we need to do is specify the service name. For example <code>docker compose logs db -f</code> or <code>docker compose logs web-api -f</code>.</p>
+<p>That’s all there is to it as far as logs go. However, if we look at the logs for our current deployment, they reveal the first issue that we need to attend to…</p>
+<h3 id="persisting-data-protection-keys">Persisting data protection keys</h3>
+<p>If we look at the logs of the admin portal or web API containers, we see messages like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>web-api-1       | warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+</span></span><span><span>web-api-1       |       Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+</span></span></code></pre></div><p>As it turns out, the <a href="https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/introduction?view=aspnetcore-8.0" rel="noreferrer" target="_blank">data protection subsystem</a> in ASP.NET Core (which is used for cookies and the like) depends on the app being able to store and persist files. As the message says, this is problematic for containers. Because upon container destruction, which is a usual and expected part of a container’s lifecycle, the internal container’s file system gets wiped out. That is, unless we use <a href="https://docs.docker.com/storage/volumes/" rel="noreferrer" target="_blank">Docker volumes</a> to store the files that should persist beyond a particular container’s life. So, in order to get rid of these warnings, that’s exactly what we’re going to have to do.</p>
+<p>First we create a <code>data-protection-keys</code> directory in our host machine. And inside it, we create one directory for each of the ASP.NET Core apps. It ends up looking like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>data-protection-keys/
+</span></span><span><span>├── admin-portal
+</span></span><span><span>└── web-api
+</span></span></code></pre></div><p>Next we have to make sure the apps in the containers have access to these directories. In order to do that, we need to configure the <code>compose.yaml</code> so that it creates new Docker volumes that are linked to those locations:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>volumes</span>:<span>
+</span></span></span><span><span><span>      </span>- ./data-protection-keys/admin-portal:/data-protection-keys/admin-portal<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>web-api</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>volumes</span>:<span>
+</span></span></span><span><span><span>      </span>- ./data-protection-keys/web-api:/data-protection-keys/web-api<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>This means that, for example, whenever an app in the container references <code>/data-protection-keys/admin-portal</code>; it will actually be accessing the <code>./data-protection-keys/admin-portal</code> directory in the host machine. Same deal for the <code>web-api</code> one.</p>
+<p>We also need to configure the applications themselves so that they store their data protection keys in the locations that we’ve created. For that, we add environment variables for the containers to set the paths:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- AdminPortalDataProtectionKeysPath=/data-protection-keys/admin-portal<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>web-api</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- WebApiDataProtectionKeysPath=/data-protection-keys/web-api<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>And add the following code to each of the apps’ <code>Program.cs</code> files:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// ./source/VehicleQuotes.AdminPortal/Program.cs</span>
+</span></span><span><span>
+</span></span><span><span>builder.Services.AddDataProtection().PersistKeysToFileSystem(
+</span></span><span><span>    <span>new</span> DirectoryInfo(
+</span></span><span><span>        builder.Configuration[<span>"AdminPortalDataProtectionKeysPath"</span>] ??
+</span></span><span><span>            <span>throw</span> <span>new</span> InvalidOperationException(<span>"Config setting 'AdminPortalDataProtectionKeysPath' not found."</span>)
+</span></span><span><span>    )
+</span></span><span><span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// ./source/VehicleQuotes.WebApi/Program.cs</span>
+</span></span><span><span>
+</span></span><span><span>builder.Services.AddDataProtection().PersistKeysToFileSystem(
+</span></span><span><span>    <span>new</span> DirectoryInfo(
+</span></span><span><span>        builder.Configuration[<span>"WebApiDataProtectionKeysPath"</span>] ??
+</span></span><span><span>            <span>throw</span> <span>new</span> InvalidOperationException(<span>"Config setting 'WebApiDataProtectionKeysPath' not found."</span>)
+</span></span><span><span>    )
+</span></span><span><span>);
+</span></span></code></pre></div><p>There isn’t much to comment about the code really. It’s just some .NET boilerplate to configure that specific detail of the data protection services. It also makes sure that the values are always present. Errors are raised if not.</p>
+<p>Now that everything is wired up like that, we can hit <code>docker compose up -d --build</code> and the warning message should be gone if we look at the logs.</p>
+<p>Notice how we used the <code>--build</code> option this time. That tells Docker that it needs to rebuild the images from scratch. Image rebuild means running through the Dockerfiles again. And that means running <code>dotnet build</code> again. In short, we have to do this to make sure that the code changes that we made are included in the new builds.</p>
+<h3 id="storing-sensitive-information-with-secrets">Storing sensitive information with secrets</h3>
+<p>Another issue that we need to address is how to handle sensitive information like passwords in our config files. So far we’ve been putting them in plain text in <code>compose.yaml</code>. The problem with this is that this file is meant to be pushed to version control and we don’t want passwords in there. The spread of sensitive information like that should be more controlled. Ideally, we’d store them in files that never leave the server where the system is deployed.</p>
+<p>Docker Compose has a feature that works just like that. Through <a href="https://docs.docker.com/compose/use-secrets/" rel="noreferrer" target="_blank">Docker Compose secrets</a>, we can create text files outside of the <code>compose.yaml</code> and put the database password and connection string in them. These files will live only in the server, never uploaded to version control.</p>
+<p>Let’s create a new <code>secrets</code> directory and create these two files within it:</p>
+<ul>
+<li>
+<p><code>./secrets/vehicle-quotes-db-connection-string.txt</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>Host=db;Database=vehicle_quotes;Username=vehicle_quotes;Password=password
+</span></span></code></pre></div></li>
+<li>
+<p><code>./secrets/vehicle-quotes-db-password.txt</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>password
+</span></span></code></pre></div></li>
+</ul>
+<p>Ending up looking like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>secrets/
+</span></span><span><span>├── vehicle-quotes-db-connection-string.txt
+</span></span><span><span>└── vehicle-quotes-db-password.txt
+</span></span></code></pre></div><p>Now, at the bottom of <code>compose.yaml</code>, we add a new secrets section:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>secrets</span>:<span>
+</span></span></span><span><span><span>  </span><span>vehicle-quotes-db-password</span>:<span>
+</span></span></span><span><span><span>    </span><span>file</span>:<span> </span>./secrets/vehicle-quotes-db-password.txt<span>
+</span></span></span><span><span><span>  </span><span>vehicle-quotes-db-connection-string</span>:<span>
+</span></span></span><span><span><span>    </span><span>file</span>:<span> </span>./secrets/vehicle-quotes-db-connection-string.txt<span>
+</span></span></span></code></pre></div><p>Then we include the secrets in the services that need them:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>secrets</span>:<span>
+</span></span></span><span><span><span>      </span>- vehicle-quotes-db-connection-string<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>web-api</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>secrets</span>:<span>
+</span></span></span><span><span><span>      </span>- vehicle-quotes-db-connection-string<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>db</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>secrets</span>:<span>
+</span></span></span><span><span><span>      </span>- vehicle-quotes-db-password<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>maintenance</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>secrets</span>:<span>
+</span></span></span><span><span><span>      </span>- vehicle-quotes-db-connection-string<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>With this, Docker Compose will add files in the resulting containers under the <code>/run/secrets/</code> directory with the contents of their referenced secrets. So, for example, in the case of the <code>admin-portal</code> container, a <code>/run/secrets/vehicle-quotes-db-connection-string</code> file will be created in the container’s internal file system, with the same contents as the <code>./secrets/vehicle-quotes-db-connection-string.txt</code> file. Similar thing for the others.</p>
+<p>Now that the secrets are materialized as files within the containers, let’s see how we put them to use.</p>
+<p>For the <code>admin-portal</code> container, we injected the <code>vehicle-quotes-db-connection-string</code> secret into it. This file contains the database connection string. And we need to pass that to the running app via an environment variable. In order to do so, we can change the entrypoint command to this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>  </span><span>#...</span><span>
+</span></span></span><span><span><span>  </span><span>entrypoint</span>:<span> </span>[<span>
+</span></span></span><span><span><span>    </span><span>"sh"</span>,<span> </span><span>"-c"</span>,<span>
+</span></span></span><span><span><span>    </span><span>"export ConnectionStrings__VehicleQuotesContext=$(cat /run/secrets/vehicle-quotes-db-connection-string) &amp;&amp;
+</span></span></span><span><span><span>    dotnet VehicleQuotes.AdminPortal.dll"</span><span>
+</span></span></span><span><span><span>  </span>]<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>We’ve modified the command to set the <code>ConnectionStrings__VehicleQuotesContext</code> to the contents of the <code>/run/secrets/vehicle-quotes-db-connection-string</code> file. The <code>export</code> command defines the environment variable for this particular command; and the <code>$(cat ...)</code> part returns the contents of the file.</p>
+<p>We should also remove the <code>ConnectionStrings__VehicleQuotesContext</code> variable from the <code>admin-portal</code> service’s <code>environment</code> section.</p>
+<p>For the <code>web-api</code> service, we do the same thing. The only difference is that its <code>entrypoint</code> command calls for <code>VehicleQuotes.WebApi.dll</code> instead of <code>VehicleQuotes.AdminPortal.dll</code>.</p>
+<p>For the <code>db</code> service, the setup is a little different. A little simpler in fact. The official PostgreSQL image has a shortcut for specifying the database user password via Docker Compose secrets. All we need to do is define this new <code>POSTGRES_PASSWORD_FILE</code> environment variable and remove the <code>POSTGRES_PASSWORD</code> one:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>db</span>:<span>
+</span></span></span><span><span><span>  </span><span>#...</span><span>
+</span></span></span><span><span><span>  </span><span>environment</span>:<span>
+</span></span></span><span><span><span>    </span>- POSTGRES_PASSWORD_FILE=/run/secrets/vehicle-quotes-db-password<span>
+</span></span></span><span><span><span>    </span><span># - POSTGRES_PASSWORD=password     &lt;-- remove this one</span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>Try <code>docker compose up -d</code> again and test the apps. Everything should still work well.</p>
+<p>In the maintenance container, we also have to remove the <code>ConnectionStrings__VehicleQuotesContext</code> environment variable. That unfortunately means that the connection string will no longer be automatically available for us to run database related tasks. Just like other containers, it will be in a <code>/run/secrets/vehicle-quotes-db-connection-string</code> file. So, whenever we want to interact with the database, like when running migrations, we need to manually <code>export</code> the variable. Something like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>$ docker compose exec maintenance bash
+</span></span><span><span>root@2732a06871c0:/source# export ConnectionStrings__VehicleQuotesContext=$(cat /run/secrets/vehicle-quotes-db-connection-string)
+</span></span><span><span>root@2732a06871c0:/source# dotnet ef migrations list -s ./VehicleQuotes.AdminPortal -p ./VehicleQuotes.Core
+</span></span><span><span>Build started...
+</span></span><span><span>Build succeeded.
+</span></span><span><span>
+</span></span><span><span>...
+</span></span></code></pre></div><h3 id="parameterizing-composeyaml-to-support-multiple-deployment-environments">Parameterizing <code>compose.yaml</code> to support multiple deployment environments</h3>
+<p>A common requirement when deploying applications is to be able to do so in multiple environments. There’s generally a “live” or “production” environment where the system runs and end users access it. There can also be others: staging, test, development, etc. Ideally, we’d use the same set of Docker and Compose files, with slight changes, in order to deploy variants of the system depending on the environment.</p>
+<p>Some settings like ports, passwords, or SMTP credentials are the types of things that usually vary per environment. Luckily for us, Docker Compose <a href="https://docs.docker.com/compose/environment-variables/variable-interpolation/" rel="noreferrer" target="_blank">supports <code>.env</code> files</a> that can be used to parameterize certain aspects of the <code>compose.yaml</code> file.</p>
+<p>We can extract the values that vary from our <code>compose.yaml</code> file, and put them in a separate <code>.env</code> file that looks like this:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-ini" data-lang="ini"><span><span><span>ADMIN_PORTAL_PORT</span>=<span>8001</span>
+</span></span><span><span><span>WEB_API_PORT</span>=<span>8002</span>
+</span></span><span><span><span>DB_PORT</span>=<span>5432</span>
+</span></span><span><span><span>POSTGRES_DB</span>=<span>vehicle_quotes</span>
+</span></span><span><span><span>POSTGRES_USER</span>=<span>vehicle_quotes</span>
+</span></span><span><span><span>MailSettings__Server</span>=<span>SMTP_SERVER_URL</span>
+</span></span><span><span><span>MailSettings__Port</span>=<span>2525</span>
+</span></span><span><span><span>MailSettings__SenderName</span>=<span>Vehicle Quotes</span>
+</span></span><span><span><span>MailSettings__SenderEmail</span>=<span>info@vehiclequotes.com</span>
+</span></span><span><span><span>MailSettings__UserName</span>=<span>SMTP_SERVER_USER_NAME</span>
+</span></span><span><span><span>MailSettings__Password</span>=<span>SMTP_SERVER_PASSWORD</span>
+</span></span></code></pre></div><p>Here we have the ports that we want to expose the various services on, the database name and user name, and some email delivery settings. This file wont be pushed to version control, and each deployment will have its own version of it.</p>
+<p>The <code>compose.yaml</code> file can reference the values defined in the <code>.env</code> file using the following syntax: <code>${VAR_NAME}</code>. Here’s how we change our <code>compose.yaml</code> to take advantage of the settings defined in the <code>.env</code> file:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>ports</span>:<span>
+</span></span></span><span><span><span>      </span>- ${ADMIN_PORTAL_PORT}:8080<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>web-api</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>ports</span>:<span>
+</span></span></span><span><span><span>      </span>- ${WEB_API_PORT}:8080<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span><span>#...</span><span>
+</span></span></span><span><span><span>      </span>- MailSettings__Server=${MAIL_SETTINGS_SERVER}<span>
+</span></span></span><span><span><span>      </span>- MailSettings__Port=${MAIL_SETTINGS_PORT}<span>
+</span></span></span><span><span><span>      </span>- MailSettings__SenderName=${MAIL_SETTINGS_SENDER_NAME}<span>
+</span></span></span><span><span><span>      </span>- MailSettings__SenderEmail=${MAIL_SETTINGS_SENDER_EMAIL}<span>
+</span></span></span><span><span><span>      </span>- MailSettings__UserName=${MAIL_SETTINGS_USER_NAME}<span>
+</span></span></span><span><span><span>      </span>- MailSettings__Password=${MAIL_SETTINGS_PASSWORD}<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>db</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>ports</span>:<span>
+</span></span></span><span><span><span>      </span>- ${DB_PORT}:5432<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>environment</span>:<span>
+</span></span></span><span><span><span>      </span>- POSTGRES_DB=${POSTGRES_DB}<span>
+</span></span></span><span><span><span>      </span>- POSTGRES_USER=${POSTGRES_USER}<span>
+</span></span></span><span><span><span>      </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>Once again, we can run <code>docker compose up -d</code> and everything should be fine.</p>
+<h3 id="waiting-for-the-database-to-be-ready">Waiting for the database to be ready</h3>
+<p>Sometimes some services need to wait for others to come online before they can start up. A common scenario is to wait for the database to be ready before running apps that depend on it. We can do that in Docker Compose thanks to the <a href="https://docs.docker.com/compose/startup-order/" rel="noreferrer" target="_blank"><code>depends_on</code> and <code>healthcheck</code> settings</a>. We can update our <code>compose.yaml</code> so that the admin portal and web API services only start after the database is up and running and ready to receive requests. Here’s how:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-yaml" data-lang="yaml"><span><span><span># ./compose.yaml</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>services</span>:<span>
+</span></span></span><span><span><span>  </span><span>admin-portal</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span># This specifies that the admin-portal service depends on the db to be</span><span>
+</span></span></span><span><span><span>    </span><span># healthy in order to start up. The db service's healthcheck setting is how</span><span>
+</span></span></span><span><span><span>    </span><span># it determines whether it is healthy or not.</span><span>
+</span></span></span><span><span><span>    </span><span>depends_on</span>:<span>
+</span></span></span><span><span><span>      </span><span>db</span>:<span>
+</span></span></span><span><span><span>        </span><span>condition</span>:<span> </span>service_healthy<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>web-api</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span># Exact same setting as the one in admin-portal.</span><span>
+</span></span></span><span><span><span>    </span><span>depends_on</span>:<span>
+</span></span></span><span><span><span>      </span><span>db</span>:<span>
+</span></span></span><span><span><span>        </span><span>condition</span>:<span> </span>service_healthy<span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span>  </span><span>db</span>:<span>
+</span></span></span><span><span><span>    </span><span>#...</span><span>
+</span></span></span><span><span><span>    </span><span># Here we configure this service to offer a healthcheck that other services</span><span>
+</span></span></span><span><span><span>    </span><span># can use to determine if it's ready to be depended upon. In this case, we</span><span>
+</span></span></span><span><span><span>    </span><span># leverage PostgreSQL's pg_isready tool. It is called by the specified</span><span>
+</span></span></span><span><span><span>    </span><span># timeout, at the specified interval, and with as many retries as specified</span><span>
+</span></span></span><span><span><span>    </span><span># in the settings below.</span><span>
+</span></span></span><span><span><span>    </span><span>healthcheck</span>:<span>
+</span></span></span><span><span><span>      </span><span>test</span>:<span> </span><span>"pg_isready -U ${POSTGRES_USER}"</span><span>
+</span></span></span><span><span><span>      </span><span>interval</span>:<span> </span>10s<span>
+</span></span></span><span><span><span>      </span><span>timeout</span>:<span> </span>5s<span>
+</span></span></span><span><span><span>      </span><span>retries</span>:<span> </span><span>5</span><span>
+</span></span></span><span><span><span>
+</span></span></span><span><span><span></span><span>#...</span><span>
+</span></span></span></code></pre></div><p>The most interesting part is the <code>healthcheck</code> setting in the <code>db</code> service which leverages a <a href="https://www.postgresql.org/docs/current/app-pg-isready.html" rel="noreferrer" target="_blank">PostgreSQL-specific tool</a> to check whether the database is ready. Other software will have other methods to do checks like this, but PostgreSQL’s is thankfully pretty straightforward.</p>
+<h3 id="serving-the-apps-with-nginx">Serving the apps with NGINX</h3>
+<p>Another common pattern for serving web applications is to use <a href="https://nginx.org/en/" rel="noreferrer" target="_blank">NGINX</a> as a <a href="https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/" rel="noreferrer" target="_blank">reverse proxy</a> that funnels HTTP traffic coming from the internet into the application. As you may have noticed, we haven’t talked about HTTPS so far. This aspect is something that can be elegantly handled by NGINX as well. In this last section we see how we can set up NGINX to expose our apps to the world.</p>
+<p>First, we need to create some custom items in the default NGINX configuration file. Its default location will depend on the OS version and flavor you installed NGINX on, but for <a href="https://rockylinux.org/" rel="noreferrer" target="_blank">Rocky Linux</a> 9, it usually lives in <code>/etc/nginx/nginx.conf</code>. First, we need to declare our upstream servers that will point to the ports where the web API and admin portals are listening:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-nginx" data-lang="nginx"><span><span><span>upstream</span> <span>admin_portal</span> {
+</span></span><span><span>    <span>server</span> localhost:<span>8001</span>;
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>upstream</span> <span>web_api</span> {
+</span></span><span><span>    <span>server</span> localhost:<span>8002</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><p>Then, we will add a server that listens in the standard port 80 and proxies the <code>/admin</code> and <code>/﻿api</code> URLs to the <code>admin_portal</code> and <code>web_api</code> upstream servers respectively:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-nginx" data-lang="nginx"><span><span><span>server</span> {
+</span></span><span><span>    <span>listen</span> <span>80</span>;
+</span></span><span><span>    <span>server_name</span> <span>vehiclequotes.com</span>;
+</span></span><span><span>
+</span></span><span><span>    <span>location</span> <span>/admin</span> {
+</span></span><span><span>        <span>proxy_pass</span> <span>http://admin_portal</span>;
+</span></span><span><span>        <span>proxy_http_version</span> <span>1</span><span>.1</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Connection</span> <span>keep-alive</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Host</span> <span>$host</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-For</span> <span>$proxy_add_x_forwarded_for</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-Proto</span> <span>$scheme</span>;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>location</span> <span>/api</span> {
+</span></span><span><span>        <span>proxy_pass</span> <span>http://web_api</span>;
+</span></span><span><span>        <span>proxy_http_version</span> <span>1</span><span>.1</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Connection</span> <span>keep-alive</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Host</span> <span>$host</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-For</span> <span>$proxy_add_x_forwarded_for</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-Proto</span> <span>$scheme</span>;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Those are the basic settings needed to serve our applications in a single domain through different locations. This allows having a live frontend application that will eventually consume our API endpoints that lives in the same server and domain, avoiding possible Cross-Origin Resource Sharing (CORS) issues when establishing the workflow between the different web applications.</p>
+<p>If we also have an SSL certificate that we want to use to securely serve our apps, we can use a free service such as <a href="https://letsencrypt.org/" rel="noreferrer" target="_blank">Let’s Encrypt</a> to create it. Once we’re in possession of the certificate files and placed them on the server, we need to perform a few extra tweaks to our <code>nginx.conf</code> file.</p>
+<ul>
+<li>First, let’s make our server listen on port 443 (HTTPS), and point to our <code>.cer</code> and <code>.key</code> files in the updated entry:</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-nginx" data-lang="nginx"><span><span><span>server</span> {
+</span></span><span><span>    <span>listen</span> <span>443</span> <span>ssl</span>;
+</span></span><span><span>    <span>server_name</span> <span>vehiclequotes.com</span>;
+</span></span><span><span>    <span>ssl_certificate</span> <span>/etc/certs/live/vehiclequotes.com/fullchain.cer</span>;
+</span></span><span><span>    <span>ssl_certificate_key</span> <span>/etc/certs/live/vehiclequotes.com/vehiclequotes.com.key</span>;
+</span></span><span><span>
+</span></span><span><span>    <span>location</span> <span>/admin</span> {
+</span></span><span><span>        <span>proxy_pass</span> <span>http://admin_portal</span>;
+</span></span><span><span>        <span>proxy_http_version</span> <span>1</span><span>.1</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Connection</span> <span>keep-alive</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Host</span> <span>$host</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-For</span> <span>$proxy_add_x_forwarded_for</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-Proto</span> <span>$scheme</span>;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>location</span> <span>/api</span> {
+</span></span><span><span>        <span>proxy_pass</span> <span>http://web_api</span>;
+</span></span><span><span>        <span>proxy_http_version</span> <span>1</span><span>.1</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Connection</span> <span>keep-alive</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>Host</span> <span>$host</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-For</span> <span>$proxy_add_x_forwarded_for</span>;
+</span></span><span><span>        <span>proxy_set_header</span> <span>X-Forwarded-Proto</span> <span>$scheme</span>;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><ul>
+<li>Second, let’s add a new server for port 80 (non-HTTPS) that will redirect permanently to our new secure location:</li>
+</ul>
+<div class="highlight"><pre tabindex="0"><code class="language-nginx" data-lang="nginx"><span><span><span>server</span> {
+</span></span><span><span>    <span>listen</span> <span>80</span>;
+</span></span><span><span>    <span>server_name</span> <span>vehiclequotes.com</span>;
+</span></span><span><span>    <span>return</span> <span>301</span> <span>https://</span><span>$server_name$request_uri</span>;
+</span></span><span><span>}
+</span></span></code></pre></div><ul>
+<li>Finally, let’s restart the NGINX service to apply our changes. The command that restarts the service will vary depending on the OS we’re running on the server. For Rocky Linux 9, we can do that by running the command <code>sudo systemctl restart nginx</code>.</li>
+</ul>
+<p>You can find the resulting <a href="https://github.com/megakevin/end-point-blog-dotnet-docker-deploy/blob/main/nginx.conf" rel="noreferrer" target="_blank"><code>nginx.conf</code></a> file in the <a href="https://github.com/megakevin/end-point-blog-dotnet-docker-deploy/" rel="noreferrer" target="_blank">project’s repo</a> in GitHub.</p>
+<h3 id="thats-all-for-now">That’s all for now</h3>
+<p>And that’s it! In this article, we’ve seen how we can approach deploying a .NET system into production using Docker Compose.</p>
+<p>We saw how to organize the code and configuration files using Git submodules. We addressed a few important edge cases and gotchas like properly configuring Data Protection keys, having a container for performing maintenance tasks, ensuring certain files persist across restarts, and bringing up services in a certain order via <code>depends_on</code> settings.</p>
+<p>We even saw how to allow our web applications to be accessible to the outside world with NGINX through a set of reverse proxying rules, and as a bonus, to be securely served with SSL.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-07-13T00:00:00.000Z>13 July 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

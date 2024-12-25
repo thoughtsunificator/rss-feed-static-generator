@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>OpenXLA Dev Lab 2024: Building Groundbreaking ML Systems Together</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/05/openxla-dev-lab-2024-building-grouundbreaking-systems-together.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGmbzzBLi3x9Gwvziw7yWAZBgQMTJjEqi8Ko0myAAl_cV9YAEBpdcXMLsY6siHXLPhruVTQR0NTaPDgVXzRttYD80XCBvfaz4PrXY3CFgLxyQrKtwA6gWyInNdQF8M9vJM-7acTeAT99euRJpZ-LW9XNKMBvfa7ZN9jEqkRu0TCylOPx0J7bg0KvML2Lk/s1600/Social%20-%20OSS%20-%20OpenXLA%20is%20Ready%20to%20Accelerate%20and%20Simplify%20ML%20Development.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuKGMGdULgfp7gqE-KbEd5wyNirqv6lcijxuXBbhVxckYHzL6_mecRhdZRBp0YR4ynPEvBb1rFaHEtYIJ5TuMlh76hyphenhypheneQqtxBoYVCSasFLY4RfNqGfbsHE96Ek3413Ix5spmncWhJ1lRHp13XL-csyn29d8xbYNfSWD6cM4BLnaZ9c7S1E6govfjIMNQ8/s1600/Header%20-%20OSS%20-%20OpenXLA%20is%20Ready%20to%20Accelerate%20and%20Simplify%20ML%20Development.png" rel="noreferrer" target="_blank"></a><br>
+
+<h2>AMD, Arm, AWS, Google, NVIDIA, Intel, Tesla, SambaNova, and more come together to crack the code for colossal AI workloads</h2>
+
+ <p>As AI models grow increasingly complex and compute-intensive, the need for efficient, scalable, and hardware-agnostic infrastructure has never been greater. <a href="https://github.com/openxla" target="_blank" rel="noreferrer">OpenXLA</a> is a deep learning compiler framework that makes it easy to speed up and massively scale AI models on a wide range of hardware types—from GPUs and CPUs to specialized chips like Google TPUs and AWS Trainium. It is compatible with popular modeling frameworks—JAX, PyTorch, and TensorFlow—and delivers leading performance. OpenXLA is the acceleration infrastructure of choice for global-scale AI-powered products like Amazon.com Search, Google Gemini, Waymo self-driving vehicles, and x.AI's Grok.</p><br>
+
+<h3><b>The OpenXLA Dev Lab</b></h3>
+
+<p>On April 25th, the OpenXLA Dev Lab played host to over 100 expert ML practitioners from 10 countries, representing industry leaders like AMD, Arm, AWS, ByteDance, Cerebras, Cruise, Google, NVIDIA, Intel, Tesla, SambaNova, and more. The full-day event, tailored to AI hardware vendors and infrastructure engineers, broke the mold of <a href="https://www.youtube.com/playlist?list=PLlFotmaRrOzs23kqlSF-r8v1dJHz5GxZs" target="_blank" rel="noreferrer">previous OpenXLA Summits</a> by focusing purely on “Lab Sessions”, akin to office hours for developers, and hands-on Tutorials. The energy of the event was palpable as developers worked side-by-side, learning and collaborating on both practical challenges and exciting possibilities for AI infrastructure.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Figure 1: Developers from around the world congregated at the OpenXLA Dev Lab.</i></td></tr></tbody></table></div><br>
+
+
+<p>The Dev Lab was all about three key things:</p>
+<ul>
+<li><b>Educate and Empower:</b> Teach developers how to implement OpenXLA's essential workflows and advanced features through hands-on tutorials.</li>
+<li><b>Offer Expert Guidance:</b> Provide personalized office hours led by OpenXLA experts to help developers refine their ideas and contributions.</li>
+<li><b>Foster Community:</b> Encourage collaboration, knowledge-sharing, and lasting connections among the brilliant minds in the OpenXLA community.</li>
+</ul><br>
+
+<h3><b>Tutorials</b></h3>
+
+<p>The <b><a href="https://www.youtube.com/channel/UCXDDXMlj8TXD7-BuaSoQYoA" target="_blank" rel="noreferrer">Tutorials</a></b> included:</p>
+
+<h4><b>Integrating an AI Compiler &amp; Runtime into PJRT</b></h4>
+<ul>
+<li>Learn how PJRT connects ML frameworks to AI accelerators, standardizing their interaction for easy model deployment on diverse hardware.</li>
+<li>Explore the PJRT C API for framework-hardware communication. </li>
+<li>Implement a PJRT Plugin, a Python package that implements the C API. </li>
+<li>Discover plugin examples for Apple Metal, CUDA, Intel GPU, and TPU.</li>
+</ul>
+<p>Led by <a href="https://github.com/jyingl3" target="_blank" rel="noreferrer">Jieying Luo</a> and <a href="https://github.com/skye" target="_blank" rel="noreferrer">Skye Wanderman-Milne</a></p><br>
+
+<h4><b>Extracting StableHLO Graphs + Intro to StableHLO Quantizer</b></h4>
+<ul>
+<li>Learn to export StableHLO from JAX, PyTorch, and TensorFlow using static/dynamic shapes and SavedModel format.</li> 
+<li>Hack along with the tutorial using the JAX, PyTorch, and TensorFlow Colab notebooks provided on <a href="http://OpenXLA.org" target="_blank" rel="noreferrer">OpenXLA.org</a>.</li>
+<li>Simplify quantization with StableHLO Quantizer; a framework and device-agnostic tool.</li>
+<li>Explore streamlined parameter selection and model rewriting for lower precision. </li>
+</ul>
+<p>Led by <a href="https://github.com/GleasonK" target="_blank" rel="noreferrer">Kevin Gleason</a>, <a href="https://github.com/chococigar" target="_blank" rel="noreferrer">Jen Ha</a>, and <a href="https://github.com/xingliu14" target="_blank" rel="noreferrer">Xing Liu</a></p><br>
+
+<h4><b>Optimizing PyTorch/XLA Auto-sharding for Your Hardware</b></h4>
+<ul>
+<li>Discover this experimental feature that automates distributing large-scale PyTorch models across XLA devices.</li> 
+<li>Learn how it partitions and distributes for out-of-the-box performance without manual intervention</li>
+<li>Explore future directions such as customizable cost models for different hardware</li>
+</ul>
+<p>Led by <a href="https://github.com/yeounoh" target="_blank" rel="noreferrer">Yeounoh Chung</a> and <a href="https://github.com/pratikfegade" target="_blank" rel="noreferrer">Pratik Fegade</a></p><br>
+
+
+<h4><b>Optimizing Compute and Communication Scheduling with XLA</b></h4>
+<ul>
+<li>Scale ML models on multi-GPUs with SPMD partitioning, collective communication, HLO optimizations.</li>  
+<li>Explore tensor parallelism, latency hiding scheduler, pipeline parallelism.</li>  
+<li>Learn collective optimizations, pipeline parallelism for efficient large-scale training.</li>  
+</ul>
+<p>Led by <a href="https://github.com/frgossen" target="_blank" rel="noreferrer">Frederik Gossen</a>, <a href="https://github.com/Tixxx" target="_blank" rel="noreferrer">TJ Xu</a>, and <a href="https://github.com/abhinavgoel95" target="_blank" rel="noreferrer">Abhinav Goel</a></p><br>
+
+<h3><b>Lab Sessions</b></h3>
+
+<p><b>Lab Sessions</b> featured use case-specific office hours for AMD, Arm, AWS, ByteDance, Intel, NVIDIA, SambaNova, Tesla, and more. OpenXLA engineers were on hand to provide development teams with dedicated support and walkthrough specific pain points and designs. In addition, Informational Roundtables that covered broader topics like GPU ML Performance Optimization, JAX, and PyTorch-XLA GPU were available for those without specific use cases. This approach led to productive exchanges and fine-grained exploration of critical contribution areas for ML hardware vendors.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div><br>
+
+<p>Don’t just take our word for it – here’s some of the feedback we received from developers:</p>
+
+<div><blockquote>"OpenXLA is awesome, and it's great to see the community interest around it. We're excited about the potential of PJRT and StableHLO to improve the portability of ML workloads onto novel hardware such as ours. We appreciate the support that we have been getting."&nbsp;</blockquote>
+<ul><ul>— Mark Gottscho, Senior Manager and Technical Lead at SambaNova </ul></ul>
+
+<blockquote>"Today I learned a lot about Shardy and about some of the bugs I found in the GSPMD partitioner, and I got to learn a lot of cool stuff."&nbsp;</blockquote>
+<ul><ul>— Patrick Toulme, Machine Learning Engineer at AWS</ul></ul>
+
+<blockquote>“I learned a lot, a lot about how XLA is making tremendous progress in building their community.”&nbsp;</blockquote> 
+<ul><ul>— Tejash Shah, Product Manager at NVIDIA</ul></ul>
+
+<blockquote>“Loved the format this year - please continue … lots of learning, lots of interactive sessions. It was great!”&nbsp;</blockquote> 
+<ul><ul>— Om Thakkar, AI Software Engineer at Intel</ul></ul></div><br>
+ 
+<h2><b>Technical Innovations and The Bold Road Ahead</b></h2>
+  
+<p>The event kicked off with a <a href="https://www.youtube.com/channel/UCXDDXMlj8TXD7-BuaSoQYoA" target="_blank" rel="noreferrer">keynote</a> by <a href="https://research.google/people/robert-hundt/" target="_blank" rel="noreferrer">Robert Hundt</a>, Distinguished Engineer at Google, who outlined OpenXLA's ambitious plans for 2024, particularly three major areas of focus:</p>
+<ul>
+<li>Large-scale training</li>  
+<li>GPU and PyTorch compute performance</li>  
+<li>Modularity and extensibility</li>  
+</ul><br>
+  
+<h3><b>Empowering Large-Scale Training</b></h3>
+
+<p>OpenXLA is introducing powerful features to enable model training at record-breaking scales. One of the most notable additions is <a href="https://github.com/openxla/community/pull/110" target="_blank" rel="noreferrer">Shardy</a>, a tool coming soon to OpenXLA that automates and optimizes how large AI workloads are divided across multiple processing units, ensuring efficient use of resources and faster time to solution. Building on the success of its predecessor, SPMD, Shardy empowers developers with even more fine-grained control over partitioning decisions, all while maintaining the productivity benefits that SPMD is known for.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Figure 2: Sharding representation example with a simple rank 2 tensor and 4 devices.</i></td></tr></tbody></table></div><br>
+
+<p>In addition to Shardy, developers can expect a suite of features designed to optimize computation and communication overlap, including:</p>
+<ul>
+<li>Automatic profile-guided latency estimation</li>  
+<li>Collective pipelining</li>  
+<li>Heuristics-based collective combiners</li>  
+</ul>
+  
+<p>These innovations will enable developers to push the boundaries of large-scale training and achieve unprecedented performance and efficiency.</p><br>
+
+<h3><b>OpenXLA Delivers on TorchBench Performance</b></h3>
+
+<p>OpenXLA has also made significant strides in enhancing performance, particularly on GPUs with key PyTorch-based generative AI models. PyTorch-XLA GPU is now neck and neck with TorchInductor for TorchBench Full Graph Models and has a TorchBench pass rate within 5% of TorchInductor.</p>
+  
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Figure 3: Performance comparison of TorchInductor vs. PyTorch-XLA GPU on Google Cloud NVIDIA H100 GPUs. “Full graph models”  represent all TorchBench models that can be fully represented by StableHLO</i></td></tr></tbody></table></div><br>
+  
+<p>Behind these impressive gains lies XLA GPU's <a href="https://github.com/openxla/xla/discussions/10065" target="_blank" rel="noreferrer">global cost model</a>, a game-changer for developers. In essence, this cost model acts as a sophisticated decision-making system, intelligently determining how to best optimize computations for specific hardware. The cost model delivers state-of-the-art performance through a <a href="https://github.com/openxla/xla/discussions/6407" target="_blank" rel="noreferrer">priority-based queue</a> for fusion decisions and is highly extensible, allowing third-party developers to seamlessly integrate their backend infrastructure for both general-purpose and specialized accelerators. The cost model's adaptability ensures that computation optimizations are tailored to specific accelerator architectures, while less suitable computations can be offloaded to the host or other accelerators.</p>
+
+<p>OpenXLA is also breaking new ground with novel kernel programming languages, <a href="https://jax.readthedocs.io/en/latest/pallas/index.html" target="_blank" rel="noreferrer">Pallas</a> and <a href="https://github.com/google/jax/tree/main/jaxlib/mosaic" target="_blank" rel="noreferrer">Mosaic</a>, which empower developers to write highly optimized code for specialized hardware. Mosaic demonstrates remarkable efficiency in programming key AI accelerators, surpassing widely used libraries in GPU code generation efficiency for models with 64, 128, and 256 Q head sizes, as evidenced by its enhanced utilization of TensorCores.</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Figure 4: Performance comparison of Flash Attention vs. Mosaic GPU on NVIDIA H100 GPUs.</i></td></tr></tbody></table></div><br>
+
+<h3><b>Modular and Extensible AI Development</b></h3>
+
+<p>In addition to performance enhancements, OpenXLA is committed to making the entire stack more modular and extensible. Several initiatives planned for 2024 include:</p>
+<ul>
+<li>Strengthening module interface contracts</li>  
+<li>Enhancing code sharing between platforms</li>  
+<li>Enabling a shared high-level compiler flow through runtime configuration and component registries</li>  
+</ul><br>
+  
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Figure 5: Modules and subcomponents of the OpenXLA stack.</i></td></tr></tbody></table></div><br>
+  
+<p>These improvements will make it easier for developers to build upon and extend OpenXLA.</p>
+  
+<p>Alibaba's success with PyTorch XLA FSDP within their <a href="https://github.com/alibaba/EasyCV/blob/master/docs/source/tutorials/torchacc.md" target="_blank" rel="noreferrer">TorchAcc framework</a> is a prime example of the benefits of OpenXLA's modularity and extensibility. By leveraging these features, Alibaba achieved state-of-the-art performance for the LLaMa 2 13B model, surpassing the previous benchmark set by Megatron. This demonstrates the power of the developer community in extending OpenXLA to push the boundaries of AI development.</p>
+  
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr><tr><td class="tr-caption"><i>Figure 6: Performance comparison of TorchAcc and Megatron for  LLaMa 2 13B at different numbers of GPUs.</i></td></tr></tbody></table></div><br>
+  
+<h2><b>Join the OpenXLA Community</b></h2>
+
+<p>If you missed the Dev Lab, don't worry! You can still access <a href="https://openxla.org/stablehlo/tutorials/jax-export" target="_blank" rel="noreferrer">StableHLO walkthroughs</a> on <a href="http://openxla.org" target="_blank" rel="noreferrer">openxla.org</a>, as well as the <a href="https://gist.github.com/jyingl3/66d8bc3893a9b50a04bf208175e2d617" target="_blank" rel="noreferrer">GitHub Gist</a> for the PJRT session. Additionally, the recorded keynote and tutorials are available on our <a href="https://www.youtube.com/channel/UCXDDXMlj8TXD7-BuaSoQYoA" target="_blank" rel="noreferrer">YouTube channel</a>. Explore these resources and join our global community – whether you're an AI systems expert, model developer, student, or just starting out, there's a place for you in our innovative ecosystem.</p>
+  
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center></center></td></tr></tbody></table></div><br>
+
+<h3><b>Acknowledgements</b></h3>
+
+<p><i>Adam Paszke, Allen Hutchison, Amin Vahdat, Andrew Leaver, Andy Davis, Artem Belevich, Abhinav Goel, Bart Chrzaszcz, Benjamin Kramer, Berkin Ilbeyi, Bill Jia, Cyril Bortolato, David Dunleavy, Eugene Zhulenev, Florian Reichl, Frederik Gossen, George Karpenkov, Gunhyun Park, Han Qi, Jack Cao, Jacques Pienaar, Jaesung Chung, Jen Ha, Jianting Cao, Jieying Luo, Jiewen Tan, Jini Khetan, Kevin Gleason, Kyle Lucke, Kuy Mainwaring, Lauren Clemens, Manfei Bai, Marisa Miranda, Michael Levesque-Dion, Milad Mohammadi, Nisha Miriam Johnson, Penporn Koanantakool, Puneith Kaul, Robert Hundt, Sandeep Dasgupta, Sayce Falk, Shauheen Zahirazami, Skye Wanderman-Milne, Yeounoh Chung, Pratik Fegade, Peter Hawkins, Vaibhav Singh, Tamás Danyluk, Thomas Joerg, TJ Xu, and Tom Natan</i></p>
+
+<p><i>By James Rubin – Co-founder, Aditi Joshi – Program Manager, and Elliot English – Technical Lead, on behalf of the OpenXLA Project</i></p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-05-09T09:30:00.000Z>9 May 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

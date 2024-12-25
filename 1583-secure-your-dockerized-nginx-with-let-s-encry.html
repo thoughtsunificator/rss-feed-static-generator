@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Secure Your Dockerized Nginx with Let's Encrypt SSL Certificates</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2024/06/docker-nginx-acme/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<p>Photo by <a href="https://www.pexels.com/@animesh-srivastava-3019173/" rel="noreferrer" target="_blank">Animesh Srivastava</a> from <a href="https://www.pexels.com/photo/close-up-of-an-old-and-rusty-padlock-8497499/" rel="noreferrer" target="_blank">Pexels</a>.</p>
+<p>In this tutorial I will demonstrate how to secure Nginx on Docker using HTTPS, leveraging free certificates from Let’s Encrypt. Let’s Encrypt certificates provide trusted and secure encryption at no cost, although they require renewal every 90 days. Fortunately, this renewal process can be automated with various tools. We will use <a href="https://github.com/acmesh-official/acme.sh" rel="noreferrer" target="_blank">acme.sh</a>, a versatile Bash script compatible with major platforms. The tutorial will guide you through obtaining Let’s Encrypt certificates on the host system and mounting them as a volume in the Nginx container. Please ensure the following prerequisites are met before proceeding:</p>
+<ul>
+<li>Working Docker Engine</li>
+<li>Working domain name</li>
+<li>A host with ports 80 and 443 that is accessible from the internet</li>
+</ul>
+<h3 id="1-domain-validation">1. Domain validation</h3>
+<p>First, we need an Nginx instance on Docker that will expose port 80 and have a directory on the host mounted for its web root. This is required by acme.sh for its file-based domain validation. I’ve prepared a Docker Compose file (<code>docker-compose.yml</code>) and an Nginx configuration file (<code>nginx.conf</code>) for this purpose. Git clone the following repository and change into the directory</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>git clone https://github.com/aburayyanjeffry/nginx-docker-acme.git
+</span></span><span><span>cd nginx-docker-acme
+</span></span></code></pre></div><p>In <code>nginx.conf</code>, please note that the lines exposing port 443 and adding SSL certificates are commented because we don’t have the certificate yet. Listening on port 444 and trying to enable SSL without a valid certificate will cause errors and prevent Nginx from starting up. Port 443 is also commented out in <code>docker-compose.yml</code> because Nginx is not exposing port 443 yet, as is the line copying the <code>ssh</code> folder. Let’s start Nginx using Docker Compose:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>docker compose up -d
+</span></span></code></pre></div><h3 id="2-get-the-acmesh">2. Get the acme.sh</h3>
+<p>The following command will install acme.sh in the current user’s home directory. Make sure to use your email in the command.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>curl https://get.acme.sh | sh -s email=jeffry@email.com
+</span></span></code></pre></div><p>Log out and log in again to enable the acme.sh alias for the user. If acme.sh is not working, it’s probably because you missed this step. If the alias is not enabled, the acme.sh script is not defined.</p>
+<h3 id="3-set-the-ca">3. Set the CA</h3>
+<p>Set Let’s Encrypt as the default Certificate Authority.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>acme.sh --set-default-ca --server letsencrypt
+</span></span></code></pre></div><h3 id="4-issue-the-certificate">4. Issue the certificate</h3>
+<p>Now we’ll proceed with issuing the certificate, a step that involves domain validation. Upon successful validation, the certificate will be issued.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>acme.sh --issue -d jeffry.temphost.net -w /home/jeffry/nginx-docker-acme/nginx/html --keylength 4096
+</span></span></code></pre></div><p>Make sure to replace <code>jeffry.temphost.net</code> with your domain and <code>/home/jeffry/nginx-docker-acme/nginx/html</code> with your web root directory. Note that <code>/home/jeffry</code> is the directory where the code was downloaded, making it the working directory. Be sure to update it to reflect your own working directory.</p>
+<p>The <code>-d</code> flag specifies the domain, while <code>-w</code> designates the web root directory. This directory will be mounted as Nginx’s web root in Docker, where acme.sh will write the validation file.</p>
+<p>We need to know the container name in order to restart it. The container name is the string in the last column from the <code>docker ps</code> output. In this example the container name is <code>nginx-docker-acme-web-1</code>.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>[jeffry@docker ~]$ docker ps
+</span></span><span><span>CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                               NAMES
+</span></span><span><span>754c055d5b5e   nginx     "/docker-entrypoint...."   16 minutes ago   Up 16 minutes   0.0.0.0:80-&gt;80/tcp, :::80-&gt;80/tcp   nginx-docker-acme-web-1
+</span></span></code></pre></div><h3 id="5-install-the-certificate">5. Install the certificate</h3>
+<p>Uncomment the port 443 and SSL lines in <code>nginx.conf</code> and <code>docker-compose.yaml</code>. This will enable port 443 for Nginx and will make Docker expose it to the host after a restart it through Docker Compose later.</p>
+<p><code>docker-compose.yaml</code></p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>services:
+</span></span><span><span>  web:
+</span></span><span><span>    image: nginx
+</span></span><span><span>    ports:
+</span></span><span><span>      - "80:80"
+</span></span><span><span>      - "443:443"
+</span></span><span><span>    volumes:
+</span></span><span><span>      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+</span></span><span><span>      - ./nginx/html:/usr/share/nginx/html
+</span></span><span><span>      - ./nginx/ssl:/etc/nginx/ssl
+</span></span></code></pre></div><p><code>nginx/nginx.conf</code></p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>server {
+</span></span><span><span>    listen 80;
+</span></span><span><span>    listen 443 ssl;
+</span></span><span><span>
+</span></span><span><span>    server_name localhost;
+</span></span><span><span>
+</span></span><span><span>    ssl_certificate /etc/nginx/ssl/cert.pem;
+</span></span><span><span>    ssl_certificate_key /etc/nginx/ssl/key.pem;
+</span></span><span><span>
+</span></span><span><span>    location / {
+</span></span><span><span>        root /usr/share/nginx/html;
+</span></span><span><span>        index index.html;
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span></code></pre></div><p>Create the <code>ssl</code> directory for Nginx and install the certificates there. This directory will be mounted by Nginx in Docker. Use the container name obtained from the previous steps as the value for the <code>--reloadcmd</code> switch. This is crucial because it will be used to restart Nginx when certificates are updated.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>mkdir /home/jeffry/nginx-docker-acme/nginx/ssl
+</span></span><span><span>acme.sh --install-cert -d jeffry.temphost.net --key-file /home/jeffry/nginx-docker-acme/nginx/ssl/key.pem --fullchain-file /home/jeffry/nginx-docker-acme/nginx/ssl/cert.pem --reloadcmd "docker exec nginx-docker-acme-web-1 nginx -s reload"
+</span></span></code></pre></div><h3 id="6-restart-the-nginx-container">6. Restart the Nginx container</h3>
+<p>Refresh the Nginx container by stopping and starting it from Docker Compose. You should be able to access Nginx over HTTPS with the Let’s Encrypt certificates.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>docker compose down
+</span></span><span><span>docker compose up -d
+</span></span></code></pre></div><p></p>
+<h3 id="7-certificate-renewal-mechanism">7. Certificate Renewal Mechanism</h3>
+<p>The certificate will be automatically renewed by the cron job which was installed by acme.sh. You can verify the cron job by running <code>crontab -l</code> .</p>
+<div class="highlight"><pre tabindex="0"><code class="language-plain" data-lang="plain"><span><span>[jeffry@docker ~]$ crontab -l
+</span></span><span><span>13 7 * * * "/home/jeffry/.acme.sh"/acme.sh --cron --home "/home/jeffry/.acme.sh" &gt; /dev/null
+</span></span></code></pre></div><p>This ensures that the renewal process runs regularly and without manual intervention.</p>
+<p>Setting up Let’s Encrypt SSL certificates for Nginx in a Docker environment using acme.sh is an easy process that enhances the security of your web applications. By leveraging acme.sh, you automate the certificate issuance and renewal process, ensuring your sites remain secure without manual intervention. Following the steps outlined in this tutorial, you now have a robust setup where Nginx serves your applications over HTTPS, backed by trusted SSL certificates from Let’s Encrypt. Thank you for following this tutorial. Have a great day!</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-06-27T00:00:00.000Z>27 June 2024</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

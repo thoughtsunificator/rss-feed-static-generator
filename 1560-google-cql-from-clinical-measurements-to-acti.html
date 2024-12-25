@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Google CQL: From Clinical Measurements to Action</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2024/07/google-cql-from-clinical-measurements-to-action.html">Go to article URL</a>
+		<div id="content"><p></p><meta content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5nh_9c1tdlTnQn1OR4UyqfkrctEcXBBkm1lDBe5nSiZhahNDEc2K6hAXPoBvSRdraMVE9N8r2fMkUGpLB5g1aN8smsj5-CsUvgLyCg9rAfCclXRPl4wtlxlmmvjuaAjCFWJc5zx6Q5WDEqut4LV4LW3lGINnpcao7Lvj8l_lYOkIMSSYxl9QV1lTu1oA/s1600/Social%20-%20OSS%20-%20EZ%20WSI%20DICOMWeb%20library%20%281%29.png" name="twitter:image">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEialB48k_2CNhzPZdF5TL87spXsZVFBUz2eFXbh8nHdfx525R3lQjJjV_8LkVKkZQ4c8NfKEYthQWTeZm8rPPnGeCGW3ohkiCwxS7VNqvONHx6oAkXKpxVXakWuMrTW-zDyq_ixBLSgCOfEKghVi91ek4akYQGl4Wp6MPi9vUSPperCX2NhAWRFOVBpfFo/s1600/Header%20-%20OSS%20-%20EZ%20WSI%20DICOMWeb%20library.png" rel="noreferrer" target="_blank"></a>
+
+<div><br></div>
+<p>Today, many institutions are building custom solutions for understanding their medical data, as well as tools for acting on that data. A major pain point with the current approach is that these tools can be error prone, lack built in medical context and medical data structure representations. Enter Clinical Quality Language (CQL), a portable, computable, and <a href="https://cql.hl7.org/index.html" target="_blank" rel="noreferrer">open HL7 language specification</a> for expressing computable clinical logic over healthcare data. We believe that CQL has the power to radically improve the future of data driven workflows in healthcare. Over the past year at Google Health, our team has been hard at work building foundational tools for healthcare data analytics. Today we’re announcing the release of an experimental <a href="https://github.com/google/cql" target="_blank" rel="noreferrer">open source toolkit</a> for Clinical Quality Language execution.</p>
+
+<p>The Google CQL engine is an experimental open source toolkit that includes a CQL execution engine built from scratch in Go. We built this engine with a focus on horizontal scalability in mind, ease of use, and high test coverage. We wanted to make it easy to experiment with our engine, so we’ve included an easy to use CLI,  REPL, and a two-click setup web playground! The toolkit is still a work in progress and we very much welcome input, contributions, and ideas from the community.</p><br>
+
+<h2><b>Why CQL</b></h2>
+
+<p>CQL represents a major shift away from the precedent of distributing clinical logic as free text guidelines which each institution implements in custom and often error prone ways. Now, CQL allows clinical logic to be written once, distributed, and run anywhere in a single framework. Major standards bodies like Medicare, NCQA, and the World Health Organization (WHO) have already started to adopt and distribute clinical measures in CQL! (Check out these <a href="https://github.com/WorldHealthOrganization/smart-anc" target="_blank" rel="noreferrer">antenatal care measures</a> from the WHO as an example). We believe that CQL lowers the burden to writing, sharing, and computing complex clinical content.</p>
+
+<p>CQL supports multiple common healthcare data models (such as FHIR and QDM) and is designed with common clinical concepts, tasks, and nested data structures in mind. For example, consider this comparison:</p>
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiF2udTdSVPIvAsKPsq9LFPoqu3YZDA6ASdpfSCPrJ3vDHzLsp1QODjE0TUBUFlo-v0BXE1JCXfz1mVdklOFrGJ2Q9Ijs1Y7UnVVDVbNo_9n7e_O45bau7AQKJJkSkUgXRc1-t-77LTAEuUfb5N8vJgtqEcwoHhndmJBhL2Q5yoVEGdQNHGv0hx-yWnyrU/s16000/image1.png" target="_blank" rel="noreferrer"></a></center></td></tr><tr><td class="tr-caption"><i>(click to enlarge) A side by side comparison of FHIR SQL (BigQuery) to CQL. <br>This logic extracts CHD encounters with statins prescribed during the visit.</i></td></tr></tbody></table></div>
+
+<p>The FHIR SQL requires more boilerplate, unnesting, and custom value set handling. It’s very clear here that the CQL is more readable, concise, and easier to understand than the SQL implementation for this example. </p>
+
+<p>If you’d like to see a more in depth CQL example with an explanation, see <a href="#Appendix_A" rel="noreferrer" target="_blank">Appendix A.</a></p>
+
+<p>As the healthcare industry has matured so have the representations of Clinical Quality Measures. Previously, clinical quality mandates were provided as free-text guidelines. That left it up to each medical institution to implement themselves. This was of course error prone, and repetitive across the industry. There is a shift today where institutions like the WHO, CMS, and NCQA are writing clinical measures increasingly in CQL. </p>
+
+
+<div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container"><tbody><tr><td><center><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivTPBg4ACMnwUSfr7XERnQiM36qupmlSnnXqMxgBdKIFYn-bxfQjwZUWWLYER6svw1lBTCyeRs9CFEGvZYgduth0I5cgz9yjuNqcGMQkVJdYTv_QCe9843LVwebXdhogWo5xhUW_3_fS0MUtYhy3UGbaznKzmx5_g0kTrhpK5HqCHm6LDGPFSvCWRFvb0/s1600/image3.gif" target="_blank" rel="noreferrer"></a></center></td></tr><tr><td class="tr-caption"><i>Transition to standards based Clinical Quality Measures diagram</i></td></tr></tbody></table></div>
+
+<p>Examples like the <a href="https://github.com/WorldHealthOrganization/smart-anc" target="_blank" rel="noreferrer">WHO Antenatal Care Guidelines project</a> exemplify the shift to openly distributed and executable measures. We believe that computable and shareable measures like these WHO SMART Guidelines are the future for expressing and sharing medical knowledge.</p><br>
+
+<h2><b>Our CQL Toolkit</b></h2>
+
+<p>We would love others excited about this work to check out our experimental CQL tools at <a href="https://github.com/google/cql" target="_blank" rel="noreferrer">https://github.com/google/cql</a>. We continue to be very interested in welcoming external contributors, so we strongly encourage you to check out the repository to give it a try and consider helping with any open issues. If you’re not sure where to ask, reach out to us! We’d also like to hear from others about what they’re working on and how the Google CQL engine may fit into their toolchain, feel free to reach out at <a href="mailto:evango@google.com" target="_blank" rel="noreferrer">evango@google.com</a> or open an <a href="https://github.com/google/cql/issues" target="_blank" rel="noreferrer">issue on the repository</a>.</p>
+
+<p id="Appendix_A">If you want to learn more about CQL see <a href="https://github.com/cqframework/clinical_quality_language" target="_blank" rel="noreferrer">https://github.com/cqframework/clinical_quality_language</a> and <a href="https://cql.hl7.org/index.html" target="_blank" rel="noreferrer">https://cql.hl7.org/index.html</a>.</p><br>
+
+<h2><b>Appendix A: Simplified Diabetes CQL Example</b></h2>
+
+
+<div><pre><span>library ExampleCQLLibrary version '1.2.3'
+using FHIR version '4.0.1'
+
+valueset Diabetes: 'diabetes-valuseset-url' version '1.0'
+valueset GlucoseLevels: 'glucose-levels-valueset-url' version '1.0'
+
+context Patient
+
+define PatientMeetsAgeRequirement: AgeInYearsAt(Now()) &lt; 20
+
+define HasDiabetes:</span></pre><pre><span><span>&nbsp;&nbsp; &nbsp;</span><span>&nbsp;&nbsp; </span>exists ([Condition: Diabetes] chd where chd.onset before Now())
+
+define LatestGlucoseReading:
+<span>&nbsp;&nbsp; &nbsp;</span><span>&nbsp;&nbsp; </span>Last([Observation: GlucoseLevels] bp sort by effective desc)
+
+define LatestGlucoseAbove200: LatestGlucoseReading.value &gt; 200
+
+define Denominator: PatientMeetsAgeRequirement and HasDiabetes
+
+define Numerator: Denominator and LatestGlucoseAbove200</span>
+</pre></div><br>
+
+<p>In this example for a given patient record, the code selects for individuals under 20 where their most recent glucose reading was above 200. Although this is a simple example, it’s made simple because CQL provides a solid foundation for which to define and act on medical information and concepts.</p>
+
+<div><div><em>By Evan Gordon and Suyash Kumar – Software Engineers&nbsp;</em></div></div>
+<div><em>Health AI Team: Ryan Brush, Kai Bailey, Ed Nanale, Chris Grenz</em></div><p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-07-31T09:00:00.000Z>31 July 2024</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

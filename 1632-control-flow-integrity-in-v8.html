@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Control-flow Integrity in V8</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://v8.dev/blog/control-flow-integrity">Go to article URL</a>
+		<div id="content"><p></p><p>Control-flow integrity (CFI) is a security feature aiming to prevent exploits from hijacking control-flow. The idea is that even if an attacker manages to corrupt the memory of a process, additional integrity checks can prevent them from executing arbitrary code. In this blog post, we want to discuss our work to enable CFI in V8.</p>
+<h1 id="background" tabindex="-1">Background <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#background" rel="noreferrer" target="_blank">#</a></h1>
+<p>The popularity of Chrome makes it a valuable target for 0-day attacks and most in-the-wild exploits we’ve seen target V8 to gain initial code execution. V8 exploits typically follow a similar pattern: an initial bug leads to memory corruption but often the initial corruption is limited and the attacker has to find a way to arbitrarily read/write in the whole address space. This allows them to hijack the control-flow and run shellcode that executes the next step of the exploit chain that will try to break out of the Chrome sandbox.</p>
+<p>To prevent the attacker from turning memory corruption into shellcode execution, we’re implementing control-flow integrity in V8. This is especially challenging in the presence of a JIT compiler. If you turn data into machine code at runtime, you now need to ensure that corrupted data can’t turn into malicious code. Fortunately, modern hardware features provide us with the building blocks to design a JIT compiler that is robust even while processing corrupted memory.</p>
+<p>Following, we’ll look at the problem divided into three separate parts:</p>
+<ul>
+<li><strong>Forward-Edge CFI</strong> verifies the integrity of indirect control-flow transfers such as function pointer or vtable calls.</li>
+<li><strong>Backward-Edge CFI</strong> needs to ensure that return addresses read from the stack are valid.</li>
+<li><strong>JIT Memory Integrity</strong> validates all data that is written to executable memory at runtime.</li>
+</ul>
+<h1 id="forward-edge-cfi" tabindex="-1">Forward-Edge CFI <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#forward-edge-cfi" rel="noreferrer" target="_blank">#</a></h1>
+<p>There are two hardware features that we want to use to protect indirect calls and jumps: landing pads and pointer authentication.</p>
+<h2 id="landing-pads" tabindex="-1">Landing Pads <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#landing-pads" rel="noreferrer" target="_blank">#</a></h2>
+<p>Landing pads are special instructions that can be used to mark valid branch targets. If enabled, indirect branches can only jump to a landing pad instruction, anything else will raise an exception.<br>
+On ARM64 for example, landing pads are available with the Branch Target Identification (BTI) feature introduced in Armv8.5-A. BTI support is <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1145581" rel="noreferrer" target="_blank">already enabled</a> in V8.<br>
+On x64, landing pads were introduced with the Indirect Branch Tracking (IBT) part of the Control Flow Enforcement Technology (CET) feature.</p>
+<p>However, adding landing pads on all potential targets for indirect branches only provides us with coarse-grained control-flow integrity and still gives attackers lots of freedom. We can further tighten the restrictions by adding function signature checks (the argument and return types at the call site must match the called function) as well as through dynamically removing unneeded landing pad instructions at runtime.<br>
+These features are part of the recent <a href="https://arxiv.org/abs/2303.16353" rel="noreferrer" target="_blank">FineIBT proposal</a> and we hope that it can get OS adoption.</p>
+<h2 id="pointer-authentication" tabindex="-1">Pointer Authentication <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#pointer-authentication" rel="noreferrer" target="_blank">#</a></h2>
+<p>Armv8.3-A introduced pointer authentication (PAC) which can be used to embed a signature in the upper unused bits of a pointer. Since the signature is verified before the pointer is used, attackers won’t be able to provide arbitrary forged pointers to indirect branches.</p>
+<h1 id="backward-edge-cfi" tabindex="-1">Backward-Edge CFI <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#backward-edge-cfi" rel="noreferrer" target="_blank">#</a></h1>
+<p>To protect return addresses, we also want to make use of two separate hardware features: shadow stacks and PAC.</p>
+<h2 id="shadow-stacks" tabindex="-1">Shadow Stacks <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#shadow-stacks" rel="noreferrer" target="_blank">#</a></h2>
+<p>With Intel CET’s shadow stacks and the guarded control stack (GCS) in <a href="https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/arm-a-profile-architecture-2022" rel="noreferrer" target="_blank">Armv9.4-A</a>, we can have a separate stack just for return addresses that has hardware protections against malicious writes. These features provide some pretty strong protections against return address overwrites, but we will need to deal with cases where we legitimately modify the return stack such as during optimization / deoptimization and exception handling.</p>
+<h2 id="pointer-authentication-(pac-ret)" tabindex="-1">Pointer Authentication (PAC-RET) <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#pointer-authentication-(pac-ret)" rel="noreferrer" target="_blank">#</a></h2>
+<p>Similar to indirect branches, pointer authentication can be used to sign return addresses before they get pushed to the stack. This is <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=919548" rel="noreferrer" target="_blank">already enabled</a> in V8 on ARM64 CPUs.</p>
+<p>A side effect of using hardware support for Forward-edge and Backward-edge CFI is that it will allow us to keep the performance impact to a minimum.</p>
+<h1 id="jit-memory-integrity" tabindex="-1">JIT Memory Integrity <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#jit-memory-integrity" rel="noreferrer" target="_blank">#</a></h1>
+<p>A unique challenge to CFI in JIT compilers is that we need to write machine code to executable memory at runtime. We need to protect the memory in a way that the JIT compiler is allowed to write to it but the attacker’s memory write primitive can’t. A naive approach would be to change the page permissions temporarily to add / remove write access. But this is inherently racy since we need to assume that the attacker can trigger an arbitrary write concurrently from a second thread.</p>
+<h2 id="per-thread-memory-permissions" tabindex="-1">Per-thread Memory Permissions <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#per-thread-memory-permissions" rel="noreferrer" target="_blank">#</a></h2>
+<p>On modern CPUs, we can have different views of the memory permissions that only apply to the current thread and can be changed quickly in userland.<br>
+On x64 CPUs, this can be achieved with memory protection keys (pkeys) and ARM announced the <a href="https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/arm-a-profile-architecture-2022" rel="noreferrer" target="_blank">permission overlay extensions</a> in Armv8.9-A.<br>
+This allows us to fine-grained toggle the write access to executable memory, for example by tagging it with a separate pkey.</p>
+<p>The JIT pages are now not attacker writable anymore but the JIT compiler still needs to write generated code into it. In V8, the generated code lives in <a href="https://source.chromium.org/chromium/chromium/src/+/main:v8/src/codegen/assembler.h;l=255;drc=064b9a7903b793734b6c03a86ee53a2dc85f0f80" rel="noreferrer" target="_blank">AssemblerBuffers</a> on the heap which can be corrupted by the attacker instead. We could protect the AssemblerBuffers too in the same fashion, but this just shifts the problem. For example, we’d then also need to protect the memory where the pointer to the AssemblerBuffer lives.<br>
+In fact, any code that enables write access to such protected memory constitutes CFI attack surface and needs to be coded very defensively. E.g. any write to a pointer that comes from unprotected memory is game over, since the attacker can use it to corrupt executable memory. Thus, our design goal is to have as few of these critical sections as possible and keep the code inside short and self-contained.</p>
+<h2 id="control-flow-validation" tabindex="-1">Control-Flow Validation <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#control-flow-validation" rel="noreferrer" target="_blank">#</a></h2>
+<p>If we don’t want to protect all compiler data, we can assume it to be untrusted from the point of view of CFI instead. Before writing anything to executable memory, we need to validate that it doesn’t lead to arbitrary control-flow. That includes for example that the written code doesn’t perform any syscall instructions or that it doesn’t jump into arbitrary code. Of course, we also need to check that it doesn’t change the pkey permissions of the current thread. Note that we don’t try to prevent the code from corrupting arbitrary memory since if the code is corrupted we can assume the attacker already has this capability.<br>
+To perform such validation safely, we will also need to keep required metadata in protected memory as well as protect local variables on the stack.<br>
+We ran some preliminary tests to assess the impact of such validation on performance. Fortunately, the validation is not occurring in performance-critical code paths, and we did not observe any regressions in the jetstream or speedometer benchmarks.</p>
+<h1 id="evaluation" tabindex="-1">Evaluation <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#evaluation" rel="noreferrer" target="_blank">#</a></h1>
+<p>Offensive security research is an essential part of any mitigation design and we’re continuously trying to find new ways to bypass our protections. Here are some examples of attacks that we think will be possible and ideas to address them.</p>
+<h2 id="corrupted-syscall-arguments" tabindex="-1">Corrupted Syscall Arguments <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#corrupted-syscall-arguments" rel="noreferrer" target="_blank">#</a></h2>
+<p>As mentioned before, we assume that an attacker can trigger a memory write primitive concurrently to other running threads. If another thread performs a syscall, some of the arguments could then be attacker-controlled if they’re read from memory. Chrome runs with a restrictive syscall filter but there’s still a few syscalls that could be used to bypass the CFI protections.</p>
+<p>Sigaction for example is a syscall to register signal handlers. During our research we found that a sigaction call in Chrome is reachable in a CFI-compliant way. Since the arguments are passed in memory, an attacker could trigger this code path and point the signal handler function to arbitrary code. Luckily, we can address this easily: either block the path to the sigaction call or block it with a syscall filter after initialization.</p>
+<p>Other interesting examples are the memory management syscalls. For example, if a thread calls munmap on a corrupted pointer, the attacker could unmap read-only pages and a consecutive mmap call can reuse this address, effectively adding write permissions to the page.<br>
+Some OSes already provide protections against this attack with memory sealing: Apple platforms provide the <a href="https://github.com/apple-oss-distributions/xnu/blob/1031c584a5e37aff177559b9f69dbd3c8c3fd30a/osfmk/mach/vm_statistics.h#L274" rel="noreferrer" target="_blank">VM_FLAGS_PERMANENT</a> flag and OpenBSD has an <a href="https://man.openbsd.org/mimmutable.2" rel="noreferrer" target="_blank">mimmutable</a> syscall.</p>
+<h2 id="signal-frame-corruption" tabindex="-1">Signal Frame Corruption <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#signal-frame-corruption" rel="noreferrer" target="_blank">#</a></h2>
+<p>When the kernel executes a signal handler, it will save the current CPU state on the userland stack. A second thread could corrupt the saved state which will then get restored by the kernel.<br>
+Protecting against this in user space seems difficult if the signal frame data is untrusted. At that point one would have to always exit or overwrite the signal frame with a known save state to return to.<br>
+A more promising approach would be to protect the signal stack using per-thread memory permissions. For example, a pkey-tagged sigaltstack would protect against malicious overwrites, but it would require the kernel to temporarily allow write permissions when saving the CPU state onto it.</p>
+<h1 id="v8ctf" tabindex="-1">v8CTF <a class="bookmark" href="https://v8.dev/blog/control-flow-integrity#v8ctf" rel="noreferrer" target="_blank">#</a></h1>
+<p>These were just a few examples of potential attacks that we’re working on addressing and we also want to learn more from the security community. If this interests you, try your hand at the recently launched <a href="https://security.googleblog.com/2023/10/expanding-our-exploit-reward-program-to.html" rel="noreferrer" target="_blank">v8CTF</a>! Exploit V8 and gain a bounty, exploits targeting n-day vulnerabilities are explicitly in scope!</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2023-10-09T00:00:00.000Z>9 October 2023</time>
+			<a href="/urls/v8-dev-blog-atom">v8.dev/blog.atom</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

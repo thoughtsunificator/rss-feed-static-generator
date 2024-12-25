@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Introducing Uniffi for React Native: Rust-Powered Turbo Modules</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2024/12/introducing-uniffi-for-react-native-rust-powered-turbo-modules/">Go to article URL</a>
+		<div id="content"><p></p><p><span>Today </span><a href="https://www.mozilla.org/en-US/" rel="noreferrer" target="_blank"><span>Mozilla</span></a><span> and </span><a href="https://filament.dm/" rel="noreferrer" target="_blank"><span>Filament</span></a><span> are releasing </span><a href="https://github.com/jhugman/uniffi-bindgen-react-native" rel="noreferrer" target="_blank"><span>Uniffi for React Native</span></a><span>, a new tool we’ve been using to build React Native Turbo Modules in Rust, under an open source license. This allows millions of developers writing cross-platform </span><a href="https://en.wikipedia.org/wiki/React_Native" rel="noreferrer" target="_blank"><span>React Native</span></a><span> apps to use</span><a href="https://hacks.mozilla.org/2018/12/rust-2018-is-here/" rel="noreferrer" target="_blank"><span> Rust </span></a><span>&nbsp;– a modern programming language known for its safety and performance benefits to build single implementations of their app’s core logic to work seamlessly across iOS and Android.&nbsp;</span></p>
+<p><span>This is a big win for us and for </span><a href="https://filament.dm/" rel="noreferrer" target="_blank"><span>Filament</span></a><span> who co-developed the library with Mozilla and </span><a href="https://github.com/jhugman" rel="noreferrer" target="_blank"><span>James Hugman</span></a><span>, the lead developer. We think it will be awesome for many other developers too. Less code is good. Memory safety is good. Performance is good. We get all three, plus the joy of using a language we love in more places. </span></p>
+<p><span>For those familiar with React Native, it’s a great framework for creating cross-platform apps, but it has its challenges. React Native apps rely on a single JavaScript thread, which can slow things down when handling complex tasks. Developers have traditionally worked around this by writing code twice – once for iOS and once for Android – or by using C++, which can be difficult to manage. Uniffi for React Native offers a better solution by enabling developers to offload heavy tasks to Rust, which is now easy to integrate with React Native. As a result, you’ve got faster, smoother apps and a streamlined development process.</span></p>
+<h2><span>How Uniffi for React Native works</span></h2>
+<p><span>Unifii for React Native is a uniFFI bindings generator for using Rust from React Native via Turbo Modules. It lets us work at an abstraction level high enough to stay focused on our applications’s needs rather than getting lost in the gory technical details of bespoke native cross-platform development&nbsp; It provides tooling to generate:</span></p>
+<ul>
+<li aria-level="1"><span>Typescript and JSI C++ to call Rust from Typescript and back again</span></li>
+<li aria-level="1"><span>A Turbo-Module that installs the bindings into a running React Native library.</span></li>
+</ul>
+<p><span>We’re stoked about this work continuing. In 2020, we started with </span><a href="https://mozilla.github.io/uniffi-rs/latest/" rel="noreferrer" target="_blank"><span>Uniffi </span></a><span>as a modern day ‘write once; run anywhere’ toolset for Rust. Uniffi has come a long way since we developed the technology as a bit of a hack to get us a single implementation of Firefox Sync’s core (in Rust) that we could then deploy to both our Android and iOS apps! Since then Mozilla has used </span><a href="https://mozilla.github.io/uniffi-rs/latest/" rel="noreferrer" target="_blank"><span>uniffi-rs</span></a><span> to successfully deploy Rust in mobile and desktop products used by hundreds of millions of users. This Rust code runs important subsystems such as bookmarks and history sync, Firefox Suggest, telemetry and experimentation. Beyond Mozilla, Uniffi is used in Android (in </span><a href="https://android.googlesource.com/platform/external/rust/crates/uniffi/" rel="noreferrer" target="_blank"><span>AOSP</span></a><span>), high-profile </span><a href="https://nordsecurity.com/" rel="noreferrer" target="_blank"><span>security</span></a> <a href="https://bitwarden.com/" rel="noreferrer" target="_blank"><span>products</span></a><span> and some </span><a href="https://dotlottie.io/" rel="noreferrer" target="_blank"><span>complex</span></a> <a href="https://native.live/" rel="noreferrer" target="_blank"><span>libraries</span></a><span> familiar to the community.</span></p>
+<p><span>Currently the Uniffi for React Native project is an early release. We don’t have a cool landing page or examples in the repo (coming!), but open source contributor </span><a href="https://github.com/johennes" rel="noreferrer" target="_blank"><span>Johannes Marbach</span></a><span> has already been sponsored by </span><a href="https://www.unomed.ch/" rel="noreferrer" target="_blank"><span>Unomed</span></a><span> to use Uniffi for React Native to create </span><a href="https://github.com/unomed-dev/react-native-matrix-sdk" rel="noreferrer" target="_blank"><span>a React Native Library for the Matrix SDK</span></a><span> .</span></p>
+<p><span>Need an idea on how you might give it a whirl? I’ve got two uses that we’re very excited about:</span></p>
+<p><span>1) Use Rust to offload computationally heavy code to a multi-threaded/memory-safe subsystem to escape single-threaded JS performance bottlenecks in React Native. If you know, you know.</span></p>
+<p><span>2) Leverage the incredible library of </span><a href="https://crates.io/" rel="noreferrer" target="_blank"><span>Rust crates</span></a><span> in your React Native app. One of the Filament devs showed how powerful this is, recently. With a rudimentary knowledge of Rust, they were able to find a fast blurhashing library on crates.io to replace a slow Typescript implementation and get it running the same day. We’re hoping we can really improve the tooling even more to make this kind of optimization as easy as possible.</span></p>
+<p><span>Uniffi represents a step forward in cross-platform development, combining the power of Rust with the flexibility of React Native to unlock new possibilities for app developers.&nbsp;</span></p>
+<p><span>We’re excited to have the community explore what’s possible. Please check out </span><a href="https://github.com/jhugman/uniffi-bindgen-react-native" rel="noreferrer" target="_blank"><span>the library on Github</span></a><span> and </span><a href="https://matrix.to/#/#uniffi-bindgen-js:matrix.org" rel="noreferrer" target="_blank"><span>jump into the conversation on Matrix</span></a><span>.&nbsp;</span></p>
+<p><i><span>Disclosure: in addition to this collaboration, </span></i><a href="https://mozilla.vc/" rel="noreferrer" target="_blank"><i><span>Mozilla Ventures</span></i></a><i><span> is an investor in Filament.&nbsp;</span></i></p>
+<p>&nbsp;</p>
+<p>The post <a href="https://hacks.mozilla.org/2024/12/introducing-uniffi-for-react-native-rust-powered-turbo-modules/" rel="noreferrer" target="_blank">Introducing Uniffi for React Native: Rust-Powered Turbo Modules</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2024-12-04T19:38:01.000Z>4 December 2024</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>
