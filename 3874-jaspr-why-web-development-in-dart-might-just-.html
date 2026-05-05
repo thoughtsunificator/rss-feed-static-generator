@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Jaspr: Why web development in Dart might just be a good idea</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/04/jaspr-why-web-development-in-dart-might-just-be-a-good-idea.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Kilian Schulte</author>, Netlight</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjm8NvVqvfhwqsFI23_UAN9Qqsg2TLbjAwrlb4ZZfttfBm96kNK3XE13sqFdYRINjmNC-ElzWCjGTGwCOQfrJVdwdEeAKJUjbGYHMsb7M6u0yqWv_sfpzCbA1GM9EkihOFWrFB6qJmgdY7TlZYY4mpQXHO0x5Am2x9xgKNMlfbNMaH05TvW_tXsk8OXeiw/s1600/jasprgoogleoss--o125irj98es.png">
+
+<figure class="wide borderless">
+  <a alt="Jaspr logo blue dog shaking hands with Dart logo bird" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjm8NvVqvfhwqsFI23_UAN9Qqsg2TLbjAwrlb4ZZfttfBm96kNK3XE13sqFdYRINjmNC-ElzWCjGTGwCOQfrJVdwdEeAKJUjbGYHMsb7M6u0yqWv_sfpzCbA1GM9EkihOFWrFB6qJmgdY7TlZYY4mpQXHO0x5Am2x9xgKNMlfbNMaH05TvW_tXsk8OXeiw/s1600/jasprgoogleoss--o125irj98es.png" class="header-image" rel="noreferrer" target="_blank"></a>
+  <figcaption>Jaspr, the open source web framework,  is built on Dart</figcaption>
+</figure>
+
+<p>Most developers know Dart as the language that powers Flutter, the multi-platform app framework. But the Dart ecosystem has so much more to offer. For example: Jaspr, a web framework that provides a familiar Flutter-like experience, but is made for building fast, SEO-friendly, and dynamic websites natively in Dart.</p>
+
+<p>Dart on the web is not a new idea. Initially, Dart was designed to run natively in browsers, similar to JavaScript. Google even developed AngularDart, a pure-Dart version of the popular JS framework. And although this is no longer supported, it resulted in some surprisingly powerful web tooling for Dart. <a href="https://opensource.googleblog.com/2016/10/dart-in-2017-and-beyond.html" rel="noreferrer" target="_blank">Back in 2016</a>, teams at Google chose Dart for its strong type safety and excellent development experience, and it has only improved since then.</p>
+
+<p>However, all of this was unknown to me when I started building Jaspr in 2022. As a web developer who had transitioned to Flutter, I had grown to love Dart and wanted to explore using it for web development. So Jaspr started as a personal challenge: What would a modern web framework look like if it was built entirely in Dart?</p>
+
+<p>Creating Jaspr as an open source project has been one of the most challenging, but also rewarding journeys of my career. Starting out as a solo maintainer is definitely hard work, but it comes with absolute creative freedom. I can explore unconventional ideas, design APIs exactly how I envision them, and integrate modern features seen in other frameworks. All without being slowed down by processes or roadmaps. I poured more than three years of late nights and weekends into the framework. That dedication finally paid off in a way I had never imagined: Google selected Jaspr to completely rebuild and power the official Dart and Flutter websites.</p>
+
+<h3>Architecture &amp; design</h3>
+
+<p>To understand how Jaspr actually works, let's look at its underlying design. Jaspr is primarily targeted at Flutter developers venturing into web development. Having a clearly defined niche like this greatly helped me shape the framework and prioritize features, while not getting spread too thin as a maintainer. </p>
+
+<p>One of Jaspr's core design principles is that it should look and feel familiar to Flutter, while relying on native web technologies like HTML and CSS. This sets it apart from Flutter, which since 2021 can also target the web, but instead optimizes for rendering consistency between platforms. It relies fully on the Canvas API for rendering, which comes at the cost of slower loading times and lower SEO. Therefore, Jaspr is the missing piece for Flutter developers wanting to build fast and optimized websites with great SEO.</p>
+
+<p>Jaspr results in a syntax that is remarkably close to Flutter's, and functionality that is much closer to something like React with an efficient, DOM-based rendering algorithm.</p>
+
+<figure class="wide borderless">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizzHShDRyvwjWUNIlrwck4VQfAGCTJMAqvOk7E_6fkuGnyUlyAP0ZznHAWmlPObKDN-OWgiXe_CFdXeP_rl93lni2SxU9EXlLWrKksk1rU5xWOr6_LTA53IXvgpiCTvvkJAy-H2hswIjDzUcSAElG7dfXV68ipyPmrHcgwTC7PxsnC8lJiU6nDAvMB-JI/s1600/jasprgoogleoss--8ytdkak894f.png" rel="noreferrer" target="_blank"></a>
+  <figcaption>Example: Jaspr component | Flutter widget | React component</figcaption>
+</figure>
+
+<p>As you can see, Jaspr's <code class="inline">StatelessComponent</code> mirrors Flutter's <code class="inline">StatelessWidget</code>, but constructs HTML similar to React with JSX. Jaspr also provides a type-safe API for writing CSS rules directly in Dart.</p>
+
+<p>Client-side rendering is only one aspect of what Jaspr can do. Jaspr is built as a full-stack general purpose framework supporting both Server-Side Rendering (SSR) and Static Site Generation (SSG). In the JavaScript ecosystem, you usually find a hard split between rendering libraries (React, Vue) and meta-frameworks (Next, Nuxt, Astro). Jaspr combines these concepts into one versatile and coherent framework.</p>
+
+<p>In order to achieve this wide range of features with the limited resources I had, I naturally had to make compromises. Since I didn't want to limit the quality of any feature, my strategy focuses more on limiting features to what's important. I also learned to prioritize simple solutions and to design APIs that are flexible and composable.</p>
+
+<p>For instance, I built <code class="inline">jaspr_content</code> as a plugin for developing content-driven sites from Markdown and other sources, similar to Astro or VitePress. It provides all the core features needed to build massive documentation websites, and instead of serving every use case out of the box, it is flexible and open enough to be fully customizable. In fact, <code class="inline">jaspr_content</code> is what currently powers the new <code class="inline">flutter.dev</code> and <code class="inline">dart.dev</code> documentation, which contain over 3,900 pages.</p>
+
+<h3>Tooling and developer experience</h3>
+
+<p>In my opinion, a framework is only as good as its tooling, and this is where Dart truly shines and has provided Jaspr developers with a great developer experience. For example, Flutter is known for its stateful hot-reload, enabling you to swap out code instantly without losing client-side state. But hot-reload is actually a <strong>Dart</strong> feature, enabled by its unique compiler architecture. </p>
+
+<p>For browser development, the <code class="inline">dartdevc</code> compiler performs modular and incremental compilation to JavaScript. It supports stateful hot-reload and provides a seamless debugging experience. By cleverly leveraging source-maps, you can step through native Dart code right in the browser, complete with breakpoints, value inspection, and runtime expression evaluation.</p>
+
+<figure class="wide borderless">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiN920I_wUtEwU-BSdKLbyaAwk8JUkQzH1jBovY2GoBwKspiFbfVKBnTEzuJkzj69NYsBYRCvgZDqTu-gJADwUuTDSFV3DEeCazPdiWz1zmvBoILqnM713YAGhAnvGetjb7_EXuWQrq-ls1V87hKgmmi6QV9-4ZRro5m8oS82ASYgicEPR9EL3BO8aHqwE/s1600/jasprgoogleoss--0pne7s38lhkf.png" rel="noreferrer" target="_blank"></a>
+  <figcaption>Debugging Jaspr / Dart code using Chrome DevTools</figcaption>
+</figure>
+
+<p>For production builds, Dart uses the <code class="inline">dart2js</code> compiler to generate a heavily optimized, tree-shaken JavaScript bundle, or the newer <code class="inline">dart2wasm</code> compiler for even better runtime performance through WebAssembly. On the server side, Dart's JIT compiler provides that same hot-reload and debugging capabilities, while its AOT compiler compiles your server code to optimized, platform-specific, native binaries for production environments.</p>
+
+<p>Jaspr builds on top of these and other capabilities, for example by giving developers full-stack debugging, custom lints and code assists, and something I call <em>component scopes</em>. This is a neat editor feature that adds inline hints to your components, showing whether they are rendered on the server, the client, or both. When building full-stack apps, this makes it much easier to reason about which platform APIs or libraries you can safely use in a specific file. I'm also working on more features to make the full-stack development aspect even smoother. For example, a full-stack hot-reload where on any server-side change, whether updating code or (for example), editing a markdown file, the new pre-rendered HTML is "hot-reloaded" into the page while keeping all client-side state. Features like these are only possible due to Jaspr's approach to combine both server- and client-side rendering into one framework.</p>
+
+<h3>Impact and outlook</h3>
+
+<p>Last year, Google selected Jaspr for the Dart and Flutter websites, including <code>dart.dev</code>, <code>flutter.dev</code> and <code><a href="https://docs.flutter.dev/" rel="noreferrer" target="_blank">docs.flutter.dev</a></code> (<a href="https://github.com/flutter/website" rel="noreferrer" target="_blank">repo</a>), which is used by over a million monthly active users. The sites were migrated from JS- and python-based static site generators to Jaspr and <code class="inline">jaspr_content</code>, resulting in a unified setup with less context switching and an easier contribution experience. The move to Jaspr also streamlined the development of brand-new interactive tutorials on <code class="inline">dart.dev/learn</code> and <code class="inline">docs.flutter.dev/learn</code>. For me this is not only an incredible trust in the capabilities of Jaspr, but also a great way to dogfood Jaspr at scale; it allowed me to invest more time and resources into improving Jaspr.</p>
+
+<p>With AI constantly shifting the scope of software development, I believe the concept of being a strict "domain expert" (a purely mobile or purely web developer) will matter less. However, developers and teams will increasingly value coherent tech stacks to reduce context-switching and leverage unified tooling. Just as React Native became massively popular because it allowed web developers to reuse their skills for mobile (or for companies to "reuse" their developers), Jaspr is a great option for teams working with both Flutter and the web. Apart from using existing skills, Jaspr and Flutter projects can also share up to 100% of their business logic, models, and validation code.</p>
+
+<p>Dart's type safety and high-quality tooling position it well for modern web development. Jaspr evolved to be the missing piece, a cohesive framework with modern features and a great development experience.</p>
+
+<p>I personally see Jaspr as an antithesis to the trend of AI causing everyone to converge onto the same stack, especially in web development. While this also has some benefits, I believe there is immense value in exploring alternative ecosystems. This can push boundaries, surface new ideas, and keep our industry vibrant. </p>
+
+<p>If there's one takeaway from my journey, it's this: Don't be afraid to build the tools you want to use. You never know where that codebase will take you, and it can be incredibly rewarding. </p>
+
+<p>If you're a Dart or Flutter developer curious about building websites with the skills you already have, there's never been a better time to start. Try out Jaspr now on its <a href="https://playground.jaspr.site/" rel="noreferrer" target="_blank">online playground</a> (which is also built with Jaspr!) or by following the <a href="https://docs.jaspr.site/quick_start" rel="noreferrer" target="_blank">Jaspr quickstart</a>.</p>
+<p>Learn more about Flutter's migration in <a href="https://blog.flutter.dev/we-rebuilt-flutters-websites-with-dart-and-jaspr-317c00e8b400" rel="noreferrer" target="_blank">We rebuilt Flutter's websites with Dart and Jaspr</a>.
+</p><p>
+Oh, and if you're wondering where the name "Jaspr" came from — it's named after my dog, Jasper. If you ever find yourself wandering around <a href="https://jaspr.site" rel="noreferrer" target="_blank">jaspr.site</a> and want to <strong><em>Meet Jasper</em></strong>, keep an eye out… you just might find a little easter egg tribute to him.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-15T11:30:00.000Z>15 April 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

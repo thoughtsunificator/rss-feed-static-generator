@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Linux from Scratch to drop System V versions</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1057509/">Go to article URL</a>
+		<div id="content"><p></p><p>The <a href="https://rivendell.linuxfromscratch.org/index.html" rel="noreferrer" target="_blank">Linux From
+Scratch</a> (LFS) project provides step-by-step instructions on
+building a customized Linux system entirely from source. Historically,
+the project has provided separate System&nbsp;V and systemd editions,
+which gave users a choice of init systems. Bruce Dubbs has <a href="https://lists.linuxfromscratch.org/sympa/arc/lfs-announce/2026-02/msg00000.html" rel="noreferrer" target="_blank">announced</a>
+the project will no longer produce the System&nbsp;V version:</p>
+
+<blockquote class="bq">
+<p>There are two reasons for this decision. The first reason is
+workload. No one working on LFS is paid. We rely completely on
+volunteers. In LFS there are 88 packages. In BLFS there are over
+1000. The volume of changes from upstream is overwhelming the
+editors. In this release cycle that started on the 1st of September
+until now, there have been 70 commits to LFS and 1155 commits to BLFS
+(and counting). When making package updates, many packages need to be
+checked for both System V and systemd. When preparing for release, all
+packages need to be checked for each init system.</p>
+
+<p>The second reason for dropping System V is that packages like GNOME
+and soon KDE's Plasma are building in requirements that require
+capabilities in systemd that are not in System V. This could
+potentially be worked around with another init system like OpenRC, but
+beyond the transition process it still does not address the ongoing
+workload problem.</p>
+
+<p>[...] As a personal note, I do not like this decision. To me LFS is
+about learning how a system works. Understanding the boot process is a
+big part of that. systemd is about 1678 "C" files plus many data
+files. System V is "22" C files plus about 50 short bash scripts and
+data files. Yes, systemd provides a lot of capabilities, but we will
+be losing some things I consider important.</p>
+</blockquote>
+
+<p>The next version, 13.0, is expected in March and will only focus on
+systemd.</p>
+<p></p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-06T15:11:42.000Z>6 February 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

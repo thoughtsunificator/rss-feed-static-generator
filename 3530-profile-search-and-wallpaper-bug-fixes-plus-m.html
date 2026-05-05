@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Profile, search and wallpaper bug fixes plus more! – These Weeks in Firefox: Issue 195</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2026/02/02/profile-search-and-wallpaper-bug-fixes-plus-more-these-weeks-in-firefox-issue-195/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1">If you were running into any problems last week opening links from other applications, specifically with Firefox being foregrounded but not opening the URL, this should now be fixed in Nightly and Beta (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010535" rel="noreferrer" target="_blank">bug 2010535</a>, fixed by Mossop). Please <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Toolkit&amp;component=Startup%20and%20Profile%20System" rel="noreferrer" target="_blank">file a bug</a> if you’ve updated your browser and the bug is still happening.</li>
+<li aria-level="1">Dão &amp; Moritz continued their work on the new separate search bar, <a href="https://bugzil.la/2007190" rel="noreferrer" target="_blank">adding a ‘x’</a> to clear the input, <a href="https://bugzil.la/2007383" rel="noreferrer" target="_blank">respecting</a> the browser.search.openintab preference, <a href="https://bugzil.la/2007209" rel="noreferrer" target="_blank">matching</a> the search history to the legacy bar. This new version of the separate search bar is enabled by default in Nightly.</li>
+</ul>
+<p></p>
+<ul>
+<li aria-level="1">Irene Ni<a href="https://bugzil.la/1989609" rel="noreferrer" target="_blank"> enabled uploaded wallpapers to appear in container new tabs</a> by propagating the wallpaper selection into container contexts.
+<ul>
+<li aria-level="2">Mike Conley<a href="https://bugzil.la/1975272" rel="noreferrer" target="_blank"> reduced CPU/battery drain from animated about:newtab backgrounds when the tab isn’t visible</a> by pausing animations when backgrounding the tab.</li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=2006115%2C1994948%2C2008967%2C845363%2C1984274%2C2009268%2C1808935&amp;list_id=17820836" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 Franccesco <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1984274" rel="noreferrer" target="_blank">fixed a glitch in how the statistics panel displays in the DevTools Network Monitor</a></li>
+<li aria-level="1">Lorenz A helped <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006115" rel="noreferrer" target="_blank">get rid of an unused string property in the DevTools Style Editor code</a></li>
+<li aria-level="1">🌟 Rocco Jiang <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008967" rel="noreferrer" target="_blank">helped make the border radius for some of our URL bar UI more consistent</a></li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li aria-level="1">Rob Wu investigated and fixed an issue that can prevent langpacks from being staged successfully as part of Firefox version updates (landed in 148, and will be included in a 147 dot release) –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006489" rel="noreferrer" target="_blank"> Bug 2006489</a></li>
+<li aria-level="1">Greg Stoll introduced a proper localized stings mapping table for Add-on Gated Site Permission, change needed as part of the work WebSerial DOM API –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1826747" rel="noreferrer" target="_blank"> Bug 1826747</a></li>
+</ul>
+<h5>WebExtensions Framework</h5>
+<ul>
+<li aria-level="1">Rachel Rusiecki contributed a nice cleanup of the WebExtensions internals by removing the extensions.manifestV3.enabled rollout pref –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1804921" rel="noreferrer" target="_blank"> Bug 1804921</a></li>
+<li aria-level="1">Emilio investigated and fixed a drag and drop issue hit by WebExtensions action popup pages, regression introduced in Firefox 146 (by<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1933181" rel="noreferrer" target="_blank"> Bug 1933181</a> ) and fixed in Firefox 148 and 147 –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2007274" rel="noreferrer" target="_blank"> Bug 2007274</a></li>
+</ul>
+<h5>WebExtension APIs</h5>
+<ul>
+<li aria-level="1">Piro (TreeStyleTab extension developer) contributed a fix for browser.tabs.create unexpected rejection hit when openeredTabId is the tab id of a discarded tab –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1762249" rel="noreferrer" target="_blank"> Bug 1762249</a></li>
+<li aria-level="1">Fix issue related to the extensions event page suspending while downloads.download API call is waiting for user input through the file chooser –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2005953" rel="noreferrer" target="_blank"> Bug 2005953</a>,&nbsp; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2005963" rel="noreferrer" target="_blank">Bug 2005963</a></li>
+<li aria-level="1">Fixed issue hit by the tabs API (and TreeStyleTab as a side effect of that) on builds were sync-about-blank is enabled (currently only Nightly builds) –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2004525" rel="noreferrer" target="_blank"> Bug 2004525</a></li>
+<li aria-level="1">Fixed issue related to data set through browser.session.setTabValue not being preserved when the tab is moved between windows –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2002643" rel="noreferrer" target="_blank"> Bug 2002643</a></li>
+<li aria-level="1">Fixed issue with declarativeNetRequest initialization at startup when one extension using declarativeNetRequest does not have any static DNR rules dataset declared in their manifest –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006233" rel="noreferrer" target="_blank"> Bug 2006233</a></li>
+<li aria-level="1">Arai contributed changes needed to allow declarativeNetRequest roles to apply successfully to cached web requests resources –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1949623" rel="noreferrer" target="_blank"> Bug 1949623</a></li>
+</ul>
+<h4>AI Window</h4>
+<ul>
+<li aria-level="1">assistant response markdown rendering with prosemirror <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001504" rel="noreferrer" target="_blank">2001504</a></li>
+<li aria-level="1">initial dark theming for ai windows <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003058" rel="noreferrer" target="_blank">2003058</a></li>
+<li aria-level="1">memory generation scheduling <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010143" rel="noreferrer" target="_blank">2010143</a> (not yet generating with inference)</li>
+<li aria-level="1">various fixes to get tool calls and title generation working <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010640" rel="noreferrer" target="_blank">2010640</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008658" rel="noreferrer" target="_blank">2008658</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010905" rel="noreferrer" target="_blank">2010905</a></li>
+<li aria-level="1">special token handling to hook up custom UIs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008991" rel="noreferrer" target="_blank">2008991</a></li>
+<li aria-level="1">adding ai window to new ai features about:preferences <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006250" rel="noreferrer" target="_blank">2006250</a></li>
+</ul>
+<h4>DevTools</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=781490" rel="noreferrer" target="_blank">Lorenz A</a> removed unused code in the Style Editor (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006115" rel="noreferrer" target="_blank">#2006115</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=783696" rel="noreferrer" target="_blank">Franccesco</a> fixed the overflow of the Netmonitor so the whole Statistics panel is visible (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1984274" rel="noreferrer" target="_blank">#1984274</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=700441" rel="noreferrer" target="_blank">Bryan Thrall [:bthrall]</a> added a way to re-parse scripts as module, which fixed adding breakpoint on GC-ed ES module files in the Debugger (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1605686" rel="noreferrer" target="_blank">#1605686</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> fixed an issue that would prevent adding breakpoint to very large file (for example some files in Slack) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010074" rel="noreferrer" target="_blank">#2010074</a>)
+<ul>
+<li aria-level="2">Reminder that there’s a limit to the number of arguments to functions calls, which also applies to the spread operator</li>
+<li aria-level="2"><a href="https://searchfox.org/firefox-main/rev/93aad2a6615f670b1279c229dd37f7397236131a/js/src/vm/ArgumentsObject.h#91-96" rel="noreferrer" target="_blank">/js/src/vm/ArgumentsObject.h#91-96</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>// Maximum supported value of arguments.length. This bounds the</p>
+<p>// maximum number of arguments that can be supplied to a spread call</p>
+<p>// or Function.prototype.apply.&nbsp; This value also bounds the number of</p>
+<p>// elements parsed in an array initializer.&nbsp; NB: keep this in sync</p>
+<p>// with the copy in builtin/SelfHostingDefines.h.</p>
+<p>static const unsigned ARGS_LENGTH_MAX = 500 * 1000;</p>
+</blockquote>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=559949" rel="noreferrer" target="_blank">Julian Descottes [:jdescottes]</a> made the Responsive Design Mode UI to be destroyed when a tab is discarded (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008708" rel="noreferrer" target="_blank">#2008708</a>)</li>
+</ul>
+<h4>WebDriver</h4>
+<ul>
+<li aria-level="1">Julian Descottes fixed a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2004973" rel="noreferrer" target="_blank">bug with the network.getData command</a> which could throw when trying to get a chunked response body.</li>
+<li aria-level="1">Alexandra Borovova updated the reset behavior of <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1998732" rel="noreferrer" target="_blank">the emulation.setGeolocationOverride</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1998734" rel="noreferrer" target="_blank">the emulation.setScreenOrientationOverride</a> commands to align with the spec changes. With this update, when calling these commands to reset the override, e.g., a browsing context, only this override will be reset, and if there is an override set for a user context related to this browsing context, this override will be applied instead.</li>
+<li aria-level="1">Alexandra Borovova fixed user prompts open and close events to reference the correct context ID in case prompts are being opened from iframes on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1964905" rel="noreferrer" target="_blank">desktop</a> and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2007385" rel="noreferrer" target="_blank">Android</a>.</li>
+<li aria-level="1">Alexandra Borovova implemented <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1905086" rel="noreferrer" target="_blank">support for automatic user prompt handling in WebDriver BiDi</a>, which can be configured through capabilities with the session.new command.</li>
+<li aria-level="1">Henrik Skupin updated the WebDriver actions code to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008945" rel="noreferrer" target="_blank">correctly calculate the target position for an asynchronous mouse click</a> when a page is displayed with full zoom applied.</li>
+<li aria-level="1">Henrik Skupin improved <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008345" rel="noreferrer" target="_blank">several WebDriver classic commands to handle implicit and pageLoad timeouts</a> in line with the script timeout, allowing null values to disable the timeouts.</li>
+<li aria-level="1">Henrik Skupin <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1998377" rel="noreferrer" target="_blank">updated the internally vendored version of Puppeteer</a> to v24.35.0.</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">ESLint and Prettier have been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009689" rel="noreferrer" target="_blank">updated to the latest versions</a>.
+<ul>
+<li aria-level="2">This included a <a href="https://github.com/gajus/eslint-plugin-jsdoc/issues/1619" rel="noreferrer" target="_blank">fix for eslint-plugin-jsdoc check-property-names</a> rule which was raising some false-positives in firefox-main.</li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1967204" rel="noreferrer" target="_blank">eslint-env comments are being removed</a> as ESLint v9 does not support them (use eslint-file-globals.config.mjs instead). ESLint v10 (currently in rc) will raise errors for them.</li>
+<li aria-level="1">More eslint-plugin-jsdoc rules have been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009691" rel="noreferrer" target="_blank">enabled across the whole tree</a>. These are the ones relating to valid-jsdoc. A few remain, but will need work by teams to fix the failures.</li>
+<li aria-level="1">There’s now a linter to check for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009182" rel="noreferrer" target="_blank">missing header guards in C++ code</a>.</li>
+<li aria-level="1">The “Black” python formatter has now been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006716" rel="noreferrer" target="_blank">replaced by “Ruff”</a>.</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">Linux users with new installs of Firefox were experiencing an issue where <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011300" rel="noreferrer" target="_blank">newtab was appearing blank</a> (amongst <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010206" rel="noreferrer" target="_blank">other</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2005124" rel="noreferrer" target="_blank">bugs</a>). This appears to be related to content sandboxing and the XDG base directory support that was recently added for Linux builds. <a href="mailto:emilio@mozilla.com" rel="noreferrer" target="_blank"><span data-rich-links="{&quot;per_n&quot;:&quot;Emilio Cobos Álvarez&quot;,&quot;per_e&quot;:&quot;emilio@mozilla.com&quot;,&quot;type&quot;:&quot;person&quot;}">Emilio Cobos Álvarez</span></a> is working on a fix in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011300" rel="noreferrer" target="_blank">this bug</a>.
+<ul>
+<li aria-level="2">In the meantime, we’ve disabled all train-hop XPIs on Beta and Release for Linux builds. They will fallback to the built-in versions of New Tab instead.</li>
+</ul>
+</li>
+<li aria-level="1">Morgan Reschenberg<a href="https://bugzil.la/1996822" rel="noreferrer" target="_blank"> made the Weather opt-in callout reachable with macOS VoiceOver</a> by correcting focus order and adding an accessible focus target.</li>
+<li aria-level="1">Scott Downe<a href="https://bugzil.la/2006769" rel="noreferrer" target="_blank"> improved Top Sites relevance on newtab</a> by deduping frecency-sorted items against older duplicates while preserving pins.</li>
+<li aria-level="1">Maxx Crawford<a href="https://bugzil.la/2009484" rel="noreferrer" target="_blank"> added experiment logic to reorder the Weather opt-in button group</a> to test clearer primary actions for enrolled users.</li>
+</ul>
+<h4>Profile Management</h4>
+<ul>
+<li aria-level="1">Finn has been working through his onboarding bug list:
+<ul>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1947638" rel="noreferrer" target="_blank">bug 1947638</a>, switching about:preferences to open the profile selector window in a dialog, not a subdialog</li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1950247" rel="noreferrer" target="_blank">bug 1950247</a>, improve a11y by making headings on the edit profile page actually headings</li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001276" rel="noreferrer" target="_blank">bug 2001276</a>, excluding the ignoredSharedPrefs list when creating a new profile</li>
+</ul>
+</li>
+<li aria-level="1">Mossop also continued making behavior more consistent across the toolkit profile service and the selectable profile service, fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2004345" rel="noreferrer" target="_blank">bug 2004345</a> – ensuring that, if a toolkit profile has a selectable profile group, we don’t allow that toolkit profile to be deleted from about:profiles. Instead we warn the user.</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Address Bar
+<ul>
+<li aria-level="2">Moritz fixed a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2002920" rel="noreferrer" target="_blank">multi-second jank</a> when dragging large text over tabs or the address bar.</li>
+<li aria-level="2">Dale continued work on minor fixes to the new trust panel and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008405" rel="noreferrer" target="_blank">enabled it for release in 149</a>.</li>
+<li aria-level="2">Drew and Daisuke are starting the work on standardizing the UI for the various address bar result types (in-flight: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010176" rel="noreferrer" target="_blank">2010176</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010177" rel="noreferrer" target="_blank">2010177</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010184" rel="noreferrer" target="_blank">2010184</a>) and their result menus (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010168" rel="noreferrer" target="_blank">2010168</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010171" rel="noreferrer" target="_blank">2010171</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010172" rel="noreferrer" target="_blank">2010172</a>).</li>
+</ul>
+</li>
+<li aria-level="1">New Tab Search Bar
+<ul>
+<li aria-level="2">Mike Conley changed this to be a self-contained <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2002027" rel="noreferrer" target="_blank">re-usable component</a>.</li>
+<li aria-level="2">Standard8 cleaned up the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003294" rel="noreferrer" target="_blank">messages between parent and content processes</a> after the search bar changes.</li>
+</ul>
+</li>
+<li aria-level="1">Search Service
+<ul>
+<li aria-level="2">Advance notice that this week we are planning on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2000685" rel="noreferrer" target="_blank">landing a change</a> to the search service to change it from an XPCOM service to a Javascript singleton. This is part of work to remove the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1643008" rel="noreferrer" target="_blank">XPCOM interfaces</a> as the service hasn’t been accessed from C++ for a while.
+<ul>
+<li aria-level="3">This will help reduce development overhead of needing to do full builds for interface changes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Other interesting fixes
+<ul>
+<li aria-level="2">The browser.urlbar.switchTabs.searchAllContainers preference <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006623" rel="noreferrer" target="_blank">has been removed</a>.</li>
+<li aria-level="2"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1880480" rel="noreferrer" target="_blank">ESC key should now</a> <b>not</b> save modified data in the Edit bookmark dialog when accessed from Star Icon.</li>
+</ul>
+</li>
+</ul>
+<h4>UX Fundamentals</h4>
+<ul>
+<li aria-level="1">We’re disabling the felt-privacy error pages in Firefox 148 while we sort out a few small issues. Going to try to get this in for Firefox 149 with the new error page UI for all errors.</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-02T18:04:35.000Z>2 February 2026</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

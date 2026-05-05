@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>How to Mount a BitLocker Drive on Linux at Login</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2026/02/how-to-mount-a-bitlocker-drive-on-linux-at-login/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2025. -->
+<p>I recently reinstalled Linux on my desktop machine alongside Windows on a separate SSD. I also have a 3TB hard drive for backups and slower storage, which I formatted on Windows. I didn’t manually enable any encryption, but I got the following error when trying to mount it directly:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>mount: /mnt/&lt;mydrive&gt;: unknown filesystem type 'BitLocker'</span></span></code></pre></div>
+
+<p>Looks encrypted to me! After some googling, I found a common solution is to use dislocker to decrypt the drive.</p>
+<blockquote>
+<p>I was confused because my drive wasn’t encrypted, but the filesystem type was still “BitLocker”. My guess is that Windows encrypted the drive by default, though as you’ll see soon, it uses a “clear key,” meaning it’s technically encrypted but the key is stored unencrypted, meaning anyone can decrypt the drive. I suppose they want me to set up encryption somehow, but since this is a home computer, I don’t mind it being unencrypted for now.</p>
+<p>If your drive is encrypted, there are a few extra steps. There’s an excellent guide on std.rocks<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref" rel="noreferrer" target="_blank">1</a></sup> for this. I’ll also annotate the fstab-specific section so you know where to put the recovery key there.</p></blockquote>
+<h3 id="installing-dislocker--fuse">Installing dislocker &amp; FUSE</h3>
+<blockquote>
+<p>From this point on, all of the commands need to be run as superuser. Add <code>sudo</code> before the command or run them from the <code>root</code> user. And, of course, proceed with caution and read your man pages before blindly trusting me :D</p></blockquote>
+<p>You can find dislocker packages in the default repos for most distros, or <a href="https://github.com/Aorimn/dislocker/blob/master/INSTALL.md" rel="noreferrer" target="_blank">build it from source</a>. I’m running Ubuntu right now, so I just had to run:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>apt-get install dislocker ntfs-3g</span></span></code></pre></div>
+
+<blockquote>
+<p>I was able to mount the filesystem as read-only with the default <code>ntfs</code> driver, but to write I had to install <code>ntfs-3g</code>.</p></blockquote>
+<h3 id="disabling-fast-startup-in-windows">Disabling Fast Startup in Windows</h3>
+<p>If Fast Startup is enabled in Windows, the drive can get corrupted or be forced into read-only mode in Linux. To prevent this, disable Fast Startup by entering the following in an administrator PowerShell:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power\" -Name "HiberbootEnabled" -Value "0"</span></span></code></pre></div>
+
+<p>You can also disable it from the control panel — just search “Fast Startup”.</p>
+<h3 id="mounting-on-login-with-fstab">Mounting on login with <code>fstab</code></h3>
+<p>It’s well and good to mount a drive one time, but since this is a persistent volume, I want it to be mounted consistently on boot. This is where <code>fstab</code> comes in.</p>
+<p>To find a device, run <code>lsblk</code>, find the partition you’re looking for, and note the device name. You should see something like:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>sda      8:0    0 232.9G  0 disk 
+</span></span><span><span>├─sda1   8:1    0     1G  0 part /boot/efi
+</span></span><span><span>└─sda2   8:2    0 231.8G  0 part /
+</span></span><span><span>sdb      8:16   0   2.7T  0 disk 
+</span></span><span><span>├─sdb1   8:17   0    16M  0 part 
+</span></span><span><span>└─sdb2   8:18   0   2.7T  0 part </span></span></code></pre></div>
+
+<p>In my case, I want to mount <code>/dev/sdb2</code>. First, though, we’ll need the device’s PARTUUID. Device names like <code>/dev/sdb2</code> can change when you add or remove disks, so referencing a UUID is recommended in fstab’s man page to make sure you’re mounting the same disk every time. To get the PARTUUID, run the following:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>blkid | sort</span></span></code></pre></div>
+
+<p>Here’s my output:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>/dev/sda1: UUID="A1A1-A1A1" BLOCK_SIZE="512" TYPE="vfat" PARTUUID="1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a"
+</span></span><span><span>/dev/sda2: UUID="1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a"
+</span></span><span><span>/dev/sdb1: PARTLABEL="Microsoft reserved partition" PARTUUID="1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a"
+</span></span><span><span>/dev/sdb2: TYPE="BitLocker" PARTLABEL="Basic data partition" PARTUUID="&lt;mydrive-part-uuid&gt;"</span></span></code></pre></div>
+
+<blockquote>
+<p>You should also be able to see the UUID after running <code>lsblk -f</code>, but for some reason, that command didn’t show me any disk information for <code>/dev/sdb</code>. It also didn’t show me the disk’s UUID, just the PARTUUID for each partition. That worked well enough for me, but please leave a comment if you know why that’s happening.</p></blockquote>
+<p>Open <code>/etc/fstab</code> in your favorite editor and add the following at the end:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>/dev/disk/by-partuuid/&lt;mydrive-part-uuid&gt; /mnt/bitlocker  fuse.dislocker  nofail,clear-key                              0   0
+</span></span><span><span>/mnt/bitlocker/dislocker-file             /mnt/&lt;mydrive&gt;  ntfs            nofail,x-gvfs-show,x-gvfs-name=bitlocker-raw  0   0</span></span></code></pre></div>
+
+<p>I specified the <code>clear-key</code> option which is assumed in the <code>dislocker</code> command — the <code>fuse.dislocker</code> filesystem type takes dislocker’s long options. If your drive is encrypted, you’ll want to replace this with <code>recovery-password=000000-000000-000000-000000-000000-000000-000000-000000</code> (recovery password is required if TPM is enabled) or <code>user-password=123456</code> (a PIN code here works if TPM is disabled, according to std.rocks<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref" rel="noreferrer" target="_blank">1</a></sup>).</p>
+<p>Now, I recommend trying to mount the drive before rebooting to avoid any startup issues if there are syntax errors or similar. After saving the file, run the following to get your <code>fstab</code> changes into systemd:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>systemctl daemon-reload</span></span></code></pre></div>
+
+<p>Now you can mount the drive, then mount the <code>dislocker-file</code> just by naming the mount points:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>mount /mnt/bitlocker
+</span></span><span><span>mount /mnt/mydrive</span></span></code></pre></div>
+
+<p>If you see files in <code>/mnt/mydrive</code>, hooray, it worked! Your drive should be mounted on reboot now. If not, there may be an error in your fstab file. I’d recommend trying the manual mounting method in the next section and noting at what step the failure happens.</p>
+<h3 id="troubleshooting-manual-mounting">Troubleshooting: manual mounting</h3>
+<p>I found it easier to diagnose and fix issues when I mounted manually first:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>mkdir /mnt/bitlocker
+</span></span><span><span>dislocker -V /dev/sdb2 -- /mnt/bitlocker</span></span></code></pre></div>
+
+<p>If your drive <em>is</em> encrypted, dislocker should prompt you for a user or recovery password. Since mine isn’t, I instead used the default “clear key” stored on the volume. The guide on std.rocks<sup id="fnref2:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref" rel="noreferrer" target="_blank">1</a></sup> has more info for this.</p>
+<p>If you check in the <code>/mnt/bitlocker</code> folder, you can see that there’s now a file called <code>dislocker-file</code> there. This file is what we mount:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>mount -o loop -t ntfs /mnt/bitlocker/dislocker-file /mnt/&lt;mydrive&gt;</span></span></code></pre></div>
+
+<ul>
+<li><code>-o loop</code> says that <code>dislocker-file</code> is a normal file you’re mounting via the loop interface</li>
+<li><code>-t ntfs</code> specifies that this drive is an NTFS filesystem, the default on modern Windows (post-1993, that is 😉)</li>
+</ul>
+<p>After running this, you should see your files in <code>/mnt/&lt;mydrive&gt;</code>.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://github.com/Aorimn/dislocker" rel="noreferrer" target="_blank">https://github.com/Aorimn/dislocker</a></li>
+<li><code>man fstab</code></li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://std.rocks/gnulinux_bitlocker.html" rel="noreferrer" target="_blank">https://std.rocks/gnulinux_bitlocker.html</a>&nbsp;<a href="#fnref:1" class="footnote-backref" role="doc-backlink" rel="noreferrer" target="_blank">↩︎</a>&nbsp;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink" rel="noreferrer" target="_blank">↩︎</a>&nbsp;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink" rel="noreferrer" target="_blank">↩︎</a></p>
+</li>
+</ol>
+</div>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-12T00:00:00.000Z>12 February 2026</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Modernizing swapping: virtual swap spaces</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1059201/">Go to article URL</a>
+		<div id="content"><p></p>The kernel's unloved but performance-critical swapping subsystem has been
+undergoing multiple rounds of improvement in recent times.  Recent articles
+have described <a href="https://lwn.net/Articles/1056405/" rel="noreferrer" target="_blank">the addition of the swap
+table</a> as a new way of representing the state of the swap cache, and <a href="https://lwn.net/Articles/1057102/" rel="noreferrer" target="_blank">the removal of the swap map</a> as the way of
+tracking swap space.  Work in this area is not done, though; <a href="https://lwn.net/ml/all/20260208215839.87595-1-nphamcs@gmail.com" rel="noreferrer" target="_blank">this series from
+Nhat Pham</a> addresses a number of swap-related problems by replacing the
+new swap table structures with a single, virtual swap space.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-19T15:20:28.000Z>19 February 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

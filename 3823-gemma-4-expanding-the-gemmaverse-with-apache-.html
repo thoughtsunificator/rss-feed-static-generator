@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Gemma 4: Expanding the Gemmaverse with Apache 2.0</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/03/gemma-4-expanding-the-gemmaverse-with-apache-20.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Nia Castelly</author> &amp; <author>amanda casari</author>, Google Open Source &amp; <author>Olivier Lacombe</author>, Google DeepMind</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiUJHmLQQD8rwCMVTcf48kwlolcDSUHMnVBQp_TvBu00sC8g9WPNUyd3b1Cheo1pr8joxf2VdmjR_OjoLsAb-aDPyz3AODACRW79cn_erskBcBSjEie3dM-gOePdbcIf-mTLhep2CRMpwy4L7GRr_z-haWjO7XKhCIiSPAHUxNdwAu4n4fPIOfJqdCCO2g/s1600/gemma-4_blog_open_source_keyword_header-light.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiUJHmLQQD8rwCMVTcf48kwlolcDSUHMnVBQp_TvBu00sC8g9WPNUyd3b1Cheo1pr8joxf2VdmjR_OjoLsAb-aDPyz3AODACRW79cn_erskBcBSjEie3dM-gOePdbcIf-mTLhep2CRMpwy4L7GRr_z-haWjO7XKhCIiSPAHUxNdwAu4n4fPIOfJqdCCO2g/s1600/gemma-4_blog_open_source_keyword_header-light.png" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<h2>Gemma 4: Expanding the Gemmaverse with Apache 2.0</h2>
+
+<p>For over 20 years, Google has maintained an unwavering commitment to the open-source community. Our belief has been simple: open technology is <a href="https://blog.google/technology/research/open-source-and-open-data/" rel="noreferrer" target="_blank">good for our company, good for our users, and good for our world</a>. This commitment to fostering collaborative learning and rigorous testing has consistently proven more effective than pursuing isolated improvements. It's been our approach ever since the 2005 launch of <a href="https://summerofcode.withgoogle.com/" rel="noreferrer" target="_blank">Google Summer of Code</a>, and through our open-sourcing of <a href="https://kubernetes.io/" rel="noreferrer" target="_blank">Kubernetes</a>, <a href="https://www.android.com/" rel="noreferrer" target="_blank">Android</a>, and <a href="https://go.dev/" rel="noreferrer" target="_blank">Go</a>, and it remains central to our ongoing, daily work alongside maintainers and organizations.</p>
+
+<p>Today, we are taking a significant step forward in that journey. Since first launch, the community has downloaded Gemma models over 400 million times and built a vibrant universe of over 100,000 inspiring variants, known in the community as the <a href="https://deepmind.google/models/gemma/gemmaverse/" rel="noreferrer" target="_blank">Gemmaverse</a>. </p>
+
+<p>The <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/" rel="noreferrer" target="_blank">release of Gemma 4</a> under the <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="noreferrer" target="_blank">Apache 2.0 license</a> — our most capable open models ranging from edge devices to 31B parameters — provides cutting-edge AI models for this community of developers. The industry-standard Apache license broadens the horizon for Gemma 4's applicability and usefulness, providing well-understood terms for modification, reuse, and further development.</p>
+
+<h2>A long legacy of open research</h2>
+<p>We are committed to making helpful, accessible AI technology and research so that everyone can innovate and grow. That's why many of our innovations are freely available, easy to deploy, and useful to developers across the globe. We have a long history of making our foundational machine-learning research, including <a href="https://code.google.com/archive/p/word2vec/" rel="noreferrer" target="_blank">word2vec</a>, <a href="https://docs.jax.dev/en/latest/" rel="noreferrer" target="_blank">Jax</a>, and the seminal <a href="https://research.google/pubs/attention-is-all-you-need/" rel="noreferrer" target="_blank">Transformers paper</a>, publicly available for anyone to use and study.</p>
+
+<p>We accelerated this commitment last year. By sharing models that <a href="https://blog.google/innovation-and-ai/products/2025-research-breakthroughs/" rel="noreferrer" target="_blank">interpret complex genomic data</a> and <a href="https://blog.google/innovation-and-ai/products/google-gemma-ai-cancer-therapy-discovery/" rel="noreferrer" target="_blank">identify tumor variants</a>, we contributed to the "<a href="https://research.google/blog/google-research-2025-bolder-breakthroughs-bigger-impact/" rel="noreferrer" target="_blank">magic cycle</a>" of research breakthroughs that translate into real-world impact. This week, however, marks a pivotal moment — <strong>Gemma 4 models are the first in the Gemmaverse to be released under the OSI-approved Apache 2.0 license.</strong></p>
+
+<h2>Empowering developers and researchers to deliver breakthrough innovations</h2>
+<p>Since we first launched Gemma in 2024, the community of early adopters has grown into a vast ecosystem of builders, researchers, and problem solvers. Gemma is already supporting sovereign digital infrastructure, from automating <a href="https://publicpolicy.google/article/ukraine-ai-public-service/" rel="noreferrer" target="_blank">state licensing in Ukraine</a> to scaling <a href="https://www.youtube.com/watch?v=ZhExnit0UdM" rel="noreferrer" target="_blank">Project Navarasa across India's 22 official languages</a>. And we know that developers need autonomy, control, and clarity in licensing for further AI innovation to reach its full potential.</p>
+
+<p>Gemma 4 brings three essential elements of free and open-source software directly to the community:</p>
+
+<ul>
+<li><strong>Autonomy:</strong> By letting people build on and modify the Gemma 4 models, we are empowering researchers and developers with the freedom to advance their own breakthrough innovations however they see fit.</li>
+<li><strong>Control:</strong> We understand that many developers require precise control over their development and deployment environments. Gemma 4 allows for local, private execution that doesn't rely on cloud-only infrastructure.</li>
+<li><strong>Clarity:</strong> By applying the industry-standard Apache 2.0 license terms, we are providing clarity about developers' rights and responsibilities so that they can build freely and confidently from the ground up without the need to navigate prescriptive terms of service.</li>
+</ul>
+
+<h2>Building together to drive real-world impact</h2>
+<p>Gemma 4, as a release, is an invitation. Whether you are <a href="https://blog.google/innovation-and-ai/products/dolphingemma/" rel="noreferrer" target="_blank">a scientific researcher exploring the language of dolphins</a>, an industry developer building the next generation of open AI agents, or a public institution looking to provide more effective, efficient, and localized services to your citizens, Google is excited to continue building with you. The Gemmaverse is your playground, and with Apache 2.0, the possibilities are more boundless than ever.</p>
+
+<p>We can't wait to see what you build.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-02T09:00:00.000Z>2 April 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

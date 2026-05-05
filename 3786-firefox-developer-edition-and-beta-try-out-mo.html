@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Firefox Developer Edition and Beta: Try out Mozilla’s .rpm package!</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://hacks.mozilla.org/2026/03/firefox-developer-edition-and-beta-try-out-mozillas-rpm-package/">Go to article URL</a>
+		<div id="content"><p></p><p>In January, we introduced our <a href="https://blog.nightly.mozilla.org/2026/01/19/introducing-mozillas-firefox-nightly-rpm-package-for-rpm-based-linux-distributions/" rel="noreferrer" target="_blank">Nightly package</a> for RPM-based Linux distributions. Today, we are thrilled to announce it is now available for Firefox Beta!</p>
+<p>Firefox Beta is great for testing your sites in a version of Firefox that will reach regular users in the coming weeks. If you find any issues, please file them on <a href="https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&amp;blocked=213920&amp;product=Release%20Engineering&amp;component=Release%20Automation" rel="noreferrer" target="_blank">Bugzilla</a>.</p>
+<p>Switching to Mozilla’s RPM repository allows Firefox Beta to be installed and updated like any other application, using your favorite package manager. It also provides a number of improvements:</p>
+<ul>
+<li>&nbsp;Better performance thanks to our advanced compiler-based optimizations,</li>
+<li>Updates as fast as possible because the .rpm management is integrated into Firefox’s release process,</li>
+<li>Hardened binaries with all security flags enabled during compilation,</li>
+<li>No need to create your own .desktop file.</li>
+</ul>
+<p>If you have Mozilla’s RPM repository already set up, you can simply install Firefox Beta with your package manager. Otherwise, follow the setup steps below.</p>
+<hr>
+<h4>If you are on Fedora (41+), or any other distribution using dnf5 as the package manager</h4>
+<p>&nbsp;</p>
+<pre><code class="language-bash">sudo dnf config-manager addrepo --id=mozilla --set=baseurl=https://packages.mozilla.org/rpm/firefox --set=gpgkey=https://packages.mozilla.org/rpm/firefox/signing-key.gpg --set=gpgcheck=1 --set=repo_gpgcheck=0
+sudo dnf makecache --refresh
+sudo dnf install firefox-beta</code></pre>
+<p><em>Note: <code>repo_gpgcheck=0</code> deactivate the signature of metadata with GPG. However, this is safeguarded instead by HTTPS and package signatures (<code>gpgcheck=1</code>).</em></p>
+<h4>If you are on openSUSE or any other distribution using zypper as the package manager</h4>
+<pre><code class="language-bash">sudo rpm --import https://packages.mozilla.org/rpm/firefox/signing-key.gpg
+sudo zypper ar --gpgcheck-allow-unsigned-repo https://packages.mozilla.org/rpm/firefox mozilla
+sudo zypper refresh
+sudo zypper install firefox-beta</code></pre>
+<h4>For other RPM based distributions (RHEL, CentOS, Rocky Linux, older Fedora versions)</h4>
+<pre><code class="language-bash">sudo tee /etc/yum.repos.d/mozilla.repo &gt;  /dev/null &lt;&lt; EOF
+[mozilla]
+name=Mozilla Packages
+baseurl=https://packages.mozilla.org/rpm/firefox
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.mozilla.org/rpm/firefox/signing-key.gpg
+EOF</code></pre>
+<pre><code class="language-bash"># For dnf users
+sudo dnf makecache --refresh
+sudo dnf install firefox-beta</code></pre>
+<pre><code class="language-bash"># For zypper users
+sudo zypper refresh
+sudo zypper install firefox-beta</code></pre>
+<p>The <em>firefox-beta</em> package will not conflict with your distribution’s Firefox package if you have it installed, you can have both at the same time!</p>
+<h4>Adding language packs</h4>
+<p>If your distribution language is set to a <a href="https://www.firefox.com/download/all/desktop-beta/linux64/" rel="noreferrer" target="_blank">supported language</a>, language packs for it should automatically be installed. You can also install them manually with the following command (replace <code>fr</code> with the language code of your choice):</p>
+<pre><code class="language-bash">sudo dnf install firefox-beta-l10n-fr</code></pre>
+<p>You can list the available languages with the following command:</p>
+<pre><code class="language-bash">dnf search firefox-beta-l10n</code></pre>
+<hr>
+<p>Don’t hesitate to <a href="https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&amp;blocked=213920&amp;product=Release Engineering&amp;component=Release Automation" rel="noreferrer" target="_blank">report any problem you encounter</a> to help us make your experience better.</p>
+<p>The post <a href="https://hacks.mozilla.org/2026/03/firefox-developer-edition-and-beta-try-out-mozillas-rpm-package/" rel="noreferrer" target="_blank">Firefox Developer Edition and Beta: Try out Mozilla’s .rpm package!</a> appeared first on <a href="https://hacks.mozilla.org" rel="noreferrer" target="_blank">Mozilla Hacks - the Web developer blog</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-25T16:17:11.000Z>25 March 2026</time>
+			<a href="/urls/hacks-mozilla-org-feed">hacks.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

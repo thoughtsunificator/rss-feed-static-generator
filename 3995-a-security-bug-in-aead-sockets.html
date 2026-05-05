@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>A security bug in AEAD sockets</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1070454/">Go to article URL</a>
+		<div id="content"><p></p><p>
+Security analysis firm <a href="https://xint.io" rel="noreferrer" target="_blank">Xint</a> has disclosed <a href="https://copy.fail/" rel="noreferrer" target="_blank">a security bug</a> in the Linux kernel
+that allows for arbitrary 4-byte writes to the page cache, and which has been
+present since 2017.
+The vulnerability has
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a664bf3d603dc3bdcf9ae47cc21e0daec706d7a5" rel="noreferrer" target="_blank">
+been fixed</a> in mainline kernels. A <a href="https://github.com/theori-io/copy-fail-CVE-2026-31431/blob/main/copy_fail_exp.py" rel="noreferrer" target="_blank">
+proof-of-concept script</a> demonstrates how to use the flaw to corrupt a setuid
+binary, which works on
+multiple distributions, by requesting an AEAD-encrypted socket from user space
+and splicing a particular payload into it.
+A <a href="https://xint.io/blog/copy-fail-linux-distributions" rel="noreferrer" target="_blank">supplemental blog
+post</a> gives more details about the discovery and remediation.
+</p>
+
+<blockquote class="bq">
+A core primitive underlying this bug is splice(): it transfers data between file
+descriptors and pipes without copying, passing page cache pages by reference.
+When a user splices a file into a pipe and then into an AF_ALG socket, the
+socket's input scatterlist holds direct references to the kernel's cached pages
+of that file. The pages are not duplicated; the scatterlist entries point at the
+same physical pages that back every <tt>read()</tt>, <tt>mmap()</tt>, and
+<tt>execve()</tt> of that file.
+</blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-30T00:01:05.000Z>30 April 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Remote authentication bypass in telnetd</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1055213/">Go to article URL</a>
+		<div id="content"><p></p>One would assume that most LWN readers stopped running network-accessible
+telnet services some number of decades ago.  For the rest of you, <a href="https://lwn.net/ml/all/87h5sg9yfs.fsf@josefsson.org" rel="noreferrer" target="_blank">this security advisory from
+Simon Josefsson</a> is worthy of note:
+<p>
+</p><blockquote class="bq">
+	The telnetd server invokes /usr/bin/login (normally running as
+	root) passing the value of the USER environment variable received
+	from the client as the last parameter.
+<p>
+	If the client supplies a carefully crafted USER environment value
+	being the string "-f root", and passes the telnet(1) -a or --login
+	parameter to send this USER environment to the server, the client
+	will be automatically logged in as root bypassing normal
+	authentication processes.
+</p></blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-01-20T20:45:46.000Z>20 January 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

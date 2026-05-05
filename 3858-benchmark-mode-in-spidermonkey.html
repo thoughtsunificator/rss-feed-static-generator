@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Benchmark Mode in SpiderMonkey</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://spidermonkey.dev/blog/2026/04/13/benchmark-mode.html">Go to article URL</a>
+		<div id="content"><p></p><p>You ever get to the end of running benchmarks, maybe a long running one, and realize… “Oh <em>no</em>. I forgot to set that important option, and these results are useless”</p>
+
+<p>Yeah. I have. Too many times.</p>
+
+<p>So I’ve <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2030456" rel="noreferrer" target="_blank">added <code class="language-plaintext highlighter-rouge">--benchmark-mode</code> and <code class="language-plaintext highlighter-rouge">--strict-benchmark-mode</code> to SpiderMonkey</a>.</p>
+
+<p>These options configure the shell for benchmarking, taking the wisdom of the team and boiling multiple shell options down to a single <code class="language-plaintext highlighter-rouge">--benchmark-mode</code> flag, and in <code class="language-plaintext highlighter-rouge">--strict-benchmark-mode</code> will abort the run if the shell is configured in a way where effective benchmarking is unlikely to be possible (e.g. benchmarking a debug build!)</p>
+
+<p>The nice thing about nailing this down is that this is something we can point <em>anyone to</em> and know that their shell is following the rules any of us would follow.</p>
+
+<p>The general design philosophy of benchmark mode is to disable things you wouldn’t see enabled in Firefox in normal configuration, as well as debugging code that maybe makes sense for test suites but doesn’t make sense for a benchmark.</p>
+
+<p>Hopefully this is the end of me realizing that I forgot to pass <a href="https://searchfox.org/firefox-main/rev/37ae122d8d03366820f487aeac25e74a4be97fab/js/src/shell/js.cpp#13262" rel="noreferrer" target="_blank"><code class="language-plaintext highlighter-rouge">--no-async-stacks</code></a> yet again.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-13T17:00:00.000Z>13 April 2026</time>
+			<a href="/urls/spidermonkey-dev-feed-xml">spidermonkey.dev/feed.xml</a>
+			<div> <a href="/tags/javascript.html">javascript</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

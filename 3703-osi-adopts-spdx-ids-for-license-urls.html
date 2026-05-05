@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>OSI Adopts SPDX IDs for License URLs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://opensource.org/blog/osi-adopts-spdx-ids-for-license-urls">Go to article URL</a>
+		<div id="content"><p></p>
+<p class="wp-block-paragraph">For more than 25 years, the Open Source Initiative (OSI) website has been a central reference point for Open Source licenses. Over that time, our site has evolved through multiple redesigns, content management systems, and infrastructure migrations. As a result, license pages accumulated a variety of URL formats, including some ending in html, php, and txt.</p>
+
+
+
+<p class="wp-block-paragraph">In 2025 alone, our <a href="https://opensource.org/blog/top-open-source-licenses-in-2025" rel="noreferrer" target="_blank">most-referenced license pages</a> received significant traffic:</p>
+
+
+
+<ul class="wp-block-list">
+<li>MIT: over 1.5M pageviews</li>
+
+
+
+<li>Apache 2.0: 344K pageviews</li>
+
+
+
+<li>BSD 3-Clause: 214K pageviews</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">With this level of usage, even small inconsistencies in URLs, naming, or structure can have outsized effects across the ecosystem. Ensuring that license identifiers are clear, stable, and aligned with widely adopted standards is essential.</p>
+
+
+
+<p class="wp-block-paragraph">That’s why we’ve taken this step to standardize OSI license URLs using SPDX identifiers, while carefully preserving compatibility with the many links that already exist across the web and tools. The full set of OSI-approved licenses continues to be available at: </p>
+
+
+
+<p class="wp-block-paragraph"><a href="https://opensource.org/licenses" rel="noreferrer" target="_blank">https://opensource.org/licenses</a></p>
+
+
+
+<h3 class="wp-block-heading"><strong>Why SPDX?</strong></h3>
+
+
+
+<p class="wp-block-paragraph"><a target="_blank" href="https://spdx.org/licenses/" rel="noreferrer">SPDX (Software Package Data Exchange)</a> license identifiers have become the de facto standard for referencing software licenses in a consistent, machine-readable way. They are widely used across the Open Source ecosystem: in package managers, compliance tools, SBOMs, and documentation.</p>
+
+
+
+<p class="wp-block-paragraph">By adopting SPDX IDs in our URLs, we are aligning OSI’s license pages with the identifiers that developers, organizations, and tools already rely on.</p>
+
+
+
+<h3 class="wp-block-heading"><strong>Preserving the Past with Redirects</strong></h3>
+
+
+
+<p class="wp-block-paragraph">We recognize that OSI license URLs are deeply embedded across the web: in documentation, legal texts, source code comments, blog posts, and academic papers. Breaking those links would create unnecessary friction.</p>
+
+
+
+<p class="wp-block-paragraph">That’s why all legacy license URLs continue to work. We’ve put appropriate redirects in place so that older links now resolve cleanly to the corresponding SPDX-based URL.</p>
+
+
+
+<p class="wp-block-paragraph">In short: nothing breaks, and everything becomes clearer going forward.</p>
+
+
+
+<h3 class="wp-block-heading"><strong>Summary of License URL Changes</strong></h3>
+
+
+
+<p class="wp-block-paragraph">To support the transition to SPDX-based identifiers while preserving long-standing links, we standardized license URLs and implemented redirects from legacy formats. The table below summarizes the types of changes applied across the OSI website.</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tbody><tr><td><strong>License Name</strong></td><td><strong>URL ID (old)</strong></td><td><strong>SPDX ID</strong></td></tr><tr><td><a href="https://opensource.org/license/0bsd" target="_blank" rel="noreferrer">Zero-Clause BSD</a></td><td>0bsd</td><td>0BSD</td></tr><tr><td><a href="https://opensource.org/license/aal" target="_blank" rel="noreferrer">Attribution Assurance License</a></td><td>attribution-php</td><td>AAL</td></tr><tr><td><a href="https://opensource.org/license/afl-3-0" target="_blank" rel="noreferrer">Academic Free License v. 3.0</a></td><td>afl-3-0-php</td><td>AFL-3.0</td></tr><tr><td><a href="https://opensource.org/license/agpl-3.0" type="link" id="https://opensource.org/license/agpl-3.0" target="_blank" rel="noreferrer">GNU Affero General Public License version 3</a></td><td>agpl-v3</td><td>AGPL-3.0</td></tr><tr><td><a href="https://opensource.org/license/apache-1-1" target="_blank" rel="noreferrer">Apache Software License, version 1.1</a></td><td>apache-1-1</td><td>Apache-1.1</td></tr><tr><td><a href="https://opensource.org/license/apache-2-0" target="_blank" rel="noreferrer">Apache License, Version 2.0</a></td><td>apache-2-0</td><td>Apache-2.0</td></tr><tr><td><a href="https://opensource.org/license/apl-1-0" target="_blank" rel="noreferrer">Adaptive Public License 1.0</a></td><td>apl1-0-php</td><td>APL-1.0</td></tr><tr><td><a href="https://opensource.org/license/apsl-2-0" target="_blank" rel="noreferrer">Apple Public Source License 2.0</a></td><td>apsl-2-0</td><td>APSL-2.0</td></tr><tr><td><a href="https://opensource.org/license/artistic-1-0" target="_blank" rel="noreferrer">Artistic License 1.0</a></td><td>artistic-1-0</td><td>Artistic-1.0</td></tr><tr><td><a href="https://opensource.org/license/artistic-1-0-perl" target="_blank" rel="noreferrer">Artistic License (Perl) 1.0</a></td><td>artistic-perl-1-0-2</td><td>Artistic-1.0-Perl</td></tr><tr><td><a href="https://opensource.org/license/artistic-2-0" target="_blank" rel="noreferrer">Artistic License 2.0</a></td><td>artistic-2-0</td><td>Artistic-2.0</td></tr><tr><td><a href="https://opensource.org/license/blueoak-1-0-0" target="_blank" rel="noreferrer">Blue Oak Model License</a></td><td>blue-oak-model-license</td><td>BlueOak-1.0.0</td></tr><tr><td><a href="https://opensource.org/license/bsd-1-clause" target="_blank" rel="noreferrer">1-clause BSD License</a></td><td>bsd-1-clause</td><td>BSD-1-Clause</td></tr><tr><td><a href="https://opensource.org/license/bsd-2-clause" target="_blank" rel="noreferrer">The 2-Clause BSD License</a></td><td>bsd-2-clause</td><td>BSD-2-Clause</td></tr><tr><td><a href="https://opensource.org/license/bsd-2-clause-patent" target="_blank" rel="noreferrer">BSD+Patent</a></td><td>bsdpluspatent</td><td>BSD-2-Clause-Patent</td></tr><tr><td><a href="https://opensource.org/license/bsd-3-clause" target="_blank" rel="noreferrer">The 3-Clause BSD License</a></td><td>bsd-3-clause</td><td>BSD-3-Clause</td></tr><tr><td><a href="https://opensource.org/license/bsd-3-clause-lbnl" target="_blank" rel="noreferrer">Lawrence Berkeley National Labs BSD Variant License</a></td><td>bsd-3-clause-lbnl</td><td>BSD-3-Clause-LBNL</td></tr><tr><td><a href="https://opensource.org/license/bsd-3-clause-open-mpi" target="_blank" rel="noreferrer">BSD-3-Clause-Open-MPI</a></td><td>bsd-3-clause-open-mpi</td><td>BSD-3-Clause-Open-MPI</td></tr><tr><td><a href="https://opensource.org/license/bsl-1-0" target="_blank" rel="noreferrer">Boost Software License 1.0</a></td><td>bsl-1-0</td><td>BSL-1.0</td></tr><tr><td><a href="https://opensource.org/license/cal-1-0" target="_blank" rel="noreferrer">Cryptographic Autonomy License</a></td><td>cal-1-0</td><td>CAL-1.0</td></tr><tr><td><a href="https://opensource.org/license/catosl-1-1" target="_blank" rel="noreferrer">Computer Associates Trusted Open Source License 1.1</a></td><td>ca-tosl1-1-php</td><td>CATOSL-1.1</td></tr><tr><td><a href="https://opensource.org/license/cddl-1-0" target="_blank" rel="noreferrer">Common Development and Distribution License 1.0</a></td><td>cddl-1-0</td><td>CDDL-1.0</td></tr><tr><td><a href="https://opensource.org/license/cddl-1-1" target="_blank" rel="noreferrer">COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)</a></td><td>cddl-1-1</td><td>CDDL-1.1</td></tr><tr><td><a href="https://opensource.org/license/cecill-2-1" target="_blank" rel="noreferrer">Cea Cnrs Inria Logiciel Libre License, version 2.1</a></td><td>cecill-2-1</td><td>CECILL-2.1</td></tr><tr><td><a href="https://opensource.org/license/cern-ohl-p-2-0" target="_blank" rel="noreferrer">CERN Open Hardware Licence Version 2 – Permissive</a></td><td>cern-ohl-p</td><td>CERN-OHL-P-2.0</td></tr><tr><td><a href="https://opensource.org/license/cern-ohl-s-2-0" target="_blank" rel="noreferrer">CERN Open Hardware Licence Version 2 – Strongly Reciprocal</a></td><td>cern-ohl-s</td><td>CERN-OHL-S-2.0</td></tr><tr><td><a href="https://opensource.org/license/cern-ohl-w-2-0" target="_blank" rel="noreferrer">CERN Open Hardware Licence Version 2 – Weakly Reciprocal</a></td><td>cern-ohl-w</td><td>CERN-OHL-W-2.0</td></tr><tr><td><a href="https://opensource.org/license/cnri-python" target="_blank" rel="noreferrer">The CNRI portion of the multi-part Python License</a></td><td>cnri-python</td><td>CNRI-Python</td></tr><tr><td><a href="https://opensource.org/license/cpal-1-0" target="_blank" rel="noreferrer">Common Public Attribution License Version 1.0</a></td><td>cpal-1-0</td><td>CPAL-1.0</td></tr><tr><td><a href="https://opensource.org/license/cpl-1-0" target="_blank" rel="noreferrer">Common Public License Version 1.0</a></td><td>cpl1-0-txt</td><td>CPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/cua-opl-1-0" target="_blank" rel="noreferrer">CUA Office Public License</a></td><td>cuaoffice-php</td><td>CUA-OPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/ecl-1-0" target="_blank" rel="noreferrer">Educational Community License, Version 1.0</a></td><td>ecl-1-0</td><td>ECL-1.0</td></tr><tr><td><a href="https://opensource.org/license/ecl-2-0" target="_blank" rel="noreferrer">Educational Community License, Version 2.0</a></td><td>ecl-2-0</td><td>ECL-2.0</td></tr><tr><td><a href="https://opensource.org/license/ecos-2-0" target="_blank" rel="noreferrer">eCos License version 2.0</a></td><td>ecos-2-0</td><td>eCos-2.0</td></tr><tr><td><a href="https://opensource.org/license/efl-1-0" target="_blank" rel="noreferrer">Eiffel Forum License, version 1</a></td><td>efl-1-0</td><td>EFL-1.0</td></tr><tr><td><a href="https://opensource.org/license/efl-2-0" target="_blank" rel="noreferrer">Eiffel Forum License, Version 2</a></td><td>ver2_eiffel-php</td><td>EFL-2.0</td></tr><tr><td><a href="https://opensource.org/license/entessa" target="_blank" rel="noreferrer">Entessa Public License Version. 1.0</a></td><td>entessa</td><td>Entessa</td></tr><tr><td><a href="https://opensource.org/license/epl-1-0" target="_blank" rel="noreferrer">Eclipse Public License -v 1.0</a></td><td>epl-1-0</td><td>EPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/epl-2-0" target="_blank" rel="noreferrer">Eclipse Public License version 2.0</a></td><td>epl-2-0</td><td>EPL-2.0</td></tr><tr><td><a href="https://opensource.org/license/eudatagrid" target="_blank" rel="noreferrer">EU DataGrid Software License</a></td><td>eudatagrid-php</td><td>EUDatagrid</td></tr><tr><td><a href="https://opensource.org/license/eupl-1-1" target="_blank" rel="noreferrer">The European Union Public License, version 1.1</a></td><td>eupl-1-1</td><td>EUPL-1.1</td></tr><tr><td><a href="https://opensource.org/license/eupl-1-2" target="_blank" rel="noreferrer">European Union Public Licence, version 1.2</a></td><td>eupl-1-2</td><td>EUPL-1.2</td></tr><tr><td><a href="https://opensource.org/license/fair" target="_blank" rel="noreferrer">Fair License</a></td><td>fair</td><td>Fair</td></tr><tr><td><a href="https://opensource.org/license/frameworx-1-0" target="_blank" rel="noreferrer">Frameworx License 1.0</a></td><td>frameworx-php</td><td>Frameworx-1.0</td></tr><tr><td><a href="https://opensource.org/license/gpl-1.0" type="link" id="https://opensource.org/license/gpl-1.0" target="_blank" rel="noreferrer">GNU General Public License, version 1</a></td><td>gpl-1-0</td><td>GPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/gpl-2.0" type="link" id="https://opensource.org/license/gpl-2.0" target="_blank" rel="noreferrer">GNU General Public License version 2</a></td><td>gpl-2-0</td><td>GPL-2.0</td></tr><tr><td><a href="https://opensource.org/license/gpl-3.0" target="_blank" rel="noreferrer">GNU General Public License version 3</a></td><td>gpl-3-0</td><td>GPL-3.0</td></tr><tr><td><a href="https://opensource.org/license/hpnd" target="_blank" rel="noreferrer">Historical Permission Notice and Disclaimer</a></td><td>historical-php</td><td>HPND</td></tr><tr><td><a href="https://opensource.org/license/icu" target="_blank" rel="noreferrer">ICU License</a></td><td>icu-license</td><td>ICU</td></tr><tr><td><a href="https://opensource.org/license/intel" target="_blank" rel="noreferrer">Intel Open Source License</a></td><td>intel</td><td>Intel</td></tr><tr><td><a href="https://opensource.org/license/ipa" target="_blank" rel="noreferrer">IPA Font License</a></td><td>ipafont-html</td><td>IPA</td></tr><tr><td><a href="https://opensource.org/license/ipl-1-0" target="_blank" rel="noreferrer">IBM Public License Version 1.0</a></td><td>ibmpl-php</td><td>IPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/isc" target="_blank" rel="noreferrer">ISC License</a></td><td>isc-license-txt</td><td>ISC</td></tr><tr><td><a href="https://opensource.org/license/jam" target="_blank" rel="noreferrer">JAM License</a></td><td>jam</td><td>Jam</td></tr><tr><td><a href="https://opensource.org/license/lgpl-2.0" target="_blank" rel="noreferrer">GNU Library General Public License version 2</a></td><td>lgpl-2-0</td><td>LGPL-2.0</td></tr><tr><td><a href="https://opensource.org/license/lgpl-2.1" target="_blank" rel="noreferrer">GNU Lesser General Public License version 2.1</a></td><td>lgpl-2-1</td><td>LGPL-2.1</td></tr><tr><td><a href="https://opensource.org/license/lgpl-3.0" target="_blank" rel="noreferrer">GNU Lesser General Public License version 3</a></td><td>lgpl-3-0</td><td>LGPL-3.0</td></tr><tr><td><a href="https://opensource.org/license/liliq-p-1-1" target="_blank" rel="noreferrer">Licence Libre du Québec – Permissive version 1.1</a></td><td>liliq-p-1-1</td><td>LiLiQ-P-1.1</td></tr><tr><td><a href="https://opensource.org/license/liliq-r-1-1" target="_blank" rel="noreferrer">Licence Libre du Québec – Réciprocité version 1.1</a></td><td>liliq-r-1-1</td><td>LiLiQ-R-1.1</td></tr><tr><td><a href="https://opensource.org/license/liliq-rplus-1-1" target="_blank" rel="noreferrer">Licence Libre du Québec – Réciprocité forte version 1.1</a></td><td>liliq-rplus-1-1</td><td>LiLiQ-Rplus-1.1</td></tr><tr><td><a href="https://opensource.org/license/lpl-1-0" target="_blank" rel="noreferrer">Lucent Public License, Plan 9, version 1.0</a></td><td>lpl-1-0</td><td>LPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/lpl-1-02" target="_blank" rel="noreferrer">Lucent Public License Version 1.02</a></td><td>lucent1-02-php</td><td>LPL-1.02</td></tr><tr><td><a href="https://opensource.org/license/lppl-1-3c" target="_blank" rel="noreferrer">LaTeX Project Public License, Version 1.3c</a></td><td>lppl</td><td>LPPL-1.3c</td></tr><tr><td><a href="https://opensource.org/license/miros" target="_blank" rel="noreferrer">MirOS Licence</a></td><td>miros-html</td><td>MirOS</td></tr><tr><td><a href="https://opensource.org/license/mit" target="_blank" rel="noreferrer">The MIT License</a></td><td>mit</td><td>MIT</td></tr><tr><td><a href="https://opensource.org/license/mit-0" target="_blank" rel="noreferrer">MIT No Attribution License</a></td><td>mit-0</td><td>MIT-0</td></tr><tr><td><a href="https://opensource.org/license/mit-cmu" target="_blank" rel="noreferrer">CMU License</a></td><td>cmu-license</td><td>MIT-CMU</td></tr><tr><td><a href="https://opensource.org/license/motosoto" target="_blank" rel="noreferrer">Motosoto Open Source License</a></td><td>motosoto</td><td>Motosoto</td></tr><tr><td><a href="https://opensource.org/license/mpl-1-0" target="_blank" rel="noreferrer">Mozilla Public License, version 1.0</a></td><td>mpl-1-0</td><td>MPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/mpl-1-1" target="_blank" rel="noreferrer">Mozilla Public License 1.1</a></td><td>mpl-1-1</td><td>MPL-1.1</td></tr><tr><td><a href="https://opensource.org/license/mpl-2-0" target="_blank" rel="noreferrer">Mozilla Public License 2.0</a></td><td>mpl-2-0</td><td>MPL-2.0</td></tr><tr><td><a href="https://opensource.org/license/ms-pl" target="_blank" rel="noreferrer">Microsoft Public License</a></td><td>ms-pl-html</td><td>MS-PL</td></tr><tr><td><a href="https://opensource.org/license/ms-rl" target="_blank" rel="noreferrer">Microsoft Reciprocal License</a></td><td>ms-rl-html</td><td>MS-RL</td></tr><tr><td><a href="https://opensource.org/license/mulanpsl-2-0" target="_blank" rel="noreferrer">Mulan Permissive Software License v2</a></td><td>mulanpsl-2-0</td><td>MulanPSL-2.0</td></tr><tr><td><a href="https://opensource.org/license/multics" target="_blank" rel="noreferrer">Multics License</a></td><td>multics-txt</td><td>Multics</td></tr><tr><td><a href="https://opensource.org/license/nasa-1-3" target="_blank" rel="noreferrer">NASA Open Source Agreement v1.3</a></td><td>nasa1-3-php</td><td>NASA-1.3</td></tr><tr><td><a href="https://opensource.org/license/naumen" target="_blank" rel="noreferrer">NAUMEN Public License</a></td><td>naumen-php</td><td>Naumen</td></tr><tr><td><a href="https://opensource.org/license/ncsa" target="_blank" rel="noreferrer">The University of Illinois/NCSA Open Source License</a></td><td>uoi-ncsa-php</td><td>NCSA</td></tr><tr><td><a href="https://opensource.org/license/ngpl" target="_blank" rel="noreferrer">The Nethack General Public License</a></td><td>nethack</td><td>NGPL</td></tr><tr><td><a href="https://opensource.org/license/nokia" target="_blank" rel="noreferrer">Nokia Open Source License Version 1.0a</a></td><td>nokia</td><td>NOKIA</td></tr><tr><td><a href="https://opensource.org/license/nposl-3-0" target="_blank" rel="noreferrer">Non-Profit Open Software License version 3.0</a></td><td>nposl-3-0</td><td>NPOSL-3.0</td></tr><tr><td><a href="https://opensource.org/license/ntp" target="_blank" rel="noreferrer">NTP License</a></td><td>ntp-license-php</td><td>NTP</td></tr><tr><td><a href="https://opensource.org/license/oclc-2-0" target="_blank" rel="noreferrer">The OCLC Research Public License 2.0 License</a></td><td>oclc2-php</td><td>OCLC-2.0</td></tr><tr><td><a href="https://opensource.org/license/ofl-1-1" target="_blank" rel="noreferrer">SIL OPEN FONT LICENSE</a></td><td>ofl-1-1</td><td>OFL-1.1</td></tr><tr><td><a href="https://opensource.org/license/ogtsl" target="_blank" rel="noreferrer">Open Group Test Suite License</a></td><td>opengroup-php</td><td>OGTSL</td></tr><tr><td><a href="https://opensource.org/license/oldap-2-8" target="_blank" rel="noreferrer">OpenLDAP Public License Version 2.8</a></td><td>oldap-2-8</td><td>OLDAP-2.8</td></tr><tr><td><a href="https://opensource.org/license/olfl-1-3" target="_blank" rel="noreferrer">Open Logistics Foundation License v1.3</a></td><td>olfl-1-3</td><td>OLFL-1.3</td></tr><tr><td><a href="https://opensource.org/license/osc-1-0" target="_blank" rel="noreferrer">OSC License 1.0</a></td><td>osc-license-1-0</td><td>OSC-1.0</td></tr><tr><td><a href="https://opensource.org/license/oset-pl-2-1" target="_blank" rel="noreferrer">OSET Public License version 2.1</a></td><td>opl-2-1</td><td>OSET-PL-2.1</td></tr><tr><td><a href="https://opensource.org/license/osl-1-0" target="_blank" rel="noreferrer">Open Software License, version 1.0</a></td><td>osl-1-0</td><td>OSL-1.0</td></tr><tr><td><a href="https://opensource.org/license/osl-2-1" target="_blank" rel="noreferrer">Open Software License 2.1</a></td><td>osl-2-1</td><td>OSL-2.1</td></tr><tr><td><a href="https://opensource.org/license/osl-3-0" target="_blank" rel="noreferrer">The Open Software License 3.0</a></td><td>osl-3-0-php</td><td>OSL-3.0</td></tr><tr><td><a href="https://opensource.org/license/php-3-0" target="_blank" rel="noreferrer">PHP License 3.0</a></td><td>php-3-0</td><td>PHP-3.0</td></tr><tr><td><a href="https://opensource.org/license/php-3-01" target="_blank" rel="noreferrer">PHP License 3.01</a></td><td>php-3-01</td><td>PHP-3.01</td></tr><tr><td><a href="https://opensource.org/license/postgresql" target="_blank" rel="noreferrer">The PostgreSQL License</a></td><td>postgresql</td><td>PostgreSQL</td></tr><tr><td><a href="https://opensource.org/license/python-2-0" target="_blank" rel="noreferrer">Python License, Version 2</a></td><td>PSF-2.0</td><td>Python-2.0</td></tr><tr><td><a href="https://opensource.org/license/qpl-1-0" target="_blank" rel="noreferrer">The Q Public License Version</a></td><td>qpl-1-0</td><td>QPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/rpl-1-1" target="_blank" rel="noreferrer">Reciprocal Public License, version 1.1</a></td><td>rpl-1-1</td><td>RPL-1.1</td></tr><tr><td><a href="https://opensource.org/license/rpl-1-5" target="_blank" rel="noreferrer">Reciprocal Public License 1.5</a></td><td>rpl-1-5</td><td>RPL-1.5</td></tr><tr><td><a href="https://opensource.org/license/rpsl-1-0" target="_blank" rel="noreferrer">RealNetworks Public Source License Version 1.0</a></td><td>real-php</td><td>RPSL-1.0</td></tr><tr><td><a href="https://opensource.org/license/rscpl" target="_blank" rel="noreferrer">The Ricoh Source Code Public License</a></td><td>ricohpl-php</td><td>RSCPL</td></tr><tr><td><a href="https://opensource.org/license/simpl-2-0" target="_blank" rel="noreferrer">Simple Public License</a></td><td>simpl-2-0-html</td><td>SimPL-2.0</td></tr><tr><td><a href="https://opensource.org/license/sissl" target="_blank" rel="noreferrer">Sun Industry Standards Source License</a></td><td>sissl</td><td>SISSL</td></tr><tr><td><a href="https://opensource.org/license/sleepycat" target="_blank" rel="noreferrer">The Sleepycat License</a></td><td>sleepycat-php</td><td>Sleepycat</td></tr><tr><td><a href="https://opensource.org/license/spl-1-0" target="_blank" rel="noreferrer">Sun Public License, Version 1.0</a></td><td>sunpublic-php</td><td>SPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/ucl-1-0" target="_blank" rel="noreferrer">Upstream Compatibility License v1.0</a></td><td>ucl-1-0</td><td>UCL-1.0</td></tr><tr><td><a href="https://opensource.org/license/unicode-3-0" target="_blank" rel="noreferrer">UNICODE LICENSE V3</a></td><td>unicode-license-v3</td><td>Unicode-3.0</td></tr><tr><td><a href="https://opensource.org/license/unicode-dfs-2016" target="_blank" rel="noreferrer">Unicode, Inc. License Agreement – Data Files and Software</a></td><td>unicode-inc-license-agreement-data-files-and-software</td><td>Unicode-DFS-2015</td></tr><tr><td><a href="https://opensource.org/license/unlicense" target="_blank" rel="noreferrer">The Unlicense</a></td><td>unlicense</td><td>Unlicense</td></tr><tr><td><a href="https://opensource.org/license/upl-1-0" target="_blank" rel="noreferrer">The Universal Permissive License Version 1.0</a></td><td>upl</td><td>UPL-1.0</td></tr><tr><td><a href="https://opensource.org/license/vsl-0-1" target="_blank" rel="noreferrer">The Vovida Software License v. 1.0</a></td><td>vovidapl-php</td><td>VSL-0.1</td></tr><tr><td><a href="https://opensource.org/license/w3c-20150513" target="_blank" rel="noreferrer">The W3C® Software and Document license</a></td><td>w3c</td><td>W3C-20150513</td></tr><tr><td><a href="https://opensource.org/license/watcom-1-0" target="_blank" rel="noreferrer">The Sybase Open Source Licence</a></td><td>sybase-php</td><td>Watcom-1.0</td></tr><tr><td><a href="https://opensource.org/license/wordnet" target="_blank" rel="noreferrer">WordNet</a></td><td>wordnet</td><td>WordNet</td></tr><tr><td><a href="https://opensource.org/license/wxwindows" target="_blank" rel="noreferrer">The wxWindows Library Licence</a></td><td>wxwindows-php</td><td>wxWindows</td></tr><tr><td><a href="https://opensource.org/license/xnet" target="_blank" rel="noreferrer">The X.Net, Inc. License</a></td><td>xnet</td><td>Xnet</td></tr><tr><td><a href="https://opensource.org/license/zlib" target="_blank" rel="noreferrer">The zlib/libpng License</a></td><td>zlib</td><td>Zlib</td></tr><tr><td><a href="https://opensource.org/license/zpl-2-0" target="_blank" rel="noreferrer">Zope Public License 2.0</a></td><td>zpl-2-0</td><td>ZPL-2.0</td></tr><tr><td><a href="https://opensource.org/license/zpl-2-1" target="_blank" rel="noreferrer">Zope Public License 2.1</a></td><td>zpl-2-1</td><td>ZPL-2.1</td></tr><tr><td><a href="https://opensource.org/license/jabberpl" target="_blank" rel="noreferrer">Jabber Open Source License</a></td><td>jabberpl-php</td><td></td></tr><tr><td><a href="https://opensource.org/license/los-alamos-national-labs-bsd-3-variant" target="_blank" rel="noreferrer">Los Alamos National Labs BSD-3 Variant</a></td><td>los-alamos-national-labs-bsd-3-variant</td><td></td></tr><tr><td><a href="https://opensource.org/license/cvw" target="_blank" rel="noreferrer">MITRE Collaborative Virtual Workspace License</a></td><td>cvw</td><td></td></tr></tbody></table></figure>
+
+
+
+<h3 class="wp-block-heading"><strong>Improved Consistency and Clarity</strong></h3>
+
+
+
+<p class="wp-block-paragraph">Using SPDX identifiers brings several benefits:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Consistency</strong>: One canonical identifier per license, across OSI’s site and beyond.</li>
+
+
+
+<li><strong>Clarity</strong>: License URL matches what developers see in tooling and manifests.</li>
+
+
+
+<li><strong>Interoperability</strong>: Easier integration with compliance, scanning, and automation tools.</li>
+
+
+
+<li><strong>Future-proofing</strong>: A stable foundation for continued improvements.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><strong>License Data Available via the OSI API</strong></h3>
+
+
+
+<p class="wp-block-paragraph">In addition to updating our website URLs, <a href="https://opensource.org/blog/introducing-the-new-api-for-osi-approved-licenses" rel="noreferrer" target="_blank">OSI license data is available through our API</a>, making it easier for developers and organizations to consume authoritative license information directly from OSI.</p>
+
+
+
+<p class="wp-block-paragraph">This supports automation, integrations, and new use cases that depend on accurate, up-to-date license metadata, without scraping or manual maintenance.</p>
+
+
+
+<h3 class="wp-block-heading"><strong>Looking Ahead</strong></h3>
+
+
+
+<p class="wp-block-paragraph">This update is part of our ongoing effort to modernize OSI’s infrastructure while respecting the history and stability that the Open Source community depends on. Standardizing license URLs using SPDX identifiers helps ensure that OSI remains a reliable, relevant, and interoperable reference point for Open Source licensing in the years ahead.</p>
+
+
+
+<p class="wp-block-paragraph">As always, we welcome feedback from the community. If you spot an issue or have suggestions for further improvements, please let us know.</p>
+<p>The post <a href="https://opensource.org/blog/osi-adopts-spdx-ids-for-license-urls" rel="noreferrer" target="_blank">OSI Adopts SPDX IDs for License URLs</a> appeared first on <a href="https://opensource.org" rel="noreferrer" target="_blank">Open Source Initiative</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-10T11:00:00.000Z>10 March 2026</time>
+			<a href="/urls/blog-opensource-org-feed">blog.opensource.org/feed/</a>
+			<div> <a href="/tags/internet-npo.html">internet-npo</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

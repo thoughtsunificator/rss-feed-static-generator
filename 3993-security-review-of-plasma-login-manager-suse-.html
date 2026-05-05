@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Security review of Plasma Login Manager (SUSE Security Team Blog)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1070434/">Go to article URL</a>
+		<div id="content"><p></p><p>SUSE's Security Team has published a <a href="https://security.opensuse.org/2026/04/27/plasma-login-manager.html" rel="noreferrer" target="_blank">detailed
+blog post</a> on their recent review of the <a href="https://invent.kde.org/plasma/plasma-login-manager#plasma-login" rel="noreferrer" target="_blank">Plasma
+Login Manager</a> version <a href="https://invent.kde.org/plasma/plasma-login-manager/-/tree/v6.6.2?ref_type=tags" rel="noreferrer" target="_blank">6.6.2</a>,
+which was forked from the <a href="https://github.com/sddm/sddm#introduction" rel="noreferrer" target="_blank">SDDM display
+manager</a>.</p>
+
+<blockquote class="bq">
+<p>While most of the code <a href="https://bugzilla.suse.com/show_bug.cgi?id=1260402" rel="noreferrer" target="_blank">remains the
+same</a>, the new upstream added a <a href="https://invent.kde.org/plasma/plasma-login-manager/-/blob/v6.6.2/src/frontend/kcm/auth/plasmaloginauthhelper.cpp?ref_type=tags" rel="noreferrer" target="_blank">privileged
+<span class="nobreak">D-Bus helper</span></a> called
+<tt>plasmaloginauthhelper</tt>, which suffers from <a href="https://bugzilla.suse.com/show_bug.cgi?id=1260930" rel="noreferrer" target="_blank">defense-in-depth
+security issues</a>.</p>
+
+<p>[...] Based on the high severity of the defense-in-depth issues
+shown in this report, our assessment is that there is effectively no
+separation between root and the plasmalogin service user account.</p>
+
+<p>At this time there is no bugfix available by upstream, but a
+security fix is planned for the next Plasma release on May 12. We have
+not been involved in upstream's bugfix process so far and have no
+knowledge about the approach that will be taken to address the issues
+from this report.</p>
+</blockquote>
+
+<p></p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-29T14:20:46.000Z>29 April 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

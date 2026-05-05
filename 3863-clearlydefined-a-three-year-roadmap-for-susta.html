@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>ClearlyDefined: A Three-Year Roadmap for Sustainability and Growth</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://opensource.org/blog/clearlydefined-a-three-year-roadmap-for-sustainability-and-growth">Go to article URL</a>
+		<div id="content"><p></p>
+<p class="wp-block-paragraph">At FOSDEM earlier this year, the Open Source Initiative (OSI) and <a target="_blank" href="https://aboutcode.org/" rel="noreferrer">AboutCode</a> formalized their collaboration through a <a href="https://opensource.org/blog/ensuring-the-long-term-sustainability-of-clearlydefined-osi-and-aboutcode-sign-mou" rel="noreferrer" target="_blank">Memorandum of Understanding (MoU)</a>. This agreement delegates the day-to-day operations of <a target="_blank" href="https://docs.clearlydefined.io/" rel="noreferrer">ClearlyDefined</a> to AboutCode, ensuring the project’s long-term sustainability, continued development, and broader impact across the Open Source ecosystem.</p>
+
+
+
+<p class="wp-block-paragraph">ClearlyDefined has long served as a community resource for Open Source software origin and license metadata. With AboutCode’s leadership and deep expertise in Open Source tooling, data, and standards for software supply chains, the project is now positioned to evolve and scale in new ways.</p>
+
+
+
+<p class="wp-block-paragraph">This post outlines a proposed three-year roadmap developed by AboutCode in collaboration with the community to strengthen ClearlyDefined’s technical foundations, expand its capabilities, and grow its global adoption.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Goals of the Proposal</strong></h2>
+
+
+
+<p class="wp-block-paragraph">The roadmap is designed to address key challenges while positioning ClearlyDefined for long-term success. The proposal focuses on several foundational changes to improve efficiency and reach:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Combine ClearlyDefined and AboutCode operations and backends when possible to enable scan data reuse and avoid duplicated, wasted compute resources across ecosystems, creating mutually beneficial synergies</li>
+
+
+
+<li>Refactor ClearlyDefined backend and frontend to reduce the technical debts and improve data quality</li>
+
+
+
+<li>Enroll new sponsors to share the cloud compute costs</li>
+
+
+
+<li>Unlock data access for increased community adoption</li>
+
+
+
+<li>Enable new use cases around security and project health</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These efforts are intended to reduce costs while improving performance, usability, and adoption.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Themes by Year</strong></h2>
+
+
+
+<p class="wp-block-paragraph">The roadmap is structured around three phases, each with a distinct focus:</p>
+
+
+
+<p class="wp-block-paragraph"><strong>2026: Strengthening the Foundation</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Reduce technical debt and operating costs</li>
+
+
+
+<li>Improve the harvesting and curation queue and user interface</li>
+
+
+
+<li>Facilitate community contributions</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>2027: Expanding Architecture and Use Cases</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Migrate to a federated data architecture</li>
+
+
+
+<li>Further reduce hosting costs</li>
+
+
+
+<li>Unlock broader data access</li>
+
+
+
+<li>Initiate work on vulnerabilities, project health, and risk use cases</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>2028: Delivering Advanced Capabilities</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Deploy security-related use cases</li>
+
+
+
+<li>Deliver project health insights and analytics</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">In parallel, ongoing work will support infrastructure maintenance, data quality, and community engagement throughout all three years.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>The Six Core Objectives</strong></h2>
+
+
+
+<p class="wp-block-paragraph">The roadmap organizes its deliverables around six key objectives:</p>
+
+
+
+<h3 class="wp-block-heading"><strong>1) Create better license and package scans, faster and more efficiently</strong></h3>
+
+
+
+<ul class="wp-block-list">
+<li>Enable reusing scans across ClearlyDefined harvests and AboutCode data collections</li>
+
+
+
+<li>Design a priority mechanism to scan packages based on actual usage</li>
+
+
+
+<li>Improve the performance of ScanCode for faster and more cost efficient scans</li>
+
+
+
+<li>Improve ScanCode license detection based from the analysis of ClearlyDefined curated data</li>
+
+
+
+<li>Adopt federated data design with data mirrored across multiple hosts to improve service availability and reduce costs, reusing existing scans</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><strong>2) Reduce technical debt</strong></h3>
+
+
+
+<ul class="wp-block-list">
+<li>Update dependencies to latest versions</li>
+
+
+
+<li>Refactor storage of scans and attachments</li>
+
+
+
+<li>Switch to the Open Source DocumentDB from the proprietary MongoDB</li>
+
+
+
+<li>Maintain and improve the ClearlyDefined code base, CI/CD, and infrastructure</li>
+
+
+
+<li>Update project documentation to reflect new and ongoing development</li>
+
+
+
+<li>Facilitate outreach and onboarding for new contributors and sponsors</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><strong>3) Shared scans for shared costs</strong></h3>
+
+
+
+<ul class="wp-block-list">
+<li>Expand the pool of organizations hosting scans to share the scanning costs</li>
+
+
+
+<li>Design new prioritized scan queue to scan packages in an order that aligns with business needs</li>
+
+
+
+<li>Integrate distributed scanning with federated data access with on-premises, private data usage</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><strong>4) Integrate PURL and SBOM for easier interoperability</strong></h3>
+
+
+
+<ul class="wp-block-list">
+<li>Create new API endpoints to access ClearlyDefined data keyed by PURL</li>
+
+
+
+<li>Create a new SBOM API endpoint to expose reference package data in SBOM formats</li>
+
+
+
+<li>Adopt PURL as a core identifier in the database and file store</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><strong>5) Improve curation processes and user experience</strong></h3>
+
+
+
+<ul class="wp-block-list">
+<li>Develop and deploy a new and improved UI for efficient data curation</li>
+
+
+
+<li>Make it easier for organization to contribute their curations back in bulk</li>
+
+
+
+<li>Improve the data models for curation storage</li>
+
+
+
+<li>Create a new specification for multi-stakeholder data curations exchange</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading"><strong>6) Support for more use cases</strong></h3>
+
+
+
+<ul class="wp-block-list">
+<li>Security with vulnerability data</li>
+
+
+
+<li>Data for project health and lifecycle events and analytics</li>
+
+
+
+<li>Usage to find the most used Open Source components and drive scan priorities</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These objectives reflect a balance between technical modernization, ecosystem collaboration, and expanded functionality.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Looking Ahead</strong></h2>
+
+
+
+<p class="wp-block-paragraph">ClearlyDefined is a collaborative effort, and this roadmap reinforces that vision. By aligning OSI’s stewardship with AboutCode’s technical leadership, the project is entering a new phase focused on scalability, sustainability, and deeper integration into the software supply chain ecosystem.We invite the community, contributors, and potential sponsors to <a target="_blank" href="https://docs.google.com/document/d/1PATYCs7a0df9Fze6nUHJKM-oCrbAYwyR/edit?usp=sharing&amp;ouid=102632948639117305132&amp;rtpof=true&amp;sd=true" rel="noreferrer">engage with this roadmap</a>, provide feedback, and participate in shaping the future of ClearlyDefined.</p>
+
+
+
+<div data-wp-interactive="core/file" class="wp-block-file"><a id="wp-block-file--media-9eff1616-400d-45fa-a341-ee4bc6214b0d" href="https://opensource.org/wp-content/uploads/2026/04/ClearlyDefined-Roadmap.pdf" rel="noreferrer" target="_blank">ClearlyDefined-Roadmap</a><a href="https://opensource.org/wp-content/uploads/2026/04/ClearlyDefined-Roadmap.pdf" class="wp-block-file__button wp-element-button" download="" aria-describedby="wp-block-file--media-9eff1616-400d-45fa-a341-ee4bc6214b0d" rel="noreferrer" target="_blank">Download</a></div>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p>The post <a href="https://opensource.org/blog/clearlydefined-a-three-year-roadmap-for-sustainability-and-growth" rel="noreferrer" target="_blank">ClearlyDefined: A Three-Year Roadmap for Sustainability and Growth</a> appeared first on <a href="https://opensource.org" rel="noreferrer" target="_blank">Open Source Initiative</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-14T12:05:00.000Z>14 April 2026</time>
+			<a href="/urls/blog-opensource-org-feed">blog.opensource.org/feed/</a>
+			<div> <a href="/tags/internet-npo.html">internet-npo</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

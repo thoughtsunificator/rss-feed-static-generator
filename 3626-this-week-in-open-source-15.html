@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>This Week in Open Source #15</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/02/this-week-in-open-source-15.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Daryl Ducharme</author>, Google Open Source</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizuKHbBriafpnCVl8A7gazsybuVNKqwyYE1n5-RfAYhu6i5bN55iTw0LE_S0KLGWBJU9ERHgsnd9lZ3J94PhlE5hpZ5YIeBHH8PjS2yuRciaN7VgqLUISB9Ofpqst0n6tawyH6etvfFro4lqZv2X8EomVGJUTL8CSaHp0XyK3LxbJIhwi6ENKX620R4ME/s1600/header1.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizuKHbBriafpnCVl8A7gazsybuVNKqwyYE1n5-RfAYhu6i5bN55iTw0LE_S0KLGWBJU9ERHgsnd9lZ3J94PhlE5hpZ5YIeBHH8PjS2yuRciaN7VgqLUISB9Ofpqst0n6tawyH6etvfFro4lqZv2X8EomVGJUTL8CSaHp0XyK3LxbJIhwi6ENKX620R4ME/s1600/header1.png" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<h2>This Week in Open Source for February 20th, 2026</h2>
+<p><em>A look around the world of open source</em></p>
+
+<p>We're preparing for a busy conference season, with events like SCALE 23x  and KubeCon + CloudNativeCon Europe on the horizon. A core part of our mission is "learning and sharing what we learn" so that our communities can continue to thrive together. Conferences are a great place to fulfill that mission.</p>
+
+<p>This week, we're highlighting a few "Open Source Reads" that tackle some of the biggest questions facing our ecosystem today—from the complex ethics of AI-generated content to the global impact of open AI models. We hope these links provide valuable context as we work together to sustain the critical infrastructure we all rely on.</p>
+
+<h3>Upcoming Events</h3>
+<ul>
+<li>February 24 - 25: <a href="https://events.linuxfoundation.org/lf-member-summit/" rel="noreferrer" target="_blank">The Linux Foundation Member Summit</a> is happening in Napa, California. It is the annual gathering for <a href="https://www.linuxfoundation.org/" rel="noreferrer" target="_blank">Linux Foundation</a> members that fosters collaboration, innovation, and partnerships among the leading projects and organizations working to drive digital transformation with open source technologies.</li>
+<li>March 5 - 8: <a href="https://www.socallinuxexpo.org/scale/23x" rel="noreferrer" target="_blank">SCALE 23x</a> is happening in Pasadena, California. It is North America's largest community-run open source conference and includes four days of sessions, workshops, and community activities focused on open source, security, DevOps, cloud native, and more.</li>
+<li>March 9 - 10: <a href="https://eventyay.com/e/88882f3e" rel="noreferrer" target="_blank">FOSSASIA Summit 2026</a> is happening in Bangkok, Thailand. It will be a two-day hybrid event that showcases the latest in open technologies, fostering collaboration across enterprises, developers, educators, and communities.</li>
+<li>March 16 - 17: <a href="https://26.foss-backstage.de/" rel="noreferrer" target="_blank">FOSS Backstage</a> is happening in Berlin, Germany. This conference brings together the brightest minds in the industry to discuss and explore all about FOSS community, management and compliance.</li>
+<li>March 22: <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/features-add-ons/maintainer-summit/" rel="noreferrer" target="_blank">Maintainer Summit EU</a> is happening just before CloudNativeCon in Amsterdam, The Netherlands. This is an exclusive event for the people behind our projects to gather face-to-face, collaborate, and celebrate cloud first projects.</li>
+<li>March 23 - 26: <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" rel="noreferrer" target="_blank">Kubecon + CloudNativeCon Europe</a> is happening in Amsterdam, The Netherlands. This is the flagship conference for the <a href="https://www.cncf.io/" rel="noreferrer" target="_blank">Cloud Native Computing Foundation (CNCF)</a> and brings together adopters and technologists from leading open source and cloud first communities.</li>
+<li>March 26 - 29: <a href="https://atmosphereconf.org/" rel="noreferrer" target="_blank">ATmosphereConf</a> is happening in Vancouver, British Columbia. This conference from the <a href="https://atprotocol.dev/" rel="noreferrer" target="_blank">AT Protocol Community</a> took a 2 day conference then booked the venue for the two days prior (March 26th &amp; 27th) with smaller theaters and break out rooms for everything from extended events to developer training to building together.</li>
+<li>April 7 - 8: <a href="https://events.linuxfoundation.org/pytorch-conference-europe/" rel="noreferrer" target="_blank">PyTorch Conference EU</a> is happening in Paris, France. Hosted by the <a href="https://pytorch.org/foundation/" rel="noreferrer" target="_blank">PyTorch Foundation</a>, this conference gathers top-tier AI pioneers, researchers, and developers to explore the future of AI.</li>
+</ul>
+
+<h3>Open Source Reads and Links</h3>
+<ul>
+<li>[Blog] <a href="https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/" rel="noreferrer" target="_blank">An AI Agent wrote a hit piece on me</a> - An AI agent wrote a harmful article about a maintainer after he rejected its code for a popular Python library. This shows a new risk where AI can attack people to get what it wants. We must be careful as AI misbehavior can hurt reputations and trust in software. This was followed by a <a href="https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me-part-2/" rel="noreferrer" target="_blank">part 2 after more things happened</a>.</li>
+<li>[Blog] <a href="https://angiejones.tech/stop-closing-the-door-fix-the-house/" rel="noreferrer" target="_blank">Stop closing the door; fix the house</a> - A different take on the crossover between AI and open source. Instead of closing contributions due to poor AI generated code, maintainers should guide contributors and AI tools with clear rules and automation. This helps keep quality high and keeps the community open.</li>
+<li>[Article] <a href="https://www.helpnetsecurity.com/2026/02/18/open-source-adoption-patching-challenges/" rel="noreferrer" target="_blank">Everyone uses open source, but patching moves too slowly</a> - "Maintenance is the highest form of creation." Open source requires maintenance, especially when 60% of security incidents hit unpatched code. How can we work together to keep our communities healthy and secure?</li>
+<li>[Paper] <a href="https://www.nature.com/articles/s43246-026-01105-0" rel="noreferrer" target="_blank">AI-powered open-source infrastructure for accelerating materials discovery and advanced manufacturing</a> - Gen AI isn't the only type of AI in the game. This paper explains how AI and open-source tools help speed up the discovery of new materials. Through using data, simulations, and machine learning together we can build efficient and sustainable platforms. </li>
+<li>[Blog] <a href="https://www.jeffgeerling.com/blog/2026/ai-is-destroying-open-source/" rel="noreferrer" target="_blank">AI is destroying open source and it's not even good yet</a> - Here's another post about how maintainers face more work and frustration because AI often makes mistakes and doesn't help fix problems. This growing issue could get worse as AI becomes more widely used without careful oversight. So, what types of conversations should we be having to create that oversight?</li>
+<li>[Article] <a href="https://www.technologyreview.com/2026/02/12/1132811/whats-next-for-chinese-open-source-ai/" rel="noreferrer" target="_blank">What's next for Chinese open source AI?</a> - Chinese companies are creating and sharing powerful <a href="https://opensource.org/ai/open-source-ai-definition" rel="noreferrer" target="_blank">open AI models</a> that anyone can use and modify. Because these models are cheaper and widely adopted globally, they challenge the western AI models. This open approach is changing how AI innovation happens and who controls its future. </li>
+</ul>
+
+<p>Which of these stories will you be chatting about at your next meetup or conference? Let us know!  Share with us on our <a href="https://x.com/GoogleOSS" rel="noreferrer" target="_blank">@GoogleOSS</a> X account or our <a href="https://bsky.app/profile/opensource.google" rel="noreferrer" target="_blank">@opensource.google</a> Bluesky account.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-20T16:00:00.000Z>20 February 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

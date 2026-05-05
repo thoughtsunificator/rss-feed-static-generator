@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>VPN, Split View, and Other Goodies – These Weeks in Firefox: Issue 200!</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2026/04/27/vpn-split-view-and-other-goodies-these-weeks-in-firefox-issue-200/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1">The VPN feature is rolling out to users in the United States, the United Kingdom, Germany and France! <a href="https://blog.mozilla.org/en/firefox/built-in-vpn/" rel="noreferrer" target="_blank">Read more about it here.</a>
+<ul>
+<li aria-level="2"><a href="https://support.mozilla.org/en-US/kb/built-in-vpn" rel="noreferrer" target="_blank">And here’s more information about it on SUMO&nbsp;</a>
+<ul>
+<li aria-level="2"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Split View is now available for users on Firefox 149! <a href="https://blog.mozilla.org/en/firefox/split-view/" rel="noreferrer" target="_blank">Read more about it here.</a>
+<ul>
+<li aria-level="1"></li>
+</ul>
+</li>
+<li aria-level="1">Improvements to tabs.move() split views support: extensions can now swap tabs within a split view, and passing a list of tabs that explicitly separates split-view members will properly unsplit the view to honor the requested ordering –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016762" rel="noreferrer" target="_blank"> Bug 2016762</a> /<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022549" rel="noreferrer" target="_blank"> Bug 2022549</a></li>
+<li aria-level="1">Jeremy added the ability to copy all URLs from multi-selected tabs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1984362" rel="noreferrer" target="_blank">1984362 – Share -&gt; “Copy link” for multiselected tabs should copy all the tabs’ information</a></li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot [:ochameau]</a> improved performance of the Inspector Rules view by supporting incremental updates, making some perf test <b>2 times faster</b> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2018538" rel="noreferrer" target="_blank">#2018538</a>)
+<ul>
+<li aria-level="2"><a href="https://perf.compare/subtests-compare-results?baseRev=fa3a51094a62faec4a77bcc07a183ec4c1b81189&amp;baseRepo=try&amp;newRev=30117f5cf98993a52edd669943018f5a9bd7dc8e&amp;newRepo=try&amp;framework=12&amp;baseParentSignature=4763542&amp;newParentSignature=4763542&amp;test_version=mann-whitney-u&amp;filter_status=improvement%2Cregression&amp;sort=delta%7Cdesc" rel="noreferrer" target="_blank">perf compare results</a></li>
+</ul>
+</li>
+<li aria-level="1">The Tab Notes feature is now live in Firefox 149 in Firefox Labs! We have a few tweaks and fixes coming in Firefox 150 and 151, but we’re <a href="https://connect.mozilla.org/t5/discussions/tab-notes-going-live-in-firefox-labs-please-share-your-feedback/m-p/118317" rel="noreferrer" target="_blank">mostly collecting feedback from users.</a>
+<ul>
+<li aria-level="1"></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=1767617%2C2023779%2C2022175%2C2017985%2C1856191%2C1705177%2C1874155%2C1938466%2C2021421%2C2022400%2C2022402%2C2022403%2C2022405%2C2022406%2C2022407%2C1891970%2C1936929%2C1953621%2C2019901%2C1846829%2C1876108%2C1945835%2C2018841%2C2025287%2C2009917%2C2016934%2C1910902%2C1952061%2C2014334%2C2025701%2C1773932%2C2006572%2C2008178%2C2026551%2C1982888%2C2019235%2C2026649%2C1897102%2C1984029%2C1901274%2C2015071%2C2019936%2C2023180&amp;list_id=17910242" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<p><a href="https://github.com/niklasbaumgardner/NewContributorScraper" rel="noreferrer" target="_blank">Script to find new contributors from bug list</a></p>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Chris Vander Linden</li>
+<li aria-level="1">EJiro Oghenekome</li>
+<li aria-level="1">Keji Bakare</li>
+<li aria-level="1">konyhéa</li>
+<li aria-level="1">Noble Chinonso</li>
+<li aria-level="1">Pranjali Srivastava</li>
+<li aria-level="1">Sameeksha</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟Ben
+<ul>
+<li aria-level="2">Bug 1705177 – Don’t use fixed width for Add Device Save/Cancel buttons. R?nchevobbe!
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1705177" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1705177</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Chidimma Okoloigwe
+<ul>
+<li aria-level="2">Bug 1901274 – Port over tests from browser/base/content/test/sidebar to browser/components/sidebar
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1901274" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1901274</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Japandi
+<ul>
+<li aria-level="2">Bug 2015071 – Do not save tab note when input contains only whitespace. R?sthompson
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2015071" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2015071</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟DrSeed
+<ul>
+<li aria-level="2">Bug 1982888 – Remove obsolete sidebar Nimbus var r=nsharpley,sfoster
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1982888" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1982888</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟EJiro Oghenekome
+<ul>
+<li aria-level="2">Bug 1910902 – Update sidebar icons and references to use collapsed versions. r=nsharpley
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1910902" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1910902</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 1938466 – Add tests for View &amp;gt; Sidebar menu items and checked state. r=jsudiaman
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1938466" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1938466</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 1952061 – Refactor sidebar state management: rename loadInitialState to loadCurrentState and update related references. r=nsharpley
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1952061" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1952061</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Keji Bakare
+<ul>
+<li aria-level="2">Bug 2006572 – fix&nbsp; right tab name and icon shift when the Split View is selected
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006572" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2006572</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 2025287 – Hide “Open Link in Split View” menu option for pinned tabs.
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2025287" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2025287</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Hailia
+<ul>
+<li aria-level="2">Bug 2016934 – Update copied profile header with typographic quotes r?jhirsch
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016934" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2016934</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">geppy
+<ul>
+<li aria-level="2">Bug 1767617 – Rename –theme-graphs-* CSS variables r?nchevobbe
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1767617" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1767617</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Itoro James
+<ul>
+<li aria-level="2">Bug 1936929 – Document the ::%shadow% and ::%document% anchor selector tokens r?nsharpley,hanna_a
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1936929" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1936929</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟konyhéa
+<ul>
+<li aria-level="2">Bug 1856191 – don’t restrict the sidebar width so much (better support non-English locales)
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1856191" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1856191</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">konyhéa
+<ul>
+<li aria-level="2">Bug 1876108 – add hairline separator between synced tabs device lists in firefox view
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1876108" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1876108</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 1891970 – Update firefoxview breakpoint to 950px
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1891970" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1891970</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 2014334 – add outline to tab-split-view-wrapper when used as a drag group target
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2014334" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2014334</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Noble Chinonso
+<ul>
+<li aria-level="2">Bug 1945835 – Add timestamp display to synced tabs list
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1945835" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1945835</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 1953621 – Fix command property type in SidebarStateProps from boolean to string
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1953621" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1953621</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 2019235 – Disable Move to Start/End for split view tabs based on tab position
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019235" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2019235</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 2025701 – Fix mismatched closing tag in syncedtabs-tab-list.mjs itemTemplate
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2025701" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2025701</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">Knot False
+<ul>
+<li aria-level="2">Bug 1773932 – Remove nsIScriptableUnicodeConverter from services/common/utils.sys.mjs. r=skhamis,markh
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1773932" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1773932</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Pranjali Srivastava
+<ul>
+<li aria-level="2">Bug 1874155 Remove browser.firefox-view
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1874155" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1874155</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 2009917 – Added proper spacing
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009917" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2009917</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Chukwuka Rosemary
+<ul>
+<li aria-level="2">Bug 1846829 – Remove the max-history-rows pref used in Fx View
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1846829" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=1846829</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Sameeksha
+<ul>
+<li aria-level="2">Bug 2008178 – Add accessible name to ConfirmDialog using aria-labelledby. r=thecount
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008178" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2008178</a></li>
+</ul>
+</li>
+<li aria-level="2">Bug 2021421 – Remove redundant lazy preference getters in sidebar-pins-promo.mjs
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2021421" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2021421</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">kofoworola shonuyi
+<ul>
+<li aria-level="2">Bug 2019901 : Remove sidebar-ongoing-animations attribute from sidebarMain after animation reset.
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019901" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2019901</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">🌟Oluwatobi
+<ul>
+<li aria-level="2">Bug 2019936 – Remove preference configuration for the IE importer feature. r=nsharpley,kcochrane,mconley
+<ul>
+<li aria-level="3"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019936" rel="noreferrer" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=2019936</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>Addon Manager &amp; about:addons</h5>
+<ul>
+<li aria-level="1">Fixed a long-standing issue where extension paths stored in extensions.json (and addonStartup.json.lz4) became incorrect after restoring a Firefox profile to a different location and causing all previously installed add-ons to fail to load&nbsp; –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1429838" rel="noreferrer" target="_blank"> Bug 1429838</a></li>
+</ul>
+<h4>DevTools</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=785275" rel="noreferrer" target="_blank">geppy</a> renamed some of our CSS variables to be more explicit (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1767617" rel="noreferrer" target="_blank">#1767617</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=446518" rel="noreferrer" target="_blank">Sebastian Zartner [:sebo]</a> move the :visited pseudo-class to element-specific section in the Inspector pseudo-class (:hov) panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2017985" rel="noreferrer" target="_blank">#2017985</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=785594" rel="noreferrer" target="_blank">Ben</a> improved the RDM “Add Custom Device” form by making sure it worked for any kind of locale (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1705177" rel="noreferrer" target="_blank">#1705177</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=766005" rel="noreferrer" target="_blank">Chris Vander Linden</a> continued his work to migrate files to use actual private fields (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022400" rel="noreferrer" target="_blank">#2022400</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022402" rel="noreferrer" target="_blank">#2022402</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022403" rel="noreferrer" target="_blank">#2022403</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022405" rel="noreferrer" target="_blank">#2022405</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022406" rel="noreferrer" target="_blank">#2022406</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022407" rel="noreferrer" target="_blank">#2022407</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=349244" rel="noreferrer" target="_blank">Dana Keeler (she/her) [:keeler]</a> added a distinct icon to Netmonitor requests when a request uses a certificate issued by a third-party root (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022693" rel="noreferrer" target="_blank">#2022693</a>)
+<ul>
+<li aria-level="1"></li>
+<li aria-level="2"><a href="https://snipboard.io/QtwV2R.jpg" rel="noreferrer" target="_blank">https://snipboard.io/QtwV2R.jpg</a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> added a &lt;global&gt; node on objects which are not from the top-level debugged page (it’s always visible in the browser console/browser toolbox) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1962343" rel="noreferrer" target="_blank">#1962343</a>)
+<ul>
+<li aria-level="1"></li>
+<li aria-level="2"><a href="https://snipboard.io/uJg2vN.jpg" rel="noreferrer" target="_blank">https://snipboard.io/uJg2vN.jpg</a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> added possible anchor names to the autocomplete for the position-anchor property, as well as for the anchor() and anchor-size() functions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1903278" rel="noreferrer" target="_blank">#1903278</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023114" rel="noreferrer" target="_blank">#2023114</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023576" rel="noreferrer" target="_blank">#2023576</a>)
+<ul>
+<li aria-level="1"></li>
+<li aria-level="2"><a href="https://snipboard.io/t6QUBF.jpg" rel="noreferrer" target="_blank">https://snipboard.io/t6QUBF.jpg</a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> added proper autocomplete (including things like interpolation/color space) for linear-gradient() (and repeating-linear-gradient())&nbsp; (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2025761" rel="noreferrer" target="_blank">#2025761</a>)
+<ul>
+<li aria-level="1"></li>
+<li aria-level="2"><a href="https://snipboard.io/1LNp26.jpg" rel="noreferrer" target="_blank">https://snipboard.io/1LNp26.jpg</a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=347081" rel="noreferrer" target="_blank">Leo McArdle [:leo]</a> fixed an issue in the Inspector Fonts panel Weight input (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1578023" rel="noreferrer" target="_blank">#1578023</a>), and made sure we properly round displayed values (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1465026" rel="noreferrer" target="_blank">#1465026</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1578022" rel="noreferrer" target="_blank">#1578022</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013940" rel="noreferrer" target="_blank">#2013940</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> made the animation speed drop down to be always visible in the animations panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1995485" rel="noreferrer" target="_blank">#1995485</a>)
+<ul>
+<li aria-level="2">it now impacts all the animations in the page, not only the ones in the subtree of the selected node</li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=559949" rel="noreferrer" target="_blank">Julian Descottes [:jdescottes]</a> fixed frequent DevTools crashes by avoiding to access properties on remote proxy windows in various places (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2026134" rel="noreferrer" target="_blank">#2026134</a>)</li>
+</ul>
+<h4>WebDriver</h4>
+<ul>
+<li aria-level="1">Khalid AlHaddad refactored the WebDriver BiDi tests by <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022175" rel="noreferrer" target="_blank">moving the “wait_for_bidi_events” helper to a fixture</a>.</li>
+<li aria-level="1">Henrik Skupin <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022515" rel="noreferrer" target="_blank">splitted fixtures and helpers for WebDriver classic and BiDi</a> into protocol-specific folders and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023978" rel="noreferrer" target="_blank">improved Marionette’s window manipulation logic for Wayland headless/headful jobs</a>.</li>
+<li aria-level="1">Henrik Skupin <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022644" rel="noreferrer" target="_blank">added support for “altitudeAngle” and “azimuthAngle” in pointer actions of subtype “touch”</a> to both Marionette and WebDriver BiDi.</li>
+<li aria-level="1">Julian Descottes fixed browsingContext.reload to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023917" rel="noreferrer" target="_blank">properly reload iframes</a> and simulate more accurately a user-initiated reload.</li>
+<li aria-level="1">Alexandra Borovova updated <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1941813" rel="noreferrer" target="_blank">“log.entryAdded” events to include top-most frame of the stacktrace for all types of Console APIs</a>.</li>
+<li aria-level="1">Alexandra Borovova updated the handling of <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003840" rel="noreferrer" target="_blank">shutdown requests to make sure that all active downloads are canceled before to not block the actual browser shutdown.</a></li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">Globals handling within VS Code (and maybe other editors) has been improved to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2024193" rel="noreferrer" target="_blank">avoid caching globals when the source file for the globals has been updated</a>.
+<ul>
+<li aria-level="2">The main impact of this is that when changing globals in head.js files, VS Code’S ESLint reporting will see the changes when you have the test files open that use the head.js file.</li>
+</ul>
+</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">Irene Ni<a href="https://bugzil.la/2018736" rel="noreferrer" target="_blank"> updated the Shortcuts UI to Nova</a>, refreshing about:newtab shortcuts with the new design system and improved focus states.</li>
+<li aria-level="1">Irene Ni made it possible to<a href="https://bugzil.la/2018761" rel="noreferrer" target="_blank"> increase shortcuts row count from 8 to 10</a> for Nova, which will let users pin two more sites per row without scrolling.</li>
+<li aria-level="1">Hanna Alemu<a href="https://bugzil.la/2020798" rel="noreferrer" target="_blank"> built the UI code for asrouter-newtab-message</a>, enabling ASRouter-driven new tab messages controlled via remote config.</li>
+<li aria-level="1">Dre<a href="https://bugzil.la/2021074" rel="noreferrer" target="_blank"> fixed some New Tab keyboard navigation</a> bugs, restoring predictable Tab/Arrow traversal across tiles, cards, and the customization controls.</li>
+<li aria-level="1">Nathan Barrett<a href="https://bugzil.la/2026219" rel="noreferrer" target="_blank"> fixed a persistence bug where Weather, Shortcuts, and Recommended Stories couldn’t be disabled after restart while New Tab was focused</a>, ensuring section toggles reliably save and apply across restarts.</li>
+<li aria-level="1">Sameeksha<a href="https://bugzil.la/2008178" rel="noreferrer" target="_blank"> added an accessible name to the ‘Delete from History’ dialog in Recent Activity</a>, allowing screen readers to announce the dialog title and purpose.</li>
+<li aria-level="1">Maxx Crawford<a href="https://bugzil.la/2021903" rel="noreferrer" target="_blank"> labeled the Detailed view menu button for accessibility</a>, making the control discoverable to assistive tech.</li>
+<li aria-level="1">Maxx Crawford<a href="https://bugzil.la/2021905" rel="noreferrer" target="_blank"> made the ‘See full forecast’ link keyboard-focusable in Detailed view</a>, improving navigation without a mouse.</li>
+<li aria-level="1">Reem Hamoui<a href="https://bugzil.la/2021916" rel="noreferrer" target="_blank"> conveyed high/low temperatures to screen readers in the Detailed view</a>, exposing key weather info non-visually.</li>
+<li aria-level="1">Reem Hamoui<a href="https://bugzil.la/2022001" rel="noreferrer" target="_blank"> added alternative text for hourly forecast graphics</a>, enabling meaningful announcements instead of unlabeled images.</li>
+<li aria-level="1">Maxx Crawford<a href="https://bugzil.la/2010135" rel="noreferrer" target="_blank"> fixed fluent-dom handling so a br element is preserved in newtab-topsites-add-shortcut-label</a>, restoring the intended line break in the Add Shortcut label.</li>
+</ul>
+<h4>Search and Urlbar</h4>
+<ul>
+<li aria-level="1">Dao and Moritz worked on follow ups and fixed several bugs related to the new search bar implementation, which shipped in Fx 149 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2026248" rel="noreferrer" target="_blank">2026248</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023611" rel="noreferrer" target="_blank">2023611</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2025746" rel="noreferrer" target="_blank">2025746</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022159" rel="noreferrer" target="_blank">2022159</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2022809" rel="noreferrer" target="_blank">2022809</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023656" rel="noreferrer" target="_blank">2023656</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2023141" rel="noreferrer" target="_blank">2023141</a>)</li>
+<li aria-level="1">Mandy added a new `hasBeenUsed` attribute to search engines to enable better messaging system targeting (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2024078" rel="noreferrer" target="_blank">2024078</a>)</li>
+<li aria-level="1">Mandy also added a new telemetry category for when search mode is activated via a feature callout (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2018806" rel="noreferrer" target="_blank">2018806</a>)</li>
+<li aria-level="1">Drew and Daisuke are continuing their work on making Nova updates to the urlbar (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019165" rel="noreferrer" target="_blank">2019165</a>)</li>
+<li aria-level="1">Dale fixed two bugs related to the new Unified Trust Panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019928" rel="noreferrer" target="_blank">2019928</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013044" rel="noreferrer" target="_blank">2013044</a>)</li>
+<li aria-level="1">Florian used Claude to fix intermittent bugs related to urlbar and search telemetry (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009767" rel="noreferrer" target="_blank">2009767</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2024301" rel="noreferrer" target="_blank">2024301</a>)</li>
+<li aria-level="1">James fixed a high frequency intermittent test failure in the urlbar code (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001962" rel="noreferrer" target="_blank">2001962</a>)</li>
+<li aria-level="1">Marco fixed a high frequency intermittent test failure in the places database code (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1981199" rel="noreferrer" target="_blank">1981199</a>)</li>
+</ul>
+<h4>Tab Groups</h4>
+<p>DJ is adding the ability to copy all URLs from the tabs in a tab group <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1984338" rel="noreferrer" target="_blank">1984338 – Add a way to share/send/copy all tabs urls from a given tab group</a></p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-27T14:21:43.000Z>27 April 2026</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

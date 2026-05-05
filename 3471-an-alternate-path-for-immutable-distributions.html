@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] An alternate path for immutable distributions</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1054216/">Go to article URL</a>
+		<div id="content"><p></p><p>
+LWN has had a number of articles on immutable distributions,
+such as <a href="https://lwn.net/Articles/954059/" rel="noreferrer" target="_blank">Bluefin</a> and <a href="https://lwn.net/Articles/1046228/" rel="noreferrer" target="_blank">
+Bazzite</a>, in recent years. These distributions have taken a variety of approaches, including
+using
+<a href="https://coreos.github.io/rpm-ostree/" rel="noreferrer" target="_blank">
+rpm-ostree</a>, filesystem snapshots, and
+<a href="https://lwn.net/Articles/979182/" rel="noreferrer" target="_blank">bootable container (bootc) images</a>. But those
+approaches, especially the latter, lead to extra complexity for a user
+attempting to install new software, instead of just
+using the existing package manager.
+<a href="https://github.com/ashos/ashos?tab=readme-ov-file#ashos-any-snapshot-hierarchical-os" rel="noreferrer" target="_blank">
+AshOS</a> (Any Snapshot Hierarchical OS) is an experimental AGPL-3-licensed
+"<q>meta-distribution</q>" that tried a different approach more in line with
+traditional package management. Although the project is no longer updated,
+it remains usable, and can still shed some light on a potential alternate path for users
+worried about adopting bootc-based approaches.
+</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-01-20T16:22:09.000Z>20 January 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

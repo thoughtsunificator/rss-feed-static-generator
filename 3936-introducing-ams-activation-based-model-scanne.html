@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Introducing AMS: Activation-based model scanner for open-weight LLM safety verification</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/04/introducing-ams-activation-based-model-scanner-for-open-weight-llm-safety-verification.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Glen Messenger</author>, Google Kubernetes Engine (GKE)</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUEuNtPV56Ernfwv-JI9ClPIxMIKnZC4PrP1-AXQAQayJ3z60LR2gCa4Ch1syR9g_mlZSsm7Svhyphenhyphen3wah8j1gf3Ds48R8oz4gUguwFem-xwb4avur041_hhTWkJzbGIgtNJsAdtPk-oR_dgDl4Pum4WvSPVWSWK6A96CWMQpJtwWH44_e3NnUgWihEPZhQ/s1600/Clean%20vs%20Tampered%20Models.png">
+
+
+<p>The open-weight model ecosystem is thriving—and so is its shadow. A 2025 study identified over 8,000 safety-modified model repositories on Hugging Face alone, with modified models complying with unsafe requests at rates of 74% compared to 19% for their original instruction-tuned counterparts.</p>
+
+<p>For organizations deploying open-weight models, a critical question emerges: how do you know the model you downloaded is safe to run?</p>
+
+<p>We believe defensive security tools should be widely available. AMS represents our contribution to a safer AI ecosystem—one where developers everywhere can verify model integrity before deployment.</p>
+
+<p>Today we're releasing <a href="https://github.com/GoogleCloudPlatform/activation-model-scanner/" rel="noreferrer" target="_blank">AMS (Activation-based Model Scanner)</a>, an open source tool that answers this question in 10–40 seconds—without sending a single prompt.</p>
+
+<h2>The Problem with Behavioral Testing</h2>
+
+<p>Traditional safety verification relies on behavioral testing: send harmful prompts, check if the model refuses. This approach has three fundamental limitations.</p>
+
+<p><strong>It's slow.</strong> Comprehensive benchmarks like HarmBench require hundreds of queries. For organizations running continuous integration pipelines or screening large model registries, this can be impractical.</p>
+
+<p><strong>It's incomplete.</strong> No benchmark covers every harmful behavior. Models can exhibit safe behavior on known test sets while remaining unsafe on novel or out-of-distribution prompts.</p>
+
+<p><strong>It's gameable.</strong> Models can be fine-tuned to refuse benchmark prompts while complying with novel attacks—a known limitation of purely behavioral evaluation approaches.</p>
+
+<h3>A Structural Approach</h3>
+
+<figure class="wide-80">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUEuNtPV56Ernfwv-JI9ClPIxMIKnZC4PrP1-AXQAQayJ3z60LR2gCa4Ch1syR9g_mlZSsm7Svhyphenhyphen3wah8j1gf3Ds48R8oz4gUguwFem-xwb4avur041_hhTWkJzbGIgtNJsAdtPk-oR_dgDl4Pum4WvSPVWSWK6A96CWMQpJtwWH44_e3NnUgWihEPZhQ/s1600/Clean%20vs%20Tampered%20Models.png" rel="noreferrer" target="_blank"></a>
+  <figcaption>Clean vs Tampered Models</figcaption>
+</figure>
+
+<p>AMS takes a different approach entirely. Instead of testing what a model says, it measures how a model thinks.</p>
+
+<p>Safety training creates measurable geometric structure in a model's activation space. Instruction-tuned models develop internal "direction vectors"—representations that separate harmful content from benign content with high statistical confidence (4–8σ separation). When safety training is removed—through fine-tuning, abliteration, or training on unfiltered data—this geometric structure collapses.</p>
+
+<p>AMS measures this collapse directly. The approach is grounded in recent research on representation engineering, which demonstrates that high-level concepts are encoded linearly in LLM activation space and can be reliably extracted via simple linear probes on intermediate-layer hidden states.</p>
+
+<pre><code class="codebox bash">git clone https://github.com/GoogleCloudPlatform/activation-model-scanner.git
+cd activation-model-scanner &amp;&amp; pip install -e .
+
+# Standard scan (3 concepts: harmful_content, injection_resistance, refusal_capability)
+ams scan ./my-model
+
+# Quick scan (2 concepts, ~40% faster)
+ams scan ./my-model --mode quick
+
+# Full scan (4 concepts including truthfulness)
+ams scan ./my-model --mode full
+
+# JSON output for CI/CD pipelines
+ams scan ./my-model --json
+</code></pre>
+
+<h2>What AMS Detects</h2>
+
+<p>AMS operates as a two-tier scanner. Tier 1 measures whether safety-relevant activation structure exists at all—no baseline required. Tier 2 compares a model's activation fingerprint against a verified baseline to detect subtle modifications, including supply chain substitution.</p>
+
+<p>In our validation across 14 model configurations:</p>
+<ul>
+<li><strong>Instruction-tuned models</strong> (Llama, Gemma, Qwen) show 3.8–8.4σ separation—consistent with strong safety training</li>
+<li><strong>Uncensored variants</strong> (Dolphin, Lexi) show collapsed separation at 1.1–1.3σ—flagged as CRITICAL</li>
+<li><strong>Abliterated models</strong> show partial degradation at 3.3σ—flagged as WARNING</li>
+<li><strong>Base models</strong> (no safety training) show 0.69σ—confirming the absence of safety structure</li>
+<li><strong>Quantized models</strong> (INT4/INT8) show less than 5% separation drift—safe to scan production deployments</li>
+</ul>
+
+<h2>Use Cases</h2>
+
+<figure class="wide-80">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdZPNaG6Ojk-xcb4Fed5QPFA29IzsyR5oxtv7tjsFcZ9GpAxHY7NHaMA1HPAtBotD4_mAtgcNNwnbBoUVQfXLBJiAgQSapRZ9Ug6Zg3gLyc1Q1Ti5JEBMl6pH539HYTq1BX_b7h4iA7ieud3gCDQ2_DOXT9rsiM82crv67TNvYIcCoAyQ-d5zDPioUO3I/s1600/Threat%20Landscape.png" rel="noreferrer" target="_blank"></a>
+  <figcaption>Threat Landscape</figcaption>
+</figure>
+
+<h3>CI/CD Safety Gates</h3>
+
+<p>Integrate AMS into your model deployment pipeline to block unsafe models before they reach production. An example Github Actions workflow:</p>
+
+<pre><code class="codebox yaml">jobs:
+model-safety-check:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Install AMS
+      run: pip install ams-scanner[cli]
+
+    - name: Scan model
+      run: |
+        ams scan ./model \
+          --verify meta-llama/Llama-3-8B-Instruct \
+          --json &gt; scan-results.json
+
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ams-scan-results
+        path: scan-results.json
+</code></pre>
+
+<h3>Supply Chain Verification</h3>
+
+<p>Confirm that downloaded weights match their claimed identity using Tier 2 fingerprint comparison.</p>
+
+<pre><code class="codebox bash"># First, create a baseline from the official model
+ams baseline create ./my-model
+
+# Then verify an unknown model against it
+ams scan ./suspicious-model --verify ./my-model
+</code></pre>
+
+<h3>Registry Screening</h3>
+
+<p>Automatically screen models at upload or download time to flag degraded safety structure before deployment.</p>
+
+<pre><code class="codebox bash"># Standard scan (3 concepts: harmful_content, injection_resistance, refusal_capability)
+ams scan ./my-model
+
+# Quick scan (2 concepts, ~40% faster)
+ams scan ./my-model --mode quick
+
+# Full scan (4 concepts including truthfulness)
+ams scan ./my-model --mode full
+
+# JSON output for CI/CD pipelines
+ams scan ./my-model --json
+</code></pre>
+
+<h2>How It Works</h2>
+
+<p>AMS processes a set of contrastive prompt pairs—examples that differ only in whether they contain harmful content—through the model under inspection. It extracts hidden states at an intermediate layer (typically 35–40% depth), computes a direction vector that separates the two classes, and measures class separation as a σ score.</p>
+
+<figure class="wide-80">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSdDsF2S4T_xBZNzT_StQPsVkzfcNHzFxjoukhtPQBJyN-fWmdyZjlQlunUvEIzSOoAL3pr3-7a53q5w_Ab0Zs1i77umIdjeX2_qoq54KMlqpmC4BPzvptmZyWewwY39g-Kl8ZwJQt7kUqSd0uuDGrCDsuObVseRc9CjZFNNMMgCvDmeRPxsYkS5j2cYE/s1600/How%20it%20Works.png" rel="noreferrer" target="_blank"></a>
+  <figcaption>How it Works</figcaption>
+</figure>
+
+<p>The key insight is that this measurement requires no generation, no benchmark queries, and no ground-truth labels. The entire scan completes in a single forward pass per prompt pair, typically 10–40 seconds on GPU hardware.</p>
+
+<p>The probe consists of a single direction vector (~16KB for standard 4096-dimensional models). No model weights are modified. The tool works with any Hugging Face-compatible model.</p>
+
+<h2>Get Started</h2>
+
+<p>AMS is available now under Apache 2.0:</p>
+<ul>
+<li>GitHub: <a href="https://github.com/GoogleCloudPlatform/activation-model-scanner/" rel="noreferrer" target="_blank">github.com/GoogleCloudPlatform/activation-model-scanner/</a></li>
+</ul>
+
+<p>We welcome contributions, baseline additions for new model families, and feedback from the communities. See the contributing guide in the repository for details.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-27T11:30:00.000Z>27 April 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

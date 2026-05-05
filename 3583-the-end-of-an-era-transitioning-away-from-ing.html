@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>The End of an Era: Transitioning Away from Ingress NGINX</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/02/the-end-of-an-era-transitioning-away-from-ingress-nginx.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Kaslin Fields</author>, Cloud DevRel &amp; <author>Rob Scott</author>, GCP Networking</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizpQgX40H9SS7xp8k0ezxjdzXE7z7VNetnVAY8OYHU3Mwreh5n6Datm-yHHNkgAdzR2iv2Kdq_4aHJDp1DNA2EVWG2QViYte0hu7yMsXKHaxXvbI0jD2OFRS3G3QPf_PUcoonske0CdJ0dOnFO1dEvtj_XZCotfLtId1gtlGD3eD92-hMmS9HI-D5YkAY/s1600/BlogHeroImageIngressNGINX.png">
+
+
+<a target="_blank" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizpQgX40H9SS7xp8k0ezxjdzXE7z7VNetnVAY8OYHU3Mwreh5n6Datm-yHHNkgAdzR2iv2Kdq_4aHJDp1DNA2EVWG2QViYte0hu7yMsXKHaxXvbI0jD2OFRS3G3QPf_PUcoonske0CdJ0dOnFO1dEvtj_XZCotfLtId1gtlGD3eD92-hMmS9HI-D5YkAY/s1600/BlogHeroImageIngressNGINX.png" class="header-image" rel="noreferrer"></a>
+
+<p>For many of us, the first time we successfully routed traffic into a Kubernetes cluster, we did it using <strong>Ingress NGINX</strong>. It was the project that turned a complex networking API into something we could actually use.</p>
+
+<p>However, the <a target="_blank" href="http://kubernetes.io/blog/2026/01/29/ingress-nginx-statement/" rel="noreferrer">Kubernetes community recently announced</a> that Ingress NGINX is officially entering retirement. Maintenance will cease in <strong>March 2026</strong>.</p>
+
+<p>Here is what you need to know about why this is happening, what comes next, and why this "forced" migration is actually a great opportunity for your infrastructure.</p>
+
+<h2>Clarifying Terminology</h2>
+
+<p>First, there are some confusing, overlapping terms here. Let's clarify.</p>
+
+<ol>
+<li><strong><a target="_blank" href="https://kubernetes.io/docs/concepts/services-networking/ingress/" rel="noreferrer">Ingress API</a></strong><a target="_blank" href="https://kubernetes.io/docs/concepts/services-networking/ingress/" rel="noreferrer"> </a>- Kubernetes introduced the Ingress API as a Generally Available (GA) feature in 2020 with the release of Kubernetes version 1.19. This API is still available in Kubernetes with no immediate plans for deprecation or removal. However, it is "feature-frozen" meaning it is no longer being actively worked on or updated. The community has instead moved to Gateway API, which we'll talk more about later in this post.</li>
+<li><strong><a target="_blank" href="https://github.com/kubernetes/ingress-nginx/" rel="noreferrer">Ingress NGINX</a> </strong>- "Ingress" is an API object available by default in Kubernetes, as described above. You can define your Ingress needs as an Ingress resource. But that resource won't actually do anything without a controller. Ingress NGINX is a very popular controller that uses NGINX as a reverse proxy and load balancer. This will no longer be maintained as of March 2026.</li>
+<blockquote>As it says in the <a target="_blank" href="https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/" rel="noreferrer"><em>What You Need To Know</em> blog from the Kubernetes project</a>, "Existing deployments of Ingress NGINX will continue to function and installation artifacts will remain available." However "there will be no further releases, no bugfixes, and no updates to resolve any security vulnerabilities that may be discovered."</blockquote>
+<li><strong><a target="_blank" href="https://docs.nginx.com/nginx-ingress-controller/" rel="noreferrer">NGINX Ingress Controller</a></strong> - to make things more confusing, there is another controller called "NGINX Ingress." This controller to implement ingress for your Kubernetes resources via NGINX and NGINX Plus, owned and maintained by F5 / NGINX Inc. This will continue to be maintained and available in both its Open Source and Commercial forms.</li>
+</ol>
+
+<p>In this blog post,we are going to talk about "Ingress NGINX," the controller being deprecated. We will also talk about "Ingress" or the "Ingress API", which is still around, but feature-frozen.</p>
+
+<h2>What Problem Did Ingress NGINX Solve?</h2>
+
+<p>In the early days of Kubernetes, getting external traffic to your pods was a nightmare. You either had to use expensive, cloud-specific LoadBalancers for every single service or manage complex NodePorts.</p>
+
+<p>While the Kubernetes Ingress API was introduced as a standard specification for Layer 7 routing (HTTP/HTTPS), it was inherently limited, designed for a simpler time in Kubernetes' history, and offered minimal features. Features like advanced routing, traffic splitting, and non-HTTP protocols were not natively supported by the API</p>
+
+<p>Ingress NGINX solved this problem by serving as a robust Ingress controller that executed the API's rules. Leveraging the widely adopted NGINX reverse proxy, the controller provided a powerful, provider-agnostic entry point for cluster traffic. It was able to:</p>
+<ul>
+<li>Consolidate multiple services under a single IP address.</li>
+<li>Provide robust Layer 7 capabilities, including SSL/TLS termination and basic load balancing.</li>
+<li>Use familiar NGINX configuration logic inside a cloud-native environment.</li>
+<li>Extend the basic Ingress API to support advanced features, such as rate limiting, custom headers, and sophisticated traffic management, by allowing users to inject familiar, raw NGINX configuration logic using custom <code>nginx.ingress.kubernetes.io</code> annotations (often called "snippets").</li>
+</ul>
+<p>This flexibility, achieved by translating standard Ingress objects into feature-rich NGINX configurations, made Ingress NGINX the de-facto controller and the "Swiss Army Knife" of Kubernetes networking.</p>
+
+<h2>Why is it Retiring?</h2>
+
+<p>If it's so popular, why kill it? The very flexibility that made it so popular also (at least partially) led to its demise. <a target="_blank" href="https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/" rel="noreferrer">The announcement</a> points to two primary "silent killers":</p>
+
+<ul>
+<li><strong>The "Snippet" Security Debt</strong>: Ingress NGINX gained popularity through its flexibility, specifically "snippets" that let users inject raw NGINX config via annotations. Today, these are viewed as major security risks, as they can allow for configuration injection attacks. Fixing this architectural "feature" has become an insurmountable task.</li>
+<li><strong>The Maintainership Gap</strong>: Despite having millions of users, the project was sustained by only one or two people working in their spare time. In an industry where security vulnerabilities move fast, "best-effort" maintenance isn't enough to protect the global ecosystem.</li>
+</ul>
+
+<h2>Time for Gateway API</h2>
+
+<p>The removal of the popular NGINX ingress implementation opens up an opportunity to transition to the <strong><a target="_blank" href="https://gateway-api.sigs.k8s.io/" rel="noreferrer">Gateway API</a></strong>. While the Ingress API in Kubernetes is not going anywhere (just the NGINX variant of it), development on it is frozen, and there are reasons for that.</p>
+
+<p>Think of Gateway API as "Ingress 2.0." While the Ingress API is a single, limited resource, Gateway API is role-oriented. It separates the concerns of the <strong>Infrastructure Provider</strong> (who sets up the LB), the <strong>Cluster Operator </strong>(who defines policies), and the <strong>Application Developer</strong> (who routes the traffic).</p>
+
+<p>For the <a target="_blank" href="https://kubernetespodcast.com/" rel="noreferrer">Kubernetes Podcast from Google</a>, we've interviewed Kubernetes maintainers working on Gateway API (Like in <a target="_blank" href="https://kubernetespodcast.com/episode/248-gateway-updates/" rel="noreferrer">this episode featuring Lior Lieberman</a>), and they tell a great story about why it was developed. In the early days of Kubernetes, the maintainers &amp; contributors weren't sure exactly what users would need with regard to ingress management for workloads running on Kubernetes. The early Kubernetes Ingress object was an attempt to address the problems the maintainers thought users would need to solve, and they didn't get it all right. The annotations Ingress-NGINX supported on top of the Ingress API helped cover the many gaps in the Kubernetes API, but the annotations tied you to Ingress-NGINX. Those gaps have now been largely closed by Gateway API, and the API is supported by many conformant implementations, so you can have confidence in the portability of the API.</p>
+
+<p>An important feature of Gateway API's design is that it is an API standard defined by the community, but implemented by <strong>your</strong> infrastructure or networking solution provider. Networking ultimately boils down to cables transmitting electrical signals between machines. What kind of machines and how they're connected has a big impact on the types of ingress capabilities available to you- or at least in how they're actually implemented. Gateway API provides a standard set of capabilities that you can access in a standardized way, while allowing for the reality of different networking implementations across providers. It's meant to help you get the most out of your infrastructure- regardless of what that infrastructure actually is.</p>
+
+<p><strong>How Gateway API solves the old problems with Ingress NGINX:</strong></p>
+<ul>
+<li><strong>Security by Design: </strong>No more "configuration snippets." Features are built into the API natively, reducing the risk of accidental misconfiguration.</li>
+<li><strong>Standardization: </strong>Unlike the old Ingress API, which required custom annotations for almost everything (like traffic splitting), Gateway API builds these features into the spec, offering greater portability.</li>
+<li><strong>Extensibility:</strong> It is designed to handle more than just HTTP—it brings the same power to TCP, UDP, and gRPC.</li>
+</ul>
+
+<h2>The Challenges of Transitioning</h2>
+
+<p>Migration is rarely "click and play." Users moving away from Ingress NGINX should prepare for:</p>
+
+<ul>
+  <li><strong>Annotation Mapping</strong>: Most of your <code>nginx.ingress.kubernetes.io</code> annotations won't work on new controllers. You'll need to map these to the new Gateway API "HTTPRoute" logic.</li>
+<li><strong>Learning Curve</strong>: Gateway API has more "objects" to manage (Gateways, GatewayClasses, Routes). It takes a moment to wrap your head around the hierarchy, but it was implemented that way based on experience - these objects should help you manage your workloads' ingress needs more efficiently.</li>
+<li><strong>Feature Parity</strong>: If you rely on very specific, obscure NGINX modules, you'll need to verify that your new controller (be it Envoy-based like Emissary or Cilium, or a different NGINX-based provider) supports them.</li>
+</ul>
+
+<h2>Why It's Worth It</h2>
+
+<p>The retirement of Ingress NGINX is not just a chore; it is a forcing function for adopting more sustainable architecture. By migrating to Gateway API, you gain:</p>
+
+<ul>
+<li><strong>Stability and Active Development</strong>: Gateway API is a General Availability (GA) networking standard that has maintained a "standard channel" without a single breaking change or API version deprecation for over two years. Unlike many Ingress controllers where development has largely paused, most Gateway controllers are far more actively maintained and continue to add new features like CORS and timeouts.</li>
+<li><strong>Portability</strong>: Choosing a different Ingress controller might seem easier, but if you rely on Ingress-NGINX annotations, you will likely have to migrate to another set of implementation-specific annotations. Gateway API provides more portable features directly in the core API and ensures a consistent experience across different implementations. When you select an implementation that is conformant with the latest v1.4 release, you can be confident that the behavior of these features will be consistent.</li>
+<li><strong>Future-Proof Extensibility</strong>: While Gateway API supports many more features than the core Ingress API, if you find a needed feature missing, an implementation is likely to provide a similar or equivalent feature as an implementation-specific extension. For example, GKE Gateway and Envoy Gateway extend the API with their own custom policies.</li>
+</ul>
+
+<h2>Next Steps</h2>
+
+<p>Start your migration planning today to capitalize on the opportunity and meet the deadline.</p>
+
+<ol>
+<li><strong>Audit Your Usage</strong>: Run <code>kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx</code> to see where you are still using the legacy controller.</li>
+<li><strong>Utilize Automation</strong>: Check out the <a target="_blank" href="https://github.com/kubernetes-sigs/ingress2gateway" rel="noreferrer">ingress2gateway</a> project. A lot of work is going into this tool to make the migration experience better, including adding support for the most widely used Ingress-NGINX annotations.</li>
+<li><strong>Experiment and Provide Feedback</strong>: Give Gateway API a try! Start a PoC with a conformant Gateway API implementation (like <a target="_blank" href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/gateway-api" rel="noreferrer">GKE Gateway</a>, Cilium, or Envoy Gateway). The community welcomes help and feedback on ingress2gateway and encourages users to share feedback on what Gateway API is getting right and wrong.</li>
+<li><strong>Adhere to the Timeline</strong>: You have until March 2026 before the security updates stop. Start your migration planning sooner rather than later!</li>
+</ol>
+
+<p>For more details on migrating from Ingress to Gateway API refer to <a target="_blank" href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/migrate-ingress-gateway" rel="noreferrer">our documentation</a>.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-12T11:30:00.000Z>12 February 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

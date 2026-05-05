@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] API changes for the futex robust list</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1056387/">Go to article URL</a>
+		<div id="content"><p></p>The <a href="https://docs.kernel.org/locking/robust-futex-ABI.html" rel="noreferrer" target="_blank">robust
+futex kernel API</a> is a way for a user-space program to ensure that the
+locks it holds are properly cleaned up when it exits.  But the API suffers
+from a number of different problems, as André Almeida described in a <a href="https://lpc.events/event/19/contributions/2108/" rel="noreferrer" target="_blank">session</a> in the
+<a href="https://lpc.events/event/19/sessions/225/#20251213" rel="noreferrer" target="_blank">"Gaming on
+Linux" microconference</a> at the 2025 Linux Plumbers Conference in Tokyo.
+He had some ideas for a new API that would solve many of those problems,
+which he wanted to discuss with attendees; there is a
+difficult-to-trigger race condition that he wanted to talk about too.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-04T17:48:10.000Z>4 February 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

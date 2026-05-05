@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Kubernetes goes AI-First: Unpacking the new AI conformance program</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/04/kubernetes-goes-ai-first-unpacking-the-new-ai-conformance-program.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Duncan Campbell</author>, <author>Kaslin Fields</author>, Developer Source &amp; Signal<br>
+&amp; <author>Janet Kuo</author>, <author>Federico Bongiovanni</author>, Google Kubernetes Engine(GKE)</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Ew4zwACrflispkhfyO2RPltMX4eBYd9sSXXT5hNZ6G2FugX5WAu3wE3fpuJya824APcC0qjVwLxzwxqg2hK957Z4bln1aCl6_Pwwht9BQW6HF-cqjgdQZzRRvhV2qlar_m_t37Pkl5O4BptwMY1D2CX-g_U_x5XhXvrCiaU93gX0GwRTtyCEanRAQTU/s1600/Header%20-%20OSS%20-%20Kubernetes%20Gateway%20API%20graduates%20to%20GA%20%281%29.png" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<p>As AI workloads move from experimental notebooks into massive production environments, the industry is rallying around a new standard to ensure these workloads remain portable, reliable, and efficient.</p>
+
+<p>At the heart of this shift is the launch of the <strong><a href="https://github.com/cncf/k8s-ai-conformance" rel="noreferrer" target="_blank">Certified Kubernetes AI Conformance program</a></strong>.</p><p>
+This initiative represents a significant investment in common, accessible, industry-wide standards, ensuring that the benefits of AI-first Kubernetes are available to everyone.</p>
+
+<h1>How Kubernetes is Evolving for an AI-First World</h1>
+<p>Traditional Kubernetes was built for stateless, cloud-first applications. However, AI workloads introduce unique complexities that standard conformance doesn't fully cover:</p>
+
+<ul>
+<li><strong>Specific Hardware Demands:</strong> AI models require precise control over accelerators like GPUs and TPUs.</li>
+<li><strong>Networking and Latency:</strong> Inference and distributed training require low-latency networking and specialized configurations.</li>
+<li><strong>Stateful Nature:</strong> Unlike traditional web apps, AI often relies on complex, stateful data pipelines.</li>
+</ul>
+
+<p>The AI Conformance program acts as a <strong>superset</strong> of standard Kubernetes conformance. To be AI-conformant, a platform must first pass all standard Kubernetes tests and then meet additional requirements specifically for AI.</p>
+
+<h2>Key Pillars of the AI Conformance Program</h2>
+<p>The Kubernetes AI Conformance program is being driven in the open via the <a href="https://github.com/kubernetes-sigs/ai-conformance" rel="noreferrer" target="_blank">AI Conformance</a> program. This cross-company effort is led by industry experts Janet Kuo (Google), Mario Fahlandt (Kubermatic GmbH), Rita Zhang (Microsoft), and Yuan Tang (RedHat). This program is a collaborative effort within the open source ecosystem, involving multiple organizations and individuals. By developing this program in the open, the community ensures the standard is built on trust and directly addresses the diverse needs of the global ecosystem. The program establishes a verified set of capabilities that platforms across the industry, like Google Kubernetes Engine (GKE) and Azure Kubernetes Service (AKS) are already adopting.</p>
+
+<h4>Dynamic Resource Allocation (DRA)</h4>
+<p><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/" rel="noreferrer" target="_blank">DRA</a> is the cornerstone of the new standard. It shifts resource allocation from simple accelerator quantity to fine-grained hardware control via attributes. For data scientists, this means they can now request specific hardware based on characteristics such as memory capacity or specialized capabilities, ensuring the environment perfectly matches the model's needs.</p>
+
+<h4>All-or-Nothing Scheduling</h4>
+<p>Distributed training jobs often face "deadlocks" where some pods start while others wait for resources, wasting expensive GPU time. AI Conformance mandates support for solutions like <a href="https://kueue.sigs.k8s.io/" rel="noreferrer" target="_blank">Kueue</a>, allowing developers to ensure a job only begins when <em>all</em> required resources are available, improving cluster efficiency.</p>
+
+<h4>Intelligent Autoscaling for AI Workloads</h4>
+<p>Conformant clusters must support <a href="https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/" rel="noreferrer" target="_blank">Horizontal Pod Autoscaling (HPA)</a> based on custom AI metrics, such as GPU or TPU utilization, rather than just standard CPU/memory. This allows clusters to scale up for heavy inference demand and scale down to save costs when idle.</p>
+
+<h4>Standardized Observability for High Performance</h4>
+<p>To manage AI at scale, you need deep visibility. The program requires platforms to expose rich accelerator performance metrics directly, enabling teams to monitor inference latency, throughput, and hardware health in a standardized way.</p>
+
+<h2>What's Next?</h2>
+<p>The launch of AI Conformance is just the beginning. As we head further into 2026, the community is adding <strong>automated testing</strong> for certification and expanding the standard to include more advanced inference patterns and stricter security requirements.</p>
+
+<p>The ultimate goal? Making "AI-readiness" an inherent, invisible part of the Kubernetes standard.</p>
+
+<p>To get involved and help shape the future of AI on Kubernetes, consider joining <a href="https://github.com/kubernetes-sigs/wg-ai-conformance" rel="noreferrer" target="_blank">AI Conformance in Open Source Kubernetes</a>. We welcome diverse perspectives, as your expertise and feedback are crucial to building a robust and inclusive standard for all.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-06T12:00:00.000Z>6 April 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

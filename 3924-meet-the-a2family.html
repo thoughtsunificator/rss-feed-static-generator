@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Meet the A2Family</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/04/meet-the-a2family.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Daryl Ducharme</author>, Google Open Source &amp; <author>Alan Blount</author>, Cloud AI</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_tSabeHfG4RP2fc6YGxhmZSvD-jSg1qZEP-Nm8OsLqbwJY8GcnOUXR3njiRf6gL4nC3FRXF917fPbjUNSqT26HonMks1utqE2ZyT7UMYps8-iESISafijxxwBZZvOYbCiItx70tLZOJO05IJCVBtvb7v_Jd0JguLmLwP9fUhkuCO2VvLDsR2mSldlU4k/s1600/ossblogpostmee--9d0sobmzqta.png">
+
+<figure class="borderless">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_tSabeHfG4RP2fc6YGxhmZSvD-jSg1qZEP-Nm8OsLqbwJY8GcnOUXR3njiRf6gL4nC3FRXF917fPbjUNSqT26HonMks1utqE2ZyT7UMYps8-iESISafijxxwBZZvOYbCiItx70tLZOJO05IJCVBtvb7v_Jd0JguLmLwP9fUhkuCO2VvLDsR2mSldlU4k/s1600/ossblogpostmee--9d0sobmzqta.png" rel="noreferrer" target="_blank"></a>
+</figure>
+
+<p>At Google, we know that building on open source gives teams the freedom and flexibility to use meaningful technologies faster. Openness drives innovation and security, and it is core to our mission. As we look toward the future of computing, we want to ensure that developers across all open source communities have the foundational tools they need to build secure and collaborative AI systems. </p>
+
+<p>That is why we are excited for you to get to know the "A2Family"—a suite of open source protocols and tools designed to help you build, connect, and scale your AI agents. </p>
+
+<h2>A2A: The cornerstone of agent interoperability</h2>
+
+<p>The <a href="https://a2a-protocol.org/latest/" rel="noreferrer" target="_blank">Agent2Agent (A2A) Protocol</a> is an open standard designed to enable seamless communication and collaboration between AI agents. It provides the definitive common language for agent interoperability in a world where agents are built using diverse frameworks and by different vendors. </p>
+
+<p>Originally developed by Google, A2A has now been donated to the Linux Foundation. As a famous open source aphorism reminds us: "If you want to go fast, go alone. If you want to go far, go together." A2A brings this collaborative philosophy to AI, allowing agents to delegate sub-tasks, exchange information, and coordinate actions to solve complex problems that a single agent cannot.</p>
+
+<p><strong>MCP &amp; Skills: Agents need tools and skills</strong></p>
+
+<p>Since day one A2A has loved MCP, and we love skills too ♥️.  Agents discover, negotiate, converse, make plans, adapt when those plans don't work out – that's a different interaction pattern than a tool and that's what A2A was built for.  But for your agents to function, they need access to tools, and instructions on how to use those tools safely and securely. While MCP and A2A might not be from the same origin story, they are a family that works better together.</p>
+
+<p>When you're not sure – if it's a quick deterministic resource or action, it's a tool, but if you may end up with a conversation, it's an agent. Another good mental model is "are you the expert agent which uses tools" (MCP) or "is there some other expert agent you are collaborating with" (A2A). </p>
+
+<h2>A2UI: A protocol for agent-driven interfaces</h2>
+
+<p>When agents need to communicate with humans, how can they safely send rich interfaces across trust boundaries? Instead of relying on text-only responses or risky code execution, we use <a href="https://a2ui.org/" rel="noreferrer" target="_blank">A2UI</a>.</p>
+
+<p>A2UI enables AI agents to generate rich, interactive user interfaces that render across web, mobile, and desktop platforms—without executing arbitrary code. It is secure by design, allowing agents to use only pre-approved components from your catalog through declarative component descriptions. </p>
+
+<p>You may also have heard of <a href="https://apps.extensions.modelcontextprotocol.io/api/" rel="noreferrer" target="_blank">MCP Apps</a> (formerly MCP UI). It is a complementary alternative to A2UI which ships your agent driven widget inside of an iframe orchestrated with MCP events and tool calls.  There are some interesting ways of configuring A2UI and MCP Apps together, for generative UI inside of an iframe or generative UI driving the iframe.</p>
+
+<p>The <a href="https://docs.ag-ui.com/introduction" rel="noreferrer" target="_blank">AG UI protocol</a>, developed by CopilotKit, is a standard for connecting agents to front ends with low latency. It makes developer lives much easier, with integrations to most agent frameworks and front ends.  If you are using AG UI, you already have both A2UI and A2A support!</p>
+
+<h2>AP2: Securing the agent economy</h2>
+
+<p>When an autonomous agent initiates a payment, current systems struggle with questions of authorization, authenticity, and accountability. To solve this, we introduced the <a href="https://ap2-protocol.org/" rel="noreferrer" target="_blank">Agent Payments Protocol (AP2)</a>, an open protocol for the emerging Agent Economy. </p>
+
+<p>Available as an open extension for the A2A protocol, AP2 is designed to enable secure, reliable, and interoperable agent commerce for developers, merchants, and the payments industry. The protocol engineers trust into the system using verifiable digital credentials (VDCs), which are tamper-evident, cryptographically signed digital objects that serve as the building blocks of a transaction.</p>
+
+<h2>UCP: The common language for agentic commerce</h2>
+
+<p>While AP2 secures the transaction, the <a href="https://ucp.dev/" rel="noreferrer" target="_blank">Universal Commerce Protocol (UCP)</a> defines the building blocks for the entire shopping journey, from discovering and buying to post-purchase experiences. UCP provides a common language for platforms, agents, and businesses, allowing the diverse commerce ecosystem to interoperate through a single standard without the need for custom builds.</p>
+
+<p>UCP seamlessly connects different systems using open industry standards, featuring built-in support for both the A2A and AP2 protocols. It empowers retailers to meet customers wherever they are, ensuring that businesses retain control of their own rules and remain the Merchant of Record with full ownership of the customer relationship.</p>
+
+<h2>Bringing it all together with ADK</h2>
+
+<p>Protocols need a solid foundation to run on. Enter the <a href="https://adk.dev/" rel="noreferrer" target="_blank">Agent Development Kit (ADK)</a>. </p>
+
+<p>Technically not part of the A2Family, ADK is an open-source agent development framework that lets you build, debug, and deploy reliable AI agents at enterprise scale. Available in Python, TypeScript, Go, and Java, ADK helps you build production agents, not just prototypes. It connects everything together, allowing you to easily equip your agents with tools, integrate them with the A2A protocol, and scale them globally on your infrastructure of choice. </p>
+
+<figure class="wide">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTwE-Nap9rh2PBCgDyQHApPhoBIr8dqxvgQ_2dG3Mz5kwnU-_VE5zxfpWUnIPrYHpmCTbSlMd1Zxp44Xji8N3CCuS39GBl4SR-HMDlfQzrbGEsgp2OCb6gWCrvitY1IsTiDL7tSaQQA6q02mHRaqqncuvm5Y35Lry2_8hFuYylAgJb_DZDs7lKqfROfPk/s1600/ossblogpostmee--xduguzjt7al.gif" rel="noreferrer" target="_blank"></a>
+</figure>
+
+<p>Google champions collaboration, transparency, and shared progress to build a better future for everyone through open technologies. We are thrilled to share these tools with you and cannot wait to see what we can build together. </p>
+
+<p>What kind of multi-agent workflows are you planning to build with the A2Family? Let us know in the comments below or tag us on social media!</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-23T11:30:00.000Z>23 April 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] The troubles with Boolean inversion in Python</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1059177/">Go to article URL</a>
+		<div id="content"><p></p>The Python bitwise-inversion (or complement) operator, "<tt>~</tt>", <a href="https://docs.python.org/3/library/stdtypes.html#index-16" rel="noreferrer" target="_blank">behaves</a>
+pretty much as expected when it is applied to integers—it toggles every
+bit, from one
+to zero and vice versa.  It might be expected that applying the
+operator to a non-integer, a <a href="https://docs.python.org/3/library/stdtypes.html#boolean-type-bool" rel="noreferrer" target="_blank"><tt>bool</tt></a>
+for example, would raise a <tt>TypeError</tt>, but, because the
+<tt>bool</tt> type is really an <a href="https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex" rel="noreferrer" target="_blank"><tt>int</tt></a>
+in disguise, the complement operator is allowed, at least for now.  For
+nearly 15&nbsp;years (and perhaps longer), there have been discussions about the
+oddity of that behavior and whether it should be changed.  Eventually,
+that resulted in the "feature" being deprecated, producing a warning, with removal slated for
+Python&nbsp;3.16 (due October 2027). That has led to some reconsideration and the
+deprecation may itself be deprecated.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-27T16:21:11.000Z>27 February 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

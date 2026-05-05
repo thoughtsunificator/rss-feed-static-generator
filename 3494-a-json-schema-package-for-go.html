@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>A JSON schema package for Go</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/01/a-json-schema-package-for-go.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Jonathan Amsterdam</author> &amp; <author>Sam Thanawalla</author>, The Go Team</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjt8SJuD-1m9SmMcH8buiQh615lLFYsqqKBtkOWQoUKOR8wup3gFghx_R1E_acIw967E6xkwn54LgFInGHimzUV1ym5tA0pH3dYbBHGc5zubeJU4hm13x9A-403ZuT8gRKLKuqdZl3pGY/s16000/gosreheader.png">
+
+
+<a target="_blank" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjt8SJuD-1m9SmMcH8buiQh615lLFYsqqKBtkOWQoUKOR8wup3gFghx_R1E_acIw967E6xkwn54LgFInGHimzUV1ym5tA0pH3dYbBHGc5zubeJU4hm13x9A-403ZuT8gRKLKuqdZl3pGY/s16000/gosreheader.png" class="header-image" rel="noreferrer"></a>
+
+<p><a target="_blank" href="https://json-schema.org" rel="noreferrer">JSON Schema</a> is a specification for describing JSON values that has become a critical part of
+LLM infrastructure. We recently released <a target="_blank" href="https://pkg.go.dev/github.com/google/jsonschema-go/jsonschema" rel="noreferrer">github.com/google/jsonschema-go/jsonschema</a>, a comprehensive JSON Schema package for Go. We use it in the <a target="_blank" href="https://github.com/modelcontextprotocol/go-sdk" rel="noreferrer">official Go SDK for MCP</a> and expect it to become the canonical JSON Schema package for Google's Go SDKs that work with LLMs.</p>
+
+<p>JSON Schema has been around for many years. Why are we doing this now, and what do LLMs have to do with it?</p>
+
+<p>JSON is a flexible way to describe values. A JSON value can be null, a string, a number, a boolean, a list of values, or a mapping from strings to values. In programming language terms, JSON is dynamically typed. For example, a JSON array can contain a mix of strings, numbers, or any other JSON value. That flexibility can be quite powerful, but sometimes it's useful to constrain it. Think of JSON Schema as a type system for JSON, although its expressiveness goes well beyond typical type systems. You can write a JSON schema that requires all array elements to be strings, as you could in a typical programming language type system, but you can also constrain the length of the array or insist that its first three elements are strings of length at least five while the remaining elements are numbers.</p>
+
+<p>The ability to describe the shape of JSON values like that has always been useful, but it is vital when trying to coax JSON values out of LLMs, whose output is notoriously hard to constrain. JSON Schema provides an expressive and precise way to tell an LLM how its JSON output should look. That's particularly useful for generating inputs to tools, which are usually ordinary functions with precise requirements on their input. It also turns out to be useful to describe a tool's output to the LLM. So frameworks like <a target="_blank" href="https://modelcontextprotocol.io" rel="noreferrer">MCP</a> use JSON Schema to specify both the inputs to and outputs from tools. JSON Schema has become the <em>lingua franca</em> for defining structured interactions with LLMs.</p>
+
+<h2>Requirements for a JSON Schema package</h2>
+<p>Before writing our own package, we took a careful look at the existing JSON Schema packages; we didn't want to reinvent the wheel. But we couldn't find one that had all the features that we felt were important:</p>
+<ol>
+<li><strong>Schema creation:</strong> A clear, easy-to-use Go API to build schemas in code.</li>
+<li><strong>Serialization:</strong> A way to convert a schema to and from its JSON representation.</li>
+<li><strong>Validation:</strong> A way to check whether a given JSON value conforms to a schema.</li>
+<li><strong>Inference:</strong> A way to generate a JSON Schema from an existing Go type. </li>
+</ol>
+<p>We looked at the following packages:</p>
+<ul>
+<li><a target="_blank" href="https://github.com/invopop/jsonschema" rel="noreferrer">https://github.com/invopop/jsonschema</a> provides inference, but not validation.</li>
+<li><a target="_blank" href="https://github.com/santhosh-tekuri/jsonschema" rel="noreferrer">https://github.com/santhosh-tekuri/jsonschema</a> does not provide inference.</li>
+<li><a target="_blank" href="https://github.com/xeipuuv/gojsonschema" rel="noreferrer">https://github.com/xeipuuv/gojsonschema</a> does not provide a way to construct a schema in code.</li>
+<li><a target="_blank" href="https://github.com/qri-io/jsonschema" rel="noreferrer">https://github.com/qri-io/jsonschema</a> does not provide inference or a way to construct a schema in code.</li>
+</ul>
+<p>It didn't seem feasible to cobble together what we needed from multiple packages, so we decided to write <a target="_blank" href="https://pkg.go.dev/github.com/google/jsonschema-go/jsonschema" rel="noreferrer">our own</a>.</p>
+
+<h2>A Tour of jsonschema-go</h2>
+
+<h3>A Simple, open Schema struct</h3>
+<p>At the core of the package is a straightforward Go struct that directly represents the JSON Schema specification. This open design means you can create complex schemas by writing a struct literal:</p>
+
+<pre><code class="codebox json">var schema = &amp;jsonschema.Schema{
+  Type:        "object",
+  Description: "A simple person schema",
+  Properties: map[string]*jsonschema.Schema{
+    "name": {Type: "string"},
+    "age": {Type: "integer", Minimum: jsonschema.Ptr(0.0)},
+  },
+  Required: []string{"name"},
+}
+</code></pre>
+
+<p>A <code>Schema</code> will marshal to a valid JSON value representing the schema, and any JSON value representing a schema can be unmarshalled into a <code>Schema</code>.</p>
+
+<p>The <code>Schema</code> struct defines fields for all standard JSON Schema keywords that are defined in popular specification drafts. To handle additional keywords not present in the specification, <code>Schema</code> includes an <code>Extra</code> field of type <code>map[string]any</code>.</p>
+
+<h3>Validation and resolution</h3>
+<p>Before using a schema to validate JSON values, the schema itself must be validated, and its references to other schemas must be followed so that those schemas can themselves be checked. We call this process <em>resolution</em>. Calling <code>Resolve</code> on a <code>Schema</code> returns a <code>jsonschema.Resolved</code>, an opaque representation of a valid schema optimized for validation. <code>Resolved.Validate</code> accepts almost any value that can be obtained from calling <code>json.Umarshal</code>: null, basic types like strings and numbers, <code>[]any</code>, and <code>map[string]any</code>. It returns an error describing all the ways in which the value fails to satisfy the schema.</p>
+
+<pre><code class="codebox json">rs, err := schema.Resolve(nil)
+if err != nil {
+  return err
+}
+err = rs.Validate(map[string]any{"name": "John Doe", "age": 20})
+if err != nil {
+  fmt.Printf("validation failed: %v\n", err)
+}
+</code></pre>
+
+<p>Originally, <code>Validate</code> accepted a Go struct. We removed that feature because it is not possible to validate some schemas against a struct. For example, If a struct field has a non-pointer type, there is no way to determine whether the corresponding key was present in the original JSON, so there is no way to enforce the <code>required</code> keyword.</p>
+
+<h3>Inference from Go types</h3>
+<p>While it's always possible to create a schema by constructing a <code>Schema</code> value, it's often convenient to create one from a Go value, typically a struct. This operation, which we call <em>inference</em>, is provided by the functions <code>For</code> and <code>ForType</code>. Here is <code>For</code> in action:</p>
+
+<pre><code class="codebox json">type Person struct {
+    Name string `json:"name" jsonschema:"person's full name"`
+    Age int `json:"age,omitzero"`
+}
+
+schema, err := jsonschema.For[Person](nil)
+
+/* schema is:
+{
+    "type": "object",
+    "required": ["name"],
+    "properties": {
+        "age":  {"type": "integer"},
+        "name": {
+            "type": "string",
+            "description": "person's full name"
+        }
+    },
+    "additionalProperties": false
+}
+*/
+</code></pre>
+
+<p><code>For</code> gets information from struct field tags. As this example shows, it uses the name in the <code>json</code> tag as the property name, and interprets <code>omitzero</code> or  <code>omitempty</code> to mean that a field is optional. It also looks for a <code>jsonschema</code> tag to get property descriptions. (We considered adding support for other keywords to the <code>jsonschema</code> tag as some other packages do, but that quickly gets complicated. We left an escape hatch in case we decide to support other keywords in the future.)</p>
+
+<p><code>ForType</code> works the same way, but takes a <code>reflect.Type</code>. It's useful when the type is known only at runtime.</p>
+
+<h3></h3>
+
+<h3>A foundation for the Go community </h3>
+<p>By providing a high-quality JSON Schema package, we aim to strengthen the entire Go ecosystem for AI applications (and, indeed, any application that needs to validate JSON). This library is already a critical dependency for Google's own AI SDKs, and we're committed to its long-term health. We welcome external contributions, whether they are bug reports, bug fixes, performance enhancements, or support for additional JSON Schema drafts. Before beginning work, please file an issue on our <a target="_blank" href="https://github.com/google/jsonschema-go/issues" rel="noreferrer">issue tracker</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-01-21T11:30:00.000Z>21 January 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

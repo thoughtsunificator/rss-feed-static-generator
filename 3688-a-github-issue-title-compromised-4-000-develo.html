@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>A GitHub Issue Title Compromised 4,000 Developer Machines (grith.ai)</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1061548/">Go to article URL</a>
+		<div id="content"><p></p>The grith.ai blog <a href="https://grith.ai/blog/clinejection-when-your-ai-tool-installs-another" rel="noreferrer" target="_blank">reports</a>
+on an LLM prompt-injection vulnerability that led to 4,000 installations of
+a compromised version of the Cline utility.
+<p>
+</p><blockquote class="bq">
+	For the next eight hours, every developer who installed or updated
+	Cline got OpenClaw - a separate AI agent with full system access -
+	installed globally on their machine without consent. Approximately
+	4,000 downloads occurred before the package was pulled.
+<p>
+	The interesting part is not the payload. It is how the attacker got
+	the npm token in the first place: by injecting a prompt into a
+	GitHub issue title, which an AI triage bot read, interpreted as an
+	instruction, and executed.
+</p></blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-05T19:21:21.000Z>5 March 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

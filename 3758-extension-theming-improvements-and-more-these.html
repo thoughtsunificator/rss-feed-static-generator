@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Extension Theming Improvements and More – These Weeks in Firefox: Issue 198</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2026/03/20/extension-theming-improvements-and-more-these-weeks-in-firefox-issue-198/">Go to article URL</a>
+		<div id="content"><p></p><div id=":oo" class="Am aiL Al editable LW-avf tS-tW tS-tY" tabindex="1" role="textbox" spellcheck="false" aria-label="Message Body" aria-multiline="true" aria-owns=":1di" aria-controls=":1di" aria-expanded="false">
+<h3 dir="ltr">Highlights</h3>
+<ul>
+<li>Starting with Firefox 150, Firefox Desktop’s theming internals have improved, allowing custom background images provided by built-in and custom themes to extend over the sidebar UI background –<a href="https://bugzilla.mozilla.org/1952602" rel="noreferrer" target="_blank"> Bug 1952602</a>.
+<ul>
+<li>Thanks to Emilio for his work on these Firefox theme improvements!</li>
+</ul>
+</li>
+</ul>
+<div id="attachment_1973" class="wp-caption aligncenter"><p id="caption-attachment-1973" class="wp-caption-text">​Alpenglow theme – current (left, Firefox = 150) behavior.</p></div>
+<ul>
+<li><span id="gmail-docs-internal-guid-871e5075-7fff-1ca7-f868-69398cbb5eb7">We deprecated the built-in CSS filter for WebExtensions and changed how we theme extension icons –</span><a href="https://bugzilla.mozilla.org/2001318" rel="noreferrer" target="_blank"> Bug 2001318</a>.
+<ul>
+<li>If you spot any issues with extension icons, please <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=WebExtensions" rel="noreferrer" target="_blank">file a bug here</a>.</li>
+<li>Extensions can now rely on SVG’s native prefers-color-scheme media query support; <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001318#c37" rel="noreferrer" target="_blank">see this comment for more information</a>.</li>
+<li>The built-in CSS filter was implicitly applied to all extensions’ page action SVG icons in dark mode. It did not provide an official opt-out mechanism, resulting in poor contrast for some extension icons.</li>
+</ul>
+</li>
+<li dir="ltr" role="presentation">Niklas fixed <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013700" rel="noreferrer" target="_blank">broken and missing Picture-in-Picture video controls on Disney+</a>.
+<ul>
+<li>Found a Picture-in-Picture bug? Please file one <a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Toolkit&amp;component=Picture-in-Picture" rel="noreferrer" target="_blank">here</a>!</li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=2015241%2C2017474%2C2015351%2C1994079%2C2003192%2C1744252%2C2010486%2C2011274%2C1985619%2C1998004%2C2018840%2C1483078%2C1861645%2C2003191%2C1971538%2C2019256%2C2019924%2C2005628%2C2016933%2C2020641&amp;list_id=17874281" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Chris Vander Linden</li>
+<li aria-level="1">Justin Peter</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">Jocsan: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016933" rel="noreferrer" target="_blank">Profile delete page title should enclose profile name in quotes</a></li>
+<li aria-level="1">🌟karan68: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1998004" rel="noreferrer" target="_blank">[dialog] ‘X’ icon buttons are missing labels</a></li>
+<li aria-level="1">&nbsp;Knot False: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1861645" rel="noreferrer" target="_blank">Replace KeywordUtils use of nsIScriptableUnicodeConverter with Services.textToSubURI.ConvertAndEscape</a></li>
+<li aria-level="1">🌟Pushkar Singh: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003191" rel="noreferrer" target="_blank">Remove unused devtools.inspector.remote pref</a></li>
+<li aria-level="1">🌟MUTHUSRIHEMADHARSHINI: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1994079" rel="noreferrer" target="_blank">Card images do not have an alt attribute</a></li>
+<li aria-level="1">&nbsp;Sukhmeet[:sukh]: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1985619" rel="noreferrer" target="_blank">firefox forgets open tabs depending on window close order</a></li>
+<li aria-level="1">🌟Alex Reisner: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2005628" rel="noreferrer" target="_blank">Create a preference to disable the drag-and-drop method of creating tab groups</a></li>
+<li aria-level="1">🌟torrenceb90: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003192" rel="noreferrer" target="_blank">Remove unused devtools.target-switching.server.enabled pref</a></li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<p>Addon Manager &amp; about:addons</p>
+<ul>
+<li aria-level="1">As part of the work for the SmartWindow mode, a new dismissible info messagebar will be shown in about:addons themes list view to users opting into SmartWindow that Firefox windows, the SmartWindow theming notice will be highlighting for the user that the SmartWindow mode will use their own custom theming –<a href="https://bugzilla.mozilla.org/2010685" rel="noreferrer" target="_blank"> Bug 2010685</a>
+<ul>
+<li aria-level="2">Special thanks to Maile Lucks and Chloe Zhou for gathering the clarifications needed and working with the SmartWindow team to reach the final agreement on the desired behaviors.</li>
+</ul>
+</li>
+<li aria-level="1">Fixed “Available Updates” about:addons view not refreshing automatically when the “Check for updates” action is clicked while the “Available updates” is already selected until manually switching about:addons view or reloading the about:addons tab –<a href="https://bugzilla.mozilla.org/1578182" rel="noreferrer" target="_blank"> Bug 1578182</a></li>
+</ul>
+<p>WebExtensions Framework</p>
+<ul>
+<li aria-level="1">As part of hardening work on the WebExtensions internals, a new option has been added to Cu.Sandbox constructor to opt-in/opt-out from freezing all the built-ins available in the Sandbox global –<a href="https://bugzilla.mozilla.org/2017957" rel="noreferrer" target="_blank"> Bug 2017957</a></li>
+</ul>
+<p>WebExtension APIs</p>
+<ul>
+<li aria-level="1">As part of the work to support Firefox Split View, additional changes have been applied to make sure that Split View mode is preserved when extensions are moving all tabs part of a Split View into a new window –<a href="https://bugzilla.mozilla.org/2017148" rel="noreferrer" target="_blank"> Bug 2017148</a> /<a href="https://bugzilla.mozilla.org/2017768" rel="noreferrer" target="_blank"> Bug 2017768</a> /<a href="https://bugzilla.mozilla.org/2016754" rel="noreferrer" target="_blank"> Bug 2016754</a></li>
+<li aria-level="1">Fixed a regression (introduced in Firefox 149 by<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013389" rel="noreferrer" target="_blank"> Bug 2013389</a> changes) which was reported to be breaking the Clipboard2File extension. The fix has been landed in Nightly 150 and uplifted to 149 –<a href="https://bugzilla.mozilla.org/2017797" rel="noreferrer" target="_blank"> Bug 2017797</a></li>
+</ul>
+<h4>DevTools</h4>
+<ul>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=446518" rel="noreferrer" target="_blank">Sebastian Zartner [:sebo]</a> added a button in the Storage panel to delete all the items of a given storage type (Local Storage, Cookies, …) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1349533" rel="noreferrer" target="_blank">#1349533</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=766005" rel="noreferrer" target="_blank">Chris Vander Linden</a> migrated devtools/client/shared/widgets/<a href="http://tablewidget.js" rel="noreferrer" target="_blank">TableWidget.js</a> to use proper private ES fields (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2015241" rel="noreferrer" target="_blank">#2015241</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=783936" rel="noreferrer" target="_blank">Torrence</a> removed the unused devtools.target-switching.server.enabled pref (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003192" rel="noreferrer" target="_blank">#2003192</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=785735" rel="noreferrer" target="_blank">Pushkar Singh</a> removed the unused devtools.inspector.remote pref (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003191" rel="noreferrer" target="_blank">#2003191</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=566192" rel="noreferrer" target="_blank">Andreas Farre [:farre]</a> improved the Session History panel to easily differentiate same-document and cross-document navigation (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016130" rel="noreferrer" target="_blank">#2016130</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016126" rel="noreferrer" target="_blank">#2016126</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> added a button in Computed sidebar that link to the declaration in the Rules panel (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1418351" rel="noreferrer" target="_blank">#1418351</a>)</li>
+</ul>
+<p role="presentation"></p>
+<ul>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">​Alexandre Poirot [:ochameau]</a> fixed an issue in the inactive CSS that was impacting declarations on rules with multiple pseudo elements (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1998357" rel="noreferrer" target="_blank">#1998357</a>)</li>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> made position-area marked as inactive when the element is not absolutely positioned or doesn’t have a default anchor (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1895185" rel="noreferrer" target="_blank">#1895185</a>)</li>
+<li role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> added proper autocomplete for color() in the Rules view so it suggests colorspaces (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898277" rel="noreferrer" target="_blank">#1898277</a>)</li>
+<li>
+<p role="presentation"><a href="https://bugzilla.mozilla.org/user_profile?user_id=656417" rel="noreferrer" target="_blank">Hubert Boma Manilla (:bomsy)</a> added text in the Response panel for redirected request to explain why the panel is empty (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016679" rel="noreferrer" target="_blank">#2016679</a>)​</p>
+</li>
+</ul>
+<p role="presentation"></p>
+<h4 dir="ltr">​WebDriver</h4>
+<ul>
+<li dir="ltr" role="presentation">Alexandra Borovova implemented <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1989022" rel="noreferrer" target="_blank">the “browser.setDownloadBehavior” command</a>, which allows clients to allow or prohibit the downloads and also set a custom download folder. This behavior can be configured per session or per user contexts.</li>
+<li dir="ltr" role="presentation">Julian Descottes implemented <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1993079" rel="noreferrer" target="_blank">the “emulation.setNetworkConditions” command for “type: offline”</a>, which can be used to emulate offline network situations. This configuration can be applied to contexts, user contexts or globally.</li>
+<li dir="ltr" role="presentation">Julian Descottes updated the WebDriver classic <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2016741" rel="noreferrer" target="_blank">getShadowRoot command to no longer return user agent shadow roots</a>.</li>
+<li dir="ltr" role="presentation">Henrik Skupin fixed the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2005621" rel="noreferrer" target="_blank">mach test command which was not able to run Marionette tests</a> anymore.</li>
+</ul>
+<h4 dir="ltr">Lint, Docs and Workflow</h4>
+<ul>
+<li dir="ltr" role="presentation">FYI to developers that stylelint changes now go to #desktop-theme-reviewers</li>
+</ul>
+<h4 dir="ltr">Search</h4>
+<ul>
+<li dir="ltr" role="presentation"><a href="mailto:adw@mozilla.com" rel="noreferrer" target="_blank">Drew Willcoxon</a> finished his work on Online Suggest over OHTTP. It has been enabled by default in Nightly since the 149 cycle, improving privacy for remote suggestions while we validate quality and latency at scale.</li>
+<li dir="ltr" role="presentation"><a href="mailto:dakatsuka.birchill@mozilla.com" rel="noreferrer" target="_blank">Daisuke Akatsuka</a> changed sponsored suggestions to no longer display the destination URL, reducing visual clutter and emphasizing brand/title. Can be tuned via remote config as we watch CTR and trust metrics.</li>
+<li dir="ltr" role="presentation">Voice Control users can once again focus the URL bar via “click” or numbered commands — fixed by <a href="mailto:mreschenberg@mozilla.com" rel="noreferrer" target="_blank">Morgan Rae Reschenberg</a>.</li>
+<li dir="ltr" role="presentation"><a href="mailto:dale@mozilla.com" rel="noreferrer" target="_blank">Dale Harvey</a> continued his work on the unified trust button and panel. The HTTP-only “Not Secure” shield now consistently shows the red slash even when tracking protection is off, avoiding misleading site trust signals.</li>
+<li dir="ltr" role="presentation">Justin Peter contributed a bunch of fixes:
+<ul>
+<li dir="ltr" role="presentation">Unit conversion in the URL bar now handles the degree symbol (°) so temperature math returns results as expected.</li>
+<li dir="ltr" role="presentation">Imperial unit conversion precision is improved (e.g., inches/feet/miles rounding), yielding more accurate answers.</li>
+<li dir="ltr" role="presentation">Added more units and abbreviations to conversion, broadening coverage of everyday queries.</li>
+</ul>
+</li>
+<li dir="ltr">
+<p dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/buglist.cgi?bug_status=RESOLVED%2CVERIFIED%2CCLOSED&amp;resolution=FIXED&amp;chfieldfrom=2026-02-17T15%3A08%3A38.289Z&amp;chfieldto=Now&amp;bug_id=1861645%2C1938631%2C1946909%2C1970685%2C1971538%2C1998008%2C2008317%2C2010486%2C2013476%2C2017039%2C2017755%2C2017808%2C2017843%2C2017911%2C2018001%2C2018794%2C2018840&amp;product=Firefox&amp;component=Address+Bar&amp;product=Firefox&amp;component=Search" rel="noreferrer" target="_blank">View bugs in Bugzilla</a></p>
+</li>
+</ul>
+<h4 dir="ltr">Tests</h4>
+<ul>
+<li>
+<p role="presentation">Ever had to deal with a test failure like? leaked 1 window(s) until shutdown [url = chrome://browser/content/browser.xhtml]and tried to <a href="https://firefox-source-docs.mozilla.org/performance/memory/leaked_until_shutdown.html" rel="noreferrer" target="_blank">follow the instructions</a> to debug it? It <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019756" rel="noreferrer" target="_blank">just became way easier with the retention path </a><a href="https://treeherder.mozilla.org/logviewer?job_id=551172249&amp;repo=mozilla-central&amp;lineNumber=34937" rel="noreferrer" target="_blank">printed directly as part of the failure:​</a></p>
+<p></p></li>
+<li role="presentation">​If you would like to see how the flakiness rate of xpcshell and mochitest harness evolve over time, you can see it on <a href="https://tests.firefox.dev/" rel="noreferrer" target="_blank">https://tests.firefox.dev/</a></li>
+<li role="presentation">Dynamic chunking of test jobs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2017946" rel="noreferrer" target="_blank">landed</a>:​</li>
+</ul>
+<p role="presentation"></p>
+<ul>
+<li role="presentation">​Most mochitest jobs now take 20 minutes + the setup time of the job. (<a href="https://tests.firefox.dev/mochitest-jobs.html" rel="noreferrer" target="_blank">charts)</a>
+<ul>
+<li dir="ltr" role="presentation">Per-manifest and job name run time info can be queried at <a href="https://tests.firefox.dev/manifests.html" rel="noreferrer" target="_blank">https://tests.firefox.dev/manifests.html</a></li>
+</ul>
+</li>
+</ul>
+<h4 dir="ltr">UX Fundamentals</h4>
+<ul>
+<li dir="ltr">In progress:
+<ul>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2018850" rel="noreferrer" target="_blank">Update messaging on file:// not-found error pages</a>. The intro will show the actual file path instead of “local file”, and the “What can you do?” section gives file-oriented advice rather than website-oriented advice.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=404501" rel="noreferrer" target="_blank">Adding access keys to error pages.</a> All buttons on the error pages will have keyboard shortcuts.</li>
+<li dir="ltr" role="presentation"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2019611" rel="noreferrer" target="_blank">Updating the netTimeout error</a> to use correct l10n IDs and whole origin with subdomains.</li>
+</ul>
+</li>
+</ul>
+<div class="gmail_signature" dir="ltr" data-smartmail="gmail_signature">
+<div dir="ltr">
+<div></div>
+</div>
+</div>
+</div>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-20T17:34:25.000Z>20 March 2026</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Getting the Most from your Claude Subscription</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2026/04/getting-the-most-from-claude-subscription/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p><br>
+Photo by Josh Ausborne, 2006.</p>
+<p>Every prompt you send to Claude Code costs tokens. If you understand where those tokens go and how to control them, you can stretch your subscription dramatically further. This guide covers the practical steps I have taken to keep my usage lean without sacrificing capability.</p>
+<h3 id="what-are-tokens">What are Tokens?</h3>
+<p>A <em>token</em> is the smallest unit of text Claude processes. A token is roughly three-quarters of a word. The sentence “Hello, how are you today?” is about seven tokens. Every interaction, yours and Claude’s, is measured in tokens drawn from a fixed <strong>context window</strong>.</p>
+<p>Think of the context window as a whiteboard. Everything Claude needs to know must fit on it: your instructions, the conversation so far, any files it reads, and its own responses. When the whiteboard fills up, older content must be erased to make room.</p>
+<h3 id="what-loads-with-every-prompt">What Loads with every Prompt</h3>
+<p>Most people assume they are only paying for the text they type. In reality, Claude loads a stack of context before it even reads your message.</p>
+<p></p>
+<p><strong>Breakdown of what gets loaded:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Source</th>
+          <th>Tokens</th>
+          <th>When</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>System prompt</td>
+          <td>~4,200</td>
+          <td>Every message</td>
+      </tr>
+      <tr>
+          <td>Environment info</td>
+          <td>~280</td>
+          <td>Every message</td>
+      </tr>
+      <tr>
+          <td>CLAUDE.md hierarchy</td>
+          <td>Varies</td>
+          <td>Session start</td>
+      </tr>
+      <tr>
+          <td>MEMORY.md index</td>
+          <td>~200–680</td>
+          <td>Session start</td>
+      </tr>
+      <tr>
+          <td>Conversation history</td>
+          <td>Grows</td>
+          <td>Every message</td>
+      </tr>
+      <tr>
+          <td>File reads and tool output</td>
+          <td>~2,500 per file</td>
+          <td>On demand</td>
+      </tr>
+  </tbody>
+</table>
+<p>The conversation history is the big one. It compounds with every exchange. A ten-turn conversation where Claude reads a few files each turn can consume most of the context window before you realise it.</p>
+<h4 id="the-claudemd-hierarchy">The CLAUDE.md Hierarchy</h4>
+<p>CLAUDE.md files are persistent instructions that load at session start. They exist at multiple levels and all of them stack:</p>
+<p></p>
+<p>Each file you add here is loaded in full every session. Keep them concise. Aim for under 200 lines per file. Long CLAUDE.md files reduce instruction adherence and burn tokens on every single message.</p>
+<h4 id="memory">Memory</h4>
+<p>Claude Code maintains an auto-memory system at <code>~/.claude/projects/&lt;project&gt;/memory/</code>. The <code>MEMORY.md</code> index file (first 200 lines) loads every session. Individual topic files only load on demand when Claude decides they are relevant.</p>
+<p>This is generally lightweight, but if your MEMORY.md grows large, it silently eats into your budget on every prompt.</p>
+<h3 id="the-three-models-and-how-they-use-tokens">The Three Models and How They Use Tokens</h3>
+<p>Claude Code gives you access to three models, each with different token economics. The model you use makes a significant difference in how fast you burn through your allocation.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Model</th>
+          <th>Strength</th>
+          <th>Token Cost</th>
+          <th>Best For</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Haiku</td>
+          <td>Fast, cheap</td>
+          <td>Lowest</td>
+          <td>Simple tasks, quick lookups</td>
+      </tr>
+      <tr>
+          <td>Sonnet</td>
+          <td>Balanced</td>
+          <td>Medium</td>
+          <td>Most coding work</td>
+      </tr>
+      <tr>
+          <td>Opus</td>
+          <td>Deep reasoning</td>
+          <td>Highest</td>
+          <td>Complex architecture, debugging</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="how-your-prompt-selects-the-model">How Your Prompt Selects the Model</h4>
+<p>Your subscription plan and settings determine the default model. You can override it several ways:</p>
+<ul>
+<li><strong>During a session:</strong> <code>/model sonnet</code> or <code>/model opus</code></li>
+<li><strong>At startup:</strong> <code>claude --model haiku</code></li>
+<li><strong>Permanently:</strong> Add <code>"model": "sonnet"</code> to your settings file</li>
+</ul>
+<p>The key insight is that <strong>you should match the model to the task</strong>. Do not use Opus to rename a variable. Do not use Haiku to design a database schema. The difference in token consumption between Opus and Haiku for the same task can be several times over.</p>
+<h4 id="effort-levels">Effort Levels</h4>
+<p>Each model also has an effort setting that controls how much “thinking” it does:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Level</th>
+          <th>Behaviour</th>
+          <th>Use When</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>low</code></td>
+          <td>Minimal reasoning</td>
+          <td>Straightforward, mechanical tasks</td>
+      </tr>
+      <tr>
+          <td><code>medium</code></td>
+          <td>Balanced (default)</td>
+          <td>General development</td>
+      </tr>
+      <tr>
+          <td><code>high</code></td>
+          <td>Deep analysis</td>
+          <td>Tricky bugs, architecture decisions</td>
+      </tr>
+      <tr>
+          <td><code>max</code></td>
+          <td>No token limit on thinking</td>
+          <td>Last resort, Opus only</td>
+      </tr>
+  </tbody>
+</table>
+<p>Change it with <code>/effort low</code> before a simple task, then <code>/effort high</code> when you need deep analysis. This alone can save significant tokens.</p>
+<h3 id="monitoring-your-token-usage">Monitoring your Token Usage</h3>
+<p>You cannot manage what you cannot see. Setting up a statusline is the single most impactful thing I did for token awareness.</p>
+<h4 id="setting-up-the-statusline">Setting up the Statusline</h4>
+<p>The statusline sits at the bottom of your Claude Code terminal and shows real-time token consumption. Configure it in <code>~/.claude/settings.json</code>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span><span>{
+</span></span><span><span>  <span>"statusLine"</span>: {
+</span></span><span><span>    <span>"type"</span>: <span>"command"</span>,
+</span></span><span><span>    <span>"command"</span>: <span>"bash -c 'data=$(cat); m=$(echo \"$data\" | jq -r \".model.display_name // \\\"Unknown\\\"\"); p=$(echo \"$data\" | jq -r \".context_window.used_percentage // 0\"); ti=$(echo \"$data\" | jq -r \".context_window.total_input_tokens // 0\"); to=$(echo \"$data\" | jq -r \".context_window.total_output_tokens // 0\"); tt=$((ti+to)); f=$(awk \"BEGIN{printf \\\"%d\\\",int($p/10+0.5)}\"); pi=$(awk \"BEGIN{printf \\\"%d\\\",$p+0.5}\"); bar=\"\"; for((i=0;i&lt;f;i++)); do bar+=\"\\xe2\\x96\\x88\"; done; for((i=f;i&lt;10;i++)); do bar+=\"\\xe2\\x96\\x91\"; done; if((pi&lt;50)); then pc=\"\\033[32m\"; elif((pi&lt;80)); then pc=\"\\033[33m\"; else pc=\"\\033[31m\"; fi; if((tt&gt;=1000000)); then td=$(awk \"BEGIN{printf \\\"%.1fM\\\",$tt/1000000}\"); elif((tt&gt;=1000)); then td=$(awk \"BEGIN{printf \\\"%.1fk\\\",$tt/1000}\"); else td=\"$tt\"; fi; printf \"\\033[1;36m%s\\033[0m  [${pc}%b\\033[90m%b\\033[0m] ${pc}%s%%\\033[0m  \\033[37m%s tok\\033[0m\\n\" \"$m\" \"$(printf \"%b\" \"$(for((i=0;i&lt;f;i++)); do printf \"\\\\xe2\\\\x96\\\\x88\"; done)\")\" \"$(printf \"%b\" \"$(for((i=f;i&lt;10;i++)); do printf \"\\\\xe2\\\\x96\\\\x91\"; done)\")\" \"$pi\" \"$td\"'"</span>
+</span></span><span><span>  }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p></p>
+<p>This reads the session JSON from stdin via <code>jq</code>, then renders:</p>
+<ul>
+<li><strong>Model name</strong> in cyan</li>
+<li><strong>A 10-segment progress bar</strong> using block characters, colour coded: green under 50%, yellow under 80%, red above 80%</li>
+<li><strong>Context percentage</strong> as a number</li>
+<li><strong>Total tokens</strong> (input + output) in a compact format (e.g. <code>142.3k tok</code>)</li>
+</ul>
+<p>Drop this into <code>~/.claude/settings.json</code> and it appears at the bottom of every Claude Code session. When the bar turns yellow, compact. When it turns red, compact immediately or <code>/clear</code>.</p>
+<h4 id="other-monitoring-commands">Other Monitoring Commands</h4>
+<table>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>What It Shows</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>/context</code></td>
+          <td>Visual grid of context usage with tips</td>
+      </tr>
+      <tr>
+          <td><code>/status</code></td>
+          <td>Current model, account, version</td>
+      </tr>
+      <tr>
+          <td><code>/cost</code></td>
+          <td>Token usage stats (API users)</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="compaction-your-most-important-habit">Compaction: Your Most Important Habit</h3>
+<p>Compaction summarizes older conversation history to free up context space. Claude Code does this automatically when the context fills up, but <strong>waiting for autocompact is wasteful</strong>.</p>
+<h4 id="why-compact-at-60">Why Compact at 60%</h4>
+<p></p>
+<p>When you wait until the context is nearly full:</p>
+<ol>
+<li>Autocompact fires but can only free a small amount</li>
+<li>The next file read or tool output fills it right back up</li>
+<li>Autocompact fires again. Then again. This is <em>thrashing</em>.</li>
+<li>Eventually Claude gives up and you lose your session</li>
+</ol>
+<p>When you compact at 60%:</p>
+<ol>
+<li>There is enough history to summarize meaningfully</li>
+<li>The resulting summary is concise</li>
+<li>You get a large chunk of free space back</li>
+<li>You can continue working without interruption</li>
+</ol>
+<h4 id="using-compact-effectively">Using /compact Effectively</h4>
+<p>You can guide what gets preserved:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>/compact                          -- general compaction
+</span></span><span><span>/compact focus on the API changes -- preserve specific context
+</span></span><span><span>/compact keep only the plan       -- aggressive, targeted</span></span></code></pre></div>
+
+<p>Always tell Claude what matters. A focused compaction produces a better summary and frees more space.</p>
+<h3 id="time-of-day-and-rate-limits">Time of Day and Rate Limits</h3>
+<p>Claude Code has rate limits measured in tokens per minute (TPM) and requests per minute (RPM). These limits are shared across your team.</p>
+<p>The practical effect: <strong>during peak hours when your entire team is active, you hit rate limits faster.</strong> Early morning or late evening sessions often feel smoother because fewer concurrent users are competing for the same allocation.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Team Size</th>
+          <th>TPM per User</th>
+          <th>RPM per User</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1–5</td>
+          <td>200k–300k</td>
+          <td>5–7</td>
+      </tr>
+      <tr>
+          <td>5–20</td>
+          <td>100k–150k</td>
+          <td>2.5–3.5</td>
+      </tr>
+      <tr>
+          <td>20–50</td>
+          <td>50k–75k</td>
+          <td>1.25–1.75</td>
+      </tr>
+  </tbody>
+</table>
+<p>Anthropic’s infrastructure serves a global user base, so peak load follows the sun. The busiest window is when North American and European working hours overlap. Here is a rough guide for three major time zones:</p>
+<table>
+  <thead>
+      <tr>
+          <th>City</th>
+          <th>Peak Hours (Local)</th>
+          <th>Low Traffic (Local)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>London (GMT/​BST)</td>
+          <td>09:00 - 17:00</td>
+          <td>21:00 - 06:00</td>
+      </tr>
+      <tr>
+          <td>New York (EST/​EDT)</td>
+          <td>09:00 - 18:00</td>
+          <td>22:00 - 06:00</td>
+      </tr>
+      <tr>
+          <td>Los Angeles (PST/​PDT)</td>
+          <td>08:00 - 17:00</td>
+          <td>21:00 - 06:00</td>
+      </tr>
+  </tbody>
+</table>
+<p>The global peak, when the most users are active simultaneously, is roughly <strong>13:00 - 17:00 UTC</strong>. That window is mid-afternoon in London, late morning in New York, and early morning in Los Angeles. If you have flexibility in when you do heavy Claude work, shifting to early morning or evening local time can noticeably reduce rate limit friction.</p>
+<p>This means your workflow matters. If you are sending rapid-fire prompts during a team standup where everyone is also using Claude, you will hit limits. Batch your work thoughtfully.</p>
+<h3 id="practical-habits-that-save-tokens">Practical Habits That Save Tokens</h3>
+<h4 id="keep-tasks-small-and-focused">Keep Tasks Small and Focused</h4>
+<p>Vague prompts like “improve the codebase” force Claude to scan broadly, reading files it does not need. Specific prompts like “add input validation to the login endpoint in src/​auth.ts” let Claude work surgically.</p>
+<p></p>
+<h4 id="group-work-by-skill">Group Work by Skill</h4>
+<p>If you need to write tests, write all the tests in one session. If you need to update API endpoints, do them together. Switching between unrelated tasks within a single session wastes context because Claude has to hold multiple unrelated threads in memory.</p>
+<h4 id="use-clear-between-unrelated-tasks">Use /clear Between Unrelated Tasks</h4>
+<p><code>/clear</code> wipes the conversation history and frees all context. Before clearing, name your session with <code>/rename</code> so you can find it later with <code>/resume</code>.</p>
+<p>A good workflow:</p>
+<ol>
+<li>Start a focused task</li>
+<li>Work until done or until context hits 60%</li>
+<li><code>/compact</code> if continuing, <code>/clear</code> if switching topics</li>
+<li><code>/rename "descriptive name"</code> before clearing</li>
+</ol>
+<h4 id="use-plan-mode-for-complex-work">Use Plan Mode for Complex Work</h4>
+<p>Press <code>Shift+Tab</code> twice to enter plan mode. Claude reads and proposes an approach before writing code. This prevents expensive rework when the initial direction is wrong. Review the plan, iterate in conversation, then execute.</p>
+<h4 id="delegate-verbose-work-to-subagents">Delegate Verbose Work to Subagents</h4>
+<p>Test runs, log parsing, and documentation fetching consume enormous context. Subagents run in their own context window and return only a summary. The verbose output stays out of your main conversation.</p>
+<h3 id="understanding-your-subscription-quota">Understanding Your Subscription Quota</h3>
+<p>Claude subscriptions use a <strong>rolling 5-hour window</strong> for usage limits, plus a separate <strong>weekly quota</strong>. Understanding these mechanics unlocks a simple but powerful trick.</p>
+<h4 id="the-5-hour-rolling-window">The 5-Hour Rolling Window</h4>
+<p>The timer does not reset at midnight. It starts when you send your first prompt and rolls forward from that moment. Messages you sent at 9 AM stop counting against your quota by 2 PM. After 5 hours, your allocation gradually replenishes.</p>
+<p></p>
+<p>This creates a practical opportunity: <strong>send a short prompt early to start the timer, even if you are not ready to work.</strong> A quick “hello” or a <code>/status</code> check is enough. The 5-hour clock begins ticking immediately. By the time you sit down for focused work 30 or 60 minutes later, you are already that much closer to your window expiring and resetting. Over a full workday this can mean the difference between one reset and two.</p>
+<h4 id="the-weekly-quota">The Weekly Quota</h4>
+<p>Separately from the 5-hour window, there is a 7-day rolling cap. If you exhaust the weekly quota, waiting 5 hours will not help. You must wait for the 7-day window to roll past your heaviest usage period. This is why daily token discipline matters. Burning through tokens recklessly on Monday can leave you throttled by Thursday.</p>
+<h4 id="extra-usage-pay-as-you-go-overflow">Extra Usage: Pay-as-You-Go Overflow</h4>
+<p>If you have a payment method on file, you can enable <strong>extra usage</strong> so Claude Code continues working when you hit your plan limits instead of blocking you. Overflow tokens are billed at standard API rates.</p>
+<p>To enable it, go to <strong>Settings &gt; Usage</strong> on claude.ai and click <strong>Adjust limit</strong> to set a monthly spending cap. You can also configure it from the terminal with <code>/extra-usage</code>. Once enabled, hitting a rate limit is seamless. Claude keeps working and the overflow cost appears on your next bill.</p>
+<p>This is worth enabling even if you rarely hit limits. It acts as a safety net for those sessions where you are deep in a complex problem and cannot afford to stop.</p>
+<h3 id="putting-it-all-together">Putting It All Together</h3>
+<p></p>
+<p><strong>The short version:</strong></p>
+<ol>
+<li><em>Monitor</em> your token usage with a statusline</li>
+<li><em>Match</em> the model and effort to the task</li>
+<li><em>Compact</em> at 60%, not at the limit</li>
+<li><em>Clear</em> between unrelated tasks</li>
+<li><em>Be specific</em> in every prompt</li>
+<li><em>Group</em> related work together</li>
+<li><em>Delegate</em> verbose operations to subagents</li>
+<li><em>Time</em> heavy work outside peak team hours</li>
+</ol>
+<p>Token efficiency is not about being stingy. It is about being intentional. Every token saved is a token available for actual work. Set up your monitoring, build the habits, and your subscription will go much further.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-14T00:00:00.000Z>14 April 2026</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

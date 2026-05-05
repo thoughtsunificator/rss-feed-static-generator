@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Xfwl4: the roadmap for a Xfce Wayland compositor</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1056159/">Go to article URL</a>
+		<div id="content"><p></p><p>The Xfce team has <a href="https://alexxcons.github.io/blogpost_15.html" rel="noreferrer" target="_blank">announced</a> that
+it will be providing funding to Brian Tarricone to work on <a href="https://gitlab.xfce.org/kelnos/xfwl4#xfwl4-xfces-wayland-compositor" rel="noreferrer" target="_blank">xfwl4</a>,
+a Wayland compositor for Xfce:</p>
+
+<blockquote class="bq">
+<p>Xfwl4 will not be based on the existing xfwm4 code. Instead, it
+will be written from scratch in rust, using smithay building
+blocks.</p>
+
+<p>The first attempt at creating an Xfce Wayland compositor involved
+modifying the existing xfwm4 code to support both X11 and Wayland in
+parallel. However, this approach turned out to be the wrong path
+forward for several reasons:</p>
+
+<p>
+</p><ul class="spacylist">
+    <li>Xfwm4 is architected in a way that makes it very difficult to put the window management behavior behind generic interfaces that don't include X11 specifics.</li>
+    <li>Refactoring Xfwm4 is risky, since it might introduce new bugs to X11. Having two parallel code bases will allow for rapid development and experimentation with the Wayland compositor, with zero risk to break xfwm4.</li>
+    <li>Some X11 window management concepts just aren't available or supported by Wayland protocols at this time, and dealing with those differences can be difficult in an X11-first code base.</li>
+    <li>Using the existing codebase would require us to use C and
+    wlroots, even if a better alternative is available.</li>
+</ul>
+<p></p>
+</blockquote>
+
+<p>Work has already commenced on the project, and the project hopes to
+share a development release in mid-2026.</p>
+<p></p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-01-27T14:20:10.000Z>27 January 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

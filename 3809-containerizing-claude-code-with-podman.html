@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Containerizing Claude Code with Podman</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2026/03/claude-code-cli-in-container/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p><br>
+Photo by Seth Jensen, 2026.</p>
+<p>I’ve been experimenting with many different AI tools, and my favorite is Claude Code. It provides the impressive performance of the Opus models without forcing me to use Visual Studio Code (or a fork of it).</p>
+<p>IDEs and fancy editors like IntelliJ and VS Code are great, but I often prefer the simplicity and low memory footprint of working directly in the terminal. Claude Code works well with my tmux-centered work environment.</p>
+<p>However, I don’t like giving AI agents access to all of my files, and I <em>really</em> don’t like letting them run arbitrary commands in my shell. I’m already pretty cautious about running unvetted code on my machine (I’m looking at you, install.sh files I’m supposed to blindly <code>curl | bash</code>), and the nondeterministic nature of LLMs takes this to the next level. It’s not just data-sniffing closed-source code or malware you need to worry about, it’s the product itself running commands and editing files in ways that, by design, are unique and untested.</p>
+<p>Claude Code has a <a href="https://code.claude.com/docs/en/sandboxing" rel="noreferrer" target="_blank">sandbox mode</a> which is supposed to limit filesystem access to the folder it’s run from, but since it’s closed-source (<a href="https://arstechnica.com/ai/2026/03/entire-claude-code-cli-source-code-leaks-thanks-to-exposed-map-file/" rel="noreferrer" target="_blank">in theory</a>), you can’t verify this isolation. Even in this mode, it can run commands outside the sandboxed folder (in my experience, it asks first, but I wouldn’t count on this).</p>
+<p>So, I wrote a little wrapper script to run Claude Code in a Podman container with access only to Claude’s config directory and the working directory you pass to the script. I also let it run with the <code>--dangerously-skip-permissions</code> flag, which I would never do on my host machine (it didn’t take long to find a horror story of a typo in an <code>rm -rf</code> command deleting half of the programs in <code>/Applications</code> on one Redditor’s Mac).</p>
+<h3 id="important-security-notes">Important security notes</h3>
+<p>Claude has full access to the folder you pass to this script. That means it can run <code>rm -rf</code> as much as it wants, and you won’t be prompted before it does so, especially when using the <code>--dangerously-skip-permissions</code> flag.</p>
+<p>You should only run this script if you don’t mind everything in that folder getting deleted — for example, in a Git repository where everything has been pushed to a remote, or in a sandbox folder — it’s easy to create a copy of your working directory for Claude to play in!</p>
+<p>There is no constraint on outward network traffic, so Claude can send data anywhere it wants. If you’re working with sensitive data, you should set up a firewall so it only has access to the necessary Anthropic servers (and perhaps an allowlist you provide). <strong>Think carefully about what data you give to powerful AI agents.</strong></p>
+<h3 id="using-my-claude-container-script">Using my claude-container script</h3>
+<ul>
+<li>
+<p>Make sure you have Podman and Podman Compose installed (this would also work with Docker &amp; Docker Compose, just replace <code>podman compose</code> with <code>docker compose</code> in the <code>claude-container</code> script)</p>
+</li>
+<li>
+<p>Clone the repo from <a href="https://github.com/sethjensen1/claude-container" rel="noreferrer" target="_blank">my GitHub</a>.</p>
+</li>
+<li>
+<p>From the cloned folder, run <code>./claude-container /path/to/working/directory</code></p>
+</li>
+<li>
+<p>Optionally, add the script to your PATH. This is what I ran on macOS:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>ln -s /Users/myuser/repos/claude-container/claude-container /Users/myuser/bin/claude-container</span></span></code></pre></div>
+
+<p>You can then run the script from anywhere: <code>claude-container /my/favorite/sandbox</code></p>
+</li>
+</ul>
+<p>That’s all you need to run it! Keep reading if you’re interested in the technical details.</p>
+<h3 id="what-the-script-is-doing">What the script is doing</h3>
+<p>The <code>claude-container</code> script is a lightweight wrapper around <code>podman compose</code>, setting a couple of environment variables so the process is as simple as running Claude in the first place.</p>
+<p>The compose setup uses <a href="https://docs.docker.com/engine/storage/bind-mounts/" rel="noreferrer" target="_blank">bind mounts</a> to give Claude access to the folder you pass, along with your Claude config directory. This means you don’t have to reauthenticate every time, and that session history is shared between containers/​your local Claude install.</p>
+<p>Podman compose will automatically build the image if it doesn’t exist. If you want to trigger a rebuild, you can run it with the <code>-b</code> flag: <code>claude-container -b /path/to/working/directory</code>.</p>
+<p>The first time you run the script, it will ask you if you’re okay bypassing permissions. Because we’re only mounting two directories, this should be much safer than it normally would be (provided you’re smart about which folders you pass).</p>
+<h3 id="the-dockerfile">The Dockerfile</h3>
+<p>The Dockerfile is based on the one from Claude’s devcontainer <a href="https://code.claude.com/docs/en/devcontainer" rel="noreferrer" target="_blank">docs</a>. I’ve stripped out some development helpers since I’m running Claude directly in the <code>CMD</code>, not using the shell.</p>
+<p>I previously copied the working directory into the image, but have since moved to using bind mounts only. If I want to make sure that Claude doesn’t touch any files on my machine, I just create a copy of the working directory to bind mount to the container.</p>
+<p>Another important thing I removed from Claude’s devcontainer Dockerfile is the firewall setup with init-firewall.sh. Limiting outgoing traffic is a good idea, but the repos I was working with weren’t sensitive enough for me to spend the time getting this working (especially since it seems you need to run the container with the NET_ADMIN capability, which I don’t understand well enough to be using).</p>
+<p>Running this with no firewall is dangerous, but less so than running the agent outside of a container.</p>
+<h3 id="no-container-ception-unfortunately">No container-ception, unfortunately</h3>
+<p>At some point, I wanted to give Claude access to a backend dev server (it was running a frontend dev server in the container). But the backend dev server runs in a container itself, so I couldn’t just have Claude spin up the backend dev server in its container.</p>
+<p>After trying a few things, my workaround was to connect Claude’s container to the backend container’s Podman network. Once all your containers have been started, find the relevant container network with:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>podman network ls</span></span></code></pre></div>
+
+<p>If you’re not sure which is the right network, you can check which containers are connected to a network using <code>podman network inspect &lt;network_name&gt;</code>. To connect Claude to the desired network, run:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-text" data-lang="text"><span><span>podman network connect &lt;relevant container's network&gt; &lt;claude container&gt;</span></span></code></pre></div>
+
+<p>And of course, if this container is connected to something important (like a database), this will allow Claude access to it. <strong>Always be careful before letting an LLM have access to data</strong>. In my case, this was an empty database for development, so in terms of exposing data to Claude, it was similar to running the backend dev server within the container.</p>
+<h3 id="a-few-notes">A few notes</h3>
+<p>Claude won’t have access to some important developer tools in the container (e.g., Playwright). If you want to give it more tools, you could modify the Dockerfile to install them at build time. I tried installing Playwright at first, but found I actually prefer manually testing outside of the container &amp; copying output back to Claude. I appreciate the extra time to slow down, check Claude’s decisions, and catch bugs.</p>
+<p>This setup intentionally doesn’t give your container SSH access — I don’t ever want an LLM to have access to my SSH key, and I would suggest thinking <em>very</em> hard before giving it access to any servers. That’s one of the big reasons I don’t want to run Claude on my own machine, especially when using an SSH agent.</p>
+<p>I’ve enjoyed developing using Claude Code from within the confines of a single folder. I get the solid code analysis and generation without giving away an excessive amount of data.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-31T00:00:00.000Z>31 March 2026</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

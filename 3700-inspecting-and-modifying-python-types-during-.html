@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Inspecting and modifying Python types during type checking</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1061083/">Go to article URL</a>
+		<div id="content"><p></p><p>
+Python has a
+<a href="https://lwn.net/Articles/958326/" rel="noreferrer" target="_blank">
+unique approach to static typing</a>. Python programs can contain type
+annotations, and even access those annotations at run time, but the annotations
+aren't evaluated by default. Instead, it is up to external programs to ascribe
+meaning to those annotations. The annotations themselves can be arbitrary Python
+expressions, but in practice usually involve using helpers from the built-in
+<a href="https://docs.python.org/3/library/typing.html" rel="noreferrer" target="_blank">
+<tt>typing</tt></a> module, the meanings of which external type-checkers mostly
+agree upon. Yet the type system implicitly defined by the <tt>typing</tt> module
+and common type-checkers is insufficiently powerful to model all of the kinds of
+dynamic metaprogramming found in real-world Python programs.
+<a href="https://peps.python.org/pep-0827/" rel="noreferrer" target="_blank">PEP 827</a> ("Type Manipulation")
+aims to add additional
+capabilities to Python's type system to fix this, but
+<a href="https://discuss.python.org/t/pep-827-type-manipulation/106353" rel="noreferrer" target="_blank">discussion</a>
+of the PEP has been of mixed sentiment.
+</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-09T13:53:00.000Z>9 March 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

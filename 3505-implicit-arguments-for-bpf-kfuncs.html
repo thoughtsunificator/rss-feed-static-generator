@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Implicit arguments for BPF kfuncs</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1055559/">Go to article URL</a>
+		<div id="content"><p></p>The kernel's "kfunc" mechanism is a way of exporting kernel functions so
+that they can be called directly from BPF programs.  There are over 300
+kfuncs in current kernels, ranging in functionality from string processing
+(<a href="https://elixir.bootlin.com/linux/v6.18.6/source/kernel/bpf/helpers.c#L3550" rel="noreferrer" target="_blank"><tt>bpf_strnlen()</tt></a>)
+to custom schedulers (<a href="https://elixir.bootlin.com/linux/v6.18.6/source/kernel/sched/ext.c#L6024" rel="noreferrer" target="_blank"><tt>scx_bpf_kick_cpu()</tt></a>)
+and beyond.  Sometimes these kfuncs need access to context information that
+is not directly available to BPF programs, and which thus cannot be passed
+in as arguments.  The <a href="https://lwn.net/ml/all/20260116201700.864797-1-ihor.solodrai@linux.dev" rel="noreferrer" target="_blank">implicit
+arguments patch set</a> from Ihor Solodrai is the latest attempt to solve
+this problem.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-01-27T15:41:37.000Z>27 January 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

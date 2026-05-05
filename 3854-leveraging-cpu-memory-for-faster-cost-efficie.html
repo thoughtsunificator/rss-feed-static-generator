@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Leveraging CPU memory for faster, cost-efficient TPU LLM training</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/04/leveraging-cpu-memory-for-faster-cost-efficient-tpu-llm-training.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Keyur Ruganathbhai Ranipa</author>, <author>Qinglan Xiang</author>, <author>Vrushabh Sanghavi</author>, <author>Ramesh AG</author> &amp; <author>Weilin Wang</author>, Intel<br>
+ and <author>Penporn Koanantakool</author>, Google</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhSl-SjdERyxt8bQdTc9dB6dRfxQffyNdsExFuihXYg8XrCYPgKlO13tE6CaNjO6n6EIGGYuRn8vOsMSjV9Fkj4Ryec2i4BYDnWA2wDGQWUgYU79h0PMPfrNQg8WkGVs96GieUhNhfqSuOK18ieHxY4MHcFrBgrZurdcgDqfBUEDMK_cbjZQksnSyeIB0c/s1600/thumbnail.jpg">
+
+<a href="IMG" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<h2>Host offloading with JAX on Intel® Xeon® processors</h2>
+
+<p>As Large Language Models (LLMs) continue to scale into the hundreds of billions of parameters, device memory capacity has become a big limiting factor in training, as intermediate activations from every layer in the forward pass are needed in the backward pass. To reduce device memory pressure, these activations can be rematerialized during the backward pass, trading memory for recomputation. While rematerialization enables larger models to fit within limited device memory, it significantly increases training time and cost.</p><p>
+Intel® Xeon® processors (5th and 6th Gen) with Advanced Matrix Extensions (AMX) enable practical host offloading of selected memory- and compute-intensive components in JAX training workflows. This approach can help teams train larger models, relieve accelerator memory pressure, improve end-to-end throughput, and reduce total cost of ownership—particularly on TPU-based Google Cloud instances.</p><p>
+By publishing these results and implementation details, Google and Intel aim to promote transparency and share practical guidance with the community. This post describes how to enable activation offloading for JAX on TPU platforms and outlines considerations for building scalable, cost-aware hybrid CPU–accelerator training workflows.</p>
+
+<figure class="wide borderless">  
+	
+	<figcaption><strong>Figure 1.</strong> Google Cloud TPU Pod commonly used in LLM training.</figcaption>
+</figure>
+
+<h3>Host offloading</h3>
+<p>Traditional LLM training is usually done on device accelerators alone. However, modern host machines have much larger memory size than accelerators (512GB or more) and can offer extra compute power, e.g., TFLOPS in case of Intel® Xeon® Scalable Processor with AMX capability. Leveraging host resources can be a great alternative to rematerialization. <strong>Host offloading</strong> selectively moves computation or data between host and device to optimize performance and memory usage.</p>
+
+<p><strong>Host memory offloading</strong> keeps frequently-accessed tensors on the device and spills the rest to CPU memory as an extra level of cache. <strong>Activation offloading</strong> transfers activations computed on-device in the forward pass to the host, stores them in the host memory, and brings them back to the device in the backward pass for gradient computation. This unlocks the ability to train larger models, use bigger batch sizes, and improve throughput.</p>
+
+<figure class="wide borderless">
+	
+	<figcaption><strong>Figure 2:</strong> Memory offloading during forward and backward pass </figcaption>
+</figure>
+
+<p>In this blog post, we provide a practical guide to offload activations through JAX to efficiently train larger models on TPUs with an Intel® Xeon® Scalable Processor.</p>
+
+<h3>Enabling memory offloading in JAX</h3>
+<p>JAX offers <a href="https://docs.jax.dev/en/latest/notebooks/host-offloading.html" rel="noreferrer" target="_blank">multiple strategies</a> for offloading activations, model parameters, and optimizer states to the host. Users can use <code>checkpoint_names()</code> to create a checkpoint for a tensor. The snippet below shows how to create a checkpoint <code> x</code>:</p>
+
+<pre><code class="codebox python">from jax.ad_checkpoint import checkpoint_name 
+ 
+def layer_name(x, w): 
+  w1, w2 = w 
+  x = checkpoint_name(x, "x") 
+  y = x @ w1 
+  return y @ w2, None  
+</code></pre>
+
+<p>Users can provide <code>checkpoint_policies()</code> to select the appropriate memory optimization strategy for intermediate values. There are three strategies:</p>
+<ol>
+<li>Recomputing during backward pass (default behavior) </li>
+<li>Storing on device </li>
+<li>Offloading to host memory after forward pass and loading back during backward pass </li>
+</ol>
+
+<p>The code below moves <code>x</code> from device to the pinned host memory after the forward pass. <br>
+ <code>from jax import checkpoint_policies as cp</code></p>
+
+<pre><code class="codebox python">policy = cp.save_and_offload_only_these_names( 
+  names_which_can_be_saved=[],         # No values stored on device 
+  names_which_can_be_offloaded=["x"],  # Offload activations labeled "x" 
+  offload_src="device",                # Move from device memory 
+  offload_dst="pinned_host"            # To pinned host memory 
+) 
+</code></pre>
+
+<h3>Measuring Host Offloading Benefits on TPU v5p</h3>
+<p>We examined TPU host-offloading on JAX on both fine-tuning and training workloads. All our experiments were run on Google Cloud Platform, using a single <a href="https://docs.cloud.google.com/tpu/docs/v5p" rel="noreferrer" target="_blank">v5p-8 TPU</a>  instance with single host 4th Gen Intel® Xeon® Scalable Processor.</p><p>
+<strong>Fine-tuning PaliGemma2</strong>: Using the base PaliGemma2 28B model for vision-language tasks, we <a href="https://ai.google.dev/gemma/docs/paligemma/fine-tuning-paligemma" rel="noreferrer" target="_blank">fine-tuned</a> the attention layers of the language model (Gemma2 27B) while keeping all other parameters frozen. During fine-tuning, we set the LLM sequence length to 256 and the batch size to 256.</p><p>
+The default checkpoint policy is <code>nothing_saveable</code>, which does not keep any activations on-device during the forward pass. The activations are rematerialized during the backward pass for gradient computation. While this approach reduces memory pressure on the TPU, it increases compute time. To apply host offloading, we offload Q, K, and V projection weights using <code>save_and_offload_only_these_names</code>. These activations are transferred to host memory (D2H) during the forward pass and fetched back during the backward pass (H2D), so the device neither stores nor recomputes them. Figure 2 shows 10% reduction in training time from host offloading. This translates directly into a similar reduction in TPU core-hours, yielding meaningful cost savings. The complete fine-tuning recipe is available at [<a href="https://github.com/Intel-tensorflow/jax/tree/jax-host-offloading/examples/jax_host_offloading" rel="noreferrer" target="_blank">JAX host offloading</a>]. </p>
+
+<figure class="wide borderless">
+	
+	<figcaption><strong>Figure 3:</strong> (Top) Training time comparison between full rematerialization and host offloading.<br>
+      (Bottom) Memory analysis with and without host offloading.</figcaption>
+</figure>
+
+<p><strong>Training Llama2-13B using MaxText:</strong> <a href="https://github.com/AI-Hypercomputer/maxtext" rel="noreferrer" target="_blank">MaxText</a> offers several <a href="https://github.com/AI-Hypercomputer/maxtext/blob/c841dae593a64942b348a96692c0ae0f7b140182/src/MaxText/configs/base.yml#L286-L289" rel="noreferrer" target="_blank">rematerialization strategies</a> that can be specified in the training configuration file. We used the policy <code> remat_policy: 'qkv_proj_offloaded' </code> to offload Q, K, and V projection weights. Figure 3 shows ~5% reduction in per-step training time compared to fully rematerializing all activations (<code> remat_policy: 'full'</code>). </p>
+
+<figure class="wide borderless">
+	
+	<figcaption><strong>Figure 4:</strong> MaxText Llama2-13B training statistics with and without host offloading.<br>
+The step time was 5% faster with host offloading.</figcaption>
+</figure>
+
+<h3>When to offload activations</h3>
+<p>Activation offloading is beneficial when the time to transfer activations across host and device is lower than the time to recompute them. The timing depends on multiple factors such as PCIe bandwidth, model size, batch size, sequence length, activation tensor sizes, compute capabilities of the device, etc. An additional factor is how much the data movement can be overlapped with computation to keep the device busy.  Figure 4 demonstrates an efficient overlap of the device-to-host transfer with compute during the backward pass in PaliGemma2 28B training.</p>
+
+<figure class="wide borderless">
+  
+  <figcaption><strong>Figure 5:</strong> A JAX trace of PaliGemma2 training viewed on Perfetto.<br>
+  Memory offloading overlaps with compute effectively during backward pass host to device.</figcaption>
+</figure>
+
+<p>Smaller model variants such as PaliGemma2 3B and 9B did not see benefits from host offloading because it is faster to rematerialize all tensors than to transfer them to and from the host. Therefore, identifying the appropriate workload and offloading policy is crucial to realizing performance gain from host offloading</p>
+
+<h3>Call to Action</h3>
+<p>If you train on TPUs and are limited by device memory, consider evaluating activation offloading. Start by labeling candidate activations (for example, Q/K/V projections) and compare step time, memory headroom, and overall cost across representative workloads.</p><p>
+In our experiments, we observed up to ~10% improvement in end-to-end training time for larger workloads, which can reduce total cost of ownership (TCO) by shortening time-to-train or enabling the same workload on smaller instances.</p>
+
+<h3>Acknowledgments</h3>
+<p>Emilio Cota, and Karlo Basioli from Google and Eugene Zhulenev (formerly at Google).</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-10T11:30:00.000Z>10 April 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Name-only @container queries: A solution to the naming wars</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/17923/name-only-container-queries-a-solution-to-the-naming-wars/">Go to article URL</a>
+		<div id="content"><p></p><p>Introducing name-only <code>@container</code> queries, shipped in Safari 26.4. The new name-only query makes naming a lot easier with a feature that improves scoping without adding specificity.</p>
+<p><strong>What’s the problem?</strong><br>
+You have a card. You have an article. And they both have titles. They each need their own styling — the article’s title is big and bold, the card’s title is small and quiet — but they’re both titles nonetheless.</p>
+<p>We might start by styling the two different titles in two different files:</p>
+<pre><code class="css">// <span class="keyword">article</span><span class="keyword builtin">.css</span>
+
+<span class="keyword builtin">.title</span> {
+  <span class="attribute">font-size</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+  <span class="attribute">font-weight</span>: <span class="number">800</span>;
+}
+</code></pre>
+<pre><code class="css">// <span class="keyword">card</span><span class="keyword builtin">.css</span>
+
+<span class="keyword builtin">.title</span> {
+  <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;
+  <span class="attribute">font-weight</span>: <span class="number">600</span>;
+}
+</code></pre>
+<p>But because CSS styling is global, we’ll soon realize that these styles will conflict, so we might use <a href="https://getbem.com/" rel="noreferrer" target="_blank">BEM</a> to help us keep them separate. Here’s what that would look like:</p>
+<pre><code class="css">// <span class="keyword">article</span><span class="keyword builtin">.css</span>
+
+<span class="keyword builtin">.article</span>__<span class="keyword">title</span> {
+  <span class="attribute">font-size</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+  <span class="attribute">font-weight</span>: <span class="number">800</span>;
+}
+</code></pre>
+<pre><code class="css">// <span class="keyword">card</span><span class="keyword builtin">.css</span>
+
+<span class="keyword builtin">.card</span>__<span class="keyword">title</span> {
+  <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;
+  <span class="attribute">font-weight</span>: <span class="number">600</span>;
+}
+</code></pre>
+<p>In a small project, this might be just fine. But when you’re working on a big site with a design system and lots of elements and their different variations all having their own titles, this naming can get out of hand. This is where you end up with the messy looking <code>.card__title--featured--main</code> kind of code. More cognitive overload to work with and more to read than we want.</p>
+<p>Another option might be simply nesting the titles under different classes, like this:</p>
+<pre><code class="css">// <span class="keyword">article</span><span class="keyword builtin">.css</span>
+
+<span class="keyword builtin">.article</span> {
+  .<span class="attribute">title</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+    <span class="attribute">font-weight</span>: <span class="number">800</span>;
+  }
+}
+</code></pre>
+<pre><code class="css">// <span class="keyword">card</span><span class="keyword builtin">.css</span>
+
+<span class="keyword builtin">.card</span> {
+  .<span class="attribute">title</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;
+    <span class="attribute">font-weight</span>: <span class="number">600</span>;
+  }
+}
+</code></pre>
+<p>That works too, but now you’re adding specificity which can lead to specificity wars as your project grows and gets more complex.</p>
+<p>This is where you might choose to outsource the problem entirely to a CSS module, a tool that adds a unique ID to each classname, keeping everything nice and separate. The problem is that now you have a whole other tool you have to use, and your resulting HTML isn’t very semantic or even readable.</p>
+<p>Name-only @container queries solve this problem.</p>
+<h3>What is the solution?</h3>
+<p>Name-only @container queries are an upgrade of the @container queries we’ve had in CSS for a while. Traditionally, a container query allows us to set a style based on the width of the parent element. It looks like this:</p>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">sidebar</span> (<span class="keyword">min-width</span>: 400<span class="keyword">px</span>) {
+  .<span class="attribute">card</span> { <span class="attribute">padding</span>: <span class="number">2</span><span class="identifier">rem</span>; }
+}
+</code></pre>
+<p>This tells us that we have a container called sidebar and, at min-width of 400px, we could set the card’s padding to 2rem. The min-width is a size condition, and that size condition was always required when styling with containers.</p>
+<p>Until now.</p>
+<p>With name-only container queries, we don’t have to worry about declaring a size at all. Here’s the updated code:</p>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">sidebar</span> {
+  .<span class="attribute">card</span> { <span class="attribute">padding</span>: <span class="number">2</span><span class="identifier">rem</span>; }
+}
+</code></pre>
+<p>No size condition, just a name. That means we can now use containers as a way to filter our styles for specific use cases without the messiness of long classnames or the need for third-party tools.</p>
+<p>Here’s what our code looks like after using name-only @container queries:</p>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">article</span> {
+  .<span class="attribute">title</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+    <span class="attribute">font-weight</span>: <span class="number">800</span>;
+}
+</code></pre>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">card</span> {
+  .<span class="attribute">title</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;
+    <span class="attribute">font-weight</span>: <span class="number">600</span>;
+  }
+}
+</code></pre>
+<p>This might look similar to nesting classes, but it has a key difference: name-only @containers don’t add to the specificity. Instead, they act like a filter. That means if I want to override it, I can more easily do so without needed to make my styling more specific just to target that title.</p>
+<p>You’re likely already keeping your styles separate by putting them in different files, but because CSS is global, it doesn’t know about that distinction. With name-only @container styles, you can bring the uniqueness of your filenames into the actual file and create separation for free.</p>
+<h3>How to use it</h3>
+<p><strong>Step 1:</strong> Register your containers</p>
+<pre><code class="css"><span class="keyword builtin">.card</span> {
+  <span class="attribute">container-name</span>: <span class="identifier">card</span>;
+  <span class="attribute">container-type</span>: <span class="identifier">inline-size</span>;
+}
+</code></pre>
+<pre><code class="css"><span class="keyword builtin">.article</span> {
+  <span class="attribute">container-name</span>: <span class="identifier">article</span>;
+  <span class="attribute">container-type</span>: <span class="identifier">inline-size</span>;
+}
+</code></pre>
+<p><strong>Step 2:</strong> Scope your styles inside named containers</p>
+<p>Now wrap each component’s styles in its matching @container block:</p>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">article</span> {
+  .<span class="attribute">title</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.5</span><span class="identifier">rem</span>;
+    <span class="attribute">font-weight</span>: <span class="number">800</span>;
+}
+</code></pre>
+<pre><code class="css"><span class="keyword">@container</span> <span class="keyword">card</span> {
+  .<span class="attribute">title</span> {
+    <span class="attribute">font-size</span>: <span class="number">1.2</span><span class="identifier">rem</span>;
+    <span class="attribute">font-weight</span>: <span class="number">600</span>;
+  }
+}
+</code></pre>
+<h3>Browser Support</h3>
+<p>Right now, this feature is only available in Safari 26.4, but we’re hoping for increased browser support soon.</p>
+<p>Have thoughts on this feature? I’d love to hear it. You can reach me, Saron Yitbarek, on <a href="https://bsky.app/profile/saron.bsky.social" rel="noreferrer" target="_blank">BlueSky</a>, or reach out to our other evangelists — Jon Davis, on <a href="https://bsky.app/profile/jondavis.bsky.social" rel="noreferrer" target="_blank">Bluesky</a> / <a href="https://mastodon.social/@jondavis" rel="noreferrer" target="_blank">Mastodon</a>, and Jen Simmons, on <a href="https://bsky.app/profile/jensimmons.bsky.social" rel="noreferrer" target="_blank">Bluesky</a> / <a href="https://front-end.social/@jensimmons" rel="noreferrer" target="_blank">Mastodon</a>. You can also follow WebKit <a href="https://www.linkedin.com/in/apple-webkit/" rel="noreferrer" target="_blank">on LinkedIn</a>. If you find a bug or problem, please file a <a href="https://bugs.webkit.org/" rel="noreferrer" target="_blank">WebKit bug report</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-14T04:29:20.000Z>14 April 2026</time>
+			<a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

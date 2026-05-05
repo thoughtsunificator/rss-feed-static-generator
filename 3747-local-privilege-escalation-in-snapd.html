@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Local-privilege escalation in snapd</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1063453/">Go to article URL</a>
+		<div id="content"><p></p><p>Qualys has <a href="https://blog.qualys.com/vulnerabilities-threat-research/2026/03/17/cve-2026-3888-important-snap-flaw-enables-local-privilege-escalation-to-root" rel="noreferrer" target="_blank">discovered
+a local-privilege escalation (LPE) vulnerability</a> affecting Ubuntu
+Desktop 24.04 and later:</p>
+
+<blockquote class="bq">
+This flaw (CVE-2026-3888) allows an unprivileged local attacker to
+escalate privileges to full root access through the interaction of two
+standard system components: snap-confine and systemd-tmpfiles.
+</blockquote>
+
+<p>More details are available in the <a href="https://cdn2.qualys.com/advisory/2026/03/17/snap-confine-systemd-tmpfiles.txt" rel="noreferrer" target="_blank">security
+advisory</a>. Canonical has published updated packages as well as <a href="https://discourse.ubuntu.com/t/snapd-local-privilege-escalation-cve-2026-3888/78627" rel="noreferrer" target="_blank">instructions</a>
+for verifying if a system is vulnerable and how to upgrade if so.</p>
+
+<p></p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-18T15:34:34.000Z>18 March 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

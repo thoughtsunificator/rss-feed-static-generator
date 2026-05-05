@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] The ongoing quest for atomic buffered writes</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1060063/">Go to article URL</a>
+		<div id="content"><p></p>There are many applications that need to be able to write multi-block
+chunks of data to disk with the assurance that the operation will either
+complete successfully or fail altogether — that the write will not be
+partially completed (or "torn"), in other words.  For years, kernel
+developers have worked on providing atomic writes as a way of satisfying
+that need; see, for example, sessions from the Linux Storage, Filesystem,
+Memory Management, and BPF (LSFMM+BPF) Summit from <a href="https://lwn.net/Articles/933015/" rel="noreferrer" target="_blank">2023</a>, <a href="https://lwn.net/Articles/974578/" rel="noreferrer" target="_blank">2024</a>,
+and <a href="https://lwn.net/Articles/1016015/" rel="noreferrer" target="_blank">2025</a> (<a href="https://lwn.net/Articles/1016406/" rel="noreferrer" target="_blank">twice</a>).  While atomic <i>direct</i> <span class="nobreak">I/O</span> is now supported by some filesystems, atomic
+<i>buffered</i> <span class="nobreak">I/O</span> still is not.  Filling
+that gap seems certain to be a 2026 LSFMM+BPF topic but, thanks to an early
+discussion, the shape of a solution might already be coming into focus.
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-02T22:27:12.000Z>2 March 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Announcing CEL-expr-python: the Common Expression Language in Python, now open source</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/03/announcing-cel-expr-python-the-common-expression-language-in-python-now-open-source.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Olena Huang</author>, CEL (Common Expression Language) team</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuKigzFt1kkyx3eqlthONlcc6yKytKeoDmT2ADbA8GpreYwX_3zW2faeNB1D7F-NImDReaJs0TKdTB-gJjzKxhKpUaEXJef-PU2gIAJEfSrmvoUrLiBcyfqcxBrfYkP2TKUSIsY9SnuFVIAWVr_zFoJhyphenhyphen-pg_7XTlpt1dvs_yCce1obzhNJJkIC2umV8A/s1600/Cel_FullColor_RGB_notype.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuKigzFt1kkyx3eqlthONlcc6yKytKeoDmT2ADbA8GpreYwX_3zW2faeNB1D7F-NImDReaJs0TKdTB-gJjzKxhKpUaEXJef-PU2gIAJEfSrmvoUrLiBcyfqcxBrfYkP2TKUSIsY9SnuFVIAWVr_zFoJhyphenhyphen-pg_7XTlpt1dvs_yCce1obzhNJJkIC2umV8A/s1600/Cel_FullColor_RGB_notype.png" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<p>We're excited to announce the open source release of CEL-expr-python, a Python implementation of the Common Expression Language (CEL)! CEL (<a href="https://cel.dev/" rel="noreferrer" target="_blank">cel.dev</a>) is a powerful, non-Turing complete expression language designed for simplicity, speed, safety, and portability. CEL is designed to be embedded in an application, and you can use CEL to make decisions, validate data, or apply rules based on the information your application has.</p>
+
+<h2>What is CEL-expr-python?</h2>
+<p>CEL-expr-python provides a native Python API for compiling and evaluating CEL expressions that's maintained by the CEL team. We'd like to acknowledge the fantastic work already done by the open source communities around support for CEL in Python, and look forward to your contributions to help us further enrich the CEL ecosystem.</p><p>
+The CEL team has chosen to develop CEL-expr-python by wrapping our official C++ implementation to ensure maximum consistency with CEL semantics while enabling Python users to extend and enrich the experience on top of this production-ready core in Python directly. Additionally, new features and optimizations implemented in CEL C++ will automatically and immediately become available in CEL-expr-python.</p>
+
+<h2>Who is it for?</h2>
+<p>If you're working on a Python project that needs to:</p>
+<ul>
+<li>Evaluate expressions defined dynamically (e.g., loaded from a database, configuration, or user input).</li>
+<li>Implement and enforce policies in a clear, concise, and secure manner.</li>
+<li>Validate data against a set of rules.</li>
+</ul>
+<p>...then CEL-expr-python is for you!</p>
+
+<h2>Why use CEL-expr-python?</h2>
+<p>CEL has become a prevalent technology for applications like policy enforcement, data validation, and dynamic configuration. CEL-expr-python allows Python developers to leverage the same benefits, including:</p>
+<ul>
+<li><strong>Safety:</strong> CEL expressions are side-effect free and terminate guaranteed.</li>
+<li><strong>Speed:</strong> Designed for efficient evaluation.</li>
+<li><strong>Portability:</strong> Expressions are language-agnostic.</li>
+<li><strong>Familiarity:</strong> Builds upon established CEL concepts.</li>
+</ul>
+<p>With CEL-expr-python, you can now seamlessly integrate this technology within your Python stack.</p>
+
+<h2>Get Started!</h2>
+<p>Check out the CEL-expr-python Repository here: <a href="https://github.com/cel-expr/cel-python" rel="noreferrer" target="_blank">https://github.com/cel-expr/cel-python</a></p><p>
+We're thrilled to bring CEL-expr-python to the open source communities and can't wait to see what you build with it!</p><p>
+Here's a code snippet demonstrating how to initialize CEL-expr-python and evaluate an expression.</p>
+<pre><code class="codebox python">from cel_expr_python import cel
+
+# Define variables
+cel_env = cel.NewEnv(variables={"who": cel.Type.STRING})
+expr = cel_env.compile("'Hello, ' + who + '!'")
+
+# Evaluate and print the compiled expression
+print(expr.eval(data={"who": "World"})))  // Hello, World!
+</code></pre>
+  
+<p>For a more in-depth tutorial, check out our codelab here: <a href="https://github.com/cel-expr/cel-python/blob/main/codelab/index.lab.md" rel="noreferrer" target="_blank">https://github.com/cel-expr/cel-python/blob/main/codelab/index.lab.md</a></p>
+<p>The CEL-expr-python repository will be initially available as <strong>read-only</strong>. We encourage you to try it out in your projects and share your experiences. Feel free to leave feedback in our <a href="https://github.com/cel-expr/cel-python/issues " rel="noreferrer" target="_blank">github issue queue</a>, as we are eager to hear your feedback and will be working promptly to address any issues or suggestions.</p>
+<p>While we are not accepting external contributions at this moment, we are committed to building a community around CEL-expr-python and plan to open up for contributions in the future. Stay tuned for updates.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-03T11:30:00.000Z>3 March 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

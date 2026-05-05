@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Nix privilege escalation security advisory</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1066813/">Go to article URL</a>
+		<div id="content"><p></p><p>The NixOS project has <a href="https://discourse.nixos.org/t/nix-security-advisory-privilege-escalation-via-symlink-following-during-fod-output-registration/76900" rel="noreferrer" target="_blank">announced
+a critical vulnerability</a> in many versions of the Nix package
+manager's daemon. The flaw was introduced as part of a fix for <a href="https://github.com/NixOS/nix/security/advisories/GHSA-2ffj-w4mj-pg37" rel="noreferrer" target="_blank">a
+prior vulnerability in 2024</a>. According to the <a href="https://github.com/NixOS/nix/security/advisories/GHSA-g3g9-5vj6-r3gj" rel="noreferrer" target="_blank">advisory</a>,
+all default configurations of NixOS and systems building untrusted <a href="https://nix.dev/manual/nix/2.28/language/derivations.html" rel="noreferrer" target="_blank">derivations</a>
+are impacted.</p>
+
+<blockquote class="bq">
+<p>A bug in the fix for <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-27297" rel="noreferrer" target="_blank">CVE-2024-27297</a>
+allowed for arbitrary overwrites of files writable by the Nix process
+orchestrating the builds (typically the Nix daemon running as root in
+multi-user installations) by following symlinks during fixed-output
+derivation output registration. This affects sandboxed Linux builds -
+sandboxed macOS builds are unaffected. The location of the temporary
+output used for the output copy was located inside the build chroot. A
+symlink, pointing to an arbitrary location in the filesystem, could be
+created by the derivation builder at that path. During output
+registration, the Nix process (running in the host mount namespace)
+would follow that symlink and overwrite the destination with the
+derivation's output contents.</p>
+
+<p>In multi-user installations, this allows all users able to submit
+builds to the Nix daemon (<tt>allowed-users</tt> - defaulting to all users) to
+gain root privileges by modifying sensitive files.</p>
+</blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-08T13:52:21.000Z>8 April 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

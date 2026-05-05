@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Why I Am Focusing on Intelligent Document Processing</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2026/03/why-i-am-focusing-on-intelligent-document-processing/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p></p>
+<!-- Photo by Seth Jensen, 2026 -->
+<p>AI moves fast. A new model drops, a new framework launches, a new thing comes out, and suddenly what you learned last month feels old. LLMs, agents, fine-tuning, RAG, computer vision, multimodal models, prompt engineering, AI coding tools — the list keeps growing and it is hard to know where to focus.</p>
+<p>Recently I decided to stop trying to follow all of it and focus on one area. In this post, I will explain what that area is, how I found it, and why I think it is worth paying attention to.</p>
+<h3 id="the-problem-with-being-an-ai-generalist">The problem with being an AI generalist</h3>
+<p>When AI started becoming a practical tool for software engineers (not just researchers), I jumped in. I wrote about <a href="/blog/2025/06/deploying-llms-efficiently-with-mixture-of-experts/" rel="noreferrer" target="_blank">deploying LLMs with Mixture of Experts</a>, built an <a href="/blog/2025/09/llm-expanded-vector-search/" rel="noreferrer" target="_blank">LLM-powered blog search</a>, and worked on <a href="/blog/2026/03/why-ai-extractor-fails-on-msg-emails-and-how-to-fix-decoding/" rel="noreferrer" target="_blank">AI extraction pipelines for document processing</a>. At work, our team was building document processing systems with LLMs. On the side, I was reading about everything else.</p>
+<p>I was learning a lot, but I could not clearly say what I specialize in. If someone asked, “What is your thing in AI?” my answer was too broad to be useful.</p>
+<h3 id="looking-at-the-pattern-in-the-projects">Looking at the pattern in the projects</h3>
+<p>The turning point was stepping back and looking at the projects I had been involved in. Not the articles I had been reading, but the real systems I had been working on with the team.</p>
+<p>At End Point, one of the main projects our team has been working on is an AI order processing system. The problem was simple: a client receives purchase orders from dealers and resellers via email as PDFs, attachments, and sometimes just plain body text. Before our solution, someone had to open each email, read what was being ordered, and manually type the data into the ERP system. Invoicing addresses, delivery addresses, line items, quantities, all entered by hand.</p>
+<p>The solution is a pipeline that takes those raw email exports and PDF attachments, extracts structured data using LLMs with a defined schema, validates the output, handles exceptions through a human-in-the-loop review step, and produces a clean CSV that imports directly into the ERP. No more manual data entry.</p>
+<p>Looking at these projects, I started seeing the same pattern repeat across different industries, different source documents, and different target systems. But they shared a problematic pattern:</p>
+<p><strong>Unstructured data in → AI extraction and validation → Structured data out → Business system integration.</strong></p>
+<h3 id="that-pattern-has-a-name">That pattern has a name</h3>
+<p>I thought this was just a type of project that kept showing up. But when I researched it, I found out it is an established market with a formal name: <strong>Intelligent Document Processing (IDP)</strong>.</p>
+<p>IDP is about using AI (OCR, NLP, LLMs, computer vision) to automatically extract, classify, and transform data from unstructured documents like PDFs, emails, scanned forms, images, and legacy files into structured formats that plug into business systems.</p>
+<p>This is not something small. Major research firms track it:</p>
+<ul>
+<li><a href="https://www.gartner.com/reviews/market/intelligent-document-processing-solutions" rel="noreferrer" target="_blank">Gartner</a> publishes a Market Guide for Intelligent Document Processing Solutions</li>
+<li><a href="https://www.processexcellencenetwork.com/tools-technologies/news/idc-rates-22-intelligent-document-processing-idp-vendors" rel="noreferrer" target="_blank">IDC</a> rated 22 IDP vendors in one of their MarketScape assessments</li>
+</ul>
+<p>The vendor landscape includes names you already know: Google (<a href="https://cloud.google.com/document-ai" rel="noreferrer" target="_blank">Document AI</a>), Microsoft (<a href="https://azure.microsoft.com/en-us/products/ai-foundry/tools/document-intelligence" rel="noreferrer" target="_blank">Azure Document Intelligence</a>), Amazon (<a href="https://aws.amazon.com/textract/" rel="noreferrer" target="_blank">Textract</a>), ABBYY, UiPath, Automation Anywhere, and many more.</p>
+<h3 id="the-market-is-real-and-growing-fast">The market is real and growing fast</h3>
+<p>The numbers vary by research firm because they define the market scope differently, but they all point in the same direction:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Source</th>
+          <th>2024–2026 Estimate</th>
+          <th>Projected By 2034</th>
+          <th>Annual Growth</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://www.precedenceresearch.com/intelligent-document-processing-market" rel="noreferrer" target="_blank">Precedence Research</a></td>
+          <td>$4.3B (2026)</td>
+          <td>$43.9B</td>
+          <td>~34% per year</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.fortunebusinessinsights.com/intelligent-document-processing-market-108590" rel="noreferrer" target="_blank">Fortune Business Insights</a></td>
+          <td>$14.2B (2026)</td>
+          <td>$91.0B</td>
+          <td>~26% per year</td>
+      </tr>
+  </tbody>
+</table>
+<p>Growing at 26–34% per year makes IDP one of the fastest-growing areas in enterprise AI.</p>
+<p>This matters because market growth creates demand for people who can actually build these systems. Not just people who buy vendor platforms, but people who can design extraction schemas, debug LLM outputs, build validation pipelines, and connect everything to real business systems.</p>
+<h3 id="what-skills-matter-in-idp">What skills matter in IDP</h3>
+<p>Knowing the field has a name also made it clear what skills matter most. IDP work sits at the intersection of a few areas:</p>
+<ul>
+<li><strong>LLM-based data extraction</strong>: schema design, prompt engineering for structured output, few-shot examples for edge cases</li>
+<li><strong>Document parsing</strong>: handling PDFs, emails (.msg, .eml), scanned documents, HTML exports</li>
+<li><strong>Data validation and QA</strong>: confidence scoring, exception routing, human-in-the-loop review workflows</li>
+<li><strong>Pipeline architecture</strong>: from document intake to extraction, normalization, validation, and output</li>
+<li><strong>Business system integration</strong>: understanding ERP and CRM import formats, APIs, and data models</li>
+</ul>
+<h3 id="why-this-matters">Why this matters</h3>
+<p>When a client has purchase orders stuck in email inboxes that aren’t processed fast enough, what they need is a reliable pipeline that extracts the right fields, handles the edge cases (like <a href="/blog/2026/03/why-ai-extractor-fails-on-msg-emails-and-how-to-fix-decoding/" rel="noreferrer" target="_blank">character encoding issues in .msg files</a>), validates the output, and delivers a clean import file.</p>
+<p>That is what IDP is about: turning data that businesses already have but cannot use into data that their existing systems can act on. Structured, validated output that goes into the ERP, the CRM, or the database, and saves real time and money.</p>
+<h3 id="final-thoughts">Final thoughts</h3>
+<p>AI is broad enough that no one person can master all of it. But looking at the projects I was actually working on, instead of trying to follow every new trend, made it much easier to find direction. In my case, that field turned out to be Intelligent Document Processing.</p>
+<p>If you need help parsing through legacy or unstructured data, we can help! Don’t hesitate to <a href="/contact/" rel="noreferrer" target="_blank">send us a message</a>.</p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-27T00:00:00.000Z>27 March 2026</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

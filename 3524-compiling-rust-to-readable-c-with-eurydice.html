@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] Compiling Rust to readable C with Eurydice</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1055211/">Go to article URL</a>
+		<div id="content"><p></p><p>
+A few years ago, the only way to compile Rust code was using the rustc compiler
+with LLVM as a backend. Since then, several projects, including
+<a href="https://github.com/thepowersgang/mrustc?tab=readme-ov-file#mutabahs-rust-compiler" rel="noreferrer" target="_blank">
+Mutabah's Rust Compiler</a> (mrustc), <a href="https://lwn.net/Articles/1040197/" rel="noreferrer" target="_blank">GCC's Rust
+support</a> (gccrs),
+<a href="https://lwn.net/Articles/907405/#rust_codegen_gcc" rel="noreferrer" target="_blank">
+rust_codegen_gcc</a>, and
+<a href="https://lwn.net/Articles/964735/" rel="noreferrer" target="_blank">
+Cranelift</a> have made enormous progress
+on diversifying Rust's compiler implementations. The most recent such project,
+<a href="https://github.com/AeneasVerif/eurydice?tab=readme-ov-file#eurydice" rel="noreferrer" target="_blank">
+Eurydice</a>, has a
+more ambitious goal: converting Rust code to clean C code. This is especially
+useful in high-assurance software, where existing verification and compliance
+tools expect C. Until such tools can be updated to work with Rust, Eurydice could
+provide a smoother transition for these projects, as well as a stepping-stone
+for environments that have a C compiler but no working Rust compiler. Eurydice
+has been used to compile some post-quantum-cryptography routines from Rust to C,
+for example.
+</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-01-30T16:09:24.000Z>30 January 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

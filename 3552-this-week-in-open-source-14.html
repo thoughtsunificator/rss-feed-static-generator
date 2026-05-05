@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>This Week in Open Source #14</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/02/this-week-in-open-source-14.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Daryl Ducharme</author> &amp; <author>amanda casari</author>, Google Open Source</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizuKHbBriafpnCVl8A7gazsybuVNKqwyYE1n5-RfAYhu6i5bN55iTw0LE_S0KLGWBJU9ERHgsnd9lZ3J94PhlE5hpZ5YIeBHH8PjS2yuRciaN7VgqLUISB9Ofpqst0n6tawyH6etvfFro4lqZv2X8EomVGJUTL8CSaHp0XyK3LxbJIhwi6ENKX620R4ME/s1600/header1.png">
+
+
+<a target="_blank" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizuKHbBriafpnCVl8A7gazsybuVNKqwyYE1n5-RfAYhu6i5bN55iTw0LE_S0KLGWBJU9ERHgsnd9lZ3J94PhlE5hpZ5YIeBHH8PjS2yuRciaN7VgqLUISB9Ofpqst0n6tawyH6etvfFro4lqZv2X8EomVGJUTL8CSaHp0XyK3LxbJIhwi6ENKX620R4ME/s1600/header1.png" class="header-image" rel="noreferrer"></a>
+<h2 class="article-title">This Week in Open Source for February 06, 2026</h2>
+<p class="article-subtitle"><em>A look around the world of open source</em></p>
+
+<p>Here we are at the beginning of February, and the world of open source is navigating a fascinating landscape of innovation and challenge. The main focus of many articles this week is on the evolving relationship between AI and software maintenance. But open source is about more than just the code; it's about the people and the spirit of collaboration. With that we look at the Open Gaming Collective which is pushing Linux gaming further and the SLSA framework and how it is foundational in software security.</p>
+
+<p>Dive in to see what's happening this week in open source!</p>
+
+<h3>Upcoming Events</h3>
+<ul>
+<li>February 24 - 25: <a target="_blank" href="https://events.linuxfoundation.org/lf-member-summit/" rel="noreferrer">The Linux Foundation Member Summit</a> is happening in Napa, California. It is the annual gathering for <a target="_blank" href="https://www.linuxfoundation.org/" rel="noreferrer">Linux Foundation</a> members that fosters collaboration, innovation, and partnerships among the leading projects and organizations working to drive digital transformation with open source technologies.</li>
+<li>March 5 - 8: <a target="_blank" href="https://www.socallinuxexpo.org/scale/23x" rel="noreferrer">SCALE 23x</a> is happening in Pasadena, California. It is North America's largest community-run open source conference and includes four days of sessions, workshops, and community activities focused on open source, security, DevOps, cloud native, and more.</li>
+<li>March 9 - 10: <a target="_blank" href="https://eventyay.com/e/88882f3e" rel="noreferrer">FOSSASIA Summit 2026</a> is happening in Bangkok, Thailand. It will be a two-day hybrid event that showcases the latest in open technologies, fostering collaboration across enterprises, developers, educators, and communities.</li>
+</ul>
+
+<h3>Open Source Reads and Links</h3>
+<ul>
+<li>[Article] <a target="_blank" href="https://www.theregister.com/2026/01/21/curl_ends_bug_bounty/" rel="noreferrer">Curl shutters bug bounty program to remove incentive for submitting AI slop</a> - The maintainer of popular open-source data transfer tool cURL has ended the project's bug bounty program after maintainers struggled to assess a flood of AI-generated contributions.</li>
+<li>[Article] <a target="_blank" href="https://www.404media.co/vibe-coding-is-killing-open-source-software-researchers-argue/" rel="noreferrer">Vibe Coding Is Killing Open Source Software, Researchers Argue</a> - So much open source software is utilized when people vibe code with LLMs. However, vibe coders don't give back, <a target="_blank" href="https://arxiv.org/pdf/2601.15494" rel="noreferrer">according to research</a>. What can be done to make vibe coders understand the importance of the open source ecosystem and giving back?</li>
+<li>[Blog] <a target="_blank" href="https://redmonk.com/kholterhoff/2026/02/03/ai-slopageddon-and-the-oss-maintainers/" rel="noreferrer">AI Slopageddon and the OSS Maintainers</a> - AI-generated low-quality code, called "AI slop," is overwhelming open source maintainers and harming collaboration. Some projects have banned AI contributions, while others require disclosure and careful review to manage the problem. How can we make changes when platforms benefit from AI tools but often ignore the burden this puts on maintainers?</li>
+<li>[Paper] <a target="_blank" href="https://arxiv.org/pdf/2601.16809" rel="noreferrer">Will It Survive? Deciphering the Fate of AI-Generated Code in Open Source</a> - AI-generated code lasts longer in open-source projects than human-written code. It is changed less often but has more bug fixes and security updates. Predicting when AI code will be modified is hard because many outside factors affect it.</li>
+<li>[Article] <a target="_blank" href="https://www.gamingonlinux.com/2026/01/open-gaming-collective-ogc-formed-to-push-linux-gaming-even-further/" rel="noreferrer">Open Gaming Collective (OGC) formed to push Linux gaming even further</a> - On the <em>fun side of open source</em> the <a target="_blank" href="https://opengamingcollective.org/" rel="noreferrer">Open Gaming Collective</a> is a new group uniting many Linux gaming projects to work together. They will share important tools and kernel patches to make Linux gaming better and less fragmented. Bazzite and other members will use OGC's shared improvements for better hardware support and gaming experience.</li>
+<li>[Blog] <a target="_blank" href="https://slsa.dev/blog/2025/12/supply-chain-robots-slsa" rel="noreferrer">Supply Chain Robots, Electric Sheep, and SLSA</a> - Securing the software supply chain is crucial to protect against attacks that can compromise code and build systems. SLSA is a practical framework that helps organizations improve supply chain security step-by-step by verifying source code and build integrity. A good read to understand this aspect of software security.</li>
+</ul>
+
+<p>As we like to say, "a community is a garden, not a building; it requires tending, not just construction".</p>
+<p>How is your team tending to your open source "garden" this month? We'd love to hear your stories! Share them on our <a target="_blank" href="https://x.com/GoogleOSS" rel="noreferrer">@GoogleOSS</a> X account or our <a target="_blank" href="https://bsky.app/profile/opensource.google" rel="noreferrer">@opensource.google</a> Bluesky account.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-06T14:30:00.000Z>6 February 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

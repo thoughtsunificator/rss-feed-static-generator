@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Google Cloud: Investing in the future of PostgreSQL</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/03/google-cloud-investing-in-the-future-of-postgresql.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Dilip Kumar</author>, Cloud SQL for PostgreSQL</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgwzJszSMRbAj7eM_f4aXx0OqZW72VjPDjvgV7ew9WiCUvUgdFtqunL5ySeShN7KD_eCNFlYdJY6gDRMjLmC7CzSriHzAHwEdwyOYdbmN2T6GyLf8mgI3OHcY4e9vpsPe6AE_t5lbw3E5cdV91M78Z83vRFHL3Ny_wiGTDJsrPGkKPZ6cco0wwlWhaLt-8/s1600/OSS-Logo-Banner.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgwzJszSMRbAj7eM_f4aXx0OqZW72VjPDjvgV7ew9WiCUvUgdFtqunL5ySeShN7KD_eCNFlYdJY6gDRMjLmC7CzSriHzAHwEdwyOYdbmN2T6GyLf8mgI3OHcY4e9vpsPe6AE_t5lbw3E5cdV91M78Z83vRFHL3Ny_wiGTDJsrPGkKPZ6cco0wwlWhaLt-8/s1600/OSS-Logo-Banner.png" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<p>At Google Cloud, we are deeply committed to open source, and PostgreSQL is a cornerstone of our managed database offerings, including Cloud SQL &amp; AlloyDB.</p>
+
+<p>Continuing our work with the PostgreSQL community, we've been contributing to the core engine and participating in the patch review process. Below is a summary of that technical activity, highlighting our efforts to enhance the performance, stability, and resilience of the upstream project. By strengthening these core capabilities, we aim to drive innovation that benefits the entire global PostgreSQL ecosystem and its diverse user base.</p>
+
+<p>Our investments in PostgreSQL logical replication aim to unlock critical capabilities for all users. By enhancing conflict detection, we are paving the way for robust active-active replication setups, increasing write scalability and high availability. We are also focused on expanding logical replication to cover missing objects. This is key to enabling major version upgrades with minimal downtime, offering a more flexible alternative to <code>pg_upgrade</code>. Furthermore, our ongoing contributions to bug fixes are dedicated to improving the overall stability and resilience of PostgreSQL for everyone in the community.</p>
+
+<h2>Technical contributions: July 2025 – December 2025</h2>
+<p>The following sections detail technical enhancements and bug fixes contributed to the <a href="https://www.postgresql.org/" rel="noreferrer" target="_blank">PostgreSQL</a> open source project between July 2025 and December 2025. Primary engineering efforts were dedicated to advancing logical replication toward active-active capabilities, implementing missing features, optimizing pg_upgrade, and fixing bugs.</p>
+
+<h3>Logical Replication Enhancements</h3>
+<p>Logical replication is a critical feature of PostgreSQL enabling capabilities like near zero down time, major version upgrades, selective replication, active-active replication. We have been working towards closing some of the key gaps.</p>
+
+<p><a href=" https://commitfest.postgresql.org/patch/5378/" rel="noreferrer" target="_blank">Automatic Conflict Detection</a></p>
+
+<p>Active-active replication is a mechanism for increasing PostgreSQL write scalability. One of the most significant hurdles for active-active PostgreSQL setups is handling row-level conflicts when the same data is modified on two different nodes. Historically, these conflicts could stall replication, requiring manual intervention.</p><p>
+In this cycle, the community committed <strong>Automatic Conflict Detection</strong> which is the first phase of Automatic Conflict Detection and Resolution. This foundation allows the replication worker to automatically detect when an incoming change (Insert, Update, or Delete) conflicts with the local state.</p><p>
+<strong>Contributors</strong>: Dilip Kumar helped by performing code and design reviews. He is currently advancing the project's second phase, focusing on implementing conflict logging into a dedicated log table.</p>
+
+<p><a href="https://commitfest.postgresql.org/patch/5111/" rel="noreferrer" target="_blank">Logical replication of sequences</a></p>
+
+<p>Until recently, logical replication in PostgreSQL was primarily limited to table data. Sequences did not synchronize automatically. This meant that during a migration or a major version upgrade, DBAs had to manually sync sequence values to prevent "duplicate key" errors on the new primary node. Since many databases rely on sequences, this was a significant hurdle for logical replication.</p><p>
+  <strong>Contributors</strong>: Dilip Kumar helped by performing code and design reviews.</p><p>
+<a href="https://www.postgresql.org/message-id/E1uoFOS-000b7I-05@gemulon.postgresql.org" rel="noreferrer" target="_blank">Drop subscription deadlock</a></p><p>
+The DROP SUBSCRIPTION command previously held an exclusive lock while connecting to the publisher to delete a replication slot.</p><p>
+If the publisher was a new database on the same server, the connection process would stall while trying to access that same locked catalog.</p><p>
+This conflict created a "self-deadlock," where the command was essentially waiting for itself to finish.</p><p>
+<strong>Contributors</strong>: Dilip Kumar analyzed and authored the fix.</p>
+
+<h3>Upgrade Resilience</h3>
+<p>Operational ease of use and friction-less upgrades are important to PostgreSQL users. We have been working on improving the upgrade experience.</p>
+
+<p><a href="https://commitfest.postgresql.org/patch/5737/ " rel="noreferrer" target="_blank">pg_upgrade optimization for Large Objects</a></p>
+
+<p>For databases with massive volumes of Large Objects, upgrades could previously span several days. This bottleneck is resolved by exporting the underlying data table directly rather than executing individual Large Object commands, resulting in an upgrade process that is several orders of magnitude faster.</p>
+
+<p><strong>Contributors</strong>: Hannu Krosing, Nitin Motiani and, Saurabh Uttam, highlighted the severity of the issue, proposed the initial fix and actively drove it to the resolution.</p>
+
+<p><a href="https://www.postgresql.org/message-id/E1ua6NR-005huo-2e%40gemulon.postgresql.org" rel="noreferrer" target="_blank">Prevent logical slot invalidation during upgrade</a>: </p><p>
+Upgrade to PG17 fails if max_slot_wal_keep_size is not set to -1. This fix improves pg_upgrade's resilience, eliminating the need for users to manually set max_slot_wal_keep_size to -1. The server now automatically retains the necessary WAL data for upgrading logical replication slots, simplifying the upgrade process and reducing the risk of errors.</p>
+
+<p><strong>Contributors</strong>: Dilip Kumar analyzed and authored the fix.</p>
+
+<p><a href="https://www.postgresql.org/message-id/E1vA9eM-002KBc-0G%40gemulon.postgresql.org" rel="noreferrer" target="_blank">pg_upgrade NOT NULL constraint related bug fix</a></p><p>
+A bug in pg_dump previously failed to preserve non-inherited NOT NULL constraints on inherited columns during upgrades from version 17 or older.</p><p>
+The fix updates the underlying query to ensure these specific schema constraints are correctly identified and migrated during the pg_upgrade process.</p>
+
+<p><strong>Contributors</strong>: Dilip Kumar analyzed and authored the fix.</p>
+
+<h3>Miscellaneous Bug Fixes</h3>
+<p>We continue to contribute bug fixes to help improve the stability and quality of PostgreSQL.</p>
+
+<p><a href="https://www.postgresql.org/message-id/E1v48lY-0011l7-1p@gemulon.postgresql.org" rel="noreferrer" target="_blank">Make pgstattuple more robust about empty or invalid index pages</a></p>
+
+<p>pgstattuple is a PostgreSQL extension for analyzing the physical storage of tables and indexes at the row (tuple) level, to determine whether a table is in need of maintenance. However, pgstattuple would raise errors with empty or invalid index pages in hash and gist code. This bug handles the empty and invalid index pages to make pgstattuple more robust.</p>
+
+<p><strong>Contributors</strong>: Nitin Motiani and Dilip Kumar, participated as author and reviewer.</p>
+
+<p><a href="https://www.postgresql.org/message-id/E1urGxY-001vb9-2n%40gemulon.postgresql.org" rel="noreferrer" target="_blank">Loading extension from different path</a></p><p>
+A bug incorrectly stripped the prefix from nested module paths when dynamically loading shared library files. This caused libraries in subdirectories to fail to load. The bug fix ensures the prefix is only removed for simple filenames, allowing the dynamic library expander to correctly find nested paths</p>
+
+<p><strong>Contributors</strong>: Dilip Kumar, reported and co-authored the fix for this bug.</p>
+
+<p><a href="https://www.postgresql.org/message-id/E1uzT3P-001RAm-2n@gemulon.postgresql.org" rel="noreferrer" target="_blank">WAL flush logic hardening</a></p>
+
+<p>XLogFlush() and XLogNeedsFlush() are internal PostgreSQL functions that ensure log records are written to the WAL to ensure durability. In certain edge cases, like the end-of-recovery checkpoint, the functions relied on inconsistent criteria to decide which code path to follow. This inconsistency posed a risk for upcoming features i.e. Asynchronous I/O for writes that require XLogNeedsFlush() to work reliably.</p>
+
+<p><strong>Contributors:</strong> Dilip Kumar, co-authored the fix for this bug.</p>
+
+<h3>Major Features in Development</h3>
+<p>Beyond our recent commits, the team is actively working on several high-impact proposals to further strengthen the PostgreSQL ecosystem.</p>
+
+<ul>
+<li><a href="https://commitfest.postgresql.org/patch/6252/" rel="noreferrer" target="_blank">Conflict Log Table for Detection</a>: Dilip Kumar is developing a proposal for a conflict log table designed to offer a queryable, structured record of all logical replication conflicts. This feature would include a configuration option to determine whether conflict details are recorded in the history table, server logs, or both.</li>
+</ul>
+
+<ul>
+<li><a href="https://commitfest.postgresql.org/patch/6219/" rel="noreferrer" target="_blank">Dumping tables data in multiple chunks in pg_dump</a>: Hannu Krosing is working on this feature, this enables parallel workers for single, large tables (terabytes in size) to saturate hardware limits and speed up exports.</li>
+</ul>
+
+<ul>
+<li><a href="https://commitfest.postgresql.org/patch/5893/" rel="noreferrer" target="_blank">Adding pg_dump flag for parallel export to pipes</a>: Nitin Motiani is working on this feature. This introduces a flag which allows the user to provide pipe commands while doing parallel export/import from pg_dump/pg_restore (in directory format).</li>
+</ul>
+
+<h2>Leadership</h2>
+<p>Beyond code, our team supports the ecosystem through community leadership. We are pleased to share that Dilip Kumar has been selected for the PGConf.dev 2026 <a href="https://2026.pgconf.dev/about#:~:text=Dilip-,Kumar,-Google" rel="noreferrer" target="_blank">Program Committee</a> to help shape the project's premier developer conference.</p>
+
+<h2>Community Roadmap: Your Feedback Matters</h2>
+<p>We encourage you to utilize the comments area to propose new capabilities or refinements you wish to see in future iterations, and to identify key areas where the PostgreSQL open-source community should focus its investments.</p>
+
+<h2>Acknowledgement</h2>
+<p>We want to thank our open source contributors for their dedication to improving the upstream project.</p><p>
+<a href="https://www.linkedin.com/in/dilip-kumar-6b75863a/" rel="noreferrer" target="_blank">Dilip Kumar</a>: PostgreSQL <a href="https://www.postgresql.org/community/contributors/#:~:text=Dilip%20Kumar%20(dilipbalaut%20at%20gmail.com)" rel="noreferrer" target="_blank">significant</a> contributor</p><p>
+<a href="https://www.linkedin.com/in/hannukrosing/" rel="noreferrer" target="_blank">Hannu Krosing</a>: PostgreSQL <a href="https://www.postgresql.org/community/contributors/#:~:text=Hannu%20Krosing%20(hannuk%20at%20google.com)" rel="noreferrer" target="_blank">significant</a> contributor</p><p>
+<a href="https://www.linkedin.com/in/nitinmotiani/" rel="noreferrer" target="_blank">Nitin Motiani</a>: Contributing features and bug fixes</p><p>
+<a href="https://www.linkedin.com/in/itssaurabh/" rel="noreferrer" target="_blank">Saurabh Uttam</a>: Contributing bug fixes</p>
+
+<p>We also extend our sincere gratitude to the wider PostgreSQL open source members, especially the committers and reviewers, for their guidance, reviews, and for collaborating with us to make PostgreSQL the most advanced open source database in the world.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-31T11:30:00.000Z>31 March 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

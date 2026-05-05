@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Arch Linux now has a reproducible container image</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1068699/">Go to article URL</a>
+		<div id="content"><p></p><p>Robin Candau has <a href="https://lists.archlinux.org/archives/list/arch-dev-public@lists.archlinux.org/thread/44PW52T547MACXFU5HZ5U7SIPAX3BAXS/" rel="noreferrer" target="_blank">announced</a>
+the availability of a bit-for-bit reproducible container image for
+Arch Linux:</p>
+
+<blockquote class="bq">
+<p>The bit-for-bit reproducibility of the image is confirmed by digest
+equality across builds (<tt>podman inspect --format '{{.Digest}}'
+&lt;image&gt;</tt>) and by running <a href="https://github.com/reproducible-containers/diffoci" rel="noreferrer" target="_blank"><tt>diffoci</tt></a>
+to compare builds. We provide documentation on how to <a href="https://gitlab.archlinux.org/archlinux/archlinux-docker/-/blob/master/REPRO.md" rel="noreferrer" target="_blank">reproduce this
+Docker image</a> (as <a href="https://gitlab.archlinux.org/archlinux/archlinux-wsl/-/blob/main/REPRO.md" rel="noreferrer" target="_blank">we did for the WSL image as well</a>).</p>
+
+<p>Building the base rootFS for the Docker image in a deterministic way was 
+the main challenge, but it reuses the <a href="https://gitlab.archlinux.org/archlinux/archlinux-wsl/-/commit/7c0340e26358048f3f8ee03b3ab3aea666751712" rel="noreferrer" target="_blank">same process as for our WSL image</a>
+(as both share the same rootFS build system).</p>
+
+<p>[...] This represents another meaningful achievement in our
+"reproducible builds" efforts and we're already looking forward to the
+next step!</p>
+</blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-20T17:27:37.000Z>20 April 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

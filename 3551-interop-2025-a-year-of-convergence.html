@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Interop 2025: A year of convergence</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/17808/interop-2025-review/">Go to article URL</a>
+		<div id="content"><p></p><p>Interop 2025 has come to a close, and the results speak for themselves. Now in its fourth year, the Interop project brings together Apple, Bocoup, Google, Igalia, Microsoft, and Mozilla to identify the areas of the web platform where interoperability matters most to you as a web developer — and then do the work to get there. This year was the most ambitious yet: the group selected 19 focus areas and 5 investigation areas spanning CSS, JavaScript, Web APIs, and performance. At the start of 2025, only 29% of the selected tests passed across all browsers. By the end of the year, the Interop score reached a 97% pass rate — and all four experimental browsers (Chrome Canary, Edge Dev, Firefox Nightly, and Safari Technology Preview) reached 99%.</p>
+<figure class="preserve-color mattewhite"></figure>
+<p>Each year, the Interop project chooses its focus areas through a collaborative process with proposals, research into what web developers need, and debates about priorities. For Interop 2025, our team advocated for including focus areas that we knew would require significant engineering investment from WebKit — because we knew those areas would make a real difference to you. The results show that commitment paid off. Safari made the largest jump of any browser this year, climbing from 43 to 99.</p>
+<p>As always, this year’s focus areas were chosen based on developer feedback, including results from the State of CSS survey, and we’re proud of how much ground we covered. The 19 focus areas touched nearly every corner of the platform. On the CSS and UI side, the project tackled <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning" rel="noreferrer" target="_blank">Anchor Positioning</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" rel="noreferrer" target="_blank">View Transitions</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@scope" rel="noreferrer" target="_blank"><code>@scope</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter" rel="noreferrer" target="_blank"><code>backdrop-filter</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration" rel="noreferrer" target="_blank"><code>text-decoration</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_writing_modes" rel="noreferrer" target="_blank">Writing modes</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout" rel="noreferrer" target="_blank">Layout</a> (both Flexbox and Grid, continued from prior years),  and the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details" rel="noreferrer" target="_blank"><code>&lt;details&gt;</code> element</a>. For APIs and platform features, we worked on the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API" rel="noreferrer" target="_blank">Navigation API</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API" rel="noreferrer" target="_blank">Storage Access API</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLPattern" rel="noreferrer" target="_blank"><code>URLPattern</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" rel="noreferrer" target="_blank">Modules</a>, the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollend_event" rel="noreferrer" target="_blank"><code>scrollend</code> event</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API" rel="noreferrer" target="_blank">WebRTC</a>, and <a href="https://developer.mozilla.org/en-US/docs/WebAssembly" rel="noreferrer" target="_blank">WebAssembly</a>. And on the health and compatibility front, there was focused work on <a href="https://web.dev/articles/vitals" rel="noreferrer" target="_blank">Core Web Vitals</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" rel="noreferrer" target="_blank">Pointer and Mouse events</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationEvent" rel="noreferrer" target="_blank">removing Mutation events</a>, and general <a href="https://wpt.fyi/interop-2025" rel="noreferrer" target="_blank">web compatibility</a>. Five investigation areas — accessibility testing, Gamepad API testing, mobile testing, privacy testing, and WebVTT — laid groundwork for future Interop cycles.</p>
+<p>We want to highlight three focus areas that were especially meaningful this year.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning" rel="noreferrer" target="_blank">Anchor positioning</a> lets you position popovers, tooltips, and menus relative to any element purely in CSS — no JavaScript positioning libraries required. It’s one of the most requested CSS features of the last several years, and it now works interoperably across all browsers.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" rel="noreferrer" target="_blank">Same-document View Transitions</a> allow smooth, animated transitions between UI states natively in the browser, along with the new <code>view-transition-class</code> CSS property for flexible styling of those transitions. We shipped support in fall 2024, in <a href="https://webkit.org/blog/15865/webkit-features-in-safari-18-0/" rel="noreferrer" target="_blank">Safari 18.0</a> and <a href="https://webkit.org/blog/16301/webkit-features-in-safari-18-2/" rel="noreferrer" target="_blank">Safari 18.2</a>. Web developers are excited about View Transitions! This extra attention on interoperability across browsers means it’s ready for you to use. </li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API" rel="noreferrer" target="_blank">Navigation API</a> — a modern replacement for <code>history.pushState()</code> — gives single-page applications proper navigation handling with interception, traversal, and entries. We shipped support in <a href="https://webkit.org/blog/17640/webkit-features-for-safari-26-2/" rel="noreferrer" target="_blank">Safari 26.2</a>, and we’re glad to see it arrive interoperably from the start.</li>
+</ul>
+<figure class="preserve-color mattewhite"></figure>
+<p>The graph above tells the story of the year: every browser engine invested heavily, and the lines converge at the top. That convergence is what makes the Interop project so valuable — the shared progress that means you can write code once and trust that it works everywhere.</p>
+<p>We want to thank our colleagues across the industry who made this possible. Interoperability is one of the foundational strengths of the web, and we remain committed to this collaboration. You can explore the full results, including scores for each individual focus area, on the <a href="https://wpt.fyi/interop-2025" rel="noreferrer" target="_blank">Interop 2025 dashboard</a>.</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-06T17:45:28.000Z>6 February 2026</time>
+			<a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Implementing business logic with Domain-Driven Design</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://www.endpointdev.com/blog/2026/04/implementing-business-logic-ddd-part-2/">Go to article URL</a>
+		<div id="content"><p></p>
+        <p><br>
+Photo by Bimal Gharti Magar, 2026.</p>
+<blockquote>
+<p>This is part 2 of a series of blog posts on Domain-Driven Design:</p>
+<ol>
+<li><a href="/blog/2026/04/high-level-system-analysis-and-design-ddd-part-1/" rel="noreferrer" target="_blank">High level system analysis and design with Domain-Driven Design</a></li>
+<li><a href="/blog/2026/04/implementing-business-logic-ddd-part-2/" rel="noreferrer" target="_blank">Implementing business logic with Domain-Driven Design</a></li>
+</ol></blockquote>
+<p><strong>Domain-Driven Design</strong> is an approach to software development that focuses on, <a href="https://www.oreilly.com/library/view/domain-driven-design-tackling/0321125215/" rel="noreferrer" target="_blank">as Eric Evans puts it</a>, “tackling the complexity in the heart of software”. And what is in the heart of software? The business domain in which it operates. Or more specifically: a <strong>model</strong> of it, made of code. That is, the code that implements the business logic that comes into play when solving problems within the realm of a particular business activity.</p>
+<p>DDD is not just about writing code though. It’s a whole methodology that touches on business needs, requirements gathering, organizational dynamics, high level architectural design, and lower level patterns for implementing software intensive systems.</p>
+<p>As a result, DDD offers a treasure trove of concepts, patterns and tools that can be applied to any software project, regardless of the size and complexity.</p>
+<p>In this series of blog posts we’re going to explore many aspects of DDD. We will be following the structure laid out by <a href="https://vladikk.com/" rel="noreferrer" target="_blank">Vlad Khononov</a>’s excellent book on the topic “<a href="https://www.oreilly.com/library/view/learning-domain-driven-design/9781098100124/" rel="noreferrer" target="_blank">Learning Domain-Driven Design: Aligning Software Architecture and Business Strategy</a>”. So you can think of this series as a summary of that book. An abridged version that can serve as a review for anybody who has read it; but also as an entry point for people who are new to DDD.</p>
+<h3 id="table-of-contents">Table of contents</h3>
+<ul>
+<li><a href="#implementing-business-logic-with-domain-driven-design" rel="noreferrer" target="_blank">Implementing business logic with Domain-Driven Design</a>
+<ul>
+<li><a href="#table-of-contents" rel="noreferrer" target="_blank">Table of contents</a></li>
+<li><a href="#section-5-implementing-simple-business-logic" rel="noreferrer" target="_blank">Section 5: Implementing simple business logic</a>
+<ul>
+<li><a href="#transaction-script" rel="noreferrer" target="_blank">Transaction script</a></li>
+<li><a href="#active-record" rel="noreferrer" target="_blank">Active record</a></li>
+<li><a href="#when-to-use-them" rel="noreferrer" target="_blank">When to use them</a></li>
+</ul>
+</li>
+<li><a href="#section-6-tackling-complex-business-logic" rel="noreferrer" target="_blank">Section 6: Tackling complex business logic</a>
+<ul>
+<li><a href="#domain-model" rel="noreferrer" target="_blank">Domain model</a></li>
+<li><a href="#value-object" rel="noreferrer" target="_blank">Value object</a></li>
+<li><a href="#entities" rel="noreferrer" target="_blank">Entities</a></li>
+<li><a href="#aggregates" rel="noreferrer" target="_blank">Aggregates</a></li>
+<li><a href="#domain-event" rel="noreferrer" target="_blank">Domain event</a></li>
+<li><a href="#domain-service" rel="noreferrer" target="_blank">Domain service</a></li>
+<li><a href="#data-access-concerns" rel="noreferrer" target="_blank">Data access concerns</a></li>
+</ul>
+</li>
+<li><a href="#section-7-modeling-the-dimension-of-time" rel="noreferrer" target="_blank">Section 7: Modeling the dimension of time</a>
+<ul>
+<li><a href="#data-storage-and-retrieval" rel="noreferrer" target="_blank">Data storage and retrieval</a></li>
+<li><a href="#advantages-and-disadvantages" rel="noreferrer" target="_blank">Advantages and disadvantages</a></li>
+<li><a href="#the-event-sourced-domain-model" rel="noreferrer" target="_blank">The event sourced domain model</a></li>
+</ul>
+</li>
+<li><a href="#ddd-tools-for-implementing-business-logic" rel="noreferrer" target="_blank">DDD tools for implementing business logic</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="section-5-implementing-simple-business-logic">Section 5: Implementing simple business logic</h3>
+<p>Now that we’ve explored DDD’s higher level system design concepts, it’s time to zoom in and start looking at how to implement business logic: the most important part of software. We will start by discussing two patterns that are ideal for implementing simple business logic: transaction script and active record.</p>
+<h4 id="transaction-script">Transaction script</h4>
+<p><a href="https://martinfowler.com/eaaCatalog/transactionScript.html" rel="noreferrer" target="_blank">According to Martin Fowler</a>, the <strong>transaction script</strong> pattern “organizes business logic by procedures where each procedure handles a single request from the presentation.”</p>
+<p>For most programmers that have experience with procedural languages, the transaction script is easy to grasp. This pattern is about conceptualizing a system as a collection of transactions. And organizing these transactions as independent, transactional procedural scripts. Think one transaction script per use case, exposed for the users to invoke when they need to.</p>
+<p></p>
+<p><em>The core idea of transaction script is about putting business transactions front and center. Closely related scripts can be implemented as methods in a service class. Or you could also have a separate “service object” class for each script.</em></p>
+<p>Indeed, on its own, the transaction script pattern is a simple way of organizing relatively simple domain logic. However, as we’ll see throughout the next few sections, it is also a foundational pattern that is present when implementing the more advanced ones. Also, even though the concept is simple, implementation of transaction script in the real world has to be done carefully, in order to avoid falling into common pitfalls, often related to ensuring atomicity.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>AddItemToQuote</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// This method adds a new item to a shopping cart and records the operation</span>
+</span></span><span><span>    <span>// into a log table. Both operations are done separately.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteId, <span>int</span> productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>            INSERT INTO quote_items(quote_id, product_id, quantity)
+</span></span></span><span><span><span>            VALUES ({quoteId}, {productId}, {quantity});
+</span></span></span><span><span><span>        """</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>// If some error happens after the previous command and before the one</span>
+</span></span><span><span>        <span>// below, the system will be left in an inconsistent state. The new item</span>
+</span></span><span><span>        <span>// would have been added to the shopping cart, but the audit log would</span>
+</span></span><span><span>        <span>// not have a corresponding event.</span>
+</span></span><span><span>
+</span></span><span><span>        _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>            INSERT INTO quote_audit_log(
+</span></span></span><span><span><span>                quote_id, event_description, date_created
+</span></span></span><span><span><span>            )
+</span></span></span><span><span><span>            VALUES ({quoteId}, 'Item added to quote', CURRENT_DATE);
+</span></span></span><span><span><span>        """</span>);
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>That is, a transaction script needs to actually be <strong>transactional</strong>. It needs to be atomic. Of course, each domain’s requirements will dictate how true this is, but in general, we want transaction scripts to operate as a unit, and make sure that they don’t leave the system in an inconsistent state in situations when the script fails midway through its execution.</p>
+<p>If all the script does is interact with a relational database, it is easy to address this issue. The solution is to perform the operations within a <strong>database transaction</strong>:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>AddItemToQuoteWithTransaction</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteId, <span>int</span> productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        <span>try</span>
+</span></span><span><span>        {
+</span></span><span><span>            <span>// We can use a database transaction to fix the issue.</span>
+</span></span><span><span>            _db.BeginTransaction();
+</span></span><span><span>
+</span></span><span><span>            _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>                INSERT INTO quote_items(quote_id, product_id, quantity)
+</span></span></span><span><span><span>                VALUES ({quoteId}, {productId}, {quantity});
+</span></span></span><span><span><span>            """</span>);
+</span></span><span><span>
+</span></span><span><span>            _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>                INSERT INTO quote_audit_log(
+</span></span></span><span><span><span>                    quote_id, event_description, date_created
+</span></span></span><span><span><span>                )
+</span></span></span><span><span><span>                VALUES ({quoteId}, 'Item added to quote', CURRENT_DATE);
+</span></span></span><span><span><span>            """</span>);
+</span></span><span><span>
+</span></span><span><span>            _db.CommitTransaction();
+</span></span><span><span>        }
+</span></span><span><span>        <span>catch</span>
+</span></span><span><span>        {
+</span></span><span><span>            _db.RollbackTransaction();
+</span></span><span><span>            <span>throw</span>;
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>The problem gets more complicated when the script performs a <strong>distributed transaction</strong>. That is, when it interacts with other systems which are outside of the scope of a relational database transaction. For example, interacting with the file system, or with an external web service.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>AddItemToQuoteWithDistributedTransaction</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteId, <span>int</span> productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>            INSERT INTO quote_items(quote_id, product_id, quantity)
+</span></span></span><span><span><span>            VALUES ({quoteId}, {productId}, {quantity});
+</span></span></span><span><span><span>        """</span>);
+</span></span><span><span>
+</span></span><span><span>        <span>// We're back to our initial problem. Any failure at this point in the</span>
+</span></span><span><span>        <span>// script will have updated the shopping cart without having sent the</span>
+</span></span><span><span>        <span>// notification to the external system.</span>
+</span></span><span><span>
+</span></span><span><span>        _api.NotifyQuoteItemAdded(quoteId, productId, quantity);
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>These are hard to deal with and often require very particular code to handle properly. Further in this series we’ll discuss this topic again when we talk about <a href="https://martinfowler.com/bliki/CQRS.html" rel="noreferrer" target="_blank">CQRS</a> and the <a href="https://microservices.io/patterns/data/transactional-outbox.html" rel="noreferrer" target="_blank">outbox pattern</a>.</p>
+<p>Sometimes though, the distributed transaction is not as obvious. Consider a web application that exposes an endpoint to increment the quantity of particular shopping cart items by one:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>IncrementQuoteItemQuantity</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteItemId)
+</span></span><span><span>    {
+</span></span><span><span>        _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>            UPDATE quote_items
+</span></span></span><span><span><span>            SET quantity = quantity + 1
+</span></span></span><span><span><span>            WHERE id = {quoteItemId};
+</span></span></span><span><span><span>        """</span>);
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>Even though that’s a single database operation, there is inter-system communication between the user’s browser and the application server; and between the application server and the database. A network outage, for example, that happens in the middle of this operation can leave the system in an inconsistent state. If it fails after it’s already submitted the <code>UPDATE</code> command to the database, and responds with a failure message to the client, the client might attempt to try and increase the quantity again. This would result in the increment being done two times, when actually it should have been only one.</p>
+<p></p>
+<p><em>In the context of client-server applications, some transactions are distributed even though at first glance they might not seem that way. In this simple operation, there are three systems interacting over the network: The client, the application server and the database.</em></p>
+<p>There are two possible ways of handling this type of situation: making the operation idempotent, or using optimistic concurrency control.</p>
+<p>One way to make the operation <strong>idempotent</strong>, that is, to make sure that it always produces the same results, no matter how many times it’s done, is to have the caller specify the quantity to update the item to. That is, changing the operation from “add one quantity”, to “set the quantity to this”. Like so:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>IncrementQuoteItemQuantityIdempotent</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteItemId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>            UPDATE quote_items
+</span></span></span><span><span><span>            SET quantity = {quantity}
+</span></span></span><span><span><span>            WHERE id = {quoteItemId};
+</span></span></span><span><span><span>        """</span>);
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>On the other hand, implementing <strong>optimistic concurrency control</strong> in this scenario could be done by effectuating the record update while using the current state of the record when checking for a match. This boils down to including the expected values of the different fields in the <code>WHERE</code> clause. This way, the record will be updated only if it is in the state that the caller expected it to be:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>IncrementQuoteItemQuantityOptimisticConcurrency</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteItemId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        _db.ExecuteSql(<span>$"""
+</span></span></span><span><span><span>            UPDATE quote_items
+</span></span></span><span><span><span>            SET quantity = quantity + 1
+</span></span></span><span><span><span>            WHERE id = {quoteItemId} AND quantity = {quantity};
+</span></span></span><span><span><span>        """</span>);
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>In both cases, the caller would have to obtain the current state of the record before attempting the update operation.</p>
+<h4 id="active-record">Active record</h4>
+<p><a href="https://www.martinfowler.com/eaaCatalog/activeRecord.html" rel="noreferrer" target="_blank">Martin Fowler describes</a> the <strong>active record</strong> pattern as “an object that wraps a row in a database table or view, encapsulates the database access, and adds domain logic on that data.”</p>
+<p>The main advantage of the active record pattern is that it greatly simplifies database access. Especially when leveraging <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping" rel="noreferrer" target="_blank">ORM frameworks</a>. With active record, you usually end up with a set of classes that closely mirror your database structure. You have one class per table, where the fields of those classes represent table columns and the instances of those classes represent individual records in those tables.</p>
+<p>So, when the underlying data model is complex, business logic organized in transaction scripts can be augmented with active record to reduce a great deal of the complexity involved in database interactions. This is because the active record pattern takes care of mapping between database records and in-memory objects, as well as all the data retrieval and manipulation commands (I.e. the <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" rel="noreferrer" target="_blank">CRUD</a>). This allows the transaction scripts to focus more on domain logic, and less on manipulating the underlying data.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>AddItemToQuoteActiveRecord</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Run(<span>int</span> quoteId, <span>int</span> productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// Active record allows us to work with objects instead of directly</span>
+</span></span><span><span>        <span>// issuing database commands.</span>
+</span></span><span><span>        <span>var</span> item = <span>new</span> QuoteItem
+</span></span><span><span>        {
+</span></span><span><span>            QuoteId = quoteId,
+</span></span><span><span>            ProductId = productId,
+</span></span><span><span>            Quantity = quantity
+</span></span><span><span>        };
+</span></span><span><span>
+</span></span><span><span>        item.Save();
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>Of course, active records can (and should) also include domain logic. Aspects like the relationships between the domain entities, validation, complex database queries, and even the business procedures that involve them are all part of an active record object.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-ruby" data-lang="ruby"><span><span><span># This class is an Order active record. It establishes relationships with other</span>
+</span></span><span><span><span># entities, defines basic validation rules, and has custom queries.</span>
+</span></span><span><span><span>class</span> <span>Order</span> &lt;  <span>ApplicationRecord</span>
+</span></span><span><span>    <span>self</span>.table_name = <span>"orders"</span>
+</span></span><span><span>
+</span></span><span><span>    enum <span>:status</span>, [ <span>:pending</span>, <span>:paid</span>, <span>:shipped</span>, <span>:cancelled</span> ]
+</span></span><span><span>    enum <span>:payment_method</span>, [ <span>:cash</span>, <span>:credit_card</span>, <span>:transfer</span> ]
+</span></span><span><span>
+</span></span><span><span>    has_many <span>:order_items</span>
+</span></span><span><span>    has_one <span>:shipping_address</span>
+</span></span><span><span>    has_one <span>:billing_address</span>
+</span></span><span><span>
+</span></span><span><span>    validates <span>:email</span>, <span>presence</span>: <span>true</span>, <span>email</span>: {<span>mode</span>: <span>:strict</span>}
+</span></span><span><span>    validates <span>:phone</span>, <span>length</span>: {<span>minimum</span>: <span>10</span>, <span>allow_blank</span>: <span>true</span>}
+</span></span><span><span>
+</span></span><span><span>    scope <span>:sorted</span>, -&gt; { order(<span>created_at</span>: <span>:desc</span>) }
+</span></span><span><span>    scope <span>:new_ones</span>, -&gt; { where(<span>"created_at &gt;= ?"</span>, <span>1</span>.day.ago) }
+</span></span><span><span>    scope <span>:have_phone</span>, -&gt; { where.not(<span>phone</span>: <span>nil</span>) }
+</span></span><span><span>    scope <span>:where_email_is</span>, -&gt;(email) { where(<span>"lower(email) = ?"</span>, email.downcase) }
+</span></span><span><span><span>end</span>
+</span></span><span><span>
+</span></span><span><span><span># The framework augments it with data access logic, like querying:</span>
+</span></span><span><span>order = <span>Order</span>.find(<span>123</span>)
+</span></span><span><span>expensive_items = order.order_items.where(<span>"price &gt;= ?"</span>, <span>200</span>)
+</span></span><span><span>orders_from_us = <span>Order</span>.where(<span>country_code</span>: <span>"US"</span>)
+</span></span><span><span>new_orders = <span>Order</span>.new_ones.sorted
+</span></span><span><span>
+</span></span><span><span><span># ...and making changes:</span>
+</span></span><span><span>new_order = <span>Order</span>.new(<span>email</span>: <span>"test@email.com"</span>)
+</span></span><span><span>new_order.save
+</span></span><span><span>
+</span></span><span><span>order.update(
+</span></span><span><span>    <span>shipping_number</span>: <span>"1234567890"</span>,
+</span></span><span><span>    <span>status</span>: <span>:shipped</span>
+</span></span><span><span>)</span></span></code></pre></div>
+
+<p><em>The <a href="https://guides.rubyonrails.org/active_record_basics.html" rel="noreferrer" target="_blank">Active Record</a> framework from Ruby on Rails is a great implementation of the pattern that puts business logic in a centralized location while <em>magically</em> extending the objects with all the data access logic they need.</em></p>
+<p>This is a big step up from raw transaction scripts, but still it has its own disadvantages. First, the active records can end up having too much responsibility, and grow to unmanageable sizes, especially for core business entities. Second, the active record pattern by itself does not enforce access control on its properties. Meaning that external processes can freely modify their state, potentially ignoring any business rules that could bind them.</p>
+<p>Something else to be aware of is that when active records define little to no behavior, that is, when they don’t implement business logic, they become an <a href="https://martinfowler.com/bliki/AnemicDomainModel.html" rel="noreferrer" target="_blank">anemic domain model</a>. Active record objects that focus only on database access tasks, and higher level “service objects” that manipulate them and implement all the domain logic themselves are the hallmark of anemic domain models.</p>
+<p>An anemic domain model may look like a full fledged domain model, with all the objects representing domain concepts and their relationships, but they are hollow. Their most important part is missing. In the next section we will see what a real domain model looks like, DDD’s definitive pattern for implementing business logic in complex subdomains.</p>
+<h4 id="when-to-use-them">When to use them</h4>
+<p>In some circles, the transaction script and active record patterns are considered anti patterns. But really, they are just tools for the job. When misapplied, they become detrimental, but when used to solve the problems they are good at, they shine. In fact, they can give you a lot of bang for your design buck. But when the domain logic you’re implementing is very complex, they can begin to fall short, as their relatively low level of abstraction becomes insufficient and prone to code repetition, and inconsistencies when this repeated code goes out of sync. Which is a big problem when dealing with complex subdomains.</p>
+<h3 id="section-6-tackling-complex-business-logic">Section 6: Tackling complex business logic</h3>
+<p>When implementing complex business logic, the patterns that we’ve seen up to this point can only get you so far. They start to leave a lot to be desired due to their relatively low level of abstraction. When the situation calls for a higher level of abstraction, in order to produce a more supple design, DDD calls for the domain model pattern.</p>
+<h4 id="domain-model">Domain model</h4>
+<p><a href="https://martinfowler.com/eaaCatalog/domainModel.html" rel="noreferrer" target="_blank">Taking from Martin Fowler’s definition</a>, we learn that the <strong>domain model</strong> is a full object-oriented model of the domain, that incorporates both behavior and data. Domain models take the form of a large web of interconnected objects, where each one represents a meaningful concept in the business domain.</p>
+<p>In his book, Eric Evans expanded greatly on this definition, introducing a set of patterns and tools for implementing domain models. Indeed, to build a domain model, we incorporate other building block patterns: value objects, entities, aggregates, domain events, domain services.</p>
+<p>Also, there are two main rules that a domain model needs to follow:</p>
+<ol>
+<li>There should be no dependency on particular frameworks or infrastructure. Objects in the domain model should be <strong>plain old objects</strong>, focused only on domain logic.</li>
+<li>The domain model should speak the <strong>ubiquitous language</strong> of the <strong>bounded context</strong> in which it operates. That means that all identifiers should call back to business concepts and it should represent the mental model of the domain experts.</li>
+</ol>
+<h4 id="value-object">Value object</h4>
+<p>A <strong>value object</strong> is an object whose identity is given by its properties. That is, its value. It does not have an explicit identifier, like an Id field. Consider for example a <code>Point</code> object:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Point</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>double</span> _x;
+</span></span><span><span>    <span>double</span> _y;
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>The X and Y values completely define a point. Two instances of this class with the same X and Y coordinates represent the same point. Changing the value of either coordinate produces a new point.</p>
+<p>They are useful for representing properties of other objects and are usually implemented as <strong>immutable objects</strong>. One of the great strengths of value objects is that they allow the model to speak the ubiquitous language by replacing primitives with bespoke small objects that make the code clearer and encapsulate related business logic.</p>
+<p>As an example, consider this <code>Order</code> class.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Order</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>private</span> <span>int</span> _id;
+</span></span><span><span>    <span>private</span> <span>string</span> _status;
+</span></span><span><span>    <span>private</span> <span>string</span> _email;
+</span></span><span><span>    <span>private</span> <span>string</span> _phone;
+</span></span><span><span>    <span>private</span> <span>double</span> _shippingWeight;
+</span></span><span><span>    <span>private</span> <span>string</span> _countryCode;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Order(<span>/*...*/</span>) {<span>/*...*/</span>}
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// This class can be instantiated like this:</span>
+</span></span><span><span><span>var</span> order = <span>new</span> Order(
+</span></span><span><span>    id: <span>12345</span>,
+</span></span><span><span>    status: <span>"Processing"</span>,
+</span></span><span><span>    email: <span>"test@email.com"</span>,
+</span></span><span><span>    phone: <span>"123-456-7890"</span>,
+</span></span><span><span>    shippingWeight: <span>10</span>,
+</span></span><span><span>    countryCode: <span>"US"</span>
+</span></span><span><span>);</span></span></code></pre></div>
+
+<p>Here, all the values are assigned by convention. An email, a phone number, a status… They are all just strings with no special behavior or meaning. We must know what they look like beforehand in order to assign them correctly.</p>
+<p>If we use value objects, this class could be implemented like this instead:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>class</span> <span>Order</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>private</span> OrderId _id;
+</span></span><span><span>    <span>private</span> OrderStatus _status;
+</span></span><span><span>    <span>private</span> PersonName _name;
+</span></span><span><span>    <span>private</span> EmailAddress _email;
+</span></span><span><span>    <span>private</span> PhoneNumber _phone;
+</span></span><span><span>    <span>private</span> Weight _shippingWeight;
+</span></span><span><span>    <span>private</span> CountryCode _country;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Order(<span>/*...*/</span>) {<span>/*...*/</span>}
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// Now, instances can be created like this:</span>
+</span></span><span><span><span>var</span> order = <span>new</span> Order(
+</span></span><span><span>    id: <span>new</span> OrderId(<span>12345</span>),
+</span></span><span><span>    status: OrderStatus.Processing,
+</span></span><span><span>    name: <span>new</span> PersonName(<span>"Kevin"</span>, <span>"Campusano"</span>),
+</span></span><span><span>    email: EmailAddress.Parse(<span>"test@email.com"</span>),
+</span></span><span><span>    phone: PhoneNumber.Parse(<span>"1234567890"</span>),
+</span></span><span><span>    shippingWeight: Weight.FromLbs(<span>10.25</span>),
+</span></span><span><span>    country: CountryCode.Parse(<span>"US"</span>)
+</span></span><span><span>);</span></span></code></pre></div>
+
+<p>This approach has many advantages:</p>
+<p>First of all the <code>Order</code> class does not have to validate its fields. Validation can happen in the value objects. This is good because it allows other domain objects to have fields of the same type without having to duplicate the validation logic themselves. Imagine you also have a contact object somewhere in your model that includes a phone number field, for example. Both it and <code>Order</code> can reuse the phone number value object, and the logic it carries.</p>
+<p>Secondly, value objects can capture the business logic that’s closely related to them. A phone number field, for example can implement methods to obtain further information about it like its area code or the country it belongs to. A “weight” value object can implement logic for converting from one measuring system to another.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// Here's a weight value object that encapsulates logic like converting from one</span>
+</span></span><span><span><span>// unit to another and comparing the magnitude of different values.</span>
+</span></span><span><span><span>class</span> <span>Weight</span> : IComparable&lt;Weight&gt;, IEquatable&lt;Weight&gt;
+</span></span><span><span>{
+</span></span><span><span>    <span>const</span> <span>double</span> LbsPerKg = <span>2.20462</span>;
+</span></span><span><span>
+</span></span><span><span>    <span>double</span> _lbs;
+</span></span><span><span>
+</span></span><span><span>    <span>private</span> Weight(<span>double</span> lbs) { _lbs = lbs; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>static</span> Weight FromLbs(<span>double</span> lbs) =&gt; <span>new</span> Weight(lbs);
+</span></span><span><span>    <span>public</span> <span>static</span> Weight FromKgs(<span>double</span> kgs) =&gt; <span>new</span> Weight(kgs * LbsPerKg);
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>double</span> ToLbs() =&gt; _lbs;
+</span></span><span><span>    <span>public</span> <span>double</span> ToKgs() =&gt; _lbs / LbsPerKg;
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>int</span> CompareTo(Weight? other) =&gt; ToLbs().CompareTo(other?.ToLbs());
+</span></span><span><span>    <span>public</span> <span>bool</span> Equals(Weight? other) =&gt; ToLbs().Equals(other?.ToLbs());
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>Finally, using value objects lets the model speak the ubiquitous language, and thus makes it clearer. Strongly typing properties in this way, beyond just using language primitives, very clearly captures the intent of the property.</p>
+<h4 id="entities">Entities</h4>
+<p><strong>Entities</strong> are objects that represent the concepts in the domain that have a lifecycle and explicit identification. A person, an order, a lead, a transaction. These are all examples of entities. Entities, as opposed to value objects, are <strong>not immutable</strong>, and are expected to change throughout their life in the system. Value objects, like we saw before, are ideal for representing properties of entities.</p>
+<p>Entities are a core building block for a domain model. However, they are not used independently. They are used as part of an aggregate.</p>
+<h4 id="aggregates">Aggregates</h4>
+<p>An <strong>aggregate</strong> is a <strong>hierarchy</strong> of entities and value objects that are bound together by closely related business logic. The aggregate forms a boundary that protects the consistency of the objects that compose it. It achieves this by preventing external objects from directly modifying its state and defining a public interface through which other parts of the system can interact with it.</p>
+<p>The rest of the system cannot directly mutate the state of the entities within an aggregate. They can only do so via the methods exposed by the aggregate’s public interface. These methods, so called <strong>commands</strong>, encapsulate the aggregate’s business logic and protect them from corruption, by enforcing the necessary validations and invariants. Indeed, all the business logic that’s closely related to the aggregate lives in one place: the aggregate itself.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// Here we have an aggregate that represents a shopping cart and its items.</span>
+</span></span><span><span><span>public</span> <span>class</span> <span>Quote</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// It does not expose its list of items publicly. Instead, it implements</span>
+</span></span><span><span>    <span>// public methods for manipulating them.</span>
+</span></span><span><span>    IList&lt;QuoteItem&gt; _items = [];
+</span></span><span><span>
+</span></span><span><span>    QuoteItem? GetItemBy(ProductId productId) =&gt;
+</span></span><span><span>        _items.FirstOrDefault(i =&gt; i.ProductId == productId);
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> AddItem(ProductId productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> item = GetItemBy(productId);
+</span></span><span><span>
+</span></span><span><span>        <span>if</span> (item != <span>null</span>)
+</span></span><span><span>            <span>throw</span> <span>new</span> InvalidOperationException(<span>"Item already exists."</span>);
+</span></span><span><span>
+</span></span><span><span>        _items.Add(<span>new</span> QuoteItem
+</span></span><span><span>        {
+</span></span><span><span>            ProductId = productId,
+</span></span><span><span>            Quantity = quantity
+</span></span><span><span>        });
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Even though this method modifies an item, and not the quote itself, it's</span>
+</span></span><span><span>    <span>// still implemented here, because this is the aggregate root.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> SetItemQuantity(ProductId productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> item = GetItemBy(productId) ??
+</span></span><span><span>            <span>throw</span> <span>new</span> InvalidOperationException(<span>"Item does not exist."</span>);
+</span></span><span><span>
+</span></span><span><span>        item.Quantity = quantity;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>These commands, which are the public interface of an aggregate, should all be defined in a single entity within the aggregate. We call this entity the <strong>aggregate root</strong>. If the aggregate is a hierarchy of objects, and we can picture it as a tree, then the root is the object that exists at the root of the tree, where all branches come from.</p>
+<p></p>
+<p><em>The aggregate is a hierarchy of objects. The aggregate root is the sole object in this hierarchy with which other components interact.</em></p>
+<p>This focus on commands makes the implementation of the application layer components more straightforward. I.e. they become <strong>transaction scripts</strong>. By “application layer components”, I mean those components that orchestrate calls to the domain model in order to fulfill use cases in response to, say, user requests. They follow a general pattern of:</p>
+<ol>
+<li>Load the aggregate. Typically from persistent storage.</li>
+<li>Invoke the desired command.</li>
+<li>Persist the new state of the aggregate.</li>
+</ol>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// Here's an application service leveraging the quote aggregate to add an item</span>
+</span></span><span><span><span>// to a shopping cart.</span>
+</span></span><span><span><span>class</span> <span>AddItemToQuote</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Result Run(QuoteId quoteId, ProductId productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        <span>try</span>
+</span></span><span><span>        {
+</span></span><span><span>            <span>var</span> quote = _quoteRepository.FindById(quoteId);
+</span></span><span><span>            <span>if</span> (quote == <span>null</span>) <span>return</span> Result.Error(<span>"Quote not found."</span>);
+</span></span><span><span>
+</span></span><span><span>            quote.AddItem(productId, quantity);
+</span></span><span><span>
+</span></span><span><span>            _quoteRepository.Save(quote);
+</span></span><span><span>
+</span></span><span><span>            <span>return</span> Result.Success();
+</span></span><span><span>        }
+</span></span><span><span>        <span>// Notice how the application layer logic takes care of database related</span>
+</span></span><span><span>        <span>// errors. Remember that the aggregate is a plain old object which has</span>
+</span></span><span><span>        <span>// no knowledge about infrastructure or frameworks. The data access</span>
+</span></span><span><span>        <span>// logic, in this case encapsulated in the _quoteRepository, is the one</span>
+</span></span><span><span>        <span>// that will produce such errors when trying to commit changes to the</span>
+</span></span><span><span>        <span>// underlying storage.</span>
+</span></span><span><span>        <span>catch</span> (ConcurrencyException ex)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> Result.Error(ex);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>There are other rules that aggregates need to follow. One of them is that the aggregate acts as a <strong>transaction boundary</strong> for aggregate operations. That is, all changes to an aggregate should be transactional, atomic. Also, no system operation should involve a transaction that includes different aggregates. We should have one aggregate per database transaction.</p>
+<p>This reveals another aspect of aggregates: An aggregate should expect <strong>strong consistency</strong> only on its own objects. For objects that are outside of the aggregate, eventual consistency should suffice. Or, looking at it from a different angle, this means that when designing an aggregate, data consistency is a guiding principle. The data that needs to be strongly consistent in order to fulfill the business requirements, should be included in the aggregate. The data that can be eventually consistent and still meet the requirements, probably belongs in a different aggregate.</p>
+<p>At first glance, all these rules for aggregates may seem overly limiting. But the main idea is to keep their scope as constrained as possible, to prevent them from growing too much and taking on too many responsibilities. We should strive to keep aggregates small, highly cohesive, and decoupled from other system components. That unlocks the ability for them to be reorganized and reused in many ways. This helps avoid code duplication when fulfilling the requirements of today while also reducing the cost of evolving to meet the requirements of tomorrow.</p>
+<h4 id="domain-event">Domain event</h4>
+<p>Through their commands, the outside world can send messages to aggregates. <strong>Domain events</strong> are the mechanism through which aggregates can themselves send messages to the outside world. As their name suggests, domain events are messages that describe important events that have happened in the business domain, related to an aggregate. Think “order placed”, “user registered” or “product out of stock”. The events should provide all necessary data that allows consumers to understand what has happened.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span><span><span>// This JSON data describes the event of an item being added to a shopping cart.
+</span></span></span><span><span><span>// It includes all the details that subscribers need to know about the event.
+</span></span></span><span><span><span></span>{
+</span></span><span><span>    <span>"quote-id"</span>: <span>"f3774200-9e57-4ad2-9d93-ffb9e92b8364"</span>,
+</span></span><span><span>    <span>"event-id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event-type"</span>: <span>"item-added-to-quote"</span>,
+</span></span><span><span>    <span>"event-time"</span>: <span>1628970815</span>,
+</span></span><span><span>    <span>"product-id"</span>: <span>"7e7aee52-9aa1-4e0e-810e-666cedab5a7a"</span>,
+</span></span><span><span>    <span>"quantity"</span>: <span>1</span>
+</span></span><span><span>}</span></span></code></pre></div>
+
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>Quote</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    IList&lt;DomainEvent&gt; _domainEvents = [];
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> AddItem(ProductId productId, <span>int</span> quantity)
+</span></span><span><span>    {
+</span></span><span><span>        <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>        <span>// This command creates the event and adds it to the aggregate's list.</span>
+</span></span><span><span>        _domainEvents.Add(<span>new</span> ItemAddedToQuote(
+</span></span><span><span>            quoteId: _id,
+</span></span><span><span>            productId: productId,
+</span></span><span><span>            quantity: quantity
+</span></span><span><span>        ));
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>Domain events are also part of an aggregate’s public interface. Just like its commands. Other parts of the system can subscribe to these events, and when they happen, react accordingly. We will learn more about domain events, and see how to push them to subscribers, later in the series.</p>
+<h4 id="domain-service">Domain service</h4>
+<p>Sometimes there’s business logic that doesn’t belong to a particular aggregate or value object, or that involves multiple aggregates. <strong>Domain services</strong> can be implemented in these cases. Domain services are simple stateless objects that implement some business logic. Somewhat like an aggregate’s command, but defined outside of an aggregate.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// Domain services are a good solution for implementing logic that orchestrates</span>
+</span></span><span><span><span>// calls to different system components.</span>
+</span></span><span><span><span>class</span> <span>PlaceOrder</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Result Run(QuoteId quoteId)
+</span></span><span><span>    {
+</span></span><span><span>        <span>try</span>
+</span></span><span><span>        {
+</span></span><span><span>            <span>var</span> quote = _quoteRepository.FindById(quoteId);
+</span></span><span><span>            <span>if</span> (quote == <span>null</span>) <span>return</span> Result.Error(<span>"Quote not found."</span>);
+</span></span><span><span>
+</span></span><span><span>            quote.Close();
+</span></span><span><span>            _quoteRepository.Save(quote);
+</span></span><span><span>
+</span></span><span><span>            <span>var</span> order = <span>new</span> Order(quote);
+</span></span><span><span>            order.PlaceOrder();
+</span></span><span><span>            _orderRepository.Save(order);
+</span></span><span><span>
+</span></span><span><span>            <span>// We can imagine the above code producing an "order placed" event,</span>
+</span></span><span><span>            <span>// and a separate payment processing component picking it up and</span>
+</span></span><span><span>            <span>// getting to work. Then, inventory and shipping components could</span>
+</span></span><span><span>            <span>// continue processing the order after the payment is successful.</span>
+</span></span><span><span>
+</span></span><span><span>            <span>return</span> Result.Success();
+</span></span><span><span>        }
+</span></span><span><span>        <span>catch</span> (ConcurrencyException ex)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> Result.Error(ex);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>Of course, the rule of “modify only one aggregate per transaction” still applies. Even for domain services that orchestrate business operations that involve multiple aggregates. Remember, if strong consistency is needed across separate aggregates, and thus they have operations that need to be executed within the same transaction, then maybe these objects should be part of the same aggregate in the first place.</p>
+<p>It’s also important to consider domain services as a sort of last resort. A final domain modeling tool to use only when the other tools like aggregates, value objects, commands and domain events, fall short and truly can’t meet the requirements on their own.</p>
+<h4 id="data-access-concerns">Data access concerns</h4>
+<p>As we’ve stated at the beginning, the domain model should be made of plain old objects. That means no dependency on framework components or particular infrastructure, just pure domain logic. Data access logic is one of those things that it should be oblivious about.</p>
+<p>In practical terms, your choice of technology stack and software development framework will usually dictate the mechanisms you use for interacting with persistent data storage. But that doesn’t matter to the domain model, with the correct abstraction, it should be compatible with any data access mechanism. Here are a few patterns worth mentioning:</p>
+<p>We’ve already seen <a href="https://www.martinfowler.com/eaaCatalog/activeRecord.html" rel="noreferrer" target="_blank">active record</a> being used as a data access strategy. Particularly useful when paired with an ORM framework. Due to its nature of tieing infrastructure concerns (i.e. data access logic) with the business logic, you have to jump through some hoops to make it work with a domain model. But it can be done. The <a href="https://martinfowler.com/eaaCatalog/repository.html" rel="noreferrer" target="_blank">repository pattern</a> is also a good fit for solving the data access problem in the context of DDD. It offers a clear, intention-revealing interface for data retrieval and modification. <a href="https://martinfowler.com/eaaCatalog/unitOfWork.html" rel="noreferrer" target="_blank">Unit of work</a> is also a pattern worth looking into, for coordinating numerous database operations.</p>
+<p>But the main takeaway is this: the domain model does not concern itself with data access, or frameworks, or infrastructure. So make sure to keep it plain and use abstractions to keep it unconcerned.</p>
+<h3 id="section-7-modeling-the-dimension-of-time">Section 7: Modeling the dimension of time</h3>
+<p>The <strong>event sourced domain model</strong> is a further evolution of the domain model which incorporates the dimension of <strong>time</strong>. By leveraging domain events as the source of truth for system data, it allows for a model that can provide deeper insight into the data, rich audit logging, and visibility into the state of the aggregates and entities at any previous point in their lifecycle.</p>
+<h4 id="data-storage-and-retrieval">Data storage and retrieval</h4>
+<p>The main characteristic that differentiates event sourcing from a traditional domain modeling is how the data that represents the aggregates is persisted. Instead of persisting the aggregate’s current state, event sourced domain models persist the domain events produced by the aggregates. These domain events are generated as a result of any operation that changes the state of the aggregate. Then, to obtain the current state of the aggregates, all the events are retrieved from storage and used to reconstruct the full object in memory.</p>
+<p></p>
+<p><em>In an event sourced domain model, aggregates produce events and commit them to the event store. To instantiate aggregates then, the same events are fetched from the event store and used to rehydrate the in-memory objects.</em></p>
+<p>For example, in a database that backs an order processing system, an <code>orders</code> table might look like this:</p>
+<table>
+  <thead>
+      <tr>
+          <th>id</th>
+          <th>status</th>
+          <th>email</th>
+          <th>phone</th>
+          <th>shipping_weight</th>
+          <th>country_code</th>
+          <th>created_at</th>
+          <th>updated_at</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>pending</td>
+          <td>john.doe@example.com</td>
+          <td>555-0101</td>
+          <td>2.5</td>
+          <td>US</td>
+          <td>2025-01-10</td>
+          <td>2025-01-10</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>paid</td>
+          <td>sarah.smith@example.com</td>
+          <td>555-0102</td>
+          <td>5.3</td>
+          <td>CA</td>
+          <td>2025-01-09</td>
+          <td>2025-01-11</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>shipped</td>
+          <td>mike.johnson@example.com</td>
+          <td>555-0103</td>
+          <td>1.8</td>
+          <td>GB</td>
+          <td>2025-01-08</td>
+          <td>2025-01-12</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>pending</td>
+          <td>emma.wilson@example.com</td>
+          <td>555-0104</td>
+          <td>3.2</td>
+          <td>AU</td>
+          <td>2025-01-11</td>
+          <td>2025-01-11</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>cancelled</td>
+          <td>david.brown@example.com</td>
+          <td>555-0105</td>
+          <td>4.7</td>
+          <td>US</td>
+          <td>2025-01-07</td>
+          <td>2025-01-13</td>
+      </tr>
+  </tbody>
+</table>
+<p>Here, each row represents an order and their current state. The database schema resembles the order domain entity.</p>
+<p>With event sourcing, what we persist into our database is a series of events that capture the full history of each order, as they journey through the system:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-json" data-lang="json"><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>0</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"order_created"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-10T10:00:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"email"</span>: <span>"john.doe@example.com"</span>,
+</span></span><span><span>        <span>"phone"</span>: <span>"555-0101"</span>,
+</span></span><span><span>        <span>"country_code"</span>: <span>"US"</span>,
+</span></span><span><span>        <span>"status"</span>: <span>"pending"</span>,
+</span></span><span><span>        <span>// ...
+</span></span></span><span><span><span></span>    }
+</span></span><span><span>}<span>,</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>1</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"payment_failed"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-11T12:00:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"status"</span>: <span>"payment_failed"</span>,
+</span></span><span><span>        <span>"reason"</span>: <span>"insufficient_funds"</span>
+</span></span><span><span>    }
+</span></span><span><span>}<span>,</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>2</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"payment_details_updated"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-11T12:05:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"status"</span>: <span>"pending"</span>,
+</span></span><span><span>        <span>"payment_method_nonce"</span>: <span>"new-nonce-xyz"</span>,
+</span></span><span><span>    }
+</span></span><span><span>}<span>,</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>3</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"payment_succeeded"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-11T12:05:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"status"</span>: <span>"paid"</span>
+</span></span><span><span>    }
+</span></span><span><span>}<span>,</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>4</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"inventory_stock_updated"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-11T15:00:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"status"</span>: <span>"processing"</span>,
+</span></span><span><span>        <span>"items"</span>: [
+</span></span><span><span>            {<span>"product_id"</span>: <span>"A1"</span>, <span>"quantity"</span>: <span>2</span>},
+</span></span><span><span>            {<span>"product_id"</span>: <span>"B2"</span>, <span>"quantity"</span>: <span>1</span>}
+</span></span><span><span>        ]
+</span></span><span><span>    }
+</span></span><span><span>}<span>,</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>5</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"shipping_scheduled"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-12T09:00:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"status"</span>: <span>"awaiting_shipment"</span>,
+</span></span><span><span>        <span>"shipping_number"</span>: <span>"TRACK1234567890"</span>
+</span></span><span><span>    }
+</span></span><span><span>}<span>,</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>"order_id"</span>: <span>123</span>,
+</span></span><span><span>    <span>"event_id"</span>: <span>6</span>,
+</span></span><span><span>    <span>"event_type"</span>: <span>"order_shipped"</span>,
+</span></span><span><span>    <span>"timestamp"</span>: <span>"2025-01-13T14:00:00Z"</span>,
+</span></span><span><span>    <span>"data"</span>: {
+</span></span><span><span>        <span>"status"</span>: <span>"shipped"</span>
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>We call this database, the <strong>event store</strong>. This is an append-only storage mechanism that needs to support two features: fetching events that belong to a particular business entity and adding new ones.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// An event store only needs to support two features: fetching and appending.</span>
+</span></span><span><span><span>interface</span> <span>IEventStore</span>
+</span></span><span><span>{
+</span></span><span><span>    IEnumerable&lt;DomainEvent&gt; Fetch(Guid Id);
+</span></span><span><span>    <span>void</span> Append(Guid Id, IEnumerable&lt;DomainEvent&gt; events, <span>int</span> expectedVersion);
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>In code, when we want to retrieve an order from storage, what we do is fetch all its events, iterate over them and apply the changes they represent to an in-memory object, until it is fully reconstructed, or “rehydrated”. In the context of event sourcing, we call these representations of collections of events, <strong>projections</strong>. In an event sourced domain model, aggregates leverage these projections to figure out their current state.</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// This is a hypothetical order aggregate in an event sourced domain model.</span>
+</span></span><span><span><span>// Its constructor expects a collection of domain events which it iterates over</span>
+</span></span><span><span><span>// to apply them to its internal state representaton object.</span>
+</span></span><span><span><span>class</span> <span>Order</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>private</span> List&lt;DomainEvent&gt; _events = <span>new</span>();
+</span></span><span><span>    <span>private</span> OrderStateProjection _state = <span>new</span>();
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> Order(IEnumerable&lt;DomainEvent&gt; events)
+</span></span><span><span>    {
+</span></span><span><span>        _state = <span>new</span> OrderStateProjection();
+</span></span><span><span>        <span>foreach</span> (<span>var</span> e <span>in</span> events)
+</span></span><span><span>        {
+</span></span><span><span>            _events.Add(e);
+</span></span><span><span>            _state.Apply((<span>dynamic</span>)e);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>// Properties can be exposed to the outside world by leveraging the state</span>
+</span></span><span><span>    <span>// projection.</span>
+</span></span><span><span>    <span>public</span> OrderId Id =&gt; _state.Id;
+</span></span><span><span>    <span>public</span> <span>int</span> Version =&gt; _state.Version;
+</span></span><span><span>
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// This is a general use event sourced projection of an order, used to capture</span>
+</span></span><span><span><span>// the current state of an order entity or aggregate.</span>
+</span></span><span><span><span>class</span> <span>OrderStateProjection</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// This projection is meant to expose the full state of the order aggregate</span>
+</span></span><span><span>    <span>// so it includes all the properties that belong to the order.</span>
+</span></span><span><span>    <span>public</span> OrderId Id { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// With event sourcing, we need to keep track of the version of the entity.</span>
+</span></span><span><span>    <span>// Every event that happens increments the version number.</span>
+</span></span><span><span>    <span>public</span> <span>int</span> Version { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> OrderStatus Status { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> PersonName Name { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> EmailAddress Email { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> PhoneNumber Phone { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> Weight ShippingWeight { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> CountryCode Country { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>string</span> PaymentMethodNonce { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>bool</span> InventoryResolved { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>string</span> TrackingNumber { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>// It defines a series of "Apply" method overloads, one for each supported</span>
+</span></span><span><span>    <span>// domain event. The Order aggregate from above passes all the domain events</span>
+</span></span><span><span>    <span>// to the various overloads, calling them one by one, in order, until the</span>
+</span></span><span><span>    <span>// full state is rehydrated into the projection. Each "Apply" overload takes</span>
+</span></span><span><span>    <span>// the data captured in its event and assigns it to the correct property in</span>
+</span></span><span><span>    <span>// the projection.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(OrderCreatedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Id = e.Id;
+</span></span><span><span>        Status = e.Status;
+</span></span><span><span>        Name = e.Name;
+</span></span><span><span>        Email = e.Email;
+</span></span><span><span>        Phone = e.Phone;
+</span></span><span><span>        ShippingWeight = e.ShippingWeight;
+</span></span><span><span>        Country = e.Country;
+</span></span><span><span>        Version = <span>1</span>;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(PaymentFailedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Status = OrderStatus.PaymentFailed;
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(PaymentDetailsUpdatedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Status = OrderStatus.Pending;
+</span></span><span><span>        PaymentMethodNonce = e.PaymentMethodNonce;
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(PaymentSucceededEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Status = OrderStatus.Processing;
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(InventoryStockUpdatedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Status = OrderStatus.Processing;
+</span></span><span><span>        InventoryResolved = <span>true</span>;
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(ShippingScheduledEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Status = OrderStatus.AwaitingShipment;
+</span></span><span><span>        TrackingNumber = e.TrackingNumber;
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(OrderShippedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Status = OrderStatus.Shipped;
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>Notice the <code>Version</code> field in the projection, which indicates the number of changes that the entity has gone through.</p>
+<p>On the other hand, when it comes to appending new events for an aggregate, the event store needs to be aware of potential concurrency problems and handle them. After all, the ordering of the events matter. That’s why the event store usually implements <strong>optimistic concurrency control</strong>, leveraging the version field we touched on earlier. Essentially, when trying to append new events, the version being worked with is specified. If it doesn’t match the current version of the aggregate in the event store (maybe because some other process appended a new event), then the operation has to fail, or otherwise adapt to make sure the data remains consistent.</p>
+<h4 id="advantages-and-disadvantages">Advantages and disadvantages</h4>
+<p>One advantage of this design is that we can produce many distinct projections of the same underlying event sourced data. In the previous example, we saw a projection that represents the full current state of the order. But we might need other projections which are optimized for different use cases.</p>
+<p>For example here’s a projection that captures all the statuses that an order went through, which might help different business analysis use cases:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>// This projection only cares about the changes in status of the order, so</span>
+</span></span><span><span><span>// instead of attempting to capture its full state, in keeps track of all the</span>
+</span></span><span><span><span>// statuses in a collection.</span>
+</span></span><span><span><span>class</span> <span>OrderStatusHistoryProjection</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>public</span> OrderId Id { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>    <span>public</span> <span>int</span> Version { <span>get</span>; <span>private</span> <span>set</span>; }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> List&lt;OrderStatus&gt; Statuses = <span>new</span>();
+</span></span><span><span>
+</span></span><span><span>    <span>// All the "Apply" overloads capture the status change that each event</span>
+</span></span><span><span>    <span>// caused.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(OrderCreatedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.Pending);
+</span></span><span><span>        Version = <span>1</span>;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(PaymentFailedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.PaymentFailed);
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(PaymentDetailsUpdatedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.Pending);
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(PaymentSucceededEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.Processing);
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(InventoryStockUpdatedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.Processing);
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(ShippingScheduledEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.AwaitingShipment);
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>
+</span></span><span><span>    <span>public</span> <span>void</span> Apply(OrderShippedEvent e)
+</span></span><span><span>    {
+</span></span><span><span>        Statuses.Add(OrderStatus.Shipped);
+</span></span><span><span>        Version++;
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<p>We can even store these projections into separate databases if we need to. We’ll learn more about that aspect later when we discuss CQRS.</p>
+<p>Another feature that we can implement easily thanks to event sourcing is time travel. We can easily apply the stored events up to a specific point in time or up to a specific version number and obtain the state of the entity as it was at that time. This can, for example, help troubleshooting, and unlock more avenues for business analysis.</p>
+<p>An obvious disadvantage of event sourcing is the complexity that it introduces. This complexity, compounded by the potential learning curve on teams that aren’t used to this kind of design, can be very detrimental when utilized in projects that don’t need it. As usual, follow DDD’s core principle of tying the system’s design to the domain’s needs, make sure to use the right tool for the job, and only deploy an event sourced domain model when the situation really calls for it. That is, whenever requirements dictate that the features enabled by such a design are necessary.</p>
+<h4 id="the-event-sourced-domain-model">The event sourced domain model</h4>
+<p>So, in summary, an event sourced domain model is a domain model that uses the event sourcing pattern to represent and operate on its aggregates. In a traditional, non-event-sourced domain model, the current state of the aggregates is persisted, commands modify this state and domain events are emitted for certain important operations, when needed. In the event sourced variant, domain events are used much more frequently, as they are the only source of truth. Everything and anything that changes the state of the aggregates produces an event. No changes are done directly, only through events. This is necessary because it is the events that are persisted, and it is from these events that the aggregates’ current state is derived.</p>
+<p>In general, operations involving event sourced aggregates go through the following steps:</p>
+<ol>
+<li>Load the aggregate’s domain events from the event store.</li>
+<li>Reconstruct the aggregate’s state using these events. You can use the particular projection needed for the task at hand.</li>
+<li>Run the necessary aggregate commands. Which in turn produce new domain events.</li>
+<li>Append the new events into the event store. Making sure to handle any concurrency errors.</li>
+</ol>
+<div class="highlight"><pre tabindex="0"><code class="language-csharp" data-lang="csharp"><span><span><span>public</span> <span>class</span> <span>RescheduleOrderForPayment</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>private</span> IOrderRepository _orderRepository;
+</span></span><span><span>
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// This is the general pattern that application services often follow when</span>
+</span></span><span><span>    <span>// interacted with event sourced domain model aggregates: load events,</span>
+</span></span><span><span>    <span>// construct the aggregate with the events, run commands and save the newly</span>
+</span></span><span><span>    <span>// created events.</span>
+</span></span><span><span>    <span>public</span> Result Run(OrderId orderId, <span>string</span> paymentMethodNonce)
+</span></span><span><span>    {
+</span></span><span><span>        <span>try</span>
+</span></span><span><span>        {
+</span></span><span><span>            <span>var</span> events = _orderRepository.LoadEvents(orderId);
+</span></span><span><span>            <span>var</span> order = <span>new</span> Order(events);
+</span></span><span><span>            <span>var</span> originalVersion = order.Version;
+</span></span><span><span>
+</span></span><span><span>            <span>// See below for what commands like these generally look like.</span>
+</span></span><span><span>            order.UpdatePaymentDetails(paymentMethodNonce);
+</span></span><span><span>            order.ScheduleForPaymentProcessing();
+</span></span><span><span>
+</span></span><span><span>            _orderRepository.Save(order, expectedVersion: originalVersion);
+</span></span><span><span>
+</span></span><span><span>            <span>return</span> Result.Success();
+</span></span><span><span>        }
+</span></span><span><span>        <span>// The repository uses the given version parameter to implement</span>
+</span></span><span><span>        <span>// optimistic concurrency control.</span>
+</span></span><span><span>        <span>catch</span> (ConcurrencyException ex)
+</span></span><span><span>        {
+</span></span><span><span>            <span>return</span> Result.Error(ex.Message);
+</span></span><span><span>        }
+</span></span><span><span>    }
+</span></span><span><span>}
+</span></span><span><span>
+</span></span><span><span><span>// ...</span>
+</span></span><span><span>
+</span></span><span><span><span>class</span> <span>Order</span>
+</span></span><span><span>{
+</span></span><span><span>    <span>// ...</span>
+</span></span><span><span>
+</span></span><span><span>    <span>// Commands of event sourced aggregates don't modify state directly.</span>
+</span></span><span><span>    <span>// Instead, they create the appropriate events and append them.</span>
+</span></span><span><span>    <span>public</span> <span>void</span> UpdatePaymentDetails(<span>string</span> paymentMethodNonce)
+</span></span><span><span>    {
+</span></span><span><span>        <span>var</span> e = <span>new</span> PaymentDetailsUpdatedEvent(_state.Id, paymentMethodNonce);
+</span></span><span><span>
+</span></span><span><span>        _events.Add(e);
+</span></span><span><span>        _state.Apply(e);
+</span></span><span><span>    }
+</span></span><span><span>}</span></span></code></pre></div>
+
+<h3 id="ddd-tools-for-implementing-business-logic">DDD tools for implementing business logic</h3>
+<p></p>
+<p><em>These are the main concepts that we’ve explored, and how they relate to each other.</em></p>
+
+      <p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-21T00:00:00.000Z>21 April 2026</time>
+			<a href="/urls/www-endpointdev-com-blog-feed-xml">www.endpointdev.com/blog/feed.xml</a>
+			<div> <a href="/tags/programming.html">programming</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>AI Controls – These Weeks in Firefox: Issue 196</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://blog.nightly.mozilla.org/2026/03/10/ai-controls-these-weeks-in-firefox-issue-196/">Go to article URL</a>
+		<div id="content"><p></p><h3>Highlights</h3>
+<ul>
+<li aria-level="1">Shout out to mstriemer for getting the <a href="https://blog.mozilla.org/firefox/ai-controls/" rel="noreferrer" target="_blank">AI Controls work landed and uplifted</a>!
+<ul>
+<li aria-level="2">
+<p></p><div id="attachment_1966" class="wp-caption aligncenter"><a href="https://blog.nightly.mozilla.org/files/2026/03/image4.png" rel="noreferrer" target="_blank"></a><p id="caption-attachment-1966" class="wp-caption-text">You choose.</p></div></li>
+</ul>
+</li>
+<li aria-level="1">We’ve also enabled New Tab with Sections by default in the UK!
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2026/03/image6.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+</ul>
+<h3>Friends of the Firefox team</h3>
+<h4><a href="https://bugzilla.mozilla.org/buglist.cgi?title=Resolved%20bugs%20(excluding%20employees)&amp;quicksearch=2006115%2C1994948%2C2008967%2C845363%2C1984274%2C2009268%2C1800513%2C1808935%2C1643915%2C1623654%2C1926614%2C1817885%2C2010907%2C2012180%2C1944835%2C2012369%2C1989707%2C2011537%2C2012236%2C2004881%2C1961485%2C2012953%2C2003820%2C1968250%2C2013442%2C1973209" rel="noreferrer" target="_blank">Resolved bugs (excluding employees)</a></h4>
+<h4>Volunteers that fixed more than one bug</h4>
+<ul>
+<li aria-level="1">Henry Yeary</li>
+<li aria-level="1">Khalid AlHaddad</li>
+<li aria-level="1">Sam Johnson</li>
+<li aria-level="1">Thomas Sileo</li>
+</ul>
+<h4>New contributors (🌟 = first patch)</h4>
+<ul>
+<li aria-level="1">🌟 aaryamannsingh3 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1968250" rel="noreferrer" target="_blank">made it so that we don’t show the “Move Tab to New Window” tab context menu option if there’s only a single tab in the window</a></li>
+<li aria-level="1">🌟 Henry Yeary <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010907" rel="noreferrer" target="_blank">fixed a glitch</a> with one of our reorderable stories from using the wrapped argType! Henry also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1944835" rel="noreferrer" target="_blank">cleaned up some dead code in our PDF reader</a>.</li>
+<li aria-level="1">🌟kian <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1643915" rel="noreferrer" target="_blank">fixed a bug in our DevTools Inspector tool</a> where shadowroots were sometimes not always visible</li>
+<li aria-level="1">🌟 simon <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1973209" rel="noreferrer" target="_blank">cleaned up a redundant argument in part of our layout code</a>!</li>
+<li aria-level="1">🌟 Thomas Sileo <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1623654" rel="noreferrer" target="_blank">made it so that we use the auto_bookmark transition type</a> via the WebNavigation WebExtension API for navigations triggered by the bookmarks toolbar, and <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011537" rel="noreferrer" target="_blank">also fixed an intermittent test failure</a>!</li>
+</ul>
+<h3>Project Updates</h3>
+<h4>Add-ons / Web Extensions</h4>
+<h5>WebExtension APIs</h5>
+<ul>
+<li>
+<ul>
+<li aria-level="1">As part of the work for the AI toggle switch, we have applied some small tweaks to improve the behavior of the the trialML WebExtensions API when it is disable/enabled globally at runtime through AI toggle switch – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012543" rel="noreferrer" target="_blank">Bug 2012543</a></li>
+<li aria-level="1">As part of improving cross-browser compatibility of the browserAction / action WebExtensions API, the isEnabled API method has been tweaked to optimally accept a tabId (as currently expected on Chrome) and to return the global state instead of rejecting when called without any parameter (aligning it to both Chrome and Safari) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012727" rel="noreferrer" target="_blank">Bug 2012727</a> / <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013477" rel="noreferrer" target="_blank">Bug 2013477</a></li>
+<li aria-level="1">Fixed webNavigation transitionType for webpages loaded from the Firefox bookmarks panels by making sure it is set to auto_bookmark instead of the fallback link transitionType – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1623654" rel="noreferrer" target="_blank">Bug 1623654</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li aria-level="2">Thanks to Thomas Sileo for contributing this fix and improving the cross-browser alignment of the webNavigation WebExtensions API!</li>
+</ul>
+<h4>Smart Window</h4>
+<ul>
+<li aria-level="1">generate memories based on browsing and chat history to use in conversations
+<ul>
+<li aria-level="2">schedule memories generation <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010143" rel="noreferrer" target="_blank">2010143</a> when activating smart window <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011478" rel="noreferrer" target="_blank">2011478</a></li>
+<li aria-level="2">toggle memories per conversation <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011323" rel="noreferrer" target="_blank">2011323</a> and show when they’re used <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011774" rel="noreferrer" target="_blank">2011774</a></li>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2026/03/image5.png" rel="noreferrer" target="_blank"></a></li>
+<li aria-level="2">manage memories from about:preferences <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001453" rel="noreferrer" target="_blank">2001453</a>
+<ul>
+<li aria-level="3"><a href="https://blog.nightly.mozilla.org/files/2026/03/image3.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li aria-level="1">refer to tabs with @mentions
+<ul>
+<li aria-level="2">rich multiline inputbox to @ tabs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003064" rel="noreferrer" target="_blank">2003064</a></li>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2026/03/image1.png" rel="noreferrer" target="_blank"></a></li>
+<li aria-level="2">rendering mentions in the conversation <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001526" rel="noreferrer" target="_blank">2001526</a></li>
+</ul>
+</li>
+<li aria-level="1">chat conversation history in firefox view <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001496" rel="noreferrer" target="_blank">2001496</a></li>
+<li aria-level="1">start new chat from sidebar <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003657" rel="noreferrer" target="_blank">2003657</a></li>
+<li aria-level="1">require account when opening <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012806" rel="noreferrer" target="_blank">2012806</a> and switching to smart window <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012014" rel="noreferrer" target="_blank">2012014</a></li>
+<li aria-level="1">callout to remind how to switch back to classic <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010897" rel="noreferrer" target="_blank">2010897</a></li>
+<li aria-level="1">improve reopening conversations by id <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009866" rel="noreferrer" target="_blank">2009866</a></li>
+<li aria-level="1">hookup new urlbar provider for smartbar chat <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003067" rel="noreferrer" target="_blank">2003067</a></li>
+<li aria-level="1">renamed prefs from aiwindow to smartwindow <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010128" rel="noreferrer" target="_blank">2010128</a></li>
+</ul>
+<h4>DevTools</h4>
+<ul>
+<li aria-level="1">Kian fixed a bug in the Inspector where Shadow Root children couldn’t be inspected (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1643915" rel="noreferrer" target="_blank">#1643915</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=591297" rel="noreferrer" target="_blank">Matt M</a> improved the layout of Netmonitor’s “Edit and Resend” UI (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012236" rel="noreferrer" target="_blank">#2012236</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=766005" rel="noreferrer" target="_blank">Chris Vander Linden</a> refactored devtools/client/accessibility/accessibility-proxy.js to use proper private fields (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013442" rel="noreferrer" target="_blank">#2013442</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=347081" rel="noreferrer" target="_blank">Leo McArdle [:leo]</a> made the markup view to omit the attribute value when it is empty. For example we used to show &lt;input checked=””&gt;, now it will only be &lt;input checked&gt;) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2009915" rel="noreferrer" target="_blank">#2009915</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> made attr() strike-through the attribute name or the fallback, depending if the attribute is set on the element (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1854104" rel="noreferrer" target="_blank">#1854104</a>)
+<ul>
+<li aria-level="2"><a href="https://blog.nightly.mozilla.org/files/2026/03/image2.png" rel="noreferrer" target="_blank"></a></li>
+</ul>
+</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> fixed a couple issues in the computed panel. We were missing nested media query declarations (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012412" rel="noreferrer" target="_blank">#2012412</a>), and we would incorrectly order selectors when an inherited rule declaration had a higher priority than non-inherited “direct” rule declaration&nbsp; (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013327" rel="noreferrer" target="_blank">#2013327</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=283262" rel="noreferrer" target="_blank">Alexandre Poirot [:ochameau]</a> fixed an issue that could prevent to re-open devtools (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003810" rel="noreferrer" target="_blank">#2003810</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=557153" rel="noreferrer" target="_blank">Nicolas Chevobbe [:nchevobbe]</a> made the stacktrace from log points (when checking “show stacktrace”) to also show async frames (e.g. setTimeout callback, Promise then, …) (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006092" rel="noreferrer" target="_blank">#2006092</a>)</li>
+<li aria-level="1"><a href="https://bugzilla.mozilla.org/user_profile?user_id=559949" rel="noreferrer" target="_blank">Julian Descottes [:jdescottes]</a> addressed a bug that would show an empty Timings tab for some network requests(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2007846" rel="noreferrer" target="_blank">#2007846</a>)</li>
+</ul>
+<h4>WebDriver</h4>
+<ul>
+<li aria-level="1">Khalid AlHaddad<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1808935" rel="noreferrer" target="_blank"> updated asserts for the WebDriver BiDIi network wdspec tests to take a single object for the expected events</a>.</li>
+<li aria-level="1">Khalid AlHaddad updated <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003820" rel="noreferrer" target="_blank">wdspec tests to use the “iframe” fixture when inlining iframes</a>.</li>
+<li aria-level="1">Henrik Skupin updated geckodriver to improve browser session cleanup, particularly to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1943038" rel="noreferrer" target="_blank">always locate minidump files produced by content process crashes</a>.</li>
+<li aria-level="1">Henrik Skupin <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012740" rel="noreferrer" target="_blank">updated wptrunner to better distinguish between required and default preferences</a> for Firefox on desktop and mobile. Default preferences can now always be overridden via the –setpref mach argument or through manifest entries.</li>
+<li aria-level="1">Julian Descottes updated the <a href="https://github.com/firefox-devtools/bidi-har-export" rel="noreferrer" target="_blank">bidi-har-export</a> package (<a href="https://www.npmjs.com/package/ff-test-bidi-har-export" rel="noreferrer" target="_blank">npm</a>) to <a href="https://github.com/firefox-devtools/bidi-har-export/pull/42" rel="noreferrer" target="_blank">collect request and response bodies</a> when recording HAR files. This brings it to feature parity with DevTools HAR recording but with lower performance overhead, making it ideal for performance-focused tools like Browsertime.</li>
+</ul>
+<h4>Lint, Docs and Workflow</h4>
+<ul>
+<li aria-level="1">ahal has fixed the source-docs-generate and source-docs-upload tasks to run when changes occur to the JavaScript files which are used in generating docs.
+<ul>
+<li aria-level="2">The list of files for generating has moved to <a href="https://searchfox.org/firefox-main/rev/7709f0a26aeb3c39a5fd86e794425530f0d0b528/docs/config.yml#204" rel="noreferrer" target="_blank">docs/config.yml</a></li>
+<li aria-level="2">When posting patches for review, if you get a message such as The analysis task source-test-doc-upload failed, but we could not detect any defect ,&nbsp; please do check the task output manually by visiting the link. There’s a bug on file to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1890526" rel="noreferrer" target="_blank">improve the output there</a>.</li>
+</ul>
+</li>
+</ul>
+<h4>New Tab Page</h4>
+<ul>
+<li aria-level="1">We paused all train-hops last week (including a planned one) while we dealt with <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2012009" rel="noreferrer" target="_blank">a surprise start-up crasher</a> caused by the mechanism. We have fixed the crasher, and uplifted the fix to Beta and aim to have it go out tomorrow in the upcoming 147.0.3 dot release. Train-hops will continue after that.</li>
+<li aria-level="1">Dré<a href="https://bugzil.la/2006104" rel="noreferrer" target="_blank"> made refined cards and favicons the default for all New Tab cards</a>, improving visual clarity and consistency across Discovery Stream.</li>
+<li aria-level="1">mconley <a href="https://bugzil.la/2009017" rel="noreferrer" target="_blank">added a capability to set distinct Top Sites/Top Stories defaults during the first 48 hours of a new profile</a>, boosting first-run relevance.</li>
+<li aria-level="1">Scott<a href="https://bugzil.la/2011247" rel="noreferrer" target="_blank"> fixed an issue where the first sponsored shortcut couldn’t be dismissed after installing the New Tab add-on</a>, restoring expected control of sponsored tiles.</li>
+<li aria-level="1">mconley <a href="https://bugzil.la/2012009" rel="noreferrer" target="_blank">fixed a crash in firefox_on_glean::factory::create_and_register_metric during NTP telemetry init</a>, reducing startup crashes on New Tab when performing a train-hop.</li>
+<li aria-level="1">Reem <a href="https://bugzil.la/2006526" rel="noreferrer" target="_blank">added context menu actions and switching logic to the Weather widget</a>, enabling hide/show and unit toggles.</li>
+<li aria-level="1">Reem also<a href="https://bugzil.la/2012017" rel="noreferrer" target="_blank"> added infrastructure for a compact Weather widget variant</a>, reducing space usage for smaller layouts.</li>
+<li aria-level="1">Irene <a href="https://bugzil.la/1999019" rel="noreferrer" target="_blank">shipped the new “In the know” component in Activity Stream (behind a pref/rollout)</a>, adding a curated updates surface to New Tab.</li>
+<li aria-level="1">Irene also <a href="https://bugzil.la/1999020" rel="noreferrer" target="_blank">added topic labels to Daily Briefing cards</a>, improving scannability and content grouping.</li>
+<li aria-level="1">Irene <a href="https://bugzil.la/1999026" rel="noreferrer" target="_blank">added “Updated x ago” timestamps to In the know</a>, making content freshness visible at a glance.</li>
+<li aria-level="1">Irene <a href="https://bugzil.la/2005836" rel="noreferrer" target="_blank">added a context menu button to In the know cards</a>, enabling quick dismiss and customize actions.</li>
+<li aria-level="1">Dré<a href="https://bugzil.la/1971880" rel="noreferrer" target="_blank"> fixed an overlap where the MREC ad z-index covered the Customize panel</a>, restoring access to panel controls.</li>
+<li aria-level="1">Irene <a href="https://bugzil.la/2008160" rel="noreferrer" target="_blank">fixed a decorative image not being programmatically identified in Settings &gt; Manage topics</a>, improving screen reader output.</li>
+</ul>
+<h4>Picture-in-Picture</h4>
+<ul>
+<li aria-level="1">Special thanks to jsudiaman who <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006838" rel="noreferrer" target="_blank">fixed a long-standing bug</a> where an open Picture-in-Picture player window would close if the mirrored &lt;video&gt; element was moved around in the DOM!</li>
+</ul>
+<h4>Screenshots</h4>
+<ul>
+<li aria-level="1">:sfoster (readonly) landed Split view related bug: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1997929" rel="noreferrer" target="_blank">Bug 1997929 – Save full page and Save visible buttons are displayed on the right view when the screenshot option is used on the left view</a>. We needed the buttons panel to show up on the right of the *browser*, which is not the same as the window anymore.</li>
+</ul>
+<h4>Search and Navigation</h4>
+<ul>
+<li aria-level="1">Drew and Daisuke are consolidating urlbar results UI,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010166" rel="noreferrer" target="_blank"> according to new design specs</a>.</li>
+<li aria-level="1">Dao and Moritz are continuing polishing the new search bar
+<ul>
+<li aria-level="2">Fixed recent search terms when changing search engines –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008429" rel="noreferrer" target="_blank"> Bug 2008429</a></li>
+<li aria-level="2">Allow dragging current loaded url on the search widget –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011252" rel="noreferrer" target="_blank"> Bug 2011252</a></li>
+<li aria-level="2">Search bar corrupted after customization –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2002275" rel="noreferrer" target="_blank"> Bug 2002275</a></li>
+<li aria-level="2">X button position in RTL –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010289" rel="noreferrer" target="_blank"> Bug 2010289</a></li>
+</ul>
+</li>
+<li aria-level="1">Dale continue polishing the new identity box
+<ul>
+<li aria-level="2">Fixed identity popup not opening on trusted about pages –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010361" rel="noreferrer" target="_blank"> Bug 2010361</a></li>
+<li aria-level="2">Connection secure shown for self-signed certificates –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010045" rel="noreferrer" target="_blank"> Bug 2010045</a></li>
+<li aria-level="2">Clicking on privacy settings doesn’t close the trust panel –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2006633" rel="noreferrer" target="_blank"> Bug 2006633</a></li>
+</ul>
+</li>
+<li aria-level="1">James improved the autofill ranking, to address recent feedback. The patch will be uplifted to Beta, we’re evaluating Release –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010941" rel="noreferrer" target="_blank"> Bug 2010941</a></li>
+<li aria-level="1">Moritz addressed a performance issue when dragging large text over the address bar –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2002920" rel="noreferrer" target="_blank"> Bug 2002920</a></li>
+<li aria-level="1">Mark finished cleaning up the Search Service after deCOMtaminizing it –<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003302" rel="noreferrer" target="_blank"> Bug 2003302</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003300" rel="noreferrer" target="_blank"> Bug 2003300</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2003298" rel="noreferrer" target="_blank"> Bug 2003298</a>,<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1643008" rel="noreferrer" target="_blank"> Bug 1643008</a></li>
+</ul>
+<h4>Storybook/Reusable Components/Acorn Design System</h4>
+<ul>
+<li aria-level="1">Thanks to Henry Yeary for fixing <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010907" rel="noreferrer" target="_blank">Bug 2010907 – In Storybook, don’t set `wrapped` for reorderable lists and don’t show the `wrapped` control</a></li>
+<li aria-level="1">Thanks to :standard8 for fixing <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2011040" rel="noreferrer" target="_blank">Bug 2011040 – Add a medium-icon option for moz-box-item</a></li>
+<li aria-level="1">Thanks to :standard8 for fixing a flickering scrollbar issue when dragging items in a reorderable moz-box-group, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2008841" rel="noreferrer" target="_blank">Bug 2008841 – Dragging an element to the bottom of a reorderable moz-box-group causes a scroll bar to appear and flicker</a></li>
+<li aria-level="1">Thanks to :scunnane for fixing an issue with moz-message-bar not reappearing when expected after dismissing, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013419" rel="noreferrer" target="_blank">Bug 2013419 – Dismissed moz-message-bar does not reappear if applicable in the same session</a></li>
+<li aria-level="1">Thanks to :yjamora for cleaning up tokens related to moz-badge and adding a new story for moz-badge, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1987750" rel="noreferrer" target="_blank">Bug 1987750 – Add “New” variant to moz-badge and move toolkit/themes/shared/menu.css badge related tokens to tokens files</a></li>
+<li aria-level="1">:akulyk has improved our hover styles of interactive moz-box components in high contrast mode (HCM) – <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1973552" rel="noreferrer" target="_blank">Bug 1973552 – Improve hover styles of interactive moz-box components in HCM</a></li>
+<li aria-level="1">:tgiles fixed a DOM reordering issue in moz-box-group, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2010132" rel="noreferrer" target="_blank">Bug 2010132 – Prevent DOM reordering in moz-box-group</a></li>
+<li aria-level="1">:mkennedy added support for dividers in moz-select, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1969475" rel="noreferrer" target="_blank">Bug 1969475 – Support dividers in moz-select</a></li>
+<li aria-level="1">:mkennedy fixed a phantom focus element that would appear in moz-box-group, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2005570" rel="noreferrer" target="_blank">Bug 2005570 – moz-box-group has a phantom focus element</a></li>
+</ul>
+<h4>Settings Redesign</h4>
+<ul>
+<li aria-level="1">Thanks to :jaws for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1972073" rel="noreferrer" target="_blank">converting the sidebar to config-based prefs</a>,</li>
+<li aria-level="1">Work is continuing on converting sections to the new config-based framework, with only a couple remaining (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1968037" rel="noreferrer" target="_blank">meta bug for these conversions</a>)
+<ul>
+<li aria-level="2">:tgiles converted the website languages, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1972082" rel="noreferrer" target="_blank">Bug 1972082 – Convert Website languages to config-based prefs box group</a></li>
+<li aria-level="2">:hjones is working on the Backup settings, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1995062" rel="noreferrer" target="_blank">Bug 1995062 – Convert Backup settings to config-based prefs</a></li>
+<li aria-level="2">:akulyk is working on the Firefox Updates section, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1990961" rel="noreferrer" target="_blank">Bug 1990961 – Convert Firefox Updates section to config-based prefs</a></li>
+<li aria-level="2">Finn is working on the spell checking section, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1972083" rel="noreferrer" target="_blank">Bug 1972083 – Convert Spell checking to config-based prefs</a></li>
+</ul>
+</li>
+<li aria-level="2">:jhirsch is working on the Firefox language section,</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-10T00:59:39.000Z>10 March 2026</time>
+			<a href="/urls/blog-nightly-mozilla-org-feed">blog.nightly.mozilla.org/feed/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

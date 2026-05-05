@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Release Notes for Safari Technology Preview 238</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://webkit.org/blog/17848/release-notes-for-safari-technology-preview-238/">Go to article URL</a>
+		<div id="content"><p></p><p><a href="https://webkit.org/blog/6017/introducing-safari-technology-preview/" rel="noreferrer" target="_blank">Safari Technology Preview</a> Release 238 is now <a href="https://developer.apple.com/safari/resources/" rel="noreferrer" target="_blank">available for download</a> for macOS Tahoe and macOS Sequoia. If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.</p>
+<p>This release includes WebKit changes between: <a href="https://github.com/WebKit/WebKit/compare/a908742cd775de5fa23dbf408618449db7f5fefb...b73f15088293cec470e0c2ceddd58bcd0b8480e5" rel="noreferrer" target="_blank">306596@main…307618@main</a>.</p>
+<h3>Animations</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled threaded time-based animation resolution, synchronizing accelerated time-based animations with scroll-driven animations while preserving enhanced performance by running animations off the main thread. This also allows CSS Motion Path animations to be accelerated. (<a href="https://commits.webkit.org/307252@main" rel="noreferrer" target="_blank">307252@main</a>)  (170131323)</li>
+</ul>
+<h3>CSS</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for the CSS <code>:open</code> pseudo-class, which matches form elements and other elements in an open state. (<a href="https://commits.webkit.org/307295@main" rel="noreferrer" target="_blank">307295@main</a>)  (170108337)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed scrollable overflow computation for block containers to account for <code>padding-inline-end</code>, aligning with the CSS Overflow specification. (<a href="https://commits.webkit.org/307212@main" rel="noreferrer" target="_blank">307212@main</a>)  (144312078)</li>
+<li>Fixed rendering of linear gradients when all color stops are at the same position. (<a href="https://commits.webkit.org/306823@main" rel="noreferrer" target="_blank">306823@main</a>)  (169063497)</li>
+</ul>
+<h3>Editing</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added menu items to convert editable text between Simplified and Traditional Chinese characters in the “Transformations” submenu. (<a href="https://commits.webkit.org/306761@main" rel="noreferrer" target="_blank">306761@main</a>)  (156354464)</li>
+</ul>
+<h3>Forms</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled the customizable <code>&lt;select&gt;</code> element, allowing custom styling and content in <code>&lt;select&gt;</code> dropdowns using <code>appearance: base-select</code>. (<a href="https://commits.webkit.org/307548@main" rel="noreferrer" target="_blank">307548@main</a>)  (170328089)</li>
+</ul>
+<h3>Networking</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue where Safari’s address bar could display an internationalized domain name (IDN) homograph as a visually identical legitimate Latin domain, enabling potential phishing attacks. (<a href="https://commits.webkit.org/307005@main" rel="noreferrer" target="_blank">307005@main</a>)  (166796168)</li>
+<li>Fixed incorrect URL query percent-encoding when using non-UTF-8 character encodings such as <code>iso-8859-2</code>, <code>windows-1250</code>, and <code>gbk</code>. (<a href="https://commits.webkit.org/306768@main" rel="noreferrer" target="_blank">306768@main</a>)  (169566553)</li>
+</ul>
+<h3>Rendering</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed a performance issue causing a hang when rendering tables with a large number of <code>rowspan="0"</code> cells. (<a href="https://commits.webkit.org/306891@main" rel="noreferrer" target="_blank">306891@main</a>)  (146056348)</li>
+</ul>
+<h3>SVG</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed: Updated the default values of <code>fx</code> and <code>fy</code> attributes on <code>SVGRadialGradientElement</code> to <code>50%</code> to align with the SVG2 specification. (<a href="https://commits.webkit.org/306811@main" rel="noreferrer" target="_blank">306811@main</a>)  (169645572)</li>
+<li>Fixed <code>SVGAnimatedRect.baseVal</code> to ignore invalid values set on the <code>viewBox</code> attribute, such as negative width or height, aligning with Firefox and Chrome. (<a href="https://commits.webkit.org/307463@main" rel="noreferrer" target="_blank">307463@main</a>)  (170214971)</li>
+<li>Fixed SVG length attributes to reset to their default values when removed, rather than retaining previously set values. (<a href="https://commits.webkit.org/307585@main" rel="noreferrer" target="_blank">307585@main</a>)  (170360351)</li>
+</ul>
+<h3>Scrolling</h3>
+<h4>New Features</h4>
+<ul>
+<li>Enabled scroll anchoring, which prevents visible jumps in scroll position when content is inserted or removed above the viewport. (<a href="https://commits.webkit.org/307475@main" rel="noreferrer" target="_blank">307475@main</a>)  (170279026)</li>
+</ul>
+<h3>Web API</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for <code>ReadableStream.from()</code> to create a <code>ReadableStream</code> from an async iterable or iterable. (<a href="https://commits.webkit.org/306786@main" rel="noreferrer" target="_blank">306786@main</a>)  (169605740)</li>
+<li>Added support for transferring <code>ReadableStream</code> objects via <code>postMessage()</code>. (<a href="https://commits.webkit.org/307068@main" rel="noreferrer" target="_blank">307068@main</a>)  (169950592)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue where Speculation Rules did not trigger prefetches for anchor elements that were not themselves visible but had visible descendants. (<a href="https://commits.webkit.org/306730@main" rel="noreferrer" target="_blank">306730@main</a>)  (169561588)</li>
+<li>Fixed <code>NavigateEvent.canIntercept</code> to correctly return <code>false</code> when navigating to a URL with a different port, aligning with the Navigation API specification. (<a href="https://commits.webkit.org/307316@main" rel="noreferrer" target="_blank">307316@main</a>)  (169845691)</li>
+</ul>
+<h3>Web Inspector</h3>
+<h4>New Features</h4>
+<ul>
+<li>Improved discoverability of color formats and gamuts in the color picker by adding explicit format and gamut toggle controls. (<a href="https://commits.webkit.org/306691@main" rel="noreferrer" target="_blank">306691@main</a>)  (168216591)</li>
+</ul>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed an issue where the text filter in the Sources tab did not apply to Local Overrides and Console Snippets sections. (<a href="https://commits.webkit.org/306647@main" rel="noreferrer" target="_blank">306647@main</a>)  (169443917)</li>
+<li>Fixed an issue where tree outlines in Web Inspector would intermittently show blank content while scrolling when a filter was active. (<a href="https://commits.webkit.org/306680@main" rel="noreferrer" target="_blank">306680@main</a>)  (169502061)</li>
+<li>Fixed an issue in the Timelines tab where rows containing object previews were sometimes not visible in the heap snapshot data grid. (<a href="https://commits.webkit.org/307358@main" rel="noreferrer" target="_blank">307358@main</a>)  (170164522)</li>
+<li>Fixed context menu items in the Elements tab to only display relevant options when multiple DOM nodes are selected. (<a href="https://commits.webkit.org/307485@main" rel="noreferrer" target="_blank">307485@main</a>)  (170307979)</li>
+</ul>
+<h3>WebAssembly</h3>
+<h4>New Features</h4>
+<ul>
+<li>Added support for JavaScript Promise Integration (JSPI) for WebAssembly, enabling WebAssembly code to suspend and resume execution while waiting for JavaScript promises. (<a href="https://commits.webkit.org/307404@main" rel="noreferrer" target="_blank">307404@main</a>)  (170260385)</li>
+</ul>
+<h3>WebRTC</h3>
+<h4>Resolved Issues</h4>
+<ul>
+<li>Fixed <code>RTCRtpSynchronizationSource.timestamp</code> to use the correct time base, aligning with the WebRTC specification. (<a href="https://commits.webkit.org/307063@main" rel="noreferrer" target="_blank">307063@main</a>)  (169679084)</li>
+<li>Fixed <code>RTCIceCandidate.toJSON()</code> to include the <code>usernameFragment</code> field in the serialized output. (<a href="https://commits.webkit.org/306845@main" rel="noreferrer" target="_blank">306845@main</a>)  (169679947)</li>
+<li>Fixed <code>RTCRtpTransceiver.setCodecPreferences()</code> to accept codec entries regardless of the <code>mimeType</code> case, aligning with Firefox and the specification. (<a href="https://commits.webkit.org/307062@main" rel="noreferrer" target="_blank">307062@main</a>)  (169789074)</li>
+<li>Fixed <code>RTCRtpSender</code> to allow a <code>maxFramerate</code> encoding parameter value of <code>0</code>, aligning with the specification and other browsers. (<a href="https://commits.webkit.org/307034@main" rel="noreferrer" target="_blank">307034@main</a>)  (169863687)</li>
+</ul>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-26T22:36:22.000Z>26 February 2026</time>
+			<a href="/urls/webkit-org-feed-rss">webkit.org/feed/rss/</a>
+			<div> <a href="/tags/web-platform.html">web-platform</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>Advanced TPU optimization with XProf: Continuous profiling, utilization insights, and LLO bundles</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="http://opensource.googleblog.com/2026/03/advanced-tpu-optimization-with-xprof-continuous-profiling-utilization-insights-and-llo-bundles.html">Go to article URL</a>
+		<div id="content"><p></p><p class="byline">by <author>Yogesh SY</author>, AI Infra @ Google</p>
+
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhs7m4o477ZQCJ0bvFJQ1vcwiRrwnWVJou08qXoJTGfrcZ5Asx-EEh-QiddwQX-44AWSK9_ghauVX9f1kaEF_MY7V3qht0qRkcKCDRi6r9YzHMl-kVTWAUCuaJZm44mH-gUeAQqTd9SQplucKvIAJGc2EkAiwHObN5crMYcEFba2-qoRhWft-IQPFithPQ/s1600/xprof-hero-image-2436x1200_k5YQpVQ.max-2200x2200.png">
+
+
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhs7m4o477ZQCJ0bvFJQ1vcwiRrwnWVJou08qXoJTGfrcZ5Asx-EEh-QiddwQX-44AWSK9_ghauVX9f1kaEF_MY7V3qht0qRkcKCDRi6r9YzHMl-kVTWAUCuaJZm44mH-gUeAQqTd9SQplucKvIAJGc2EkAiwHObN5crMYcEFba2-qoRhWft-IQPFithPQ/s1600/xprof-hero-image-2436x1200_k5YQpVQ.max-2200x2200.png" class="header-image" rel="noreferrer" target="_blank"></a>
+
+<h2>Advanced TPU optimization with XProf: Continuous profiling, utilization insights, and LLO bundles</h2>
+<p>In our <a href="https://cloud.google.com/blog/topics/developers-practitioners/supercharge-ml-performance-on-xpus-with-the-new-xprof-profiler-and-cloud-diagnostics-xprof-library/" rel="noreferrer" target="_blank">previous post</a>, we introduced the updated XProf and the Cloud Diagnostics XProf library, which are designed to help developers identify model bottlenecks and optimize memory usage. As machine learning workloads on TPUs continue to grow in complexity—spanning both massive training runs and large-scale inference—developers require even deeper visibility into how their code interacts with the underlying hardware.<br>
+Today, we are exploring three advanced capabilities designed to provide "flight recorder" visibility and instruction-level insights: <strong>Continuous Profiling Snapshots</strong>, the <strong>Utilization Viewer</strong>, and <strong>LLO Bundle Visualization</strong>.</p>
+
+<h3>Continuous Profiling Snapshots: The "Flight Recorder" for ML</h3>
+<p><a href="https://github.com/openxla/xprof/blob/master/docs/capturing_profiles.md" rel="noreferrer" target="_blank">Standard profiling</a> often relies on "sampling mode," where users manually trigger high-fidelity traces for short, predefined durations. While effective for general optimization, this traditional approach can miss transient anomalies, intermittent stragglers, or unexpected performance regressions that occur during long-running training jobs.<br>
+To address this visibility gap, XProf is introducing <strong><a href="https://github.com/openxla/xprof/blob/master/docs/jax_profiling.md#capture-continuous-profiling-snapshots" rel="noreferrer" target="_blank">Continuous Profiling Snapshots</a></strong>. This feature functions as an "always-on" flight recorder for your TPU workloads.<br>
+<strong>How it works:</strong> Continuous profiling snapshots (<a href="https://colab.research.google.com/drive/1pc_hZgf4ym3YYNxIXwdp6jZ_EpF7PWs6?usp=sharing" rel="noreferrer" target="_blank">Google Colab</a>) operates quietly in the background with minimal system overhead (approximately 7µs per packet CPU overhead). It utilizes a host-side circular buffer of roughly 2GB to seamlessly retain the last ~90 seconds of performance data. This architecture allows developers to snapshot performance data programmatically precisely when an anomaly occurs, bypassing the overhead and unpredictability of traditional one-shot profiling.</p>
+
+<figure class="wide">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0ClZxl61gmNXLttiGFUylm-jzO3avpMLtOWhjkC83gnaCvgCetO3ShwhNktXy29L6hqrvdbDdzXhyclcRDAW62TNRqQygLzh_BzQ2gOA342c1ULN3bIsJt2uRNUSXdvtQYorx6twEl16aE0zr5U5E5JJDqUiUcIgLIFG_fuA96HF9fX1Pr-usqohS50M/s1600/advancedtpuopt--xl9c7z50pm9.png" rel="noreferrer" target="_blank">
+  </a>
+  <figcaption>Figure 1: Traditional trace capturing without Continuous Profiling Snapshots.</figcaption>
+</figure>
+<br>
+<figure class="wide">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhunrmuVmDnCOF3hAEMhWeUZGBHjWdMiqgrIADyUcvAWncL_OMaHQ7-bxk8XuEWhj9XlZP2qkF-5lnoQetdrpauX1heiJcBUbxMO339-qb7Jp_G8ZXQIHHCbXtQ3xYtrmtG77thF7uqVoLl2cEAJhKIhWfWVdGMU4eNh8OTvyTZpxwEXIQvOFMdozXAtJI/s1600/advancedtpuopt--52fb6ub2g5p.png" rel="noreferrer" target="_blank">
+  </a>
+  <figcaption>Figure 2: Comprehensive context captured via Continuous Profiling Snapshots.</figcaption>
+</figure>
+
+<h3>Key technical features include:</h3>
+<ul>
+<li><strong>Circular Buffer Management:</strong> Continuously holds recent trace data to ensure you can capture the exact moments leading up to an anomaly or regression.</li>
+<li><strong>Out-of-band State Tracking:</strong> A lightweight service polls hardware registers for P-state (voltage and frequency) and trace-drop counters, ensuring the snapshot contains the necessary environmental context for accurate analysis.</li>
+<li><strong>Context Reconstruction:</strong> The system safely decouples state capture from the trace stream. This ensures that any arbitrary snapshot retains the ground truth required for precise, actionable debugging.</li>
+</ul>
+
+<h3>Visualizing Hardware Efficiency with the Utilization Viewer</h3>
+<p>Raw performance counters are powerful, but interpreting thousands of raw hardware metrics can be a daunting, time-consuming process. The new <strong>Utilization Viewer</strong> bridges the gap between raw data streams and actionable optimization strategies.<br>
+This tool translates raw performance counter values into easily understandable utilization percentages for specific hardware components, such as the TensorCore (TC), SparseCore (SC), and High Bandwidth Memory (HBM).</p>
+
+<figure class="wide">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgMp-hl6SOka0_pQyxzRjuppTBA7a-yeVzWHhq5-LYsNqUceNHqGiyuFEqLE7pySkkOqmjw3oCvm9k_6oHSzWj5Z-3lzdHrRYYK_RMlxJCLCxrYJ6Dz9jnCZ-MViImgDDYwDebUm_E8IKs2VEK2JEuSVrfm438iNLrGKSzL5eiMGeLUHcKNXcd5p3ogqnQ/s1600/advancedtpuopt--owa3m5zj8xo.png" rel="noreferrer" target="_blank">
+  </a>
+  <figcaption><strong>Figure: Raw Performance Counter</strong><br>
+    Figure 3: Deriving actionable insights from raw performance counters.</figcaption>
+</figure>
+
+<p>
+<strong>From Counters to Insights:</strong> Instead of requiring developers to manually analyze a raw list of event counts, the Utilization Viewer automatically derives high-level metrics. For example, it can translate raw bus activity into a clear utilization percentage (e.g., displaying an average MXU bus utilization of 7.3%). This immediate clarity allows you to determine at a glance whether your model is compute-bound or memory-bound.</p>
+
+<figure class="wide">
+  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjY4byi_ez4zCfm_bFJ5hh9Ekg7YMccxRZ7sD6s9t_V_ALSFYR-1QIoTYGPyJA3Q1MMbwZQ2msqx9kku7EtDQqg3cc-ATh-bZ7kfAasdrtWEyHVZNc1edLkOrK91J0vag3unw2hDwinev0kWRe_Hc6Cmp49c1OvsceF-FzSWWWbzKkQKlz0Q_QPbm5ElE/s1600/advancedtpuopt--0sw744wi697n.png" rel="noreferrer" target="_blank">
+  </a>
+  <figcaption>Figure 4: Perf Counters Visualization in Utilization Viewer</figcaption>
+</figure>
+
+
+<h3>Inspecting the Metal: Low-Level Operations (LLO) Bundles</h3>
+<p>For advanced users and kernel developers utilizing Pallas, we are now exposing <strong>Low-Level Operations (LLO) bundle data</strong>. LLO bundles represent the specific machine instructions issued to the TPU's functional units during every clock cycle.</p><p>
+This feature is critical for "Instruction Scheduling" verification—ensuring that the compiler is honoring your programming intentions and correctly re-ordering instructions to maximize hardware performance.</p><p>
+<strong>New Visualizations via Trace View Integration:</strong> You can now visualize LLO bundles directly within the trace viewer. Through dynamic instrumentation, XProf inserts traces exactly when a bundle executes. This provides exact execution times and block utilization metrics, rather than relying on static compiler estimates.</p><p>
+<strong>Why it matters:</strong> Accessing this level of granularity enables hyper-specific bottleneck analysis. For instance, developers can now identify idle cycles within the Matrix Multiplication Unit (MXU) pipeline, making it easier to spot and resolve latency between vmatmul and vpop instructions.</p>
+
+<h3>Conclusion</h3>
+<p>Whether you are trying to capture a fleeting performance regression with Continuous Profiling, verifying kernel efficiency with LLO Bundles, or assessing overall hardware saturation with the Utilization Viewer, these new features bring internal-grade Google tooling directly to the open-source community. These tools are engineered to provide the absolute transparency required to optimize high-scale ML workloads.</p><p>
+<strong>Get started by checking out the updated resources:</strong></p>
+<ul>
+<li><strong>XProf GitHub Repository:</strong><a href="https://github.com/openxla/XProf" rel="noreferrer" target="_blank"> https://github.com/openxla/XProf</a></li>
+<li><strong>Official Documentation:</strong><a href="https://openxla.org/xprof" rel="noreferrer" target="_blank"> https://openxla.org/xprof</a></li>
+</ul><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-23T11:30:00.000Z>23 March 2026</time>
+			<a href="/urls/feeds-feedburner-com-googleopensourceblog">feeds.feedburner.com/GoogleOpenSourceBlog</a>
+			<div> <a href="/tags/open-source.html">open-source</a> |  <a style="font-weight: bold" href="/tags/source.html">source</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

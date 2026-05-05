@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>An Asahi Linux progress report</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1059339/">Go to article URL</a>
+		<div id="content"><p></p>The Asahi Linux project, which is working to implement support for Linux on
+Apple CPUs, has published <a href="https://asahilinux.org/2026/02/progress-report-6-19/" rel="noreferrer" target="_blank">a detailed 6.19
+progress report</a>.
+<p>
+</p><blockquote class="bq">
+	We've made incredible progress upstreaming patches over the past 12
+	months. Our patch set has shrunk from 1232 patches with 6.13.8, to
+	858 as of 6.18.8. Our total delta in terms of lines of code has
+	also shrunk, from 95,000 lines to 83,000 lines for the same kernel
+	versions. Hmm, a 15% reduction in lines of code for a 30% reduction
+	in patches seems a bit wrong…
+<p>
+	Not all patches are created equal. Some of the upstreamed patches
+	have been small fixes, others have been thousands of lines. All of
+	them, however, pale in comparison to the GPU driver.
+</p><p>
+	The GPU driver is 21,000 lines by itself, discounting the
+	downstream Rust abstractions we are still carrying. It is almost
+	double the size of the DCP driver and thrice the size of the
+	ISP/webcam driver, its two closest rivals. And upstreaming work has
+	now begun.
+</p></blockquote><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-02-18T14:39:04.000Z>18 February 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

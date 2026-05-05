@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>The 7.0 kernel has been released</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1067279/">Go to article URL</a>
+		<div id="content"><p></p>Linus has <a href="https://lwn.net/Articles/1067330/" rel="noreferrer" target="_blank">released</a> the 7.0 kernel after a
+busy nine-week development cycle.
+<p>
+</p><blockquote class="bq">
+	The last week of the release continued the same "lots of small
+	fixes" trend, but it all really does seem pretty benign, so I've
+	tagged the final 7.0 and pushed it out.
+<p>
+	I suspect it's a lot of AI tool use that will keep finding corner
+	cases for us for a while, so this may be the "new normal" at least
+	for a while. Only time will tell.
+</p></blockquote>
+<p>
+Significant changes in this release include
+the <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9fa7153c31a3" rel="noreferrer" target="_blank">removal</a>
+of the "experimental" status for Rust code,
+a new <a href="https://lwn.net/Articles/1054225/" rel="noreferrer" target="_blank">filtering mechanism</a> for io_uring
+operations,
+a switch to <a href="https://lwn.net/Articles/994322/" rel="noreferrer" target="_blank">lazy preemption</a> by default in
+the CPU scheduler,
+support for <a href="https://lwn.net/Articles/1038235/" rel="noreferrer" target="_blank">time-slice extension</a>,
+the <a href="https://lwn.net/Articles/1062163/" rel="noreferrer" target="_blank">nullfs</a> filesystem,
+<a href="https://lwn.net/Articles/1055062/#xfs" rel="noreferrer" target="_blank">self-healing support</a> for the XFS
+filesystem,
+a number of improvements to the swap subsystem (described in <a href="https://lwn.net/Articles/1056405/" rel="noreferrer" target="_blank">this article</a> and <a href="https://lwn.net/Articles/1057102/" rel="noreferrer" target="_blank">this one</a>),
+general support for <a href="https://lwn.net/Articles/1058666/" rel="noreferrer" target="_blank">AccECN congestion
+notification</a>, and more.
+See the LWN merge-window summaries (<a href="https://lwn.net/Articles/1057769/" rel="noreferrer" target="_blank">part&nbsp;1</a>, <a href="https://lwn.net/Articles/1058664/" rel="noreferrer" target="_blank">part&nbsp;2</a>) and the <a href="https://kernelnewbies.org/Linux_7.0" rel="noreferrer" target="_blank">KernelNewbies 7.0 page</a> for
+more details.</p><p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-04-12T21:09:15.000Z>12 April 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>

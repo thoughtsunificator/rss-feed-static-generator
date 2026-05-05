@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Prevent, to some degree, the execution of inline JavaScript, as well as blocking all plugin content  -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; connect-src 'none'; style-src 'self' ">
+		<title>[$] BPF comes to io_uring at last</title>
+		<link rel="icon" href="favicon.png" />
+		<link rel="stylesheet" href="/a11y-dark.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<main>
+		<a target="_blank" rel="noreferrer" href="https://lwn.net/Articles/1062286/">Go to article URL</a>
+		<div id="content"><p></p><p>
+The kernel's asynchronous
+<a href="https://man7.org/linux/man-pages/man7/io_uring.7.html" rel="noreferrer" target="_blank">
+io_uring interface</a> maintains two shared ring buffers:
+a submission queue for sending requests to the kernel, and a completion queue
+containing the results of those requests. Even with shared memory removing much
+of the overhead of communicating with user space, there is still some overhead
+whenever the kernel must switch to user space to give it the opportunity to
+process completion requests and
+queue up any subsequent work items. A
+<a href="https://lwn.net/ml/all/cover.1772109579.git.asml.silence@gmail.com/" rel="noreferrer" target="_blank">
+patch set</a> from Pavel Begunkov minimizes this overhead by letting
+programmers extend the io_uring event loop with a BPF program that can enqueue
+additional work in response to completion events. The patch set has
+<a href="https://lwn.net/Articles/847951/" rel="noreferrer" target="_blank">been in development</a> for a long time, but has
+finally been accepted.
+</p>
+<p></p></div>
+		<div class="content-meta">
+			<time datetime=2026-03-18T14:57:14.000Z>18 March 2026</time>
+			<a href="/urls/lwn-net-headlines-rss">lwn.net/headlines/rss</a>
+			<div> <a href="/tags/general.html">general</a> |  <a href="/tags/reporting.html">reporting</a></div>
+		</div>
+	</main>
+		<footer>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/tags">Tags</a>
+				<a href="/urls">URLs</a>
+				<a rel="noreferrer" target="_blank" href="https://github.com/thoughtsunificator/rss-feed-static-generator">Source code</a>
+			</nav>
+		</footer>
+		<script src="/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>
+		</body>
+</html>
